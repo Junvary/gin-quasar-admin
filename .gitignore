@@ -3,6 +3,7 @@
 /gqa-web/dist
 /gqa-web/.quasar
 /gqa-web/.vscode
+/gqa-web/debug.log
 
 .DS_Store
 
