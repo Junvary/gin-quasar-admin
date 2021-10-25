@@ -1,0 +1,104 @@
+<template>
+    <q-dialog v-model="dictDetailVisible" position="right">
+        <q-card style="width: 800px; max-width: 50vw; height: 100%">
+            <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
+                :loading="loading" @request="onRequest">
+
+                <template v-slot:top="props">
+                    <q-btn color="primary" @click="showAddForm()">
+                        新增 {{ parentDict.dictName}} 字典项：
+                    </q-btn>
+                    <q-space />
+                    <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
+                        @click="props.toggleFullscreen" class="q-ml-md" />
+                </template>
+
+                <template v-slot:body-cell-status="props">
+                    <q-td :props="props">
+                        <gqa-status :status="props.row.status" />
+                    </q-td>
+                </template>
+
+                <template v-slot:body-cell-actions="props">
+                    <q-td :props="props">
+                        <div class="q-gutter-xs">
+                            <q-btn color="primary" @click="showEditForm(props.row)" label="编辑" />
+                            <q-btn color="negative" @click="handleDelete(props.row)" label="删除" />
+                        </div>
+                    </q-td>
+                </template>
+            </q-table>
+            <q-inner-loading :showing="loading">
+                <q-spinner-gears size="50px" color="primary" />
+            </q-inner-loading>
+        </q-card>
+
+        <add-or-edit-dialog ref="addOrEditDialog" @emitAddOrEdit="emitAddOrEdit" @handleFinish="handleFinish" />
+    </q-dialog>
+</template>
+
+<script>
+import addOrEditDialog from './addOrEditDialog'
+import { tableDataMixin } from 'src/mixins/tableDataMixin'
+import { postAction } from 'src/api/manage'
+import GqaStatus from 'src/components/GqaStatus'
+
+export default {
+    name: 'dictDetailDialog',
+    mixins: [tableDataMixin],
+    components: {
+        addOrEditDialog,
+        GqaStatus,
+    },
+    data() {
+        return {
+            dictDetailVisible: false,
+            loading: false,
+            pagination: {
+                sortBy: 'desc',
+                descending: false,
+                page: 1,
+                rowsPerPage: 10,
+                rowsNumber: 0,
+            },
+            parentDict: {},
+            url: {
+                list: 'dict/dict-list',
+                add: 'dict/dict-add',
+                edit: 'dict/dict-edit',
+                queryById: 'dict/dict-id',
+            },
+            columns: [
+                { name: 'sort', align: 'center', label: '排序', field: 'sort' },
+                { name: 'value', align: 'center', label: '字典编码', field: 'value' },
+                { name: 'label', align: 'center', label: '字典名称', field: 'label' },
+                { name: 'status', align: 'center', label: '状态', field: 'status' },
+                { name: 'actions', align: 'center', label: '操作', field: 'actions' },
+            ],
+        }
+    },
+    methods: {
+        show(row) {
+            this.dictDetailVisible = true
+            this.parentDict = row
+            this.getDictDetail()
+        },
+        getDictDetail() {
+            this.loading = true
+            postAction(this.url.list, {
+                page: this.pagination.page,
+                pageSize: this.pagination.rowsPerPage,
+                parentId: this.parentDict.id,
+            })
+                .then((res) => {
+                    this.pagination.rowsNumber = res.data.total
+                    this.tableData = res.data.list
+                })
+                .finally(() => {
+                    this.loading = false
+                })
+        },
+        getTableData() {},
+    },
+}
+</script>

@@ -1,0 +1,44 @@
+.DS_Store
+.thumbs.db
+/GQA-FRONTEND/node_modules
+/GQA-BACKEND/log
+
+# Quasar core related directories
+.quasar
+/GQA-FRONTEND/dist
+
+# Cordova related directories and files
+/GQA-FRONTEND/src-cordova/node_modules
+/GQA-FRONTEND/src-cordova/platforms
+/GQA-FRONTEND/src-cordova/plugins
+/GQA-FRONTEND/src-cordova/www
+
+# Capacitor related directories and files
+/GQA-FRONTEND/src-capacitor/www
+/GQA-FRONTEND/src-capacitor/node_modules
+
+# BEX related directories and files
+/GQA-FRONTEND/src-bex/www
+/GQA-FRONTEND/src-bex/js/core
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+
+
+
+
+
+
+
+

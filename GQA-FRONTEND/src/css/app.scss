@@ -1,0 +1,35 @@
+// app global css in SCSS form
+.gin-quasar-admin-logo {
+    cursor: pointer;
+    user-select: none;
+    margin-left: 8px;
+    box-shadow: 0px 0px 10px #ffffff;
+    img {
+        background-image: radial-gradient(#ffffff, #1976d2);
+        background-color: rgba($color: #ffffff, $alpha: 1);
+        transform: rotate(0deg);
+        transition: transform 1s ease-in-out;
+    }
+    &:hover img {
+        transform: rotate(-360deg);
+    }
+}
+
+// .q-form{
+//     & .q-field{
+//         &__bottom--animated{
+//             left: -5px;
+//             // bottom: 18px !important;
+//             z-index: 10;
+//             & .q-field__messages{
+//                 & div{
+//                     width: max-content;
+//                     border-radius: 5px;
+//                     background: $negative;
+//                     color: #fff;
+//                     padding: 5px;
+//                 }
+//             }  
+//         }
+//     }
+// }
