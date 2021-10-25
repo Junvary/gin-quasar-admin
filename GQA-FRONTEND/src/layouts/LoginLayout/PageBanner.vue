@@ -9,10 +9,17 @@
                     Be the change you want to see in the world.
                 </p>
                 <div class="buttons">
-                    <q-btn color="primary" @click="showLoginForm" :disable="checkDbStatus">
+                    <q-btn push color="primary" @click="openLink('https://gitee.com/junvary/gin-quasar-admin')">
+                        访问Gitee
+                    </q-btn>
+
+                    <q-btn push color="primary" @click="showLoginForm" :disable="checkDbStatus">
                         {{checkDbStatus ? '系统需要初始化' : '用户登录'}}
                     </q-btn>
-                    <q-btn color="primary">访问仓库</q-btn>
+
+                    <q-btn push color="primary" @click="openLink('https://github.com/Junvary/gin-quasar-admin')">
+                        访问Github
+                    </q-btn>
                 </div>
             </div>
             <div class="container-image">
@@ -42,6 +49,9 @@ export default {
     methods: {
         showLoginForm() {
             this.$refs.loginDialog.show()
+        },
+        openLink(url) {
+            window.open(url)
         },
     },
 }
@@ -90,7 +100,7 @@ export default {
                 text-transform: capitalize;
             }
             .buttons {
-                width: 30%;
+                width: 40%;
                 display: flex;
                 justify-content: space-around;
             }

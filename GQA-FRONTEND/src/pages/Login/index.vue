@@ -51,7 +51,7 @@
                     Vue版本：{{ $vueVersion }}
                 </div>
                 <div class="text-subtitle2 text-center text-primary">
-                    Quasar版本：{{ $q.version }}
+                    Quasar版本：{{ $quasarVersion }}
                 </div>
             </q-card-actions>
 

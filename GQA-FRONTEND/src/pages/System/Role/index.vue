@@ -29,9 +29,9 @@
                 <q-td :props="props">
                     <div class="q-gutter-xs">
                         <q-btn color="primary" @click="showEditForm(props.row)" label="编辑" />
+                        <q-btn color="warning" @click="handlePermission(props.row)" label="用户" />
                         <q-btn color="warning" @click="handlePermission(props.row)" label="权限" />
                         <q-btn color="negative" @click="handleDelete(props.row)" label="删除" />
-
                     </div>
                 </q-td>
             </template>
