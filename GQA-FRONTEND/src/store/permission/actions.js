@@ -4,7 +4,7 @@ import { HandleRouter } from 'src/utils/router'
 import { HandleAsideMenu } from 'src/utils/arrayAndTree'
 
 export async function GetUserMenu({ commit, state, dispatch }) {
-    const res = await getAction(userMenuUrl, { limit: 999 })
+    const res = await getAction(userMenuUrl)
     const data = res.data.menu
     // 拿到鉴权路由表（用户自己的所有菜单），整理称路由
     const routes = HandleRouter(data)

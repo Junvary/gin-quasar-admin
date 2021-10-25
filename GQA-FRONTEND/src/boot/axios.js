@@ -1,6 +1,8 @@
 import { boot } from 'quasar/wrappers'
 import axios from 'axios'
 import { Notify, Cookies } from 'quasar'
+import Store from 'src/store'
+import Router from 'src/router'
 
 // Be careful when using SSR for cross-request state pollution
 // due to creating a Singleton instance here;
@@ -51,7 +53,7 @@ api.interceptors.response.use(response => {
                         type: 'negative',
                         message: '获取数据错误，请重新登录',
                     })
-                    router.push({ name: 'login' })
+                    Router.push({ name: 'login' })
                 })
             case 400:
                 Notify.create({
@@ -68,14 +70,25 @@ api.interceptors.response.use(response => {
         }
     }
 }, error => {
+    // 500的情况，比如后台是初始化的，但前台还有token，多出现在开发时
+    if (error + '' === 'Error: Request failed with status code 500') {
+        Notify.create({
+            type: 'negative',
+            message: '数据异常，自动退出登录！',
+        })
+        Store().dispatch('user/HandleLogout')
+        Router.push({ name: 'login' })
+    }
+    // 网络错误情况，比如后台没有对应的接口
     if (error + '' === 'Error: Network Error') {
-        router.push({ name: 'notFound' })
+        Router.push({ name: 'notFound' })
     } else if (error.response && error.response.status === 404) {
         Notify.create({
             type: 'negative',
             message: '请求地址不存在 [' + error.response.request.responseURL + ']',
         })
     }
+
     return Promise.reject(error)
 })
 

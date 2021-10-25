@@ -13,7 +13,10 @@ type ServiceMenu struct {
 func (s *ServiceMenu) GetUserMenu(c *gin.Context) (err error, menu []system.SysMenu) {
 	username := utils.GetUsername(c)
 	var user system.SysUser
-	global.GqaDb.Preload("Role").Where("username=?", username).First(&user)
+	err = global.GqaDb.Preload("Role").Where("username=?", username).First(&user).Error
+	if err != nil{
+		return err, nil
+	}
 	var role []system.SysRole
 	err = global.GqaDb.Model(&user).Association("Role").Find(&role)
 	if err != nil {
