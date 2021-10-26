@@ -40,6 +40,8 @@
                             <q-input class="col" v-model="addOrEditDetail.sort" type="number" label="排序" />
                             <q-input class="col" v-model="addOrEditDetail.title" label="菜单名"
                                 :rules="[ val => val && val.length > 0 || '必须输入菜单名']" />
+                            <q-input class="col" v-model="addOrEditDetail.name" label="菜单Name(英，唯一)"
+                                :rules="[ val => val && val.length > 0 || '必须输入菜单Name']" />
                         </div>
 
                         <div class="row">
@@ -142,6 +144,7 @@ export default {
                 desc: '',
                 parentId: 0,
                 title: '',
+                name: '',
                 path: '',
                 component: '',
                 isLink: false,
@@ -181,6 +184,7 @@ export default {
                 desc: '',
                 parentId: 0,
                 title: '',
+                name: '',
                 path: '',
                 component: '',
                 isLink: false,
