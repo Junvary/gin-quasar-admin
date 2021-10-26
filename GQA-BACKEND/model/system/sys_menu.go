@@ -5,6 +5,7 @@ import "gin-quasar-admin/global"
 type SysMenu struct {
 	global.GqaModel
 	ParentId  int       `json:"parentId" gorm:"comment:父菜单ID;"`
+	Name      string    `json:"name" gorm:"菜单Name;not null;unique;"`
 	Path      string    `json:"path" gorm:"comment:菜单地址;"`
 	Component string    `json:"component" gorm:"comment:前端组件;"`
 	Hidden    bool      `json:"hidden" gorm:"comment:是否在列表隐藏"`
@@ -21,6 +22,7 @@ type ResponseMenu struct {
 
 type RequestAddMenu struct {
 	ParentId  int    `json:"parentId"`
+	Name      string `json:"name"`
 	Path      string `json:"path"`
 	Component string `json:"component"`
 	Hidden    bool   `json:"hidden"`

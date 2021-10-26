@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"gin-quasar-admin/global"
 	"gin-quasar-admin/model/system"
+	"go.uber.org/zap"
 	"gorm.io/gorm"
 	"time"
 )
@@ -24,13 +25,14 @@ var menus = []system.SysMenu{
 			UpdateAt: time.Now(),
 		},
 		ParentId:  0,
+		Name:      "dashboard",
 		Path:      "/dashboard",
 		Component: "/Dashboard/index",
-		Hidden: false,
+		Hidden:    false,
 		KeepAlive: false,
-		Title: "仪表盘",
-		Icon:  "home",
-		IsLink: false,
+		Title:     "仪表盘",
+		Icon:      "home",
+		IsLink:    false,
 	},
 	{
 		GqaModel: global.GqaModel{
@@ -43,13 +45,14 @@ var menus = []system.SysMenu{
 			UpdateAt: time.Now(),
 		},
 		ParentId:  0,
+		Name:      "system",
 		Path:      "",
 		Component: "",
-		Hidden: false,
+		Hidden:    false,
 		KeepAlive: false,
-		Title: "系统管理",
-		Icon:  "settings",
-		IsLink: false,
+		Title:     "系统管理",
+		Icon:      "settings",
+		IsLink:    false,
 	},
 	{
 		GqaModel: global.GqaModel{
@@ -62,13 +65,14 @@ var menus = []system.SysMenu{
 			UpdateAt: time.Now(),
 		},
 		ParentId:  2,
+		Name:      "dept",
 		Path:      "/system/dept",
 		Component: "/System/Dept/index",
-		Hidden: false,
+		Hidden:    false,
 		KeepAlive: false,
-		Title: "部门管理",
-		Icon:  "work",
-		IsLink: false,
+		Title:     "部门管理",
+		Icon:      "work",
+		IsLink:    false,
 	},
 	{
 		GqaModel: global.GqaModel{
@@ -81,13 +85,14 @@ var menus = []system.SysMenu{
 			UpdateAt: time.Now(),
 		},
 		ParentId:  2,
+		Name:      "user",
 		Path:      "/system/user",
 		Component: "/System/User/index",
-		Hidden: false,
+		Hidden:    false,
 		KeepAlive: false,
-		Title: "用户管理",
-		Icon:  "person",
-		IsLink: false,
+		Title:     "用户管理",
+		Icon:      "person",
+		IsLink:    false,
 	},
 	{
 		GqaModel: global.GqaModel{
@@ -100,13 +105,14 @@ var menus = []system.SysMenu{
 			UpdateAt: time.Now(),
 		},
 		ParentId:  2,
+		Name:      "role",
 		Path:      "/system/role",
 		Component: "/System/Role/index",
-		Hidden: false,
+		Hidden:    false,
 		KeepAlive: false,
-		Title: "角色管理",
-		Icon:  "group",
-		IsLink: false,
+		Title:     "角色管理",
+		Icon:      "group",
+		IsLink:    false,
 	},
 
 	{
@@ -120,13 +126,14 @@ var menus = []system.SysMenu{
 			UpdateAt: time.Now(),
 		},
 		ParentId:  2,
+		Name:      "menu",
 		Path:      "/system/menu",
 		Component: "/System/Menu/index",
-		Hidden: false,
+		Hidden:    false,
 		KeepAlive: false,
-		Title: "菜单管理",
-		Icon:  "menu",
-		IsLink: false,
+		Title:     "菜单管理",
+		Icon:      "menu",
+		IsLink:    false,
 	},
 	{
 		GqaModel: global.GqaModel{
@@ -139,13 +146,14 @@ var menus = []system.SysMenu{
 			UpdateAt: time.Now(),
 		},
 		ParentId:  2,
+		Name:      "dict",
 		Path:      "/system/dict",
 		Component: "/System/Dict/index",
-		Hidden: false,
+		Hidden:    false,
 		KeepAlive: false,
-		Title: "字典管理",
-		Icon:  "zoom_in",
-		IsLink: false,
+		Title:     "字典管理",
+		Icon:      "zoom_in",
+		IsLink:    false,
 	},
 	{
 		GqaModel: global.GqaModel{
@@ -158,27 +166,30 @@ var menus = []system.SysMenu{
 			UpdateAt: time.Now(),
 		},
 		ParentId:  2,
+		Name:      "log",
 		Path:      "/system/log",
 		Component: "/System/Log/index",
-		Hidden: false,
+		Hidden:    false,
 		KeepAlive: false,
-		Title: "日志管理",
-		Icon:  "toc",
-		IsLink: false,
+		Title:     "日志管理",
+		Icon:      "toc",
+		IsLink:    false,
 	},
 }
 
 func (a *sysMenu) Init() error {
 	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
-		if tx.Where("id IN ?", []int{1}).Find(&[]system.SysMenu{}).RowsAffected == 8 {
-			fmt.Println("\n[Mysql] --> sys_menu 表的初始数据已存在！")
-			global.GqaLog.Error("sys_menu 表的初始数据已存在！")
+		var count int64
+		tx.Model(&system.SysMenu{}).Count(&count)
+		if count != 0 {
+			fmt.Println("[Gin-Quasar-Admin] --> sys_menu 表的初始数据已存在！数据量：", count)
+			global.GqaLog.Error("sys_menu 表的初始数据已存在！", zap.Any("数据量", count))
 			return nil
 		}
 		if err := tx.Create(&menus).Error; err != nil { // 遇到错误时回滚事务
 			return err
 		}
-		fmt.Println("\n[Mysql] --> sys_menu 表初始数据成功！")
+		fmt.Println("[Gin-Quasar-Admin] --> sys_menu 表初始数据成功！")
 		global.GqaLog.Error("sys_menu 表初始数据成功！")
 		return nil
 	})

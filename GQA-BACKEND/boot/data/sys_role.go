@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"gin-quasar-admin/global"
 	"gin-quasar-admin/model/system"
+	"go.uber.org/zap"
 	"gorm.io/gorm"
 	"time"
 )
@@ -30,15 +31,17 @@ var roles = []system.SysRole{
 
 func (a *sysRole) Init() error {
 	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
-		if tx.Where("id IN ?", []int{1}).Find(&[]system.SysRole{}).RowsAffected == 1 {
-			fmt.Println("\n[Mysql] --> sys_role 表的初始数据已存在！")
-			global.GqaLog.Error("sys_role 表的初始数据已存在！")
+		var count int64
+		tx.Model(&system.SysRole{}).Count(&count)
+		if count != 0 {
+			fmt.Println("[Gin-Quasar-Admin] --> sys_role 表的初始数据已存在！数据量：", count)
+			global.GqaLog.Error("sys_role 表的初始数据已存在！", zap.Any("数据量", count))
 			return nil
 		}
 		if err := tx.Create(&roles).Error; err != nil { // 遇到错误时回滚事务
 			return err
 		}
-		fmt.Println("\n[Mysql] --> sys_role 表初始数据成功！")
+		fmt.Println("[Gin-Quasar-Admin] --> sys_role 表初始数据成功！")
 		global.GqaLog.Error("sys_role 表初始数据成功！")
 		return nil
 	})

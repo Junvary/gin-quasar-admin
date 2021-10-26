@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"gin-quasar-admin/global"
 	"gin-quasar-admin/model/system"
+	"go.uber.org/zap"
 	"gorm.io/gorm"
 	"time"
 )
@@ -62,15 +63,17 @@ var department = []system.SysDept{
 
 func (a *sysDept) Init() error {
 	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
-		if tx.Where("id IN ?", []int{1}).Find(&[]system.SysDept{}).RowsAffected == 3 {
-			fmt.Println("\n[Mysql] --> sys_dept 表的初始数据已存在！")
-			global.GqaLog.Error("sys_dept 表的初始数据已存在！")
+		var count int64
+		tx.Model(&system.SysDept{}).Count(&count)
+		if count != 0 {
+			fmt.Println("[Gin-Quasar-Admin] --> sys_dept 表的初始数据已存在！数据量：", count)
+			global.GqaLog.Error("sys_dept 表的初始数据已存在！", zap.Any("数据量", count))
 			return nil
 		}
 		if err := tx.Create(&department).Error; err != nil { // 遇到错误时回滚事务
 			return err
 		}
-		fmt.Println("\n[Mysql] --> sys_dept 表初始数据成功！")
+		fmt.Println("[Gin-Quasar-Admin] --> sys_dept 表初始数据成功！")
 		global.GqaLog.Error("sys_dept 表初始数据成功！")
 		return nil
 	})

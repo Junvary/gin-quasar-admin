@@ -53,6 +53,7 @@ func (a *ApiMenu) AddMenu(c *gin.Context) {
 	_ = c.ShouldBindJSON(&toAddMenu)
 	addMenu := &system.SysMenu{
 		ParentId:  toAddMenu.ParentId,
+		Name:      toAddMenu.Name,
 		Path:      toAddMenu.Path,
 		Component: toAddMenu.Component,
 		Hidden:    toAddMenu.Hidden,

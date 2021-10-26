@@ -6,6 +6,7 @@ export const HandleRouter = (menuData) => {
         if (item.path !== '' && item.component) {
             const obj = {
                 path: item.path,
+                name: item.name,
                 component: pageImporter(item.component),
                 meta: {
                     hidden: item.hidden,

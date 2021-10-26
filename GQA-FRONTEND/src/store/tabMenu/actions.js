@@ -1,11 +1,12 @@
-import { HomeMenu } from 'src/settings'
-
-export function AddTabMenu({ commit, state }, tab) {
-    if (!state.tabMenus.length) {
-        commit('INIT_TAB_MENU')
+export function AddTabMenu({ commit, state, rootState }, tab) {
+    const base = rootState.permission.userMenu[0]
+    // 如果没有仪表盘，则加入仪表盘
+    if (state.tabMenus.filter(item => item.path === base.path).length === 0) {
+        commit("ADD_TAB_MENU", base)
+        commit('CHANGE_CURRENT_TAB', base)
     }
-    // 判断当前菜单数组中是否存在要加入的菜单，如果存在返回false
-    if (!state.tabMenus.some(item => item.fullPath === tab.fullPath)) {
+    // 判断tab是否存在，是为了关闭所有菜单时，不会传递tab
+    if (tab && !state.tabMenus.some(item => item.path === tab.path)) {
         commit("ADD_TAB_MENU", tab)
         commit('CHANGE_CURRENT_TAB', tab)
     }
@@ -16,14 +17,18 @@ export function ChangeCurrentTab({ commit }, tab) {
 }
 
 export function RemoveTab({ commit }, tab) {
-    // 多一次判断，如果要关闭的是首页，返回false
-    if (tab.fullPath === HomeMenu[0].fullPath) {
-        return false
-    }
     commit('REMOVE_TAB', tab)
-    return true
 }
 
-export function RemoveTabMenu({ commit }) {
-    commit('REMOVE_TAB_MENU')
+export function RemoveRightTab({ commit }, tab) {
+    commit('REMOVE_RIGHT_TAB', tab)
+}
+
+export function RemoveLeftTab({ commit, rootState }, tab) {
+    const base = rootState.permission.userMenu[0]
+    commit('REMOVE_LEFT_TAB', { base, tab })
+}
+
+export function DestroyTabMenu({ commit }) {
+    commit('DESTROY_TAB_MENU')
 }

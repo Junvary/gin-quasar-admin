@@ -31,7 +31,7 @@ export default boot(({ router, store }) => {
             } else {
                 if (!store.getters['permission/userMenu'].length) {
                     store.dispatch('permission/GetUserMenu').then(res => {
-                        // 在vue-router4中，addRoutes被废弃，改为了addRoute，需要循环调用
+                        // 在vue-router4中，addRoutes被废弃，改为了addRoute，循环调用
                         // 动态添加鉴权路由表
                         res.forEach(item => {
                             router.addRoute(item)
