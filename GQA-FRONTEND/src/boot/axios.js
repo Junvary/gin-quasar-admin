@@ -62,10 +62,10 @@ api.interceptors.response.use(response => {
                 })
                 return response.data
             default:
-                Notify.create({
-                    type: 'negative',
-                    message: response.data.message || '数据异常',
-                })
+                // Notify.create({
+                //     type: 'negative',
+                //     message: response.data.message || '数据异常',
+                // })
                 return response.data
         }
     }

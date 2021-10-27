@@ -1,9 +1,9 @@
 <template>
     <div class="column items-center">
         <div class="row justify-between" style="width: 100%">
-            <q-btn color="negative" @click="handleClear">全部清空</q-btn>
-            <q-btn color="negative" @click="handleAll">全部选择</q-btn>
-            <q-btn color="primary" @click="handleRoleMenu">保存菜单权限</q-btn>
+            <q-btn color="negative" :disable="row.roleCode === 'super-admin'" @click="handleClear">全部清空</q-btn>
+            <q-btn color="negative" :disable="row.roleCode === 'super-admin'" @click="handleAll">全部选择</q-btn>
+            <q-btn color="primary" :disable="row.roleCode === 'super-admin'" @click="handleRoleMenu">保存菜单权限</q-btn>
         </div>
         <q-card-section style="width: 100%; max-height: 50vw" class="scroll">
             <q-tree style="width: 100%" :nodes="menuTree" default-expand-all node-key="id" label-key="name"
@@ -40,6 +40,11 @@ export default {
     computed: {
         menuTree() {
             if (this.tableData.length !== 0) {
+                if (this.row.roleCode === 'super-admin') {
+                    for (let i of this.tableData) {
+                        i.disabled = true
+                    }
+                }
                 return ArrayToTree(this.tableData)
             }
             return []
@@ -101,13 +106,13 @@ export default {
                         type: 'positive',
                         message: res.message,
                     })
+                    this.getRoleMenuList()
                 } else {
                     this.$q.notify({
                         type: 'negative',
                         message: res.message,
                     })
                 }
-                this.getRoleMenuList()
             })
         },
         handleAll() {},
