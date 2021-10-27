@@ -1,0 +1,60 @@
+<template>
+    <q-dialog v-model="rolePermissionVisible" position="right">
+        <q-card style="min-width: 500px; max-width: 45vw">
+            <q-card-section>
+                <div class="text-h6">
+                    权限：{{row.roleName}}
+                </div>
+            </q-card-section>
+
+            <q-tabs v-model="tab" dense class="text-grey" active-color="primary" indicator-color="primary"
+                align="justify" narrow-indicator>
+                <q-tab name="menu" label="菜单权限" />
+                <q-tab name="api" label="API权限" />
+                <q-tab name="movies" label="Movies" />
+            </q-tabs>
+
+            <q-separator />
+
+            <q-tab-panels v-model="tab" animated>
+                <q-tab-panel name="menu">
+                    <role-permission-menu :row="row" />
+                </q-tab-panel>
+
+                <q-tab-panel name="api">
+                    <role-permission-api />
+                </q-tab-panel>
+
+                <q-tab-panel name="movies">
+                    <div class="text-h6">Movies</div>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                </q-tab-panel>
+            </q-tab-panels>
+        </q-card>
+    </q-dialog>
+</template>
+
+<script>
+import RolePermissionMenu from './RolePermissionMenu.vue'
+import RolePermissionApi from './RolePermissionApi.vue'
+export default {
+    name: 'RolePermissionDialog',
+    components: {
+        RolePermissionMenu,
+        RolePermissionApi,
+    },
+    data() {
+        return {
+            rolePermissionVisible: false,
+            row: {},
+            tab: 'menu',
+        }
+    },
+    methods: {
+        show(row) {
+            this.row = row
+            this.rolePermissionVisible = true
+        },
+    },
+}
+</script>

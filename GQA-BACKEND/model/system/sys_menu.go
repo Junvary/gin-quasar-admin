@@ -4,7 +4,7 @@ import "gin-quasar-admin/global"
 
 type SysMenu struct {
 	global.GqaModel
-	ParentId  int       `json:"parentId" gorm:"comment:父菜单ID;"`
+	ParentId  uint      `json:"parentId" gorm:"comment:父菜单ID;"`
 	Name      string    `json:"name" gorm:"菜单Name;not null;unique;"`
 	Path      string    `json:"path" gorm:"comment:菜单地址;"`
 	Component string    `json:"component" gorm:"comment:前端组件;"`
@@ -16,12 +16,8 @@ type SysMenu struct {
 	Role      []SysRole `json:"role" gorm:"many2many:sys_role_menu;"`
 }
 
-type ResponseMenu struct {
-	Menu []SysMenu `json:"menu"`
-}
-
 type RequestAddMenu struct {
-	ParentId  int    `json:"parentId"`
+	ParentId  uint   `json:"parentId"`
 	Name      string `json:"name"`
 	Path      string `json:"path"`
 	Component string `json:"component"`
@@ -30,4 +26,8 @@ type RequestAddMenu struct {
 	Title     string `json:"title"`
 	Icon      string `json:"icon"`
 	IsLink    bool   `json:"isLink"`
+}
+
+type ResponseMenu struct {
+	Menu []SysMenu `json:"menu"`
 }

@@ -23,6 +23,10 @@ func (r *RouterRole) InitRouterRole(Router *gin.RouterGroup) (R gin.IRoutes) {
 		roleGroup.DELETE("role-delete", apiRole.DeleteRole)
 		// 根据ID查找角色
 		roleGroup.POST("role-id", apiRole.QueryRoleById)
+		// 获取角色菜单
+		roleGroup.POST("role-menu", apiRole.GetRoleMenuList)
+		// 编辑角色菜单
+		roleGroup.PUT("role-menu-edit", apiRole.EditRoleMenu)
 	}
 	return Router
 }

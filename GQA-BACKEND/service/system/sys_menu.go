@@ -14,7 +14,7 @@ func (s *ServiceMenu) GetUserMenu(c *gin.Context) (err error, menu []system.SysM
 	username := utils.GetUsername(c)
 	var user system.SysUser
 	err = global.GqaDb.Preload("Role").Where("username=?", username).First(&user).Error
-	if err != nil{
+	if err != nil {
 		return err, nil
 	}
 	var role []system.SysRole

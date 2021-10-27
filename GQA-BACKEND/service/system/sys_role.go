@@ -49,3 +49,17 @@ func (s *ServiceRole) QueryRoleById(id uint) (err error, roleInfo system.SysRole
 	err = global.GqaDb.First(&role, "id = ?", id).Error
 	return err, role
 }
+
+func (s *ServiceRole) GetRoleMenuList(roleMenu *system.RequestRoleMenuList) (err error, menu []system.SysRoleMenu) {
+	err = global.GqaDb.Where("sys_role_role_code=?", roleMenu.RoleCode).Find(&menu).Error
+	return err, menu
+}
+
+func (s *ServiceRole) EditRoleMenu(roleMenu *system.RequestRoleMenuEdit) (err error) {
+	err = global.GqaDb.Where("sys_role_role_code=?", roleMenu.RoleCode).Delete(&system.SysRoleMenu{}).Error
+	if err != nil{
+		return err
+	}
+	err = global.GqaDb.Model(&system.SysRoleMenu{}).Create(&roleMenu.RoleMenu).Error
+	return err
+}

@@ -75,3 +75,25 @@ func (a *ApiRole) QueryRoleById(c *gin.Context) {
 		global.SuccessMessageData(gin.H{"info": role}, "查找角色成功！", c)
 	}
 }
+
+func (a *ApiRole) GetRoleMenuList(c *gin.Context) {
+	var roleMenu system.RequestRoleMenuList
+	_ = c.ShouldBindJSON(&roleMenu)
+	if err, menuList := service.GroupServiceApp.ServiceSystem.GetRoleMenuList(&roleMenu); err != nil {
+		global.GqaLog.Error("获取角色菜单列表失败：", zap.Any("err", err))
+		global.ErrorMessage("获取角色菜单列表失败！", c)
+	} else {
+		global.SuccessData(gin.H{"info": menuList}, c)
+	}
+}
+
+func (a *ApiRole) EditRoleMenu(c *gin.Context) {
+	var roleMenu system.RequestRoleMenuEdit
+	_ = c.ShouldBindJSON(&roleMenu)
+	if err := service.GroupServiceApp.ServiceSystem.EditRoleMenu(&roleMenu); err != nil {
+		global.GqaLog.Error("编辑角色菜单失败：", zap.Any("err", err))
+		global.ErrorMessage("编辑角色菜单失败！", c)
+	} else {
+		global.SuccessMessage("编辑角色菜单成功！", c)
+	}
+}

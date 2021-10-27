@@ -14,3 +14,17 @@ type RequestAddRole struct {
 	RoleCode string `json:"roleCode"`
 	RoleName string `json:"roleName"`
 }
+
+type RequestRoleMenuList struct {
+	RoleCode string `json:"roleCode"`
+}
+
+type RequestRoleMenuEdit struct {
+	RoleCode string            `json:"roleCode"`
+	RoleMenu []RequestRoleMenu `json:"roleMenu"`
+}
+
+type RequestRoleMenu struct {
+	RoleCode string `json:"roleCode"`
+	MenuId   uint   `json:"menuId"`
+}

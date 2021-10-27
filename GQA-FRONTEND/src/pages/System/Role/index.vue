@@ -30,13 +30,14 @@
                     <div class="q-gutter-xs">
                         <q-btn color="primary" @click="showEditForm(props.row)" label="编辑" />
                         <q-btn color="warning" @click="handlePermission(props.row)" label="用户" />
-                        <q-btn color="warning" @click="handlePermission(props.row)" label="权限" />
+                        <q-btn color="warning" @click="showRolePermission(props.row)" label="权限" />
                         <q-btn color="negative" @click="handleDelete(props.row)" label="删除" />
                     </div>
                 </q-td>
             </template>
         </q-table>
         <add-or-edit-dialog ref="addOrEditDialog" @emitAddOrEdit="emitAddOrEdit" @handleFinish="handleFinish" />
+        <role-permission-dialog ref="rolePermissionDialog" />
     </q-page>
 </template>
 
@@ -44,6 +45,7 @@
 import { tableDataMixin } from 'src/mixins/tableDataMixin'
 import addOrEditDialog from './modules/addOrEditDialog'
 import GqaStatus from 'src/components/GqaStatus'
+import RolePermissionDialog from './modules/RolePermissionDialog'
 
 export default {
     name: 'Role',
@@ -51,6 +53,7 @@ export default {
     components: {
         addOrEditDialog,
         GqaStatus,
+        RolePermissionDialog,
     },
     data() {
         return {
@@ -69,8 +72,8 @@ export default {
     },
 
     methods: {
-        handlePermission(role) {
-            // this.$refs.permission.show(role)
+        showRolePermission(row) {
+            this.$refs.rolePermissionDialog.show(row)
         },
     },
 }
