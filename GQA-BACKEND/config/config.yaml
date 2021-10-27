@@ -2,6 +2,8 @@ captcha:
   key-long: 6
   img-width: 240
   img-height: 80
+casbin:
+  model-path: './rbac_model.conf'
 jwt:
   issuer: gin-quasar-admin
   secret-key: gin-quasar-admin

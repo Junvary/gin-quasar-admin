@@ -37,6 +37,7 @@ func Router() *gin.Engine {
 		routerSystem.InitRouterRole(PrivateGroup)
 		routerSystem.InitRouterDept(PrivateGroup)
 		routerSystem.InitRouterDict(PrivateGroup)
+		routerSystem.InitRouterApi(PrivateGroup)
 	}
 
 	return Router

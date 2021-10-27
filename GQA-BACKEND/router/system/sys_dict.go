@@ -12,7 +12,7 @@ func (r *RouterDict) InitRouterDict(Router *gin.RouterGroup) (R gin.IRoutes) {
 	dictGroup := Router.Group("dict")
 	apiDict := api.GroupApiApp.ApiSystem.ApiDict
 	{
-		// 获取父级字典列表
+		// 获取根字典列表
 		dictGroup.POST("dict-list", apiDict.GetDictList)
 		// 编辑字典信息
 		dictGroup.PUT("dict-edit", apiDict.EditDict)
@@ -22,7 +22,7 @@ func (r *RouterDict) InitRouterDict(Router *gin.RouterGroup) (R gin.IRoutes) {
 		dictGroup.DELETE("dict-delete", apiDict.DeleteDict)
 		// 根据ID查找字典
 		dictGroup.POST("dict-id", apiDict.QueryDictById)
-		// 根据ParentId查找字典
+		// 根据ParentId获取字典详情
 		dictGroup.POST("dict-parent-id", apiDict.QueryDictByParentId)
 	}
 	return Router

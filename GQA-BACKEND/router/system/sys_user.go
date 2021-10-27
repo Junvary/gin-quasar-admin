@@ -22,6 +22,8 @@ func (r *RouterUser) InitRouterUser(Router *gin.RouterGroup) (R gin.IRoutes) {
 		userGroup.DELETE("user-delete", apiUser.DeleteUser)
 		// 根据ID查找用户
 		userGroup.POST("user-id", apiUser.QueryUserById)
+		// 获取用户的菜单
+		userGroup.GET("user-menu", apiUser.GetUserMenu)
 	}
 	return Router
 }

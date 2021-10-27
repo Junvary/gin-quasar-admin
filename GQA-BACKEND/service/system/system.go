@@ -6,4 +6,5 @@ type ServiceSystem struct {
 	ServiceRole
 	ServiceDept
 	ServiceDict
+	ServiceApi
 }

@@ -14,7 +14,7 @@ var SysUser = new(sysUser)
 
 type sysUser struct{}
 
-var users = []system.SysUser{
+var sysUserData = []system.SysUser{
 	{
 		GqaModel: global.GqaModel{
 			Id:       1,
@@ -37,7 +37,7 @@ var users = []system.SysUser{
 	},
 }
 
-func (a *sysUser) Init() error {
+func (s *sysUser) Init() error {
 	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
 		var count int64
 		tx.Model(&system.SysUser{}).Count(&count)
@@ -46,7 +46,7 @@ func (a *sysUser) Init() error {
 			global.GqaLog.Error("sys_user 表的初始数据已存在！", zap.Any("数据量", count))
 			return nil
 		}
-		if err := tx.Create(&users).Error; err != nil { // 遇到错误时回滚事务
+		if err := tx.Create(&sysUserData).Error; err != nil { // 遇到错误时回滚事务
 			return err
 		}
 		fmt.Println("[Gin-Quasar-Admin] --> sys_user 表初始数据成功！")

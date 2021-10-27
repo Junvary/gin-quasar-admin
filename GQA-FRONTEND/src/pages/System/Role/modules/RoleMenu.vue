@@ -3,17 +3,22 @@
         <div class="row justify-between" style="width: 100%">
             <q-btn color="negative" @click="handleClear">全部清空</q-btn>
             <q-btn color="negative" @click="handleAll">全部选择</q-btn>
-            <q-btn color="primary" @click="handleRolePermissionMenu">保存菜单权限</q-btn>
+            <q-btn color="primary" @click="handleRoleMenu">保存菜单权限</q-btn>
         </div>
-        <q-tree style="width: 100%" :nodes="menuTree" default-expand-all node-key="id" label-key="name"
-            selected-color="primary" v-if="menuTree.length !== 0" tick-strategy="strict" v-model:ticked="ticked">
-            <template v-slot:default-header="prop">
-                <div class="row items-center">
-                    <q-icon :name="prop.node.icon || 'share'" size="28px" class="q-mr-sm" />
-                    <div class="text-weight-bold">{{ prop.node.title }}</div>
-                </div>
-            </template>
-        </q-tree>
+        <q-card-section style="width: 100%; max-height: 50vw" class="scroll">
+            <q-tree style="width: 100%" :nodes="menuTree" default-expand-all node-key="id" label-key="name"
+                selected-color="primary" v-if="menuTree.length !== 0" tick-strategy="strict" v-model:ticked="ticked">
+                <template v-slot:default-header="prop">
+                    <div class="row items-center">
+                        <q-icon :name="prop.node.icon || 'share'" size="28px" class="q-mr-sm" />
+                        <div class="text-weight-bold">{{ prop.node.title }}</div>
+                    </div>
+                </template>
+            </q-tree>
+        </q-card-section>
+        <q-inner-loading :showing="loading">
+            <q-spinner-gears size="50px" color="primary" />
+        </q-inner-loading>
     </div>
 
 </template>
@@ -24,8 +29,14 @@ import { ArrayToTree } from 'src/utils/arrayAndTree'
 import { postAction, putAction } from 'src/api/manage'
 
 export default {
-    name: 'RolePermissionMenu',
+    name: 'RoleMenu',
     mixins: [tableDataMixin],
+    props: {
+        row: {
+            type: Object,
+            required: true,
+        },
+    },
     computed: {
         menuTree() {
             if (this.tableData.length !== 0) {
@@ -34,17 +45,15 @@ export default {
             return []
         },
     },
-    props: {
-        row: {
-            type: Object,
-            required: true,
-        },
-    },
-    created() {
-        this.getRoleMenuList()
-    },
     data() {
         return {
+            pagination: {
+                sortBy: 'desc',
+                descending: false,
+                page: 1,
+                rowsPerPage: 10000,
+                rowsNumber: 0,
+            },
             url: {
                 list: 'menu/menu-list',
                 roleMenuList: 'role/role-menu',
@@ -52,6 +61,9 @@ export default {
             },
             ticked: [],
         }
+    },
+    created() {
+        this.getRoleMenuList()
     },
     methods: {
         getRoleMenuList() {
@@ -72,7 +84,7 @@ export default {
                 }
             })
         },
-        handleRolePermissionMenu() {
+        handleRoleMenu() {
             const roleMenu = []
             for (let i of this.ticked) {
                 roleMenu.push({
@@ -80,7 +92,6 @@ export default {
                     menuId: i,
                 })
             }
-            console.log(roleMenu)
             putAction(this.url.roleMenuEdit, {
                 roleCode: this.row.roleCode,
                 roleMenu: roleMenu,

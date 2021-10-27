@@ -13,7 +13,7 @@ var SysDept = new(sysDept)
 
 type sysDept struct{}
 
-var department = []system.SysDept{
+var sysDeptData = []system.SysDept{
 	{
 		GqaModel: global.GqaModel{
 			Id:       1,
@@ -61,7 +61,7 @@ var department = []system.SysDept{
 	},
 }
 
-func (a *sysDept) Init() error {
+func (s *sysDept) Init() error {
 	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
 		var count int64
 		tx.Model(&system.SysDept{}).Count(&count)
@@ -70,7 +70,7 @@ func (a *sysDept) Init() error {
 			global.GqaLog.Error("sys_dept 表的初始数据已存在！", zap.Any("数据量", count))
 			return nil
 		}
-		if err := tx.Create(&department).Error; err != nil { // 遇到错误时回滚事务
+		if err := tx.Create(&sysDeptData).Error; err != nil { // 遇到错误时回滚事务
 			return err
 		}
 		fmt.Println("[Gin-Quasar-Admin] --> sys_dept 表初始数据成功！")

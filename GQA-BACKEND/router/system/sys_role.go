@@ -27,6 +27,10 @@ func (r *RouterRole) InitRouterRole(Router *gin.RouterGroup) (R gin.IRoutes) {
 		roleGroup.POST("role-menu", apiRole.GetRoleMenuList)
 		// 编辑角色菜单
 		roleGroup.PUT("role-menu-edit", apiRole.EditRoleMenu)
+		// 获取角色API
+		roleGroup.POST("role-api", apiRole.GetRoleApiList)
+		// 编辑角色Api
+		roleGroup.PUT("role-api-edit", apiRole.EditRoleApi)
 	}
 	return Router
 }

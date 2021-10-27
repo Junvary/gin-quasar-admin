@@ -13,7 +13,7 @@ var SysMenu = new(sysMenu)
 
 type sysMenu struct{}
 
-var menus = []system.SysMenu{
+var sysMenuData = []system.SysMenu{
 	{
 		GqaModel: global.GqaModel{
 			Id:       1,
@@ -217,7 +217,7 @@ var menus = []system.SysMenu{
 	},
 }
 
-func (a *sysMenu) Init() error {
+func (s *sysMenu) Init() error {
 	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
 		var count int64
 		tx.Model(&system.SysMenu{}).Count(&count)
@@ -226,7 +226,7 @@ func (a *sysMenu) Init() error {
 			global.GqaLog.Error("sys_menu 表的初始数据已存在！", zap.Any("数据量", count))
 			return nil
 		}
-		if err := tx.Create(&menus).Error; err != nil { // 遇到错误时回滚事务
+		if err := tx.Create(&sysMenuData).Error; err != nil { // 遇到错误时回滚事务
 			return err
 		}
 		fmt.Println("[Gin-Quasar-Admin] --> sys_menu 表初始数据成功！")

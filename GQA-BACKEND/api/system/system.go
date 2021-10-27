@@ -6,4 +6,5 @@ type ApiSystem struct {
 	ApiRole
 	ApiDept
 	ApiDict
+	ApiApi
 }

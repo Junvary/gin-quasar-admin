@@ -5,6 +5,7 @@ import (
 	"gin-quasar-admin/global"
 	"gin-quasar-admin/model/system"
 	"gin-quasar-admin/utils"
+	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
@@ -57,4 +58,24 @@ func (s *ServiceUser) QueryUserById(id uint) (err error, userInfo system.SysUser
 	var user system.SysUser
 	err = global.GqaDb.First(&user, "id = ?", id).Error
 	return err, user
+}
+
+func (s *ServiceUser) GetUserMenu(c *gin.Context) (err error, menu []system.SysMenu) {
+	username := utils.GetUsername(c)
+	var user system.SysUser
+	err = global.GqaDb.Preload("Role").Where("username=?", username).First(&user).Error
+	if err != nil {
+		return err, nil
+	}
+	var role []system.SysRole
+	err = global.GqaDb.Model(&user).Association("Role").Find(&role)
+	if err != nil {
+		return err, nil
+	}
+	var menus []system.SysMenu
+	err = global.GqaDb.Model(&role).Association("Menu").Find(&menus)
+	if err != nil {
+		return err, nil
+	}
+	return nil, menus
 }

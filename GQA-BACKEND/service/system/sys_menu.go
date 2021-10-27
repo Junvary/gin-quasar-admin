@@ -3,31 +3,9 @@ package system
 import (
 	"gin-quasar-admin/global"
 	"gin-quasar-admin/model/system"
-	"gin-quasar-admin/utils"
-	"github.com/gin-gonic/gin"
 )
 
 type ServiceMenu struct {
-}
-
-func (s *ServiceMenu) GetUserMenu(c *gin.Context) (err error, menu []system.SysMenu) {
-	username := utils.GetUsername(c)
-	var user system.SysUser
-	err = global.GqaDb.Preload("Role").Where("username=?", username).First(&user).Error
-	if err != nil {
-		return err, nil
-	}
-	var role []system.SysRole
-	err = global.GqaDb.Model(&user).Association("Role").Find(&role)
-	if err != nil {
-		return err, nil
-	}
-	var menus []system.SysMenu
-	err = global.GqaDb.Model(&role).Association("Menu").Find(&menus)
-	if err != nil {
-		return err, nil
-	}
-	return nil, menus
 }
 
 func (s *ServiceMenu) GetMenuList(pageInfo system.RequestPage) (err error, menu interface{}, total int64) {

@@ -13,7 +13,7 @@ var SysRoleMenu = new(sysRoleMenu)
 type sysRoleMenu struct {
 }
 
-var sysRoleMenus = []system.SysRoleMenu{
+var sysRoleMenuData = []system.SysRoleMenu{
 	{"super-admin", 1},
 	{"super-admin", 2},
 	{"super-admin", 3},
@@ -35,7 +35,7 @@ func (s *sysRoleMenu) Init() error {
 			global.GqaLog.Error("sys_role_menu 表的初始数据已存在！", zap.Any("数据量", count))
 			return nil
 		}
-		if err := tx.Create(&sysRoleMenus).Error; err != nil { // 遇到错误时回滚事务
+		if err := tx.Create(&sysRoleMenuData).Error; err != nil { // 遇到错误时回滚事务
 			return err
 		}
 		fmt.Println("[Gin-Quasar-Admin] --> sys_role_menu 表初始数据成功!")

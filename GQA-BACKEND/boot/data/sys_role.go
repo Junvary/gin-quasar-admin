@@ -13,7 +13,7 @@ var SysRole = new(sysRole)
 
 type sysRole struct{}
 
-var roles = []system.SysRole{
+var sysRoleData = []system.SysRole{
 	{
 		GqaModel: global.GqaModel{
 			Id:       1,
@@ -29,7 +29,7 @@ var roles = []system.SysRole{
 	},
 }
 
-func (a *sysRole) Init() error {
+func (s *sysRole) Init() error {
 	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
 		var count int64
 		tx.Model(&system.SysRole{}).Count(&count)
@@ -38,7 +38,7 @@ func (a *sysRole) Init() error {
 			global.GqaLog.Error("sys_role 表的初始数据已存在！", zap.Any("数据量", count))
 			return nil
 		}
-		if err := tx.Create(&roles).Error; err != nil { // 遇到错误时回滚事务
+		if err := tx.Create(&sysRoleData).Error; err != nil { // 遇到错误时回滚事务
 			return err
 		}
 		fmt.Println("[Gin-Quasar-Admin] --> sys_role 表初始数据成功！")

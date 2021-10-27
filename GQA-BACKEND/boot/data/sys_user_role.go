@@ -13,7 +13,7 @@ var SysUserRole = new(sysUserRole)
 type sysUserRole struct {
 }
 
-var sysUserRoles = []system.SysUserRole{
+var sysUserRoleData = []system.SysUserRole{
 	{"super-admin", 1},
 }
 
@@ -26,7 +26,7 @@ func (s *sysUserRole)Init()error  {
 			global.GqaLog.Error("sys_user_role 表的初始数据已存在！", zap.Any("数据量", count))
 			return nil
 		}
-		if err := tx.Create(&sysUserRoles).Error; err != nil { // 遇到错误时回滚事务
+		if err := tx.Create(&sysUserRoleData).Error; err != nil { // 遇到错误时回滚事务
 			return err
 		}
 		fmt.Println("[Gin-Quasar-Admin] --> sys_user_role 表初始数据成功!")

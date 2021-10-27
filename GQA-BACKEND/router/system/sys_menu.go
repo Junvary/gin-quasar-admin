@@ -11,8 +11,6 @@ func (r *RouterMenu) InitRouterMenu(Router *gin.RouterGroup) (R gin.IRoutes) {
 	menuGroup := Router.Group("menu")
 	apiMenu := api.GroupApiApp.ApiSystem.ApiMenu
 	{
-		// 获取用户的菜单
-		menuGroup.GET("user-menu", apiMenu.GetUserMenu)
 		// 获取菜单列表
 		menuGroup.POST("menu-list", apiMenu.GetMenuList)
 		// 编辑菜单信息

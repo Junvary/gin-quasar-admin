@@ -4,6 +4,7 @@ import (
 	"errors"
 	"gin-quasar-admin/global"
 	"gin-quasar-admin/model/system"
+	adapter "github.com/casbin/gorm-adapter/v3"
 	"gorm.io/gorm"
 )
 
@@ -50,8 +51,8 @@ func (s *ServiceRole) QueryRoleById(id uint) (err error, roleInfo system.SysRole
 	return err, role
 }
 
-func (s *ServiceRole) GetRoleMenuList(roleMenu *system.RequestRoleMenuList) (err error, menu []system.SysRoleMenu) {
-	err = global.GqaDb.Where("sys_role_role_code=?", roleMenu.RoleCode).Find(&menu).Error
+func (s *ServiceRole) GetRoleMenuList(roleCode *system.RequestRoleCode) (err error, menu []system.SysRoleMenu) {
+	err = global.GqaDb.Where("sys_role_role_code=?", roleCode.RoleCode).Find(&menu).Error
 	return err, menu
 }
 
@@ -60,6 +61,26 @@ func (s *ServiceRole) EditRoleMenu(roleMenu *system.RequestRoleMenuEdit) (err er
 	if err != nil{
 		return err
 	}
-	err = global.GqaDb.Model(&system.SysRoleMenu{}).Create(&roleMenu.RoleMenu).Error
-	return err
+	if len(roleMenu.RoleMenu) != 0 {
+		err = global.GqaDb.Model(&system.SysRoleMenu{}).Create(&roleMenu.RoleMenu).Error
+		return err
+	}
+	return nil
+}
+
+func (s *ServiceRole) GetRoleApiList(roleCode *system.RequestRoleCode) (err error, api []adapter.CasbinRule) {
+	err = global.GqaDb.Where("v0=?", roleCode.RoleCode).Find(&api).Error
+	return err, api
+}
+
+func (s *ServiceRole) EditRoleApi(roleApi *system.RequestRoleApiEdit) (err error) {
+	err = global.GqaDb.Where("v0=?", roleApi.RoleCode).Delete(&adapter.CasbinRule{}).Error
+	if err != nil{
+		return err
+	}
+	if len(roleApi.RoleApi) != 0 {
+		err = global.GqaDb.Model(&adapter.CasbinRule{}).Create(&roleApi.RoleApi).Error
+		return err
+	}
+	return nil
 }

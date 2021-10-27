@@ -13,7 +13,7 @@ var SysDict = new(sysDict)
 
 type sysDict struct{}
 
-var dictDetail = []system.SysDict{
+var sysDictData = []system.SysDict{
 	{
 		GqaModel: global.GqaModel{
 			Id:       1,
@@ -114,7 +114,7 @@ var dictDetail = []system.SysDict{
 	},
 }
 
-func (a *sysDict) Init() error {
+func (s *sysDict) Init() error {
 	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
 		var count int64
 		tx.Model(&system.SysDict{}).Count(&count)
@@ -123,7 +123,7 @@ func (a *sysDict) Init() error {
 			global.GqaLog.Error("sys_dict 表的初始数据已存在！", zap.Any("数据量", count))
 			return nil
 		}
-		if err := tx.Create(&dictDetail).Error; err != nil { // 遇到错误时回滚事务
+		if err := tx.Create(&sysDictData).Error; err != nil { // 遇到错误时回滚事务
 			return err
 		}
 		fmt.Println("[Gin-Quasar-Admin] --> sys_dict 表初始数据成功！")

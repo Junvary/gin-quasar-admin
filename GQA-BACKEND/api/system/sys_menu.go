@@ -11,16 +11,6 @@ import (
 type ApiMenu struct {
 }
 
-func (a *ApiMenu) GetUserMenu(c *gin.Context) {
-	err, menu := service.GroupServiceApp.ServiceSystem.GetUserMenu(c)
-	if err != nil {
-		global.ErrorMessage("获取用户菜单失败！", c)
-	}
-	global.SuccessData(system.ResponseMenu{
-		Menu: menu,
-	}, c)
-}
-
 func (a *ApiMenu) GetMenuList(c *gin.Context) {
 	var pageInfo system.RequestPage
 	_ = c.ShouldBindJSON(&pageInfo)

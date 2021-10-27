@@ -6,4 +6,5 @@ type RouterSystem struct {
 	RouterRole
 	RouterDept
 	RouterDict
+	RouterApi
 }

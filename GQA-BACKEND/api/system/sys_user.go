@@ -93,3 +93,13 @@ func (a *ApiUser) QueryUserById(c *gin.Context) {
 		global.SuccessMessageData(gin.H{"info": user}, "查找用户成功！", c)
 	}
 }
+
+func (a *ApiUser) GetUserMenu(c *gin.Context) {
+	err, menu := service.GroupServiceApp.ServiceSystem.GetUserMenu(c)
+	if err != nil {
+		global.ErrorMessage("获取用户菜单失败！", c)
+	}
+	global.SuccessData(system.ResponseMenu{
+		Menu: menu,
+	}, c)
+}

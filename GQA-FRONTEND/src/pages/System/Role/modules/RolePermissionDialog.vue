@@ -18,11 +18,11 @@
 
             <q-tab-panels v-model="tab" animated>
                 <q-tab-panel name="menu">
-                    <role-permission-menu :row="row" />
+                    <role-menu :row="row" />
                 </q-tab-panel>
 
                 <q-tab-panel name="api">
-                    <role-permission-api />
+                    <role-api :row="row" />
                 </q-tab-panel>
 
                 <q-tab-panel name="movies">
@@ -35,13 +35,13 @@
 </template>
 
 <script>
-import RolePermissionMenu from './RolePermissionMenu.vue'
-import RolePermissionApi from './RolePermissionApi.vue'
+import RoleMenu from './RoleMenu'
+import RoleApi from './RoleApi'
 export default {
     name: 'RolePermissionDialog',
     components: {
-        RolePermissionMenu,
-        RolePermissionApi,
+        RoleMenu,
+        RoleApi,
     },
     data() {
         return {
