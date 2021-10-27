@@ -31,6 +31,10 @@ func (a *ApiUser) GetUserList(c *gin.Context) {
 func (a *ApiUser) EditUser(c *gin.Context) {
 	var toEditUser system.SysUser
 	_ = c.ShouldBindJSON(&toEditUser)
+	if toEditUser.Username == "admin" && toEditUser.Status == "off"{
+		global.ErrorMessage("超级管理不能被禁用！", c)
+		return
+	}
 	if err := service.GroupServiceApp.ServiceSystem.EditUser(toEditUser); err != nil {
 		global.GqaLog.Error("编辑用户失败!", zap.Any("err", err))
 		global.ErrorMessage("编辑用户失败！", c)

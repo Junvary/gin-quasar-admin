@@ -47,7 +47,7 @@
                             <q-field class="col" label="是否启用" stack-label>
                                 <template v-slot:control>
                                     <q-option-group v-model="addOrEditDetail.status" :options="options.status"
-                                        color="primary" inline>
+                                        color="primary" inline :disable="addOrEditDetail.username ==='admin'">
                                     </q-option-group>
                                 </template>
                             </q-field>

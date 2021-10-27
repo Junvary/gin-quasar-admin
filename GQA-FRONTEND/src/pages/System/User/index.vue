@@ -53,7 +53,8 @@
                 <q-td :props="props">
                     <div class="q-gutter-xs">
                         <q-btn color="primary" @click="showEditForm(props.row)" label="编辑" />
-                        <q-btn color="negative" @click="handleDelete(props.row)" label="删除" />
+                        <q-btn color="negative" @click="handleDelete(props.row)" label="删除"
+                            v-if="props.row.username !== 'admin'" />
                     </div>
                 </q-td>
             </template>
