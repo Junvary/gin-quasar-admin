@@ -2,6 +2,7 @@
 .thumbs.db
 /GQA-FRONTEND/node_modules
 /GQA-BACKEND/log
+/GQA-BACKEND/go.sum
 
 # Quasar core related directories
 .quasar
