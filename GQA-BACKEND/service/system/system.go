@@ -7,4 +7,5 @@ type ServiceSystem struct {
 	ServiceDept
 	ServiceDict
 	ServiceApi
+	ServiceCasbin
 }

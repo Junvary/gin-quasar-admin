@@ -20,6 +20,7 @@ var sysCasbinData = []adapter.CasbinRule{
 	{Ptype: "p", V0: "super-admin", V1: "/user/user-delete", V2: "DELETE", V3: "user", V4: "删除用户"},
 	{Ptype: "p", V0: "super-admin", V1: "/user/user-id", V2: "POST", V3: "user", V4: "根据ID查找用户"},
 	{Ptype: "p", V0: "super-admin", V1: "/user/user-menu", V2: "GET", V3: "user", V4: "获取用户的菜单"},
+	{Ptype: "p", V0: "super-admin", V1: "/user/user-role", V2: "GET", V3: "user", V4: "获取用户的角色列表"},
 	// role组
 	{Ptype: "p", V0: "super-admin", V1: "/role/role-list", V2: "POST", V3: "role", V4: "获取角色列表"},
 	{Ptype: "p", V0: "super-admin", V1: "/role/role-edit", V2: "PUT", V3: "role", V4: "编辑角色信息"},

@@ -32,3 +32,4 @@ type GqaModel struct {
 	DeleteAt gorm.DeletedAt `json:"-" gorm:"index"`
 	DeleteBy string         `json:"-"`
 }
+

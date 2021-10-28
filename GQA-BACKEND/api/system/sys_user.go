@@ -107,3 +107,13 @@ func (a *ApiUser) GetUserMenu(c *gin.Context) {
 		Menu: menu,
 	}, c)
 }
+
+func (a *ApiUser) GetUserRole(c *gin.Context) {
+	err, role := service.GroupServiceApp.ServiceSystem.GetUserRole(c)
+	if err != nil {
+		global.ErrorMessage("获取用户角色失败！", c)
+	}
+	global.SuccessData(system.ResponseRole{
+		Role: role,
+	}, c)
+}

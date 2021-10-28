@@ -6,7 +6,6 @@ import (
 	"gin-quasar-admin/model/system"
 	"gin-quasar-admin/utils"
 	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
 
@@ -36,7 +35,6 @@ func (s *ServiceUser) AddUser(u system.SysUser) (err error) {
 	if !errors.Is(global.GqaDb.Where("username = ?", u.Username).First(&user).Error, gorm.ErrRecordNotFound) {
 		return errors.New("此用户已存在：" + u.Username)
 	}
-	u.Uuid =uuid.New()
 	u.Password = utils.Md5([]byte(global.GqaConfig.System.DefaultPassword))
 	err = global.GqaDb.Create(&u).Error
 	return err
@@ -78,4 +76,19 @@ func (s *ServiceUser) GetUserMenu(c *gin.Context) (err error, menu []system.SysM
 		return err, nil
 	}
 	return nil, menus
+}
+
+func (s *ServiceUser) GetUserRole(c *gin.Context) (err error, role []system.SysRole) {
+	username := utils.GetUsername(c)
+	var user system.SysUser
+	err = global.GqaDb.Preload("Role").Where("username=?", username).First(&user).Error
+	if err != nil {
+		return err, nil
+	}
+	var userRole []system.SysRole
+	err = global.GqaDb.Model(&user).Association("Role").Find(&userRole)
+	if err != nil {
+		return err, nil
+	}
+	return nil, userRole
 }

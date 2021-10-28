@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"gin-quasar-admin/global"
 	"gin-quasar-admin/model/system"
-	"github.com/google/uuid"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
 	"time"
@@ -25,7 +24,6 @@ var sysUserData = []system.SysUser{
 			CreateBy: "admin",
 			UpdateAt: time.Now(),
 		},
-		Uuid:     uuid.New(),
 		Avatar:   "",
 		Username: "admin",
 		Password: "e10adc3949ba59abbe56e057f20f883e",

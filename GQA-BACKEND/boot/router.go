@@ -29,7 +29,7 @@ func Router() *gin.Engine {
 		鉴权路由分组：这里以空分组，路由内部按实绩情况分组，需要鉴权。
 	*/
 	PrivateGroup := Router.Group("")
-	PrivateGroup.Use(middleware.Jwt())
+	PrivateGroup.Use(middleware.JwtHandler()).Use(middleware.CasbinHandler())
 	routerSystem := router.GroupRouterApp.RouterSystem
 	{
 		routerSystem.InitRouterMenu(PrivateGroup)

@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-func Jwt()gin.HandlerFunc{
+func JwtHandler()gin.HandlerFunc{
 	return func(c *gin.Context) {
 		token := c.Request.Header.Get("gqa-token")
 		if token == "" {

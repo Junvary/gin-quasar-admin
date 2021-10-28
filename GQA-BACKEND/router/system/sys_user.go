@@ -24,6 +24,8 @@ func (r *RouterUser) InitRouterUser(Router *gin.RouterGroup) (R gin.IRoutes) {
 		userGroup.POST("user-id", apiUser.QueryUserById)
 		// 获取用户的菜单
 		userGroup.GET("user-menu", apiUser.GetUserMenu)
+		// 获取用户的角色列表
+		userGroup.GET("user-role", apiUser.GetUserRole)
 	}
 	return Router
 }

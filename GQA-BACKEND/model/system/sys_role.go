@@ -2,7 +2,7 @@ package system
 
 import (
 	"gin-quasar-admin/global"
-	adapter "github.com/casbin/gorm-adapter/v3"
+	gormadapter "github.com/casbin/gorm-adapter/v3"
 )
 
 type SysRole struct {
@@ -34,5 +34,9 @@ type RequestRoleMenu struct {
 
 type RequestRoleApiEdit struct {
 	RoleCode string               `json:"roleCode"`
-	RoleApi  []adapter.CasbinRule `json:"roleApi"`
+	RoleApi  []gormadapter.CasbinRule `json:"roleApi"`
+}
+
+type ResponseRole struct {
+	Role []SysRole `json:"role"`
 }

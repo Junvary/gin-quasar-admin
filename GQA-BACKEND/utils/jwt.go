@@ -24,20 +24,20 @@ func NewJWT() *JWT {
 	}
 }
 
-func (j *JWT) CreateToken(claims system.JwtClaims) (string, error) {
+func (j *JWT) CreateToken(claims system.GqaJwtClaims) (string, error) {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	return token.SignedString(j.SigningKey)
 }
 
-func (j *JWT) CreateTokenByOldToken(oldToken string, claims system.JwtClaims) (string, error) {
+func (j *JWT) CreateTokenByOldToken(oldToken string, claims system.GqaJwtClaims) (string, error) {
 	v, err, _ := global.GqaSingleFlight.Do("JWT:"+oldToken, func() (interface{}, error) {
 		return j.CreateToken(claims)
 	})
 	return v.(string), err
 }
 
-func (j *JWT) ParseToken(tokenString string) (*system.JwtClaims, error) {
-	token, err := jwt.ParseWithClaims(tokenString, &system.JwtClaims{}, func(token *jwt.Token) (i interface{}, e error) {
+func (j *JWT) ParseToken(tokenString string) (*system.GqaJwtClaims, error) {
+	token, err := jwt.ParseWithClaims(tokenString, &system.GqaJwtClaims{}, func(token *jwt.Token) (i interface{}, e error) {
 		return j.SigningKey, nil
 	})
 	if err != nil {
@@ -55,7 +55,7 @@ func (j *JWT) ParseToken(tokenString string) (*system.JwtClaims, error) {
 		}
 	}
 	if token != nil {
-		if claims, ok := token.Claims.(*system.JwtClaims); ok && token.Valid {
+		if claims, ok := token.Claims.(*system.GqaJwtClaims); ok && token.Valid {
 			return claims, nil
 		}
 		return nil, TokenInvalid

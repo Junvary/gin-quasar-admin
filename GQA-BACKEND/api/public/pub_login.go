@@ -33,10 +33,9 @@ func (a *ApiLogin) Login(c *gin.Context) {
 }
 
 func (a *ApiLogin) createToken(user system.SysUser, c *gin.Context) {
-	claims := system.JwtClaims{
+	claims := system.GqaJwtClaims{
 		Id:         user.Id,
 		Username:   user.Username,
-		Uuid:       user.Uuid,
 		BufferTime: global.GqaConfig.JWT.BufferTime,
 		StandardClaims: jwt.StandardClaims{
 			NotBefore: time.Now().Unix() - 1000,
