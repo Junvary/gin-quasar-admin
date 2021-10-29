@@ -17,7 +17,7 @@ func (a *ApiUser) GetUserList(c *gin.Context) {
 	_ = c.ShouldBindJSON(&pageInfo)
 	if err, userList, total := service.GroupServiceApp.ServiceSystem.GetUserList(pageInfo); err != nil {
 		global.GqaLog.Error("获取用户列表失败：", zap.Any("err", err))
-		global.ErrorMessage("获取用户列表失败！", c)
+		global.ErrorMessage("获取用户列表失败，" + err.Error(), c)
 	} else {
 		global.SuccessData(system.ResponsePage{
 			List:     userList,
@@ -37,7 +37,7 @@ func (a *ApiUser) EditUser(c *gin.Context) {
 	}
 	if err := service.GroupServiceApp.ServiceSystem.EditUser(toEditUser); err != nil {
 		global.GqaLog.Error("编辑用户失败!", zap.Any("err", err))
-		global.ErrorMessage("编辑用户失败！", c)
+		global.ErrorMessage("编辑用户失败，" + err.Error(), c)
 	} else {
 		global.SuccessMessage("编辑用户成功！", c)
 	}
@@ -67,7 +67,7 @@ func (a *ApiUser) DeleteUser(c *gin.Context) {
 	err, currentUser := service.GroupServiceApp.ServiceSystem.GetUserByUsername(currentUsername)
 	if err != nil {
 		global.GqaLog.Error("获取用户信息失败！", zap.Any("err", err))
-		global.ErrorMessage("获取用户信息失败！", c)
+		global.ErrorMessage("获取用户信息失败，" + err.Error(), c)
 		return
 	}
 	if currentUser.Id == toDeleteId.Id {
@@ -81,7 +81,7 @@ func (a *ApiUser) DeleteUser(c *gin.Context) {
 	}
 	if err := service.GroupServiceApp.ServiceSystem.DeleteUser(toDeleteId.Id); err != nil {
 		global.GqaLog.Error("删除用户失败！", zap.Any("err", err))
-		global.ErrorMessage("删除用户失败！", c)
+		global.ErrorMessage("删除用户失败，" + err.Error(), c)
 	} else {
 		global.SuccessMessage("删除用户成功！", c)
 	}
@@ -92,7 +92,7 @@ func (a *ApiUser) QueryUserById(c *gin.Context) {
 	_ = c.ShouldBindJSON(&toQueryId)
 	if err, user := service.GroupServiceApp.ServiceSystem.QueryUserById(toQueryId.Id); err != nil {
 		global.GqaLog.Error("查找用户失败！", zap.Any("err", err))
-		global.ErrorMessage("查找用户失败！", c)
+		global.ErrorMessage("查找用户失败，" + err.Error(), c)
 	} else {
 		global.SuccessMessageData(gin.H{"info": user}, "查找用户成功！", c)
 	}
@@ -101,7 +101,7 @@ func (a *ApiUser) QueryUserById(c *gin.Context) {
 func (a *ApiUser) GetUserMenu(c *gin.Context) {
 	err, menu := service.GroupServiceApp.ServiceSystem.GetUserMenu(c)
 	if err != nil {
-		global.ErrorMessage("获取用户菜单失败！", c)
+		global.ErrorMessage("获取用户菜单失败，" + err.Error(), c)
 	}
 	global.SuccessData(system.ResponseMenu{
 		Menu: menu,
@@ -111,7 +111,7 @@ func (a *ApiUser) GetUserMenu(c *gin.Context) {
 func (a *ApiUser) GetUserRole(c *gin.Context) {
 	err, role := service.GroupServiceApp.ServiceSystem.GetUserRole(c)
 	if err != nil {
-		global.ErrorMessage("获取用户角色失败！", c)
+		global.ErrorMessage("获取用户角色失败，" + err.Error(), c)
 	}
 	global.SuccessData(system.ResponseRole{
 		Role: role,

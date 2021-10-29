@@ -17,7 +17,7 @@ func (a *ApiRole)GetRoleList(c *gin.Context)  {
 	_ = c.ShouldBindJSON(&pageInfo)
 	if err, roleList, total := service.GroupServiceApp.ServiceSystem.GetRoleList(pageInfo); err != nil {
 		global.GqaLog.Error("获取角色列表失败：", zap.Any("err", err))
-		global.ErrorMessage("获取角色列表失败！", c)
+		global.ErrorMessage("获取角色列表失败，" + err.Error(), c)
 	} else {
 		global.SuccessData(system.ResponsePage{
 			List:     roleList,
@@ -33,7 +33,7 @@ func (a *ApiRole)EditRole(c *gin.Context)  {
 	_ = c.ShouldBindJSON(&toEditRole)
 	if err := service.GroupServiceApp.ServiceSystem.EditRole(toEditRole); err != nil {
 		global.GqaLog.Error("编辑角色失败!", zap.Any("err", err))
-		global.ErrorMessage("编辑角色失败！", c)
+		global.ErrorMessage("编辑角色失败，" + err.Error(), c)
 	} else {
 		global.SuccessMessage("编辑角色成功！", c)
 	}
@@ -59,7 +59,7 @@ func (a *ApiRole)DeleteRole(c *gin.Context)  {
 	_ = c.ShouldBindJSON(&toDeleteId)
 	if err := service.GroupServiceApp.ServiceSystem.DeleteRole(toDeleteId.Id); err != nil {
 		global.GqaLog.Error("删除角色失败！", zap.Any("err", err))
-		global.ErrorMessage("删除角色失败！", c)
+		global.ErrorMessage("删除角色失败，" + err.Error(), c)
 	} else {
 		global.SuccessMessage("删除角色成功！", c)
 	}
@@ -70,7 +70,7 @@ func (a *ApiRole) QueryRoleById(c *gin.Context) {
 	_ = c.ShouldBindJSON(&toQueryId)
 	if err, role := service.GroupServiceApp.ServiceSystem.QueryRoleById(toQueryId.Id); err != nil {
 		global.GqaLog.Error("查找角色失败！", zap.Any("err", err))
-		global.ErrorMessage("查找角色失败！", c)
+		global.ErrorMessage("查找角色失败，" + err.Error(), c)
 	} else {
 		global.SuccessMessageData(gin.H{"info": role}, "查找角色成功！", c)
 	}
@@ -81,7 +81,7 @@ func (a *ApiRole) GetRoleMenuList(c *gin.Context) {
 	_ = c.ShouldBindJSON(&roleCode)
 	if err, menuList := service.GroupServiceApp.ServiceSystem.GetRoleMenuList(&roleCode); err != nil {
 		global.GqaLog.Error("获取角色菜单列表失败：", zap.Any("err", err))
-		global.ErrorMessage("获取角色菜单列表失败！", c)
+		global.ErrorMessage("获取角色菜单列表失败，" + err.Error(), c)
 	} else {
 		global.SuccessData(gin.H{"info": menuList}, c)
 	}
@@ -96,7 +96,7 @@ func (a *ApiRole) EditRoleMenu(c *gin.Context) {
 	}
 	if err := service.GroupServiceApp.ServiceSystem.EditRoleMenu(&roleMenu); err != nil {
 		global.GqaLog.Error("编辑角色菜单失败：", zap.Any("err", err))
-		global.ErrorMessage("编辑角色菜单失败！", c)
+		global.ErrorMessage("编辑角色菜单失败，" + err.Error(), c)
 	} else {
 		global.SuccessMessage("编辑角色菜单成功！", c)
 	}
@@ -107,7 +107,7 @@ func (a *ApiRole) GetRoleApiList(c *gin.Context) {
 	_ = c.ShouldBindJSON(&roleCode)
 	if err, apiList := service.GroupServiceApp.ServiceSystem.GetRoleApiList(&roleCode); err != nil {
 		global.GqaLog.Error("获取角色API列表失败：", zap.Any("err", err))
-		global.SuccessMessage("获取角色API列表失败！", c)
+		global.SuccessMessage("获取角色API列表失败，" + err.Error(), c)
 	} else {
 		global.SuccessData(gin.H{"info": apiList}, c)
 	}
@@ -122,7 +122,7 @@ func (a *ApiRole) EditRoleApi(c *gin.Context) {
 	}
 	if err := service.GroupServiceApp.ServiceSystem.EditRoleApi(&roleApi); err != nil {
 		global.GqaLog.Error("编辑角色API失败：", zap.Any("err", err))
-		global.ErrorMessage("编辑角色API失败！", c)
+		global.ErrorMessage("编辑角色API失败，" + err.Error(), c)
 	} else {
 		global.SuccessMessage("编辑角色API成功！", c)
 	}

@@ -16,7 +16,7 @@ func (a *ApiDict) GetDictList(c *gin.Context) {
 	_ = c.ShouldBindJSON(&pageInfo)
 	if err, dictList, total, parentId := service.GroupServiceApp.ServiceSystem.GetDictList(pageInfo); err != nil {
 		global.GqaLog.Error("获取字典列表失败：", zap.Any("err", err))
-		global.ErrorMessage("获取字典列表失败！", c)
+		global.ErrorMessage("获取字典列表失败，" + err.Error(), c)
 	} else {
 		global.SuccessData(system.ResponsePageWithParentId{
 			List:     dictList,
@@ -33,7 +33,7 @@ func (a *ApiDict) EditDict(c *gin.Context) {
 	_ = c.ShouldBindJSON(&toEditDict)
 	if err := service.GroupServiceApp.ServiceSystem.EditDict(toEditDict); err != nil {
 		global.GqaLog.Error("编辑字典失败!", zap.Any("err", err))
-		global.ErrorMessage("编辑字典失败！", c)
+		global.ErrorMessage("编辑字典失败，" + err.Error(), c)
 	} else {
 		global.SuccessMessage("编辑字典成功！", c)
 	}
@@ -60,7 +60,7 @@ func (a *ApiDict) DeleteDict(c *gin.Context) {
 	_ = c.ShouldBindJSON(&toDeleteId)
 	if err := service.GroupServiceApp.ServiceSystem.DeleteDict(toDeleteId.Id); err != nil {
 		global.GqaLog.Error("删除字典失败！", zap.Any("err", err))
-		global.ErrorMessage("删除字典失败！", c)
+		global.ErrorMessage("删除字典失败，" + err.Error(), c)
 	} else {
 		global.SuccessMessage("删除字典成功！", c)
 	}
@@ -71,7 +71,7 @@ func (a *ApiDict) QueryDictById(c *gin.Context) {
 	_ = c.ShouldBindJSON(&toQueryId)
 	if err, dict := service.GroupServiceApp.ServiceSystem.QueryDictById(toQueryId.Id); err != nil {
 		global.GqaLog.Error("查找字典失败！", zap.Any("err", err))
-		global.ErrorMessage("查找字典失败！", c)
+		global.ErrorMessage("查找字典失败，" + err.Error(), c)
 	} else {
 		global.SuccessMessageData(gin.H{"info": dict}, "查找字典成功！", c)
 	}
@@ -82,7 +82,7 @@ func (a *ApiDict) QueryDictByParentId(c *gin.Context) {
 	_ = c.ShouldBindJSON(&toQueryParentId)
 	if err, dict := service.GroupServiceApp.ServiceSystem.QueryDictByParentId(toQueryParentId.ParentId); err != nil {
 		global.GqaLog.Error("查找字典失败！", zap.Any("err", err))
-		global.ErrorMessage("查找字典失败！", c)
+		global.ErrorMessage("查找字典失败，" + err.Error(), c)
 	} else {
 		global.SuccessMessageData(gin.H{"info": dict}, "查找字典成功！", c)
 	}

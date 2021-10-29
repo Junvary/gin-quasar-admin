@@ -18,7 +18,7 @@ func (a *ApiCaptcha) Captcha(c *gin.Context) {
 	cp := base64Captcha.NewCaptcha(driver, global.Store)
 	if id, b64s, err := cp.Generate(); err != nil {
 		global.GqaLog.Error("验证码获取失败!", zap.Any("err", err))
-		global.ErrorMessage("验证码获取失败！", c)
+		global.ErrorMessage("验证码获取失败，" + err.Error(), c)
 	} else {
 		global.SuccessMessageData(system.ResponseCaptcha{
 			CaptchaId: id,

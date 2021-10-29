@@ -12,7 +12,7 @@ func CasbinHandler() gin.HandlerFunc {
 		act := c.Request.Method
 		err, role := service.GroupServiceApp.ServiceSystem.ServiceUser.GetUserRole(c)
 		if err!= nil{
-			global.ErrorMessage("对不起，获取用户角色失败！", c)
+			global.ErrorMessage("对不起，获取用户角色失败，" + err.Error(), c)
 			c.Abort()
 			return
 		}

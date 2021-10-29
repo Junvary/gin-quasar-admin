@@ -16,7 +16,7 @@ func (a *ApiDept) GetDeptList(c *gin.Context) {
 	_ = c.ShouldBindJSON(&pageInfo)
 	if err, deptList, total := service.GroupServiceApp.ServiceSystem.GetDeptList(pageInfo); err != nil {
 		global.GqaLog.Error("获取部门列表失败：", zap.Any("err", err))
-		global.ErrorMessage("获取部门列表失败！", c)
+		global.ErrorMessage("获取部门列表失败，" + err.Error(), c)
 	} else {
 		global.SuccessData(system.ResponsePage{
 			List:     deptList,
@@ -32,7 +32,7 @@ func (a *ApiDept) EditDept(c *gin.Context) {
 	_ = c.ShouldBindJSON(&toEditDept)
 	if err := service.GroupServiceApp.ServiceSystem.EditDept(toEditDept); err != nil {
 		global.GqaLog.Error("编辑部门失败!", zap.Any("err", err))
-		global.ErrorMessage("编辑部门失败！", c)
+		global.ErrorMessage("编辑部门失败，" + err.Error(), c)
 	} else {
 		global.SuccessMessage("编辑部门成功！", c)
 	}
@@ -61,7 +61,7 @@ func (a *ApiDept) DeleteDept(c *gin.Context) {
 	_ = c.ShouldBindJSON(&toDeleteId)
 	if err := service.GroupServiceApp.ServiceSystem.DeleteDept(toDeleteId.Id); err != nil {
 		global.GqaLog.Error("删除部门失败！", zap.Any("err", err))
-		global.ErrorMessage("删除部门失败！", c)
+		global.ErrorMessage("删除部门失败，" + err.Error(), c)
 	} else {
 		global.SuccessMessage("删除部门成功！", c)
 	}
@@ -72,7 +72,7 @@ func (a *ApiDept) QueryDeptById(c *gin.Context) {
 	_ = c.ShouldBindJSON(&toQueryId)
 	if err, dept := service.GroupServiceApp.ServiceSystem.QueryDeptById(toQueryId.Id); err != nil {
 		global.GqaLog.Error("查找部门失败！", zap.Any("err", err))
-		global.ErrorMessage("查找部门失败！", c)
+		global.ErrorMessage("查找部门失败，" + err.Error(), c)
 	} else {
 		global.SuccessMessageData(gin.H{"info": dept}, "查找部门成功！", c)
 	}

@@ -16,7 +16,7 @@ func (a *ApiMenu) GetMenuList(c *gin.Context) {
 	_ = c.ShouldBindJSON(&pageInfo)
 	if err, menuList, total := service.GroupServiceApp.ServiceSystem.GetMenuList(pageInfo); err != nil {
 		global.GqaLog.Error("获取菜单列表失败：", zap.Any("err", err))
-		global.ErrorMessage("获取菜单列表失败！", c)
+		global.ErrorMessage("获取菜单列表失败，" + err.Error(), c)
 	} else {
 		global.SuccessData(system.ResponsePage{
 			List:     menuList,
@@ -32,7 +32,7 @@ func (a *ApiMenu) EditMenu(c *gin.Context) {
 	_ = c.ShouldBindJSON(&toEditMenu)
 	if err := service.GroupServiceApp.ServiceSystem.EditMenu(toEditMenu); err != nil {
 		global.GqaLog.Error("编辑菜单失败!", zap.Any("err", err))
-		global.ErrorMessage("编辑菜单失败！", c)
+		global.ErrorMessage("编辑菜单失败，" + err.Error(), c)
 	} else {
 		global.SuccessMessage("编辑菜单成功！", c)
 	}
@@ -65,7 +65,7 @@ func (a *ApiMenu) DeleteMenu(c *gin.Context) {
 	_ = c.ShouldBindJSON(&toDeleteId)
 	if err := service.GroupServiceApp.ServiceSystem.DeleteMenu(toDeleteId.Id); err != nil {
 		global.GqaLog.Error("删除菜单失败！", zap.Any("err", err))
-		global.ErrorMessage("删除菜单失败！", c)
+		global.ErrorMessage("删除菜单失败，" + err.Error(), c)
 	} else {
 		global.SuccessMessage("删除菜单成功！", c)
 	}
@@ -76,7 +76,7 @@ func (a *ApiMenu) QueryMenuById(c *gin.Context) {
 	_ = c.ShouldBindJSON(&toQueryId)
 	if err, menu := service.GroupServiceApp.ServiceSystem.QueryMenuById(toQueryId.Id); err != nil {
 		global.GqaLog.Error("查找菜单失败！", zap.Any("err", err))
-		global.ErrorMessage("查找菜单失败！", c)
+		global.ErrorMessage("查找菜单失败，" + err.Error(), c)
 	} else {
 		global.SuccessMessageData(gin.H{"info": menu}, "查找菜单成功！", c)
 	}

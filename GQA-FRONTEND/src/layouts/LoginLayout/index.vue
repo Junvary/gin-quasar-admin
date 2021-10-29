@@ -270,6 +270,11 @@ export default {
                                     this.checkDbStatus = false
                                     this.getDictDetail()
                                     this.$refs.pageBanner.showLoginForm()
+                                } else {
+                                    this.$q.notify({
+                                        type: 'negative',
+                                        message: res.message,
+                                    })
                                 }
                             })
                             .finally(() => {

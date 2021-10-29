@@ -34,12 +34,12 @@ func (a *ApiCheckAndInitDb) InitDb(c *gin.Context)  {
 	var initDbInfo system.RequestInitDb
 	if err := c.ShouldBindJSON(&initDbInfo); err != nil {
 		global.GqaLog.Error("参数校验不通过！", zap.Any("err", err))
-		global.ErrorMessage("参数校验不通过！", c)
+		global.ErrorMessage("参数校验不通过，" + err.Error(), c)
 		return
 	}
 	if err := service.GroupServiceApp.ServiceCheckAndInitDb.CheckAndInitDb(initDbInfo); err != nil {
 		global.GqaLog.Error("自动创建数据库失败！", zap.Any("err", err))
-		global.ErrorMessage("自动创建数据库失败，请查看后台日志，检查后在进行初始化！", c)
+		global.ErrorMessage("自动创建数据库失败，" + err.Error(), c)
 		return
 	}
 	global.SuccessMessage("系统初始化成功！", c)

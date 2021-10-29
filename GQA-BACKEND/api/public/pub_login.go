@@ -16,14 +16,14 @@ type ApiLogin struct {
 func (a *ApiLogin) Login(c *gin.Context) {
 	var l system.RequestLogin
 	if err := c.ShouldBindJSON(&l); err != nil {
-		global.ErrorMessage(err.Error(), c)
+		global.ErrorMessage("表单传递不匹配，" + err.Error(), c)
 		return
 	}
 	if global.Store.Verify(l.CaptchaId, l.Captcha, true) {
 		u := &system.SysUser{Username: l.Username, Password: l.Password}
 		if err, user := service.GroupServiceApp.ServiceLogin.Login(u); err != nil {
 			global.GqaLog.Error(l.Username+" 登录失败，用户名或密码错误！", zap.Any("err", err))
-			global.ErrorMessage("用户名或密码错误！", c)
+			global.ErrorMessage("用户名或密码错误，" + err.Error(), c)
 		} else {
 			a.createToken(*user, c)
 		}
@@ -47,7 +47,7 @@ func (a *ApiLogin) createToken(user system.SysUser, c *gin.Context) {
 	ss, err := token.SignedString([]byte(global.GqaConfig.JWT.SecretKey))
 	if err != nil {
 		global.GqaLog.Error("jwt签发失败！", zap.Any("err", err))
-		global.ErrorMessage("jwt签发失败！", c)
+		global.ErrorMessage("jwt签发失败，" + err.Error(), c)
 		return
 	}
 	global.SuccessMessageData(system.ResponseLogin{
