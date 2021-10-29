@@ -81,11 +81,6 @@ export default {
                     res.data.info.forEach((item) => {
                         this.ticked.push(item.MenuId)
                     })
-                } else {
-                    this.$q.notify({
-                        type: 'negative',
-                        message: res.message,
-                    })
                 }
             })
         },
@@ -107,11 +102,6 @@ export default {
                         message: res.message,
                     })
                     this.getRoleMenuList()
-                } else {
-                    this.$q.notify({
-                        type: 'negative',
-                        message: res.message,
-                    })
                 }
             })
         },

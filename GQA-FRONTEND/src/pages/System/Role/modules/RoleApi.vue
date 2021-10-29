@@ -100,11 +100,6 @@ export default {
                     res.data.info.forEach((item) => {
                         this.ticked.push('p:' + item.V1 + 'm:' + item.V2)
                     })
-                } else {
-                    this.$q.notify({
-                        type: 'negative',
-                        message: res.message,
-                    })
                 }
             })
         },
@@ -131,11 +126,6 @@ export default {
                         message: res.message,
                     })
                     this.getRoleApiList()
-                } else {
-                    this.$q.notify({
-                        type: 'negative',
-                        message: res.message,
-                    })
                 }
             })
         },

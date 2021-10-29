@@ -187,11 +187,6 @@ export default {
                             type: 'positive',
                             message: res.message,
                         })
-                    } else {
-                        this.$q.notify({
-                            type: 'negative',
-                            message: res.message,
-                        })
                     }
                 } else if (this.formType === 'add') {
                     const res = await postAction(this.addOrEditUrl.add, this.addOrEditDetail)
@@ -201,11 +196,6 @@ export default {
                             message: res.message,
                         })
                         this.addOrEditVisible = false
-                    } else {
-                        this.$q.notify({
-                            type: 'negative',
-                            message: res.message,
-                        })
                     }
                 } else {
                     this.$q.notify({

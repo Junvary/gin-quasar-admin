@@ -58,14 +58,14 @@ api.interceptors.response.use(response => {
             case 400:
                 Notify.create({
                     type: 'negative',
-                    message: response.data.message || '数据异常',
+                    message: response.data.message || '数据异常！',
                 })
                 return response.data
             default:
-                // Notify.create({
-                //     type: 'negative',
-                //     message: response.data.message || '数据异常',
-                // })
+                Notify.create({
+                    type: 'negative',
+                    message: response.data.message || '操作失败！',
+                })
                 return response.data
         }
     }

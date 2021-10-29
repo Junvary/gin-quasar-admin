@@ -113,11 +113,6 @@ export default {
                             type: 'positive',
                             message: res.message,
                         })
-                    } else {
-                        this.$q.notify({
-                            type: 'negative',
-                            message: res.message,
-                        })
                     }
                     this.$refs.addOrEditDialog.onClose()
                 })

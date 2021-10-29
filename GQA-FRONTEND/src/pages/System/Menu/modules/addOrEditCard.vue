@@ -224,22 +224,12 @@ export default {
                             type: 'positive',
                             message: res.message,
                         })
-                    } else {
-                        this.$q.notify({
-                            type: 'negative',
-                            message: res.message,
-                        })
                     }
                 } else if (this.formType === 'add') {
                     const res = await postAction(this.addOrEditUrl.add, this.addOrEditDetail)
                     if (res.code === 1) {
                         this.$q.notify({
                             type: 'positive',
-                            message: res.message,
-                        })
-                    } else {
-                        this.$q.notify({
-                            type: 'negative',
                             message: res.message,
                         })
                     }

@@ -13,6 +13,8 @@ export async function HandleLogin({ commit }, loginForm) {
         commit('SET_REALNAME', realName)
         commit('SET_AVATAR', avatar)
         return true
+    } else {
+        return
     }
 }
 

@@ -234,7 +234,7 @@ export default {
                         this.getDictDetail()
                         this.checkDbStatus = false
                     }
-                    if (res.data?.needInit === true) {
+                    if (res.data.needInit === true) {
                         this.$q.notify({
                             type: 'warning',
                             message: res.message,
@@ -270,11 +270,6 @@ export default {
                                     this.checkDbStatus = false
                                     this.getDictDetail()
                                     this.$refs.pageBanner.showLoginForm()
-                                } else {
-                                    this.$q.notify({
-                                        type: 'negative',
-                                        message: res.message,
-                                    })
                                 }
                             })
                             .finally(() => {

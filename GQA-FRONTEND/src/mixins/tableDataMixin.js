@@ -65,11 +65,6 @@ export const tableDataMixin = {
                             type: 'positive',
                             message: res.message,
                         })
-                    } else {
-                        this.$q.notify({
-                            type: 'negative',
-                            message: res.message,
-                        })
                     }
                     this.getTableData()
                 })

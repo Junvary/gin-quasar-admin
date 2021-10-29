@@ -46,11 +46,6 @@ export const addOrEditMixin = {
             })
             if (res.code === 1) {
                 this.addOrEditDetail = res.data.info
-            } else {
-                this.$q.notify({
-                    type: 'negative',
-                    message: res.message,
-                })
             }
             this.loading = false
         },
@@ -68,11 +63,6 @@ export const addOrEditMixin = {
                             message: res.message,
                         })
                         this.addOrEditVisible = false
-                    } else {
-                        this.$q.notify({
-                            type: 'negative',
-                            message: res.message,
-                        })
                     }
                 } else if (this.formType === 'add') {
                     const res = await postAction(this.addOrEditUrl.add, this.addOrEditDetail)
@@ -82,11 +72,6 @@ export const addOrEditMixin = {
                             message: res.message,
                         })
                         this.addOrEditVisible = false
-                    } else {
-                        this.$q.notify({
-                            type: 'negative',
-                            message: res.message,
-                        })
                     }
                 } else {
                     this.$q.notify({
