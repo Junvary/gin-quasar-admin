@@ -167,11 +167,11 @@ export default {
             postAction(this.addOrEditUrl.list, {
                 page: this.pagination.page,
                 pageSize: this.pagination.rowsPerPage,
-                ...this.searchParams,
+                ...this.queryParams,
             })
                 .then((res) => {
                     this.pagination.rowsNumber = res.data.total
-                    this.tableData = res.data.list
+                    this.tableData = res.data.records
                 })
                 .finally(() => {
                     this.loading = false

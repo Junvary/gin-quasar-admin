@@ -31,6 +31,10 @@ func (r *RouterRole) InitRouterRole(Router *gin.RouterGroup) (R gin.IRoutes) {
 		roleGroup.POST("role-api", apiRole.GetRoleApiList)
 		// 编辑角色Api
 		roleGroup.PUT("role-api-edit", apiRole.EditRoleApi)
+		// 根据角色查找用户
+		roleGroup.POST("role-user", apiRole.QueryUserByRole)
+		// 从角色中移除某个用户
+		roleGroup.POST("role-user-remove", apiRole.RemoveRoleUser)
 	}
 	return Router
 }

@@ -11,23 +11,23 @@
                 <template v-slot:default-header="prop">
                     <div class="row items-center">
                         <q-chip color="primary" dense>
-                            {{ prop.node.V3 }}
+                            {{ prop.node.group }}
                         </q-chip>
-                        <q-chip color="primary" dense v-if="prop.node.V2=== 'POST'">
-                            {{ prop.node.V2 }}
+                        <q-chip color="primary" dense v-if="prop.node.method=== 'POST'">
+                            {{ prop.node.method }}
                         </q-chip>
-                        <q-chip color="positive" dense v-if="prop.node.V2=== 'GET'">
-                            {{ prop.node.V2 }}
+                        <q-chip color="positive" dense v-if="prop.node.method=== 'GET'">
+                            {{ prop.node.method }}
                         </q-chip>
-                        <q-chip color="negative" dense v-if="prop.node.V2=== 'DELETE'">
-                            {{ prop.node.V2 }}
+                        <q-chip color="negative" dense v-if="prop.node.method=== 'DELETE'">
+                            {{ prop.node.method }}
                         </q-chip>
-                        <q-chip color="warning" dense v-if="prop.node.V2=== 'PUT'">
-                            {{ prop.node.V2 }}
+                        <q-chip color="warning" dense v-if="prop.node.method=== 'PUT'">
+                            {{ prop.node.method }}
                         </q-chip>
-                        <div class="text-weight-bold">{{ prop.node.V1 }}</div>
+                        <div class="text-weight-bold">{{ prop.node.path }}</div>
                         <span class="text-weight-light text-black">
-                            （{{ prop.node.V4}}）
+                            （{{ prop.node.desc}}）
                         </span>
                     </div>
                 </template>
@@ -44,7 +44,7 @@ import { tableDataMixin } from 'src/mixins/tableDataMixin'
 import { postAction, putAction } from 'src/api/manage'
 
 export default {
-    name: 'RoleApi',
+    name: 'RolePermissionApi',
     mixins: [tableDataMixin],
     props: {
         row: {
@@ -62,12 +62,15 @@ export default {
                 }
                 const data = this.tableData
                 for (let item of data) {
-                    item.trueId = 'p:' + item.V1 + 'm:' + item.V2
+                    item.trueId = 'p:' + item.path + 'm:' + item.method
                 }
                 return data
             }
             return []
         },
+    },
+    created() {
+        this.getTableData()
     },
     data() {
         return {
@@ -97,28 +100,28 @@ export default {
                 roleCode: this.row.roleCode,
             }).then((res) => {
                 if (res.code === 1) {
-                    res.data.info.forEach((item) => {
-                        this.ticked.push('p:' + item.V1 + 'm:' + item.V2)
+                    res.data.records.forEach((item) => {
+                        this.ticked.push('p:' + item[1] + 'm:' + item[2])
                     })
                 }
             })
         },
         handleRoleApi() {
-            const roleApi = []
+            const policy = []
             this.tableData.forEach((item) => {
                 for (let t of this.ticked) {
                     if (t === item.trueId) {
-                        roleApi.push(item)
+                        policy.push({
+                            roleCode: this.row.roleCode,
+                            path: item.path,
+                            method: item.method,
+                        })
                     }
                 }
             })
-            for (let i of roleApi) {
-                i.V0 = this.row.roleCode
-                delete i.ID
-            }
             putAction(this.url.roleApiEdit, {
                 roleCode: this.row.roleCode,
-                roleApi: roleApi,
+                policy: policy,
             }).then((res) => {
                 if (res.code === 1) {
                     this.$q.notify({

@@ -19,7 +19,7 @@ func (a *ApiMenu) GetMenuList(c *gin.Context) {
 		global.ErrorMessage("获取菜单列表失败，" + err.Error(), c)
 	} else {
 		global.SuccessData(system.ResponsePage{
-			List:     menuList,
+			Records:     menuList,
 			Page:     pageInfo.Page,
 			PageSize: pageInfo.PageSize,
 			Total:    total,
@@ -78,6 +78,6 @@ func (a *ApiMenu) QueryMenuById(c *gin.Context) {
 		global.GqaLog.Error("查找菜单失败！", zap.Any("err", err))
 		global.ErrorMessage("查找菜单失败，" + err.Error(), c)
 	} else {
-		global.SuccessMessageData(gin.H{"info": menu}, "查找菜单成功！", c)
+		global.SuccessMessageData(gin.H{"records": menu}, "查找菜单成功！", c)
 	}
 }

@@ -19,7 +19,7 @@ func (a *ApiDictDetail) GetDictDetailList(c *gin.Context) {
 		global.ErrorMessage("获取字典列表失败，" + err.Error(), c)
 	} else {
 		global.SuccessData(system.ResponsePage{
-			List:     dictList,
+			Records:     dictList,
 			Page:     pageInfo.Page,
 			PageSize: pageInfo.PageSize,
 			Total:    total,

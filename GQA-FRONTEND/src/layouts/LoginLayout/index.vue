@@ -284,7 +284,7 @@ export default {
         getDictDetail() {
             postAction(dictDetailUrl).then((res) => {
                 if (res.code === 1) {
-                    const dictDetail = res.data.list
+                    const dictDetail = res.data.records
                     const dictList = ArrayToTree(dictDetail)
                     let dict = {}
                     for (let d of dictList) {

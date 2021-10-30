@@ -4,7 +4,7 @@ export const tableDataMixin = {
     data() {
         return {
             loading: false,
-            searchParams: {},
+            queryParams: {},
             tableData: [],
             pagination: {
                 sortBy: 'desc',
@@ -15,20 +15,17 @@ export const tableDataMixin = {
             },
         }
     },
-    created() {
-        this.searchParams = {}
-        this.getTableData()
-    },
     methods: {
         getTableData() {
             this.loading = true
+            const params = Object.assign({}, this.queryParams)
             postAction(this.url.list, {
                 page: this.pagination.page,
                 pageSize: this.pagination.rowsPerPage,
-                ...this.searchParams,
+                ...params,
             }).then(res => {
                 this.pagination.rowsNumber = res.data.total
-                this.tableData = res.data.list
+                this.tableData = res.data.records
             }).finally(() => {
                 this.loading = false
             })
@@ -37,7 +34,6 @@ export const tableDataMixin = {
             this.getTableData()
         },
         resetSearch() {
-            this.searchParams = {}
             this.getTableData()
         },
         onRequest(props) {

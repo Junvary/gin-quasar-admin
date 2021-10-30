@@ -1,6 +1,5 @@
 <template>
     <q-page padding>
-
         <q-table row-key="id" separator="cell" :data="tableData" :columns="columns" v-model:pagination="pagination"
             :loading="loading" @request="onRequest">
             <template v-slot:body-cell-actions="props">
@@ -38,6 +37,9 @@ export default {
                 { name: 'actions', align: 'center', label: '操作', field: 'actions' },
             ],
         }
+    },
+    created() {
+        this.getTableData()
     },
 }
 </script>

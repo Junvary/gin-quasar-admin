@@ -4,7 +4,6 @@ import (
 	"errors"
 	"gin-quasar-admin/global"
 	"gin-quasar-admin/model/system"
-	adapter "github.com/casbin/gorm-adapter/v3"
 	"gorm.io/gorm"
 )
 
@@ -68,19 +67,41 @@ func (s *ServiceRole) EditRoleMenu(roleMenu *system.RequestRoleMenuEdit) (err er
 	return nil
 }
 
-func (s *ServiceRole) GetRoleApiList(roleCode *system.RequestRoleCode) (err error, api []adapter.CasbinRule) {
-	err = global.GqaDb.Where("v0=?", roleCode.RoleCode).Find(&api).Error
+func (s *ServiceRole) GetRoleApiList(roleCode *system.RequestRoleCode) (err error, api [][]string) {
+	api = global.GqaCasbin.GetFilteredPolicy(0, roleCode.RoleCode)
 	return err, api
 }
 
 func (s *ServiceRole) EditRoleApi(roleApi *system.RequestRoleApiEdit) (err error) {
-	err = global.GqaDb.Where("v0=?", roleApi.RoleCode).Delete(&adapter.CasbinRule{}).Error
-	if err != nil{
-		return err
+	_, _ = global.GqaCasbin.RemoveFilteredPolicy(0, roleApi.RoleCode)
+	var newPolicy [][]string
+	for _, v:= range roleApi.Policy{
+		sc := system.SysCasbin{
+			Ptype: "p",
+			RoleCode: v.RoleCode,
+			Path: v.Path,
+			Method: v.Method,
+		}
+		newPolicy = append(newPolicy, []string{sc.RoleCode, sc.Path, sc.Method})
 	}
-	if len(roleApi.RoleApi) != 0 {
-		err = global.GqaDb.Model(&adapter.CasbinRule{}).Create(&roleApi.RoleApi).Error
-		return err
+	if len(newPolicy) != 0{
+		_, _ = global.GqaCasbin.AddPolicies(newPolicy)
 	}
 	return nil
 }
+
+func (s *ServiceRole) QueryUserByRole(roleCode *system.RequestRoleCode) (err error, user []system.SysUser) {
+	role := system.SysRole{
+		RoleCode: roleCode.RoleCode,
+	}
+	var userList []system.SysUser
+	err = global.GqaDb.Model(&role).Association("User").Find(&userList)
+	return err, userList
+}
+
+func (s *ServiceRole) RemoveRoleUser(toDeleteRoleUser *system.RequestRoleUser) (err error) {
+	var roleUser system.SysUserRole
+	err = global.GqaDb.Where("sys_role_role_code = ? and sys_user_id = ?", toDeleteRoleUser.RoleCode, toDeleteRoleUser.UserId).Delete(&roleUser).Error
+	return err
+}
+

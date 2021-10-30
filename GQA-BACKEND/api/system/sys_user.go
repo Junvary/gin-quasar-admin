@@ -20,7 +20,7 @@ func (a *ApiUser) GetUserList(c *gin.Context) {
 		global.ErrorMessage("获取用户列表失败，" + err.Error(), c)
 	} else {
 		global.SuccessData(system.ResponsePage{
-			List:     userList,
+			Records:     userList,
 			Page:     pageInfo.Page,
 			PageSize: pageInfo.PageSize,
 			Total:    total,
@@ -94,7 +94,7 @@ func (a *ApiUser) QueryUserById(c *gin.Context) {
 		global.GqaLog.Error("查找用户失败！", zap.Any("err", err))
 		global.ErrorMessage("查找用户失败，" + err.Error(), c)
 	} else {
-		global.SuccessMessageData(gin.H{"info": user}, "查找用户成功！", c)
+		global.SuccessMessageData(gin.H{"records": user}, "查找用户成功！", c)
 	}
 }
 

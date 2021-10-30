@@ -25,3 +25,4 @@ func CasbinHandler() gin.HandlerFunc {
 		}
 	}
 }
+

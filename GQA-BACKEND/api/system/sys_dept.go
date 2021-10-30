@@ -19,7 +19,7 @@ func (a *ApiDept) GetDeptList(c *gin.Context) {
 		global.ErrorMessage("获取部门列表失败，" + err.Error(), c)
 	} else {
 		global.SuccessData(system.ResponsePage{
-			List:     deptList,
+			Records:     deptList,
 			Page:     pageInfo.Page,
 			PageSize: pageInfo.PageSize,
 			Total:    total,
@@ -74,6 +74,6 @@ func (a *ApiDept) QueryDeptById(c *gin.Context) {
 		global.GqaLog.Error("查找部门失败！", zap.Any("err", err))
 		global.ErrorMessage("查找部门失败，" + err.Error(), c)
 	} else {
-		global.SuccessMessageData(gin.H{"info": dept}, "查找部门成功！", c)
+		global.SuccessMessageData(gin.H{"records": dept}, "查找部门成功！", c)
 	}
 }

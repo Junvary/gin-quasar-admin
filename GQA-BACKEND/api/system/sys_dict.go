@@ -19,7 +19,7 @@ func (a *ApiDict) GetDictList(c *gin.Context) {
 		global.ErrorMessage("获取字典列表失败，" + err.Error(), c)
 	} else {
 		global.SuccessData(system.ResponsePageWithParentId{
-			List:     dictList,
+			Records:     dictList,
 			Page:     pageInfo.Page,
 			PageSize: pageInfo.PageSize,
 			Total:    total,
@@ -73,7 +73,7 @@ func (a *ApiDict) QueryDictById(c *gin.Context) {
 		global.GqaLog.Error("查找字典失败！", zap.Any("err", err))
 		global.ErrorMessage("查找字典失败，" + err.Error(), c)
 	} else {
-		global.SuccessMessageData(gin.H{"info": dict}, "查找字典成功！", c)
+		global.SuccessMessageData(gin.H{"records": dict}, "查找字典成功！", c)
 	}
 }
 
@@ -84,6 +84,6 @@ func (a *ApiDict) QueryDictByParentId(c *gin.Context) {
 		global.GqaLog.Error("查找字典失败！", zap.Any("err", err))
 		global.ErrorMessage("查找字典失败，" + err.Error(), c)
 	} else {
-		global.SuccessMessageData(gin.H{"info": dict}, "查找字典成功！", c)
+		global.SuccessMessageData(gin.H{"records": dict}, "查找字典成功！", c)
 	}
 }

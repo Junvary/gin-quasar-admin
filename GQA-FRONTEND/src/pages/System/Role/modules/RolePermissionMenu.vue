@@ -29,7 +29,7 @@ import { ArrayToTree } from 'src/utils/arrayAndTree'
 import { postAction, putAction } from 'src/api/manage'
 
 export default {
-    name: 'RoleMenu',
+    name: 'RolePermissionMenu',
     mixins: [tableDataMixin],
     props: {
         row: {
@@ -49,6 +49,9 @@ export default {
             }
             return []
         },
+    },
+    created() {
+        this.getTableData()
     },
     data() {
         return {
@@ -78,7 +81,7 @@ export default {
                 roleCode: this.row.roleCode,
             }).then((res) => {
                 if (res.code === 1) {
-                    res.data.info.forEach((item) => {
+                    res.data.records.forEach((item) => {
                         this.ticked.push(item.MenuId)
                     })
                 }

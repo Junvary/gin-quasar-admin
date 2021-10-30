@@ -45,7 +45,7 @@ export const addOrEditMixin = {
                 id,
             })
             if (res.code === 1) {
-                this.addOrEditDetail = res.data.info
+                this.addOrEditDetail = res.data.records
             }
             this.loading = false
         },

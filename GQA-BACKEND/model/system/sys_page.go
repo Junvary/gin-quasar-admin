@@ -28,14 +28,14 @@ type RequestPageWithParentId struct {
 }
 
 type ResponsePage struct {
-	List     interface{} `json:"list"`
+	Records  interface{} `json:"records"`
 	Total    int64       `json:"total"`
 	Page     int         `json:"page"`
 	PageSize int         `json:"pageSize"`
 }
 
 type ResponsePageWithParentId struct {
-	List     interface{} `json:"list"`
+	Records  interface{} `json:"records"`
 	Total    int64       `json:"total"`
 	Page     int         `json:"page"`
 	PageSize int         `json:"pageSize"`

@@ -77,6 +77,9 @@ export default {
             ],
         }
     },
+    created() {
+        this.getTableData()
+    },
     methods: {
         show(row) {
             this.dictDetailVisible = true
@@ -92,7 +95,7 @@ export default {
             })
                 .then((res) => {
                     this.pagination.rowsNumber = res.data.total
-                    this.tableData = res.data.list
+                    this.tableData = res.data.records
                 })
                 .finally(() => {
                     this.loading = false

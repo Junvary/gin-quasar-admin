@@ -2,8 +2,8 @@
     <q-page padding>
 
         <div class="row q-gutter-md items-center" style="margin-bottom: 10px">
-            <q-input style="width: 20%" v-model="searchParams.roleCode" label="角色编码" />
-            <q-input style="width: 20%" v-model="searchParams.roleName" label="角色名" />
+            <q-input style="width: 20%" v-model="queryParams.roleCode" label="角色编码" />
+            <q-input style="width: 20%" v-model="queryParams.roleName" label="角色名" />
 
             <q-btn color="primary" @click="handleSearch" label="搜索" />
             <q-btn color="primary" @click="resetSearch" label="重置" />
@@ -30,7 +30,7 @@
                     <div class="q-gutter-xs">
                         <q-btn color="primary" @click="showEditForm(props.row)" label="编辑"
                             v-if="props.row.roleCode !== 'super-admin'" />
-                        <q-btn color="warning" @click="showRolePermission(props.row)" label="用户" />
+                        <q-btn color="warning" @click="showRoleUser(props.row)" label="用户" />
                         <q-btn color="warning" @click="showRolePermission(props.row)" label="权限"
                             v-if="props.row.roleCode !== 'super-admin'" />
                         <q-btn color="negative" @click="handleDelete(props.row)" label="删除"
@@ -41,6 +41,7 @@
         </q-table>
         <add-or-edit-dialog ref="addOrEditDialog" @emitAddOrEdit="emitAddOrEdit" @handleFinish="handleFinish" />
         <role-permission-dialog ref="rolePermissionDialog" />
+        <role-user-dialog ref="roleUserDialog" />
     </q-page>
 </template>
 
@@ -49,6 +50,7 @@ import { tableDataMixin } from 'src/mixins/tableDataMixin'
 import addOrEditDialog from './modules/addOrEditDialog'
 import GqaStatus from 'src/components/GqaStatus'
 import RolePermissionDialog from './modules/RolePermissionDialog'
+import RoleUserDialog from './modules/RoleUserDialog'
 
 export default {
     name: 'Role',
@@ -57,6 +59,10 @@ export default {
         addOrEditDialog,
         GqaStatus,
         RolePermissionDialog,
+        RoleUserDialog,
+    },
+    created() {
+        this.getTableData()
     },
     data() {
         return {
@@ -77,6 +83,9 @@ export default {
     methods: {
         showRolePermission(row) {
             this.$refs.rolePermissionDialog.show(row)
+        },
+        showRoleUser(row) {
+            this.$refs.roleUserDialog.show(row)
         },
     },
 }

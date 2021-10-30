@@ -75,7 +75,9 @@ export default {
             selectedKey: '',
         }
     },
-    created() {},
+    created() {
+        this.getTableData()
+    },
     methods: {
         showAddForm() {
             this.$refs.addOrEditDialog.onClose()
