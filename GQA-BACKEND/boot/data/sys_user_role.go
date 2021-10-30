@@ -22,8 +22,8 @@ func (s *sysUserRole)Init()error  {
 		var count int64
 		tx.Model(&system.SysUserRole{}).Count(&count)
 		if count != 0 {
-			fmt.Println("[Gin-Quasar-Admin] --> sys_user_role 表的初始数据已存在！数据量：", count)
-			global.GqaLog.Error("sys_user_role 表的初始数据已存在！", zap.Any("数据量", count))
+			fmt.Println("[Gin-Quasar-Admin] --> sys_user_role 表的初始数据已存在，跳过初始化数据！数据量：", count)
+			global.GqaLog.Error("sys_user_role 表的初始数据已存在，跳过初始化数据！", zap.Any("数据量", count))
 			return nil
 		}
 		if err := tx.Create(&sysUserRoleData).Error; err != nil { // 遇到错误时回滚事务

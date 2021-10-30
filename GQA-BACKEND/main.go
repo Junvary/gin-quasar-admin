@@ -11,6 +11,7 @@ func main() {
 	global.GqaDb = boot.Mysql()
 	if global.GqaDb != nil {
 		boot.Migrate(global.GqaDb)
+		global.GqaCasbin = boot.Casbin(global.GqaDb)
 		db, _ := global.GqaDb.DB()
 		defer db.Close()
 	}

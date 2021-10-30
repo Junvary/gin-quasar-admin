@@ -2,6 +2,7 @@ package global
 
 import (
 	"gin-quasar-admin/config"
+	"github.com/casbin/casbin/v2"
 	"github.com/mojocn/base64Captcha"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
@@ -18,10 +19,11 @@ var (
 	GqaLog          *zap.Logger
 	GqaDb           *gorm.DB
 	GqaSingleFlight = &singleflight.Group{}
+	GqaCasbin       *casbin.Enforcer
 )
 
 type GqaModel struct {
-	Id       uint           `json:"id" gorm:"comment:id;primarykey;"`
+	Id       uint           `json:"id" gorm:"comment:id;primarykey;autoIncrement;"`
 	Status   string         `json:"status" gorm:"comment:状态;default:on;"`
 	Sort     int            `json:"sort" gorm:"comment:排序;default:1;"`
 	Desc     string         `json:"desc" gorm:"comment:备注描述;type:text;"`
@@ -32,4 +34,3 @@ type GqaModel struct {
 	DeleteAt gorm.DeletedAt `json:"-" gorm:"index"`
 	DeleteBy string         `json:"-"`
 }
-

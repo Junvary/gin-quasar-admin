@@ -8,7 +8,7 @@ import (
 	"gin-quasar-admin/global"
 	"gin-quasar-admin/model/system"
 	"gin-quasar-admin/utils"
-	adapter "github.com/casbin/gorm-adapter/v3"
+	gormadapter "github.com/casbin/gorm-adapter/v3"
 
 	//"github.com/google/uuid"
 	"github.com/spf13/viper"
@@ -62,7 +62,8 @@ func (s *ServiceCheckAndInitDb) CheckAndInitDb(initDbInfo system.RequestInitDb) 
 		system.SysRoleMenu{},
 		system.SysDept{},
 		system.SysDict{},
-		adapter.CasbinRule{},
+		system.SysApi{},
+		gormadapter.CasbinRule{},
 	)
 	if err != nil {
 		global.GqaDb = nil
@@ -76,6 +77,7 @@ func (s *ServiceCheckAndInitDb) CheckAndInitDb(initDbInfo system.RequestInitDb) 
 		data.SysRoleMenu,
 		data.SysDept,
 		data.SysDict,
+		data.SysApi,
 		data.SysCasbin,
 	)
 	if err != nil {

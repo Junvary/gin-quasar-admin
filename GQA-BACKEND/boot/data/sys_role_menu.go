@@ -14,6 +14,7 @@ type sysRoleMenu struct {
 }
 
 var sysRoleMenuData = []system.SysRoleMenu{
+	// 为 super-admin 设置所有 sys_menu 的总数
 	{"super-admin", 1},
 	{"super-admin", 2},
 	{"super-admin", 3},
@@ -31,8 +32,8 @@ func (s *sysRoleMenu) Init() error {
 		var count int64
 		tx.Model(&system.SysRoleMenu{}).Count(&count)
 		if count != 0 {
-			fmt.Println("[Gin-Quasar-Admin] --> sys_role_menu 表的初始数据已存在！数据量：", count)
-			global.GqaLog.Error("sys_role_menu 表的初始数据已存在！", zap.Any("数据量", count))
+			fmt.Println("[Gin-Quasar-Admin] --> sys_role_menu 表的初始数据已存在，跳过初始化数据！数据量：", count)
+			global.GqaLog.Error("sys_role_menu 表的初始数据已存在，跳过初始化数据！", zap.Any("数据量", count))
 			return nil
 		}
 		if err := tx.Create(&sysRoleMenuData).Error; err != nil { // 遇到错误时回滚事务
