@@ -152,3 +152,14 @@ func (a *ApiRole) RemoveRoleUser(c *gin.Context) {
 		global.SuccessMessage("移除用户成功！", c)
 	}
 }
+
+func (a *ApiRole) AddRoleUser(c *gin.Context) {
+	var toAddRoleUser system.RequestRoleUserAdd
+	_ = c.ShouldBindJSON(&toAddRoleUser)
+	if err := service.GroupServiceApp.ServiceSystem.AddRoleUser(&toAddRoleUser); err != nil {
+		global.GqaLog.Error("添加角色失败！", zap.Any("err", err))
+		global.ErrorMessage("添加角色失败！"+err.Error(), c)
+	} else {
+		global.SuccessMessage("添加角色成功！", c)
+	}
+}

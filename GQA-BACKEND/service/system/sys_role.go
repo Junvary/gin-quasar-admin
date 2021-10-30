@@ -105,3 +105,16 @@ func (s *ServiceRole) RemoveRoleUser(toDeleteRoleUser *system.RequestRoleUser) (
 	return err
 }
 
+func (s *ServiceRole) AddRoleUser(toAddRoleUser *system.RequestRoleUserAdd) (err error) {
+	var roleUser []system.RequestRoleUser
+	for _, r := range toAddRoleUser.UserId{
+		ur := system.RequestRoleUser{
+			UserId: r,
+			RoleCode: toAddRoleUser.RoleCode,
+		}
+		roleUser = append(roleUser, ur)
+	}
+	err = global.GqaDb.Model(&system.SysUserRole{}).Create(&roleUser).Error
+	return err
+}
+

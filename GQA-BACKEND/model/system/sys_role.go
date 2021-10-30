@@ -26,6 +26,11 @@ type RequestRoleUser struct {
 	UserId   uint   `json:"userId"`
 }
 
+type RequestRoleUserAdd struct {
+	RoleCode string `json:"roleCode"`
+	UserId   []uint `json:"userId"`
+}
+
 type RequestRoleMenuEdit struct {
 	RoleCode string            `json:"roleCode"`
 	RoleMenu []RequestRoleMenu `json:"roleMenu"`

@@ -1,5 +1,5 @@
 <template>
-    <q-dialog v-model="roleUserVisible" v-if="roleUserVisible" position="right">
+    <q-dialog v-model="roleUserVisible" position="right">
         <q-card style="min-width: 500px; max-width: 45vw">
             <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
                 :loading="loading" @request="onRequest">
@@ -21,16 +21,21 @@
                 </template>
             </q-table>
         </q-card>
+        <role-user-add-dialog ref="roleUserAddDialog" @handleAddUser="handleAddUser" />
     </q-dialog>
 </template>
 
 <script>
 import { tableDataMixin } from 'src/mixins/tableDataMixin'
 import { postAction } from 'src/api/manage'
+import RoleUserAddDialog from './RoleUserAddDialog'
 
 export default {
     name: 'RoleUserDialog',
     mixins: [tableDataMixin],
+    components: {
+        RoleUserAddDialog,
+    },
     data() {
         return {
             roleUserVisible: false,
@@ -38,6 +43,7 @@ export default {
             url: {
                 list: 'role/role-user',
                 removeUser: 'role/role-user-remove',
+                addUser: 'role/role-user-add',
             },
             columns: [
                 { name: 'sort', align: 'center', label: '排序', field: 'sort' },
@@ -50,12 +56,15 @@ export default {
     },
     methods: {
         show(row) {
+            this.tableData = []
             this.record = row
             this.queryParams.roleCode = this.record.roleCode
             this.roleUserVisible = true
             this.getTableData()
         },
-        showAddUserForm() {},
+        showAddUserForm() {
+            this.$refs.roleUserAddDialog.show()
+        },
         handleRemove(row) {
             this.$q
                 .dialog({
@@ -84,6 +93,24 @@ export default {
                     }
                     this.getTableData()
                 })
+        },
+        handleAddUser(event) {
+            const idList = []
+            for (let i of event) {
+                idList.push(i.id)
+            }
+            postAction(this.url.addUser, {
+                roleCode: this.record.roleCode,
+                userId: idList,
+            }).then((res) => {
+                if (res.code === 1) {
+                    this.$q.notify({
+                        type: 'positive',
+                        message: res.message,
+                    })
+                }
+                this.getTableData()
+            })
         },
     },
 }
