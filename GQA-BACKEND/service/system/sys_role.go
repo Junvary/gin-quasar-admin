@@ -114,7 +114,7 @@ func (s *ServiceRole) AddRoleUser(toAddRoleUser *system.RequestRoleUserAdd) (err
 		}
 		roleUser = append(roleUser, ur)
 	}
-	err = global.GqaDb.Model(&system.SysUserRole{}).Create(&roleUser).Error
+	err = global.GqaDb.Model(&system.SysUserRole{}).Save(&roleUser).Error
 	return err
 }
 

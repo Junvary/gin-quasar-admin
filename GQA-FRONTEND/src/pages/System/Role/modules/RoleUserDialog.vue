@@ -15,7 +15,7 @@
                     <q-td :props="props">
                         <div class="q-gutter-xs">
                             <q-btn dense color="negative" @click="handleRemove(props.row)" label="移除"
-                                v-if="props.row.id !== 1 && record.roleCode !== 'super-admin'" />
+                                v-if="!(props.row.id === 1 && record.roleCode === 'super-admin')" />
                         </div>
                     </q-td>
                 </template>

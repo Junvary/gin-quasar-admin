@@ -69,9 +69,6 @@ export default {
             return []
         },
     },
-    created() {
-        this.getTableData()
-    },
     data() {
         return {
             pagination: {
@@ -90,6 +87,7 @@ export default {
         }
     },
     created() {
+        this.getTableData()
         this.getRoleApiList()
     },
     methods: {
