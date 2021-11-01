@@ -4,6 +4,7 @@ import (
 	"gin-quasar-admin/global"
 	"gin-quasar-admin/model/system"
 	"gin-quasar-admin/service"
+	"gin-quasar-admin/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -42,5 +43,6 @@ func (a *ApiCheckAndInitDb) InitDb(c *gin.Context)  {
 		global.ErrorMessage("自动创建数据库失败，" + err.Error(), c)
 		return
 	}
+	global.GqaCasbin = utils.Casbin(global.GqaDb)
 	global.SuccessMessage("系统初始化成功！", c)
 }

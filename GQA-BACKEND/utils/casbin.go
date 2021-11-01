@@ -1,4 +1,4 @@
-package boot
+package utils
 
 import (
 	"fmt"
