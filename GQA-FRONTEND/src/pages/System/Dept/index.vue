@@ -64,7 +64,7 @@ export default {
                 delete: 'dept/dept-delete',
             },
             pagination: {
-                sortBy: 'desc',
+                sortBy: 'sort',
                 descending: false,
                 page: 1,
                 rowsPerPage: 10000,

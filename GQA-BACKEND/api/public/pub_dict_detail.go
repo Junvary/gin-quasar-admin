@@ -12,7 +12,7 @@ type ApiDictDetail struct {
 }
 
 func (a *ApiDictDetail) GetDictDetailList(c *gin.Context) {
-	var pageInfo system.RequestPage
+	var pageInfo global.RequestPage
 	_ = c.ShouldBindJSON(&pageInfo)
 	if err, dictList, total := service.GroupServiceApp.ServicePublic.GetDictDetailList(pageInfo); err != nil {
 		global.GqaLog.Error("获取字典列表失败：", zap.Any("err", err))

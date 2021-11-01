@@ -2,7 +2,7 @@
     <q-dialog v-model="dictDetailVisible" position="right">
         <q-card style="width: 800px; max-width: 50vw; height: 100%">
             <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
-                :loading="loading" @request="onRequest">
+                :rows-per-page-options="pagination.options" :loading="loading" @request="onRequest">
 
                 <template v-slot:top="props">
                     <q-btn color="primary" @click="showAddForm()">
@@ -54,13 +54,6 @@ export default {
         return {
             dictDetailVisible: false,
             loading: false,
-            pagination: {
-                sortBy: 'desc',
-                descending: false,
-                page: 1,
-                rowsPerPage: 10,
-                rowsNumber: 0,
-            },
             parentDict: {},
             url: {
                 list: 'dict/dict-list',
@@ -77,20 +70,18 @@ export default {
             ],
         }
     },
-    created() {
-        this.getTableData()
-    },
     methods: {
         show(row) {
             this.dictDetailVisible = true
             this.parentDict = row
-            this.getDictDetail()
+            this.getTableData()
         },
-        getDictDetail() {
+        getTableData() {
+            this.tableData = []
+            this.pagination.rowsNumber = 0
             this.loading = true
             postAction(this.url.list, {
-                page: this.pagination.page,
-                pageSize: this.pagination.rowsPerPage,
+                ...this.queryAllParams,
                 parentId: this.parentDict.id,
             })
                 .then((res) => {
@@ -101,7 +92,6 @@ export default {
                     this.loading = false
                 })
         },
-        getTableData() {},
     },
 }
 </script>

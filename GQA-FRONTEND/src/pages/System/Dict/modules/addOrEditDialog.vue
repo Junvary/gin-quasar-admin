@@ -39,7 +39,7 @@
                                 </template>
                             </q-field>
                         </div>
-                        <q-input v-model="addOrEditDetail.desc" type="textarea" label="备注" />
+                        <q-input v-model="addOrEditDetail.remark" type="textarea" label="备注" />
                     </div>
                 </q-form>
             </q-card-section>
@@ -68,13 +68,13 @@ export default {
                 createBy: '',
                 updateAt: '',
                 updateBy: '',
-                sort: 0,
-                status: 0,
-                desc: '',
+                sort: 1,
+                status: 'on',
+                remark: '',
                 value: '',
                 label: '',
             },
-            addOrEditUrl: {
+            url: {
                 add: 'dict/dict-add',
                 edit: 'dict/dict-edit',
                 queryById: 'dict/dict-id',
@@ -89,9 +89,9 @@ export default {
                 createBy: '',
                 updateAt: '',
                 updateBy: '',
-                sort: 0,
-                status: 0,
-                desc: '',
+                sort: 1,
+                status: 'on',
+                remark: '',
                 value: '',
                 label: '',
             }

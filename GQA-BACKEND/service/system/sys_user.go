@@ -12,7 +12,7 @@ import (
 type ServiceUser struct {
 }
 
-func (s *ServiceUser) GetUserList(pageInfo system.RequestPage) (err error, user interface{}, total int64) {
+func (s *ServiceUser) GetUserList(pageInfo global.RequestPage) (err error, user interface{}, total int64) {
 	pageSize := pageInfo.PageSize
 	offset := pageInfo.PageSize * (pageInfo.Page - 1)
 	db := global.GqaDb.Model(&system.SysUser{})
@@ -21,7 +21,7 @@ func (s *ServiceUser) GetUserList(pageInfo system.RequestPage) (err error, user 
 	if err != nil {
 		return
 	}
-	err = db.Limit(pageSize).Offset(offset).Find(&userList).Error
+	err = db.Limit(pageSize).Offset(offset).Order(global.OrderByColumn(pageInfo.SortBy, pageInfo.Desc)).Find(&userList).Error
 	return err, userList, total
 }
 
@@ -30,7 +30,7 @@ func (s *ServiceUser) EditUser(user system.SysUser) (err error) {
 	return err
 }
 
-func (s *ServiceUser) AddUser(u system.SysUser) (err error) {
+func (s *ServiceUser) AddUser(u *system.SysUser) (err error) {
 	var user system.SysUser
 	if !errors.Is(global.GqaDb.Where("username = ?", u.Username).First(&user).Error, gorm.ErrRecordNotFound) {
 		return errors.New("此用户已存在：" + u.Username)

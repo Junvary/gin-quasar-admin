@@ -7,22 +7,32 @@ export const tableDataMixin = {
             queryParams: {},
             tableData: [],
             pagination: {
-                sortBy: 'desc',
+                sortBy: 'sort',
                 descending: false,
                 page: 1,
                 rowsPerPage: 10,
-                rowsNumber: 0
+                rowsNumber: 0,
+                options: [10, 30, 50, 100]
             },
+        }
+    },
+    computed: {
+        queryAllParams() {
+            const params = { ...this.queryParams }
+            params.sortBy = this.pagination.sortBy
+            params.desc = this.pagination.descending
+            params.page = this.pagination.page
+            params.pageSize = this.pagination.rowsPerPage
+            return params
         }
     },
     methods: {
         getTableData() {
+            this.tableData = []
+            this.pagination.rowsNumber = 0
             this.loading = true
-            const params = Object.assign({}, this.queryParams)
             postAction(this.url.list, {
-                page: this.pagination.page,
-                pageSize: this.pagination.rowsPerPage,
-                ...params,
+                ...this.queryAllParams
             }).then(res => {
                 this.pagination.rowsNumber = res.data.total
                 this.tableData = res.data.records

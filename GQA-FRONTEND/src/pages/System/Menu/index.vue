@@ -65,11 +65,12 @@ export default {
                 delete: 'menu/menu-delete',
             },
             pagination: {
-                sortBy: 'desc',
+                sortBy: 'sort',
                 descending: false,
                 page: 1,
                 rowsPerPage: 10000,
                 rowsNumber: 0,
+                options: [10, 30, 50, 100],
             },
             splitterModel: 30,
             selectedKey: '',

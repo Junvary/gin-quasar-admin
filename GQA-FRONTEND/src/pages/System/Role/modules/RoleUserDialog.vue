@@ -2,7 +2,7 @@
     <q-dialog v-model="roleUserVisible" position="right">
         <q-card style="min-width: 500px; max-width: 45vw">
             <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
-                :loading="loading" @request="onRequest">
+                :rows-per-page-options="pagination.options" :loading="loading" @request="onRequest">
 
                 <template v-slot:top="props">
                     <q-btn dense color="primary" @click="showAddUserForm()" label="添加已有用户" />

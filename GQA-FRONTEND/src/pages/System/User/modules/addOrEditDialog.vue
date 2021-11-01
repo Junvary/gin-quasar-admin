@@ -15,7 +15,9 @@
                     <div class="q-gutter-md">
                         <div class="row">
                             <q-input class="col" v-model="addOrEditDetail.id" label="ID" disable />
-                            <q-input class="col" v-model="addOrEditDetail.uuid" label="UUID" disable />
+                            <q-input class="col" v-model.number="addOrEditDetail.sort" type="number"
+                                :rules="[ val => val >= 1 || '排序必须大于0']" label="排序" />
+                            <q-file class="col" v-model="addOrEditDetail.avatar" label="头像" />
                         </div>
                         <div class="row">
                             <q-input class="col" v-model="addOrEditDetail.createAt" label="创建时间" disable />
@@ -24,7 +26,6 @@
                             <q-input class="col" v-model="addOrEditDetail.updateBy" label="更新人" disable />
                         </div>
                         <div class="row">
-                            <q-input class="col" v-model="addOrEditDetail.avatar" label="头像" />
                             <q-input class="col" v-model="addOrEditDetail.username" label="账号" lazy-rules
                                 :rules="[ val => val && val.length > 0 || '必须输入账号']" :disable="formType === 'edit'" />
                             <q-input class="col" v-model="addOrEditDetail.nickname" label="昵称" />
@@ -52,7 +53,7 @@
                                 </template>
                             </q-field>
                         </div>
-                        <q-input v-model="addOrEditDetail.desc" type="textarea" label="备注" />
+                        <q-input v-model="addOrEditDetail.remark" type="textarea" label="备注" />
                     </div>
                 </q-form>
             </q-card-section>
@@ -69,10 +70,14 @@
 
 <script>
 import { addOrEditMixin } from 'src/mixins/addOrEditMixin'
+import GqaAvatar from 'src/components/GqaAvatar'
 
 export default {
     name: 'addOrEditDialog',
     mixins: [addOrEditMixin],
+    components: {
+        GqaAvatar,
+    },
     data() {
         return {
             detail: {
@@ -81,18 +86,18 @@ export default {
                 createBy: '',
                 updateAt: '',
                 updateBy: '',
-                sort: 0,
-                status: 0,
-                desc: '',
+                sort: 1,
+                status: 'on',
+                remark: '',
                 avatar: '',
                 username: '',
                 nickname: '',
                 realName: '',
                 mobile: '',
                 email: '',
-                gender: 0,
+                gender: 'u',
             },
-            addOrEditUrl: {
+            url: {
                 add: 'user/user-add',
                 edit: 'user/user-edit',
                 queryById: 'user/user-id',
@@ -107,16 +112,16 @@ export default {
                 createBy: '',
                 updateAt: '',
                 updateBy: '',
-                sort: 0,
-                status: 0,
-                desc: '',
+                sort: 1,
+                status: 'on',
+                remark: '',
                 avatar: '',
                 username: '',
                 nickname: '',
                 realName: '',
                 mobile: '',
                 email: '',
-                gender: 0,
+                gender: 'u',
             }
         },
     },

@@ -17,6 +17,9 @@ type SysMenu struct {
 }
 
 type RequestAddMenu struct {
+	Status   string `json:"status"`
+	Sort     int    `json:"sort"`
+	Remark     string `json:"remark"`
 	ParentId  uint   `json:"parentId"`
 	Name      string `json:"name"`
 	Path      string `json:"path"`

@@ -11,7 +11,7 @@ type ServiceRole struct {
 	
 }
 
-func (s *ServiceRole)GetRoleList(pageInfo system.RequestPage) (err error, role interface{}, total int64) {
+func (s *ServiceRole)GetRoleList(pageInfo global.RequestPage) (err error, role interface{}, total int64) {
 	pageSize := pageInfo.PageSize
 	offset := pageInfo.PageSize * (pageInfo.Page - 1)
 	db := global.GqaDb.Model(&system.SysRole{})
@@ -20,7 +20,7 @@ func (s *ServiceRole)GetRoleList(pageInfo system.RequestPage) (err error, role i
 	if err != nil {
 		return
 	}
-	err = db.Limit(pageSize).Offset(offset).Find(&roleList).Error
+	err = db.Limit(pageSize).Offset(offset).Order(global.OrderByColumn(pageInfo.SortBy, pageInfo.Desc)).Find(&roleList).Error
 	return err, roleList, total
 }
 

@@ -10,6 +10,9 @@ type SysDict struct {
 }
 
 type RequestAddDict struct {
+	Status   string `json:"status"`
+	Sort     int    `json:"sort"`
+	Remark     string `json:"remark"`
 	ParentId uint   `json:"parentId"`
 	Value    string `json:"value"`
 	Label    string `json:"label"`

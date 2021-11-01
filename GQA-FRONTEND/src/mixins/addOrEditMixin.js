@@ -41,7 +41,7 @@ export const addOrEditMixin = {
 
         },
         async handleQueryById(id) {
-            const res = await postAction(this.addOrEditUrl.queryById, {
+            const res = await postAction(this.url.queryById, {
                 id,
             })
             if (res.code === 1) {
@@ -56,7 +56,7 @@ export const addOrEditMixin = {
             const success = await this.$refs.addOrEditForm.validate()
             if (success) {
                 if (this.formType === 'edit') {
-                    const res = await putAction(this.addOrEditUrl.edit, this.addOrEditDetail)
+                    const res = await putAction(this.url.edit, this.addOrEditDetail)
                     if (res.code === 1) {
                         this.$q.notify({
                             type: 'positive',
@@ -65,7 +65,7 @@ export const addOrEditMixin = {
                         this.addOrEditVisible = false
                     }
                 } else if (this.formType === 'add') {
-                    const res = await postAction(this.addOrEditUrl.add, this.addOrEditDetail)
+                    const res = await postAction(this.url.add, this.addOrEditDetail)
                     if (res.code === 1) {
                         this.$q.notify({
                             type: 'positive',

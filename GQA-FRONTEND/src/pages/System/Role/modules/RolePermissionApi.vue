@@ -27,7 +27,7 @@
                         </q-chip>
                         <div class="text-weight-bold">{{ prop.node.path }}</div>
                         <span class="text-weight-light text-black">
-                            （{{ prop.node.desc}}）
+                            （{{ prop.node.remark}}）
                         </span>
                     </div>
                 </template>
@@ -72,7 +72,7 @@ export default {
     data() {
         return {
             pagination: {
-                sortBy: 'desc',
+                sortBy: 'sort',
                 descending: false,
                 page: 1,
                 rowsPerPage: 10000,

@@ -9,7 +9,7 @@
         </div>
 
         <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
-            :loading="loading" @request="onRequest">
+            :rows-per-page-options="pagination.options" :loading="loading" @request="onRequest">
 
             <template v-slot:top="props">
                 <q-btn color="primary" @click="showAddForm()" label="新增字典" />

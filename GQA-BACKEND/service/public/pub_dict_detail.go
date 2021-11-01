@@ -8,7 +8,7 @@ import (
 type ServiceDictDetail struct {
 }
 
-func (s *ServiceDictDetail)GetDictDetailList(pageInfo system.RequestPage) (err error, role interface{}, total int64) {
+func (s *ServiceDictDetail)GetDictDetailList(pageInfo global.RequestPage) (err error, role interface{}, total int64) {
 	pageSize := pageInfo.PageSize
 	offset := pageInfo.PageSize * (pageInfo.Page - 1)
 	db := global.GqaDb.Model(&system.SysDict{})

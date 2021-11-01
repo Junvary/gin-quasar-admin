@@ -8,8 +8,8 @@
             <q-btn color="primary" @click="resetSearch" label="重置" />
         </div>
 
-        <q-table row-key="uuid" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
-            :loading="loading" @request="onRequest">
+        <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
+            :rows-per-page-options="pagination.options" :loading="loading" @request="onRequest">
 
             <template v-slot:top="props">
                 <q-btn color="primary" @click="showAddForm()" label="新增用户" />
@@ -82,6 +82,14 @@ export default {
             url: {
                 list: 'user/user-list',
                 delete: 'user/user-delete',
+            },
+            pagination: {
+                sortBy: 'sort',
+                descending: false,
+                page: 1,
+                rowsPerPage: 10,
+                rowsNumber: 0,
+                options: [10, 30, 50, 100],
             },
             columns: [
                 { name: 'sort', align: 'center', label: '排序', field: 'sort' },

@@ -53,7 +53,7 @@ export default {
     data() {
         return {
             pagination: {
-                sortBy: 'desc',
+                sortBy: 'sort',
                 descending: false,
                 page: 1,
                 rowsPerPage: 10000,

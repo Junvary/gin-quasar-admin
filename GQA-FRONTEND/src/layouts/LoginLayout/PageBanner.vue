@@ -5,7 +5,7 @@
                 <h1>
                     Gin-Quasar-Admin
                 </h1>
-                <p class="desc">
+                <p class="small-title">
                     Be the change you want to see in the world.
                 </p>
                 <div class="buttons">
@@ -85,7 +85,7 @@ export default {
                 letter-spacing: 20px;
                 user-select: none;
             }
-            .desc {
+            .small-title {
                 font-weight: 400;
                 font-size: 20px;
                 letter-spacing: 2px;

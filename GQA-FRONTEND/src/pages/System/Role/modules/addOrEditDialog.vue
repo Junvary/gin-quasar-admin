@@ -46,8 +46,9 @@
                                         </q-option-group>
                                     </template>
                                 </q-field>
-                                <q-input v-model="addOrEditDetail.sort" type="number" label="排序" />
-                                <q-input v-model="addOrEditDetail.desc" type="textarea" label="备注" />
+                                <q-input v-model.number="addOrEditDetail.sort" type="number"
+                                    :rules="[ val => val >= 1 || '排序必须大于0']" label="排序" />
+                                <q-input v-model="addOrEditDetail.remark" type="textarea" label="备注" />
                             </div>
                         </div>
                     </div>
@@ -78,9 +79,9 @@ export default {
                 createBy: '',
                 updateAt: '',
                 updateBy: '',
-                sort: 0,
-                status: 0,
-                desc: '',
+                sort: 1,
+                status: 'on',
+                remark: '',
                 roleCode: '',
                 roleName: '',
             },
@@ -102,9 +103,9 @@ export default {
                 createBy: '',
                 updateAt: '',
                 updateBy: '',
-                sort: 0,
-                status: 0,
-                desc: '',
+                sort: 1,
+                status: 'on',
+                remark: '',
                 roleCode: '',
                 roleName: '',
             }

@@ -12,8 +12,12 @@ type ApiMenu struct {
 }
 
 func (a *ApiMenu) GetMenuList(c *gin.Context) {
-	var pageInfo system.RequestPage
-	_ = c.ShouldBindJSON(&pageInfo)
+	var pageInfo global.RequestPage
+	if err := c.ShouldBindJSON(&pageInfo); err != nil{
+		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
+		global.ErrorMessage("模型绑定失败！"+err.Error(), c)
+		return
+	}
 	if err, menuList, total := service.GroupServiceApp.ServiceSystem.GetMenuList(pageInfo); err != nil {
 		global.GqaLog.Error("获取菜单列表失败：", zap.Any("err", err))
 		global.ErrorMessage("获取菜单列表失败，" + err.Error(), c)
@@ -29,7 +33,11 @@ func (a *ApiMenu) GetMenuList(c *gin.Context) {
 
 func (a *ApiMenu) EditMenu(c *gin.Context) {
 	var toEditMenu system.SysMenu
-	_ = c.ShouldBindJSON(&toEditMenu)
+	if err := c.ShouldBindJSON(&toEditMenu); err != nil{
+		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
+		global.ErrorMessage("模型绑定失败！"+err.Error(), c)
+		return
+	}
 	if err := service.GroupServiceApp.ServiceSystem.EditMenu(toEditMenu); err != nil {
 		global.GqaLog.Error("编辑菜单失败!", zap.Any("err", err))
 		global.ErrorMessage("编辑菜单失败，" + err.Error(), c)
@@ -40,8 +48,17 @@ func (a *ApiMenu) EditMenu(c *gin.Context) {
 
 func (a *ApiMenu) AddMenu(c *gin.Context) {
 	var toAddMenu system.RequestAddMenu
-	_ = c.ShouldBindJSON(&toAddMenu)
+	if err := c.ShouldBindJSON(&toAddMenu); err != nil{
+		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
+		global.ErrorMessage("模型绑定失败！"+err.Error(), c)
+		return
+	}
 	addMenu := &system.SysMenu{
+		GqaModel: global.GqaModel{
+			Status: toAddMenu.Status,
+			Sort:   toAddMenu.Sort,
+			Remark:   toAddMenu.Remark,
+		},
 		ParentId:  toAddMenu.ParentId,
 		Name:      toAddMenu.Name,
 		Path:      toAddMenu.Path,
@@ -61,8 +78,12 @@ func (a *ApiMenu) AddMenu(c *gin.Context) {
 }
 
 func (a *ApiMenu) DeleteMenu(c *gin.Context) {
-	var toDeleteId system.RequestDelete
-	_ = c.ShouldBindJSON(&toDeleteId)
+	var toDeleteId system.RequestQueryById
+	if err := c.ShouldBindJSON(&toDeleteId); err != nil{
+		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
+		global.ErrorMessage("模型绑定失败！"+err.Error(), c)
+		return
+	}
 	if err := service.GroupServiceApp.ServiceSystem.DeleteMenu(toDeleteId.Id); err != nil {
 		global.GqaLog.Error("删除菜单失败！", zap.Any("err", err))
 		global.ErrorMessage("删除菜单失败，" + err.Error(), c)
@@ -73,7 +94,11 @@ func (a *ApiMenu) DeleteMenu(c *gin.Context) {
 
 func (a *ApiMenu) QueryMenuById(c *gin.Context) {
 	var toQueryId system.RequestQueryById
-	_ = c.ShouldBindJSON(&toQueryId)
+	if err := c.ShouldBindJSON(&toQueryId); err != nil{
+		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
+		global.ErrorMessage("模型绑定失败！"+err.Error(), c)
+		return
+	}
 	if err, menu := service.GroupServiceApp.ServiceSystem.QueryMenuById(toQueryId.Id); err != nil {
 		global.GqaLog.Error("查找菜单失败！", zap.Any("err", err))
 		global.ErrorMessage("查找菜单失败，" + err.Error(), c)

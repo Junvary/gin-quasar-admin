@@ -10,7 +10,7 @@ import (
 type ServiceDict struct {
 }
 
-func (s *ServiceDict)GetDictList(pageInfo system.RequestPageWithParentId) (err error, role interface{}, total int64, parentId uint) {
+func (s *ServiceDict)GetDictList(pageInfo system.RequestPageByParentId) (err error, role interface{}, total int64, parentId uint) {
 	pageSize := pageInfo.PageSize
 	offset := pageInfo.PageSize * (pageInfo.Page - 1)
 	db := global.GqaDb.Where("parent_id=?", pageInfo.ParentId).Find(&system.SysDict{})
@@ -19,7 +19,7 @@ func (s *ServiceDict)GetDictList(pageInfo system.RequestPageWithParentId) (err e
 	if err != nil {
 		return
 	}
-	err = db.Limit(pageSize).Offset(offset).Find(&dictList).Error
+	err = db.Limit(pageSize).Offset(offset).Order(global.OrderByColumn(pageInfo.SortBy, pageInfo.Desc)).Find(&dictList).Error
 	return err, dictList, total, pageInfo.ParentId
 }
 

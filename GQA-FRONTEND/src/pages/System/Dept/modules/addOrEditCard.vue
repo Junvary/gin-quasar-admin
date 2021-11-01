@@ -40,7 +40,8 @@
                         </div>
 
                         <div class="row">
-                            <q-input class="col" v-model="addOrEditDetail.sort" type="number" label="排序" />
+                            <q-input class="col" v-model.number="addOrEditDetail.sort" type="number"
+                                :rules="[ val => val >= 1 || '排序必须大于0']" label=" 排序" />
                             <q-input class="col" v-model="addOrEditDetail.phone" label="联系电话" />
 
                         </div>
@@ -54,7 +55,7 @@
                                 </template>
                             </q-field>
                         </div>
-                        <q-input v-model="addOrEditDetail.desc" type="textarea" label="备注" />
+                        <q-input v-model="addOrEditDetail.remark" type="textarea" label="备注" />
                     </div>
                     <div class="q-gutter-md col-3">
                         <q-field label="父级部门" stack-label>
@@ -86,12 +87,13 @@
 
 <script>
 import { addOrEditMixin } from 'src/mixins/addOrEditMixin'
+import { tableDataMixin } from 'src/mixins/tableDataMixin'
 import { postAction, putAction } from 'src/api/manage'
 import { ArrayToTree } from 'src/utils/arrayAndTree'
 
 export default {
     name: 'addOrEditCard',
-    mixins: [addOrEditMixin],
+    mixins: [addOrEditMixin, tableDataMixin],
     computed: {
         menuTree() {
             if (this.tableData.length !== 0) {
@@ -108,34 +110,31 @@ export default {
                 createBy: '',
                 updateAt: '',
                 updateBy: '',
-                sort: 0,
-                status: 0,
-                desc: '',
+                sort: 1,
+                status: 'on',
+                remark: '',
                 parentId: 0,
                 owner: {},
                 deptCode: '',
                 deptName: '',
                 phone: '',
             },
-            addOrEditUrl: {
+            url: {
                 list: 'dept/dept-list',
                 add: 'dept/dept-add',
                 edit: 'dept/dept-edit',
                 queryById: 'dept/dept-id',
             },
-            tableData: [],
             pagination: {
-                sortBy: 'desc',
+                sortBy: 'sort',
                 descending: false,
                 page: 1,
                 rowsPerPage: 10000,
                 rowsNumber: 0,
+                options: [10, 30, 50, 100],
             },
             selectedKey: '',
         }
-    },
-    created() {
-        this.getTableData()
     },
     methods: {
         resetDetail() {
@@ -145,15 +144,27 @@ export default {
                 createBy: '',
                 updateAt: '',
                 updateBy: '',
-                sort: 0,
-                status: 0,
-                desc: '',
+                sort: 1,
+                status: 'on',
+                remark: '',
                 parentId: 0,
                 owner: {},
                 deptCode: '',
                 deptName: '',
                 phone: '',
             }
+        },
+        show(row) {
+            this.loading = true
+            this.resetDetail()
+            this.addOrEditDetail = Object.assign(this.detail, row)
+            this.addOrEditVisible = true
+            if (!this.addOrEditDetail.id) {
+                this.loading = false
+            } else {
+                this.handleQueryById(this.addOrEditDetail.id)
+            }
+            this.getTableData()
         },
         onSelected(key) {
             this.addOrEditDetail.parentId = key
@@ -162,26 +173,11 @@ export default {
             this.addOrEditVisible = false
             this.$emit('handleFinish')
         },
-        getTableData() {
-            this.loading = true
-            postAction(this.addOrEditUrl.list, {
-                page: this.pagination.page,
-                pageSize: this.pagination.rowsPerPage,
-                ...this.queryParams,
-            })
-                .then((res) => {
-                    this.pagination.rowsNumber = res.data.total
-                    this.tableData = res.data.records
-                })
-                .finally(() => {
-                    this.loading = false
-                })
-        },
         async handleAddOrEidt() {
             const success = await this.$refs.addOrEditForm.validate()
             if (success) {
                 if (this.formType === 'edit') {
-                    const res = await putAction(this.addOrEditUrl.edit, this.addOrEditDetail)
+                    const res = await putAction(this.url.edit, this.addOrEditDetail)
                     if (res.code === 1) {
                         this.$q.notify({
                             type: 'positive',
@@ -189,7 +185,7 @@ export default {
                         })
                     }
                 } else if (this.formType === 'add') {
-                    const res = await postAction(this.addOrEditUrl.add, this.addOrEditDetail)
+                    const res = await postAction(this.url.add, this.addOrEditDetail)
                     if (res.code === 1) {
                         this.$q.notify({
                             type: 'positive',

@@ -8,7 +8,7 @@ import (
 type ServiceApi struct {
 }
 
-func (s *ServiceApi) GetApiList(pageInfo system.RequestPage) (err error, api interface{}, total int64) {
+func (s *ServiceApi) GetApiList(pageInfo global.RequestPage) (err error, api interface{}, total int64) {
 	pageSize := pageInfo.PageSize
 	offset := pageInfo.PageSize * (pageInfo.Page - 1)
 	db := global.GqaDb.Model(&system.SysApi{})
@@ -17,6 +17,6 @@ func (s *ServiceApi) GetApiList(pageInfo system.RequestPage) (err error, api int
 	if err != nil {
 		return
 	}
-	err = db.Limit(pageSize).Offset(offset).Find(&apiList).Error
+	err = db.Limit(pageSize).Offset(offset).Order(global.OrderByColumn(pageInfo.SortBy, pageInfo.Desc)).Find(&apiList).Error
 	return err, apiList, total
 }

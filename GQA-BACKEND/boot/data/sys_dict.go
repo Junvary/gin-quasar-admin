@@ -15,29 +15,29 @@ type sysDict struct{}
 
 var sysDictData = []system.SysDict{
 	// 父级设置ID
-	{GqaModel: global.GqaModel{Id: 1, Status: "on", Sort: 1, Desc: "这是性别字典", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
+	{GqaModel: global.GqaModel{Id: 1, Status: "on", Sort: 1, Remark: "这是性别字典", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
 		ParentId: 0, Value: "gender", Label: "性别",
 	},
 	// 父级设置ID
-	{GqaModel: global.GqaModel{Id: 2, Status: "on", Sort: 2, Desc: "这是是否状态", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
+	{GqaModel: global.GqaModel{Id: 2, Status: "on", Sort: 2, Remark: "这是是否状态", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
 		ParentId: 0, Value: "status", Label: "是否状态",
 	},
 
 	// 子级内容：
-	{GqaModel: global.GqaModel{Status: "on", Sort: 1, Desc: "这是男", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
+	{GqaModel: global.GqaModel{Status: "on", Sort: 1, Remark: "这是男", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
 		ParentId: 1, Value: "m", Label: "男",
 	},
-	{GqaModel: global.GqaModel{Status: "on", Sort: 2, Desc: "这是女", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
+	{GqaModel: global.GqaModel{Status: "on", Sort: 2, Remark: "这是女", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
 		ParentId: 1, Value: "f", Label: "女",
 	},
-	{GqaModel: global.GqaModel{Status: "on", Sort: 3, Desc: "这是保密", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
+	{GqaModel: global.GqaModel{Status: "on", Sort: 3, Remark: "这是保密", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
 		ParentId: 1, Value: "u", Label: "保密",
 	},
 
-	{GqaModel: global.GqaModel{Status: "on", Sort: 1, Desc: "这是是", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
+	{GqaModel: global.GqaModel{Status: "on", Sort: 1, Remark: "这是是", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
 		ParentId: 2, Value: "on", Label: "是",
 	},
-	{GqaModel: global.GqaModel{Status: "on", Sort: 2, Desc: "这是否", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
+	{GqaModel: global.GqaModel{Status: "on", Sort: 2, Remark: "这是否", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
 		ParentId: 2, Value: "off", Label: "否",
 	},
 }

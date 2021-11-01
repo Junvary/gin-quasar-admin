@@ -13,6 +13,9 @@ type SysDept struct {
 }
 
 type RequestAddDept struct {
+	Status   string `json:"status"`
+	Sort     int    `json:"sort"`
+	Remark     string `json:"remark"`
 	ParentId uint     `json:"parentId"`
 	DeptCode string  `json:"deptCode"`
 	DeptName string  `json:"deptName"`

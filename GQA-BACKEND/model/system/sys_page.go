@@ -1,30 +1,18 @@
 package system
 
-type RequestDelete struct {
-	Id uint `json:"id"`
-}
+import "gin-quasar-admin/global"
 
 type RequestQueryById struct {
 	Id uint `json:"id"`
 }
 
+type RequestPageByParentId struct {
+	global.RequestPage
+	ParentId uint   `json:"parentId" form:"parentId"`
+}
+
 type RequestQueryByValue struct {
 	Value string `json:"value"`
-}
-
-type RequestQueryByParentId struct {
-	ParentId uint `json:"parentId"`
-}
-
-type RequestPage struct {
-	Page     int `json:"page" form:"page"`
-	PageSize int `json:"pageSize" form:"pageSize"`
-}
-
-type RequestPageWithParentId struct {
-	Page     int  `json:"page" form:"page"`
-	PageSize int  `json:"pageSize" form:"pageSize"`
-	ParentId uint `json:"parentId" form:"parentId"`
 }
 
 type ResponsePage struct {

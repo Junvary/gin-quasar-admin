@@ -10,7 +10,7 @@ import (
 type ServiceDept struct {
 }
 
-func (s *ServiceDept)GetDeptList(pageInfo system.RequestPage) (err error, role interface{}, total int64) {
+func (s *ServiceDept)GetDeptList(pageInfo global.RequestPage) (err error, role interface{}, total int64) {
 	pageSize := pageInfo.PageSize
 	offset := pageInfo.PageSize * (pageInfo.Page - 1)
 	db := global.GqaDb.Model(&system.SysDept{})
@@ -19,7 +19,7 @@ func (s *ServiceDept)GetDeptList(pageInfo system.RequestPage) (err error, role i
 	if err != nil {
 		return
 	}
-	err = db.Limit(pageSize).Offset(offset).Find(&deptList).Error
+	err = db.Limit(pageSize).Offset(offset).Order(global.OrderByColumn(pageInfo.SortBy, pageInfo.Desc)).Find(&deptList).Error
 	return err, deptList, total
 }
 

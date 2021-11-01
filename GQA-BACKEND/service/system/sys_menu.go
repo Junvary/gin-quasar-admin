@@ -8,7 +8,7 @@ import (
 type ServiceMenu struct {
 }
 
-func (s *ServiceMenu) GetMenuList(pageInfo system.RequestPage) (err error, menu interface{}, total int64) {
+func (s *ServiceMenu) GetMenuList(pageInfo global.RequestPage) (err error, menu interface{}, total int64) {
 	pageSize := pageInfo.PageSize
 	offset := pageInfo.PageSize * (pageInfo.Page - 1)
 	db := global.GqaDb.Model(&system.SysMenu{})
@@ -17,7 +17,7 @@ func (s *ServiceMenu) GetMenuList(pageInfo system.RequestPage) (err error, menu 
 	if err != nil {
 		return
 	}
-	err = db.Limit(pageSize).Offset(offset).Find(&menuList).Error
+	err = db.Limit(pageSize).Offset(offset).Order(global.OrderByColumn(pageInfo.SortBy, pageInfo.Desc)).Find(&menuList).Error
 	return err, menuList, total
 }
 

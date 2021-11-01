@@ -13,14 +13,18 @@ type ApiUser struct {
 }
 
 func (a *ApiUser) GetUserList(c *gin.Context) {
-	var pageInfo system.RequestPage
-	_ = c.ShouldBindJSON(&pageInfo)
+	var pageInfo global.RequestPage
+	if err := c.ShouldBindJSON(&pageInfo); err != nil{
+		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
+		global.ErrorMessage("模型绑定失败！"+err.Error(), c)
+		return
+	}
 	if err, userList, total := service.GroupServiceApp.ServiceSystem.GetUserList(pageInfo); err != nil {
 		global.GqaLog.Error("获取用户列表失败：", zap.Any("err", err))
-		global.ErrorMessage("获取用户列表失败，" + err.Error(), c)
+		global.ErrorMessage("获取用户列表失败，"+err.Error(), c)
 	} else {
 		global.SuccessData(system.ResponsePage{
-			Records:     userList,
+			Records:  userList,
 			Page:     pageInfo.Page,
 			PageSize: pageInfo.PageSize,
 			Total:    total,
@@ -30,14 +34,18 @@ func (a *ApiUser) GetUserList(c *gin.Context) {
 
 func (a *ApiUser) EditUser(c *gin.Context) {
 	var toEditUser system.SysUser
-	_ = c.ShouldBindJSON(&toEditUser)
-	if toEditUser.Username == "admin" && toEditUser.Status == "off"{
+	if err := c.ShouldBindJSON(&toEditUser); err != nil{
+		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
+		global.ErrorMessage("模型绑定失败！"+err.Error(), c)
+		return
+	}
+	if toEditUser.Username == "admin" && toEditUser.Status == "off" {
 		global.ErrorMessage("超级管理不能被禁用！", c)
 		return
 	}
 	if err := service.GroupServiceApp.ServiceSystem.EditUser(toEditUser); err != nil {
 		global.GqaLog.Error("编辑用户失败!", zap.Any("err", err))
-		global.ErrorMessage("编辑用户失败，" + err.Error(), c)
+		global.ErrorMessage("编辑用户失败，"+err.Error(), c)
 	} else {
 		global.SuccessMessage("编辑用户成功！", c)
 	}
@@ -45,14 +53,26 @@ func (a *ApiUser) EditUser(c *gin.Context) {
 
 func (a *ApiUser) AddUser(c *gin.Context) {
 	var toAddUser system.RequestAddUser
-	_ = c.ShouldBindJSON(&toAddUser)
+	if err := c.ShouldBindJSON(&toAddUser); err != nil{
+		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
+		global.ErrorMessage("模型绑定失败！"+err.Error(), c)
+		return
+	}
 	addUser := &system.SysUser{
+		GqaModel: global.GqaModel{
+			Status: toAddUser.Status,
+			Sort:   toAddUser.Sort,
+			Remark:   toAddUser.Remark,
+		},
 		Avatar:   toAddUser.Avatar,
 		Username: toAddUser.Username,
 		Nickname: toAddUser.Nickname,
 		RealName: toAddUser.RealName,
+		Gender:   toAddUser.Gender,
+		Mobile:   toAddUser.Mobile,
+		Email:    toAddUser.Email,
 	}
-	if err := service.GroupServiceApp.ServiceSystem.AddUser(*addUser); err != nil {
+	if err := service.GroupServiceApp.ServiceSystem.AddUser(addUser); err != nil {
 		global.GqaLog.Error("添加用户失败！", zap.Any("err", err))
 		global.ErrorMessage("添加用户失败！"+err.Error(), c)
 	} else {
@@ -61,13 +81,17 @@ func (a *ApiUser) AddUser(c *gin.Context) {
 }
 
 func (a *ApiUser) DeleteUser(c *gin.Context) {
-	var toDeleteId system.RequestDelete
-	_ = c.ShouldBindJSON(&toDeleteId)
+	var toDeleteId system.RequestQueryById
+	if err := c.ShouldBindJSON(&toDeleteId); err != nil{
+		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
+		global.ErrorMessage("模型绑定失败！"+err.Error(), c)
+		return
+	}
 	currentUsername := utils.GetUsername(c)
 	err, currentUser := service.GroupServiceApp.ServiceSystem.GetUserByUsername(currentUsername)
 	if err != nil {
 		global.GqaLog.Error("获取用户信息失败！", zap.Any("err", err))
-		global.ErrorMessage("获取用户信息失败，" + err.Error(), c)
+		global.ErrorMessage("获取用户信息失败，"+err.Error(), c)
 		return
 	}
 	if currentUser.Id == toDeleteId.Id {
@@ -81,7 +105,7 @@ func (a *ApiUser) DeleteUser(c *gin.Context) {
 	}
 	if err := service.GroupServiceApp.ServiceSystem.DeleteUser(toDeleteId.Id); err != nil {
 		global.GqaLog.Error("删除用户失败！", zap.Any("err", err))
-		global.ErrorMessage("删除用户失败，" + err.Error(), c)
+		global.ErrorMessage("删除用户失败，"+err.Error(), c)
 	} else {
 		global.SuccessMessage("删除用户成功！", c)
 	}
@@ -89,10 +113,14 @@ func (a *ApiUser) DeleteUser(c *gin.Context) {
 
 func (a *ApiUser) QueryUserById(c *gin.Context) {
 	var toQueryId system.RequestQueryById
-	_ = c.ShouldBindJSON(&toQueryId)
+	if err := c.ShouldBindJSON(&toQueryId); err != nil{
+		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
+		global.ErrorMessage("模型绑定失败！"+err.Error(), c)
+		return
+	}
 	if err, user := service.GroupServiceApp.ServiceSystem.QueryUserById(toQueryId.Id); err != nil {
 		global.GqaLog.Error("查找用户失败！", zap.Any("err", err))
-		global.ErrorMessage("查找用户失败，" + err.Error(), c)
+		global.ErrorMessage("查找用户失败，"+err.Error(), c)
 	} else {
 		global.SuccessMessageData(gin.H{"records": user}, "查找用户成功！", c)
 	}
@@ -101,7 +129,7 @@ func (a *ApiUser) QueryUserById(c *gin.Context) {
 func (a *ApiUser) GetUserMenu(c *gin.Context) {
 	err, menu := service.GroupServiceApp.ServiceSystem.GetUserMenu(c)
 	if err != nil {
-		global.ErrorMessage("获取用户菜单失败，" + err.Error(), c)
+		global.ErrorMessage("获取用户菜单失败，"+err.Error(), c)
 	}
 	global.SuccessData(system.ResponseMenu{
 		Menu: menu,
@@ -111,7 +139,7 @@ func (a *ApiUser) GetUserMenu(c *gin.Context) {
 func (a *ApiUser) GetUserRole(c *gin.Context) {
 	err, role := service.GroupServiceApp.ServiceSystem.GetUserRole(c)
 	if err != nil {
-		global.ErrorMessage("获取用户角色失败，" + err.Error(), c)
+		global.ErrorMessage("获取用户角色失败，"+err.Error(), c)
 	}
 	global.SuccessData(system.ResponseRole{
 		Role: role,
