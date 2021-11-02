@@ -85,7 +85,7 @@ export default {
                 roleCode: '',
                 roleName: '',
             },
-            addOrEditUrl: {
+            url: {
                 add: 'role/role-add',
                 edit: 'role/role-edit',
                 queryById: 'role/role-id',
