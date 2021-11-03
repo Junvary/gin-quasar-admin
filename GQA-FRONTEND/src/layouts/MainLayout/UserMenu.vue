@@ -1,5 +1,5 @@
 <template>
-    <q-btn-dropdown flat no-caps stretch auto-close>
+    <q-btn-dropdown glossy push color="primary">
         <template v-slot:label>
             <gqa-avatar loginUser size="26px" />
             <span style="margin-left:5px">
@@ -8,13 +8,10 @@
             </span>
         </template>
         <div class="row no-wrap q-pa-md">
-            <div class="column" style="min-width: 200px">
+            <div class="column">
                 <div class="text-h6 q-mb-md">Settings</div>
-                <q-toggle dense v-model="mobileData" label="Use Mobile Data" />
-                <q-toggle dense v-model="bluetooth" label="Bluetooth" class="q-mt-md" />
-                <div class="q-mt-md">
-                    <gqa-theme />
-                </div>
+                <q-toggle v-model="mobileData" label="Use Mobile Data" />
+                <q-toggle v-model="bluetooth" label="Bluetooth" />
             </div>
 
             <q-separator vertical inset class="q-mx-lg" />

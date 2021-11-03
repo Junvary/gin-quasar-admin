@@ -1,88 +1,106 @@
 <template>
-    <q-tab name="notifications" icon="notifications" v-if="$q.screen.gt.sm">
-        <q-badge color="red" floating>{{ itemsMenu.length }}</q-badge>
-        <q-tooltip class="bg-blue">通知</q-tooltip>
-        <q-menu
-            fit
-            anchor="bottom left"
-            self="top middle"
-            :offset="[93, 0]"
-            @show="scrollTarget = $refs.scrollTargetRef"
-        >
-            <q-item-label header> 我的消息 </q-item-label>
-            <q-list
-                ref="scrollTargetRef"
-                class="scroll"
-                style="max-height: 250px; width: 300px"
-            >
-                <q-infinite-scroll
-                    @load="onLoadMenu"
-                    :offset="250"
-                    :scroll-target="scrollTarget"
-                >
-                    <q-item
-                        clickable
-                        v-ripple
-                        v-for="(item, index) in itemsMenu"
-                        :key="index"
-                    >
-                        <q-item-section avatar>
-                            <q-avatar color="primary" text-color="white">
-                                R{{ index + 1 }}
-                            </q-avatar>
-                        </q-item-section>
+    <q-btn round glossy push color="primary" icon="notifications">
+        <q-badge color="negative" floating>4</q-badge>
+        <q-menu>
+            <q-card>
+                <q-tabs v-model="messageType" dense class="text-grey" active-color="primary" indicator-color="primary"
+                    align="justify" narrow-indicator style="padding: 10px">
+                    <q-tab name="message" label="消息提示">
+                        <q-badge color="negative" floating>4</q-badge>
+                    </q-tab>
+                    <q-tab name="system" label="系统消息">
+                        <q-badge color="negative" floating>4</q-badge>
+                    </q-tab>
+                    <q-tab name="todo" label="代办列表">
+                        <q-badge color="negative" floating>4</q-badge>
+                    </q-tab>
+                </q-tabs>
 
-                        <q-item-section>
-                            <q-item-label
-                                >Ruddy Jedrzej {{ index + 1 }}</q-item-label
-                            >
-                            <q-item-label caption lines="1"
-                                >rjedrzej0@discuz{{
-                                    index + 1
-                                }}.net</q-item-label
-                            >
-                        </q-item-section>
+                <q-separator />
 
-                        <q-item-section side>
-                            <q-icon name="chat_bubble" color="green" />
-                        </q-item-section>
-                    </q-item>
+                <q-tab-panels v-model="messageType" animated>
+                    <q-tab-panel style="padding: 0" name="message">
+                        <q-list bordered separator style="min-width: 300px">
+                            <q-item clickable v-ripple v-for="(item, index) in message" :key="index">
+                                <q-item-section avatar>
+                                    <q-icon color="primary" name="message" />
+                                </q-item-section>
 
-                    <template v-slot:loading>
-                        <div class="text-center q-my-md">
-                            <q-spinner-dots color="primary" size="40px" />
-                        </div>
-                    </template>
-                </q-infinite-scroll>
-            </q-list>
+                                <q-item-section>
+                                    {{item.title}}
+                                </q-item-section>
+                            </q-item>
+                        </q-list>
+                        <q-item clickable v-ripple class="text-center">
+                            <q-item-section>查看所有</q-item-section>
+                        </q-item>
+                    </q-tab-panel>
+
+                    <q-tab-panel style="padding: 0" name="system">
+                        <q-list bordered separator style="min-width: 300px">
+                            <q-item clickable v-ripple v-for="(item, index) in system" :key="index">
+                                <q-item-section avatar>
+                                    <q-icon color="primary" name="notifications" />
+                                </q-item-section>
+
+                                <q-item-section>
+                                    {{item.title}}
+                                </q-item-section>
+                            </q-item>
+                        </q-list>
+                        <q-item clickable v-ripple class="text-center">
+                            <q-item-section>查看所有</q-item-section>
+                        </q-item>
+                    </q-tab-panel>
+
+                    <q-tab-panel style="padding: 0" name="todo">
+                        <q-list bordered separator style="min-width: 300px">
+                            <q-item clickable v-ripple v-for="(item, index) in todo" :key="index">
+                                <q-item-section avatar>
+                                    <q-icon color="primary" name="list" />
+                                </q-item-section>
+
+                                <q-item-section>
+                                    {{item.title}}
+                                </q-item-section>
+                            </q-item>
+                        </q-list>
+                        <q-item clickable v-ripple class="text-center">
+                            <q-item-section>查看所有</q-item-section>
+                        </q-item>
+                    </q-tab-panel>
+                </q-tab-panels>
+            </q-card>
+
         </q-menu>
-    </q-tab>
+    </q-btn>
+
 </template>
 
 <script>
 export default {
-    name: "Notice",
+    name: 'Notice',
     data() {
         return {
-            scrollTarget: void 0,
-            itemsMenu: [{}, {}, {}, {}, {}, {}, {}],
-        };
+            messageType: 'message',
+            message: [],
+            system: [],
+            todo: [],
+        }
     },
-    methods: {
-        onLoadMenu(index, done) {
-            if (index > 1) {
-                setTimeout(() => {
-                    if (this.itemsMenu) {
-                        this.itemsMenu.push({}, {}, {}, {}, {}, {}, {});
-                        done();
-                    }
-                }, 2000);
-            } else {
-                setTimeout(() => {
-                    done();
-                }, 200);
-            }
-        },
+    created() {
+        const m = {
+            title: '你有一条消息通知！',
+        }
+        const s = {
+            title: '你有一条系统消息！',
+        }
+        const t = {
+            title: '你有一条待办事项！',
+        }
+        this.message.push(m, m, m, m)
+        this.system.push(s, s, s, s)
+        this.todo.push(t, t, t, t)
     },
-};
+}
 </script>

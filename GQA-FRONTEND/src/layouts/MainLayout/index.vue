@@ -24,13 +24,12 @@
                         v-for="item in matched.slice(1, matched.length)" :key="item.path" />
                     </q-breadcrumbs> -->
 
-                <q-tabs indicator-color="transparent" outside-arrows>
-                    <Notice />
-                    <Github />
-                    <UserMenu />
-                    <!-- <q-language-switcher/> -->
-                    <Setting />
-                </q-tabs>
+                <Notice style="margin: 0 5px" />
+
+                <UserMenu style="margin: 0 5px" />
+                <!-- <q-language-switcher/> -->
+                <Setting style="margin: 0 5px" />
+                <Github style="margin: 0 5px" />
 
             </q-toolbar>
             <!-- </div> -->

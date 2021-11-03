@@ -1,7 +1,6 @@
 <template>
     <div>
-        <q-tab name="menu" :icon="`${!right ? 'settings' : 'close'}`" v-if="$q.screen.gt.xs" @click="right = !right">
-        </q-tab>
+        <q-btn round glossy push color="primary" :icon="`${!right ? 'settings' : 'close'}`" @click="right = !right" />
         <q-drawer v-model="right" side="right" overlay bordered>
             abc
         </q-drawer>

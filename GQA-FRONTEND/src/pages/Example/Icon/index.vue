@@ -1,14 +1,38 @@
 <template>
     <q-page padding>
-        <div class="row" style="width: 95%">
-            <div class="col-2 column items-center icon-box" v-for="(item, index) in materialIcons_key" :key="index"
-                @click="copy(item)">
-                <q-icon :name="item" size="xl" />
-                <span>
-                    {{item}}
-                </span>
-            </div>
-        </div>
+        <q-tabs v-model="tab" dense class="text-grey" active-color="primary" indicator-color="primary" align="justify"
+            narrow-indicator>
+            <q-tab name="materia" label="materia" />
+            <q-tab name="fontawesome" label="fontawesome" />
+        </q-tabs>
+
+        <q-separator />
+
+        <q-tab-panels v-model="tab" animated>
+            <q-tab-panel name="materia">
+                <div class="row" style="width: 95%">
+                    <div class="col-2 column items-center icon-box" v-for="(item, index) in materialIcons_key"
+                        :key="index" @click="copy(item)">
+                        <q-icon :name="item" size="xl" />
+                        <span>
+                            {{item}}
+                        </span>
+                    </div>
+                </div>
+            </q-tab-panel>
+
+            <q-tab-panel name="fontawesome">
+                <div class="row" style="width: 95%">
+                    <div class="col-2 column items-center icon-box" v-for="(item, index) in fontawesome_key"
+                        :key="index" @click="copy(item)">
+                        <q-icon :name="item" size="xl" />
+                        <span>
+                            {{item}}
+                        </span>
+                    </div>
+                </div>
+            </q-tab-panel>
+        </q-tab-panels>
 
     </q-page>
 </template>
@@ -22,17 +46,26 @@ export default {
     name: 'Icon',
     data() {
         return {
+            tab: 'materia',
             materialIcons_key: [],
+            fontawesome_key: [],
         }
     },
     created() {
         this.initMaterial()
+        this.initFontawesome()
     },
     methods: {
         initMaterial() {
             // 获取图标 materialIcons 下划线格式命名集合
             for (const i in materialIconsSet) {
                 this.materialIcons_key.push(this.toLowerLine(i))
+            }
+        },
+        initFontawesome() {
+            // 获取图标 fontawesomeSet 下划线格式命名集合
+            for (const i in fontawesomeSet) {
+                this.fontawesome_key.push(this.toLowerLine(i))
             }
         },
         toLowerLine(str) {
