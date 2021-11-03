@@ -5,8 +5,8 @@
                 :rows-per-page-options="pagination.options" :loading="loading" @request="onRequest">
 
                 <template v-slot:top="props">
-                    <q-btn color="primary" @click="showAddForm()">
-                        新增 {{ parentDict.dictName}} 字典项：
+                    <q-btn color="primary" @click="showAddForm({parentId: parentDict.id})">
+                        新增 {{ parentDict.label}} 字典项：
                     </q-btn>
                     <q-space />
                     <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
@@ -15,7 +15,7 @@
 
                 <template v-slot:body-cell-status="props">
                     <q-td :props="props">
-                        <gqa-status :status="props.row.status" />
+                        <gqa-dict-show dictName="statusOnOff" :dictCode="props.row.status" />
                     </q-td>
                 </template>
 
@@ -33,7 +33,7 @@
             </q-inner-loading>
         </q-card>
 
-        <add-or-edit-dialog ref="addOrEditDialog" @emitAddOrEdit="emitAddOrEdit" @handleFinish="handleFinish" />
+        <add-or-edit-dialog ref="addOrEditDialog" @handleFinish="handleFinish" />
     </q-dialog>
 </template>
 
@@ -41,14 +41,14 @@
 import addOrEditDialog from './addOrEditDialog'
 import { tableDataMixin } from 'src/mixins/tableDataMixin'
 import { postAction } from 'src/api/manage'
-import GqaStatus from 'src/components/GqaStatus'
+import GqaDictShow from 'src/components/GqaDictShow'
 
 export default {
     name: 'dictDetailDialog',
     mixins: [tableDataMixin],
     components: {
         addOrEditDialog,
-        GqaStatus,
+        GqaDictShow,
     },
     data() {
         return {

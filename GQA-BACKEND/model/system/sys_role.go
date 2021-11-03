@@ -14,8 +14,8 @@ type SysRole struct {
 
 type RequestAddRole struct {
 	Status   string `json:"status"`
-	Sort     int    `json:"sort"`
-	Remark     string `json:"remark"`
+	Sort     uint    `json:"sort"`
+	Remark   string `json:"remark"`
 	RoleCode string `json:"roleCode"`
 	RoleName string `json:"roleName"`
 }

@@ -13,7 +13,7 @@ export default {
         customName: {
             type: String,
             required: false,
-            default: GqaTrueName,
+            default: '',
         },
     },
     computed: {

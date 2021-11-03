@@ -39,7 +39,7 @@ func (s *ServiceDict) AddDict(d system.SysDict) (err error) {
 
 func (s *ServiceDict) DeleteDict(id uint) (err error) {
 	var dict system.SysDict
-	err = global.GqaDb.Where("id = ?", id).Delete(&dict).Error
+	err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&dict).Error
 	return err
 }
 

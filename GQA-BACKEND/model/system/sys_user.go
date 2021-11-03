@@ -19,8 +19,8 @@ type SysUser struct {
 
 type RequestAddUser struct {
 	Status   string `json:"status"`
-	Sort     int    `json:"sort"`
-	Remark     string `json:"remark"`
+	Sort     uint    `json:"sort"`
+	Remark   string `json:"remark"`
 	Avatar   string `json:"avatar"`
 	Username string `json:"username"`
 	Nickname string `json:"nickname"`

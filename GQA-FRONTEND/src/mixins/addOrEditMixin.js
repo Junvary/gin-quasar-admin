@@ -49,9 +49,6 @@ export const addOrEditMixin = {
             }
             this.loading = false
         },
-        emitAddOrEdit() {
-            this.$emit('emitAddOrEdit')
-        },
         async handleAddOrEidt() {
             const success = await this.$refs.addOrEditForm.validate()
             if (success) {

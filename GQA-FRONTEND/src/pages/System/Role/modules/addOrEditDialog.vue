@@ -41,7 +41,7 @@
                             <div class="col-6 q-gutter-md">
                                 <q-field label="是否启用" stack-label>
                                     <template v-slot:control>
-                                        <q-option-group v-model="addOrEditDetail.status" :options="options.status"
+                                        <q-option-group v-model="addOrEditDetail.status" :options="options.statusOnOff"
                                             color="primary" inline>
                                         </q-option-group>
                                     </template>
@@ -58,7 +58,7 @@
             <q-separator />
 
             <q-card-actions align="right">
-                <q-btn :label="'保存' + formTypeName " color="primary" @click="emitAddOrEdit" />
+                <q-btn :label="'保存' + formTypeName " color="primary" @click="handleAddOrEidt" />
                 <q-btn label="取消" color="negative" v-close-popup />
             </q-card-actions>
         </q-card>

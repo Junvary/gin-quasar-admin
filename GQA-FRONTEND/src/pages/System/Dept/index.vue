@@ -14,7 +14,7 @@
                                 <div class="text-weight-bold">{{ prop.node.deptName }}</div>
                             </div>
                             <q-space></q-space>
-                            <gqa-status :status="prop.node.status" dense />
+                            <gqa-dict-show dictName="statusOnOff" :dictCode="prop.node.status" />
                             <q-btn label="删除" style="float-right" color="negative" dense
                                 @click="handleDelete(prop.node)" />
                         </template>
@@ -26,8 +26,7 @@
             </template>
             <template v-slot:after>
                 <div class="q-pa-md">
-                    <add-or-edit-card ref="addOrEditDialog" @emitAddOrEdit="emitAddOrEdit"
-                        @handleFinish="handleFinish" />
+                    <add-or-edit-card ref="addOrEditDialog" @handleFinish="handleFinish" />
                 </div>
             </template>
         </q-splitter>
@@ -40,14 +39,14 @@ import AddOrEditCard from './modules/addOrEditCard'
 import { getAction, postAction, deleteAction, putAction } from 'src/api/manage'
 import { menuUrl } from 'src/api/url'
 import { ArrayToTree } from 'src/utils/arrayAndTree'
-import GqaStatus from 'src/components/GqaStatus'
+import GqaDictShow from 'src/components/GqaDictShow'
 
 export default {
     name: 'Dept',
     mixins: [tableDataMixin],
     components: {
         AddOrEditCard,
-        GqaStatus,
+        GqaDictShow,
     },
     computed: {
         menuTree() {

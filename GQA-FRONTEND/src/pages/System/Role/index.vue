@@ -21,7 +21,7 @@
 
             <template v-slot:body-cell-status="props">
                 <q-td :props="props">
-                    <gqa-status :status="props.row.status" />
+                    <gqa-dict-show dictName="statusOnOff" :dictCode="props.row.status" />
                 </q-td>
             </template>
 
@@ -39,7 +39,7 @@
                 </q-td>
             </template>
         </q-table>
-        <add-or-edit-dialog ref="addOrEditDialog" @emitAddOrEdit="emitAddOrEdit" @handleFinish="handleFinish" />
+        <add-or-edit-dialog ref="addOrEditDialog" @handleFinish="handleFinish" />
         <role-permission-dialog ref="rolePermissionDialog" />
         <role-user-dialog ref="roleUserDialog" />
     </q-page>
@@ -48,18 +48,18 @@
 <script>
 import { tableDataMixin } from 'src/mixins/tableDataMixin'
 import addOrEditDialog from './modules/addOrEditDialog'
-import GqaStatus from 'src/components/GqaStatus'
 import RolePermissionDialog from './modules/RolePermissionDialog'
 import RoleUserDialog from './modules/RoleUserDialog'
+import GqaDictShow from 'src/components/GqaDictShow'
 
 export default {
     name: 'Role',
     mixins: [tableDataMixin],
     components: {
         addOrEditDialog,
-        GqaStatus,
         RolePermissionDialog,
         RoleUserDialog,
+        GqaDictShow,
     },
     created() {
         this.getTableData()

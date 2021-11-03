@@ -10,11 +10,11 @@ export const HandleAsideMenu = function (menuData) {
     const menu = [
         ...data
     ]
-    return supplementPath(menu)
+    return checkPathAndChildren(menu)
 }
 
-function supplementPath(menu) {
-    return menu.map(e => ({ ...e, path: e.path || uniqueId('gqa-null-path-'), ...e.children ? { children: supplementPath(e.children) } : {} }))
+function checkPathAndChildren(menu) {
+    return menu.map(e => ({ ...e, path: e.path || uniqueId('gqa-null-path-'), ...e.children ? { children: checkPathAndChildren(e.children) } : {} }))
 }
 
 export const ArrayToTree = (arrayData) => {

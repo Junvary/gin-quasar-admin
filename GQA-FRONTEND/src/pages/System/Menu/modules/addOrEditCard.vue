@@ -8,7 +8,7 @@
                 </div>
             </q-card-section>
             <q-card-actions>
-                <q-btn :label="'保存' + formTypeName " color="primary" @click="emitAddOrEdit" />
+                <q-btn :label="'保存' + formTypeName " color="primary" @click="handleAddOrEidt" />
                 <q-btn label="取消" color="negative" @click="onClose" />
             </q-card-actions>
         </div>
@@ -54,14 +54,14 @@
                         <div class="row">
                             <q-field class="col" label="是否外链" stack-label>
                                 <template v-slot:control>
-                                    <q-option-group v-model="addOrEditDetail.isLink" :options="options.status"
+                                    <q-option-group v-model="addOrEditDetail.isLink" :options="options.statusYesNo"
                                         color="primary" inline>
                                     </q-option-group>
                                 </template>
                             </q-field>
                             <q-field class="col" label="是否缓存" stack-label>
                                 <template v-slot:control>
-                                    <q-option-group v-model="addOrEditDetail.keepAlive" :options="options.status"
+                                    <q-option-group v-model="addOrEditDetail.keepAlive" :options="options.statusYesNo"
                                         color="primary" inline>
                                     </q-option-group>
                                 </template>
@@ -71,14 +71,14 @@
                         <div class="row">
                             <q-field class="col" label="是否隐藏" stack-label>
                                 <template v-slot:control>
-                                    <q-option-group v-model="addOrEditDetail.hidden" :options="options.status"
+                                    <q-option-group v-model="addOrEditDetail.hidden" :options="options.statusYesNo"
                                         color="primary" inline>
                                     </q-option-group>
                                 </template>
                             </q-field>
                             <q-field class="col" label="是否启用" stack-label>
                                 <template v-slot:control>
-                                    <q-option-group v-model="addOrEditDetail.status" :options="options.status"
+                                    <q-option-group v-model="addOrEditDetail.status" :options="options.statusOnOff"
                                         color="primary" inline>
                                     </q-option-group>
                                 </template>
@@ -144,13 +144,14 @@ export default {
                 status: 'on',
                 remark: '',
                 parentId: 0,
-                title: '',
                 name: '',
                 path: '',
                 component: '',
-                isLink: false,
-                keepAlive: false,
-                hidden: false,
+                title: '',
+                icon: '',
+                hidden: 'no',
+                keepAlive: 'no',
+                isLink: 'no',
             },
             url: {
                 list: 'menu/menu-list',
@@ -181,13 +182,14 @@ export default {
                 status: 'on',
                 remark: '',
                 parentId: 0,
-                title: '',
                 name: '',
                 path: '',
                 component: '',
-                isLink: false,
-                keepAlive: false,
-                hidden: false,
+                title: '',
+                icon: '',
+                hidden: 'no',
+                keepAlive: 'no',
+                isLink: 'no',
             }
         },
         show(row) {
@@ -208,39 +210,6 @@ export default {
         onClose() {
             this.addOrEditVisible = false
             this.$emit('handleFinish')
-        },
-        async handleAddOrEidt() {
-            const success = await this.$refs.addOrEditForm.validate()
-            if (success) {
-                if (this.formType === 'edit') {
-                    const res = await putAction(this.url.edit, this.addOrEditDetail)
-                    if (res.code === 1) {
-                        this.$q.notify({
-                            type: 'positive',
-                            message: res.message,
-                        })
-                    }
-                } else if (this.formType === 'add') {
-                    const res = await postAction(this.url.add, this.addOrEditDetail)
-                    if (res.code === 1) {
-                        this.$q.notify({
-                            type: 'positive',
-                            message: res.message,
-                        })
-                    }
-                } else {
-                    this.$q.notify({
-                        type: 'negative',
-                        message: '无法新增或编辑！',
-                    })
-                }
-                this.$emit('handleFinish')
-            } else {
-                this.$q.notify({
-                    type: 'negative',
-                    message: '请完善表格信息！',
-                })
-            }
         },
     },
 }

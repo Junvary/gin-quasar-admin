@@ -20,7 +20,7 @@
 
             <template v-slot:body-cell-status="props">
                 <q-td :props="props">
-                    <gqa-status :status="props.row.status" />
+                    <gqa-dict-show dictName="statusOnOff" :dictCode="props.row.status" />
                 </q-td>
             </template>
 
@@ -34,8 +34,8 @@
                 </q-td>
             </template>
         </q-table>
-        <add-or-edit-dialog ref="addOrEditDialog" @emitAddOrEdit="emitAddOrEdit" @handleFinish="handleFinish" />
-        <dict-detail-dialog ref="dictDetailDialog" @emitAddOrEdit="emitAddOrEdit" @handleFinish="handleFinish" />
+        <add-or-edit-dialog ref="addOrEditDialog" @handleFinish="handleFinish" />
+        <dict-detail-dialog ref="dictDetailDialog" @handleFinish="handleFinish" />
     </q-page>
 </template>
 
@@ -43,7 +43,7 @@
 import { tableDataMixin } from 'src/mixins/tableDataMixin'
 import addOrEditDialog from './modules/addOrEditDialog'
 import dictDetailDialog from './modules/dictDetailDialog'
-import GqaStatus from 'src/components/GqaStatus'
+import GqaDictShow from 'src/components/GqaDictShow'
 
 export default {
     name: 'Dict',
@@ -51,7 +51,7 @@ export default {
     components: {
         addOrEditDialog,
         dictDetailDialog,
-        GqaStatus,
+        GqaDictShow,
     },
     data() {
         return {

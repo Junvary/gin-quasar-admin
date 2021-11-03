@@ -1,5 +1,5 @@
 <template>
-    <q-dialog v-model="rolePermissionVisible" position="right">
+    <q-dialog v-model="rolePermissionVisible" position="top">
         <q-card style="min-width: 500px; max-width: 45vw">
             <q-card-section>
                 <div class="text-h6">

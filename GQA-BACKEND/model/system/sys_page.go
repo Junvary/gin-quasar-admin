@@ -8,7 +8,7 @@ type RequestQueryById struct {
 
 type RequestPageByParentId struct {
 	global.RequestPage
-	ParentId uint   `json:"parentId" form:"parentId"`
+	ParentId uint `json:"parentId" form:"parentId"`
 }
 
 type RequestQueryByValue struct {

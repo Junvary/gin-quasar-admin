@@ -14,7 +14,7 @@ export async function GetUserMenu({ commit, state, dispatch }) {
         // 重组搜索
         const search = HandleAsideMenu(data)
         // 重组侧边栏
-        const aside = HandleAsideMenu(data.filter(value => value.hidden === false))
+        const aside = HandleAsideMenu(data.filter(value => value.hidden === "no"))
         // 设置搜索
         commit('SEARCH_MENU', search)
         // 设置侧边栏菜单

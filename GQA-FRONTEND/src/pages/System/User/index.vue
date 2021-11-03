@@ -24,9 +24,15 @@
                 </q-td>
             </template>
 
+            <template v-slot:body-cell-gender="props">
+                <q-td :props="props">
+                    <gqa-dict-show dictName="gender" :dictCode="props.row.gender" />
+                </q-td>
+            </template>
+
             <template v-slot:body-cell-status="props">
                 <q-td :props="props">
-                    <gqa-status :status="props.row.status" />
+                    <gqa-dict-show dictName="statusOnOff" :dictCode="props.row.status" />
                 </q-td>
             </template>
 
@@ -59,7 +65,7 @@
                 </q-td>
             </template>
         </q-table>
-        <add-or-edit-dialog ref="addOrEditDialog" @emitAddOrEdit="emitAddOrEdit" @handleFinish="handleFinish" />
+        <add-or-edit-dialog ref="addOrEditDialog" @handleFinish="handleFinish" />
     </q-page>
 </template>
 
@@ -67,7 +73,7 @@
 import { tableDataMixin } from 'src/mixins/tableDataMixin'
 import addOrEditDialog from './modules/addOrEditDialog'
 import GqaAvatar from 'src/components/GqaAvatar'
-import GqaStatus from 'src/components/GqaStatus'
+import GqaDictShow from 'src/components/GqaDictShow'
 
 export default {
     name: 'User',
@@ -75,7 +81,7 @@ export default {
     components: {
         addOrEditDialog,
         GqaAvatar,
-        GqaStatus,
+        GqaDictShow,
     },
     data() {
         return {
@@ -99,7 +105,7 @@ export default {
                 { name: 'realName', align: 'center', label: '真实姓名', field: 'realName' },
                 { name: 'gender', align: 'center', label: '性别', field: 'gender' },
                 { name: 'mobile', align: 'center', label: '手机', field: 'mobile' },
-                { name: 'email', align: 'center', label: '邮箱', field: 'email' },
+                // { name: 'email', align: 'center', label: '邮箱', field: 'email' },
                 { name: 'dept', align: 'center', label: '部门', field: 'dept' },
                 { name: 'status', align: 'center', label: '状态', field: 'status' },
                 { name: 'actions', align: 'center', label: '操作', field: 'actions' },

@@ -75,16 +75,13 @@ export const tableDataMixin = {
                     this.getTableData()
                 })
         },
-        showAddForm() {
+        showAddForm(row) {
             this.$refs.addOrEditDialog.formType = 'add'
-            this.$refs.addOrEditDialog.show({})
+            this.$refs.addOrEditDialog.show(row)
         },
         showEditForm(row) {
             this.$refs.addOrEditDialog.formType = 'edit'
             this.$refs.addOrEditDialog.show(row)
-        },
-        emitAddOrEdit() {
-            this.$refs.addOrEditDialog.handleAddOrEidt()
         },
         handleFinish() {
             this.getTableData()

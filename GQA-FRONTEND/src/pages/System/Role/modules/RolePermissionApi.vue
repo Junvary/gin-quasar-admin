@@ -5,7 +5,7 @@
             <q-btn color="negative" :disable="row.roleCode === 'super-admin'" @click="handleAll">全部选择</q-btn>
             <q-btn color="primary" :disable="row.roleCode === 'super-admin'" @click="handleRoleApi">保存菜单权限</q-btn>
         </div>
-        <q-card-section style="width: 100%; max-height: 50vw" class="scroll">
+        <q-card-section style="width: 100%; max-height: 45vw" class="scroll">
             <q-tree :nodes="apiData" default-expand-all node-key="trueId" selected-color="primary"
                 v-if="tableData.length !== 0" tick-strategy="strict" v-model:ticked="ticked">
                 <template v-slot:default-header="prop">
