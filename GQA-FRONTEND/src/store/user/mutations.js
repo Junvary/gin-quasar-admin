@@ -1,8 +1,12 @@
-import { Cookies } from 'quasar'
+import { Cookies, SessionStorage } from 'quasar'
 
 export function SET_TOKEN(state, token) {
     state.token = token
-    Cookies.set('gqa-token', token)
+    if (state.rememberMe) {
+        Cookies.set('gqa-token', token)
+    } else {
+        SessionStorage.set('gqa-token', token)
+    }
 }
 
 export function SET_NICKNAME(state, nickname) {
@@ -20,12 +24,18 @@ export function SET_AVATAR(state, avatar) {
     Cookies.set('gqa-avatar', avatar)
 }
 
+export function CHANGE_REMEMBER_ME(state, type) {
+    state.rememberMe = type
+}
+
 export function LOGOUT(state) {
+    SessionStorage.remove('gqa-token')
     Cookies.remove('gqa-token')
     Cookies.remove('gqa-nickname')
     Cookies.remove('gqa-realName')
     Cookies.remove('gqa-avatar')
-    Cookies.remove('gqa-dict')
+    // 字典不删除
+    // Cookies.remove('gqa-dict')
     state.token = undefined
     state.nickname = undefined
     state.realName = undefined

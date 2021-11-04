@@ -28,7 +28,8 @@
                             </template>
                         </q-input>
                         <div class="column q-gutter-y-md q-mt-none">
-                            <q-checkbox :disable="loading" v-model="form.rememberMe" label="记住账号" dense />
+                            <q-checkbox :disable="loading" v-model="rememberMe" label="自动登录" dense
+                                @update:model-value="changeRememberMe" />
                         </div>
                         <div class="q-mt-md row justify-around items-center">
                             <q-btn label="登录" type="submit" color="primary" :loading="loading" style="width: 48%" />
@@ -75,12 +76,12 @@ export default {
             loginVisible: false,
             randomImg: 'https://acg.toubiec.cn/random.php',
             form: {
-                username: 'admin',
-                password: '123456',
+                username: '',
+                password: '',
                 captcha: '',
                 captchaKey: '',
-                rememberMe: false,
             },
+            rememberMe: true,
             captchaImage: '',
             loading: false,
         }
@@ -88,10 +89,16 @@ export default {
 
     methods: {
         show() {
+            this.form = {
+                username: 'admin',
+                password: '123456',
+                captcha: '',
+                captchaKey: '',
+            }
             this.getCaptcha()
             this.loginVisible = true
         },
-        ...mapActions('user', ['HandleLogin']),
+        ...mapActions('user', ['HandleLogin', 'ChangeRememberMe']),
         getCaptcha() {
             getAction(captchaUrl).then((res) => {
                 this.captchaImage = res.data.picPath
@@ -118,6 +125,9 @@ export default {
                 this.getCaptcha()
                 this.loading = false
             }
+        },
+        changeRememberMe(value) {
+            this.ChangeRememberMe(value)
         },
     },
 }

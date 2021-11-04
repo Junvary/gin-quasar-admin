@@ -4,5 +4,6 @@ export default function () {
         nickname: undefined,
         realName: undefined,
         avatar: undefined,
+        rememberMe: true
     }
 }

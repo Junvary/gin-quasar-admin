@@ -14,3 +14,7 @@ export function avatar(state) {
     return state.avatar
 }
 
+export function rememberMe(state) {
+    return state.rememberMe
+}
+

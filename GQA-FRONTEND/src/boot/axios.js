@@ -3,6 +3,7 @@ import axios from 'axios'
 import { Notify, Cookies } from 'quasar'
 import Store from 'src/store'
 import Router from 'src/router'
+import { GetToken, RemoveToken } from 'src/utils/getToken'
 
 // Be careful when using SSR for cross-request state pollution
 // due to creating a Singleton instance here;
@@ -19,7 +20,7 @@ const api = axios.create(
 
 // 请求拦截
 api.interceptors.request.use(res => {
-    const token = Cookies.get('gqa-token')
+    const token = GetToken()
     res.headers = {
         'Content-Type': 'application/json',
         'gqa-token': token,
@@ -43,24 +44,12 @@ api.interceptors.response.use(response => {
         switch (code) {
             case 401:
                 postAction(refreshTokenUrl, {
-                    refresh: Cookies.get('gqa-token')
+                    refresh: GetToken()
                 }).then(res => {
-                    Cookies.set('gqa-token', res.access)
-                    // window.location.reload()
+                    Store().dispatch('user/SetToken', res.data.token)
                 }).catch(error => {
-                    Cookies.remove('gqa-token')
-                    Notify.create({
-                        type: 'negative',
-                        message: '获取数据错误，请重新登录',
-                    })
-                    Router.push({ name: 'login' })
+                    RemoveToken()
                 })
-            case 400:
-                Notify.create({
-                    type: 'negative',
-                    message: response.data.message || '数据异常！',
-                })
-                return response.data
             default:
                 Notify.create({
                     type: 'negative',

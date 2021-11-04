@@ -1,6 +1,7 @@
 import { boot } from 'quasar/wrappers'
-import { LoadingBar, Loading, QSpinnerGears, Cookies } from 'quasar'
+import { LoadingBar, Loading, QSpinnerGears } from 'quasar'
 import { Allowlist } from 'src/settings'
+import { GetToken } from 'src/utils/getToken'
 
 LoadingBar.setDefaults({
     color: 'red',
@@ -24,7 +25,7 @@ function stopLoading() {
 export default boot(({ router, store }) => {
     router.beforeEach((to, from, next) => {
         startLoading()
-        if (Cookies.get('gqa-token')) {
+        if (GetToken()) {
             if (Allowlist.indexOf(to.path) !== -1) {
                 next({ path: '/' })
                 stopLoading()
