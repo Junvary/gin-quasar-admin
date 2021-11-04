@@ -10,7 +10,7 @@ import (
 type ServiceDict struct {
 }
 
-func (s *ServiceDict)GetDictList(pageInfo system.RequestPageByParentId) (err error, role interface{}, total int64, parentId uint) {
+func (s *ServiceDict) GetDictList(pageInfo system.RequestPageByParentId) (err error, role interface{}, total int64, parentId uint) {
 	pageSize := pageInfo.PageSize
 	offset := pageInfo.PageSize * (pageInfo.Page - 1)
 	db := global.GqaDb.Where("parent_id=?", pageInfo.ParentId).Find(&system.SysDict{})
@@ -24,6 +24,11 @@ func (s *ServiceDict)GetDictList(pageInfo system.RequestPageByParentId) (err err
 }
 
 func (s *ServiceDict) EditDict(dict system.SysDict) (err error) {
+	var stableDict system.SysDict
+	global.GqaDb.Where("id = ?", dict.Id).First(&stableDict)
+	if stableDict.Stable{
+		return errors.New("内置字典不允许编辑：" + dict.Value)
+	}
 	err = global.GqaDb.Updates(&dict).Error
 	return err
 }
@@ -39,6 +44,10 @@ func (s *ServiceDict) AddDict(d system.SysDict) (err error) {
 
 func (s *ServiceDict) DeleteDict(id uint) (err error) {
 	var dict system.SysDict
+	global.GqaDb.Where("id = ?", id).Find(&dict)
+	if dict.Stable{
+		return errors.New("内置字典不允许删除！")
+	}
 	err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&dict).Error
 	return err
 }

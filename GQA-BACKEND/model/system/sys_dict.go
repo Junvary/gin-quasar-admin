@@ -7,6 +7,7 @@ type SysDict struct {
 	ParentId uint   `json:"parentId" gorm:"comment:父字典ID;not null;index"`
 	Value    string `json:"value" gorm:"comment:字典编码;not null;index;"`
 	Label    string `json:"label" gorm:"comment:字典名称;not null;"`
+	Stable   bool   `json:"stable" gorm:"comment:内置字典;"`
 }
 
 type RequestAddDict struct {

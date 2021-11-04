@@ -16,40 +16,40 @@ type sysDict struct{}
 var sysDictData = []system.SysDict{
 	// 父级设置ID
 	{GqaModel: global.GqaModel{Id: 1, Status: "on", Sort: 1, Remark: "这是性别字典", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
-		ParentId: 0, Value: "gender", Label: "性别",
+		ParentId: 0, Value: "gender", Label: "性别", Stable: true,
 	},
 	// 父级设置ID
 	{GqaModel: global.GqaModel{Id: 2, Status: "on", Sort: 2, Remark: "这是启用状态", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
-		ParentId: 0, Value: "statusOnOff", Label: "启用状态",
+		ParentId: 0, Value: "statusOnOff", Label: "启用状态", Stable: true,
 	},
 	// 父级设置ID
 	{GqaModel: global.GqaModel{Id: 3, Status: "on", Sort: 3, Remark: "这是是否状态", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
-		ParentId: 0, Value: "statusYesNo", Label: "是否状态",
+		ParentId: 0, Value: "statusYesNo", Label: "是否状态", Stable: true,
 	},
 
 	// 子级内容：
 	{GqaModel: global.GqaModel{Status: "on", Sort: 1, Remark: "这是男", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
-		ParentId: 1, Value: "m", Label: "男",
+		ParentId: 1, Value: "m", Label: "男", Stable: true,
 	},
 	{GqaModel: global.GqaModel{Status: "on", Sort: 2, Remark: "这是女", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
-		ParentId: 1, Value: "f", Label: "女",
+		ParentId: 1, Value: "f", Label: "女", Stable: true,
 	},
 	{GqaModel: global.GqaModel{Status: "on", Sort: 3, Remark: "这是保密", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
-		ParentId: 1, Value: "u", Label: "保密",
+		ParentId: 1, Value: "u", Label: "保密", Stable: true,
 	},
 
 	{GqaModel: global.GqaModel{Status: "on", Sort: 1, Remark: "这是启用", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
-		ParentId: 2, Value: "on", Label: "启用",
+		ParentId: 2, Value: "on", Label: "启用", Stable: true,
 	},
 	{GqaModel: global.GqaModel{Status: "on", Sort: 2, Remark: "这是禁用", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
-		ParentId: 2, Value: "off", Label: "禁用",
+		ParentId: 2, Value: "off", Label: "禁用", Stable: true,
 	},
 
 	{GqaModel: global.GqaModel{Status: "on", Sort: 1, Remark: "这是是", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
-		ParentId: 3, Value: "yes", Label: "是",
+		ParentId: 3, Value: "yes", Label: "是", Stable: true,
 	},
 	{GqaModel: global.GqaModel{Status: "on", Sort: 2, Remark: "这是否", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
-		ParentId: 3, Value: "no", Label: "否",
+		ParentId: 3, Value: "no", Label: "否", Stable: true,
 	},
 }
 

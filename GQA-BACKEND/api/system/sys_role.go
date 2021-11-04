@@ -15,11 +15,11 @@ func (a *ApiRole) GetRoleList(c *gin.Context) {
 	var pageInfo global.RequestPage
 	if err := c.ShouldBindJSON(&pageInfo); err != nil{
 		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
-		global.ErrorMessage("模型绑定失败！"+err.Error(), c)
+		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
 	if err, roleList, total := service.GroupServiceApp.ServiceSystem.GetRoleList(pageInfo); err != nil {
-		global.GqaLog.Error("获取角色列表失败：", zap.Any("err", err))
+		global.GqaLog.Error("获取角色列表失败！", zap.Any("err", err))
 		global.ErrorMessage("获取角色列表失败，"+err.Error(), c)
 	} else {
 		global.SuccessData(system.ResponsePage{
@@ -35,11 +35,11 @@ func (a *ApiRole) EditRole(c *gin.Context) {
 	var toEditRole system.SysRole
 	if err := c.ShouldBindJSON(&toEditRole); err != nil{
 		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
-		global.ErrorMessage("模型绑定失败！"+err.Error(), c)
+		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
 	if err := service.GroupServiceApp.ServiceSystem.EditRole(toEditRole); err != nil {
-		global.GqaLog.Error("编辑角色失败!", zap.Any("err", err))
+		global.GqaLog.Error("编辑角色失败！", zap.Any("err", err))
 		global.ErrorMessage("编辑角色失败，"+err.Error(), c)
 	} else {
 		global.SuccessMessage("编辑角色成功！", c)
@@ -50,7 +50,7 @@ func (a *ApiRole) AddRole(c *gin.Context) {
 	var toAddRole system.RequestAddRole
 	if err := c.ShouldBindJSON(&toAddRole); err != nil{
 		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
-		global.ErrorMessage("模型绑定失败！"+err.Error(), c)
+		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
 	addRole := &system.SysRole{
@@ -64,7 +64,7 @@ func (a *ApiRole) AddRole(c *gin.Context) {
 	}
 	if err := service.GroupServiceApp.ServiceSystem.AddRole(*addRole); err != nil {
 		global.GqaLog.Error("添加角色失败！", zap.Any("err", err))
-		global.ErrorMessage("添加角色失败！"+err.Error(), c)
+		global.ErrorMessage("添加角色失败，"+err.Error(), c)
 	} else {
 		global.SuccessMessage("添加角色成功！", c)
 	}
@@ -74,7 +74,7 @@ func (a *ApiRole) DeleteRole(c *gin.Context) {
 	var toDeleteId system.RequestQueryById
 	if err := c.ShouldBindJSON(&toDeleteId); err != nil{
 		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
-		global.ErrorMessage("模型绑定失败！"+err.Error(), c)
+		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
 	if err := service.GroupServiceApp.ServiceSystem.DeleteRole(toDeleteId.Id); err != nil {
@@ -89,7 +89,7 @@ func (a *ApiRole) QueryRoleById(c *gin.Context) {
 	var toQueryId system.RequestQueryById
 	if err := c.ShouldBindJSON(&toQueryId); err != nil{
 		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
-		global.ErrorMessage("模型绑定失败！"+err.Error(), c)
+		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
 	if err, role := service.GroupServiceApp.ServiceSystem.QueryRoleById(toQueryId.Id); err != nil {
@@ -104,11 +104,11 @@ func (a *ApiRole) GetRoleMenuList(c *gin.Context) {
 	var roleCode system.RequestRoleCode
 	if err := c.ShouldBindJSON(&roleCode); err != nil{
 		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
-		global.ErrorMessage("模型绑定失败！"+err.Error(), c)
+		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
 	if err, menuList := service.GroupServiceApp.ServiceSystem.GetRoleMenuList(&roleCode); err != nil {
-		global.GqaLog.Error("获取角色菜单列表失败：", zap.Any("err", err))
+		global.GqaLog.Error("获取角色菜单列表失败！", zap.Any("err", err))
 		global.ErrorMessage("获取角色菜单列表失败，"+err.Error(), c)
 	} else {
 		global.SuccessData(gin.H{"records": menuList}, c)
@@ -119,7 +119,7 @@ func (a *ApiRole) EditRoleMenu(c *gin.Context) {
 	var roleMenu system.RequestRoleMenuEdit
 	if err := c.ShouldBindJSON(&roleMenu); err != nil{
 		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
-		global.ErrorMessage("模型绑定失败！"+err.Error(), c)
+		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
 	if roleMenu.RoleCode == "super-admin" {
@@ -127,7 +127,7 @@ func (a *ApiRole) EditRoleMenu(c *gin.Context) {
 		return
 	}
 	if err := service.GroupServiceApp.ServiceSystem.EditRoleMenu(&roleMenu); err != nil {
-		global.GqaLog.Error("编辑角色菜单失败：", zap.Any("err", err))
+		global.GqaLog.Error("编辑角色菜单失败！", zap.Any("err", err))
 		global.ErrorMessage("编辑角色菜单失败，"+err.Error(), c)
 	} else {
 		global.SuccessMessage("编辑角色菜单成功！", c)
@@ -138,11 +138,11 @@ func (a *ApiRole) GetRoleApiList(c *gin.Context) {
 	var roleCode system.RequestRoleCode
 	if err := c.ShouldBindJSON(&roleCode); err != nil{
 		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
-		global.ErrorMessage("模型绑定失败！"+err.Error(), c)
+		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
 	if err, apiList := service.GroupServiceApp.ServiceSystem.GetRoleApiList(&roleCode); err != nil {
-		global.GqaLog.Error("获取角色API列表失败：", zap.Any("err", err))
+		global.GqaLog.Error("获取角色API列表失败！", zap.Any("err", err))
 		global.SuccessMessage("获取角色API列表失败，"+err.Error(), c)
 	} else {
 		global.SuccessData(gin.H{"records": apiList}, c)
@@ -153,7 +153,7 @@ func (a *ApiRole) EditRoleApi(c *gin.Context) {
 	var roleApi system.RequestRoleApiEdit
 	if err := c.ShouldBindJSON(&roleApi); err != nil{
 		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
-		global.ErrorMessage("模型绑定失败！"+err.Error(), c)
+		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
 	if roleApi.RoleCode == "super-admin" {
@@ -161,7 +161,7 @@ func (a *ApiRole) EditRoleApi(c *gin.Context) {
 		return
 	}
 	if err := service.GroupServiceApp.ServiceSystem.EditRoleApi(&roleApi); err != nil {
-		global.GqaLog.Error("编辑角色API失败：", zap.Any("err", err))
+		global.GqaLog.Error("编辑角色API失败！", zap.Any("err", err))
 		global.ErrorMessage("编辑角色API失败，"+err.Error(), c)
 	} else {
 		global.SuccessMessage("编辑角色API成功！", c)
@@ -172,11 +172,11 @@ func (a *ApiRole) QueryUserByRole(c *gin.Context) {
 	var roleCode system.RequestRoleCode
 	if err := c.ShouldBindJSON(&roleCode); err != nil{
 		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
-		global.ErrorMessage("模型绑定失败！"+err.Error(), c)
+		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
 	if err, userList := service.GroupServiceApp.ServiceSystem.QueryUserByRole(&roleCode); err != nil {
-		global.GqaLog.Error("查找用户失败：", zap.Any("err", err))
+		global.GqaLog.Error("查找用户失败！", zap.Any("err", err))
 		global.ErrorMessage("查找用户失败，"+err.Error(), c)
 	} else {
 		global.SuccessData(gin.H{"records": userList}, c)
@@ -187,7 +187,7 @@ func (a *ApiRole) RemoveRoleUser(c *gin.Context) {
 	var toDeleteRoleUser system.RequestRoleUser
 	if err := c.ShouldBindJSON(&toDeleteRoleUser); err != nil{
 		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
-		global.ErrorMessage("模型绑定失败！"+err.Error(), c)
+		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
 	if toDeleteRoleUser.UserId == 1 && toDeleteRoleUser.RoleCode == "super-admin" {
@@ -206,12 +206,12 @@ func (a *ApiRole) AddRoleUser(c *gin.Context) {
 	var toAddRoleUser system.RequestRoleUserAdd
 	if err := c.ShouldBindJSON(&toAddRoleUser); err != nil{
 		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
-		global.ErrorMessage("模型绑定失败！"+err.Error(), c)
+		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
 	if err := service.GroupServiceApp.ServiceSystem.AddRoleUser(&toAddRoleUser); err != nil {
 		global.GqaLog.Error("添加角色失败！", zap.Any("err", err))
-		global.ErrorMessage("添加角色失败！"+err.Error(), c)
+		global.ErrorMessage("添加角色失败，"+err.Error(), c)
 	} else {
 		global.SuccessMessage("添加角色成功！", c)
 	}

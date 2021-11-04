@@ -19,7 +19,7 @@ func (a *ApiApi) GetApiList(c *gin.Context) {
 		return
 	}
 	if err, apiList, total := service.GroupServiceApp.ServiceSystem.GetApiList(pageInfo); err != nil {
-		global.GqaLog.Error("获取API列表失败：", zap.Any("err", err))
+		global.GqaLog.Error("获取API列表失败！", zap.Any("err", err))
 		global.ErrorMessage("获取API列表失败，" + err.Error(), c)
 	} else {
 		global.SuccessData(system.ResponsePage{

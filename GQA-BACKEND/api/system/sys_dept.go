@@ -15,11 +15,11 @@ func (a *ApiDept) GetDeptList(c *gin.Context) {
 	var pageInfo global.RequestPage
 	if err := c.ShouldBindJSON(&pageInfo); err != nil{
 		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
-		global.ErrorMessage("模型绑定失败！"+err.Error(), c)
+		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
 	if err, deptList, total := service.GroupServiceApp.ServiceSystem.GetDeptList(pageInfo); err != nil {
-		global.GqaLog.Error("获取部门列表失败：", zap.Any("err", err))
+		global.GqaLog.Error("获取部门列表失败！", zap.Any("err", err))
 		global.ErrorMessage("获取部门列表失败，" + err.Error(), c)
 	} else {
 		global.SuccessData(system.ResponsePage{
@@ -35,11 +35,11 @@ func (a *ApiDept) EditDept(c *gin.Context) {
 	var toEditDept system.SysDept
 	if err := c.ShouldBindJSON(&toEditDept); err != nil{
 		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
-		global.ErrorMessage("模型绑定失败！"+err.Error(), c)
+		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
 	if err := service.GroupServiceApp.ServiceSystem.EditDept(toEditDept); err != nil {
-		global.GqaLog.Error("编辑部门失败!", zap.Any("err", err))
+		global.GqaLog.Error("编辑部门失败！", zap.Any("err", err))
 		global.ErrorMessage("编辑部门失败，" + err.Error(), c)
 	} else {
 		global.SuccessMessage("编辑部门成功！", c)
@@ -50,7 +50,7 @@ func (a *ApiDept) AddDept(c *gin.Context) {
 	var toAddDept system.RequestAddDept
 	if err := c.ShouldBindJSON(&toAddDept); err != nil{
 		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
-		global.ErrorMessage("模型绑定失败！"+err.Error(), c)
+		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
 	addDept := &system.SysDept{
@@ -67,7 +67,7 @@ func (a *ApiDept) AddDept(c *gin.Context) {
 	}
 	if err := service.GroupServiceApp.ServiceSystem.AddDept(*addDept); err != nil {
 		global.GqaLog.Error("添加部门失败！", zap.Any("err", err))
-		global.ErrorMessage("添加部门失败！"+err.Error(), c)
+		global.ErrorMessage("添加部门失败，"+err.Error(), c)
 	} else {
 		global.SuccessMessage("添加部门成功！", c)
 	}
@@ -77,7 +77,7 @@ func (a *ApiDept) DeleteDept(c *gin.Context) {
 	var toDeleteId system.RequestQueryById
 	if err := c.ShouldBindJSON(&toDeleteId); err != nil{
 		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
-		global.ErrorMessage("模型绑定失败！"+err.Error(), c)
+		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
 	if err := service.GroupServiceApp.ServiceSystem.DeleteDept(toDeleteId.Id); err != nil {
@@ -92,7 +92,7 @@ func (a *ApiDept) QueryDeptById(c *gin.Context) {
 	var toQueryId system.RequestQueryById
 	if err := c.ShouldBindJSON(&toQueryId); err != nil{
 		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
-		global.ErrorMessage("模型绑定失败！"+err.Error(), c)
+		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
 	if err, dept := service.GroupServiceApp.ServiceSystem.QueryDeptById(toQueryId.Id); err != nil {

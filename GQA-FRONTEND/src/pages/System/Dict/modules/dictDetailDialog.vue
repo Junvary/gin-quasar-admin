@@ -59,6 +59,7 @@ export default {
                 list: 'dict/dict-list',
                 add: 'dict/dict-add',
                 edit: 'dict/dict-edit',
+                delete: 'dict/dict-delete',
                 queryById: 'dict/dict-id',
             },
             columns: [
