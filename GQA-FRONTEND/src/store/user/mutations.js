@@ -25,6 +25,7 @@ export function LOGOUT(state) {
     Cookies.remove('gqa-nickname')
     Cookies.remove('gqa-realName')
     Cookies.remove('gqa-avatar')
+    Cookies.remove('gqa-dict')
     state.token = undefined
     state.nickname = undefined
     state.realName = undefined

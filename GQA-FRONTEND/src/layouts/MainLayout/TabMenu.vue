@@ -1,5 +1,6 @@
 <template>
-    <q-tabs dense inline-label outside-arrows mobile-arrows class="bg-primary text-white shadow-2" style="width: 100%">
+    <q-tabs dense inline-label outside-arrows mobile-arrows class="bg-primary text-white shadow-2" style="width: 100%"
+        v-if="!loginPage">
         <q-route-tab exact replace v-for="tab in tabMenus" :to="tab.path" :key="tab.path" :name="tab.path"
             :ripple="{ color: 'primary' }">
             <template v-slot>
@@ -64,7 +65,13 @@ export default {
             this.addTabMenu()
         },
     },
-    beforeDestroy() {
+    data() {
+        return {
+            loginPage: false,
+        }
+    },
+    beforeUnmount() {
+        // 退出时，清空tabMenu
         this.DestroyTabMenu()
     },
     created() {

@@ -18,6 +18,7 @@ export async function HandleLogin({ commit }, loginForm) {
     }
 }
 
-export async function HandleLogout({ commit }) {
+export async function HandleLogout({ commit, dispatch }) {
+    await dispatch('permission/ClearMenu', null, { root: true })
     commit('LOGOUT')
 }

@@ -24,6 +24,7 @@ module.exports = configure(function (ctx) {
             'axios',
             'permission',
             'echarts',
+            'bus',
         ],
 
         // https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css

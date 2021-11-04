@@ -38,10 +38,8 @@ export function SEARCH_MENU(state, menu) {
     state.search = search
 }
 
-export function SET_ALL_DEPT_LIST(state, deptList) {
-    state.allDeptList = deptList
-}
-
-export function SET_ALL_ROLE_LIST(state, roleList) {
-    state.allRoleList = roleList
+export function CLEAR_MENU(state) {
+    state.userMenu = []
+    state.aside = []
+    state.search = []
 }

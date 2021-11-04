@@ -3,7 +3,5 @@ export default function () {
         userMenu: [],
         aside: [],
         search: [],
-        allDeptList: [],
-        allRoleList: []
     }
 }

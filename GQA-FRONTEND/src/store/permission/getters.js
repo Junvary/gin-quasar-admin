@@ -9,11 +9,3 @@ export function aside(state) {
 export function search(state) {
     return state.search
 }
-
-export function allDeptList(state) {
-    return state.allDeptList
-}
-
-export function allRoleList(state) {
-    return state.allRoleList
-}
