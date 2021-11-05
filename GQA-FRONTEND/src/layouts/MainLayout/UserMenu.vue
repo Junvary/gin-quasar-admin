@@ -30,15 +30,13 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
-import GqaTheme from 'src/components/GqaTheme'
+import { mapActions } from 'vuex'
 import GqaShowName from 'src/components/GqaShowName'
 import GqaAvatar from 'src/components/GqaAvatar'
 
 export default {
     name: 'UserMenu',
     components: {
-        GqaTheme,
         GqaShowName,
         GqaAvatar,
     },
