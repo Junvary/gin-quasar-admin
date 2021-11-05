@@ -13,8 +13,6 @@ var SysCasbin = new(sysCasbin)
 type sysCasbin struct{}
 
 var sysCasbinData = []gormadapter.CasbinRule{
-	// 超级管理员组
-	{Ptype: "g", V0: "admin", V1: "super-admin"},
 	// user组
 	{Ptype: "p", V0: "super-admin", V1: "/user/user-list", V2: "POST"},
 	{Ptype: "p", V0: "super-admin", V1: "/user/user-edit", V2: "PUT"},

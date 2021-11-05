@@ -4,6 +4,7 @@ import (
 	"gin-quasar-admin/global"
 	"gin-quasar-admin/model/system"
 	"gin-quasar-admin/service"
+	"gin-quasar-admin/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -164,6 +165,7 @@ func (a *ApiRole) EditRoleApi(c *gin.Context) {
 		global.GqaLog.Error("编辑角色API失败！", zap.Any("err", err))
 		global.ErrorMessage("编辑角色API失败，"+err.Error(), c)
 	} else {
+		global.GqaCasbin = utils.Casbin(global.GqaDb)
 		global.SuccessMessage("编辑角色API成功！", c)
 	}
 }
@@ -176,8 +178,8 @@ func (a *ApiRole) QueryUserByRole(c *gin.Context) {
 		return
 	}
 	if err, userList := service.GroupServiceApp.ServiceSystem.QueryUserByRole(&roleCode); err != nil {
-		global.GqaLog.Error("查找用户失败！", zap.Any("err", err))
-		global.ErrorMessage("查找用户失败，"+err.Error(), c)
+		global.GqaLog.Error("查找用户角色失败！", zap.Any("err", err))
+		global.ErrorMessage("查找用户角色失败，"+err.Error(), c)
 	} else {
 		global.SuccessData(gin.H{"records": userList}, c)
 	}
@@ -195,10 +197,10 @@ func (a *ApiRole) RemoveRoleUser(c *gin.Context) {
 		return
 	}
 	if err := service.GroupServiceApp.ServiceSystem.RemoveRoleUser(&toDeleteRoleUser); err != nil {
-		global.GqaLog.Error("移除用户失败！", zap.Any("err", err))
-		global.ErrorMessage("移除用户失败，"+err.Error(), c)
+		global.GqaLog.Error("移除用户角色失败！", zap.Any("err", err))
+		global.ErrorMessage("移除用户角色失败，"+err.Error(), c)
 	} else {
-		global.SuccessMessage("移除用户成功！", c)
+		global.SuccessMessage("移除用户角色成功！", c)
 	}
 }
 
@@ -210,9 +212,9 @@ func (a *ApiRole) AddRoleUser(c *gin.Context) {
 		return
 	}
 	if err := service.GroupServiceApp.ServiceSystem.AddRoleUser(&toAddRoleUser); err != nil {
-		global.GqaLog.Error("添加角色失败！", zap.Any("err", err))
-		global.ErrorMessage("添加角色失败，"+err.Error(), c)
+		global.GqaLog.Error("添加用户角色失败！", zap.Any("err", err))
+		global.ErrorMessage("添加用户角色失败，"+err.Error(), c)
 	} else {
-		global.SuccessMessage("添加角色成功！", c)
+		global.SuccessMessage("添加用户角色成功！", c)
 	}
 }

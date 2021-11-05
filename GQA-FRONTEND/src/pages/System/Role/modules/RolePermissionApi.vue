@@ -110,9 +110,8 @@ export default {
                 for (let t of this.ticked) {
                     if (t === item.trueId) {
                         policy.push({
-                            roleCode: this.row.roleCode,
-                            path: item.path,
-                            method: item.method,
+                            V1: item.path,
+                            V2: item.method,
                         })
                     }
                 }

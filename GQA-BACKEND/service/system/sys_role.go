@@ -8,10 +8,9 @@ import (
 )
 
 type ServiceRole struct {
-	
 }
 
-func (s *ServiceRole)GetRoleList(pageInfo global.RequestPage) (err error, role interface{}, total int64) {
+func (s *ServiceRole) GetRoleList(pageInfo global.RequestPage) (err error, role interface{}, total int64) {
 	pageSize := pageInfo.PageSize
 	offset := pageInfo.PageSize * (pageInfo.Page - 1)
 	db := global.GqaDb.Model(&system.SysRole{})
@@ -40,7 +39,28 @@ func (s *ServiceRole) AddRole(r system.SysRole) (err error) {
 
 func (s *ServiceRole) DeleteRole(id uint) (err error) {
 	var role system.SysRole
-	err = global.GqaDb.Where("id = ?", id).Delete(&role).Error
+	err = global.GqaDb.Where("id = ?", id).First(&role).Error
+	if err != nil {
+		return err
+	}
+	roleCode := role.RoleCode
+	// 删除 casbin_rule 表的权限
+	_, _ = global.GqaCasbin.RemoveFilteredPolicy(0, roleCode)
+	// 删除 sys_role 表的数据
+	err = global.GqaDb.Unscoped().Delete(&role).Error
+	if err != nil {
+		return err
+	}
+	// 删除 sys_user_role 表的对应关系
+	err = global.GqaDb.Where("sys_role_role_code = ?", roleCode).Delete(&system.SysUserRole{}).Error
+	if err != nil {
+		return err
+	}
+	// 删除 sys_role_menu 表的对应关系
+	err = global.GqaDb.Where("sys_role_role_code = ?", roleCode).Delete(&system.SysRoleMenu{}).Error
+	if err != nil {
+		return err
+	}
 	return err
 }
 
@@ -57,7 +77,7 @@ func (s *ServiceRole) GetRoleMenuList(roleCode *system.RequestRoleCode) (err err
 
 func (s *ServiceRole) EditRoleMenu(roleMenu *system.RequestRoleMenuEdit) (err error) {
 	err = global.GqaDb.Where("sys_role_role_code=?", roleMenu.RoleCode).Delete(&system.SysRoleMenu{}).Error
-	if err != nil{
+	if err != nil {
 		return err
 	}
 	if len(roleMenu.RoleMenu) != 0 {
@@ -75,16 +95,16 @@ func (s *ServiceRole) GetRoleApiList(roleCode *system.RequestRoleCode) (err erro
 func (s *ServiceRole) EditRoleApi(roleApi *system.RequestRoleApiEdit) (err error) {
 	_, _ = global.GqaCasbin.RemoveFilteredPolicy(0, roleApi.RoleCode)
 	var newPolicy [][]string
-	for _, v:= range roleApi.Policy{
+	for _, v := range roleApi.Policy {
 		sc := system.SysCasbin{
 			Ptype: "p",
-			RoleCode: v.RoleCode,
-			Path: v.Path,
-			Method: v.Method,
+			V0:    roleApi.RoleCode,
+			V1:    v.V1,
+			V2:    v.V2,
 		}
-		newPolicy = append(newPolicy, []string{sc.RoleCode, sc.Path, sc.Method})
+		newPolicy = append(newPolicy, []string{sc.V0, sc.V1, sc.V2})
 	}
-	if len(newPolicy) != 0{
+	if len(newPolicy) != 0 {
 		_, _ = global.GqaCasbin.AddPolicies(newPolicy)
 	}
 	return nil
@@ -107,9 +127,9 @@ func (s *ServiceRole) RemoveRoleUser(toDeleteRoleUser *system.RequestRoleUser) (
 
 func (s *ServiceRole) AddRoleUser(toAddRoleUser *system.RequestRoleUserAdd) (err error) {
 	var roleUser []system.RequestRoleUser
-	for _, r := range toAddRoleUser.UserId{
+	for _, r := range toAddRoleUser.UserId {
 		ur := system.RequestRoleUser{
-			UserId: r,
+			UserId:   r,
 			RoleCode: toAddRoleUser.RoleCode,
 		}
 		roleUser = append(roleUser, ur)
@@ -117,4 +137,3 @@ func (s *ServiceRole) AddRoleUser(toAddRoleUser *system.RequestRoleUserAdd) (err
 	err = global.GqaDb.Model(&system.SysUserRole{}).Save(&roleUser).Error
 	return err
 }
-
