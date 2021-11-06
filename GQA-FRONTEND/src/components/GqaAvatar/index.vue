@@ -56,7 +56,7 @@ export default {
             } else {
                 // 其他类型，有的时候再说
                 console.log('还未完成其他头像类型...')
-                this.avatarSrc = '?'
+                this.avatarSrc = this.src
             }
             this.loading = false
         },

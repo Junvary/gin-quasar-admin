@@ -20,6 +20,7 @@ func Migrate(db *gorm.DB) {
 		system.SysDict{},
 		system.SysApi{},
 		gormadapter.CasbinRule{},
+		system.SysConfig{},
 	)
 	if err != nil {
 		global.GqaLog.Error("register table failed", zap.Any("err", err))

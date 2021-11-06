@@ -17,7 +17,18 @@
                             <q-input class="col" v-model="addOrEditDetail.id" label="ID" disable />
                             <q-input class="col" v-model.number="addOrEditDetail.sort" type="number"
                                 :rules="[ val => val >= 1 || '排序必须大于0']" label="排序" />
-                            <q-file class="col" v-model="addOrEditDetail.avatar" label="头像" />
+                            <q-file class="col" v-model="avatarFile" label="头像" bottom-slots counter max-files="1"
+                                :max-file-size="1024*1024*3">
+                                <template v-slot:prepend>
+                                    <gqa-avatar :src="addOrEditDetail.avatar" />
+                                </template>
+                                <template v-slot:hint>
+                                    最大3M，超出无法选择
+                                </template>
+                                <template v-slot:after v-if="avatarFile">
+                                    <q-btn dense flat color="primary" icon="cloud_upload" @click="handleUpload" />
+                                </template>
+                            </q-file>
                         </div>
                         <div class="row">
                             <q-input class="col" v-model="addOrEditDetail.createAt" label="创建时间" disable />
@@ -71,6 +82,7 @@
 <script>
 import { addOrEditMixin } from 'src/mixins/addOrEditMixin'
 import GqaAvatar from 'src/components/GqaAvatar'
+import { postAction } from 'src/api/manage'
 
 export default {
     name: 'addOrEditDialog',
@@ -80,6 +92,7 @@ export default {
     },
     data() {
         return {
+            avatarFile: null,
             detail: {
                 id: '',
                 createAt: '',
@@ -89,7 +102,7 @@ export default {
                 sort: 1,
                 status: 'on',
                 remark: '',
-                avatar: '',
+                avatar: null,
                 username: '',
                 nickname: '',
                 realName: '',
@@ -101,6 +114,7 @@ export default {
                 add: 'user/user-add',
                 edit: 'user/user-edit',
                 queryById: 'user/user-id',
+                avatarUrl: 'upload/file',
             },
         }
     },
@@ -115,7 +129,7 @@ export default {
                 sort: 1,
                 status: 'on',
                 remark: '',
-                avatar: '',
+                avatar: null,
                 username: '',
                 nickname: '',
                 realName: '',
@@ -123,6 +137,26 @@ export default {
                 email: '',
                 gender: 'u',
             }
+        },
+        chooseFile() {
+            this.$refs.gqaUploader.show('头像', false)
+        },
+        handleUpload() {
+            if (!this.avatarFile) {
+                this.$q.notify({
+                    type: 'negative',
+                    message: '请选择文件！',
+                })
+                return
+            }
+            let form = new FormData()
+            form.append('file', this.avatarFile)
+            postAction(this.url.avatarUrl, form).then((res) => {
+                if (res.code === 1) {
+                    this.addOrEditDetail.avatar = res.data.records
+                    this.avatarFile = null
+                }
+            })
         },
     },
 }

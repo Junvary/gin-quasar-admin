@@ -135,6 +135,12 @@ var sysApiData = []system.SysApi{
 	{GqaModel: global.GqaModel{ Status: "on", Sort: 37, Remark: "根据ID查找api", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
 		Group: "api", Path: "/api/api-id", Method: "POST",
 	},
+	{GqaModel: global.GqaModel{ Status: "on", Sort: 38, Remark: "上传头像", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
+		Group: "upload", Path: "/upload/avatar", Method: "POST",
+	},
+	{GqaModel: global.GqaModel{ Status: "on", Sort: 39, Remark: "上传文件", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
+		Group: "upload", Path: "/upload/file", Method: "POST",
+	},
 }
 
 func (s *sysApi) Init() error {

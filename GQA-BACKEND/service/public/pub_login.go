@@ -11,7 +11,7 @@ type ServiceLogin struct {
 
 func (s *ServiceLogin) Login(u *system.SysUser) (err error, sysUser *system.SysUser) {
 	var user system.SysUser
-	u.Password = utils.Md5([]byte(u.Password))
+	u.Password = utils.EncodeMD5(u.Password)
 	err =global.GqaDb.Where("username=? and password= ?", u.Username, u.Password).First(&user).Error
 	return err, &user
 }

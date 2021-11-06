@@ -7,4 +7,5 @@ type ApiSystem struct {
 	ApiDept
 	ApiDict
 	ApiApi
+	ApiUpload
 }

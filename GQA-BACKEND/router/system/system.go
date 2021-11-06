@@ -7,4 +7,5 @@ type RouterSystem struct {
 	RouterDept
 	RouterDict
 	RouterApi
+	RouterUpload
 }

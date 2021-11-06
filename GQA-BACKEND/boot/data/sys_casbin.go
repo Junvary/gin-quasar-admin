@@ -60,6 +60,10 @@ var sysCasbinData = []gormadapter.CasbinRule{
 	{Ptype: "p", V0: "super-admin", V1: "/api/api-add", V2: "POST"},
 	{Ptype: "p", V0: "super-admin", V1: "/api/api-delete", V2: "DELETE"},
 	{Ptype: "p", V0: "super-admin", V1: "/api/api-id", V2: "POST"},
+
+	// upload组
+	{Ptype: "p", V0: "super-admin", V1: "/upload/avatar", V2: "POST"},
+	{Ptype: "p", V0: "super-admin", V1: "/upload/file", V2: "POST"},
 }
 
 func (s *sysCasbin) Init() error {

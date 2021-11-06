@@ -52,6 +52,9 @@ export const addOrEditMixin = {
         async handleAddOrEidt() {
             const success = await this.$refs.addOrEditForm.validate()
             if (success) {
+                // if (this.addOrEditDetail.avatar) {
+                //     this.addOrEditDetail.avatar = JSON.stringify(this.addOrEditDetail.avatar)
+                // }
                 if (this.formType === 'edit') {
                     const res = await putAction(this.url.edit, this.addOrEditDetail)
                     if (res.code === 1) {

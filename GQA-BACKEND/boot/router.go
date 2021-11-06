@@ -1,13 +1,19 @@
 package boot
 
 import (
+	"gin-quasar-admin/global"
 	"gin-quasar-admin/middleware"
 	"gin-quasar-admin/router"
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 func Router() *gin.Engine {
 	var Router = gin.Default()
+
+	// 为文件提供静态资源路径 头像和文件
+	Router.StaticFS(global.GqaConfig.Upload.AvatarUrl, http.Dir(global.GqaConfig.Upload.AvatarSavePath))
+	Router.StaticFS(global.GqaConfig.Upload.FileUrl, http.Dir(global.GqaConfig.Upload.FileSavePath))
 
 	/*
 		公共路由分组：以 public 开头，路由内部无须再次分组，无须鉴权。
@@ -38,6 +44,7 @@ func Router() *gin.Engine {
 		routerSystem.InitRouterDept(PrivateGroup)
 		routerSystem.InitRouterDict(PrivateGroup)
 		routerSystem.InitRouterApi(PrivateGroup)
+		routerSystem.InitRouterUpload(PrivateGroup)
 	}
 
 	return Router
