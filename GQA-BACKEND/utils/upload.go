@@ -2,19 +2,21 @@ package utils
 
 import (
 	"io"
+	"io/ioutil"
 	"mime/multipart"
 	"os"
 	"path"
+	"strconv"
 	"strings"
 	"time"
 )
 
-func UploadFile(createPath string, file *multipart.FileHeader) (filename string, err error) {
+func UploadFile(createPath string, fileHeader *multipart.FileHeader) (filename string, err error) {
 	// 读取文件后缀
-	ext := path.Ext(file.Filename)
+	ext := path.Ext(fileHeader.Filename)
 
 	// 读取文件名并加密
-	name := strings.TrimSuffix(file.Filename, ext)
+	name := strings.TrimSuffix(fileHeader.Filename, ext)
 	name = EncodeMD5(name)
 
 	// 拼接新文件名
@@ -29,7 +31,7 @@ func UploadFile(createPath string, file *multipart.FileHeader) (filename string,
 	filepath := createPath + "/" + filename
 
 	// 读取文件
-	f, openError := file.Open()
+	f, openError := fileHeader.Open()
 	if err != nil {
 		return "", openError
 	}
@@ -50,3 +52,13 @@ func UploadFile(createPath string, file *multipart.FileHeader) (filename string,
 	return filename, nil
 }
 
+func CheckFileSize(file multipart.File, maxSizeString string) bool {
+	content, _ := ioutil.ReadAll(file)
+	size := len(content)
+	maxSize, _ := strconv.Atoi(maxSizeString)
+	// 转换成M
+	if size > maxSize*1024*1024 {
+		return false
+	}
+	return true
+}

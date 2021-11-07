@@ -13,13 +13,13 @@ type ApiUpload struct {
 
 func (a *ApiUpload) UploadAvatar(c *gin.Context) {
 	username := utils.GetUsername(c)
-	_, fileHeader, err := c.Request.FormFile("file")
+	avatar, avatarHeader, err := c.Request.FormFile("file")
 	if err!= nil{
 		global.GqaLog.Error("解析头像失败！", zap.Any("err", err))
 		global.ErrorMessage("解析头像失败，"+err.Error(), c)
 		return
 	}
-	err, avatarUrl := service.GroupServiceApp.ServiceSystem.UploadAvatar(username, fileHeader)
+	err, avatarUrl := service.GroupServiceApp.ServiceSystem.UploadAvatar(username, avatar, avatarHeader)
 	if err != nil {
 		global.GqaLog.Error("上传头像失败！", zap.Any("err", err))
 		global.ErrorMessage("上传头像失败，"+err.Error(), c)
@@ -29,13 +29,13 @@ func (a *ApiUpload) UploadAvatar(c *gin.Context) {
 }
 
 func (a *ApiUpload) UploadFile(c *gin.Context) {
-	_, fileHeader, err := c.Request.FormFile("file")
+	file, fileHeader, err := c.Request.FormFile("file")
 	if err!= nil{
 		global.GqaLog.Error("解析文件失败！", zap.Any("err", err))
 		global.ErrorMessage("解析文件失败，"+err.Error(), c)
 		return
 	}
-	err, fileUrl := service.GroupServiceApp.ServiceSystem.UploadFile(fileHeader)
+	err, fileUrl := service.GroupServiceApp.ServiceSystem.UploadFile(file, fileHeader)
 	if err != nil {
 		global.GqaLog.Error("上传文件失败！", zap.Any("err", err))
 		global.ErrorMessage("上传文件失败，"+err.Error(), c)

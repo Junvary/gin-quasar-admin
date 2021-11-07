@@ -14,11 +14,17 @@ var SysConfig = new(sysConfig)
 type sysConfig struct{}
 
 var sysConfigData = []system.SysConfig{
-	{GqaModel: global.GqaModel{Status: "on", Sort: 1, Remark: "测试配置1", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
-		Option: "test1", Default: "a",
+	{GqaModel: global.GqaModel{Status: "on", Sort: 1, Remark: "头像最大上传（M）", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
+		GqaOption: "avatarMaxSize", Default: "3",
 	},
-	{GqaModel: global.GqaModel{Status: "on", Sort: 2, Remark: "测试配置2", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
-		Option: "test2", Default: "b",
+	{GqaModel: global.GqaModel{Status: "on", Sort: 2, Remark: "头像允许后缀", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
+		GqaOption: "avatarExt", Default: "png,jpg",
+	},
+	{GqaModel: global.GqaModel{Status: "on", Sort: 3, Remark: "文件最大上传（M）", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
+		GqaOption: "fileMaxSize", Default: "10",
+	},
+	{GqaModel: global.GqaModel{Status: "on", Sort: 4, Remark: "文件允许后缀", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
+		GqaOption: "fileExt", Default: "png,jpg",
 	},
 }
 

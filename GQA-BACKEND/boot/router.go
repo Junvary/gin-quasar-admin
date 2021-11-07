@@ -11,7 +11,7 @@ import (
 func Router() *gin.Engine {
 	var Router = gin.Default()
 
-	// 为文件提供静态资源路径 头像和文件
+	// 为文件提供静态资源路径 头像和文件 无须鉴权
 	Router.StaticFS(global.GqaConfig.Upload.AvatarUrl, http.Dir(global.GqaConfig.Upload.AvatarSavePath))
 	Router.StaticFS(global.GqaConfig.Upload.FileUrl, http.Dir(global.GqaConfig.Upload.FileSavePath))
 

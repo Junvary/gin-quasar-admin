@@ -114,7 +114,7 @@ export default {
                 add: 'user/user-add',
                 edit: 'user/user-edit',
                 queryById: 'user/user-id',
-                avatarUrl: 'upload/file',
+                avatarUrl: 'upload/avatar',
             },
         }
     },
