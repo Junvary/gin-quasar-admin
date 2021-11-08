@@ -62,3 +62,14 @@ func CheckFileSize(file multipart.File, maxSizeString string) bool {
 	}
 	return true
 }
+
+func CheckFileExt(fileHeader *multipart.FileHeader, extListString string)bool  {
+	ext := path.Ext(fileHeader.Filename)
+	extList := strings.Split(extListString, ",")
+	extMap := make(map[string]struct{}, len(extList))
+	for _, v := range extList{
+		extMap[v] = struct{}{}
+	}
+	_, ok := extMap[ext]
+	return ok
+}

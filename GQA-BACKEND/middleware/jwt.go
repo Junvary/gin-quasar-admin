@@ -10,7 +10,7 @@ import (
 
 func JwtHandler()gin.HandlerFunc{
 	return func(c *gin.Context) {
-		token := c.Request.Header.Get("gqa-token")
+		token := c.Request.Header.Get("Gqa-Token")
 		if token == "" {
 			global.ErrorMessageData(gin.H{"reload": true}, "未登录或非法访问", c)
 			c.Abort()

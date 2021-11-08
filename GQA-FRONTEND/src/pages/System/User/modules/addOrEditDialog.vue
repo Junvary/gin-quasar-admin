@@ -17,13 +17,9 @@
                             <q-input class="col" v-model="addOrEditDetail.id" label="ID" disable />
                             <q-input class="col" v-model.number="addOrEditDetail.sort" type="number"
                                 :rules="[ val => val >= 1 || '排序必须大于0']" label="排序" />
-                            <q-file class="col" v-model="avatarFile" label="头像" bottom-slots counter max-files="1"
-                                :max-file-size="1024*1024*3">
+                            <q-file class="col" v-model="avatarFile" label="头像" max-files="1">
                                 <template v-slot:prepend>
                                     <gqa-avatar :src="addOrEditDetail.avatar" />
-                                </template>
-                                <template v-slot:hint>
-                                    最大3M，超出无法选择
                                 </template>
                                 <template v-slot:after v-if="avatarFile">
                                     <q-btn dense flat color="primary" icon="cloud_upload" @click="handleUpload" />
@@ -155,6 +151,10 @@ export default {
                 if (res.code === 1) {
                     this.addOrEditDetail.avatar = res.data.records
                     this.avatarFile = null
+                    this.$q.notify({
+                        type: 'positive',
+                        message: '头像上传成功！',
+                    })
                 }
             })
         },

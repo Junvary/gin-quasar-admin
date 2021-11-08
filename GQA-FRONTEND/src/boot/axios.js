@@ -13,8 +13,9 @@ import { GetToken, RemoveToken } from 'src/utils/getToken'
 // for each client)
 const api = axios.create(
     {
-        baseURL: 'http://localhost:8080',
-        timeout: 15000
+        baseURL: process.env.BASE_URL,
+        timeout: 15000,
+        withCredentials: false
     }
 )
 
@@ -22,8 +23,8 @@ const api = axios.create(
 api.interceptors.request.use(res => {
     const token = GetToken()
     res.headers = {
-        'Content-Type': 'application/json',
-        'gqa-token': token,
+        'Content-Type': 'application/json;charset=utf-8',
+        'Gqa-Token': token,
     }
     return res
 }, error => {
@@ -67,6 +68,13 @@ api.interceptors.response.use(response => {
         })
         Store().dispatch('user/HandleLogout')
         Router.push({ name: 'login' })
+    }
+    // 超时
+    if (error + '' === 'Error: timeout of 15000ms exceeded') {
+        Notify.create({
+            type: 'negative',
+            message: '后台响应超时！',
+        })
     }
     // 网络错误情况，比如后台没有对应的接口
     if (error + '' === 'Error: Network Error') {
