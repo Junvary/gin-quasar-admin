@@ -8,4 +8,5 @@ type RouterSystem struct {
 	RouterDict
 	RouterApi
 	RouterUpload
+	RouterConfig
 }

@@ -8,4 +8,5 @@ type ApiSystem struct {
 	ApiDict
 	ApiApi
 	ApiUpload
+	ApiConfig
 }

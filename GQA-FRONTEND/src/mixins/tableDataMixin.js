@@ -28,6 +28,13 @@ export const tableDataMixin = {
     },
     methods: {
         getTableData() {
+            if (this.url === undefined || !this.url.list) {
+                this.$q.notify({
+                    type: 'negative',
+                    message: "请先配置url",
+                })
+                return
+            }
             this.tableData = []
             this.pagination.rowsNumber = 0
             this.loading = true

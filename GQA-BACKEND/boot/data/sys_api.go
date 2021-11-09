@@ -141,6 +141,15 @@ var sysApiData = []system.SysApi{
 	{GqaModel: global.GqaModel{ Status: "on", Sort: 39, Remark: "上传文件", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
 		Group: "upload", Path: "/upload/file", Method: "POST",
 	},
+	{GqaModel: global.GqaModel{ Status: "on", Sort: 40, Remark: "获取配置列表", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
+		Group: "config", Path: "/config/config-list", Method: "POST",
+	},
+	{GqaModel: global.GqaModel{ Status: "on", Sort: 41, Remark: "编辑配置", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
+		Group: "config", Path: "/config/config-edit", Method: "POST",
+	},
+	{GqaModel: global.GqaModel{ Status: "on", Sort: 42, Remark: "新增配置", CreateAt: time.Now(), CreateBy: "admin", UpdateAt: time.Now()},
+		Group: "config", Path: "/config/config-add", Method: "POST",
+	},
 }
 
 func (s *sysApi) Init() error {

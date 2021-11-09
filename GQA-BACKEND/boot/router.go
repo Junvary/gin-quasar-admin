@@ -45,6 +45,7 @@ func Router() *gin.Engine {
 		routerSystem.InitRouterDict(PrivateGroup)
 		routerSystem.InitRouterApi(PrivateGroup)
 		routerSystem.InitRouterUpload(PrivateGroup)
+		routerSystem.InitRouterConfig(PrivateGroup)
 	}
 
 	return Router

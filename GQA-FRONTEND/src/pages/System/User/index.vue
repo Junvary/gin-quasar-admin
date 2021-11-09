@@ -89,14 +89,6 @@ export default {
                 list: 'user/user-list',
                 delete: 'user/user-delete',
             },
-            pagination: {
-                sortBy: 'sort',
-                descending: false,
-                page: 1,
-                rowsPerPage: 10,
-                rowsNumber: 0,
-                options: [10, 30, 50, 100],
-            },
             columns: [
                 { name: 'sort', align: 'center', label: '排序', field: 'sort' },
                 { name: 'avatar', align: 'center', label: '头像', field: 'avatar' },
