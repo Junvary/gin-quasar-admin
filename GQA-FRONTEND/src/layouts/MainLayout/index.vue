@@ -1,6 +1,6 @@
 <template>
-    <q-layout view="hHh LpR fFr">
-        <q-header elevated>
+    <q-layout view="hHh LpR lFr">
+        <q-header reveal elevated>
             <!-- <div class="row no-wrap shadow-1"> -->
             <q-toolbar class="bg-primary glossy ">
                 <q-btn flat dense round icon=" sync_alt" aria-label="Menu" @click="leftDrawerOpen = !leftDrawerOpen" />
@@ -57,7 +57,7 @@
             <router-view />
         </q-page-container>
 
-        <q-footer elevated>
+        <q-footer reveal elevated>
             <PageFooter />
         </q-footer>
     </q-layout>

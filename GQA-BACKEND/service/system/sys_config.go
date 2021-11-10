@@ -32,7 +32,7 @@ func (s *ServiceConfig) EditConfig(toEditConfig system.SysConfig) (err error) {
 	//if sysConfig.Stable {
 	//	return errors.New("系统内置不允许编辑：" + editConfig.GqaOption)
 	//}
-	err = global.GqaDb.Updates(&toEditConfig).Error
+	err = global.GqaDb.Save(&toEditConfig).Error
 	return err
 }
 

@@ -1,8 +1,6 @@
 import { boot } from 'quasar/wrappers'
 import axios from 'axios'
-import { Notify, Cookies } from 'quasar'
-import Store from 'src/store'
-import Router from 'src/router'
+import { Notify, Dialog } from 'quasar'
 import { GetToken, RemoveToken } from 'src/utils/getToken'
 
 // Be careful when using SSR for cross-request state pollution
@@ -19,77 +17,81 @@ const api = axios.create(
     }
 )
 
-// 请求拦截
-api.interceptors.request.use(res => {
-    const token = GetToken()
-    res.headers = {
-        'Content-Type': 'application/json;charset=utf-8',
-        'Gqa-Token': token,
-    }
-    return res
-}, error => {
-    Notify.create({
-        type: 'negative',
-        message: error,
-    })
-    return Promise.reject(error)
-})
-
-// 响应拦截
-api.interceptors.response.use(response => {
-    const responseData = response.data
-    const { code } = responseData
-    if (code === 1) {
-        return response.data
-    } else {
-        switch (code) {
-            case 401:
-                postAction(refreshTokenUrl, {
-                    refresh: GetToken()
-                }).then(res => {
-                    Store().dispatch('user/SetToken', res.data.token)
-                }).catch(error => {
-                    RemoveToken()
-                })
-            default:
-                Notify.create({
-                    type: 'negative',
-                    message: response.data.message || '操作失败！',
-                })
-                return response.data
+export default boot(({ app, router, store }) => {
+    // 请求拦截
+    api.interceptors.request.use(res => {
+        const token = GetToken()
+        res.headers = {
+            'Content-Type': 'application/json;charset=utf-8',
+            'Gqa-Token': token,
         }
-    }
-}, error => {
-    // 500的情况，比如后台是初始化的，但前台还有token，多出现在开发时
-    if (error + '' === 'Error: Request failed with status code 500') {
+        return res
+    }, error => {
         Notify.create({
             type: 'negative',
-            message: '数据异常，自动退出登录！',
+            message: error,
         })
-        Store().dispatch('user/HandleLogout')
-        Router.push({ name: 'login' })
-    }
-    // 超时
-    if (error + '' === 'Error: timeout of 15000ms exceeded') {
-        Notify.create({
-            type: 'negative',
-            message: '后台响应超时！',
-        })
-    }
-    // 网络错误情况，比如后台没有对应的接口
-    if (error + '' === 'Error: Network Error') {
-        Router.push({ name: 'notFound' })
-    } else if (error.response && error.response.status === 404) {
-        Notify.create({
-            type: 'negative',
-            message: '请求地址不存在 [' + error.response.request.responseURL + ']',
-        })
-    }
+        return Promise.reject(error)
+    })
+    // 响应拦截
+    api.interceptors.response.use(response => {
+        const responseData = response.data
+        const { code } = responseData
+        if (code === 1) {
+            return response.data
+        } else {
+            switch (code) {
+                case 401:
+                    postAction(refreshTokenUrl, {
+                        refresh: GetToken()
+                    }).then(res => {
+                        store.dispatch('user/SetToken', res.data.token)
+                    }).catch(error => {
+                        RemoveToken()
+                    })
+                default:
+                    Notify.create({
+                        type: 'negative',
+                        message: response.data.message || '操作失败！',
+                    })
+                    return response.data
+            }
+        }
+    }, error => {
+        // 500的情况，比如后台是初始化的，但前台还有token，多出现在开发时
+        if (error + '' === 'Error: Request failed with status code 500') {
+            Dialog.create({
+                title: "抱歉！",
+                message: '数据异常，请退出系统重新登录！',
+                persistent: true,
+                ok: {
+                    push: true,
+                    color: 'negative'
+                },
+            }).onOk(() => {
+                store.dispatch('user/HandleLogout')
+                router.push({ name: 'login' })
+            })
+        }
+        // 超时
+        if (error + '' === 'Error: timeout of 15000ms exceeded') {
+            Notify.create({
+                type: 'negative',
+                message: '后台响应超时！',
+            })
+        }
+        // 网络错误情况，比如后台没有对应的接口
+        if (error + '' === 'Error: Network Error') {
+            router.push({ name: 'notFound' })
+        } else if (error.response && error.response.status === 404) {
+            Notify.create({
+                type: 'negative',
+                message: '请求地址不存在 [' + error.response.request.responseURL + ']',
+            })
+        }
 
-    return Promise.reject(error)
-})
-
-export default boot(({ app, router }) => {
+        return Promise.reject(error)
+    })
     // for use inside Vue files (Options API) through this.$axios and this.$api
 
     app.config.globalProperties.$axios = axios
