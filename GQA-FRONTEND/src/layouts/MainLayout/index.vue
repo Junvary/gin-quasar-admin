@@ -24,6 +24,8 @@
                         v-for="item in matched.slice(1, matched.length)" :key="item.path" />
                     </q-breadcrumbs> -->
 
+                <Fullscreen style="margin: 0 5px" />
+
                 <Notice style="margin: 0 5px" />
 
                 <UserMenu style="margin: 0 5px" />
@@ -64,6 +66,7 @@
 <script>
 import SideBarLeft from './SideBarLeft'
 import TabMenu from './TabMenu'
+import Fullscreen from './Fullscreen'
 import Notice from './Notice'
 import Github from './Github'
 import UserMenu from './UserMenu'
@@ -75,6 +78,7 @@ export default {
     components: {
         SideBarLeft,
         TabMenu,
+        Fullscreen,
         Notice,
         Github,
         UserMenu,

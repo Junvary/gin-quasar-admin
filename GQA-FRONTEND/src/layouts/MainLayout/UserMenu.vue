@@ -1,5 +1,5 @@
 <template>
-    <q-btn-dropdown glossy push color="primary">
+    <q-btn-dropdown dense glossy push color="primary">
         <template v-slot:label>
             <gqa-avatar loginUser size="26px" />
             <span style="margin-left:5px">

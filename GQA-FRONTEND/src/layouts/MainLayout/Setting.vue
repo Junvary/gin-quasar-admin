@@ -1,6 +1,7 @@
 <template>
     <div>
-        <q-btn round glossy push color="primary" :icon="`${!right ? 'settings' : 'close'}`" @click="right = !right" />
+        <q-btn dense round glossy push color="primary" :icon="`${!right ? 'settings' : 'close'}`"
+            @click="right = !right" />
         <q-dialog v-model="right" position="right">
             <q-card style="height: 100%; width: 400px">
                 <q-card-section>

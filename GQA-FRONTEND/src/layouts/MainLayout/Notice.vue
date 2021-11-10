@@ -1,5 +1,5 @@
 <template>
-    <q-btn round glossy push color="primary" icon="notifications">
+    <q-btn dense round glossy push color="primary" icon="notifications">
         <q-badge color="negative" floating>4</q-badge>
         <q-menu>
             <q-card>
