@@ -5,9 +5,7 @@ import (
 )
 
 type GqaJwtClaims struct {
-	Id         uint   `json:"id"`
 	Username   string `json:"username"`
-	BufferTime int64
 	jwt.StandardClaims
 }
 

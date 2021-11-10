@@ -1,10 +1,5 @@
 casbin:
   model-path: ./config/rbac_model.conf
-jwt:
-  issuer: gin-quasar-admin
-  secret-key: gin-quasar-admin
-  expires-at: 604800
-  buffer-time: 86400
 mysql:
   path:
   config:

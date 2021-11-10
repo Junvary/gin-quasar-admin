@@ -1,7 +1,7 @@
 import { boot } from 'quasar/wrappers'
 import axios from 'axios'
 import { Notify, Dialog } from 'quasar'
-import { GetToken, RemoveToken } from 'src/utils/getToken'
+import { GetToken } from 'src/utils/getToken'
 
 // Be careful when using SSR for cross-request state pollution
 // due to creating a Singleton instance here;
@@ -41,14 +41,28 @@ export default boot(({ app, router, store }) => {
             return response.data
         } else {
             switch (code) {
-                case 401:
-                    postAction(refreshTokenUrl, {
-                        refresh: GetToken()
-                    }).then(res => {
-                        store.dispatch('user/SetToken', res.data.token)
-                    }).catch(error => {
-                        RemoveToken()
-                    })
+                case 0:
+                    if (responseData.data && responseData.data.reload) {
+                        Dialog.create({
+                            title: "身份鉴别失败！",
+                            message: response.data.message || '你的身份鉴别已过期，请退出系统重新登录！',
+                            persistent: true,
+                            ok: {
+                                push: true,
+                                color: 'negative',
+                                label: "重新登录"
+                            },
+                        }).onOk(() => {
+                            store.dispatch('user/HandleLogout')
+                            router.push({ name: 'login' })
+                        })
+                    } else {
+                        Notify.create({
+                            type: 'negative',
+                            message: response.data.message || '操作失败！',
+                        })
+                        return response.data
+                    }
                 default:
                     Notify.create({
                         type: 'negative',
@@ -66,7 +80,8 @@ export default boot(({ app, router, store }) => {
                 persistent: true,
                 ok: {
                     push: true,
-                    color: 'negative'
+                    color: 'negative',
+                    label: "重新登录"
                 },
             }).onOk(() => {
                 store.dispatch('user/HandleLogout')

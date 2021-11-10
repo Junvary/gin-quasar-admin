@@ -8,7 +8,7 @@ import (
 
 func GetUsername(c *gin.Context) string {
 	if claims, exists := c.Get("claims"); !exists {
-		global.GqaLog.Error("从Gin的Context中获取从jwt解析出来的用户UUID失败, 请检查路由是否使用jwt中间件!")
+		global.GqaLog.Error("解析token负载失败！")
 		return ""
 	} else {
 		waitUse := claims.(*system.GqaJwtClaims)

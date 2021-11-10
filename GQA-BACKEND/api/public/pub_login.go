@@ -4,9 +4,11 @@ import (
 	"gin-quasar-admin/global"
 	"gin-quasar-admin/model/system"
 	"gin-quasar-admin/service"
+	"gin-quasar-admin/utils"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt"
 	"go.uber.org/zap"
+	"strconv"
 	"time"
 )
 
@@ -33,18 +35,40 @@ func (a *ApiLogin) Login(c *gin.Context) {
 }
 
 func (a *ApiLogin) createToken(user system.SysUser, c *gin.Context) {
+	jwtIssuer := utils.GetConfig("jwtIssuer")
+	if jwtIssuer == ""{
+		global.GqaLog.Error("没有找到Jwt签发者配置，请重新初始化数据库！")
+		global.ErrorMessage("没有找到Jwt签发者配置，请重新初始化数据库！", c)
+		return
+	}
+	jwtKey := utils.GetConfig("jwtKey")
+	if jwtKey == ""{
+		global.GqaLog.Error("没有找到Jwt密钥配置，请重新初始化数据库！")
+		global.ErrorMessage("没有找到Jwt密钥配置，请重新初始化数据库！", c)
+		return
+	}
+	jwtExpiresAt := utils.GetConfig("jwtExpiresAt")
+	if jwtExpiresAt == ""{
+		global.GqaLog.Error("没有找到Jwt过期时间配置，请重新初始化数据库！")
+		global.ErrorMessage("没有找到Jwt过期时间配置，请重新初始化数据库！", c)
+		return
+	}
+	jwtExpiresAtInt64, err := strconv.ParseInt(jwtExpiresAt, 10, 64)
+	if err!=nil{
+		global.GqaLog.Error("Jwt过期时间配置格式错误！", zap.Any("err", err))
+		global.ErrorMessage("Jwt过期时间配置格式错误，" + err.Error(), c)
+		return
+	}
 	claims := system.GqaJwtClaims{
-		Id:         user.Id,
 		Username:   user.Username,
-		BufferTime: global.GqaConfig.JWT.BufferTime,
 		StandardClaims: jwt.StandardClaims{
 			NotBefore: time.Now().Unix() - 1000,
-			ExpiresAt: time.Now().Unix() + global.GqaConfig.JWT.ExpiresAt,
-			Issuer:    global.GqaConfig.JWT.Issuer,
+			ExpiresAt: time.Now().Unix() + jwtExpiresAtInt64,
+			Issuer:    jwtIssuer,
 		},
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	ss, err := token.SignedString([]byte(global.GqaConfig.JWT.SecretKey))
+	ss, err := token.SignedString([]byte(jwtKey))
 	if err != nil {
 		global.GqaLog.Error("jwt签发失败！", zap.Any("err", err))
 		global.ErrorMessage("jwt签发失败，" + err.Error(), c)
