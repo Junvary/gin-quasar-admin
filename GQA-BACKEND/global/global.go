@@ -25,7 +25,7 @@ var (
 
 type GqaModel struct {
 	Id       uint           `json:"id" gorm:"comment:id;primarykey;autoIncrement;"`
-	Stable   string         `json:"stable" gorm:"comment:系统内置;"`
+	Stable   string         `json:"stable" gorm:"comment:系统内置;default:no;"`
 	Status   string         `json:"status" gorm:"comment:状态;default:on;"`
 	Sort     uint           `json:"sort" gorm:"comment:排序;default:1;"`
 	Remark   string         `json:"remark" gorm:"comment:备注描述;type:text;"`

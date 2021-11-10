@@ -1,7 +1,3 @@
-captcha:
-  key-long: 6
-  img-width: 240
-  img-height: 80
 casbin:
   model-path: ./config/rbac_model.conf
 jwt:
@@ -11,10 +7,10 @@ jwt:
   buffer-time: 86400
 mysql:
   path:
-  config: 
+  config:
   db-name:
   username:
-  password:
+  password: 
   max-idle-conns: 0
   max-open-conns: 0
   log-mode: ""
@@ -25,7 +21,6 @@ system:
   success-message: 操作成功
   error-code: 0
   error-message: 操作失败
-  default-password: "123456"
 upload:
   avatar-save-path: upload/avatar
   avatar-url: avatar

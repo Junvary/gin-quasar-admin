@@ -42,9 +42,16 @@ func (s *ServiceUser) AddUser(toAddUser *system.SysUser) (err error) {
 	if !errors.Is(global.GqaDb.Where("username = ?", toAddUser.Username).First(&user).Error, gorm.ErrRecordNotFound) {
 		return errors.New("此用户已存在：" + toAddUser.Username)
 	}
-	toAddUser.Password = utils.EncodeMD5(global.GqaConfig.System.DefaultPassword)
-	err = global.GqaDb.Create(&toAddUser).Error
-	return err
+	defaultPassword := utils.GetConfig("defaultPassword")
+	if defaultPassword == ""{
+		toAddUser.Password = utils.EncodeMD5("123456")
+		err = global.GqaDb.Create(&toAddUser).Error
+		return errors.New("未找到配置默认密码，初始密码设置为：123456")
+	}else {
+		toAddUser.Password = utils.EncodeMD5(defaultPassword)
+		err = global.GqaDb.Create(&toAddUser).Error
+		return err
+	}
 }
 
 func (s *ServiceUser) DeleteUser(id uint) (err error) {

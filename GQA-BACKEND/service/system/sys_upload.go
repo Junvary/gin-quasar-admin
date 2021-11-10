@@ -3,7 +3,6 @@ package system
 import (
 	"errors"
 	"gin-quasar-admin/global"
-	"gin-quasar-admin/model/system"
 	"gin-quasar-admin/utils"
 	"mime/multipart"
 	"strconv"
@@ -15,31 +14,17 @@ type ServiceUpload struct {
 
 func (s *ServiceUpload) UploadAvatar(username string, avatar multipart.File, avatarHeader *multipart.FileHeader) (err error, avatarUrl string) {
 	// 检查文件大小
-	var avatarSizeConfig system.SysConfig
-	err = global.GqaDb.First(&avatarSizeConfig, "gqa_option = ?", "avatarMaxSize").Error
-	if err != nil{
-		return err, ""
-	}
-	var maxSizeString string
-	if avatarSizeConfig.Custom != ""{
-		maxSizeString = avatarSizeConfig.Custom
-	}else {
-		maxSizeString = avatarSizeConfig.Default
+	maxSizeString := utils.GetConfig("avatarMaxSize")
+	if maxSizeString == ""{
+		return errors.New("找不到头像大小配置！"), ""
 	}
 	if !utils.CheckFileSize(avatar, maxSizeString){
 		return errors.New("头像大小超出限制！"), ""
 	}
 	// 检查文件后缀
-	var avatarExtConfig system.SysConfig
-	err = global.GqaDb.First(&avatarExtConfig, "gqa_option = ?", "avatarExt").Error
-	if err != nil{
-		return err, ""
-	}
-	var extListString string
-	if avatarExtConfig.Custom != ""{
-		extListString = avatarExtConfig.Custom
-	}else {
-		extListString = avatarExtConfig.Default
+	extListString := utils.GetConfig("avatarExt")
+	if extListString == ""{
+		return errors.New("找不到头像后缀配置！"), ""
 	}
 	if !utils.CheckFileExt(avatarHeader, extListString){
 		return errors.New("头像后缀不被允许！"), ""
@@ -56,31 +41,17 @@ func (s *ServiceUpload) UploadAvatar(username string, avatar multipart.File, ava
 
 func (s *ServiceUpload) UploadFile(file multipart.File, fileHeader *multipart.FileHeader) (err error, fileUrl string) {
 	// 检查文件大小
-	var fileSizeConfig system.SysConfig
-	err = global.GqaDb.First(&fileSizeConfig, "gqa_option = ?", "fileMaxSize").Error
-	if err != nil{
-		return err, ""
-	}
-	var maxSizeString string
-	if fileSizeConfig.Custom != ""{
-		maxSizeString = fileSizeConfig.Custom
-	}else {
-		maxSizeString = fileSizeConfig.Default
+	maxSizeString := utils.GetConfig("fileMaxSize")
+	if maxSizeString == ""{
+		return errors.New("没有找到文件大小配置！"), ""
 	}
 	if !utils.CheckFileSize(file, maxSizeString){
 		return errors.New("文件大小超出限制！"), ""
 	}
 	// 检查文件后缀
-	var fileExtConfig system.SysConfig
-	err = global.GqaDb.First(&fileExtConfig, "gqa_option = ?", "fileExt").Error
-	if err != nil{
-		return err, ""
-	}
-	var extListString string
-	if fileExtConfig.Custom != ""{
-		extListString = fileExtConfig.Custom
-	}else {
-		extListString = fileExtConfig.Default
+	extListString := utils.GetConfig("fileExt")
+	if extListString == ""{
+		return errors.New("没有找到文件后缀配置！"), ""
 	}
 	if !utils.CheckFileExt(fileHeader, extListString){
 		return errors.New("文件后缀不被允许！"), ""

@@ -1,31 +1,21 @@
 <template>
     <q-page padding>
         <q-btn color="primary" @click="showAdd" label="新增配置" />
-        <q-list bordered separator>
+        <q-list dense bordered separator>
             <q-form ref="addOrEditForm">
                 <q-item v-if="addFormVisible" active active-class="bg-teal-1">
                     <q-item-section>
-                        <div class="column">
-                            <div class="col">
-                                <q-input dense v-model.number="form.sort" type="number"
-                                    :rules="[ val => val >= 1 || '排序必须大于0']" label="排序" />
-                            </div>
-                            <div class="col">
-                                <q-input v-model="form.remark" label="描述" />
-                            </div>
+                        <div class="row">
+                            <q-input class="col" dense v-model.number="form.sort" type="number"
+                                :rules="[ val => val >= 1 || '排序必须大于0']" label="排序" />
+                            <q-input class="col" dense v-model="form.remark" label="描述" />
                         </div>
-                    </q-item-section>
+                        <div class="row">
+                            <q-input class="col" dense v-model="form.gqaOption" label="字段名（英）"
+                                :rules="[ val => val && val.length > 0 || '必须输入字段名']" />
 
-                    <q-item-section>
-                        <div class="column">
-                            <div class="col">
-                                <q-input v-model="form.gqaOption" label="字段名（英）"
-                                    :rules="[ val => val && val.length > 0 || '必须输入字段名']" />
-                            </div>
-                            <div class="col">
-                                <q-input v-model="form.default" label="默认值"
-                                    :rules="[ val => val && val.length > 0 || '必须输入默认值']" />
-                            </div>
+                            <q-input class="col" dense v-model="form.default" label="默认值"
+                                :rules="[ val => val && val.length > 0 || '必须输入默认值']" />
                         </div>
                     </q-item-section>
 
@@ -38,23 +28,25 @@
                 </q-item>
             </q-form>
             <q-item v-for="(item, index) in tableData" :key="index">
-                <q-item-section class="col-4 gt-sm">
-                    <q-item-label class="q-mt-sm">
-                        {{item.sort}}：
-                        {{item.gqaOption}}
-                        （{{item.remark}}）
+                <q-item-section class="col-3 gt-sm">
+                    <q-item-label>
+                        <q-chip dense>
+                            {{item.sort}}：
+                            {{item.gqaOption}}
+                            （{{item.remark}}）
+                        </q-chip>
+
                     </q-item-label>
                 </q-item-section>
 
-                <q-item-section top>
+                <q-item-section class="q-mt-sm">
                     <q-item-label lines="1">
-                        <span class="text-weight-medium">默认值：</span>
-                        <span class="text-grey-8">
-                            {{item.default}}
-                        </span>
+                        <q-chip dense color="primary" text-color="white">
+                            默认值：{{item.default}}
+                        </q-chip>
                     </q-item-label>
                     <q-item-label lines="1">
-                        <q-input v-model="item.custom" label="自定义" />
+                        <q-input dense v-model="item.custom" label="自定义" />
                     </q-item-label>
                 </q-item-section>
 
@@ -65,8 +57,10 @@
                     </div>
                 </q-item-section>
             </q-item>
-
         </q-list>
+        <q-inner-loading :showing="loading">
+            <q-spinner-gears size="50px" color="primary" />
+        </q-inner-loading>
     </q-page>
 </template>
 
