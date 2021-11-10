@@ -1,5 +1,5 @@
 <template>
-    <q-page style="margin: 0 16px">
+    <q-page padding>
 
         <div class="row q-gutter-md items-center" style="margin-bottom: 10px">
             <q-input style="width: 20%" v-model="queryParams.name" label="姓名" />

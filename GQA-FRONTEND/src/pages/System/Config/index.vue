@@ -1,144 +1,92 @@
 <template>
     <q-page padding>
-        <q-btn color="primary" @click="showAdd" label="新增配置" />
-        <q-list dense bordered separator>
-            <q-form ref="addOrEditForm">
-                <q-item v-if="addFormVisible" active active-class="bg-teal-1">
-                    <q-item-section>
-                        <div class="row">
-                            <q-input class="col" dense v-model.number="form.sort" type="number"
-                                :rules="[ val => val >= 1 || '排序必须大于0']" label="排序" />
-                            <q-input class="col" dense v-model="form.remark" label="描述" />
-                        </div>
-                        <div class="row">
-                            <q-input class="col" dense v-model="form.gqaOption" label="字段名（英）"
-                                :rules="[ val => val && val.length > 0 || '必须输入字段名']" />
 
-                            <q-input class="col" dense v-model="form.default" label="默认值"
-                                :rules="[ val => val && val.length > 0 || '必须输入默认值']" />
-                        </div>
-                    </q-item-section>
+        <div class="row q-gutter-md items-center" style="margin-bottom: 10px">
+            <q-input style="width: 20%" v-model="queryParams.name" label="姓名" />
+            <q-input style="width: 20%" v-model="queryParams.username" label="账号" />
+            <q-btn color="primary" @click="handleSearch" label="搜索" />
+            <q-btn color="primary" @click="resetSearch" label="重置" />
+        </div>
 
-                    <q-item-section side>
-                        <div class="q-gutter-md">
-                            <q-btn dense color="negative" @click="handleCancel" label="取消" />
-                            <q-btn dense color="primary" @click="handleAdd" label="确定新增" />
-                        </div>
-                    </q-item-section>
-                </q-item>
-            </q-form>
-            <q-item v-for="(item, index) in tableData" :key="index">
-                <q-item-section class="col-3 gt-sm">
-                    <q-item-label>
-                        <q-chip dense>
-                            {{item.sort}}：
-                            {{item.gqaOption}}
-                            （{{item.remark}}）
-                        </q-chip>
+        <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
+            :rows-per-page-options="pagination.options" :loading="loading" @request="onRequest">
 
-                    </q-item-label>
-                </q-item-section>
+            <template v-slot:top="props">
+                <q-btn color="primary" @click="showAddForm()" label="新增配置" />
+                <q-space />
+                <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
+                    @click="props.toggleFullscreen" class="q-ml-md" />
+            </template>
 
-                <q-item-section class="q-mt-sm">
-                    <q-item-label lines="1">
-                        <q-chip dense color="primary" text-color="white">
-                            默认值：{{item.default}}
-                        </q-chip>
-                    </q-item-label>
-                    <q-item-label lines="1">
-                        <q-input dense v-model="item.custom" label="自定义" />
-                    </q-item-label>
-                </q-item-section>
+            <template v-slot:body-cell-status="props">
+                <q-td :props="props">
+                    <gqa-dict-show dictName="statusOnOff" :dictCode="props.row.status" />
+                </q-td>
+            </template>
 
-                <q-item-section side>
-                    <div class="q-gutter-md">
-                        <q-btn dense color="negative" @click="handleDelete(item)" label="删除" />
-                        <q-btn dense color="primary" @click="handleSave(item)" label="保存编辑" />
+            <template v-slot:body-cell-stable="props">
+                <q-td :props="props">
+                    <gqa-dict-show dictName="statusYesNo" :dictCode="props.row.stable" />
+                </q-td>
+            </template>
+
+            <template v-slot:body-cell-actions="props">
+                <q-td :props="props">
+                    <div class="q-gutter-xs">
+                        <q-btn dense color="primary" @click="handleSave(props.row)" label="保存编辑" />
+                        <q-btn color="negative" @click="handleDelete(props.row)" label="删除" />
                     </div>
-                </q-item-section>
-            </q-item>
-        </q-list>
-        <q-inner-loading :showing="loading">
-            <q-spinner-gears size="50px" color="primary" />
-        </q-inner-loading>
+                </q-td>
+            </template>
+        </q-table>
+        <add-or-edit-dialog ref="addOrEditDialog" @handleFinish="handleFinish" />
     </q-page>
 </template>
 
 <script>
 import { tableDataMixin } from 'src/mixins/tableDataMixin'
-import { putAction, postAction } from 'src/api/manage'
+import addOrEditDialog from './modules/addOrEditDialog'
+import { putAction } from 'src/api/manage'
+import GqaDictShow from 'src/components/GqaDictShow'
 
 export default {
     name: 'Config',
     mixins: [tableDataMixin],
+    components: {
+        addOrEditDialog,
+        GqaDictShow,
+    },
     data() {
         return {
-            pagination: {
-                sortBy: 'sort',
-                descending: false,
-                page: 1,
-                rowsPerPage: 9999,
-                rowsNumber: 0,
-                options: [10, 30, 50, 100],
-            },
             url: {
                 list: 'config/config-list',
                 edit: 'config/config-edit',
-                add: 'config/config-add',
                 delete: 'config/config-delete',
             },
-            addFormVisible: false,
-            form: {
-                sort: 1,
-                remark: '',
-                gqaOption: '',
-                default: '',
-            },
+            columns: [
+                { name: 'sort', align: 'center', label: '排序', field: 'sort' },
+                { name: 'gqaOption', align: 'center', label: '配置名', field: 'gqaOption' },
+                { name: 'remark', align: 'center', label: '描述', field: 'remark' },
+                { name: 'default', align: 'center', label: '默认配置', field: 'default' },
+                { name: 'custom', align: 'center', label: '自定义配置', field: 'custom' },
+                { name: 'status', align: 'center', label: '状态', field: 'status' },
+                { name: 'stable', align: 'center', label: '系统内置', field: 'stable' },
+                { name: 'actions', align: 'center', label: '操作', field: 'actions' },
+            ],
         }
     },
     created() {
         this.getTableData()
     },
     methods: {
-        showAdd() {
-            this.addFormVisible = true
-        },
-        handleCancel() {
-            this.form = {
-                sort: 1,
-                remark: '',
-                gqaOption: '',
-                default: '',
-            }
-            this.addFormVisible = false
-        },
-        async handleSave(item) {
-            const res = await putAction(this.url.edit, item)
+        async handleSave(row) {
+            const res = await putAction(this.url.edit, row)
             if (res.code === 1) {
                 this.$q.notify({
                     type: 'positive',
                     message: res.message,
                 })
                 this.getTableData()
-            }
-        },
-        async handleAdd() {
-            const success = await this.$refs.addOrEditForm.validate()
-            if (success) {
-                const res = await postAction(this.url.add, this.form)
-                if (res.code === 1) {
-                    this.$q.notify({
-                        type: 'positive',
-                        message: res.message,
-                    })
-                    this.handleCancel()
-                    this.getTableData()
-                }
-            } else {
-                this.$q.notify({
-                    type: 'negative',
-                    message: '请完善表格信息！',
-                })
             }
         },
     },
