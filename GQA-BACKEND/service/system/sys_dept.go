@@ -10,7 +10,7 @@ import (
 type ServiceDept struct {
 }
 
-func (s *ServiceDept)GetDeptList(pageInfo global.RequestPage) (err error, role interface{}, total int64) {
+func (s *ServiceDept) GetDeptList(pageInfo global.RequestPage) (err error, role interface{}, total int64) {
 	pageSize := pageInfo.PageSize
 	offset := pageInfo.PageSize * (pageInfo.Page - 1)
 	db := global.GqaDb.Model(&system.SysDept{})
@@ -23,23 +23,36 @@ func (s *ServiceDept)GetDeptList(pageInfo global.RequestPage) (err error, role i
 	return err, deptList, total
 }
 
-func (s *ServiceDept) EditDept(dept system.SysDept) (err error) {
-	err = global.GqaDb.Updates(&dept).Error
+func (s *ServiceDept) EditDept(toEditDept system.SysDept) (err error) {
+	var sysDept system.SysDept
+	if err = global.GqaDb.Where("id = ?", toEditDept.Id).First(&sysDept).Error; err != nil {
+		return err
+	}
+	if sysDept.Stable == "yes" {
+		return errors.New("系统内置不允许编辑：" + toEditDept.DeptCode)
+	}
+	err = global.GqaDb.Updates(&toEditDept).Error
 	return err
 }
 
-func (s *ServiceDept) AddDept(d system.SysDept) (err error) {
+func (s *ServiceDept) AddDept(toAddDept system.SysDept) (err error) {
 	var dept system.SysDept
-	if !errors.Is(global.GqaDb.Where("dept_code = ?", d.DeptCode).First(&dept).Error, gorm.ErrRecordNotFound) {
-		return errors.New("此部门已存在：" + d.DeptCode)
+	if !errors.Is(global.GqaDb.Where("dept_code = ?", toAddDept.DeptCode).First(&dept).Error, gorm.ErrRecordNotFound) {
+		return errors.New("此部门已存在：" + toAddDept.DeptCode)
 	}
-	err = global.GqaDb.Create(&d).Error
+	err = global.GqaDb.Create(&toAddDept).Error
 	return err
 }
 
 func (s *ServiceDept) DeleteDept(id uint) (err error) {
-	var dept system.SysDept
-	err = global.GqaDb.Where("id = ?", id).Delete(&dept).Error
+	var sysDept system.SysDept
+	if err = global.GqaDb.Where("id = ?", id).First(&sysDept).Error; err != nil {
+		return err
+	}
+	if sysDept.Stable == "yes" {
+		return errors.New("系统内置不允许删除！" + sysDept.DeptCode)
+	}
+	err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&sysDept).Error
 	return err
 }
 

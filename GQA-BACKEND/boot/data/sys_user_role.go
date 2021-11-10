@@ -10,14 +10,13 @@ import (
 
 var SysUserRole = new(sysUserRole)
 
-type sysUserRole struct {
-}
+type sysUserRole struct{}
 
 var sysUserRoleData = []system.SysUserRole{
 	{"super-admin", 1},
 }
 
-func (s *sysUserRole)Init()error  {
+func (s *sysUserRole) Init() error {
 	return global.GqaDb.Table("sys_user_role").Transaction(func(tx *gorm.DB) error {
 		var count int64
 		tx.Model(&system.SysUserRole{}).Count(&count)

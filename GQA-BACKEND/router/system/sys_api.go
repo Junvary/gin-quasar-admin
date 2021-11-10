@@ -19,8 +19,6 @@ func (r *RouterApi) InitRouterApi(Router *gin.RouterGroup) (R gin.IRoutes) {
 		apiGroup.POST("api-add", apiApi.AddApi)
 		// 删除api
 		apiGroup.DELETE("api-delete", apiApi.DeleteApi)
-		// 根据ID查找api
-		apiGroup.POST("api-id", apiApi.QueryApiById)
 	}
 	return Router
 }

@@ -1,6 +1,7 @@
 package system
 
 import (
+	"errors"
 	"gin-quasar-admin/global"
 	"gin-quasar-admin/model/system"
 )
@@ -21,19 +22,32 @@ func (s *ServiceMenu) GetMenuList(pageInfo global.RequestPage) (err error, menu 
 	return err, menuList, total
 }
 
-func (s *ServiceMenu) EditMenu(menu system.SysMenu) (err error) {
-	err = global.GqaDb.Updates(&menu).Error
+func (s *ServiceMenu) EditMenu(toEditMenu system.SysMenu) (err error) {
+	var sysMenu system.SysMenu
+	if err = global.GqaDb.Where("id = ?", toEditMenu.Id).First(&sysMenu).Error; err != nil {
+		return err
+	}
+	if sysMenu.Stable == "yes" {
+		return errors.New("系统内置不允许编辑：" + toEditMenu.Title)
+	}
+	err = global.GqaDb.Updates(&toEditMenu).Error
 	return err
 }
 
-func (s *ServiceMenu) AddMenu(m system.SysMenu) (err error) {
-	err = global.GqaDb.Create(&m).Error
+func (s *ServiceMenu) AddMenu(toAddMenu system.SysMenu) (err error) {
+	err = global.GqaDb.Create(&toAddMenu).Error
 	return err
 }
 
 func (s *ServiceMenu) DeleteMenu(id uint) (err error) {
-	var menu system.SysMenu
-	err = global.GqaDb.Where("id = ?", id).Delete(&menu).Error
+	var sysMenu system.SysMenu
+	if err = global.GqaDb.Where("id = ?", id).First(&sysMenu).Error; err != nil {
+		return err
+	}
+	if sysMenu.Stable == "yes" {
+		return errors.New("系统内置不允许删除！" + sysMenu.Title)
+	}
+	err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&sysMenu).Error
 	return err
 }
 

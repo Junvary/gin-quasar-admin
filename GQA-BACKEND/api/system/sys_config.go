@@ -70,3 +70,18 @@ func (a *ApiConfig) AddConfig(c *gin.Context) {
 		global.SuccessMessage("添加配置成功！", c)
 	}
 }
+
+func (a *ApiConfig) DeleteConfig(c *gin.Context) {
+	var toDeleteId system.RequestQueryById
+	if err := c.ShouldBindJSON(&toDeleteId); err != nil{
+		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
+		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
+		return
+	}
+	if err := service.GroupServiceApp.ServiceSystem.DeleteConfig(toDeleteId.Id); err != nil {
+		global.GqaLog.Error("删除配置失败！", zap.Any("err", err))
+		global.ErrorMessage("删除配置失败，" + err.Error(), c)
+	} else {
+		global.SuccessMessage("删除配置成功！", c)
+	}
+}

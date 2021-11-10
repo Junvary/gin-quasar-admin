@@ -5,7 +5,7 @@
                 :rows-per-page-options="pagination.options" :loading="loading" @request="onRequest">
 
                 <template v-slot:top="props">
-                    <q-btn color="primary" @click="showAddForm({parentId: parentDict.id})">
+                    <q-btn dense color="primary" @click="showAddForm({parentId: parentDict.id})">
                         新增 {{ parentDict.label}} 字典项：
                     </q-btn>
                     <q-space />
@@ -19,11 +19,17 @@
                     </q-td>
                 </template>
 
+                <template v-slot:body-cell-stable="props">
+                    <q-td :props="props">
+                        <gqa-dict-show dictName="statusYesNo" :dictCode="props.row.stable" />
+                    </q-td>
+                </template>
+
                 <template v-slot:body-cell-actions="props">
                     <q-td :props="props">
-                        <div class="q-gutter-xs" v-if="!props.row.stable">
-                            <q-btn color="primary" @click="showEditForm(props.row)" label="编辑" />
-                            <q-btn color="negative" @click="handleDelete(props.row)" label="删除" />
+                        <div class="q-gutter-xs">
+                            <q-btn dense color="primary" @click="showEditForm(props.row)" label="编辑" />
+                            <q-btn dense color="negative" @click="handleDelete(props.row)" label="删除" />
                         </div>
                     </q-td>
                 </template>
@@ -67,6 +73,7 @@ export default {
                 { name: 'value', align: 'center', label: '字典编码', field: 'value' },
                 { name: 'label', align: 'center', label: '字典名称', field: 'label' },
                 { name: 'status', align: 'center', label: '状态', field: 'status' },
+                { name: 'stable', align: 'center', label: '系统内置', field: 'stable' },
                 { name: 'actions', align: 'center', label: '操作', field: 'actions' },
             ],
         }

@@ -10,8 +10,7 @@ import (
 
 var SysRoleMenu = new(sysRoleMenu)
 
-type sysRoleMenu struct {
-}
+type sysRoleMenu struct{}
 
 var sysRoleMenuData = []system.SysRoleMenu{
 	// 为 super-admin 设置所有 sys_menu 的总数

@@ -14,8 +14,7 @@
                 <template v-slot:body-cell-actions="props">
                     <q-td :props="props">
                         <div class="q-gutter-xs">
-                            <q-btn dense color="negative" @click="handleRemove(props.row)" label="移除"
-                                v-if="!(props.row.id === 1 && record.roleCode === 'super-admin')" />
+                            <q-btn dense color="negative" @click="handleRemove(props.row)" label="移除" />
                         </div>
                     </q-td>
                 </template>

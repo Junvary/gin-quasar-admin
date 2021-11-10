@@ -23,30 +23,34 @@ func (s *ServiceDict) GetDictList(pageInfo system.RequestPageByParentId) (err er
 	return err, dictList, total, pageInfo.ParentId
 }
 
-func (s *ServiceDict) EditDict(dict system.SysDict) (err error) {
-	var stableDict system.SysDict
-	global.GqaDb.Where("id = ?", dict.Id).First(&stableDict)
-	if stableDict.Stable{
-		return errors.New("内置字典不允许编辑：" + dict.Value)
+func (s *ServiceDict) EditDict(toEditDict system.SysDict) (err error) {
+	var sysDict system.SysDict
+	if err = global.GqaDb.Where("id = ?", toEditDict.Id).First(&sysDict).Error; err != nil {
+		return err
 	}
-	err = global.GqaDb.Updates(&dict).Error
+	if sysDict.Stable == "yes" {
+		return errors.New("系统内置不允许编辑：" + toEditDict.Label)
+	}
+	err = global.GqaDb.Updates(&toEditDict).Error
 	return err
 }
 
-func (s *ServiceDict) AddDict(d system.SysDict) (err error) {
+func (s *ServiceDict) AddDict(toAddDict system.SysDict) (err error) {
 	var dict system.SysDict
-	if !errors.Is(global.GqaDb.Where("value = ?", d.Value).First(&dict).Error, gorm.ErrRecordNotFound) {
-		return errors.New("此字典已存在：" + d.Value)
+	if !errors.Is(global.GqaDb.Where("value = ?", toAddDict.Value).First(&dict).Error, gorm.ErrRecordNotFound) {
+		return errors.New("此字典已存在：" + toAddDict.Label)
 	}
-	err = global.GqaDb.Create(&d).Error
+	err = global.GqaDb.Create(&toAddDict).Error
 	return err
 }
 
 func (s *ServiceDict) DeleteDict(id uint) (err error) {
 	var dict system.SysDict
-	global.GqaDb.Where("id = ?", id).Find(&dict)
-	if dict.Stable{
-		return errors.New("内置字典不允许删除！")
+	if err = global.GqaDb.Where("id = ?", id).First(&dict).Error; err != nil {
+		return err
+	}
+	if dict.Stable == "yes" {
+		return errors.New("系统内置不允许删除！" + dict.Label)
 	}
 	err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&dict).Error
 	return err

@@ -31,11 +31,58 @@ func (a *ApiApi) GetApiList(c *gin.Context) {
 	}
 }
 
-func (a *ApiApi) EditApi(c *gin.Context) {}
+func (a *ApiApi) EditApi(c *gin.Context) {
+	var toEditApi system.SysApi
+	if err := c.ShouldBindJSON(&toEditApi); err != nil{
+		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
+		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
+		return
+	}
+	if err := service.GroupServiceApp.ServiceSystem.EditApi(toEditApi); err != nil {
+		global.GqaLog.Error("编辑API失败！", zap.Any("err", err))
+		global.ErrorMessage("编辑API失败，" + err.Error(), c)
+	} else {
+		global.SuccessMessage("编辑API成功！", c)
+	}
+}
 
-func (a *ApiApi) AddApi(c *gin.Context) {}
+func (a *ApiApi) AddApi(c *gin.Context) {
+	var toAddApi system.RequestAddApi
+	if err := c.ShouldBindJSON(&toAddApi); err != nil{
+		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
+		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
+		return
+	}
+	addApi := &system.SysApi{
+		GqaModel: global.GqaModel{
+			Status: toAddApi.Status,
+			Sort:   toAddApi.Sort,
+			Remark:   toAddApi.Remark,
+		},
+		Group: toAddApi.Group,
+		Path: toAddApi.Path,
+		Method: toAddApi.Method,
+	}
+	if err := service.GroupServiceApp.ServiceSystem.AddApi(*addApi); err != nil {
+		global.GqaLog.Error("添加API失败！", zap.Any("err", err))
+		global.ErrorMessage("添加API失败，"+err.Error(), c)
+	} else {
+		global.SuccessMessage("添加API成功！", c)
+	}
+}
 
-func (a *ApiApi) DeleteApi(c *gin.Context) {}
-
-func (a *ApiApi) QueryApiById(c *gin.Context) {}
+func (a *ApiApi) DeleteApi(c *gin.Context) {
+	var toDeleteId system.RequestQueryById
+	if err := c.ShouldBindJSON(&toDeleteId); err != nil{
+		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
+		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
+		return
+	}
+	if err := service.GroupServiceApp.ServiceSystem.DeleteApi(toDeleteId.Id); err != nil {
+		global.GqaLog.Error("删除API失败！", zap.Any("err", err))
+		global.ErrorMessage("删除API失败，" + err.Error(), c)
+	} else {
+		global.SuccessMessage("删除API成功！", c)
+	}
+}
 

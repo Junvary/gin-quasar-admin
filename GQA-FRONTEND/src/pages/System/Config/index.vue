@@ -60,6 +60,7 @@
 
                 <q-item-section side>
                     <div class="q-gutter-md">
+                        <q-btn dense color="negative" @click="handleDelete(item)" label="删除" />
                         <q-btn dense color="primary" @click="handleSave(item)" label="保存编辑" />
                     </div>
                 </q-item-section>
@@ -90,6 +91,7 @@ export default {
                 list: 'config/config-list',
                 edit: 'config/config-edit',
                 add: 'config/config-add',
+                delete: 'config/config-delete',
             },
             addFormVisible: false,
             form: {

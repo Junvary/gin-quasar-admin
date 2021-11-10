@@ -36,6 +36,12 @@
                 </q-td>
             </template>
 
+            <template v-slot:body-cell-stable="props">
+                <q-td :props="props">
+                    <gqa-dict-show dictName="statusYesNo" :dictCode="props.row.stable" />
+                </q-td>
+            </template>
+
             <!-- <template v-slot:body-cell-dept="props">
                 <q-td :props="props">
                     <div class="q-gutter-xs">
@@ -59,8 +65,7 @@
                 <q-td :props="props">
                     <div class="q-gutter-xs">
                         <q-btn color="primary" @click="showEditForm(props.row)" label="编辑" />
-                        <q-btn color="negative" @click="handleDelete(props.row)" label="删除"
-                            v-if="props.row.username !== 'admin'" />
+                        <q-btn color="negative" @click="handleDelete(props.row)" label="删除" />
                     </div>
                 </q-td>
             </template>
@@ -100,6 +105,7 @@ export default {
                 // { name: 'email', align: 'center', label: '邮箱', field: 'email' },
                 { name: 'dept', align: 'center', label: '部门', field: 'dept' },
                 { name: 'status', align: 'center', label: '状态', field: 'status' },
+                { name: 'stable', align: 'center', label: '系统内置', field: 'stable' },
                 { name: 'actions', align: 'center', label: '操作', field: 'actions' },
             ],
         }

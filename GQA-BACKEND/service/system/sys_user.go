@@ -25,24 +25,37 @@ func (s *ServiceUser) GetUserList(pageInfo global.RequestPage) (err error, user 
 	return err, userList, total
 }
 
-func (s *ServiceUser) EditUser(user system.SysUser) (err error) {
-	err = global.GqaDb.Updates(&user).Error
+func (s *ServiceUser) EditUser(toEditUser system.SysUser) (err error) {
+	var sysUser system.SysUser
+	if err = global.GqaDb.Where("id = ?", toEditUser.Id).First(&sysUser).Error; err != nil {
+		return err
+	}
+	if sysUser.Stable == "yes" {
+		return errors.New("系统内置不允许编辑：" + toEditUser.Username)
+	}
+	err = global.GqaDb.Updates(&toEditUser).Error
 	return err
 }
 
-func (s *ServiceUser) AddUser(u *system.SysUser) (err error) {
+func (s *ServiceUser) AddUser(toAddUser *system.SysUser) (err error) {
 	var user system.SysUser
-	if !errors.Is(global.GqaDb.Where("username = ?", u.Username).First(&user).Error, gorm.ErrRecordNotFound) {
-		return errors.New("此用户已存在：" + u.Username)
+	if !errors.Is(global.GqaDb.Where("username = ?", toAddUser.Username).First(&user).Error, gorm.ErrRecordNotFound) {
+		return errors.New("此用户已存在：" + toAddUser.Username)
 	}
-	u.Password = utils.EncodeMD5(global.GqaConfig.System.DefaultPassword)
-	err = global.GqaDb.Create(&u).Error
+	toAddUser.Password = utils.EncodeMD5(global.GqaConfig.System.DefaultPassword)
+	err = global.GqaDb.Create(&toAddUser).Error
 	return err
 }
 
 func (s *ServiceUser) DeleteUser(id uint) (err error) {
-	var user system.SysUser
-	err = global.GqaDb.Where("id = ?", id).Delete(&user).Error
+	var sysUser system.SysUser
+	if err = global.GqaDb.Where("id = ?", id).First(&sysUser).Error; err != nil {
+		return err
+	}
+	if sysUser.Stable == "yes" {
+		return errors.New("系统内置不允许删除！" + sysUser.Username)
+	}
+	err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&sysUser).Error
 	return err
 }
 

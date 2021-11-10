@@ -25,16 +25,19 @@
                 </q-td>
             </template>
 
+            <template v-slot:body-cell-stable="props">
+                <q-td :props="props">
+                    <gqa-dict-show dictName="statusYesNo" :dictCode="props.row.stable" />
+                </q-td>
+            </template>
+
             <template v-slot:body-cell-actions="props">
                 <q-td :props="props">
                     <div class="q-gutter-xs">
-                        <q-btn color="primary" @click="showEditForm(props.row)" label="编辑"
-                            v-if="props.row.roleCode !== 'super-admin'" />
+                        <q-btn color="primary" @click="showEditForm(props.row)" label="编辑" />
                         <q-btn color="warning" @click="showRoleUser(props.row)" label="用户" />
-                        <q-btn color="warning" @click="showRolePermission(props.row)" label="权限"
-                            v-if="props.row.roleCode !== 'super-admin'" />
-                        <q-btn color="negative" @click="handleDelete(props.row)" label="删除"
-                            v-if="props.row.roleCode !== 'super-admin'" />
+                        <q-btn color="warning" @click="showRolePermission(props.row)" label="权限" />
+                        <q-btn color="negative" @click="handleDelete(props.row)" label="删除" />
                     </div>
                 </q-td>
             </template>
@@ -75,6 +78,7 @@ export default {
                 { name: 'roleCode', align: 'center', label: '角色编码', field: 'roleCode' },
                 { name: 'roleName', align: 'center', label: '角色名', field: 'roleName' },
                 { name: 'status', align: 'center', label: '状态', field: 'status' },
+                { name: 'stable', align: 'center', label: '系统内置', field: 'stable' },
                 { name: 'actions', align: 'center', label: '操作', field: 'actions' },
             ],
         }

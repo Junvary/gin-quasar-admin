@@ -23,31 +23,40 @@ func (s *ServiceRole) GetRoleList(pageInfo global.RequestPage) (err error, role 
 	return err, roleList, total
 }
 
-func (s *ServiceRole) EditRole(role system.SysRole) (err error) {
-	err = global.GqaDb.Updates(&role).Error
+func (s *ServiceRole) EditRole(toEditRole system.SysRole) (err error) {
+	var sysRole system.SysRole
+	if err = global.GqaDb.Where("id = ?", toEditRole.Id).First(&sysRole).Error; err != nil {
+		return err
+	}
+	if sysRole.Stable == "yes" {
+		return errors.New("系统内置不允许编辑：" + toEditRole.RoleCode)
+	}
+	err = global.GqaDb.Updates(&toEditRole).Error
 	return err
 }
 
-func (s *ServiceRole) AddRole(r system.SysRole) (err error) {
+func (s *ServiceRole) AddRole(toAddRole system.SysRole) (err error) {
 	var role system.SysRole
-	if !errors.Is(global.GqaDb.Where("role_code = ?", r.RoleCode).First(&role).Error, gorm.ErrRecordNotFound) {
-		return errors.New("此角色已存在：" + r.RoleCode)
+	if !errors.Is(global.GqaDb.Where("role_code = ?", toAddRole.RoleCode).First(&role).Error, gorm.ErrRecordNotFound) {
+		return errors.New("此角色已存在：" + toAddRole.RoleCode)
 	}
-	err = global.GqaDb.Create(&r).Error
+	err = global.GqaDb.Create(&toAddRole).Error
 	return err
 }
 
 func (s *ServiceRole) DeleteRole(id uint) (err error) {
-	var role system.SysRole
-	err = global.GqaDb.Where("id = ?", id).First(&role).Error
-	if err != nil {
+	var sysRole system.SysRole
+	if err = global.GqaDb.Where("id = ?", id).First(&sysRole).Error; err != nil {
 		return err
 	}
-	roleCode := role.RoleCode
+	if sysRole.Stable == "yes" {
+		return errors.New("系统内置不允许删除！" + sysRole.RoleCode)
+	}
+	roleCode := sysRole.RoleCode
 	// 删除 casbin_rule 表的权限
 	_, _ = global.GqaCasbin.RemoveFilteredPolicy(0, roleCode)
 	// 删除 sys_role 表的数据
-	err = global.GqaDb.Unscoped().Delete(&role).Error
+	err = global.GqaDb.Unscoped().Delete(&sysRole).Error
 	if err != nil {
 		return err
 	}
@@ -75,13 +84,13 @@ func (s *ServiceRole) GetRoleMenuList(roleCode *system.RequestRoleCode) (err err
 	return err, menu
 }
 
-func (s *ServiceRole) EditRoleMenu(roleMenu *system.RequestRoleMenuEdit) (err error) {
-	err = global.GqaDb.Where("sys_role_role_code=?", roleMenu.RoleCode).Delete(&system.SysRoleMenu{}).Error
+func (s *ServiceRole) EditRoleMenu(toEditRoleMenu *system.RequestRoleMenuEdit) (err error) {
+	err = global.GqaDb.Where("sys_role_role_code=?", toEditRoleMenu.RoleCode).Delete(&system.SysRoleMenu{}).Error
 	if err != nil {
 		return err
 	}
-	if len(roleMenu.RoleMenu) != 0 {
-		err = global.GqaDb.Model(&system.SysRoleMenu{}).Create(&roleMenu.RoleMenu).Error
+	if len(toEditRoleMenu.RoleMenu) != 0 {
+		err = global.GqaDb.Model(&system.SysRoleMenu{}).Create(&toEditRoleMenu.RoleMenu).Error
 		return err
 	}
 	return nil
@@ -92,13 +101,13 @@ func (s *ServiceRole) GetRoleApiList(roleCode *system.RequestRoleCode) (err erro
 	return err, api
 }
 
-func (s *ServiceRole) EditRoleApi(roleApi *system.RequestRoleApiEdit) (err error) {
-	_, _ = global.GqaCasbin.RemoveFilteredPolicy(0, roleApi.RoleCode)
+func (s *ServiceRole) EditRoleApi(toEditRoleApi *system.RequestRoleApiEdit) (err error) {
+	_, _ = global.GqaCasbin.RemoveFilteredPolicy(0, toEditRoleApi.RoleCode)
 	var newPolicy [][]string
-	for _, v := range roleApi.Policy {
+	for _, v := range toEditRoleApi.Policy {
 		sc := system.SysCasbin{
 			Ptype: "p",
-			V0:    roleApi.RoleCode,
+			V0:    toEditRoleApi.RoleCode,
 			V1:    v.V1,
 			V2:    v.V2,
 		}
@@ -119,9 +128,12 @@ func (s *ServiceRole) QueryUserByRole(roleCode *system.RequestRoleCode) (err err
 	return err, userList
 }
 
-func (s *ServiceRole) RemoveRoleUser(toDeleteRoleUser *system.RequestRoleUser) (err error) {
+func (s *ServiceRole) RemoveRoleUser(toRemoveRoleUser *system.RequestRoleUser) (err error) {
 	var roleUser system.SysUserRole
-	err = global.GqaDb.Where("sys_role_role_code = ? and sys_user_id = ?", toDeleteRoleUser.RoleCode, toDeleteRoleUser.UserId).Delete(&roleUser).Error
+	if toRemoveRoleUser.UserId == 1 && toRemoveRoleUser.RoleCode == "super-admin"{
+		return errors.New("抱歉，你不能把超级管理员从超级管理员组中移除！")
+	}
+	err = global.GqaDb.Where("sys_role_role_code = ? and sys_user_id = ?", toRemoveRoleUser.RoleCode, toRemoveRoleUser.UserId).Delete(&roleUser).Error
 	return err
 }
 

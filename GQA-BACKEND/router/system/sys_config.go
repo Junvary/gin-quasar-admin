@@ -18,6 +18,8 @@ func (r *RouterConfig) InitRouterConfig(Router *gin.RouterGroup) (R gin.IRoutes)
 		configGroup.PUT("config-edit", apiConfig.EditConfig)
 		// 新增config
 		configGroup.POST("config-add", apiConfig.AddConfig)
+		// 删除config
+		configGroup.DELETE("config-delete", apiConfig.DeleteConfig)
 	}
 	return Router
 }
