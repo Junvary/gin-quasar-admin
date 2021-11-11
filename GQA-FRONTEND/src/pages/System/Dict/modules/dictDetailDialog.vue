@@ -2,7 +2,7 @@
     <q-dialog v-model="dictDetailVisible" position="right">
         <q-card style="width: 800px; max-width: 50vw; height: 100%">
             <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
-                :rows-per-page-options="pagination.options" :loading="loading" @request="onRequest">
+                :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
 
                 <template v-slot:top="props">
                     <q-btn dense color="primary" @click="showAddForm({parentId: parentDict.id})">

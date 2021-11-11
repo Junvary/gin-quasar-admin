@@ -1,7 +1,7 @@
 <template>
     <q-page padding>
         <q-table row-key="id" separator="cell" :data="tableData" :columns="columns" v-model:pagination="pagination"
-            :rows-per-page-options="pagination.options" :loading="loading" @request="onRequest">
+            :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
             <template v-slot:body-cell-actions="props">
                 <q-td :props="props">
                     <div class="q-gutter-xs">

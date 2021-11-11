@@ -5,7 +5,7 @@
                 <div class="text-h6">选择用户</div>
             </q-card-section>
             <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
-                :rows-per-page-options="pagination.options" :loading="loading" @request="onRequest" selection="multiple"
+                :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest" selection="multiple"
                 v-model:selected="selected">
                 <template v-slot:top="">
                     <q-btn dense color="primary" @click="handleAddUser()" label="确定添加" />

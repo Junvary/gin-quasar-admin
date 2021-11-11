@@ -12,8 +12,8 @@ export const tableDataMixin = {
                 page: 1,
                 rowsPerPage: 10,
                 rowsNumber: 0,
-                options: [10, 30, 50, 100]
             },
+            pageOptions: [10, 30, 50, 100]
         }
     },
     computed: {
@@ -28,6 +28,9 @@ export const tableDataMixin = {
     },
     methods: {
         getTableData() {
+            this.onRequest({ pagination: this.pagination })
+        },
+        onRequest(props) {
             if (this.url === undefined || !this.url.list) {
                 this.$q.notify({
                     type: 'negative',
@@ -36,7 +39,7 @@ export const tableDataMixin = {
                 return
             }
             this.tableData = []
-            this.pagination.rowsNumber = 0
+            this.pagination = props.pagination
             this.loading = true
             postAction(this.url.list, {
                 ...this.queryAllParams
@@ -51,14 +54,7 @@ export const tableDataMixin = {
             this.getTableData()
         },
         resetSearch() {
-            this.getTableData()
-        },
-        onRequest(props) {
-            const { page, rowsPerPage, sortBy, descending } = props.pagination
-            this.pagination.page = page
-            this.pagination.rowsPerPage = rowsPerPage
-            this.pagination.sortBy = sortBy
-            this.pagination.descending = descending
+            this.queryParams = {}
             this.getTableData()
         },
         handleDelete(row) {
