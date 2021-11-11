@@ -5,29 +5,51 @@
 </template>
 
 <script>
-import { GqaTrueName } from 'src/settings'
+import { GqaUsername } from 'src/settings'
 
 export default {
     name: 'GqaShowName',
     props: {
-        customName: {
+        customNameString: {
             type: String,
             required: false,
             default: '',
         },
+        customNameObject: {
+            type: Object,
+            required: false,
+            default: () => {
+                return {}
+            },
+        },
+        showMyName: {
+            type: Boolean,
+            required: false,
+            default: false,
+        },
     },
     computed: {
         trueName() {
-            const nickname = this.$q.cookies.get('gqa-nickname')
-            const realName = this.$q.cookies.get('gqa-realName')
-            if (this.customName) {
-                return this.customName
-            } else if (nickname) {
-                return nickname
-            } else if (realName) {
-                return realName
+            if (this.customNameString) {
+                // 自定义名字
+                return this.customNameString
+            } else if (JSON.stringify(this.customNameObject) !== '{}') {
+                // 其他用户的名字
+                if (this.customNameObject.nickname) {
+                    return this.customNameObject.nickname
+                } else {
+                    return this.customNameObject.realName
+                }
+            } else if (this.showMyName) {
+                const nickname = this.$q.cookies.get('gqa-nickname')
+                const realName = this.$q.cookies.get('gqa-realName')
+                if (nickname) {
+                    return nickname
+                } else {
+                    return realName
+                }
             } else {
-                return GqaTrueName
+                return GqaUsername
             }
         },
     },

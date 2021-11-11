@@ -21,7 +21,7 @@
                     <div class="q-gutter-md col-9">
                         <div class="row">
                             <q-input class="col" label="ID" v-model="addOrEditDetail.id" disable />
-                            <q-input class="col" label="负责人" v-model="addOrEditDetail.owner.id"
+                            <q-input class="col" label="负责人" v-model="addOrEditDetail.owner.nickname"
                                 v-if="addOrEditDetail.owner.id" />
                         </div>
 

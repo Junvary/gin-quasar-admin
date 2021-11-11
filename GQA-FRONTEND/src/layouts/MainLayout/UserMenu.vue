@@ -4,7 +4,7 @@
             <gqa-avatar loginUser size="26px" />
             <span style="margin-left:5px">
                 欢迎你，
-                <gqa-show-name />
+                <gqa-show-name showMyName />
             </span>
         </template>
         <div class="row no-wrap q-pa-md">
