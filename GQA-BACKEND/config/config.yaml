@@ -1,11 +1,9 @@
-casbin:
-  model-path: ./config/rbac_model.conf
 mysql:
   path:
   config:
   db-name:
   username:
-  password: 
+  password:
   max-idle-conns: 0
   max-open-conns: 0
   log-mode: ""
