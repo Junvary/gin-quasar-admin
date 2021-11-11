@@ -12,16 +12,23 @@ import (
 type ServiceUser struct {
 }
 
-func (s *ServiceUser) GetUserList(pageInfo global.RequestPage) (err error, user interface{}, total int64) {
-	pageSize := pageInfo.PageSize
-	offset := pageInfo.PageSize * (pageInfo.Page - 1)
+func (s *ServiceUser) GetUserList(requestUserList system.RequestUserList) (err error, user interface{}, total int64) {
+	pageSize := requestUserList.PageSize
+	offset := requestUserList.PageSize * (requestUserList.Page - 1)
 	db := global.GqaDb.Model(&system.SysUser{})
 	var userList []system.SysUser
+	//配置搜索
+	if requestUserList.Username != ""{
+		db = db.Where("username like ?", "%" + requestUserList.Username + "%")
+	}
+	if requestUserList.RealName != ""{
+		db = db.Where("real_name like ?", "%" + requestUserList.RealName + "%")
+	}
 	err = db.Count(&total).Error
 	if err != nil {
 		return
 	}
-	err = db.Limit(pageSize).Offset(offset).Order(global.OrderByColumn(pageInfo.SortBy, pageInfo.Desc)).Find(&userList).Error
+	err = db.Limit(pageSize).Offset(offset).Order(global.OrderByColumn(requestUserList.SortBy, requestUserList.Desc)).Find(&userList).Error
 	return err, userList, total
 }
 

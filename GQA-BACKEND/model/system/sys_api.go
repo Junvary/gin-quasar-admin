@@ -17,3 +17,13 @@ type RequestAddApi struct {
 	Path   string `json:"path"`
 	Method string `json:"method"`
 }
+
+type RequestApiList struct {
+	global.RequestPageAndSort
+	//可扩充的模糊搜索项，参考上面 RequestAddApi 中的字段
+	Group  string `json:"group"`
+	Path   string `json:"path"`
+	Method string `json:"method"`
+	//全部可搜索，直接放开模型，并从service里面配置搜索逻辑
+	//SysApi
+}

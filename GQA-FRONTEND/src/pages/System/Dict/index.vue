@@ -3,7 +3,7 @@
 
         <div class="row q-gutter-md items-center" style="margin-bottom: 10px">
             <q-input style="width: 20%" v-model="queryParams.value" label="字典编码" />
-            <q-input style="width: 20%" v-model="queryParams.label" label="字典名" />
+            <q-input style="width: 20%" v-model="queryParams.label" label="字典名称" />
             <q-btn color="primary" @click="handleSearch" label="搜索" />
             <q-btn color="primary" @click="resetSearch" label="重置" />
         </div>

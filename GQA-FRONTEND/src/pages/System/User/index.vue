@@ -2,8 +2,8 @@
     <q-page padding>
 
         <div class="row q-gutter-md items-center" style="margin-bottom: 10px">
-            <q-input style="width: 20%" v-model="queryParams.name" label="姓名" />
             <q-input style="width: 20%" v-model="queryParams.username" label="账号" />
+            <q-input style="width: 20%" v-model="queryParams.realName" label="真实姓名" />
             <q-btn color="primary" @click="handleSearch" label="搜索" />
             <q-btn color="primary" @click="resetSearch" label="重置" />
         </div>

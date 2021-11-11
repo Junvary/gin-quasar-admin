@@ -1,4 +1,4 @@
-import { getAction, postAction, deleteAction, putAction } from "src/api/manage"
+import { postAction, deleteAction } from "src/api/manage"
 
 export const tableDataMixin = {
     data() {
@@ -11,19 +11,8 @@ export const tableDataMixin = {
                 descending: false,
                 page: 1,
                 rowsPerPage: 10,
-                rowsNumber: 0,
             },
             pageOptions: [10, 30, 50, 100]
-        }
-    },
-    computed: {
-        queryAllParams() {
-            const params = { ...this.queryParams }
-            params.sortBy = this.pagination.sortBy
-            params.desc = this.pagination.descending
-            params.page = this.pagination.page
-            params.pageSize = this.pagination.rowsPerPage
-            return params
         }
     },
     methods: {
@@ -39,13 +28,23 @@ export const tableDataMixin = {
                 return
             }
             this.tableData = []
-            this.pagination = props.pagination
             this.loading = true
-            postAction(this.url.list, {
-                ...this.queryAllParams
-            }).then(res => {
-                this.pagination.rowsNumber = res.data.total
-                this.tableData = res.data.records
+            // 组装分页和过滤条件
+            const params = {}
+            params.sortBy = props.pagination.sortBy
+            params.desc = props.pagination.descending
+            params.page = props.pagination.page
+            params.pageSize = props.pagination.rowsPerPage
+            const allParams = Object.assign({}, params, this.queryParams)
+            // 带参数请求数据
+            postAction(this.url.list, allParams).then(res => {
+                if (res.code === 1) {
+                    // 最终要把分页给同步掉
+                    this.pagination = props.pagination
+                    // 并且加入总数字段
+                    this.pagination.rowsNumber = res.data.total
+                    this.tableData = res.data.records
+                }
             }).finally(() => {
                 this.loading = false
             })

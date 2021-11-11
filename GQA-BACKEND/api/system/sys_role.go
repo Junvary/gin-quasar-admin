@@ -13,20 +13,20 @@ type ApiRole struct {
 }
 
 func (a *ApiRole) GetRoleList(c *gin.Context) {
-	var pageInfo global.RequestPage
-	if err := c.ShouldBindJSON(&pageInfo); err != nil{
+	var requestRoleList system.RequestRoleList
+	if err := c.ShouldBindJSON(&requestRoleList); err != nil{
 		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
-	if err, roleList, total := service.GroupServiceApp.ServiceSystem.GetRoleList(pageInfo); err != nil {
+	if err, roleList, total := service.GroupServiceApp.ServiceSystem.GetRoleList(requestRoleList); err != nil {
 		global.GqaLog.Error("获取角色列表失败！", zap.Any("err", err))
 		global.ErrorMessage("获取角色列表失败，"+err.Error(), c)
 	} else {
 		global.SuccessData(system.ResponsePage{
 			Records:  roleList,
-			Page:     pageInfo.Page,
-			PageSize: pageInfo.PageSize,
+			Page:     requestRoleList.Page,
+			PageSize: requestRoleList.PageSize,
 			Total:    total,
 		}, c)
 	}

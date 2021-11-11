@@ -31,6 +31,15 @@ type RequestAddMenu struct {
 	IsLink    string `json:"isLink"`
 }
 
+type RequestMenuList struct {
+	global.RequestPageAndSort
+	//可扩充的模糊搜索项，参考上面 RequestAddMenu 中的字段
+	Path      string `json:"path"`
+	Title     string `json:"title"`
+	//全部可搜索，直接放开模型，并从service里面配置搜索逻辑
+	//SysMenu
+}
+
 type ResponseMenu struct {
 	Menu []SysMenu `json:"menu"`
 }

@@ -13,20 +13,20 @@ type ApiUser struct {
 }
 
 func (a *ApiUser) GetUserList(c *gin.Context) {
-	var pageInfo global.RequestPage
-	if err := c.ShouldBindJSON(&pageInfo); err != nil{
+	var requestUserList system.RequestUserList
+	if err := c.ShouldBindJSON(&requestUserList); err != nil{
 		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
-	if err, userList, total := service.GroupServiceApp.ServiceSystem.GetUserList(pageInfo); err != nil {
+	if err, userList, total := service.GroupServiceApp.ServiceSystem.GetUserList(requestUserList); err != nil {
 		global.GqaLog.Error("获取用户列表失败！", zap.Any("err", err))
 		global.ErrorMessage("获取用户列表失败，"+err.Error(), c)
 	} else {
 		global.SuccessData(system.ResponsePage{
 			Records:  userList,
-			Page:     pageInfo.Page,
-			PageSize: pageInfo.PageSize,
+			Page:     requestUserList.Page,
+			PageSize: requestUserList.PageSize,
 			Total:    total,
 		}, c)
 	}

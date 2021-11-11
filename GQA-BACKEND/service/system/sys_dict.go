@@ -10,17 +10,24 @@ import (
 type ServiceDict struct {
 }
 
-func (s *ServiceDict) GetDictList(pageInfo system.RequestPageByParentId) (err error, role interface{}, total int64, parentId uint) {
-	pageSize := pageInfo.PageSize
-	offset := pageInfo.PageSize * (pageInfo.Page - 1)
-	db := global.GqaDb.Where("parent_id=?", pageInfo.ParentId).Find(&system.SysDict{})
+func (s *ServiceDict) GetDictList(requestDictList system.RequestDictList) (err error, role interface{}, total int64, parentId uint) {
+	pageSize := requestDictList.PageSize
+	offset := requestDictList.PageSize * (requestDictList.Page - 1)
+	db := global.GqaDb.Where("parent_id = ?", requestDictList.ParentId).Find(&system.SysDict{})
 	var dictList []system.SysDict
+	//配置搜索
+	if requestDictList.Value != ""{
+		db = db.Where("value like ?", "%" + requestDictList.Value + "%")
+	}
+	if requestDictList.Label != ""{
+		db = db.Where("label like ?", "%" + requestDictList.Label + "%")
+	}
 	err = db.Count(&total).Error
 	if err != nil {
 		return
 	}
-	err = db.Limit(pageSize).Offset(offset).Order(global.OrderByColumn(pageInfo.SortBy, pageInfo.Desc)).Find(&dictList).Error
-	return err, dictList, total, pageInfo.ParentId
+	err = db.Limit(pageSize).Offset(offset).Order(global.OrderByColumn(requestDictList.SortBy, requestDictList.Desc)).Find(&dictList).Error
+	return err, dictList, total, requestDictList.ParentId
 }
 
 func (s *ServiceDict) EditDict(toEditDict system.SysDict) (err error) {
@@ -59,11 +66,5 @@ func (s *ServiceDict) DeleteDict(id uint) (err error) {
 func (s *ServiceDict) QueryDictById(id uint) (err error, dictInfo system.SysDict) {
 	var dict system.SysDict
 	err = global.GqaDb.First(&dict, "id = ?", id).Error
-	return err, dict
-}
-
-func (s *ServiceDict) QueryDictByParentId(parentId uint) (err error, dictInfo system.SysDict) {
-	var dict system.SysDict
-	err = global.GqaDb.First(&dict, "parent_id = ?", parentId).Error
 	return err, dict
 }

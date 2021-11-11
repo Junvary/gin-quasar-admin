@@ -29,3 +29,12 @@ type RequestAddUser struct {
 	Mobile   string `json:"mobile"`
 	Email    string `json:"email"`
 }
+
+type RequestUserList struct {
+	global.RequestPageAndSort
+	//可扩充的模糊搜索项，参考上面 RequestAddUser 中的字段
+	Username string `json:"username"`
+	RealName string `json:"realName"`
+	//全部可搜索，直接放开模型，并从service里面配置搜索逻辑
+	//SysUser
+}

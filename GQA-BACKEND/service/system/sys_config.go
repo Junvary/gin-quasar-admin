@@ -10,16 +10,23 @@ import (
 type ServiceConfig struct {
 }
 
-func (s *ServiceConfig) GetConfigList(pageInfo global.RequestPage) (err error, role interface{}, total int64) {
-	pageSize := pageInfo.PageSize
-	offset := pageInfo.PageSize * (pageInfo.Page - 1)
+func (s *ServiceConfig) GetConfigList(requestConfigList system.RequestConfigList) (err error, role interface{}, total int64) {
+	pageSize := requestConfigList.PageSize
+	offset := requestConfigList.PageSize * (requestConfigList.Page - 1)
 	db := global.GqaDb.Model(&system.SysConfig{})
 	var configList []system.SysConfig
+	//配置搜索
+	if requestConfigList.GqaOption != ""{
+		db = db.Where("gqa_option like ?", "%" + requestConfigList.GqaOption + "%")
+	}
+	if requestConfigList.Remark != ""{
+		db = db.Where("remark like ?", "%" + requestConfigList.Remark + "%")
+	}
 	err = db.Count(&total).Error
 	if err != nil {
 		return
 	}
-	err = db.Limit(pageSize).Offset(offset).Order(global.OrderByColumn(pageInfo.SortBy, pageInfo.Desc)).Find(&configList).Error
+	err = db.Limit(pageSize).Offset(offset).Order(global.OrderByColumn(requestConfigList.SortBy, requestConfigList.Desc)).Find(&configList).Error
 	return err, configList, total
 }
 

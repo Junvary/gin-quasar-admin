@@ -10,10 +10,19 @@ type SysConfig struct {
 }
 
 type RequestAddConfig struct {
-	Status   string `json:"status"`
-	Sort     uint   `json:"sort"`
-	Remark   string `json:"remark"`
+	Status    string `json:"status"`
+	Sort      uint   `json:"sort"`
+	Remark    string `json:"remark"`
 	GqaOption string `json:"gqaOption"`
 	Default   string `json:"default"`
 	Custom    string `json:"custom"`
+}
+
+type RequestConfigList struct {
+	global.RequestPageAndSort
+	//可扩充的模糊搜索项，参考上面 RequestAddConfig 中的字段
+	GqaOption string `json:"gqaOption"`
+	Remark    string `json:"remark"`
+	//全部可搜索，直接放开模型，并从service里面配置搜索逻辑
+	//SysConfig
 }

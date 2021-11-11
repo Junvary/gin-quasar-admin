@@ -17,3 +17,13 @@ type RequestAddDict struct {
 	Value    string `json:"value"`
 	Label    string `json:"label"`
 }
+
+type RequestDictList struct {
+	global.RequestPageAndSort
+	ParentId uint   `json:"parentId"`
+	//可扩充的模糊搜索项，参考上面 RequestAddDict 中的字段
+	Value    string `json:"value"`
+	Label    string `json:"label"`
+	//全部可搜索，直接放开模型，并从service里面配置搜索逻辑
+	//SysDict
+}

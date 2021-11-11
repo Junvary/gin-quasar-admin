@@ -10,16 +10,23 @@ import (
 type ServiceRole struct {
 }
 
-func (s *ServiceRole) GetRoleList(pageInfo global.RequestPage) (err error, role interface{}, total int64) {
-	pageSize := pageInfo.PageSize
-	offset := pageInfo.PageSize * (pageInfo.Page - 1)
+func (s *ServiceRole) GetRoleList(requestRoleList system.RequestRoleList) (err error, role interface{}, total int64) {
+	pageSize := requestRoleList.PageSize
+	offset := requestRoleList.PageSize * (requestRoleList.Page - 1)
 	db := global.GqaDb.Model(&system.SysRole{})
 	var roleList []system.SysRole
+	//配置搜索
+	if requestRoleList.RoleCode != ""{
+		db = db.Where("role_code like ?", "%" + requestRoleList.RoleCode + "%")
+	}
+	if requestRoleList.RoleName != ""{
+		db = db.Where("role_name like ?", "%" + requestRoleList.RoleName + "%")
+	}
 	err = db.Count(&total).Error
 	if err != nil {
 		return
 	}
-	err = db.Limit(pageSize).Offset(offset).Order(global.OrderByColumn(pageInfo.SortBy, pageInfo.Desc)).Find(&roleList).Error
+	err = db.Limit(pageSize).Offset(offset).Order(global.OrderByColumn(requestRoleList.SortBy, requestRoleList.Desc)).Find(&roleList).Error
 	return err, roleList, total
 }
 

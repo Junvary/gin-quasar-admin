@@ -2,8 +2,8 @@
     <q-page padding>
 
         <div class="row q-gutter-md items-center" style="margin-bottom: 10px">
-            <q-input style="width: 20%" v-model="queryParams.name" label="姓名" />
-            <q-input style="width: 20%" v-model="queryParams.username" label="账号" />
+            <q-input style="width: 20%" v-model="queryParams.gqaOption" label="配置名" />
+            <q-input style="width: 20%" v-model="queryParams.remark" label="描述" />
             <q-btn color="primary" @click="handleSearch" label="搜索" />
             <q-btn color="primary" @click="resetSearch" label="重置" />
         </div>
@@ -16,6 +16,15 @@
                 <q-space />
                 <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
                     @click="props.toggleFullscreen" class="q-ml-md" />
+            </template>
+
+            <template v-slot:body-cell-custom="props">
+                <q-td :props="props">
+                    {{props.row.custom}}
+                    <q-popup-edit v-model="props.row.custom" :title="'自定义:' + props.row.gqaOption">
+                        <q-input v-model="props.row.custom" dense autofocus />
+                    </q-popup-edit>
+                </q-td>
             </template>
 
             <template v-slot:body-cell-status="props">

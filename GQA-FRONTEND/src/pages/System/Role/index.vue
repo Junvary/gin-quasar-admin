@@ -3,7 +3,7 @@
 
         <div class="row q-gutter-md items-center" style="margin-bottom: 10px">
             <q-input style="width: 20%" v-model="queryParams.roleCode" label="角色编码" />
-            <q-input style="width: 20%" v-model="queryParams.roleName" label="角色名" />
+            <q-input style="width: 20%" v-model="queryParams.roleName" label="角色名称" />
 
             <q-btn color="primary" @click="handleSearch" label="搜索" />
             <q-btn color="primary" @click="resetSearch" label="重置" />
@@ -76,7 +76,7 @@ export default {
             columns: [
                 { name: 'sort', align: 'center', label: '排序', field: 'sort' },
                 { name: 'roleCode', align: 'center', label: '角色编码', field: 'roleCode' },
-                { name: 'roleName', align: 'center', label: '角色名', field: 'roleName' },
+                { name: 'roleName', align: 'center', label: '角色名称', field: 'roleName' },
                 { name: 'status', align: 'center', label: '状态', field: 'status' },
                 { name: 'stable', align: 'center', label: '系统内置', field: 'stable' },
                 { name: 'actions', align: 'center', label: '操作', field: 'actions' },

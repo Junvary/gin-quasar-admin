@@ -9,16 +9,23 @@ import (
 type ServiceMenu struct {
 }
 
-func (s *ServiceMenu) GetMenuList(pageInfo global.RequestPage) (err error, menu interface{}, total int64) {
-	pageSize := pageInfo.PageSize
-	offset := pageInfo.PageSize * (pageInfo.Page - 1)
+func (s *ServiceMenu) GetMenuList(requestMenuList system.RequestMenuList) (err error, menu interface{}, total int64) {
+	pageSize := requestMenuList.PageSize
+	offset := requestMenuList.PageSize * (requestMenuList.Page - 1)
 	db := global.GqaDb.Model(&system.SysMenu{})
 	var menuList []system.SysMenu
+	//配置搜索
+	if requestMenuList.Path != ""{
+		db = db.Where("path like ?", "%" + requestMenuList.Path + "%")
+	}
+	if requestMenuList.Title != ""{
+		db = db.Where("title like ?", "%" + requestMenuList.Title + "%")
+	}
 	err = db.Count(&total).Error
 	if err != nil {
 		return
 	}
-	err = db.Limit(pageSize).Offset(offset).Order(global.OrderByColumn(pageInfo.SortBy, pageInfo.Desc)).Find(&menuList).Error
+	err = db.Limit(pageSize).Offset(offset).Order(global.OrderByColumn(requestMenuList.SortBy, requestMenuList.Desc)).Find(&menuList).Error
 	return err, menuList, total
 }
 

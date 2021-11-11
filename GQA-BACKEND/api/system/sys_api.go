@@ -12,20 +12,20 @@ type ApiApi struct {
 }
 
 func (a *ApiApi) GetApiList(c *gin.Context) {
-	var pageInfo global.RequestPage
-	if err := c.ShouldBindJSON(&pageInfo); err != nil{
+	var requestApiList system.RequestApiList
+	if err := c.ShouldBindJSON(&requestApiList); err != nil{
 		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
 		global.ErrorMessage("模型绑定失败！"+err.Error(), c)
 		return
 	}
-	if err, apiList, total := service.GroupServiceApp.ServiceSystem.GetApiList(pageInfo); err != nil {
+	if err, apiList, total := service.GroupServiceApp.ServiceSystem.GetApiList(requestApiList); err != nil {
 		global.GqaLog.Error("获取API列表失败！", zap.Any("err", err))
 		global.ErrorMessage("获取API列表失败，" + err.Error(), c)
 	} else {
 		global.SuccessData(system.ResponsePage{
 			Records:     apiList,
-			Page:     pageInfo.Page,
-			PageSize: pageInfo.PageSize,
+			Page:     requestApiList.Page,
+			PageSize: requestApiList.PageSize,
 			Total:    total,
 		}, c)
 	}

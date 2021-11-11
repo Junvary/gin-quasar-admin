@@ -12,20 +12,20 @@ type ApiConfig struct {
 }
 
 func (a *ApiConfig) GetConfigList(c *gin.Context) {
-	var pageInfo global.RequestPage
-	if err := c.ShouldBindJSON(&pageInfo); err != nil {
+	var requestConfigList system.RequestConfigList
+	if err := c.ShouldBindJSON(&requestConfigList); err != nil {
 		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
-	if err, configList, total := service.GroupServiceApp.ServiceSystem.GetConfigList(pageInfo); err != nil {
+	if err, configList, total := service.GroupServiceApp.ServiceSystem.GetConfigList(requestConfigList); err != nil {
 		global.GqaLog.Error("获取配置列表失败！", zap.Any("err", err))
 		global.ErrorMessage("获取配置列表失败，"+err.Error(), c)
 	} else {
 		global.SuccessData(system.ResponsePage{
 			Records:  configList,
-			Page:     pageInfo.Page,
-			PageSize: pageInfo.PageSize,
+			Page:     requestConfigList.Page,
+			PageSize: requestConfigList.PageSize,
 			Total:    total,
 		}, c)
 	}

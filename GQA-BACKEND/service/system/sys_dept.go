@@ -10,16 +10,23 @@ import (
 type ServiceDept struct {
 }
 
-func (s *ServiceDept) GetDeptList(pageInfo global.RequestPage) (err error, role interface{}, total int64) {
-	pageSize := pageInfo.PageSize
-	offset := pageInfo.PageSize * (pageInfo.Page - 1)
+func (s *ServiceDept) GetDeptList(requestDeptList system.RequestDeptList) (err error, role interface{}, total int64) {
+	pageSize := requestDeptList.PageSize
+	offset := requestDeptList.PageSize * (requestDeptList.Page - 1)
 	db := global.GqaDb.Model(&system.SysDept{})
 	var deptList []system.SysDept
+	//配置搜索
+	if requestDeptList.DeptCode != ""{
+		db = db.Where("dept_code like ?", "%" + requestDeptList.DeptCode + "%")
+	}
+	if requestDeptList.DeptName != ""{
+		db = db.Where("dept_name like ?", "%" + requestDeptList.DeptName + "%")
+	}
 	err = db.Count(&total).Error
 	if err != nil {
 		return
 	}
-	err = db.Limit(pageSize).Offset(offset).Order(global.OrderByColumn(pageInfo.SortBy, pageInfo.Desc)).Find(&deptList).Error
+	err = db.Limit(pageSize).Offset(offset).Order(global.OrderByColumn(requestDeptList.SortBy, requestDeptList.Desc)).Find(&deptList).Error
 	return err, deptList, total
 }
 

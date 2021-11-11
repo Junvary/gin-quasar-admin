@@ -20,6 +20,15 @@ type RequestAddRole struct {
 	RoleName string `json:"roleName"`
 }
 
+type RequestRoleList struct {
+	global.RequestPageAndSort
+	//可扩充的模糊搜索项，参考上面 RequestAddRole 中的字段
+	RoleCode string `json:"roleCode"`
+	RoleName string `json:"roleName"`
+	//全部可搜索，直接放开模型，并从service里面配置搜索逻辑
+	//SysRole
+}
+
 type RequestRoleCode struct {
 	RoleCode string `json:"roleCode"`
 }

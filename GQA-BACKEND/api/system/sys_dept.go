@@ -12,20 +12,20 @@ type ApiDept struct {
 }
 
 func (a *ApiDept) GetDeptList(c *gin.Context) {
-	var pageInfo global.RequestPage
-	if err := c.ShouldBindJSON(&pageInfo); err != nil{
+	var requestDeptList system.RequestDeptList
+	if err := c.ShouldBindJSON(&requestDeptList); err != nil{
 		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
-	if err, deptList, total := service.GroupServiceApp.ServiceSystem.GetDeptList(pageInfo); err != nil {
+	if err, deptList, total := service.GroupServiceApp.ServiceSystem.GetDeptList(requestDeptList); err != nil {
 		global.GqaLog.Error("获取部门列表失败！", zap.Any("err", err))
 		global.ErrorMessage("获取部门列表失败，" + err.Error(), c)
 	} else {
 		global.SuccessData(system.ResponsePage{
 			Records:     deptList,
-			Page:     pageInfo.Page,
-			PageSize: pageInfo.PageSize,
+			Page:     requestDeptList.Page,
+			PageSize: requestDeptList.PageSize,
 			Total:    total,
 		}, c)
 	}

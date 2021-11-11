@@ -22,3 +22,12 @@ type RequestAddDept struct {
 	Phone    string `json:"phone"`
 	OwnerId  uint   `json:"ownerId"`
 }
+
+type RequestDeptList struct {
+	global.RequestPageAndSort
+	//可扩充的模糊搜索项，参考上面 RequestAddDept 中的字段
+	DeptCode string `json:"deptCode"`
+	DeptName string `json:"deptName"`
+	//全部可搜索，直接放开模型，并从service里面配置搜索逻辑
+	//SysDept
+}

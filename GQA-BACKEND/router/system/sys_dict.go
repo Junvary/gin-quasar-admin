@@ -22,8 +22,6 @@ func (r *RouterDict) InitRouterDict(Router *gin.RouterGroup) (R gin.IRoutes) {
 		dictGroup.DELETE("dict-delete", apiDict.DeleteDict)
 		// 根据ID查找字典
 		dictGroup.POST("dict-id", apiDict.QueryDictById)
-		// 根据ParentId获取字典详情
-		dictGroup.POST("dict-parent-id", apiDict.QueryDictByParentId)
 	}
 	return Router
 }

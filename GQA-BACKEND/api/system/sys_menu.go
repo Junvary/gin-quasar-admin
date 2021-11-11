@@ -12,20 +12,20 @@ type ApiMenu struct {
 }
 
 func (a *ApiMenu) GetMenuList(c *gin.Context) {
-	var pageInfo global.RequestPage
-	if err := c.ShouldBindJSON(&pageInfo); err != nil{
+	var requestMenuList system.RequestMenuList
+	if err := c.ShouldBindJSON(&requestMenuList); err != nil{
 		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
-	if err, menuList, total := service.GroupServiceApp.ServiceSystem.GetMenuList(pageInfo); err != nil {
+	if err, menuList, total := service.GroupServiceApp.ServiceSystem.GetMenuList(requestMenuList); err != nil {
 		global.GqaLog.Error("获取菜单列表失败！", zap.Any("err", err))
 		global.ErrorMessage("获取菜单列表失败，" + err.Error(), c)
 	} else {
 		global.SuccessData(system.ResponsePage{
 			Records:     menuList,
-			Page:     pageInfo.Page,
-			PageSize: pageInfo.PageSize,
+			Page:     requestMenuList.Page,
+			PageSize: requestMenuList.PageSize,
 			Total:    total,
 		}, c)
 	}
