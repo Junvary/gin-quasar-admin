@@ -36,7 +36,7 @@
                                     </span>
                                     <span class="col">
                                         首先你需要
-                                        <span class="text-red">数据库初始化</span>，
+                                        <span class="text-red">初始化数据库</span>，
                                         后续根据提示进行网站
                                         <span class="text-red">个性化配置</span>
                                     </span>
@@ -46,10 +46,13 @@
                                 </div>
                             </q-step>
 
-                            <q-step :name="2" title="数据库初始化" icon="settings" :done="step > 2">
+                            <q-step :name="2" title="初始化数据库" icon="settings" :done="step > 2">
                                 <div class="q-gutter-y-md column">
                                     <span class="col text-red text-h6">
                                         首先，你需要对数据库进行初始化，请确保已经安装并启动了数据库
+                                    </span>
+                                    <span class="col text-red text-h7">
+                                        *系统会为你自动创建数据库*
                                     </span>
                                     <q-input outlined bottom-slots v-model.trim="form.dbType" label="数据库类型" disable
                                         :rules="[(val) =>(val && val.length > 0) || '请输入数据库类型',]">

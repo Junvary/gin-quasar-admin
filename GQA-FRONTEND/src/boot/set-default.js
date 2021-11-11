@@ -2,5 +2,6 @@ import { Notify } from 'quasar'
 
 Notify.setDefaults({
     progress: true,
-    position: "top"
+    position: "top",
+    classes: 'glossy'
 })
