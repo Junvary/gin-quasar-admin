@@ -52,7 +52,6 @@ var sysCasbinData = []gormadapter.CasbinRule{
 	{Ptype: "p", V0: "super-admin", V1: "/dict/dict-add", V2: "POST"},
 	{Ptype: "p", V0: "super-admin", V1: "/dict/dict-delete", V2: "DELETE"},
 	{Ptype: "p", V0: "super-admin", V1: "/dict/dict-id", V2: "POST"},
-	{Ptype: "p", V0: "super-admin", V1: "/dict/dict-parent-id", V2: "POST"},
 
 	// api组
 	{Ptype: "p", V0: "super-admin", V1: "/api/api-list", V2: "POST"},
