@@ -82,23 +82,8 @@ export default {
         show(row) {
             this.dictDetailVisible = true
             this.parentDict = row
+            this.queryParams.parentId = this.parentDict.id
             this.getTableData()
-        },
-        getTableData() {
-            this.tableData = []
-            this.pagination.rowsNumber = 0
-            this.loading = true
-            postAction(this.url.list, {
-                ...this.queryAllParams,
-                parentId: this.parentDict.id,
-            })
-                .then((res) => {
-                    this.pagination.rowsNumber = res.data.total
-                    this.tableData = res.data.records
-                })
-                .finally(() => {
-                    this.loading = false
-                })
         },
     },
 }

@@ -57,7 +57,7 @@ func (s *ServiceRole) DeleteRole(id uint) (err error) {
 		return err
 	}
 	if sysRole.Stable == "yes" {
-		return errors.New("系统内置不允许删除！" + sysRole.RoleCode)
+		return errors.New("系统内置不允许删除：" + sysRole.RoleCode)
 	}
 	roleCode := sysRole.RoleCode
 	// 删除 casbin_rule 表的权限

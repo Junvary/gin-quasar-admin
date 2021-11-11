@@ -52,7 +52,7 @@ func (s *ServiceMenu) DeleteMenu(id uint) (err error) {
 		return err
 	}
 	if sysMenu.Stable == "yes" {
-		return errors.New("系统内置不允许删除！" + sysMenu.Title)
+		return errors.New("系统内置不允许删除：" + sysMenu.Title)
 	}
 	err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&sysMenu).Error
 	return err

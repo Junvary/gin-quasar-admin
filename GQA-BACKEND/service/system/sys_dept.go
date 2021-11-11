@@ -57,7 +57,7 @@ func (s *ServiceDept) DeleteDept(id uint) (err error) {
 		return err
 	}
 	if sysDept.Stable == "yes" {
-		return errors.New("系统内置不允许删除！" + sysDept.DeptCode)
+		return errors.New("系统内置不允许删除：" + sysDept.DeptCode)
 	}
 	err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&sysDept).Error
 	return err

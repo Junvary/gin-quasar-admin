@@ -67,7 +67,7 @@ func (s *ServiceUser) DeleteUser(id uint) (err error) {
 		return err
 	}
 	if sysUser.Stable == "yes" {
-		return errors.New("系统内置不允许删除！" + sysUser.Username)
+		return errors.New("系统内置不允许删除：" + sysUser.Username)
 	}
 	err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&sysUser).Error
 	return err

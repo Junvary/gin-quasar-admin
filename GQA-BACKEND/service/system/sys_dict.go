@@ -36,7 +36,7 @@ func (s *ServiceDict) EditDict(toEditDict system.SysDict) (err error) {
 		return err
 	}
 	if sysDict.Stable == "yes" {
-		return errors.New("系统内置不允许编辑：" + toEditDict.Label)
+		return errors.New("系统内置不允许编辑：" + toEditDict.Value)
 	}
 	err = global.GqaDb.Updates(&toEditDict).Error
 	return err
@@ -45,7 +45,7 @@ func (s *ServiceDict) EditDict(toEditDict system.SysDict) (err error) {
 func (s *ServiceDict) AddDict(toAddDict system.SysDict) (err error) {
 	var dict system.SysDict
 	if !errors.Is(global.GqaDb.Where("value = ?", toAddDict.Value).First(&dict).Error, gorm.ErrRecordNotFound) {
-		return errors.New("此字典已存在：" + toAddDict.Label)
+		return errors.New("此字典已存在：" + toAddDict.Value)
 	}
 	err = global.GqaDb.Create(&toAddDict).Error
 	return err
@@ -57,7 +57,7 @@ func (s *ServiceDict) DeleteDict(id uint) (err error) {
 		return err
 	}
 	if dict.Stable == "yes" {
-		return errors.New("系统内置不允许删除！" + dict.Label)
+		return errors.New("系统内置不允许删除：" + dict.Value)
 	}
 	err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&dict).Error
 	return err

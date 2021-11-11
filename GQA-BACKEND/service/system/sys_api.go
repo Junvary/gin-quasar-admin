@@ -60,7 +60,7 @@ func (s *ServiceApi) DeleteApi(id uint) (err error) {
 		return err
 	}
 	if sysApi.Stable == "yes" {
-		return errors.New("系统内置不允许删除！" + sysApi.Path)
+		return errors.New("系统内置不允许删除：" + sysApi.Path)
 	}
 	err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&sysApi).Error
 	return err

@@ -58,7 +58,7 @@ func (s *ServiceConfig) DeleteConfig(id uint) (err error) {
 		return err
 	}
 	if sysConfig.Stable == "yes" {
-		return errors.New("系统内置不允许删除！" + sysConfig.GqaOption)
+		return errors.New("系统内置不允许删除：" + sysConfig.GqaOption)
 	}
 	err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&sysConfig).Error
 	return err
