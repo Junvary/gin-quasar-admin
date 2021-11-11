@@ -11,7 +11,12 @@
                         v-model:selected="selectedKey" v-if="menuTree.length !== 0" @update:selected="onSelected">
                         <template v-slot:default-header="prop">
                             <div class="row items-center">
-                                <div class="text-weight-bold">{{ prop.node.deptName }}</div>
+                                <q-chip dense color="primary" text-color="white">
+                                    {{ prop.node.sort}}
+                                </q-chip>
+                                <div class="text-weight-bold">
+                                    {{ prop.node.deptName }}
+                                </div>
                             </div>
                             <q-space></q-space>
                             <gqa-dict-show dictName="statusOnOff" :dictCode="prop.node.status" />
