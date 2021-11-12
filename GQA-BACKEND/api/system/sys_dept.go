@@ -3,7 +3,6 @@ package system
 import (
 	"gin-quasar-admin/global"
 	"gin-quasar-admin/model/system"
-	"gin-quasar-admin/service"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -18,7 +17,7 @@ func (a *ApiDept) GetDeptList(c *gin.Context) {
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
-	if err, deptList, total := service.GroupServiceApp.ServiceSystem.GetDeptList(requestDeptList); err != nil {
+	if err, deptList, total := ServiceDept.GetDeptList(requestDeptList); err != nil {
 		global.GqaLog.Error("获取部门列表失败！", zap.Any("err", err))
 		global.ErrorMessage("获取部门列表失败，" + err.Error(), c)
 	} else {
@@ -38,7 +37,7 @@ func (a *ApiDept) EditDept(c *gin.Context) {
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
-	if err := service.GroupServiceApp.ServiceSystem.EditDept(toEditDept); err != nil {
+	if err := ServiceDept.EditDept(toEditDept); err != nil {
 		global.GqaLog.Error("编辑部门失败！", zap.Any("err", err))
 		global.ErrorMessage("编辑部门失败，" + err.Error(), c)
 	} else {
@@ -65,7 +64,7 @@ func (a *ApiDept) AddDept(c *gin.Context) {
 		Phone: toAddDept.Phone,
 		OwnerId: toAddDept.OwnerId,
 	}
-	if err := service.GroupServiceApp.ServiceSystem.AddDept(*addDept); err != nil {
+	if err := ServiceDept.AddDept(*addDept); err != nil {
 		global.GqaLog.Error("添加部门失败！", zap.Any("err", err))
 		global.ErrorMessage("添加部门失败，"+err.Error(), c)
 	} else {
@@ -80,7 +79,7 @@ func (a *ApiDept) DeleteDept(c *gin.Context) {
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
-	if err := service.GroupServiceApp.ServiceSystem.DeleteDept(toDeleteId.Id); err != nil {
+	if err := ServiceDept.DeleteDept(toDeleteId.Id); err != nil {
 		global.GqaLog.Error("删除部门失败！", zap.Any("err", err))
 		global.ErrorMessage("删除部门失败，" + err.Error(), c)
 	} else {
@@ -95,7 +94,7 @@ func (a *ApiDept) QueryDeptById(c *gin.Context) {
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
-	if err, dept := service.GroupServiceApp.ServiceSystem.QueryDeptById(toQueryId.Id); err != nil {
+	if err, dept := ServiceDept.QueryDeptById(toQueryId.Id); err != nil {
 		global.GqaLog.Error("查找部门失败！", zap.Any("err", err))
 		global.ErrorMessage("查找部门失败，" + err.Error(), c)
 	} else {

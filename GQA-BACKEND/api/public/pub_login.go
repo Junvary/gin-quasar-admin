@@ -3,7 +3,6 @@ package public
 import (
 	"gin-quasar-admin/global"
 	"gin-quasar-admin/model/system"
-	"gin-quasar-admin/service"
 	"gin-quasar-admin/utils"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt"
@@ -23,7 +22,7 @@ func (a *ApiLogin) Login(c *gin.Context) {
 	}
 	if global.Store.Verify(l.CaptchaId, l.Captcha, true) {
 		u := &system.SysUser{Username: l.Username, Password: l.Password}
-		if err, user := service.GroupServiceApp.ServiceLogin.Login(u); err != nil {
+		if err, user := ServiceLogin.Login(u); err != nil {
 			global.GqaLog.Error(l.Username+" 登录失败，用户名或密码错误！", zap.Any("err", err))
 			global.ErrorMessage("用户名或密码错误，" + err.Error(), c)
 		} else {

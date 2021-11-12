@@ -3,7 +3,6 @@ package system
 import (
 	"gin-quasar-admin/global"
 	"gin-quasar-admin/model/system"
-	"gin-quasar-admin/service"
 	"gin-quasar-admin/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
@@ -19,7 +18,7 @@ func (a *ApiUser) GetUserList(c *gin.Context) {
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
-	if err, userList, total := service.GroupServiceApp.ServiceSystem.GetUserList(requestUserList); err != nil {
+	if err, userList, total := ServiceUser.GetUserList(requestUserList); err != nil {
 		global.GqaLog.Error("获取用户列表失败！", zap.Any("err", err))
 		global.ErrorMessage("获取用户列表失败，"+err.Error(), c)
 	} else {
@@ -43,7 +42,7 @@ func (a *ApiUser) EditUser(c *gin.Context) {
 		global.ErrorMessage("超级管理不能被禁用！", c)
 		return
 	}
-	if err := service.GroupServiceApp.ServiceSystem.EditUser(toEditUser); err != nil {
+	if err := ServiceUser.EditUser(toEditUser); err != nil {
 		global.GqaLog.Error("编辑用户失败！", zap.Any("err", err))
 		global.ErrorMessage("编辑用户失败，"+err.Error(), c)
 	} else {
@@ -72,7 +71,7 @@ func (a *ApiUser) AddUser(c *gin.Context) {
 		Mobile:   toAddUser.Mobile,
 		Email:    toAddUser.Email,
 	}
-	if err := service.GroupServiceApp.ServiceSystem.AddUser(addUser); err != nil {
+	if err := ServiceUser.AddUser(addUser); err != nil {
 		global.GqaLog.Error("添加用户失败！", zap.Any("err", err))
 		global.ErrorMessage("添加用户失败，"+err.Error(), c)
 	} else {
@@ -88,7 +87,7 @@ func (a *ApiUser) DeleteUser(c *gin.Context) {
 		return
 	}
 	currentUsername := utils.GetUsername(c)
-	err, currentUser := service.GroupServiceApp.ServiceSystem.GetUserByUsername(currentUsername)
+	err, currentUser := ServiceUser.GetUserByUsername(currentUsername)
 	if err != nil {
 		global.GqaLog.Error("获取用户信息失败！", zap.Any("err", err))
 		global.ErrorMessage("获取用户信息失败，"+err.Error(), c)
@@ -103,7 +102,7 @@ func (a *ApiUser) DeleteUser(c *gin.Context) {
 		global.ErrorMessage("超级管理员不能被删除！", c)
 		return
 	}
-	if err := service.GroupServiceApp.ServiceSystem.DeleteUser(toDeleteId.Id); err != nil {
+	if err := ServiceUser.DeleteUser(toDeleteId.Id); err != nil {
 		global.GqaLog.Error("删除用户失败！", zap.Any("err", err))
 		global.ErrorMessage("删除用户失败，"+err.Error(), c)
 	} else {
@@ -118,7 +117,7 @@ func (a *ApiUser) QueryUserById(c *gin.Context) {
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
-	if err, user := service.GroupServiceApp.ServiceSystem.QueryUserById(toQueryId.Id); err != nil {
+	if err, user := ServiceUser.QueryUserById(toQueryId.Id); err != nil {
 		global.GqaLog.Error("查找用户失败！", zap.Any("err", err))
 		global.ErrorMessage("查找用户失败，"+err.Error(), c)
 	} else {
@@ -127,7 +126,7 @@ func (a *ApiUser) QueryUserById(c *gin.Context) {
 }
 
 func (a *ApiUser) GetUserMenu(c *gin.Context) {
-	err, menu := service.GroupServiceApp.ServiceSystem.GetUserMenu(c)
+	err, menu := ServiceUser.GetUserMenu(c)
 	if err != nil {
 		global.ErrorMessage("获取用户菜单失败，"+err.Error(), c)
 	}
@@ -137,7 +136,7 @@ func (a *ApiUser) GetUserMenu(c *gin.Context) {
 }
 
 func (a *ApiUser) GetUserRole(c *gin.Context) {
-	err, role := service.GroupServiceApp.ServiceSystem.GetUserRole(c)
+	err, role := ServiceUser.GetUserRole(c)
 	if err != nil {
 		global.ErrorMessage("获取用户角色失败，"+err.Error(), c)
 	}

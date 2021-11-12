@@ -3,7 +3,6 @@ package system
 import (
 	"gin-quasar-admin/global"
 	"gin-quasar-admin/model/system"
-	"gin-quasar-admin/service"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -18,7 +17,7 @@ func (a *ApiConfig) GetConfigList(c *gin.Context) {
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
-	if err, configList, total := service.GroupServiceApp.ServiceSystem.GetConfigList(requestConfigList); err != nil {
+	if err, configList, total := ServiceConfig.GetConfigList(requestConfigList); err != nil {
 		global.GqaLog.Error("获取配置列表失败！", zap.Any("err", err))
 		global.ErrorMessage("获取配置列表失败，"+err.Error(), c)
 	} else {
@@ -38,7 +37,7 @@ func (a *ApiConfig) EditConfig(c *gin.Context) {
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
-	if err := service.GroupServiceApp.ServiceSystem.EditConfig(toEditConfig); err != nil {
+	if err := ServiceConfig.EditConfig(toEditConfig); err != nil {
 		global.GqaLog.Error("编辑配置失败！", zap.Any("err", err))
 		global.ErrorMessage("编辑配置失败，" + err.Error(), c)
 	} else {
@@ -63,7 +62,7 @@ func (a *ApiConfig) AddConfig(c *gin.Context) {
 		Default: toAddConfig.Default,
 		Custom: toAddConfig.Custom,
 	}
-	if err := service.GroupServiceApp.ServiceSystem.AddConfig(*addConfig); err != nil {
+	if err := ServiceConfig.AddConfig(*addConfig); err != nil {
 		global.GqaLog.Error("添加配置失败！", zap.Any("err", err))
 		global.ErrorMessage("添加配置失败，"+err.Error(), c)
 	} else {
@@ -78,7 +77,7 @@ func (a *ApiConfig) DeleteConfig(c *gin.Context) {
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
-	if err := service.GroupServiceApp.ServiceSystem.DeleteConfig(toDeleteId.Id); err != nil {
+	if err := ServiceConfig.DeleteConfig(toDeleteId.Id); err != nil {
 		global.GqaLog.Error("删除配置失败！", zap.Any("err", err))
 		global.ErrorMessage("删除配置失败，" + err.Error(), c)
 	} else {

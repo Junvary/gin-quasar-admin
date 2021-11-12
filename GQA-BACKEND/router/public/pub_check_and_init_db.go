@@ -1,18 +1,17 @@
 package public
 
 import (
-	"gin-quasar-admin/api"
 	"github.com/gin-gonic/gin"
 )
 
-type RouterCheckDb struct {
-}
+type RouterCheckDb struct {}
 
 func (r *RouterCheckDb)InitRouterCheckAndInitDb(Router *gin.RouterGroup) (R gin.IRoutes) {
-	apiCheckAndInitDb := api.GroupApiApp.ApiPublic.ApiCheckAndInitDb
 	{
-		Router.GET("check-db", apiCheckAndInitDb.CheckDb)
-		Router.POST("init-db", apiCheckAndInitDb.InitDb)
+		//检查数据库是否需要初始化
+		Router.GET("check-db", ApiCheckAndInitDb.CheckDb)
+		//初始化数据库
+		Router.POST("init-db", ApiCheckAndInitDb.InitDb)
 	}
 	return Router
 }

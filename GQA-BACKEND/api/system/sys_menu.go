@@ -3,7 +3,6 @@ package system
 import (
 	"gin-quasar-admin/global"
 	"gin-quasar-admin/model/system"
-	"gin-quasar-admin/service"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -18,7 +17,7 @@ func (a *ApiMenu) GetMenuList(c *gin.Context) {
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
-	if err, menuList, total := service.GroupServiceApp.ServiceSystem.GetMenuList(requestMenuList); err != nil {
+	if err, menuList, total := ServiceMenu.GetMenuList(requestMenuList); err != nil {
 		global.GqaLog.Error("获取菜单列表失败！", zap.Any("err", err))
 		global.ErrorMessage("获取菜单列表失败，" + err.Error(), c)
 	} else {
@@ -38,7 +37,7 @@ func (a *ApiMenu) EditMenu(c *gin.Context) {
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
-	if err := service.GroupServiceApp.ServiceSystem.EditMenu(toEditMenu); err != nil {
+	if err := ServiceMenu.EditMenu(toEditMenu); err != nil {
 		global.GqaLog.Error("编辑菜单失败！", zap.Any("err", err))
 		global.ErrorMessage("编辑菜单失败，" + err.Error(), c)
 	} else {
@@ -69,7 +68,7 @@ func (a *ApiMenu) AddMenu(c *gin.Context) {
 		Icon:      toAddMenu.Icon,
 		IsLink:    toAddMenu.IsLink,
 	}
-	if err := service.GroupServiceApp.ServiceSystem.AddMenu(*addMenu); err != nil {
+	if err := ServiceMenu.AddMenu(*addMenu); err != nil {
 		global.GqaLog.Error("添加菜单失败！", zap.Any("err", err))
 		global.ErrorMessage("添加菜单失败，"+err.Error(), c)
 	} else {
@@ -84,7 +83,7 @@ func (a *ApiMenu) DeleteMenu(c *gin.Context) {
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
-	if err := service.GroupServiceApp.ServiceSystem.DeleteMenu(toDeleteId.Id); err != nil {
+	if err := ServiceMenu.DeleteMenu(toDeleteId.Id); err != nil {
 		global.GqaLog.Error("删除菜单失败！", zap.Any("err", err))
 		global.ErrorMessage("删除菜单失败，" + err.Error(), c)
 	} else {
@@ -99,7 +98,7 @@ func (a *ApiMenu) QueryMenuById(c *gin.Context) {
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
-	if err, menu := service.GroupServiceApp.ServiceSystem.QueryMenuById(toQueryId.Id); err != nil {
+	if err, menu := ServiceMenu.QueryMenuById(toQueryId.Id); err != nil {
 		global.GqaLog.Error("查找菜单失败！", zap.Any("err", err))
 		global.ErrorMessage("查找菜单失败，" + err.Error(), c)
 	} else {

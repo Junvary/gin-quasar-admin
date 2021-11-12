@@ -3,7 +3,6 @@ package system
 import (
 	"gin-quasar-admin/global"
 	"gin-quasar-admin/model/system"
-	"gin-quasar-admin/service"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -18,7 +17,7 @@ func (a *ApiApi) GetApiList(c *gin.Context) {
 		global.ErrorMessage("模型绑定失败！"+err.Error(), c)
 		return
 	}
-	if err, apiList, total := service.GroupServiceApp.ServiceSystem.GetApiList(requestApiList); err != nil {
+	if err, apiList, total := ServiceApi.GetApiList(requestApiList); err != nil {
 		global.GqaLog.Error("获取API列表失败！", zap.Any("err", err))
 		global.ErrorMessage("获取API列表失败，" + err.Error(), c)
 	} else {
@@ -38,7 +37,7 @@ func (a *ApiApi) EditApi(c *gin.Context) {
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
-	if err := service.GroupServiceApp.ServiceSystem.EditApi(toEditApi); err != nil {
+	if err := ServiceApi.EditApi(toEditApi); err != nil {
 		global.GqaLog.Error("编辑API失败！", zap.Any("err", err))
 		global.ErrorMessage("编辑API失败，" + err.Error(), c)
 	} else {
@@ -63,7 +62,7 @@ func (a *ApiApi) AddApi(c *gin.Context) {
 		Path: toAddApi.Path,
 		Method: toAddApi.Method,
 	}
-	if err := service.GroupServiceApp.ServiceSystem.AddApi(*addApi); err != nil {
+	if err := ServiceApi.AddApi(*addApi); err != nil {
 		global.GqaLog.Error("添加API失败！", zap.Any("err", err))
 		global.ErrorMessage("添加API失败，"+err.Error(), c)
 	} else {
@@ -78,7 +77,7 @@ func (a *ApiApi) DeleteApi(c *gin.Context) {
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
-	if err := service.GroupServiceApp.ServiceSystem.DeleteApi(toDeleteId.Id); err != nil {
+	if err := ServiceApi.DeleteApi(toDeleteId.Id); err != nil {
 		global.GqaLog.Error("删除API失败！", zap.Any("err", err))
 		global.ErrorMessage("删除API失败，" + err.Error(), c)
 	} else {

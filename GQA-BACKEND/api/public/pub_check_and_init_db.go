@@ -3,7 +3,6 @@ package public
 import (
 	"gin-quasar-admin/global"
 	"gin-quasar-admin/model/system"
-	"gin-quasar-admin/service"
 	"gin-quasar-admin/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
@@ -38,7 +37,7 @@ func (a *ApiCheckAndInitDb) InitDb(c *gin.Context)  {
 		global.ErrorMessage("参数校验不通过，" + err.Error(), c)
 		return
 	}
-	if err := service.GroupServiceApp.ServiceCheckAndInitDb.CheckAndInitDb(initDbInfo); err != nil {
+	if err := ServiceCheckAndInitDb.CheckAndInitDb(initDbInfo); err != nil {
 		global.GqaLog.Error("自动创建数据库失败！", zap.Any("err", err))
 		global.ErrorMessage("自动创建数据库失败，" + err.Error(), c)
 		return

@@ -2,7 +2,6 @@ package system
 
 import (
 	"gin-quasar-admin/global"
-	"gin-quasar-admin/service"
 	"gin-quasar-admin/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
@@ -19,7 +18,7 @@ func (a *ApiUpload) UploadAvatar(c *gin.Context) {
 		global.ErrorMessage("解析头像失败，"+err.Error(), c)
 		return
 	}
-	err, avatarUrl := service.GroupServiceApp.ServiceSystem.UploadAvatar(username, avatar, avatarHeader)
+	err, avatarUrl := ServiceUpload.UploadAvatar(username, avatar, avatarHeader)
 	if err != nil {
 		global.GqaLog.Error("上传头像失败！", zap.Any("err", err))
 		global.ErrorMessage("上传头像失败，"+err.Error(), c)
@@ -35,7 +34,7 @@ func (a *ApiUpload) UploadFile(c *gin.Context) {
 		global.ErrorMessage("解析文件失败，"+err.Error(), c)
 		return
 	}
-	err, fileUrl := service.GroupServiceApp.ServiceSystem.UploadFile(file, fileHeader)
+	err, fileUrl := ServiceUpload.UploadFile(file, fileHeader)
 	if err != nil {
 		global.GqaLog.Error("上传文件失败！", zap.Any("err", err))
 		global.ErrorMessage("上传文件失败，"+err.Error(), c)
