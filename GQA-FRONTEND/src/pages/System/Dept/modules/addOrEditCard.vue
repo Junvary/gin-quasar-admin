@@ -21,8 +21,8 @@
                     <div class="q-gutter-md col-9">
                         <div class="row">
                             <q-input class="col" label="ID" v-model="addOrEditDetail.id" disable />
-                            <q-input class="col" label="负责人" v-model="addOrEditDetail.owner.nickname"
-                                v-if="addOrEditDetail.owner.id" />
+                            <GqaSeleteUser className="col" label="负责人" v-model:selectUser="addOrEditDetail.owner"
+                                v-model:selectId="addOrEditDetail.ownerId" selection="single" />
                         </div>
 
                         <div class="row">
@@ -88,12 +88,15 @@
 <script>
 import { addOrEditMixin } from 'src/mixins/addOrEditMixin'
 import { tableDataMixin } from 'src/mixins/tableDataMixin'
-import { postAction, putAction } from 'src/api/manage'
 import { ArrayToTree } from 'src/utils/arrayAndTree'
+import GqaSeleteUser from 'src/components/GqaSeleteUser'
 
 export default {
     name: 'addOrEditCard',
     mixins: [addOrEditMixin, tableDataMixin],
+    components: {
+        GqaSeleteUser,
+    },
     computed: {
         menuTree() {
             if (this.tableData.length !== 0) {

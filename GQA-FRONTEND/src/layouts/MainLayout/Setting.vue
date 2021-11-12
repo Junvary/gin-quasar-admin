@@ -8,7 +8,7 @@
                     <div class="text-h6">系统设置</div>
                 </q-card-section>
                 <q-card-section>
-                    <gqa-theme />
+                    <GqaTheme />
                 </q-card-section>
 
             </q-card>

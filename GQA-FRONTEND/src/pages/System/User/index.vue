@@ -20,25 +20,25 @@
 
             <template v-slot:body-cell-avatar="props">
                 <q-td :props="props">
-                    <gqa-avatar :src="props.row.avatar" />
+                    <GqaAvatar :src="props.row.avatar" />
                 </q-td>
             </template>
 
             <template v-slot:body-cell-gender="props">
                 <q-td :props="props">
-                    <gqa-dict-show dictName="gender" :dictCode="props.row.gender" />
+                    <GqaDictShow dictName="gender" :dictCode="props.row.gender" />
                 </q-td>
             </template>
 
             <template v-slot:body-cell-status="props">
                 <q-td :props="props">
-                    <gqa-dict-show dictName="statusOnOff" :dictCode="props.row.status" />
+                    <GqaDictShow dictName="statusOnOff" :dictCode="props.row.status" />
                 </q-td>
             </template>
 
             <template v-slot:body-cell-stable="props">
                 <q-td :props="props">
-                    <gqa-dict-show dictName="statusYesNo" :dictCode="props.row.stable" />
+                    <GqaDictShow dictName="statusYesNo" :dictCode="props.row.stable" />
                 </q-td>
             </template>
 

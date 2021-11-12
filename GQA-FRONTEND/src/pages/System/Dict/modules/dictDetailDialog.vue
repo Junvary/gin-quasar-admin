@@ -15,13 +15,13 @@
 
                 <template v-slot:body-cell-status="props">
                     <q-td :props="props">
-                        <gqa-dict-show dictName="statusOnOff" :dictCode="props.row.status" />
+                        <GqaDictShow dictName="statusOnOff" :dictCode="props.row.status" />
                     </q-td>
                 </template>
 
                 <template v-slot:body-cell-stable="props">
                     <q-td :props="props">
-                        <gqa-dict-show dictName="statusYesNo" :dictCode="props.row.stable" />
+                        <GqaDictShow dictName="statusYesNo" :dictCode="props.row.stable" />
                     </q-td>
                 </template>
 

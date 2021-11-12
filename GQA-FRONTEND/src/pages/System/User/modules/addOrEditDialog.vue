@@ -19,7 +19,7 @@
                                 :rules="[ val => val >= 1 || '排序必须大于0']" label="排序" />
                             <q-file class="col" v-model="avatarFile" label="头像" max-files="1">
                                 <template v-slot:prepend>
-                                    <gqa-avatar :src="addOrEditDetail.avatar" />
+                                    <GqaAvatar :src="addOrEditDetail.avatar" />
                                 </template>
                                 <template v-slot:after v-if="avatarFile">
                                     <q-btn dense flat color="primary" icon="cloud_upload" @click="handleUpload" />

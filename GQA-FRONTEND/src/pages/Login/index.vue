@@ -16,9 +16,14 @@
                     <q-form @submit="onSubmit" class="q-mt-lg">
                         <q-input :disable="loading" outlined dense no-error-icon v-model.trim="form.username"
                             placeholder="账号" :rules="[(val) =>(val && val.length > 0) || '请输入用户账号',]" />
-                        <q-input :disable="loading" outlined dense no-error-icon type="password"
+                        <q-input :disable="loading" outlined dense no-error-icon :type="isPwd ? 'password' : 'text'"
                             v-model.trim="form.password" placeholder="密码"
-                            :rules="[(val) =>(val && val.length > 0) || '请输入登录密码',]" />
+                            :rules="[(val) =>(val && val.length > 0) || '请输入登录密码',]">
+                            <template v-slot:append>
+                                <q-icon :name="isPwd ? 'visibility_off' : 'visibility'" class="cursor-pointer"
+                                    @click="isPwd = !isPwd" />
+                            </template>
+                        </q-input>
                         <q-input :disable="loading" outlined dense no-error-icon v-model.trim="form.captcha"
                             placeholder="验证码" :rules="[(val) => (val && val.length > 0) || '请输入验证码',]">
                             <template v-slot:after>
@@ -45,7 +50,7 @@
             <q-separator />
 
             <q-card-actions v-if="$q.screen.gt.sm">
-                <gqa-language />
+                <GqaLanguage />
                 <!-- <q-brand-color /> -->
                 <q-space />
                 <div class="text-subtitle2 text-center text-primary">
@@ -74,6 +79,7 @@ export default {
     data() {
         return {
             loginVisible: false,
+            isPwd: true,
             randomImg: 'https://acg.toubiec.cn/random.php',
             form: {
                 username: '',

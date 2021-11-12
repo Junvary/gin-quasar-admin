@@ -1,10 +1,10 @@
 <template>
     <q-btn-dropdown dense glossy push color="primary">
         <template v-slot:label>
-            <gqa-avatar loginUser size="26px" />
+            <GqaAvatar loginUser size="26px" />
             <span style="margin-left:5px">
                 欢迎你，
-                <gqa-show-name showMyName />
+                <GqaShowName showMyName />
             </span>
         </template>
         <div class="row no-wrap q-pa-md">
@@ -17,10 +17,10 @@
             <q-separator vertical inset class="q-mx-lg" />
 
             <div class="column items-center">
-                <gqa-avatar loginUser size="72px" />
+                <GqaAvatar loginUser size="72px" />
 
                 <div class="text-subtitle1 q-mt-md q-mb-xs">
-                    <gqa-show-name />
+                    <GqaShowName />
                 </div>
 
                 <q-btn color="primary" label="退出登录" push size="sm" v-close-popup @click="logout" />

@@ -21,7 +21,7 @@
                                 </div>
                             </div>
                             <q-space></q-space>
-                            <gqa-dict-show dictName="statusOnOff" :dictCode="prop.node.status" />
+                            <GqaDictShow dictName="statusOnOff" :dictCode="prop.node.status" />
                             <q-btn label="删除" style="float-right" color="negative" dense
                                 @click="handleDelete(prop.node)" />
                         </template>

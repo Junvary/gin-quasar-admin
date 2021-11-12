@@ -20,20 +20,20 @@
                 </template>
             </q-table>
         </q-card>
-        <role-user-add-dialog ref="roleUserAddDialog" @handleAddUser="handleAddUser" />
+        <SelectUserDialog ref="selectUserDialog" @handleSelectUser="handleAddUser" selection="multiple" />
     </q-dialog>
 </template>
 
 <script>
 import { tableDataMixin } from 'src/mixins/tableDataMixin'
 import { postAction } from 'src/api/manage'
-import RoleUserAddDialog from './RoleUserAddDialog'
+import SelectUserDialog from 'src/components/GqaSeleteUser/SelectUserDialog'
 
 export default {
     name: 'RoleUserDialog',
     mixins: [tableDataMixin],
     components: {
-        RoleUserAddDialog,
+        SelectUserDialog,
     },
     data() {
         return {
@@ -62,7 +62,7 @@ export default {
             this.getTableData()
         },
         showAddUserForm() {
-            this.$refs.roleUserAddDialog.show()
+            this.$refs.selectUserDialog.show(this.tableData)
         },
         handleRemove(row) {
             this.$q

@@ -3,5 +3,9 @@ import { Notify } from 'quasar'
 Notify.setDefaults({
     progress: true,
     position: "top",
-    classes: 'glossy'
+    classes: 'glossy',
+    actions: [
+        { icon: "close", color: 'white', handler: () => { /* ... */ } }
+    ],
+    // timeout: 3000
 })
