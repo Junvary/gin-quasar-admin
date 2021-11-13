@@ -4,7 +4,7 @@
             <q-card-section>
                 <div class="text-h6">
                     {{formTypeName}}：
-                    {{addOrEditDetail.roleName ? addOrEditDetail.roleName : "角色"}}
+                    {{addOrEditDetail.roleName ? addOrEditDetail.roleName : $t('PageSystemRoleEditDialogTitle')}}
                 </div>
             </q-card-section>
 
@@ -17,23 +17,23 @@
                             <q-input class="col" v-model="addOrEditDetail.id" label="ID" disable />
                         </div>
                         <div class="row">
-                            <q-field class="col" label="创建时间" stack-label disable>
+                            <q-field class="col" :label="$t('PageSystemRoleEditDialogCreatedAt')" stack-label disable>
                                 <template v-slot:control>
                                     {{showDateTime(addOrEditDetail.createdAt)}}
                                 </template>
                             </q-field>
-                            <q-field class="col" label="创建人" stack-label disable>
+                            <q-field class="col" :label="$t('PageSystemRoleEditDialogCreatedBy')" stack-label disable>
                                 <template v-slot:control>
                                     <GqaShowName v-if="addOrEditDetail.createdByUser"
                                         :customNameObject="addOrEditDetail.createdByUser" />
                                 </template>
                             </q-field>
-                            <q-field class="col" label="更新时间" stack-label disable>
+                            <q-field class="col" :label="$t('PageSystemRoleEditDialogUpdatedAt')" stack-label disable>
                                 <template v-slot:control>
                                     {{showDateTime(addOrEditDetail.updatedAt)}}
                                 </template>
                             </q-field>
-                            <q-field class="col" label="更新人" stack-label disable>
+                            <q-field class="col" :label="$t('PageSystemRoleEditDialogUpdatedBy')" stack-label disable>
                                 <template v-slot:control>
                                     <GqaShowName v-if="addOrEditDetail.updatedByUser"
                                         :customNameObject="addOrEditDetail.updatedByUser" />
@@ -41,12 +41,12 @@
                             </q-field>
                         </div>
                         <div class="row">
-                            <q-input class="col" v-model="addOrEditDetail.roleCode" label="角色编码(英文)"
-                                :rules="[ val => val && val.length > 0 || '必须输入角色编码']" />
-                            <q-input class="col" v-model="addOrEditDetail.roleName" label="角色名(中文)"
-                                :rules="[ val => val && val.length > 0 || '必须输入角色名']" />
+                            <q-input class="col" v-model="addOrEditDetail.roleCode" :label="$t('PageSystemRoleEditDialogRoleCode')"
+                                :rules="[ val => val && val.length > 0 || $t('PageSystemRoleEditDialogRoleCodeRule')]" />
+                            <q-input class="col" v-model="addOrEditDetail.roleName" :label="$t('PageSystemRoleEditDialogRoleName')"
+                                :rules="[ val => val && val.length > 0 || $t('PageSystemRoleEditDialogRoleNameRule')]" />
                         </div>
-                        <div class="row justify-between">
+                        <div class="justify-between row">
                             <!-- <div class="col-6">
                                 <q-field label="数据归属" stack-label>
                                     <template v-slot:control>
@@ -57,7 +57,7 @@
                                 </q-field>
                             </div> -->
                             <div class="col-6 q-gutter-md">
-                                <q-field label="是否启用" stack-label>
+                                <q-field :label="$t('PageSystemRoleEditDialogStatus')" stack-label>
                                     <template v-slot:control>
                                         <q-option-group v-model="addOrEditDetail.status" :options="options.statusOnOff"
                                             color="primary" inline>
@@ -65,8 +65,8 @@
                                     </template>
                                 </q-field>
                                 <q-input v-model.number="addOrEditDetail.sort" type="number"
-                                    :rules="[ val => val >= 1 || '排序必须大于0']" label="排序" />
-                                <q-input v-model="addOrEditDetail.remark" type="textarea" label="备注" />
+                                    :rules="[ val => val >= 1 || $t('PageSystemRoleEditDialogSortRule')]" :label="$t('PageSystemRoleEditDialogSort')" />
+                                <q-input v-model="addOrEditDetail.remark" type="textarea" :label="$t('PageSystemRoleEditDialogRemark')" />
                             </div>
                         </div>
                     </div>
@@ -76,8 +76,8 @@
             <q-separator />
 
             <q-card-actions align="right">
-                <q-btn :label="'保存' + formTypeName " color="primary" @click="handleAddOrEidt" />
-                <q-btn label="取消" color="negative" v-close-popup />
+                <q-btn :label="$t('PageSystemRoleEditDialogBtnSave')" color="primary" @click="handleAddOrEidt" />
+                <q-btn :label="$t('PageSystemRoleEditDialogBtnCancel')" color="negative" v-close-popup />
             </q-card-actions>
         </q-card>
     </q-dialog>
