@@ -1,7 +1,7 @@
 <template>
     <q-input :label="label" v-model="showName" :class="className" readonly>
         <template v-slot:append>
-            <q-btn dense color="primary" label="选择" @click="showSelectUserDialog" />
+            <q-btn dense color="primary" :label="$t('ComponentSelectUser')" @click="showSelectUserDialog" />
         </template>
     </q-input>
     <SelectUserDialog ref="selectUserDialog" @handleSelectUser="handleSelectUser" :selection="selection" />
@@ -23,7 +23,7 @@ export default {
         label: {
             type: String,
             required: false,
-            default: '选择用户',
+            default: this.$t('ComponentSelectUserLabel'),
         },
         className: {
             type: String,

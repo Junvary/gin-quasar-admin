@@ -1,21 +1,20 @@
 <template>
     <q-dialog v-model="selectUserVisible">
         <q-card style="min-width: 700px; max-width: 45vw">
-            <q-card-section class="row justify-between items-center">
+            <q-card-section class="items-center justify-between row">
                 <div class="text-h7">
-                    用户选择器
-                    （{{selection === "multiple" ? "多选" : "单选" }}）
+                    {{ $t('ComponentSelectUserTitle', {oneOrMultiple: selection === "multiple" ? $t('ComponentSelectUserTitleMultiple') : $t('ComponentSelectUserTitleOne')}) }}
                 </div>
-                <q-btn dense color="primary" @click="handleSelectUser()" label="确定添加" />
+                <q-btn dense color="primary" @click="handleSelectUser()" :label="$t('ComponentSelectUserBtnSelectUser')" />
             </q-card-section>
 
             <q-separator />
 
-            <q-card-section class="row q-gutter-md items-center">
-                <q-input dense style="width: 20%" v-model="queryParams.username" label="账号" />
-                <q-input dense style="width: 20%" v-model="queryParams.realName" label="真实姓名" />
-                <q-btn dense color="primary" @click="handleSearch" label="搜索" />
-                <q-btn dense color="primary" @click="resetSearch" label="重置" />
+            <q-card-section class="items-center row q-gutter-md">
+                <q-input dense style="width: 20%" v-model="queryParams.username" :label="$t('ComponentSelectUserFilterUsername')" />
+                <q-input dense style="width: 20%" v-model="queryParams.realName" :label="$t('ComponentSelectUserFilterRealname')" />
+                <q-btn dense color="primary" @click="handleSearch" :label="$t('ComponentSelectUserBtnSearch')" />
+                <q-btn dense color="primary" @click="resetSearch" :label="$t('ComponentSelectUserBtnResetSearch')" />
             </q-card-section>
 
             <q-table row-key="id" :rows="tableData" :columns="columns" v-model:pagination="pagination"
@@ -46,9 +45,9 @@ export default {
                 list: 'user/user-list',
             },
             columns: [
-                { name: 'username', align: 'center', label: '账号', field: 'username' },
-                { name: 'nickname', align: 'center', label: '昵称', field: 'nickname' },
-                { name: 'realName', align: 'center', label: '真实姓名', field: 'realName' },
+                { name: 'username', align: 'center', label: $t('ComponentSelectUserTableColumnUsername'), field: 'username' },
+                { name: 'nickname', align: 'center', label: $t('ComponentSelectUserTableColumnNickname'), field: 'nickname' },
+                { name: 'realName', align: 'center', label: $t('ComponentSelectUserTableColumnRealname'), field: 'realName' },
             ],
             selected: [],
         }
