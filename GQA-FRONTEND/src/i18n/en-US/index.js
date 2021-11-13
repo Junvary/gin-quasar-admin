@@ -353,5 +353,9 @@ export default {
     LayoutMainNoticeSystemNotify: 'You have a system message!',
     LayoutMainNoticeTodoNotify: 'You have a thing to do!',
     LayoutMainWelcome: 'Welcome Gin-Quasar-Admin ！',
+    PageExampleIconMaterial: 'Material',
+    PageExampleIconFontAwesome: 'FontAwesome',
+    PageExampleIconCopyToClipboardSuccess: 'Successfully copied to the clipboard',
+    PageExampleIconCopyToClipboardError: 'error on copy to clipboard',
 
 }

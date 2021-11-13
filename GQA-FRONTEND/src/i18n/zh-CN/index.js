@@ -349,4 +349,8 @@ export default {
     LayoutMainNoticeSystemNotify: '你有一条系统消息！',
     LayoutMainNoticeTodoNotify: '你有一条待办事项！',
     LayoutMainWelcome: '欢迎使用 Gin-Quasar-Admin ！',
+    PageExampleIconMaterial: 'materia',
+    PageExampleIconFontAwesome: 'fontawesome',
+    PageExampleIconCopyToClipboardSuccess: '成功复制到剪切板',
+    PageExampleIconCopyToClipboardError: '复制到剪切板失败',
 }
