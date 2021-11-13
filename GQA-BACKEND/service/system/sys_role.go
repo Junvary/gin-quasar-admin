@@ -82,7 +82,7 @@ func (s *ServiceRole) DeleteRole(id uint) (err error) {
 
 func (s *ServiceRole) QueryRoleById(id uint) (err error, roleInfo system.SysRole) {
 	var role system.SysRole
-	err = global.GqaDb.First(&role, "id = ?", id).Error
+	err = global.GqaDb.Preload("CreatedByUser").Preload("UpdatedByUser").First(&role, "id = ?", id).Error
 	return err, role
 }
 

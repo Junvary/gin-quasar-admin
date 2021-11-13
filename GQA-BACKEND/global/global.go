@@ -6,7 +6,6 @@ import (
 	"github.com/mojocn/base64Captcha"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
-	"golang.org/x/sync/singleflight"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 	"time"
@@ -15,12 +14,11 @@ import (
 var Store = base64Captcha.DefaultMemStore
 
 var (
-	GqaConfig       config.Config
-	GqaViper        *viper.Viper
-	GqaLog          *zap.Logger
-	GqaDb           *gorm.DB
-	GqaSingleFlight = &singleflight.Group{}
-	GqaCasbin       *casbin.Enforcer
+	GqaConfig config.Config
+	GqaViper  *viper.Viper
+	GqaLog    *zap.Logger
+	GqaDb     *gorm.DB
+	GqaCasbin *casbin.Enforcer
 )
 
 type GqaModel struct {
@@ -34,7 +32,6 @@ type GqaModel struct {
 	UpdatedAt time.Time      `json:"updatedAt"`
 	UpdatedBy string         `json:"updatedBy"`
 	DeletedAt gorm.DeletedAt `json:"-" gorm:"index"`
-	DeletedBy string         `json:"-"`
 }
 
 func OrderByColumn(sortBy string, desc bool) interface{} {

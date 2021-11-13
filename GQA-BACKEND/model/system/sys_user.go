@@ -5,6 +5,8 @@ import (
 )
 
 type SysUser struct {
+	UpdatedByUser *SysUser `json:"updatedByUser" gorm:"foreignKey:UpdatedBy;references:Username"`
+	CreatedByUser *SysUser `json:"createdByUser" gorm:"foreignKey:CreatedBy;references:Username"`
 	global.GqaModel
 	Avatar   string    `json:"avatar" gorm:"comment:头像"`
 	Username string    `json:"username" gorm:"comment:用户名;not null;uniqueIndex;"`
@@ -19,7 +21,7 @@ type SysUser struct {
 
 type RequestAddUser struct {
 	Status   string `json:"status"`
-	Sort     uint    `json:"sort"`
+	Sort     uint   `json:"sort"`
 	Remark   string `json:"remark"`
 	Avatar   string `json:"avatar"`
 	Username string `json:"username"`

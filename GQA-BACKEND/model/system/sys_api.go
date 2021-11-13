@@ -3,6 +3,8 @@ package system
 import "gin-quasar-admin/global"
 
 type SysApi struct {
+	UpdatedByUser *SysUser `json:"updatedByUser" gorm:"foreignKey:UpdatedBy;references:Username"`
+	CreatedByUser *SysUser `json:"createdByUser" gorm:"foreignKey:CreatedBy;references:Username"`
 	global.GqaModel
 	Group  string `json:"group" gorm:"comment:API分组"`
 	Path   string `json:"path" gorm:"comment:API路径"`

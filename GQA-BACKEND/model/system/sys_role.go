@@ -5,6 +5,8 @@ import (
 )
 
 type SysRole struct {
+	UpdatedByUser *SysUser `json:"updatedByUser" gorm:"foreignKey:UpdatedBy;references:Username"`
+	CreatedByUser *SysUser `json:"createdByUser" gorm:"foreignKey:CreatedBy;references:Username"`
 	global.GqaModel
 	RoleCode string    `json:"roleCode" gorm:"comment:角色编码;not null;uniqueIndex;"`
 	RoleName string    `json:"roleName" gorm:"comment:角色名称;not null;unique;"`

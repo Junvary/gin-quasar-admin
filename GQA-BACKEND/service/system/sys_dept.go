@@ -65,6 +65,6 @@ func (s *ServiceDept) DeleteDept(id uint) (err error) {
 
 func (s *ServiceDept) QueryDeptById(id uint) (err error, deptInfo system.SysDept) {
 	var dept system.SysDept
-	err = global.GqaDb.Preload("Owner").First(&dept, "id = ?", id).Error
+	err = global.GqaDb.Preload("Owner").Preload("CreatedByUser").Preload("UpdatedByUser").First(&dept, "id = ?", id).Error
 	return err, dept
 }

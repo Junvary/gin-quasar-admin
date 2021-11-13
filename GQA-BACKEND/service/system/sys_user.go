@@ -81,7 +81,7 @@ func (s *ServiceUser) GetUserByUsername(username string) (err error, userInfo sy
 
 func (s *ServiceUser) QueryUserById(id uint) (err error, userInfo system.SysUser) {
 	var user system.SysUser
-	err = global.GqaDb.First(&user, "id = ?", id).Error
+	err = global.GqaDb.Preload("CreatedByUser").Preload("UpdatedByUser").First(&user, "id = ?", id).Error
 	return err, user
 }
 

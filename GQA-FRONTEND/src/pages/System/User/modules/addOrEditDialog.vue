@@ -34,7 +34,8 @@
                             </q-field>
                             <q-field class="col" label="创建人" stack-label disable>
                                 <template v-slot:control>
-                                    {{addOrEditDetail.createdBy}}
+                                    <GqaShowName v-if="addOrEditDetail.createdByUser"
+                                        :customNameObject="addOrEditDetail.createdByUser" />
                                 </template>
                             </q-field>
                             <q-field class="col" label="更新时间" stack-label disable>
@@ -44,7 +45,8 @@
                             </q-field>
                             <q-field class="col" label="更新人" stack-label disable>
                                 <template v-slot:control>
-                                    {{addOrEditDetail.updatedBy}}
+                                    <GqaShowName v-if="addOrEditDetail.updatedByUser"
+                                        :customNameObject="addOrEditDetail.updatedByUser" />
                                 </template>
                             </q-field>
                         </div>
@@ -93,14 +95,16 @@
 
 <script>
 import { addOrEditMixin } from 'src/mixins/addOrEditMixin'
-import GqaAvatar from 'src/components/GqaAvatar'
 import { postAction } from 'src/api/manage'
+import GqaAvatar from 'src/components/GqaAvatar'
+import GqaShowName from 'src/components/GqaShowName'
 
 export default {
     name: 'addOrEditDialog',
     mixins: [addOrEditMixin],
     components: {
         GqaAvatar,
+        GqaShowName,
     },
     data() {
         return {

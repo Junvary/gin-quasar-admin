@@ -3,6 +3,8 @@ package system
 import "gin-quasar-admin/global"
 
 type SysConfig struct {
+	UpdatedByUser *SysUser `json:"updatedByUser" gorm:"foreignKey:UpdatedBy;references:Username"`
+	CreatedByUser *SysUser `json:"createdByUser" gorm:"foreignKey:CreatedBy;references:Username"`
 	global.GqaModel
 	GqaOption string `json:"gqaOption" gorm:"comment:配置项;not null;index;"`
 	Default   string `json:"default" gorm:"comment:默认配置;not null;"`

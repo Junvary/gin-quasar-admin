@@ -3,6 +3,8 @@ package system
 import "gin-quasar-admin/global"
 
 type SysDept struct {
+	UpdatedByUser *SysUser `json:"updatedByUser" gorm:"foreignKey:UpdatedBy;references:Username"`
+	CreatedByUser *SysUser `json:"createdByUser" gorm:"foreignKey:CreatedBy;references:Username"`
 	global.GqaModel
 	ParentId uint    `json:"parentId" gorm:"comment:父部门ID;"`
 	DeptCode string  `json:"deptCode" gorm:"comment:部门编码;not null;uniqueIndex;"`

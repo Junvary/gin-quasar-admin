@@ -30,7 +30,7 @@ export default {
     },
     computed: {
         trueName() {
-            if (this.customNameString) {
+            if (this.customNameString !== '') {
                 // 自定义名字
                 return this.customNameString
             } else if (JSON.stringify(this.customNameObject) !== '{}') {

@@ -60,6 +60,6 @@ func (s *ServiceMenu) DeleteMenu(id uint) (err error) {
 
 func (s *ServiceMenu) QueryMenuById(id uint) (err error, menuInfo system.SysMenu) {
 	var menu system.SysMenu
-	err = global.GqaDb.First(&menu, "id = ?", id).Error
+	err = global.GqaDb.Preload("CreatedByUser").Preload("UpdatedByUser").First(&menu, "id = ?", id).Error
 	return err, menu
 }

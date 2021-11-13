@@ -65,6 +65,6 @@ func (s *ServiceDict) DeleteDict(id uint) (err error) {
 
 func (s *ServiceDict) QueryDictById(id uint) (err error, dictInfo system.SysDict) {
 	var dict system.SysDict
-	err = global.GqaDb.First(&dict, "id = ?", id).Error
+	err = global.GqaDb.Preload("CreatedByUser").Preload("UpdatedByUser").First(&dict, "id = ?", id).Error
 	return err, dict
 }

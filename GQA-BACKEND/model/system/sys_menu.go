@@ -3,6 +3,8 @@ package system
 import "gin-quasar-admin/global"
 
 type SysMenu struct {
+	UpdatedByUser *SysUser `json:"updatedByUser" gorm:"foreignKey:UpdatedBy;references:Username"`
+	CreatedByUser *SysUser `json:"createdByUser" gorm:"foreignKey:CreatedBy;references:Username"`
 	global.GqaModel
 	ParentId  uint      `json:"parentId" gorm:"comment:父菜单ID;"`
 	Name      string    `json:"name" gorm:"菜单Name;not null;unique;"`
