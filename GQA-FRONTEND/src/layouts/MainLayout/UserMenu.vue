@@ -3,27 +3,27 @@
         <template v-slot:label>
             <GqaAvatar loginUser size="26px" />
             <span style="margin-left:5px">
-                欢迎你，
+                {{ $t('LayoutMainUserMenuWelcome') }}
                 <GqaShowName showMyName />
             </span>
         </template>
         <div class="row no-wrap q-pa-md">
             <div class="column">
-                <div class="text-h6 q-mb-md">Settings</div>
-                <q-toggle v-model="mobileData" label="Use Mobile Data" />
-                <q-toggle v-model="bluetooth" label="Bluetooth" />
+                <div class="text-h6 q-mb-md">{{ $t('LayoutMainUserMenuSettings')}}</div>
+                <q-toggle v-model="mobileData" :label="$t('LayoutMainUserMenuSettingsUseMobileData')" />
+                <q-toggle v-model="bluetooth" :label="$t('LayoutMainUserMenuSettingsBluetooth')" />
             </div>
 
             <q-separator vertical inset class="q-mx-lg" />
 
-            <div class="column items-center">
+            <div class="items-center column">
                 <GqaAvatar loginUser size="72px" />
 
                 <div class="text-subtitle1 q-mt-md q-mb-xs">
                     <GqaShowName />
                 </div>
 
-                <q-btn color="primary" label="退出登录" push size="sm" v-close-popup @click="logout" />
+                <q-btn color="primary" :label="$t('LayoutMainUserMenuLogout')" push size="sm" v-close-popup @click="logout" />
             </div>
         </div>
     </q-btn-dropdown>
@@ -51,8 +51,8 @@ export default {
         logout() {
             this.$q
                 .dialog({
-                    title: '确定退出？',
-                    message: '你真的要退出系统吗？',
+                    title: $t('LayoutMainUserMenuLogoutTitle'),
+                    message: $t('LayoutMainUserMenuLogoutMessage'),
                     cancel: true,
                     persistent: true,
                 })

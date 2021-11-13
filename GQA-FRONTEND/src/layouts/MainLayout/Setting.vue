@@ -5,7 +5,7 @@
         <q-dialog v-model="right" position="right">
             <q-card style="height: 100%; width: 400px">
                 <q-card-section>
-                    <div class="text-h6">系统设置</div>
+                    <div class="text-h6">{{ $t('LayoutMainSettingTitle') }}</div>
                 </q-card-section>
                 <q-card-section>
                     <GqaTheme />

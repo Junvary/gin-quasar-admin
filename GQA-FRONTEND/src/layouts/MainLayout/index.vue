@@ -46,8 +46,8 @@
 
         <q-drawer elevated v-model="leftDrawerOpen" show-if-above bordered content-class="bg-grey-1">
             <q-list>
-                <q-item-label header class="text-grey-8 text-center">
-                    欢迎使用 Gin-Quasar-Admin ！
+                <q-item-label header class="text-center text-grey-8">
+                    {{ $t('LayoutMainWelcome') }}
                 </q-item-label>
                 <SideBarLeft />
             </q-list>
