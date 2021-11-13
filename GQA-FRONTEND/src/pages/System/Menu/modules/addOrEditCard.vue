@@ -56,7 +56,7 @@
 
                         <div class="row">
                             <q-input class="col" v-model="addOrEditDetail.sort" type="number" :label="$t('PageSystemMenuEditDialogSort')" />
-                            <q-input class="col" v-model="addOrEditDetail.title" :label="$t('')"
+                            <q-input class="col" v-model="addOrEditDetail.title" :label="$t('PageSystemMenuEditDialogMenuTitle')"
                                 :rules="[ val => val && val.length > 0 || $t('PageSystemMenuEditDialogMenuTitleRule')]" />
                             <q-input class="col" v-model="addOrEditDetail.name" :label="$t('PageSystemMenuEditDialogMenuName')"
                                 :rules="[ val => val && val.length > 0 || $t('PageSystemMenuEditDialogMenuNameRule')]" />
@@ -65,7 +65,7 @@
                         <div class="row">
                             <q-input class="col" v-model="addOrEditDetail.path" :label="$t('PageSystemMenuEditDialogMenuPath')"
                                 :rules="[ val => val && val.length > 0 || $t('PageSystemMenuEditDialogMenuPathRule')]" />
-                            <q-input class="col" v-model="addOrEditDetail.component" label="$t('PageSystemMenuEditDialogMenuComponent')"
+                            <q-input class="col" v-model="addOrEditDetail.component" :label="$t('PageSystemMenuEditDialogMenuComponent')"
                                 :rules="[ val => val && val.length > 0 || $t('PageSystemMenuEditDialogMenuComponentRule')]" />
                         </div>
 
@@ -94,7 +94,7 @@
                                     </q-option-group>
                                 </template>
                             </q-field>
-                            <q-field class="col" label="$t('PageSystemMenuEditDialogMenuStatus')" stack-label>
+                            <q-field class="col" :label="$t('PageSystemMenuEditDialogMenuStatus')" stack-label>
                                 <template v-slot:control>
                                     <q-option-group v-model="addOrEditDetail.status" :options="options.statusOnOff"
                                         color="primary" inline>
