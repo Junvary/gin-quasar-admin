@@ -46,10 +46,10 @@ export default {
             },
             columns: [
                 { name: 'sort', align: 'center', label: this.$t('PageSystemRoleUserDialogTableColumnSort'), field: 'sort' },
-                { name: 'username', align: 'center', label: this.$t('PageSystemRoleUserDialogUsername'), field: 'username' },
-                { name: 'nickname', align: 'center', label: this.$t('PageSystemRoleUserDialogNickname'), field: 'nickname' },
-                { name: 'realName', align: 'center', label: this.$t('PageSystemRoleUserDialogRealName'), field: 'realName' },
-                { name: 'actions', align: 'center', label: this.$t('PageSystemRoleUserDialogActions'), field: 'actions' },
+                { name: 'username', align: 'center', label: this.$t('PageSystemRoleUserDialogTableColumnUsername'), field: 'username' },
+                { name: 'nickname', align: 'center', label: this.$t('PageSystemRoleUserDialogTableColumnNickname'), field: 'nickname' },
+                { name: 'realName', align: 'center', label: this.$t('PageSystemRoleUserDialogTableColumnRealName'), field: 'realName' },
+                { name: 'actions', align: 'center', label: this.$t('PageSystemRoleUserDialogTableColumnActions'), field: 'actions' },
             ],
         }
     },
