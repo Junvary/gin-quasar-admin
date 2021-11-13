@@ -3,22 +3,22 @@
         <div class="container">
             <div class="container-title">
                 <h1>
-                    Gin-Quasar-Admin
+                    {{ $t('LoginLayoutPageBannerTitle') }}
                 </h1>
                 <p class="small-title">
-                    Be the change you want to see in the world.
+                    {{ $t('LoginLayoutPageBannerSubTitle') }}
                 </p>
                 <div class="buttons">
                     <q-btn push color="primary" @click="openLink('https://gitee.com/junvary/gin-quasar-admin')">
-                        访问Gitee
+                        {{ $t('LoginLayoutPageBannerGiteeText') }}
                     </q-btn>
 
                     <q-btn push color="primary" @click="showLoginForm" :disable="checkDbStatus">
-                        {{checkDbStatus ? '系统需要初始化' : '用户登录'}}
+                        {{checkDbStatus ? $t('LoginLayoutPageBannerCheckDB') : $t('LoginLayoutPageBannerLogin')}}
                     </q-btn>
 
                     <q-btn push color="primary" @click="openLink('https://github.com/Junvary/gin-quasar-admin')">
-                        访问Github
+                        {{ $t('LoginLayoutPageBannerGithub') }}
                     </q-btn>
                 </div>
             </div>

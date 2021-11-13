@@ -15,10 +15,12 @@
         "echarts": "^5.2.1",
         "mitt": "^3.0.0",
         "quasar": "^2.3.1",
+        "vue-i18n": "^9.2.0-beta.17",
         "vuex": "^4.0.1",
         "xe-utils": "^3.4.0"
     },
     "devDependencies": {
+        "@intlify/vue-i18n-loader": "^3.3.0",
         "@quasar/app": "^3.2.1"
     },
     "browserslist": [

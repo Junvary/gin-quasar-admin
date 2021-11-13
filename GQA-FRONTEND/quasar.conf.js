@@ -7,8 +7,9 @@
 // https://v2.quasar.dev/quasar-cli/quasar-conf-js
 
 const { configure } = require('quasar/wrappers')
+const path = require('path')
 
-module.exports = configure(function (ctx) {
+module.exports = configure(function(ctx) {
     return {
         // https://v2.quasar.dev/quasar-cli/supporting-ts
         supportTS: false,
@@ -27,6 +28,7 @@ module.exports = configure(function (ctx) {
             'permission',
             'echarts',
             'bus',
+            'i18n'
         ],
 
         // https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
@@ -54,9 +56,11 @@ module.exports = configure(function (ctx) {
             env: {
                 API: ctx.dev
                     // 测试代理地址
-                    ? "/gqa-api"
+                    ?
+                    "/gqa-api"
                     // 正式代理地址
-                    : "/gqa-api"
+                    :
+                    "/gqa-api"
 
             },
 
@@ -78,9 +82,22 @@ module.exports = configure(function (ctx) {
 
             // https://v2.quasar.dev/quasar-cli/handling-webpack
             // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
-            chainWebpack(/* chain */) {
-                //
-            },
+            chainWebpack: chain => {
+                chain.module
+                    .rule('i18n-resource')
+                    .test(/\.(json5?|ya?ml)$/)
+                    .include.add(path.resolve(__dirname, './src/i18n'))
+                    .end()
+                    .type('javascript/auto')
+                    .use('i18n-resource')
+                    .loader('@intlify/vue-i18n-loader')
+                chain.module
+                    .rule('i18n')
+                    .resourceQuery(/blockType=i18n/)
+                    .type('javascript/auto')
+                    .use('i18n')
+                    .loader('@intlify/vue-i18n-loader')
+            }
         },
 
         // Full list of options: https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
@@ -143,7 +160,7 @@ module.exports = configure(function (ctx) {
             maxAge: 1000 * 60 * 60 * 24 * 30,
             // Tell browser when a file from the server should expire from cache (in ms)
 
-            chainWebpackWebserver(/* chain */) {
+            chainWebpackWebserver( /* chain */ ) {
                 //
             },
 
@@ -160,7 +177,7 @@ module.exports = configure(function (ctx) {
 
             // for the custom service worker ONLY (/src-pwa/custom-service-worker.[js|ts])
             // if using workbox in InjectManifest mode
-            chainWebpackCustomSW(/* chain */) {
+            chainWebpackCustomSW( /* chain */ ) {
                 //
             },
 
@@ -172,8 +189,7 @@ module.exports = configure(function (ctx) {
                 orientation: 'portrait',
                 background_color: '#ffffff',
                 theme_color: '#027be3',
-                icons: [
-                    {
+                icons: [{
                         src: 'icons/icon-128x128.png',
                         sizes: '128x128',
                         type: 'image/png'
@@ -236,13 +252,13 @@ module.exports = configure(function (ctx) {
             },
 
             // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
-            chainWebpackMain(/* chain */) {
+            chainWebpackMain( /* chain */ ) {
                 // do something with the Electron main process Webpack cfg
                 // extendWebpackMain also available besides this chainWebpackMain
             },
 
             // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
-            chainWebpackPreload(/* chain */) {
+            chainWebpackPreload( /* chain */ ) {
                 // do something with the Electron main process Webpack cfg
                 // extendWebpackPreload also available besides this chainWebpackPreload
             },

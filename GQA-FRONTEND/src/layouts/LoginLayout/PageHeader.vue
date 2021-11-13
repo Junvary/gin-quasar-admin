@@ -5,31 +5,31 @@
                 <img src="gqa128.png" />
             </q-avatar>
             <span style="margin-left: 10px">
-                Gin-Quasar-Admin
+                {{ $t('LoginLayoutPageTitle') }}
             </span>
 
         </a>
         <ul>
             <li>
-                <a class="gqa-menu-scroll" href="javascript:;" @click="handleScroll('gqa-banner')">首页</a>
+                <a class="gqa-menu-scroll" href="javascript:;" @click="handleScroll('gqa-banner')">{{ $t('LoginLayoutPageHeaderBanner') }}</a>
             </li>
             <li>
-                <a class="gqa-menu-scroll" href="javascript:;" @click="handleScroll('gqa-news')">最新要闻</a>
+                <a class="gqa-menu-scroll" href="javascript:;" @click="handleScroll('gqa-news')">{{ $t('LoginLayoutPageHeaderNews') }}</a>
             </li>
             <li>
-                <a class="gqa-menu-scroll" href="javascript:;" @click="handleScroll('gqa-project')">项目进度</a>
+                <a class="gqa-menu-scroll" href="javascript:;" @click="handleScroll('gqa-project')">{{ $t('LoginLayoutPageHeaderProject') }}</a>
             </li>
             <li>
-                <a class="gqa-menu-scroll" href="javascript:;" @click="handleScroll('gqa-honour')">荣誉认证</a>
+                <a class="gqa-menu-scroll" href="javascript:;" @click="handleScroll('gqa-honour')">{{ $t('LoginLayoutPageHeaderHonour') }}</a>
             </li>
             <li>
-                <a class="gqa-menu-scroll" href="javascript:;" @click="handleScroll('gqa-weapon')">武器库</a>
+                <a class="gqa-menu-scroll" href="javascript:;" @click="handleScroll('gqa-weapon')">{{ $t('LoginLayoutPageHeaderWeapon') }}</a>
             </li>
             <li>
-                <a class="gqa-menu-scroll" href="javascript:;" @click="handleScroll('gqa-document')">相关文档</a>
+                <a class="gqa-menu-scroll" href="javascript:;" @click="handleScroll('gqa-document')">{{ $t('LoginLayoutPageHeaderDocument') }}</a>
             </li>
             <li>
-                <a class="gqa-menu-scroll" href="javascript:;" @click="handleScroll('gqa-download')">常用下载</a>
+                <a class="gqa-menu-scroll" href="javascript:;" @click="handleScroll('gqa-download')">{{ $t('LoginLayoutPageHeaderDownload') }}</a>
             </li>
         </ul>
     </header>

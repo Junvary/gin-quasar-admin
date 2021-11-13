@@ -9,23 +9,23 @@
                             <img src="gqa128.png" />
                         </q-avatar>
                     </div>
-                    <div class="text-h4 text-center text-primary ">Gin-Quasar-Admin</div>
-                    <div class="text-h6 text-center text-primary q-mt-md q-mb-xs">
-                        好久不见，欢迎回来！
+                    <div class="text-center text-h4 text-primary ">Gin-Quasar-Admin</div>
+                    <div class="text-center text-h6 text-primary q-mt-md q-mb-xs">
+                        {{ $t('LoginTitle') }}
                     </div>
                     <q-form @submit="onSubmit" class="q-mt-lg">
                         <q-input :disable="loading" outlined dense no-error-icon v-model.trim="form.username"
-                            placeholder="账号" :rules="[(val) =>(val && val.length > 0) || '请输入用户账号',]" />
+                            :placeholder="$t('LoginUserNamePlaceholder')" :rules="[(val) =>(val && val.length > 0) || $t('LoginUserNameAddUserName'),]" />
                         <q-input :disable="loading" outlined dense no-error-icon :type="isPwd ? 'password' : 'text'"
-                            v-model.trim="form.password" placeholder="密码"
-                            :rules="[(val) =>(val && val.length > 0) || '请输入登录密码',]">
+                            v-model.trim="form.password" :placeholder="$t('LoginPasswordPlaceholder')"
+                            :rules="[(val) =>(val && val.length > 0) || $t('LoginPasswordAddPassword'),]">
                             <template v-slot:append>
                                 <q-icon :name="isPwd ? 'visibility_off' : 'visibility'" class="cursor-pointer"
                                     @click="isPwd = !isPwd" />
                             </template>
                         </q-input>
                         <q-input :disable="loading" outlined dense no-error-icon v-model.trim="form.captcha"
-                            placeholder="验证码" :rules="[(val) => (val && val.length > 0) || '请输入验证码',]">
+                            :placeholder="$t('LoginCaptchaPlaceholder')" :rules="[(val) => (val && val.length > 0) || $t('LoginCaptchaAddCaptcha'),]">
                             <template v-slot:after>
                                 <q-btn padding="none" style="width: 120px; height: 100%" @click="getCaptcha">
                                     <q-img :src="captchaImage" />
@@ -33,12 +33,12 @@
                             </template>
                         </q-input>
                         <div class="column q-gutter-y-md q-mt-none">
-                            <q-checkbox :disable="loading" v-model="rememberMe" label="自动登录" dense
+                            <q-checkbox :disable="loading" v-model="rememberMe" :label="$t('LoginRememberMe')" dense
                                 @update:model-value="changeRememberMe" />
                         </div>
-                        <div class="q-mt-md row justify-around items-center">
-                            <q-btn label="登录" type="submit" color="primary" :loading="loading" style="width: 48%" />
-                            <q-btn label="取消" @click="loginVisible = false" color="negative" :loading="loading"
+                        <div class="items-center justify-around q-mt-md row">
+                            <q-btn :label="$t('LoginBtnSignIn')" type="submit" color="primary" :loading="loading" style="width: 48%" />
+                            <q-btn :label="$t('LoginBtnCancel')" @click="loginVisible = false" color="negative" :loading="loading"
                                 style="width: 48%" />
                         </div>
                     </q-form>
@@ -53,11 +53,11 @@
                 <GqaLanguage />
                 <!-- <q-brand-color /> -->
                 <q-space />
-                <div class="text-subtitle2 text-center text-primary">
-                    Vue版本：{{ $vueVersion }}
+                <div class="text-center text-subtitle2 text-primary">
+                    {{ $t('LoginVueVersion')}}  {{ $vueVersion }}
                 </div>
-                <div class="text-subtitle2 text-center text-primary">
-                    Quasar版本：{{ $quasarVersion }}
+                <div class="text-center text-subtitle2 text-primary">
+                    {{ $t('LoginQuasarVersion')}} {{ $quasarVersion }}
                 </div>
             </q-card-actions>
 
