@@ -23,7 +23,7 @@ export const tableDataMixin = {
             if (this.url === undefined || !this.url.list) {
                 this.$q.notify({
                     type: 'negative',
-                    message: $t('MixinTableDataRequestMessage'),
+                    message: this.$t('MixinTableDataRequestMessage'),
                 })
                 return
             }
@@ -59,8 +59,8 @@ export const tableDataMixin = {
         handleDelete(row) {
             this.$q
                 .dialog({
-                    title: $t('MixinTableDataDeleteTitle'),
-                    message: $t('MixinTableDataDeleteMessage'),
+                    title: this.$t('MixinTableDataDeleteTitle'),
+                    message: this.$t('MixinTableDataDeleteMessage'),
                     cancel: true,
                     persistent: true,
                 })
