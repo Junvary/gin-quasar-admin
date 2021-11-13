@@ -155,7 +155,7 @@ export default {
     PageSystemMenuEditDialogMenuNameRule: 'MenuName',
     PageSystemMenuEditDialogMenuPath: 'URL-Address',
     PageSystemMenuEditDialogMenuPathRule: 'Enter the URL address',
-    PageSystemMenuEditDialogMenuComponent: 'Vorderkomponente',
+    PageSystemMenuEditDialogMenuComponent: 'Frontend Component',
     PageSystemMenuEditDialogMenuComponentRule: 'The front end component must be entered',
     PageSystemMenuEditDialogMenuIsLink: 'Is a Link?',
     PageSystemMenuEditDialogMenuKeepAlive: 'cached',
@@ -291,7 +291,7 @@ export default {
     PageSystemDictDetailDialogTableColumnActions: 'Actions',
 
     PageSystemDictEditDialogTitle: 'dictionary',
-    PageSystemDictEditDialogParent: '父ID',
+    PageSystemDictEditDialogParent: 'Parent',
     PageSystemDictEditDialogCreatedAt: 'Created at',
     PageSystemDictEditDialogCreatedBy: 'Created by',
     PageSystemDictEditDialogUpdatedAt: 'Updated at',
@@ -319,5 +319,9 @@ export default {
     ComponentSelectUserTitle: '{oneOrMultiple} user selection',
     ComponentSelectUserTitleOne: 'Single',
     ComponentSelectUserTitleMultiple: 'Multiple',
+    ComponentSelectLanguage: 'Language',
+    MixinTableDataRequestMessage: 'URL not cofigured',
+    MixinTableDataDeleteTitle: 'Confirm delete?',
+    MixinTableDataDeleteMessage: 'Determine if you want to delete this?',
 
 }
