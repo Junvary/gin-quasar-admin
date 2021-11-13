@@ -5,6 +5,7 @@ export default ({ app }) => {
     // Create I18n instance
     const i18n = createI18n({
         locale: 'en-US',
+        fallbackLocale: 'zh-CN',
         messages
     })
 
