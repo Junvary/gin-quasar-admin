@@ -9,9 +9,10 @@ import { GetToken } from 'src/utils/getToken'
 // good idea to move this instance creation inside of the
 // "export default () => {}" function below (which runs individually
 // for each client)
+
 const api = axios.create(
     {
-        baseURL: process.env.BASE_URL,
+        baseURL: process.env.API,
         timeout: 15000,
         withCredentials: false
     }

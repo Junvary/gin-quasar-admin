@@ -6,7 +6,7 @@
 // Configuration for your app
 // https://v2.quasar.dev/quasar-cli/quasar-conf-js
 
-const { configure } = require('quasar/wrappers');
+const { configure } = require('quasar/wrappers')
 
 module.exports = configure(function (ctx) {
     return {
@@ -52,10 +52,11 @@ module.exports = configure(function (ctx) {
         build: {
             vueRouterMode: 'hash', // available values: 'hash', 'history'
             env: {
-                BASE_URL: "http://localhost:8080",
                 API: ctx.dev
-                    ? "http://127.0.0.1:8888/"
-                    : "http://127.0.0.1:8888/"
+                    // 测试代理地址
+                    ? "/gqa-api"
+                    // 正式代理地址
+                    : "/gqa-api"
 
             },
 
@@ -88,11 +89,12 @@ module.exports = configure(function (ctx) {
             port: 8080,
             open: true, // opens browser window automatically
             proxy: {
-                'http://localhost:8080': {
+                '/gqa-api': {
+                    // 测试后台地址
                     target: 'http://127.0.0.1:8888/',
                     changeOrigin: true,
                     pathRewrite: {
-                        '^http://localhost:8080': ''
+                        '^/gqa-api': ''
                     }
                 }
             }
