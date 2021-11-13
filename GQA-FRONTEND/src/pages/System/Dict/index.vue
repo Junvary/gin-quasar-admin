@@ -4,8 +4,8 @@
         <div class="items-center row q-gutter-md" style="margin-bottom: 10px">
             <q-input style="width: 20%" v-model="queryParams.value" :label="$t('PageSystemDictFilterValue')" />
             <q-input style="width: 20%" v-model="queryParams.label" :label="$t('PageSystemDictFilterLabel')" />
-            <q-btn color="primary" @click="handleSearch" :label="$t('PageSystemDictFilterBtnSearch')" />
-            <q-btn color="primary" @click="resetSearch" :label="$t('PageSystemDictFilterBtnResetSearch')" />
+            <q-btn color="primary" @click="handleSearch" :label="$t('PageSystemDictBtnSearch')" />
+            <q-btn color="primary" @click="resetSearch" :label="$t('PageSystemDictBtnResetSearch')" />
         </div>
 
         <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
