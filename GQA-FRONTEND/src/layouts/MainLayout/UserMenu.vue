@@ -51,8 +51,8 @@ export default {
         logout() {
             this.$q
                 .dialog({
-                    title: $t('LayoutMainUserMenuLogoutTitle'),
-                    message: $t('LayoutMainUserMenuLogoutMessage'),
+                    title: this.$t('LayoutMainUserMenuLogoutTitle'),
+                    message: this.$t('LayoutMainUserMenuLogoutMessage'),
                     cancel: true,
                     persistent: true,
                 })
