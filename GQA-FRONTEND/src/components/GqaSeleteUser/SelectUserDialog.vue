@@ -45,9 +45,9 @@ export default {
                 list: 'user/user-list',
             },
             columns: [
-                { name: 'username', align: 'center', label: $t('ComponentSelectUserTableColumnUsername'), field: 'username' },
-                { name: 'nickname', align: 'center', label: $t('ComponentSelectUserTableColumnNickname'), field: 'nickname' },
-                { name: 'realName', align: 'center', label: $t('ComponentSelectUserTableColumnRealname'), field: 'realName' },
+                { name: 'username', align: 'center', label: this.$parent.$t('ComponentSelectUserTableColumnUsername'), field: 'username' },
+                { name: 'nickname', align: 'center', label: this.$parent.$t('ComponentSelectUserTableColumnNickname'), field: 'nickname' },
+                { name: 'realName', align: 'center', label: this.$parent.$t('ComponentSelectUserTableColumnRealname'), field: 'realName' },
             ],
             selected: [],
         }

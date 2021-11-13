@@ -23,7 +23,7 @@ export default {
         label: {
             type: String,
             required: false,
-            default: this.$t('ComponentSelectUserLabel'),
+            default: this.$parent.$t('ComponentSelectUserLabel'),
         },
         className: {
             type: String,
