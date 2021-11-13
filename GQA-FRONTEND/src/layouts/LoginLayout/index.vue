@@ -36,7 +36,7 @@
                                     </span>
                                     <span class="col">
                                         {{ $t('LoginLayoutWizardFirstTimeText1') }}
-                                        <span class="text-red">{{ $t('LoginLayoutWizardFirstTimeText2') }}</span>，
+                                        <span class="text-red">{{ $t('LoginLayoutWizardFirstTimeText2') }}</span>,
                                         {{ $t('LoginLayoutWizardFirstTimeText3') }}
                                         <span class="text-red">{{ $t('LoginLayoutWizardFirstTimeText4') }}</span>
                                     </span>
@@ -131,14 +131,7 @@
                                         {{ $t('LoginLayoutWizardInitDBAfterText1') }}
                                         <span class="text-red">{{ $t('LoginLayoutWizardSuperAdminLogin') }}</span>
                                         {{ $t('LoginLayoutWizardInitDBAfterText2') }}
-                                        <span class="text-red">{{ $t('LoginLayoutWizardPersonalConfigurations') }}</span>
-                                    </span>
-                                    <span class="col">
-                                        {{ $t('LoginLayoutWizardNextSuperAdmin') }}
-                                        <span class="text-red">{{ $t('LoginLayoutWizardSuperAdmin') }}</span>
-                                        {{ $t('LoginLayoutWizardMenuFound') }}
-                                        <span class="text-red">{{ $t('LoginLayoutWizardPersonalConfigurations') }}</span>
-                                        {{ $t('LoginLayoutWizardEntry') }}
+                                        <span class="text-red">{{ $t('LoginLayoutPersonalConfiguration') }}</span>
                                     </span>
                                     <span class="col">
                                         {{ $t('LoginLayoutWizardDefaults') }}
