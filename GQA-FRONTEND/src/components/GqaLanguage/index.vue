@@ -1,5 +1,5 @@
 <template>
-    <q-select v-model="lang" :options="langOptions" label="系统语言" dense borderless emit-value map-options options-dense
+    <q-select v-model="lang" :options="langOptions" :label="$t('ComponentSelectLanguage')" dense borderless emit-value map-options options-dense
         style="min-width: 150px" />
 </template>
 
