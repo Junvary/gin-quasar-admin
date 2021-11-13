@@ -4,7 +4,7 @@
             <q-card-section>
                 <div class="text-h6">
                     {{formTypeName}}：
-                    {{addOrEditDetail.nickname ? addOrEditDetail.nickname : addOrEditDetail.realName? addOrEditDetail.realName :"用户"}}
+                    {{addOrEditDetail.nickname ? addOrEditDetail.nickname : addOrEditDetail.realName? addOrEditDetail.realName : $t('PageSystemUserEditDialogUserNameTitle')}}
                 </div>
             </q-card-section>
 
@@ -16,8 +16,8 @@
                         <div class="row">
                             <q-input class="col" v-model="addOrEditDetail.id" label="ID" disable />
                             <q-input class="col" v-model.number="addOrEditDetail.sort" type="number"
-                                :rules="[ val => val >= 1 || '排序必须大于0']" label="排序" />
-                            <q-file class="col" v-model="avatarFile" label="头像" max-files="1">
+                                :rules="[ val => val >= 1 || $t('PageSystemUserEditDialogSortRule') ]" label="$t('PageSystemUserEditDialogSort')" />
+                            <q-file class="col" v-model="avatarFile" :label="$t('PageSystemUserEditDialogUserPicture')" max-files="1">
                                 <template v-slot:prepend>
                                     <GqaAvatar :src="addOrEditDetail.avatar" />
                                 </template>
@@ -27,23 +27,23 @@
                             </q-file>
                         </div>
                         <div class="row">
-                            <q-field class="col" label="创建时间" stack-label disable>
+                            <q-field class="col" :label="$t('PageSystemUserEditDialogCreatedAt')" stack-label disable>
                                 <template v-slot:control>
                                     {{showDateTime(addOrEditDetail.createdAt)}}
                                 </template>
                             </q-field>
-                            <q-field class="col" label="创建人" stack-label disable>
+                            <q-field class="col" :label="$t('PageSystemUserEditDialogCreatedBy')" stack-label disable>
                                 <template v-slot:control>
                                     <GqaShowName v-if="addOrEditDetail.createdByUser"
                                         :customNameObject="addOrEditDetail.createdByUser" />
                                 </template>
                             </q-field>
-                            <q-field class="col" label="更新时间" stack-label disable>
+                            <q-field class="col" :label="$t('PageSystemUserEditDialogUpdatedAt')" stack-label disable>
                                 <template v-slot:control>
                                     {{showDateTime(addOrEditDetail.updatedAt)}}
                                 </template>
                             </q-field>
-                            <q-field class="col" label="更新人" stack-label disable>
+                            <q-field class="col" :label="$t('PageSystemUserEditDialogUpdatedBy')" stack-label disable>
                                 <template v-slot:control>
                                     <GqaShowName v-if="addOrEditDetail.updatedByUser"
                                         :customNameObject="addOrEditDetail.updatedByUser" />
@@ -51,26 +51,26 @@
                             </q-field>
                         </div>
                         <div class="row">
-                            <q-input class="col" v-model="addOrEditDetail.username" label="账号" lazy-rules
-                                :rules="[ val => val && val.length > 0 || '必须输入账号']" :disable="formType === 'edit'" />
-                            <q-input class="col" v-model="addOrEditDetail.nickname" label="昵称" />
-                            <q-input class="col" v-model="addOrEditDetail.realName" label="真实姓名" lazy-rules
-                                :rules="[ val => val && val.length > 0 || '必须输入真实姓名']" :disable="formType === 'edit'" />
+                            <q-input class="col" v-model="addOrEditDetail.username" :label="$t('PageSystemUserEditDialogUsername')" lazy-rules
+                                :rules="[ val => val && val.length > 0 || $t('PageSystemUserEditDialogUsernameRule') ]" :disable="formType === 'edit'" />
+                            <q-input class="col" v-model="addOrEditDetail.nickname" :label="$t('PageSystemUserEditDialogNickname')" />
+                            <q-input class="col" v-model="addOrEditDetail.realName" :label="$t('PageSystemUserEditDialogRealName')" lazy-rules
+                                :rules="[ val => val && val.length > 0 || $t('PageSystemUserEditDialogRealNameRule') ]" :disable="formType === 'edit'" />
 
                         </div>
                         <div class="row">
-                            <q-input class="col" v-model="addOrEditDetail.mobile" label="手机" />
-                            <q-input class="col" v-model="addOrEditDetail.email" label="邮箱" />
+                            <q-input class="col" v-model="addOrEditDetail.mobile" :label="$t('PageSystemUserEditDialogMobile')" />
+                            <q-input class="col" v-model="addOrEditDetail.email" :label="$t('PageSystemUserEditDialogEmail')" />
                         </div>
                         <div class="row">
-                            <q-field class="col" label="性别" stack-label>
+                            <q-field class="col" :label="$t('PageSystemUserEditDialogGender')" stack-label>
                                 <template v-slot:control>
                                     <q-option-group v-model="addOrEditDetail.gender" :options="options.gender"
                                         color="primary" inline>
                                     </q-option-group>
                                 </template>
                             </q-field>
-                            <q-field class="col" label="是否启用" stack-label>
+                            <q-field class="col" :label="$t('PageSystemUserEditDialogStatus')" stack-label>
                                 <template v-slot:control>
                                     <q-option-group v-model="addOrEditDetail.status" :options="options.statusOnOff"
                                         color="primary" inline :disable="addOrEditDetail.username ==='admin'">
@@ -78,7 +78,7 @@
                                 </template>
                             </q-field>
                         </div>
-                        <q-input v-model="addOrEditDetail.remark" type="textarea" label="备注" />
+                        <q-input v-model="addOrEditDetail.remark" type="textarea" :label="$t('PageSystemUserEditDialogRemark')" />
                     </div>
                 </q-form>
             </q-card-section>
@@ -86,8 +86,8 @@
             <q-separator />
 
             <q-card-actions align="right">
-                <q-btn :label="'保存' + formTypeName " color="primary" @click="handleAddOrEidt" />
-                <q-btn label="取消" color="negative" v-close-popup />
+                <q-btn :label="$t('PageSystemUserEditDialogBtnSave')" color="primary" @click="handleAddOrEidt" />
+                <q-btn :label="$t('PageSystemUserEditDialogBtnCancel')" color="negative" v-close-popup />
             </q-card-actions>
         </q-card>
     </q-dialog>
@@ -155,13 +155,13 @@ export default {
             }
         },
         chooseFile() {
-            this.$refs.gqaUploader.show('头像', false)
+            this.$refs.gqaUploader.show($t('PageSystemUserEditDialogMessagePicture'), false)
         },
         handleUpload() {
             if (!this.avatarFile) {
                 this.$q.notify({
                     type: 'negative',
-                    message: '请选择文件！',
+                    message: $t('PageSystemUserEditDialogMessageSelectFile'),
                 })
                 return
             }
@@ -173,7 +173,7 @@ export default {
                     this.avatarFile = null
                     this.$q.notify({
                         type: 'positive',
-                        message: '头像上传成功！',
+                        message: $t('PageSystemUserEditDialogMessageAvatarUpload'),
                     })
                 }
             })

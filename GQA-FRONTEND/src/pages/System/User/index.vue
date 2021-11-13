@@ -1,18 +1,18 @@
 <template>
     <q-page padding>
 
-        <div class="row q-gutter-md items-center" style="margin-bottom: 10px">
-            <q-input style="width: 20%" v-model="queryParams.username" label="账号" />
-            <q-input style="width: 20%" v-model="queryParams.realName" label="真实姓名" />
-            <q-btn color="primary" @click="handleSearch" label="搜索" />
-            <q-btn color="primary" @click="resetSearch" label="重置" />
+        <div class="items-center row q-gutter-md" style="margin-bottom: 10px">
+            <q-input style="width: 20%" v-model="queryParams.username" :label="$t('PageSystemUserFilterUserName')" />
+            <q-input style="width: 20%" v-model="queryParams.realName" :label="$t('PageSystemUserFilterRealName')" />
+            <q-btn color="primary" @click="handleSearch" :label="$t('PageSystemUserTableBtnSearch')" />
+            <q-btn color="primary" @click="resetSearch" :label="$t('PageSystemUserTableBtnResetSearch')" />
         </div>
 
         <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
             :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
 
             <template v-slot:top="props">
-                <q-btn color="primary" @click="showAddForm()" label="新增用户" />
+                <q-btn color="primary" @click="showAddForm()" :label="$t('PageSystemUserTableColumnActionsBtnAdd')" />
                 <q-space />
                 <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
                     @click="props.toggleFullscreen" class="q-ml-md" />
@@ -64,8 +64,8 @@
             <template v-slot:body-cell-actions="props">
                 <q-td :props="props">
                     <div class="q-gutter-xs">
-                        <q-btn color="primary" @click="showEditForm(props.row)" label="编辑" />
-                        <q-btn color="negative" @click="handleDelete(props.row)" label="删除" />
+                        <q-btn color="primary" @click="showEditForm(props.row)" :label="$t('PageSystemUserTableColumnActionsBtnEdit')" />
+                        <q-btn color="negative" @click="handleDelete(props.row)" :label="$t('PageSystemUserTableColumnActionsBtnDelete')" />
                     </div>
                 </q-td>
             </template>
@@ -95,18 +95,18 @@ export default {
                 delete: 'user/user-delete',
             },
             columns: [
-                { name: 'sort', align: 'center', label: '排序', field: 'sort' },
-                { name: 'avatar', align: 'center', label: '头像', field: 'avatar' },
-                { name: 'username', align: 'center', label: '账号', field: 'username' },
-                { name: 'nickname', align: 'center', label: '昵称', field: 'nickname' },
-                { name: 'realName', align: 'center', label: '真实姓名', field: 'realName' },
-                { name: 'gender', align: 'center', label: '性别', field: 'gender' },
-                { name: 'mobile', align: 'center', label: '手机', field: 'mobile' },
+                { name: 'sort', align: 'center', label: $t('PageSystemUserTableActions'), field: 'sort' },
+                { name: 'avatar', align: 'center', label: $t('PageSystemUserTableActions'), field: 'avatar' },
+                { name: 'username', align: 'center', label: $t('PageSystemUserTableActions'), field: 'username' },
+                { name: 'nickname', align: 'center', label: $t('PageSystemUserTableActions'), field: 'nickname' },
+                { name: 'realName', align: 'center', label: $t('PageSystemUserTableActions'), field: 'realName' },
+                { name: 'gender', align: 'center', label: $t('PageSystemUserTableActions'), field: 'gender' },
+                { name: 'mobile', align: 'center', label: $t('PageSystemUserTableActions'), field: 'mobile' },
                 // { name: 'email', align: 'center', label: '邮箱', field: 'email' },
-                { name: 'dept', align: 'center', label: '部门', field: 'dept' },
-                { name: 'status', align: 'center', label: '状态', field: 'status' },
-                { name: 'stable', align: 'center', label: '系统内置', field: 'stable' },
-                { name: 'actions', align: 'center', label: '操作', field: 'actions' },
+                { name: 'dept', align: 'center', label: $t('PageSystemUserTableActions'), field: 'dept' },
+                { name: 'status', align: 'center', label: $t('PageSystemUserTableActions'), field: 'status' },
+                { name: 'stable', align: 'center', label: $t('PageSystemUserTableActions'), field: 'stable' },
+                { name: 'actions', align: 'center', label: $t('PageSystemUserTableActions'), field: 'actions' },
             ],
         }
     },
