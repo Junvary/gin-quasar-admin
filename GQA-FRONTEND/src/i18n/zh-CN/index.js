@@ -315,9 +315,16 @@ export default {
     ComponentSelectUserTitleOne: '单选',
     ComponentSelectUserTitleMultiple: '多选',
     ComponentSelectLanguage: '系统语言',
+
     MixinTableDataRequestMessage: '请先配置url',
     MixinTableDataDeleteTitle: '确定删除？',
     MixinTableDataDeleteMessage: '你确定要删除此项吗？',
+
+    MixinAddOrEditFormTypeEdit: '编辑',
+    MixinAddOrEditFormTypeAdd: '新增',
+    MixinAddOrEditFormTypeError: '错误',
+    MixinAddOrEditMessageDenied: '无法新增或编辑！',
+    MixinAddOrEditMessageChangeWrong: '请完善表格信息！',
 
     LayoutMainUserMenuWelcome: '欢迎你，',
     LayoutMainUserMenuSettings: 'Settings',
