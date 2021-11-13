@@ -8,12 +8,11 @@ import (
 	"go.uber.org/zap"
 )
 
-type ApiUser struct {
-}
+type ApiUser struct{}
 
 func (a *ApiUser) GetUserList(c *gin.Context) {
 	var requestUserList system.RequestUserList
-	if err := c.ShouldBindJSON(&requestUserList); err != nil{
+	if err := c.ShouldBindJSON(&requestUserList); err != nil {
 		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
@@ -33,7 +32,7 @@ func (a *ApiUser) GetUserList(c *gin.Context) {
 
 func (a *ApiUser) EditUser(c *gin.Context) {
 	var toEditUser system.SysUser
-	if err := c.ShouldBindJSON(&toEditUser); err != nil{
+	if err := c.ShouldBindJSON(&toEditUser); err != nil {
 		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
@@ -42,6 +41,7 @@ func (a *ApiUser) EditUser(c *gin.Context) {
 		global.ErrorMessage("超级管理不能被禁用！", c)
 		return
 	}
+	toEditUser.UpdatedBy = utils.GetUsername(c)
 	if err := ServiceUser.EditUser(toEditUser); err != nil {
 		global.GqaLog.Error("编辑用户失败！", zap.Any("err", err))
 		global.ErrorMessage("编辑用户失败，"+err.Error(), c)
@@ -52,16 +52,17 @@ func (a *ApiUser) EditUser(c *gin.Context) {
 
 func (a *ApiUser) AddUser(c *gin.Context) {
 	var toAddUser system.RequestAddUser
-	if err := c.ShouldBindJSON(&toAddUser); err != nil{
+	if err := c.ShouldBindJSON(&toAddUser); err != nil {
 		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
 	addUser := &system.SysUser{
 		GqaModel: global.GqaModel{
-			Status: toAddUser.Status,
-			Sort:   toAddUser.Sort,
-			Remark:   toAddUser.Remark,
+			CreatedBy: utils.GetUsername(c),
+			Status:    toAddUser.Status,
+			Sort:      toAddUser.Sort,
+			Remark:    toAddUser.Remark,
 		},
 		Avatar:   toAddUser.Avatar,
 		Username: toAddUser.Username,
@@ -81,7 +82,7 @@ func (a *ApiUser) AddUser(c *gin.Context) {
 
 func (a *ApiUser) DeleteUser(c *gin.Context) {
 	var toDeleteId system.RequestQueryById
-	if err := c.ShouldBindJSON(&toDeleteId); err != nil{
+	if err := c.ShouldBindJSON(&toDeleteId); err != nil {
 		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
@@ -112,7 +113,7 @@ func (a *ApiUser) DeleteUser(c *gin.Context) {
 
 func (a *ApiUser) QueryUserById(c *gin.Context) {
 	var toQueryId system.RequestQueryById
-	if err := c.ShouldBindJSON(&toQueryId); err != nil{
+	if err := c.ShouldBindJSON(&toQueryId); err != nil {
 		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return

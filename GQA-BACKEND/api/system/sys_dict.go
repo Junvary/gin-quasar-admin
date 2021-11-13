@@ -3,6 +3,7 @@ package system
 import (
 	"gin-quasar-admin/global"
 	"gin-quasar-admin/model/system"
+	"gin-quasar-admin/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -38,6 +39,7 @@ func (a *ApiDict) EditDict(c *gin.Context) {
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
+	toEditDict.UpdatedBy = utils.GetUsername(c)
 	if err := ServiceDict.EditDict(toEditDict); err != nil {
 		global.GqaLog.Error("编辑字典失败!", zap.Any("err", err))
 		global.ErrorMessage("编辑字典失败，"+err.Error(), c)
@@ -55,9 +57,10 @@ func (a *ApiDict) AddDict(c *gin.Context) {
 	}
 	addDict := &system.SysDict{
 		GqaModel: global.GqaModel{
-			Status: toAddDict.Status,
-			Sort:   toAddDict.Sort,
-			Remark: toAddDict.Remark,
+			CreatedBy: utils.GetUsername(c),
+			Status:    toAddDict.Status,
+			Sort:      toAddDict.Sort,
+			Remark:    toAddDict.Remark,
 		},
 		ParentId: toAddDict.ParentId,
 		Value:    toAddDict.Value,
