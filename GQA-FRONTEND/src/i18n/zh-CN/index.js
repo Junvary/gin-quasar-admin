@@ -314,4 +314,8 @@ export default {
     ComponentSelectUserTitle: '用户选择器 {oneOrMultiple}',
     ComponentSelectUserTitleOne: '单选',
     ComponentSelectUserTitleMultiple: '多选',
+    ComponentSelectLanguage: '系统语言',
+    MixinTableDataRequestMessage: '请先配置url',
+    MixinTableDataDeleteTitle: '确定删除？',
+    MixinTableDataDeleteMessage: '你确定要删除此项吗？',
 }
