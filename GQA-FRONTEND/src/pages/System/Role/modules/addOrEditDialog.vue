@@ -17,10 +17,26 @@
                             <q-input class="col" v-model="addOrEditDetail.id" label="ID" disable />
                         </div>
                         <div class="row">
-                            <q-input class="col" v-model="addOrEditDetail.createAt" label="创建时间" disable />
-                            <q-input class="col" v-model="addOrEditDetail.createBy" label="创建人" disable />
-                            <q-input class="col" v-model=" addOrEditDetail.updateAt" label="更新时间" disable />
-                            <q-input class="col" v-model="addOrEditDetail.updateBy" label="更新人" disable />
+                            <q-field class="col" label="创建时间" stack-label disable>
+                                <template v-slot:control>
+                                    {{showDateTime(addOrEditDetail.createdAt)}}
+                                </template>
+                            </q-field>
+                            <q-field class="col" label="创建人" stack-label disable>
+                                <template v-slot:control>
+                                    {{addOrEditDetail.createdBy}}
+                                </template>
+                            </q-field>
+                            <q-field class="col" label="更新时间" stack-label disable>
+                                <template v-slot:control>
+                                    {{showDateTime(addOrEditDetail.updatedAt)}}
+                                </template>
+                            </q-field>
+                            <q-field class="col" label="更新人" stack-label disable>
+                                <template v-slot:control>
+                                    {{addOrEditDetail.updatedBy}}
+                                </template>
+                            </q-field>
                         </div>
                         <div class="row">
                             <q-input class="col" v-model="addOrEditDetail.roleCode" label="角色编码(英文)"
@@ -75,10 +91,10 @@ export default {
         return {
             detail: {
                 id: '',
-                createAt: '',
-                createBy: '',
-                updateAt: '',
-                updateBy: '',
+                createdAt: '',
+                createdBy: '',
+                updatedAt: '',
+                updatedBy: '',
                 sort: 1,
                 status: 'on',
                 remark: '',
@@ -96,13 +112,13 @@ export default {
         resetDetail() {
             this.detail = {
                 id: '',
-                createAt: '',
-                createBy: '',
+                createdAt: '',
+                createdBy: '',
                 updatid: '',
-                createAt: '',
-                createBy: '',
-                updateAt: '',
-                updateBy: '',
+                createdAt: '',
+                createdBy: '',
+                updatedAt: '',
+                updatedBy: '',
                 sort: 1,
                 status: 'on',
                 remark: '',

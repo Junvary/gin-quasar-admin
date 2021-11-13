@@ -6,8 +6,6 @@ mysql:
   password:
   max-idle-conns: 0
   max-open-conns: 0
-  log-mode: ""
-  log-zap: false
 system:
   port: 8888
   success-code: 1

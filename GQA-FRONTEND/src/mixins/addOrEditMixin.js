@@ -1,4 +1,5 @@
 import { getAction, postAction, putAction } from 'src/api/manage'
+import { date } from 'quasar'
 
 export const addOrEditMixin = {
     computed: {
@@ -11,6 +12,11 @@ export const addOrEditMixin = {
                 return '错误'
             }
         },
+        showDateTime() {
+            return (datetime) => {
+                return date.formatDate(datetime, "YYYY-MM-DD HH:mm:ss")
+            }
+        }
     },
     data() {
         return {

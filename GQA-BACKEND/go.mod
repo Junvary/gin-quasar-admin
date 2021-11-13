@@ -7,7 +7,6 @@ require (
 	github.com/fsnotify/fsnotify v1.5.1
 	github.com/gin-gonic/gin v1.7.4
 	github.com/golang-jwt/jwt v3.2.2+incompatible
-	github.com/google/uuid v1.3.0
 	github.com/mojocn/base64Captcha v1.3.5
 	github.com/spf13/viper v1.9.0
 	go.uber.org/zap v1.19.1

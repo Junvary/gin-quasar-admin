@@ -17,8 +17,7 @@ import (
 	"gorm.io/gorm/schema"
 )
 
-type ServiceCheckAndInitDb struct {
-}
+type ServiceCheckAndInitDb struct {}
 
 func (s *ServiceCheckAndInitDb) CheckAndInitDb(initDbInfo system.RequestInitDb) error {
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/", initDbInfo.Username, initDbInfo.Password, initDbInfo.Host, initDbInfo.Port)
@@ -28,18 +27,18 @@ func (s *ServiceCheckAndInitDb) CheckAndInitDb(initDbInfo system.RequestInitDb) 
 	}
 	MysqlConfig := config.Mysql{
 		Path:     fmt.Sprintf("%s:%s", initDbInfo.Host, initDbInfo.Port),
-		Dbname:   initDbInfo.DbName,
+		DbName:   initDbInfo.DbName,
 		Username: initDbInfo.Username,
 		Password: initDbInfo.Password,
 		Config:   "charset=utf8mb4&parseTime=True&loc=Local",
 	}
-	if MysqlConfig.Dbname == "" {
+	if MysqlConfig.DbName == "" {
 		return nil
 	}
-	linkDns := MysqlConfig.Username + ":" + MysqlConfig.Password + "@tcp(" + MysqlConfig.Path + ")/" + MysqlConfig.Dbname + "?" + MysqlConfig.Config
+	linkDns := MysqlConfig.Username + ":" + MysqlConfig.Password + "@tcp(" + MysqlConfig.Path + ")/" + MysqlConfig.DbName + "?" + MysqlConfig.Config
 	mysqlConfig := mysql.Config{
 		DSN:                       linkDns, // DSN data source name
-		DefaultStringSize:         191,     // string 类型字段的默认长度
+		DefaultStringSize:         255,     // string 类型字段的默认长度
 		DisableDatetimePrecision:  true,    // 禁用 datetime 精度，MySQL 5.6 之前的数据库不支持
 		DontSupportRenameIndex:    true,    // 重命名索引时采用删除并新建的方式，MySQL 5.7 之前的数据库和 MariaDB 不支持重命名索引
 		DontSupportRenameColumn:   true,    // 用 `change` 重命名列，MySQL 8 之前的数据库和 MariaDB 不支持重命名列
