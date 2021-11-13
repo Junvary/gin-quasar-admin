@@ -34,19 +34,19 @@ func (a *ApiLogin) Login(c *gin.Context) {
 }
 
 func (a *ApiLogin) createToken(user system.SysUser, c *gin.Context) {
-	jwtIssuer := utils.GetConfig("jwtIssuer")
+	jwtIssuer := utils.GetConfigBackend("jwtIssuer")
 	if jwtIssuer == ""{
 		global.GqaLog.Error("没有找到Jwt签发者配置，请重新初始化数据库！")
 		global.ErrorMessage("没有找到Jwt签发者配置，请重新初始化数据库！", c)
 		return
 	}
-	jwtKey := utils.GetConfig("jwtKey")
+	jwtKey := utils.GetConfigBackend("jwtKey")
 	if jwtKey == ""{
 		global.GqaLog.Error("没有找到Jwt密钥配置，请重新初始化数据库！")
 		global.ErrorMessage("没有找到Jwt密钥配置，请重新初始化数据库！", c)
 		return
 	}
-	jwtExpiresAt := utils.GetConfig("jwtExpiresAt")
+	jwtExpiresAt := utils.GetConfigBackend("jwtExpiresAt")
 	if jwtExpiresAt == ""{
 		global.GqaLog.Error("没有找到Jwt过期时间配置，请重新初始化数据库！")
 		global.ErrorMessage("没有找到Jwt过期时间配置，请重新初始化数据库！", c)

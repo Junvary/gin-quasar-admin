@@ -9,11 +9,11 @@ import (
 	"time"
 )
 
-var SysConfig = new(sysConfig)
+var SysConfigBackend = new(sysConfigBackend)
 
-type sysConfig struct{}
+type sysConfigBackend struct{}
 
-var sysConfigData = []system.SysConfig{
+var sysConfigBackendData = []system.SysConfigBackend{
 	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1, Remark: "Casbin模型", CreatedAt: time.Now(), CreatedBy: "admin"},
 		GqaOption: "casbinModel", Default: "./config/casbin_model.conf",
 	},
@@ -50,23 +50,21 @@ var sysConfigData = []system.SysConfig{
 	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 12, Remark: "文件允许后缀", CreatedAt: time.Now(), CreatedBy: "admin"},
 		GqaOption: "fileExt", Default: ".png,.jpg,.docx,.xlsx,.txt,.doc,.xls",
 	},
-
-
 }
 
-func (s *sysConfig) Init() error {
+func (s *sysConfigBackend) Init() error {
 	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
 		var count int64
-		tx.Model(&system.SysConfig{}).Count(&count)
+		tx.Model(&system.SysConfigBackend{}).Count(&count)
 		if count != 0 {
-			fmt.Println("[Gin-Quasar-Admin] --> sys_config 表的初始数据已存在，跳过初始化数据！数据量：", count)
-			global.GqaLog.Error("sys_config 表的初始数据已存在，跳过初始化数据！", zap.Any("数据量", count))
+			fmt.Println("[Gin-Quasar-Admin] --> sys_config_backend 表的初始数据已存在，跳过初始化数据！数据量：", count)
+			global.GqaLog.Error("sys_config_backend 表的初始数据已存在，跳过初始化数据！", zap.Any("数据量", count))
 			return nil
 		}
-		if err := tx.Create(&sysConfigData).Error; err != nil { // 遇到错误时回滚事务
+		if err := tx.Create(&sysConfigBackendData).Error; err != nil { // 遇到错误时回滚事务
 			return err
 		}
-		fmt.Println("[Gin-Quasar-Admin] --> sys_config 表初始数据成功！")
+		fmt.Println("[Gin-Quasar-Admin] --> sys_config_backend 表初始数据成功！")
 		global.GqaLog.Error("sys_config 表初始数据成功！")
 		return nil
 	})

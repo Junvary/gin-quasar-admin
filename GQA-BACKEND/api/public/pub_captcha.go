@@ -13,19 +13,19 @@ import (
 type ApiCaptcha struct{}
 
 func (a *ApiCaptcha) Captcha(c *gin.Context) {
-	captchaKeyLong := utils.GetConfig("captchaKeyLong")
+	captchaKeyLong := utils.GetConfigBackend("captchaKeyLong")
 	if captchaKeyLong == "" {
 		global.GqaLog.Error("没有找到验证码字符数配置！")
 		global.ErrorMessage("没有找到验证码字符数配置！", c)
 		return
 	}
-	captchaWidth := utils.GetConfig("captchaWidth")
+	captchaWidth := utils.GetConfigBackend("captchaWidth")
 	if captchaWidth == "" {
 		global.GqaLog.Error("没有找到验证码宽度配置！")
 		global.ErrorMessage("没有找到验证码宽度配置！", c)
 		return
 	}
-	captchaHeight := utils.GetConfig("captchaHeight")
+	captchaHeight := utils.GetConfigBackend("captchaHeight")
 	if captchaHeight == "" {
 		global.GqaLog.Error("没有找到验证码高度配置！")
 		global.ErrorMessage("没有找到验证码高度配置！", c)

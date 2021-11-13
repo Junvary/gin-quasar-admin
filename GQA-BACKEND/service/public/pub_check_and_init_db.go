@@ -63,7 +63,8 @@ func (s *ServiceCheckAndInitDb) CheckAndInitDb(initDbInfo system.RequestInitDb) 
 		system.SysDict{},
 		system.SysApi{},
 		gormadapter.CasbinRule{},
-		system.SysConfig{},
+		system.SysConfigBackend{},
+		system.SysConfigFrontend{},
 	)
 	if err != nil {
 		global.GqaDb = nil
@@ -79,7 +80,8 @@ func (s *ServiceCheckAndInitDb) CheckAndInitDb(initDbInfo system.RequestInitDb) 
 		data.SysDict,
 		data.SysApi,
 		data.SysCasbin,
-		data.SysConfig,
+		data.SysConfigBackend,
+		data.SysConfigFrontend,
 	)
 	if err != nil {
 		global.GqaDb = nil

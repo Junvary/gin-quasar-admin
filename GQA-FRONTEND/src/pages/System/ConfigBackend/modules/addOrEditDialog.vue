@@ -4,7 +4,7 @@
             <q-card-section>
                 <div class="text-h6">
                     {{formTypeName}}：
-                    {{addOrEditDetail.roleName ? addOrEditDetail.roleName : "角色"}}
+                    {{addOrEditDetail.roleName ? addOrEditDetail.roleName : "后台配置"}}
                 </div>
             </q-card-section>
 
@@ -99,7 +99,7 @@ export default {
                 custom: '',
             },
             url: {
-                add: 'config/config-add',
+                add: 'config-backend/config-backend-add',
             },
         }
     },

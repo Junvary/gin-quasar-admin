@@ -31,7 +31,7 @@
                 <UserMenu style="margin: 0 5px" />
                 <!-- <q-language-switcher/> -->
                 <Setting style="margin: 0 5px" />
-                <Github style="margin: 0 5px" />
+                <GitLink style="margin: 0 5px" />
 
             </q-toolbar>
             <!-- </div> -->
@@ -46,9 +46,11 @@
 
         <q-drawer elevated v-model="leftDrawerOpen" show-if-above bordered content-class="bg-grey-1">
             <q-list>
-                <q-item-label header class="text-grey-8 text-center">
-                    欢迎使用 Gin-Quasar-Admin ！
-                </q-item-label>
+                <q-item clickable v-ripple>
+                    <q-item-section class="text-primary text-bold text-center">
+                        欢迎访问Gin-Quasar-Admin！
+                    </q-item-section>
+                </q-item>
                 <SideBarLeft />
             </q-list>
         </q-drawer>
@@ -68,7 +70,7 @@ import SideBarLeft from './SideBarLeft'
 import TabMenu from './TabMenu'
 import Fullscreen from './Fullscreen'
 import Notice from './Notice'
-import Github from './Github'
+import GitLink from './GitLink'
 import UserMenu from './UserMenu'
 import Setting from './Setting'
 import PageFooter from './PageFooter'
@@ -80,7 +82,7 @@ export default {
         TabMenu,
         Fullscreen,
         Notice,
-        Github,
+        GitLink,
         UserMenu,
         Setting,
         PageFooter,

@@ -2,7 +2,7 @@
     <q-page padding>
 
         <div class="row q-gutter-md items-center" style="margin-bottom: 10px">
-            <q-input style="width: 20%" v-model="queryParams.gqaOption" label="配置名" />
+            <q-input style="width: 20%" v-model="queryParams.gqaOption" label="前台配置名" />
             <q-input style="width: 20%" v-model="queryParams.remark" label="描述" />
             <q-btn color="primary" @click="handleSearch" label="搜索" />
             <q-btn color="primary" @click="resetSearch" label="重置" />
@@ -12,7 +12,7 @@
             :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
 
             <template v-slot:top="props">
-                <q-btn color="primary" @click="showAddForm()" label="新增配置" />
+                <q-btn color="primary" @click="showAddForm()" label="新增前台配置" />
                 <q-space />
                 <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
                     @click="props.toggleFullscreen" class="q-ml-md" />
@@ -59,7 +59,7 @@ import { putAction } from 'src/api/manage'
 import GqaDictShow from 'src/components/GqaDictShow'
 
 export default {
-    name: 'Config',
+    name: 'ConfigFrontend',
     mixins: [tableDataMixin],
     components: {
         addOrEditDialog,
@@ -68,16 +68,16 @@ export default {
     data() {
         return {
             url: {
-                list: 'config/config-list',
-                edit: 'config/config-edit',
-                delete: 'config/config-delete',
+                list: 'config-frontend/config-frontend-list',
+                edit: 'config-frontend/config-frontend-edit',
+                delete: 'config-frontend/config-frontend-delete',
             },
             columns: [
                 { name: 'sort', align: 'center', label: '排序', field: 'sort' },
-                { name: 'gqaOption', align: 'center', label: '配置名', field: 'gqaOption' },
+                { name: 'gqaOption', align: 'center', label: '前台配置名', field: 'gqaOption' },
                 { name: 'remark', align: 'center', label: '描述', field: 'remark' },
-                { name: 'default', align: 'center', label: '默认配置', field: 'default' },
-                { name: 'custom', align: 'center', label: '自定义配置', field: 'custom' },
+                { name: 'default', align: 'center', label: '默认前台配置', field: 'default' },
+                { name: 'custom', align: 'center', label: '自定义前台配置', field: 'custom' },
                 { name: 'status', align: 'center', label: '状态', field: 'status' },
                 { name: 'stable', align: 'center', label: '系统内置', field: 'stable' },
                 { name: 'actions', align: 'center', label: '操作', field: 'actions' },

@@ -10,7 +10,8 @@ type ApiSystem struct {
 	ApiDict
 	ApiApi
 	ApiUpload
-	ApiConfig
+	ApiConfigBackend
+	ApiConfigFrontend
 }
 
 var ServiceSystem = service.GroupServiceApp.ServiceSystem
@@ -21,4 +22,5 @@ var ServiceDept = ServiceSystem.ServiceDept
 var ServiceDict = ServiceSystem.ServiceDict
 var ServiceApi = ServiceSystem.ServiceApi
 var ServiceUpload = ServiceSystem.ServiceUpload
-var ServiceConfig = ServiceSystem.ServiceConfig
+var ServiceConfigBackend = ServiceSystem.ServiceConfigBackend
+var ServiceConfigFrontend = ServiceSystem.ServiceConfigFrontend

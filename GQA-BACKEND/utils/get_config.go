@@ -5,14 +5,14 @@ import (
 	"gin-quasar-admin/model/system"
 )
 
-func GetConfig(gqaOption string) (key string) {
-	var sysConfig system.SysConfig
-	if err := global.GqaDb.Where("gqa_option = ?", gqaOption).First(&sysConfig).Error; err != nil {
+func GetConfigBackend(gqaOption string) (key string) {
+	var sysConfigBackend system.SysConfigBackend
+	if err := global.GqaDb.Where("gqa_option = ?", gqaOption).First(&sysConfigBackend).Error; err != nil {
 		return ""
 	}
-	if sysConfig.Custom != "" {
-		return sysConfig.Custom
+	if sysConfigBackend.Custom != "" {
+		return sysConfigBackend.Custom
 	} else {
-		return sysConfig.Default
+		return sysConfigBackend.Default
 	}
 }
