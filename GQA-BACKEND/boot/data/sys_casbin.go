@@ -63,11 +63,17 @@ var sysCasbinData = []gormadapter.CasbinRule{
 	{Ptype: "p", V0: "super-admin", V1: "/upload/avatar", V2: "POST"},
 	{Ptype: "p", V0: "super-admin", V1: "/upload/file", V2: "POST"},
 
-	// config组
-	{Ptype: "p", V0: "super-admin", V1: "/config/config-list", V2: "POST"},
-	{Ptype: "p", V0: "super-admin", V1: "/config/config-edit", V2: "PUT"},
-	{Ptype: "p", V0: "super-admin", V1: "/config/config-add", V2: "POST"},
-	{Ptype: "p", V0: "super-admin", V1: "/config/config-delete", V2: "DELETE"},
+	// config-backend组
+	{Ptype: "p", V0: "super-admin", V1: "/config-backend/config-backend-list", V2: "POST"},
+	{Ptype: "p", V0: "super-admin", V1: "/config-backend/config-backend-edit", V2: "PUT"},
+	{Ptype: "p", V0: "super-admin", V1: "/config-backend/config-backend-add", V2: "POST"},
+	{Ptype: "p", V0: "super-admin", V1: "/config-backend/config-backend-delete", V2: "DELETE"},
+
+	// config-frontend组
+	{Ptype: "p", V0: "super-admin", V1: "/config-frontend/config-frontend-list", V2: "POST"},
+	{Ptype: "p", V0: "super-admin", V1: "/config-frontend/config-frontend-edit", V2: "PUT"},
+	{Ptype: "p", V0: "super-admin", V1: "/config-frontend/config-frontend-add", V2: "POST"},
+	{Ptype: "p", V0: "super-admin", V1: "/config-frontend/config-frontend-delete", V2: "DELETE"},
 }
 
 func (s *sysCasbin) Init() error {

@@ -8,5 +8,6 @@ type ServiceSystem struct {
 	ServiceDict
 	ServiceApi
 	ServiceUpload
-	ServiceConfig
+	ServiceConfigBackend
+	ServiceConfigFrontend
 }

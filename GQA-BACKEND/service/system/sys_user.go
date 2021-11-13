@@ -49,7 +49,7 @@ func (s *ServiceUser) AddUser(toAddUser *system.SysUser) (err error) {
 	if !errors.Is(global.GqaDb.Where("username = ?", toAddUser.Username).First(&user).Error, gorm.ErrRecordNotFound) {
 		return errors.New("此用户已存在：" + toAddUser.Username)
 	}
-	defaultPassword := utils.GetConfig("defaultPassword")
+	defaultPassword := utils.GetConfigBackend("defaultPassword")
 	if defaultPassword == ""{
 		toAddUser.Password = utils.EncodeMD5("123456")
 		err = global.GqaDb.Create(&toAddUser).Error

@@ -25,6 +25,7 @@ var sysRoleMenuData = []system.SysRoleMenu{
 	{"super-admin", 9},
 	{"super-admin", 10},
 	{"super-admin", 11},
+	{"super-admin", 12},
 }
 
 func (s *sysRoleMenu) Init() error {

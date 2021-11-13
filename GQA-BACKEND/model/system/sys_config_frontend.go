@@ -2,7 +2,7 @@ package system
 
 import "gin-quasar-admin/global"
 
-type SysConfig struct {
+type SysConfigFrontend struct {
 	UpdatedByUser *SysUser `json:"updatedByUser" gorm:"foreignKey:UpdatedBy;references:Username"`
 	CreatedByUser *SysUser `json:"createdByUser" gorm:"foreignKey:CreatedBy;references:Username"`
 	global.GqaModel
@@ -11,7 +11,7 @@ type SysConfig struct {
 	Custom    string `json:"custom" gorm:"comment:自定义配置;"`
 }
 
-type RequestAddConfig struct {
+type RequestAddConfigFrontend struct {
 	Status    string `json:"status"`
 	Sort      uint   `json:"sort"`
 	Remark    string `json:"remark"`
@@ -20,11 +20,11 @@ type RequestAddConfig struct {
 	Custom    string `json:"custom"`
 }
 
-type RequestConfigList struct {
+type RequestConfigFrontendList struct {
 	global.RequestPageAndSort
-	//可扩充的模糊搜索项，参考上面 RequestAddConfig 中的字段
+	//可扩充的模糊搜索项，参考上面 RequestAddConfigFrontend 中的字段
 	GqaOption string `json:"gqaOption"`
 	Remark    string `json:"remark"`
 	//全部可搜索，直接放开模型，并从service里面配置搜索逻辑
-	//SysConfig
+	//SysConfigFrontend
 }

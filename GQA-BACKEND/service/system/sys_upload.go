@@ -14,7 +14,7 @@ type ServiceUpload struct {
 
 func (s *ServiceUpload) UploadAvatar(username string, avatar multipart.File, avatarHeader *multipart.FileHeader) (err error, avatarUrl string) {
 	// 检查文件大小
-	maxSizeString := utils.GetConfig("avatarMaxSize")
+	maxSizeString := utils.GetConfigBackend("avatarMaxSize")
 	if maxSizeString == ""{
 		return errors.New("找不到头像大小配置！"), ""
 	}
@@ -22,7 +22,7 @@ func (s *ServiceUpload) UploadAvatar(username string, avatar multipart.File, ava
 		return errors.New("头像大小超出限制！"), ""
 	}
 	// 检查文件后缀
-	extListString := utils.GetConfig("avatarExt")
+	extListString := utils.GetConfigBackend("avatarExt")
 	if extListString == ""{
 		return errors.New("找不到头像后缀配置！"), ""
 	}
@@ -41,7 +41,7 @@ func (s *ServiceUpload) UploadAvatar(username string, avatar multipart.File, ava
 
 func (s *ServiceUpload) UploadFile(file multipart.File, fileHeader *multipart.FileHeader) (err error, fileUrl string) {
 	// 检查文件大小
-	maxSizeString := utils.GetConfig("fileMaxSize")
+	maxSizeString := utils.GetConfigBackend("fileMaxSize")
 	if maxSizeString == ""{
 		return errors.New("没有找到文件大小配置！"), ""
 	}
@@ -49,7 +49,7 @@ func (s *ServiceUpload) UploadFile(file multipart.File, fileHeader *multipart.Fi
 		return errors.New("文件大小超出限制！"), ""
 	}
 	// 检查文件后缀
-	extListString := utils.GetConfig("fileExt")
+	extListString := utils.GetConfigBackend("fileExt")
 	if extListString == ""{
 		return errors.New("没有找到文件后缀配置！"), ""
 	}

@@ -45,7 +45,7 @@ type Jwt struct {
 }
 
 func MakeJwt() (*Jwt, error) {
-	jwtKey := utils.GetConfig("jwtKey")
+	jwtKey := utils.GetConfigBackend("jwtKey")
 	if jwtKey == "" {
 		return nil, errors.New("没有找到Jwt密钥配置，请重新初始化数据库！")
 	}

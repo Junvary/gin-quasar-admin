@@ -59,7 +59,7 @@ import { putAction } from 'src/api/manage'
 import GqaDictShow from 'src/components/GqaDictShow'
 
 export default {
-    name: 'Config',
+    name: 'ConfigBackend',
     mixins: [tableDataMixin],
     components: {
         addOrEditDialog,
@@ -68,9 +68,9 @@ export default {
     data() {
         return {
             url: {
-                list: 'config/config-list',
-                edit: 'config/config-edit',
-                delete: 'config/config-delete',
+                list: 'config-backend/config-backend-list',
+                edit: 'config-backend/config-backend-edit',
+                delete: 'config-backend/config-backend-delete',
             },
             columns: [
                 { name: 'sort', align: 'center', label: this.$t('PageSystemConfigTableColumnSort'), field: 'sort' },

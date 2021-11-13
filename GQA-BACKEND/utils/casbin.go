@@ -11,7 +11,7 @@ import (
 
 func Casbin(db *gorm.DB) *casbin.Enforcer {
 	a, _ := gormadapter.NewAdapterByDB(db)
-	model := GetConfig("casbinModel")
+	model := GetConfigBackend("casbinModel")
 	if model == "" {
 		global.GqaLog.Error("启动失败，找不到Casbin模型！")
 		panic(fmt.Errorf("启动失败，找不到Casbin模型！"))

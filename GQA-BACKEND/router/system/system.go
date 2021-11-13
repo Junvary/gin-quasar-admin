@@ -10,7 +10,8 @@ type RouterSystem struct {
 	RouterDict
 	RouterApi
 	RouterUpload
-	RouterConfig
+	RouterConfigBackend
+	RouterConfigFrontend
 }
 
 var ApiSystem = api.GroupApiApp.ApiSystem
@@ -21,4 +22,5 @@ var ApiDept = ApiSystem.ApiDept
 var ApiDict = ApiSystem.ApiDict
 var ApiApi = ApiSystem.ApiApi
 var ApiUpload = ApiSystem.ApiUpload
-var ApiConfig = ApiSystem.ApiConfig
+var ApiConfigBackend = ApiSystem.ApiConfigBackend
+var ApiConfigFrontend = ApiSystem.ApiConfigFrontend
