@@ -16,7 +16,7 @@
                         <div class="row">
                             <q-input class="col" v-model="addOrEditDetail.id" label="ID" disable />
                             <q-input class="col" v-model.number="addOrEditDetail.sort" type="number"
-                                :rules="[ val => val >= 1 || $t('PageSystemUserEditDialogSortRule') ]" label="$t('PageSystemUserEditDialogSort')" />
+                                :rules="[ val => val >= 1 || $t('PageSystemUserEditDialogSortRule') ]" :label="$t('PageSystemUserEditDialogSort')" />
                             <q-file class="col" v-model="avatarFile" :label="$t('PageSystemUserEditDialogUserPicture')" max-files="1">
                                 <template v-slot:prepend>
                                     <GqaAvatar :src="addOrEditDetail.avatar" />
