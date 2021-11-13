@@ -74,12 +74,12 @@ export default {
                 delete: 'role/role-delete',
             },
             columns: [
-                { name: 'sort', align: 'center', label: $t('PageSystemRoleTableColumnSort'), field: 'sort' },
-                { name: 'roleCode', align: 'center', label: $t('PageSystemRoleTableColumnRoleCode'), field: 'roleCode' },
-                { name: 'roleName', align: 'center', label: $t('PageSystemRoleTableColumnRoleName'), field: 'roleName' },
-                { name: 'status', align: 'center', label: $t('PageSystemRoleTableColumnStatus'), field: 'status' },
-                { name: 'stable', align: 'center', label: $t('PageSystemRoleTableColumnStable'), field: 'stable' },
-                { name: 'actions', align: 'center', label: $t('PageSystemRoleTableColumnActions'), field: 'actions' },
+                { name: 'sort', align: 'center', label: this.$t('PageSystemRoleTableColumnSort'), field: 'sort' },
+                { name: 'roleCode', align: 'center', label: this.$t('PageSystemRoleTableColumnRoleCode'), field: 'roleCode' },
+                { name: 'roleName', align: 'center', label: this.$t('PageSystemRoleTableColumnRoleName'), field: 'roleName' },
+                { name: 'status', align: 'center', label: this.$t('PageSystemRoleTableColumnStatus'), field: 'status' },
+                { name: 'stable', align: 'center', label: this.$t('PageSystemRoleTableColumnStable'), field: 'stable' },
+                { name: 'actions', align: 'center', label: this.$t('PageSystemRoleTableColumnActions'), field: 'actions' },
             ],
         }
     },

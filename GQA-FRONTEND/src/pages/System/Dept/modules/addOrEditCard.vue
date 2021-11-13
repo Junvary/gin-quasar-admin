@@ -1,15 +1,15 @@
 <template>
     <q-card v-if="addOrEditVisible">
-        <div class="row justify-between items-center">
+        <div class="items-center justify-between row">
             <q-card-section>
                 <div class="text-h6">
                     {{formTypeName}}：
-                    {{addOrEditDetail.deptName ? addOrEditDetail.deptName : "部门"}}
+                    {{addOrEditDetail.deptName ? addOrEditDetail.deptName : $t('PageSystemDeptEditDialogTitle')}}
                 </div>
             </q-card-section>
             <q-card-actions>
-                <q-btn :label="'保存' + formTypeName " color="primary" @click="handleAddOrEidt" />
-                <q-btn label="取消" color="negative" @click="onClose" />
+                <q-btn :label="$t('PageSystemDeptEditDialogBtnSave')" color="primary" @click="handleAddOrEidt" />
+                <q-btn :label="$t('PageSystemDeptEditDialogBtnCancel')" color="negative" @click="onClose" />
             </q-card-actions>
         </div>
 
@@ -17,32 +17,32 @@
 
         <q-card-section>
             <q-form ref="addOrEditForm">
-                <div class="row justify-between">
+                <div class="justify-between row">
                     <div class="q-gutter-md col-9">
                         <div class="row">
                             <q-input class="col" label="ID" v-model="addOrEditDetail.id" disable />
-                            <GqaSeleteUser className="col" label="负责人" v-model:selectUser="addOrEditDetail.owner"
+                            <GqaSeleteUser className="col" :label="$t('PageSystemDeptEditDialogOwner')" v-model:selectUser="addOrEditDetail.owner"
                                 v-model:selectId="addOrEditDetail.ownerId" selection="single" />
                         </div>
 
                         <div class="row">
-                            <q-field class="col" label="创建时间" stack-label disable>
+                            <q-field class="col" :label="$t('PageSystemDeptEditDialogCreatedAt')" stack-label disable>
                                 <template v-slot:control>
                                     {{showDateTime(addOrEditDetail.createdAt)}}
                                 </template>
                             </q-field>
-                            <q-field class="col" label="创建人" stack-label disable>
+                            <q-field class="col" :label="$t('PageSystemDeptEditDialogCreatedBy')" stack-label disable>
                                 <template v-slot:control>
                                     <GqaShowName v-if="addOrEditDetail.createdByUser"
                                         :customNameObject="addOrEditDetail.createdByUser" />
                                 </template>
                             </q-field>
-                            <q-field class="col" label="更新时间" stack-label disable>
+                            <q-field class="col" :label="$t('PageSystemDeptEditDialogUpdatedAt')" stack-label disable>
                                 <template v-slot:control>
                                     {{showDateTime(addOrEditDetail.updatedAt)}}
                                 </template>
                             </q-field>
-                            <q-field class="col" label="更新人" stack-label disable>
+                            <q-field class="col" :label="$t('PageSystemDeptEditDialogUpdatedBy')" stack-label disable>
                                 <template v-slot:control>
                                     <GqaShowName v-if="addOrEditDetail.updatedByUser"
                                         :customNameObject="addOrEditDetail.updatedByUser" />
@@ -51,21 +51,21 @@
                         </div>
 
                         <div class="row">
-                            <q-input class="col" label="部门编码" v-model="addOrEditDetail.deptCode"
-                                :rules="[ val => val && val.length > 0 || '必须输入部门编码']" />
-                            <q-input class="col" label="部门名称" v-model="addOrEditDetail.deptName"
-                                :rules="[ val => val && val.length > 0 || '必须输入部门名称']" />
+                            <q-input class="col" :label="$t('PageSystemDeptEditDialogDeptCode')" v-model="addOrEditDetail.deptCode"
+                                :rules="[ val => val && val.length > 0 || $t('PageSystemDeptEditDialogDeptCodeRule')]" />
+                            <q-input class="col" :label="$t('PageSystemDeptEditDialogDeptName')" v-model="addOrEditDetail.deptName"
+                                :rules="[ val => val && val.length > 0 || $t('PageSystemDeptEditDialogDeptNameRule')]" />
                         </div>
 
                         <div class="row">
                             <q-input class="col" v-model.number="addOrEditDetail.sort" type="number"
-                                :rules="[ val => val >= 1 || '排序必须大于0']" label=" 排序" />
-                            <q-input class="col" v-model="addOrEditDetail.phone" label="联系电话" />
+                                :rules="[ val => val >= 1 || $t('PageSystemDeptEditDialogSortRule')]" :label="$t('PageSystemDeptEditDialogSort')" />
+                            <q-input class="col" v-model="addOrEditDetail.phone" :label="$t('PageSystemDeptEditDialogPhone')" />
 
                         </div>
 
                         <div class="row">
-                            <q-field class="col" label="是否启用" stack-label>
+                            <q-field class="col" :label="$t('PageSystemDeptEditDialogStatus')" stack-label>
                                 <template v-slot:control>
                                     <q-option-group v-model="addOrEditDetail.status" :options="options.statusOnOff"
                                         color="primary" inline>
@@ -73,16 +73,16 @@
                                 </template>
                             </q-field>
                         </div>
-                        <q-input v-model="addOrEditDetail.remark" type="textarea" label="备注" />
+                        <q-input v-model="addOrEditDetail.remark" type="textarea" :label="$t('PageSystemDeptEditDialogRemark')" />
                     </div>
                     <div class="q-gutter-md col-3">
-                        <q-field label="父级部门" stack-label>
+                        <q-field :label="$t('PageSystemDeptEditDialogParent')" stack-label>
                             <template v-slot:control>
                                 <q-tree :nodes="menuTree" default-expand-all node-key="id" label-key="name"
                                     selected-color="primary" v-model:selected="addOrEditDetail.parentId"
                                     v-if="menuTree.length !== 0" @update:selected="onSelected">
                                     <template v-slot:default-header="prop">
-                                        <div class="row items-center">
+                                        <div class="items-center row">
                                             <div class="text-weight-bold">{{ prop.node.deptName }}</div>
                                         </div>
                                     </template>

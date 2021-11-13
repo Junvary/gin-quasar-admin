@@ -1,18 +1,18 @@
 <template>
     <q-page padding>
 
-        <div class="row q-gutter-md items-center" style="margin-bottom: 10px">
-            <q-input style="width: 20%" v-model="queryParams.value" label="字典编码" />
-            <q-input style="width: 20%" v-model="queryParams.label" label="字典名称" />
-            <q-btn color="primary" @click="handleSearch" label="搜索" />
-            <q-btn color="primary" @click="resetSearch" label="重置" />
+        <div class="items-center row q-gutter-md" style="margin-bottom: 10px">
+            <q-input style="width: 20%" v-model="queryParams.value" :label="$t('PageSystemDictFilterValue')" />
+            <q-input style="width: 20%" v-model="queryParams.label" :label="$t('PageSystemDictFilterLabel')" />
+            <q-btn color="primary" @click="handleSearch" :label="$t('PageSystemDictFilterBtnSearch')" />
+            <q-btn color="primary" @click="resetSearch" :label="$t('PageSystemDictFilterBtnResetSearch')" />
         </div>
 
         <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
             :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
 
             <template v-slot:top="props">
-                <q-btn color="primary" @click="showAddForm()" label="新增字典" />
+                <q-btn color="primary" @click="showAddForm()" :label="$t('PageSystemDictBtnAdd')" />
                 <q-space />
                 <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
                     @click="props.toggleFullscreen" class="q-ml-md" />
@@ -33,9 +33,9 @@
             <template v-slot:body-cell-actions="props">
                 <q-td :props="props">
                     <div class="q-gutter-xs">
-                        <q-btn color="primary" @click="showEditForm(props.row)" label="编辑" />
-                        <q-btn color="warning" @click="handleDetail(props.row)" label="维护" />
-                        <q-btn color="negative" @click="handleDelete(props.row)" label="删除" />
+                        <q-btn color="primary" @click="showEditForm(props.row)" :label="$t('PageSystemDictBtnEdit')" />
+                        <q-btn color="warning" @click="handleDetail(props.row)" :label="$t('PageSystemDictBtnDetails')" />
+                        <q-btn color="negative" @click="handleDelete(props.row)" :label="$t('PageSystemDictBtnDelete')" />
                     </div>
                 </q-td>
             </template>
@@ -66,12 +66,12 @@ export default {
                 delete: 'dict/dict-delete',
             },
             columns: [
-                { name: 'sort', align: 'center', label: '排序', field: 'sort' },
-                { name: 'value', align: 'center', label: '字典编码', field: 'value' },
-                { name: 'label', align: 'center', label: '字典名称', field: 'label' },
-                { name: 'status', align: 'center', label: '状态', field: 'status' },
-                { name: 'stable', align: 'center', label: '系统内置', field: 'stable' },
-                { name: 'actions', align: 'center', label: '操作', field: 'actions' },
+                { name: 'sort', align: 'center', label: this.$t('PageSystemDictTableColumnSort'), field: 'sort' },
+                { name: 'value', align: 'center', label: this.$t('PageSystemDictTableColumnValue'), field: 'value' },
+                { name: 'label', align: 'center', label: this.$t('PageSystemDictTableColumnLabel'), field: 'label' },
+                { name: 'status', align: 'center', label: this.$t('PageSystemDictTableColumnStatus'), field: 'status' },
+                { name: 'stable', align: 'center', label: this.$t('PageSystemDictTableColumnStable'), field: 'stable' },
+                { name: 'actions', align: 'center', label: this.$t('PageSystemDictTableColumnActions'), field: 'actions' },
             ],
         }
     },

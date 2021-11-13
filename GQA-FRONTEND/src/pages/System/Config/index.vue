@@ -1,18 +1,18 @@
 <template>
     <q-page padding>
 
-        <div class="row q-gutter-md items-center" style="margin-bottom: 10px">
-            <q-input style="width: 20%" v-model="queryParams.gqaOption" label="配置名" />
-            <q-input style="width: 20%" v-model="queryParams.remark" label="描述" />
-            <q-btn color="primary" @click="handleSearch" label="搜索" />
-            <q-btn color="primary" @click="resetSearch" label="重置" />
+        <div class="items-center row q-gutter-md" style="margin-bottom: 10px">
+            <q-input style="width: 20%" v-model="queryParams.gqaOption" :label="$t('PageSystemConfigFilterOption')" />
+            <q-input style="width: 20%" v-model="queryParams.remark" :label="$t('PageSystemConfigFilterRemark')" />
+            <q-btn color="primary" @click="handleSearch" :label="$t('PageSystemConfigTableBtnSearch')" />
+            <q-btn color="primary" @click="resetSearch" :label="$t('PageSystemConfigTableBtnResetSearch')" />
         </div>
 
         <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
             :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
 
             <template v-slot:top="props">
-                <q-btn color="primary" @click="showAddForm()" label="新增配置" />
+                <q-btn color="primary" @click="showAddForm()" :label="$t('PageSystemConfigBtnAdd')" />
                 <q-space />
                 <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
                     @click="props.toggleFullscreen" class="q-ml-md" />
@@ -21,7 +21,7 @@
             <template v-slot:body-cell-custom="props">
                 <q-td :props="props">
                     {{props.row.custom}}
-                    <q-popup-edit v-model="props.row.custom" :title="'自定义:' + props.row.gqaOption">
+                    <q-popup-edit v-model="props.row.custom" :title="$t('PageSystemConfigOption') + props.row.gqaOption">
                         <q-input v-model="props.row.custom" dense autofocus />
                     </q-popup-edit>
                 </q-td>
@@ -42,8 +42,8 @@
             <template v-slot:body-cell-actions="props">
                 <q-td :props="props">
                     <div class="q-gutter-xs">
-                        <q-btn dense color="primary" @click="handleSave(props.row)" label="保存编辑" />
-                        <q-btn color="negative" @click="handleDelete(props.row)" label="删除" />
+                        <q-btn dense color="primary" @click="handleSave(props.row)" :label="$t('PageSystemConfigBtnSave')" />
+                        <q-btn color="negative" @click="handleDelete(props.row)" :label="$t('PageSystemConfigBtnDelete')" />
                     </div>
                 </q-td>
             </template>
@@ -73,14 +73,14 @@ export default {
                 delete: 'config/config-delete',
             },
             columns: [
-                { name: 'sort', align: 'center', label: '排序', field: 'sort' },
-                { name: 'gqaOption', align: 'center', label: '配置名', field: 'gqaOption' },
-                { name: 'remark', align: 'center', label: '描述', field: 'remark' },
-                { name: 'default', align: 'center', label: '默认配置', field: 'default' },
-                { name: 'custom', align: 'center', label: '自定义配置', field: 'custom' },
-                { name: 'status', align: 'center', label: '状态', field: 'status' },
-                { name: 'stable', align: 'center', label: '系统内置', field: 'stable' },
-                { name: 'actions', align: 'center', label: '操作', field: 'actions' },
+                { name: 'sort', align: 'center', label: this.$t('PageSystemConfigTableColumnSort'), field: 'sort' },
+                { name: 'gqaOption', align: 'center', label: this.$t('PageSystemConfigTableColumnOption'), field: 'gqaOption' },
+                { name: 'remark', align: 'center', label: this.$t('PageSystemConfigTableColumnRemark'), field: 'remark' },
+                { name: 'default', align: 'center', label: this.$t('PageSystemConfigTableColumnDefault'), field: 'default' },
+                { name: 'custom', align: 'center', label: this.$t('PageSystemConfigTableColumnCustom'), field: 'custom' },
+                { name: 'status', align: 'center', label: this.$t('PageSystemConfigTableColumnStatus'), field: 'status' },
+                { name: 'stable', align: 'center', label: this.$t('PageSystemConfigTableColumnStable'), field: 'stable' },
+                { name: 'actions', align: 'center', label: this.$t('PageSystemConfigTableColumnActions'), field: 'actions' },
             ],
         }
     },

@@ -199,13 +199,13 @@ export default {
     computed: {
         initLabel() {
             if (this.step === 1) {
-                return $t('LoginLayoutWizardStepStart')
+                return this.$t('LoginLayoutWizardStepStart')
             } else if (this.step === 2) {
-                return $t('LoginLayoutWizardStepNext')
+                return this.$t('LoginLayoutWizardStepNext')
             } else if (this.step === 3) {
-                return $t('LoginLayoutWizardStepInitializingStart')
+                return this.$t('LoginLayoutWizardStepInitializingStart')
             } else {
-                return $t('LoginLayoutWizardStepNext')
+                return this.$t('LoginLayoutWizardStepNext')
             }
         },
     },
