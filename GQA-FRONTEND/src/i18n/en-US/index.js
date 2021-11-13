@@ -305,4 +305,19 @@ export default {
     PageSystemDictEditDialogBtnSave: 'Save',
     PageSystemDictEditDialogBtnCancel: 'Cancel',
 
+    ComponentThemeColor: 'Theme color',
+    ComponentSelectUser: 'select',
+    ComponentSelectUserLabel: 'Select User',
+    ComponentSelectUserTableColumnUsername: 'Username',
+    ComponentSelectUserTableColumnNickname: 'Nickname',
+    ComponentSelectUserTableColumnRealname: 'Realname',
+    ComponentSelectUserBtnResetSearch: 'Reset',
+    ComponentSelectUserBtnSearch: 'Search',
+    ComponentSelectUserFilterUsername: 'Username',
+    ComponentSelectUserFilterRealname: 'Realname',
+    ComponentSelectUserBtnSelectUser: 'Select',
+    ComponentSelectUserTitle: '{oneOrMultiple} user selection',
+    ComponentSelectUserTitleOne: 'Single',
+    ComponentSelectUserTitleMultiple: 'Multiple',
+
 }
