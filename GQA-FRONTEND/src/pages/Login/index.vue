@@ -15,10 +15,12 @@
                     </div>
                     <q-form @submit="onSubmit" class="q-mt-lg">
                         <q-input :disable="loading" outlined dense no-error-icon v-model.trim="form.username"
-                            :placeholder="$t('LoginUserNamePlaceholder')" :rules="[(val) =>(val && val.length > 0) || $t('LoginUserNameAddUserName'),]" />
+                            :placeholder="$t('LoginUserNamePlaceholder')" :rules="[(val) =>(val && val.length > 0) || $t('LoginUserNameAddUserName'),]"
+                            autocomplete="username"/>
                         <q-input :disable="loading" outlined dense no-error-icon :type="isPwd ? 'password' : 'text'"
                             v-model.trim="form.password" :placeholder="$t('LoginPasswordPlaceholder')"
-                            :rules="[(val) =>(val && val.length > 0) || $t('LoginPasswordAddPassword'),]">
+                            :rules="[(val) =>(val && val.length > 0) || $t('LoginPasswordAddPassword'),]"
+                            autocomplete="current-password">
                             <template v-slot:append>
                                 <q-icon :name="isPwd ? 'visibility_off' : 'visibility'" class="cursor-pointer"
                                     @click="isPwd = !isPwd" />
