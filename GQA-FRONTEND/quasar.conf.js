@@ -24,11 +24,11 @@ module.exports = configure(function(ctx) {
             'set-default',
             'theme',
             'version',
+            'i18n',
             'axios',
             'permission',
             'echarts',
             'bus',
-            'i18n'
         ],
 
         // https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css

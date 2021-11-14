@@ -354,5 +354,14 @@ export default {
     PageExampleIconCopyToClipboardSuccess: '成功复制到剪切板',
     PageExampleIconCopyToClipboardError: '复制到剪切板失败',
     PageError404: 'Oops. Nothing here...',
-    PageGoHome: 'Go Home'
+    PageGoHome: 'Go Home',
+    AxiosCantIdentifyTitle: '身份鉴别失败！',
+    AxiosCantIdentifyMessage: '你的身份鉴别已过期，请退出系统重新登录！',
+    AxiosCantIdentifyOkLabel: '"重新登录"',
+    AxiosErrorOperation: '操作失败！',
+    AxiosErrorTimeout: '后台响应超时！',
+    AxiosErrorNoNetwork: '请求地址不存在 [{error}]',
+    AxiosErrorAbnormalTitle: '"抱歉！"',
+    AxiosErrorAbnormalMessage: '数据异常，请退出系统重新登录！',
+    AxiosErrorAbnormalOkLabel: '重新登录',
 }
