@@ -1,7 +1,7 @@
 <template>
     <q-page padding>
 
-        <div class="items-center row q-gutter-md" style="margin-bottom: 10px">
+        <div class="row q-gutter-md items-center" style="margin-bottom: 10px">
             <q-input style="width: 20%" v-model="queryParams.gqaOption" :label="$t('PageSystemConfigFilterOption')" />
             <q-input style="width: 20%" v-model="queryParams.remark" :label="$t('PageSystemConfigFilterRemark')" />
             <q-btn color="primary" @click="handleSearch" :label="$t('PageSystemConfigTableBtnSearch')" />
