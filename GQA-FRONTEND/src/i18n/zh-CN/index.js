@@ -364,4 +364,5 @@ export default {
     AxiosErrorAbnormalTitle: '"抱歉！"',
     AxiosErrorAbnormalMessage: '数据异常，请退出系统重新登录！',
     AxiosErrorAbnormalOkLabel: '重新登录',
+    SystemLoading: '系统努力加载中...',
 }

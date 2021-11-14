@@ -12,7 +12,9 @@ LoadingBar.setDefaults({
 function startLoading() {
     Loading.show({
         // spinner: QSpinnerGears,
-        message: $t('SystemLoading')
+        message: function() {
+            return this.$t('SystemLoading')
+        }
     })
     LoadingBar.start()
 }
