@@ -47,7 +47,7 @@
         <q-drawer elevated v-model="leftDrawerOpen" show-if-above bordered content-class="bg-grey-1">
             <q-list>
                 <q-item clickable v-ripple>
-                    <q-item-section class="text-center text-primary text-bold">
+                    <q-item-section class="text-primary text-bold text-center">
                          {{ $t('LayoutMainWelcome') }}
                     </q-item-section>
                 </q-item>
