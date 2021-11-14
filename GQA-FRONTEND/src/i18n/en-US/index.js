@@ -358,6 +358,16 @@ export default {
     PageExampleIconCopyToClipboardSuccess: 'Successfully copied to the clipboard',
     PageExampleIconCopyToClipboardError: 'error on copy to clipboard',
     PageError404: 'Oops. Nothing here...',
-    PageGoHome: 'Go Home'
+    PageGoHome: 'Go Home',
+    AxiosCantIdentifyTitle: 'Identity failed!',
+    AxiosCantIdentifyMessage: 'Your identification has expired, please finish the system to log in!',
+    AxiosCantIdentifyOkLabel: 'Please Relogin',
+    AxiosErrorOperation: 'Operation failed!',
+    AxiosErrorTimeout: 'Timeout occured!',
+    AxiosErrorNoNetwork: 'The request address does not exist [{error}]',
+    AxiosErrorAbnormalTitle: '"Error"',
+    AxiosErrorAbnormalMessage: 'Data is abnormal, please finish the system to log in!',
+    AxiosErrorAbnormalOkLabel: 'Please relogin',
+    SystemLoading: 'System loading...',
 
 }
