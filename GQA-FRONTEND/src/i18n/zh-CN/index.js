@@ -353,4 +353,6 @@ export default {
     PageExampleIconFontAwesome: 'fontawesome',
     PageExampleIconCopyToClipboardSuccess: '成功复制到剪切板',
     PageExampleIconCopyToClipboardError: '复制到剪切板失败',
+    PageError404: 'Oops. Nothing here...',
+    PageGoHome: 'Go Home'
 }

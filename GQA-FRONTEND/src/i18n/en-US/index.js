@@ -357,5 +357,7 @@ export default {
     PageExampleIconFontAwesome: 'FontAwesome',
     PageExampleIconCopyToClipboardSuccess: 'Successfully copied to the clipboard',
     PageExampleIconCopyToClipboardError: 'error on copy to clipboard',
+    PageError404: 'Oops. Nothing here...',
+    PageGoHome: 'Go Home'
 
 }
