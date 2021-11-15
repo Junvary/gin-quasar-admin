@@ -131,9 +131,7 @@ func (a *ApiUser) GetUserMenu(c *gin.Context) {
 	if err != nil {
 		global.ErrorMessage("获取用户菜单失败，"+err.Error(), c)
 	}
-	global.SuccessData(system.ResponseMenu{
-		Menu: menu,
-	}, c)
+	global.SuccessMessageData(gin.H{"records": menu}, "获取用户菜单成功！", c)
 }
 
 func (a *ApiUser) GetUserRole(c *gin.Context) {
@@ -141,7 +139,5 @@ func (a *ApiUser) GetUserRole(c *gin.Context) {
 	if err != nil {
 		global.ErrorMessage("获取用户角色失败，"+err.Error(), c)
 	}
-	global.SuccessData(system.ResponseRole{
-		Role: role,
-	}, c)
+	global.SuccessMessageData(gin.H{"records": role}, "获取用户角色成功！", c)
 }

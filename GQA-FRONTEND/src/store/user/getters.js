@@ -1,5 +1,13 @@
+import { Cookies, SessionStorage } from 'quasar'
+
 export function token(state) {
-    return state.token
+    if (SessionStorage.getItem('gqa-token')) {
+        return SessionStorage.getItem('gqa-token')
+    } else if (Cookies.get('gqa-token')) {
+        return Cookies.get('gqa-token')
+    } else {
+        return state.token
+    }
 }
 
 export function nickname(state) {

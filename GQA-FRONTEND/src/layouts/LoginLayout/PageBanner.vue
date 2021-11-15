@@ -3,10 +3,10 @@
         <div class="container">
             <div class="container-title">
                 <h1>
-                    Gin-Quasar-Admin
+                    {{ gqaFrontend.gqaSubTitle }}
                 </h1>
                 <p class="small-title">
-                    Be the change you want to see in the world.
+                    {{ gqaFrontend.gqaDescribe }}
                 </p>
                 <div class="buttons">
                     <q-btn push color="primary" @click="openLink('https://gitee.com/junvary/gin-quasar-admin')">
@@ -33,10 +33,12 @@
 </template>
 
 <script>
+import { gqaFrontendMixin } from 'src/mixins/gqaFrontendMixin'
 import LoginDialog from 'src/pages/Login'
 
 export default {
     name: 'PageBanner',
+    mixins: [gqaFrontendMixin],
     props: {
         checkDbStatus: {
             type: Boolean,

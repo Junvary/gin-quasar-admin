@@ -31,7 +31,7 @@ export const addOrEditMixin = {
         }
     },
     created() {
-        this.options = this.$q.cookies.get("gqa-dict")
+        this.options = this.$q.localStorage.getItem("gqa-dict")
     },
     methods: {
         show(row) {
@@ -44,7 +44,6 @@ export const addOrEditMixin = {
             } else {
                 this.handleQueryById(this.addOrEditDetail.id)
             }
-
         },
         async handleQueryById(id) {
             const res = await postAction(this.url.queryById, {

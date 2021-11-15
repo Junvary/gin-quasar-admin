@@ -59,7 +59,3 @@ type RequestRoleApiEdit struct {
 	RoleCode string      `json:"roleCode"`
 	Policy   []SysCasbin `json:"policy"`
 }
-
-type ResponseRole struct {
-	Role []SysRole `json:"role"`
-}

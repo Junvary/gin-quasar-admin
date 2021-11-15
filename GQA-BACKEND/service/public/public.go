@@ -3,5 +3,6 @@ package public
 type ServicePublic struct {
 	ServiceCheckAndInitDb
 	ServiceLogin
-	ServiceDictDetail
+	ServiceGetDict
+	ServiceGetFrontend
 }

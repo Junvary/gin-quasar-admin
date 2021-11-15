@@ -1,4 +1,4 @@
-import { Cookies, SessionStorage } from 'quasar'
+import { Cookies, SessionStorage, LocalStorage } from 'quasar'
 
 export function SET_TOKEN(state, token) {
     state.token = token
@@ -35,7 +35,7 @@ export function LOGOUT(state) {
     Cookies.remove('gqa-realName')
     Cookies.remove('gqa-avatar')
     // 字典不删除
-    // Cookies.remove('gqa-dict')
+    // LocalStorage.remove('gqa-dict')
     state.token = undefined
     state.nickname = undefined
     state.realName = undefined

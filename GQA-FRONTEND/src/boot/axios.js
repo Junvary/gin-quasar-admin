@@ -1,7 +1,7 @@
 import { boot } from 'quasar/wrappers'
 import axios from 'axios'
 import { Notify, Dialog } from 'quasar'
-import { GetToken } from 'src/utils/getToken'
+// import { GetToken } from 'src/utils/cookies'
 
 // Be careful when using SSR for cross-request state pollution
 // due to creating a Singleton instance here;
@@ -21,7 +21,7 @@ const api = axios.create(
 export default boot(({ app, router, store }) => {
     // 请求拦截
     api.interceptors.request.use(res => {
-        const token = GetToken()
+        const token = store.getters['user/token']
         res.headers = {
             'Content-Type': 'application/json;charset=utf-8',
             'Gqa-Token': token,

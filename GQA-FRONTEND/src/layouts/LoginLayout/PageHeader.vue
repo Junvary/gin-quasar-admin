@@ -5,9 +5,8 @@
                 <img src="gqa128.png" />
             </q-avatar>
             <span style="margin-left: 10px">
-                Gin-Quasar-Admin
+                {{ gqaFrontend.gqaMainTitle }}
             </span>
-
         </a>
         <ul>
             <li>
@@ -36,8 +35,11 @@
 </template>
 
 <script>
+import { gqaFrontendMixin } from 'src/mixins/gqaFrontendMixin'
+
 export default {
     name: 'PageHeader',
+    mixins: [gqaFrontendMixin],
     methods: {
         flow() {
             // 监视下滑，改变导航栏

@@ -35,7 +35,7 @@ export default {
         }
     },
     created() {
-        this.dictList = this.$q.cookies.get('gqa-dict')
+        this.dictList = this.$q.localStorage.getItem('gqa-dict')
     },
 }
 </script>

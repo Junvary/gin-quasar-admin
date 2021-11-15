@@ -6,11 +6,13 @@ type RouterPublic struct {
 	RouterCheckDb
 	RouterCaptcha
 	RouterLogin
-	RouterDictDetail
+	RouterGetDict
+	RouterGetFrontend
 }
 
 var ApiPublic = api.GroupApiApp.ApiPublic
 var ApiCaptcha = ApiPublic.ApiCaptcha
 var ApiCheckAndInitDb = ApiPublic.ApiCheckAndInitDb
-var ApiDictDetail = ApiPublic.ApiDictDetail
 var ApiLogin = ApiPublic.ApiLogin
+var ApiGetDict = ApiPublic.ApiGetDict
+var ApiGetFrontend = ApiPublic.ApiGetFrontend

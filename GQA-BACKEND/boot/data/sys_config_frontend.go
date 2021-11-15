@@ -14,8 +14,17 @@ var SysConfigFrontend = new(sysConfigFrontend)
 type sysConfigFrontend struct{}
 
 var sysConfigFrontendData = []system.SysConfigFrontend{
-	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1, Remark: "Casbin模型", CreatedAt: time.Now(), CreatedBy: "admin"},
-		GqaOption: "casbinModel", Default: "./config/casbin_model.conf",
+	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1, Remark: "网站主标题", CreatedAt: time.Now(), CreatedBy: "admin"},
+		GqaOption: "gqaMainTitle", Default: "Gin-Quasar-Admin",
+	},
+	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 2, Remark: "网站次标题", CreatedAt: time.Now(), CreatedBy: "admin"},
+		GqaOption: "gqaSubTitle", Default: "Gin-Quasar-Admin",
+	},
+	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 3, Remark: "网站描述", CreatedAt: time.Now(), CreatedBy: "admin"},
+		GqaOption: "gqaDescribe", Default: "Be the change you want to see in the world.",
+	},
+	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 4, Remark: "显示仓库入口", CreatedAt: time.Now(), CreatedBy: "admin"},
+		GqaOption: "gqaShowGit", Default: "yes",
 	},
 }
 

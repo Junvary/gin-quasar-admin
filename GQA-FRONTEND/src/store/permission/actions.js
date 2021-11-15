@@ -6,7 +6,7 @@ import { HandleAsideMenu } from 'src/utils/arrayAndTree'
 export async function GetUserMenu({ commit, state, dispatch }) {
     const res = await getAction(userMenuUrl)
     if (res.code === 1) {
-        const data = res.data.menu
+        const data = res.data.records
         // 拿到鉴权路由表（用户自己的所有菜单），整理称路由
         const routes = HandleRouter(data)
         // 设置所有菜单

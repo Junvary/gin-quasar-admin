@@ -5,6 +5,7 @@ import { createStore } from 'vuex'
 import user from './user'
 import permission from './permission'
 import tabMenu from './tabMenu'
+import storage from './storage'
 
 /*
  * If not building with SSR mode, you can
@@ -20,7 +21,8 @@ export default store(function (/* { ssrContext } */) {
         modules: {
             user,
             permission,
-            tabMenu
+            tabMenu,
+            storage
         },
 
         // enable strict mode (adds overhead!)

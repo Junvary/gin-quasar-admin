@@ -169,6 +169,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import PageHeader from './PageHeader'
 import PageBanner from './PageBanner'
 import PageNews from './PageNews'
@@ -180,9 +181,7 @@ import PageDownload from './PageDownload'
 import PageFooter from './PageFooter'
 
 import { getAction, postAction } from 'src/api/manage'
-import { checkDbUrl, initDbUrl, dictDetailUrl } from 'src/api/url'
-
-import { ArrayToTree } from 'src/utils/arrayAndTree'
+import { checkDbUrl, initDbUrl } from 'src/api/url'
 
 export default {
     components: {
@@ -234,7 +233,7 @@ export default {
             getAction(checkDbUrl).then((res) => {
                 if (res.code === 1) {
                     if (res.data.needInit === false) {
-                        this.getDictDetail()
+                        this.getPublic()
                         this.checkDbStatus = false
                     }
                     if (res.data.needInit === true) {
@@ -271,7 +270,7 @@ export default {
                                     })
                                     this.initDbVisible = false
                                     this.checkDbStatus = false
-                                    this.getDictDetail()
+                                    this.getPublic()
                                     this.$refs.pageBanner.showLoginForm()
                                 }
                             })
@@ -284,18 +283,10 @@ export default {
                 })
             }
         },
-        getDictDetail() {
-            postAction(dictDetailUrl).then((res) => {
-                if (res.code === 1) {
-                    const dictDetail = res.data.records
-                    const dictList = ArrayToTree(dictDetail)
-                    let dict = {}
-                    for (let d of dictList) {
-                        dict[d.value] = d.children
-                    }
-                    this.$q.cookies.set('gqa-dict', dict)
-                }
-            })
+        ...mapActions('storage', ['GetGqaDict', 'GetGqaFrontend']),
+        getPublic() {
+            this.GetGqaDict()
+            this.GetGqaFrontend()
         },
     },
 }

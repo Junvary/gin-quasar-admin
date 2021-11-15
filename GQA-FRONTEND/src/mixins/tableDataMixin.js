@@ -16,10 +16,10 @@ export const tableDataMixin = {
         }
     },
     methods: {
-        getTableData() {
-            this.onRequest({ pagination: this.pagination })
+        async getTableData() {
+            await this.onRequest({ pagination: this.pagination })
         },
-        onRequest(props) {
+        async onRequest(props) {
             if (this.url === undefined || !this.url.list) {
                 this.$q.notify({
                     type: 'negative',
@@ -37,7 +37,7 @@ export const tableDataMixin = {
             params.pageSize = props.pagination.rowsPerPage
             const allParams = Object.assign({}, params, this.queryParams)
             // 带参数请求数据
-            postAction(this.url.list, allParams).then(res => {
+            await postAction(this.url.list, allParams).then(res => {
                 if (res.code === 1) {
                     // 最终要把分页给同步掉
                     this.pagination = props.pagination

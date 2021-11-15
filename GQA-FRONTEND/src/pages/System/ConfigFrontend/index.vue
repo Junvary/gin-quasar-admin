@@ -54,6 +54,7 @@
 
 <script>
 import { tableDataMixin } from 'src/mixins/tableDataMixin'
+import { mapActions } from 'vuex'
 import addOrEditDialog from './modules/addOrEditDialog'
 import { putAction } from 'src/api/manage'
 import GqaDictShow from 'src/components/GqaDictShow'
@@ -76,8 +77,8 @@ export default {
                 { name: 'sort', align: 'center', label: '排序', field: 'sort' },
                 { name: 'gqaOption', align: 'center', label: '前台配置名', field: 'gqaOption' },
                 { name: 'remark', align: 'center', label: '描述', field: 'remark' },
-                { name: 'default', align: 'center', label: '默认前台配置', field: 'default' },
-                { name: 'custom', align: 'center', label: '自定义前台配置', field: 'custom' },
+                { name: 'default', align: 'center', label: '默认网站前台配置', field: 'default' },
+                { name: 'custom', align: 'center', label: '自定义网站前台配置', field: 'custom' },
                 { name: 'status', align: 'center', label: '状态', field: 'status' },
                 { name: 'stable', align: 'center', label: '系统内置', field: 'stable' },
                 { name: 'actions', align: 'center', label: '操作', field: 'actions' },
@@ -88,6 +89,7 @@ export default {
         this.getTableData()
     },
     methods: {
+        ...mapActions('storage', ['SetGqaFrontend']),
         async handleSave(row) {
             const res = await putAction(this.url.edit, row)
             if (res.code === 1) {
@@ -95,7 +97,9 @@ export default {
                     type: 'positive',
                     message: res.message,
                 })
-                this.getTableData()
+                this.getTableData().then(() => {
+                    this.SetGqaFrontend(this.tableData)
+                })
             }
         },
     },

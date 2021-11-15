@@ -41,7 +41,3 @@ type RequestMenuList struct {
 	//全部可搜索，直接放开模型，并从service里面配置搜索逻辑
 	//SysMenu
 }
-
-type ResponseMenu struct {
-	Menu []SysMenu `json:"menu"`
-}

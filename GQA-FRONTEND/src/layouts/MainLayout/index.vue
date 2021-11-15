@@ -10,7 +10,7 @@
                 </q-avatar>
 
                 <q-toolbar-title shrink class="text-bold text-italic">
-                    Gin-Quasar-Admin
+                    {{ gqaFrontend.gqaSubTitle }}
                 </q-toolbar-title>
 
                 <!-- <TabMenu /> -->
@@ -48,7 +48,8 @@
             <q-list>
                 <q-item clickable v-ripple>
                     <q-item-section class="text-primary text-bold text-center">
-                        欢迎访问Gin-Quasar-Admin！
+                        欢迎访问
+                        {{ gqaFrontend.gqaSubTitle }}
                     </q-item-section>
                 </q-item>
                 <SideBarLeft />
@@ -66,6 +67,7 @@
 </template>
 
 <script>
+import { gqaFrontendMixin } from 'src/mixins/gqaFrontendMixin'
 import SideBarLeft from './SideBarLeft'
 import TabMenu from './TabMenu'
 import Fullscreen from './Fullscreen'
@@ -77,6 +79,7 @@ import PageFooter from './PageFooter'
 
 export default {
     name: 'MainLayout',
+    mixins: [gqaFrontendMixin],
     components: {
         SideBarLeft,
         TabMenu,
