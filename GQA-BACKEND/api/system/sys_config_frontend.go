@@ -18,8 +18,8 @@ func (a *ApiConfigFrontend) GetConfigFrontendList(c *gin.Context) {
 		return
 	}
 	if err, configList, total := ServiceConfigFrontend.GetConfigFrontendList(getConfigFrontendList); err != nil {
-		global.GqaLog.Error("获取前台列表失败！", zap.Any("err", err))
-		global.ErrorMessage("获取前台列表失败，"+err.Error(), c)
+		global.GqaLog.Error("获取网站前台配置列表失败！", zap.Any("err", err))
+		global.ErrorMessage("获取网站前台配置列表失败，"+err.Error(), c)
 	} else {
 		global.SuccessData(system.ResponsePage{
 			Records:  configList,
@@ -39,10 +39,10 @@ func (a *ApiConfigFrontend) EditConfigFrontend(c *gin.Context) {
 	}
 	toEditConfigFrontend.UpdatedBy = utils.GetUsername(c)
 	if err := ServiceConfigFrontend.EditConfigFrontend(toEditConfigFrontend); err != nil {
-		global.GqaLog.Error("编辑前台失败！", zap.Any("err", err))
-		global.ErrorMessage("编辑前台失败，"+err.Error(), c)
+		global.GqaLog.Error("编辑网站前台配置失败！", zap.Any("err", err))
+		global.ErrorMessage("编辑网站前台配置失败，"+err.Error(), c)
 	} else {
-		global.SuccessMessage("编辑前台成功！", c)
+		global.SuccessMessage("编辑网站前台配置成功！", c)
 	}
 }
 
@@ -65,10 +65,10 @@ func (a *ApiConfigFrontend) AddConfigFrontend(c *gin.Context) {
 		Custom:    toAddConfigFrontend.Custom,
 	}
 	if err := ServiceConfigFrontend.AddConfigFrontend(*addConfigFrontend); err != nil {
-		global.GqaLog.Error("添加前台失败！", zap.Any("err", err))
-		global.ErrorMessage("添加前台失败，"+err.Error(), c)
+		global.GqaLog.Error("添加网站前台配置失败！", zap.Any("err", err))
+		global.ErrorMessage("添加网站前台配置失败，"+err.Error(), c)
 	} else {
-		global.SuccessMessage("添加前台成功！", c)
+		global.SuccessMessage("添加网站前台配置成功！", c)
 	}
 }
 
@@ -80,9 +80,9 @@ func (a *ApiConfigFrontend) DeleteConfigFrontend(c *gin.Context) {
 		return
 	}
 	if err := ServiceConfigFrontend.DeleteConfigFrontend(toDeleteId.Id); err != nil {
-		global.GqaLog.Error("删除前台失败！", zap.Any("err", err))
-		global.ErrorMessage("删除前台失败，"+err.Error(), c)
+		global.GqaLog.Error("删除网站前台配置失败！", zap.Any("err", err))
+		global.ErrorMessage("删除网站前台配置失败，"+err.Error(), c)
 	} else {
-		global.SuccessMessage("删除前台成功！", c)
+		global.SuccessMessage("删除网站前台配置成功！", c)
 	}
 }

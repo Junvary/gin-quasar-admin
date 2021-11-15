@@ -38,7 +38,7 @@ func (s *ServiceConfigFrontend) EditConfigFrontend(toEditConfigFrontend system.S
 func (s *ServiceConfigFrontend) AddConfigFrontend(toAddConfigFrontend system.SysConfigFrontend) (err error) {
 	var configFrontend system.SysConfigFrontend
 	if !errors.Is(global.GqaDb.Where("gqa_option = ?", toAddConfigFrontend.GqaOption).First(&configFrontend).Error, gorm.ErrRecordNotFound) {
-		return errors.New("此前台配置已存在：" + toAddConfigFrontend.GqaOption)
+		return errors.New("此网站前台配置已存在：" + toAddConfigFrontend.GqaOption)
 	}
 	err = global.GqaDb.Create(&toAddConfigFrontend).Error
 	return err
