@@ -19,7 +19,7 @@
             </template>
 
             <template v-slot:body-cell-custom="props">
-                <q-td :props="props">
+                <q-td :props="props" class="bg-green-1">
                     {{props.row.custom}}
                     <q-popup-edit v-model="props.row.custom" :title="'自定义:' + props.row.gqaOption">
                         <q-input v-model="props.row.custom" dense autofocus />
