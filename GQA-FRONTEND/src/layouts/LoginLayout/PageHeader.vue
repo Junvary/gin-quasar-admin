@@ -30,16 +30,26 @@
             <li>
                 <a class="gqa-menu-scroll" href="javascript:;" @click="handleScroll('gqa-download')">常用下载</a>
             </li>
+            <li>
+                <a class="gqa-menu-scroll" href="javascript:;">
+                    版本信息
+                    <GqaVersion />
+                </a>
+            </li>
         </ul>
     </header>
 </template>
 
 <script>
 import { gqaFrontendMixin } from 'src/mixins/gqaFrontendMixin'
+import GqaVersion from 'src/components/GqaVersion'
 
 export default {
     name: 'PageHeader',
     mixins: [gqaFrontendMixin],
+    components: {
+        GqaVersion,
+    },
     methods: {
         flow() {
             // 监视下滑，改变导航栏
@@ -71,7 +81,7 @@ header {
     align-items: center;
     transition: 0.6s;
     padding: 40px 100px;
-    z-index: 100000;
+    // z-index: 100000;
     box-sizing: border-box;
 }
 header.sticky {

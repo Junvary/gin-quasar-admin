@@ -228,10 +228,14 @@ export default {
         this.checkDb()
     },
     methods: {
+        ...mapActions('storage', ['SetGqaGoVersion', 'SetGqaGinVersion']),
         checkDb() {
             this.checkDbStatus = true
             getAction(checkDbUrl).then((res) => {
                 if (res.code === 1) {
+                    this.SetGqaGoVersion(res.data.goVersion)
+                    this.SetGqaGinVersion(res.data.ginVersion)
+                    this.ginVersion = res.data.ginVersion
                     if (res.data.needInit === false) {
                         this.getPublic()
                         this.checkDbStatus = false

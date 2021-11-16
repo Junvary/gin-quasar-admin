@@ -28,10 +28,17 @@ export async function GetGqaFrontend({ commit, state, dispatch }) {
 }
 
 export async function SetGqaFrontend({ commit, state, dispatch }, records) {
-    console.log(records)
     const frontend = {}
     records.forEach(item => {
         frontend[item.gqaOption] = item.custom ? item.custom : item.default
     })
     commit("SET_GQA_FRONTEND", frontend)
+}
+
+export function SetGqaGoVersion({ commit, state, dispatch }, goVersion) {
+    commit("SET_GQA_GO_VERSION", goVersion)
+}
+
+export function SetGqaGinVersion({ commit, state, dispatch }, ginVersion) {
+    commit("SET_GQA_GIN_VERSION", ginVersion)
 }

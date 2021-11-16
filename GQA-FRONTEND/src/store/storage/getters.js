@@ -8,7 +8,6 @@ export function gqaDict(state) {
     } else {
         return dict
     }
-
 }
 
 export function gqaFrontend(state) {
@@ -19,5 +18,23 @@ export function gqaFrontend(state) {
         return frontend
     } else {
         return GqaFrontendDefault
+    }
+}
+
+export function gqaGoVersion(state) {
+    const goversion = LocalStorage.getItem("gqa-goVersion")
+    if (state.goVersion) {
+        return state.goVersion
+    } else {
+        return goversion
+    }
+}
+
+export function gqaGinVersion(state) {
+    const ginversion = LocalStorage.getItem("gqa-ginVersion")
+    if (state.ginversion) {
+        return state.ginversion
+    } else {
+        return ginversion
     }
 }

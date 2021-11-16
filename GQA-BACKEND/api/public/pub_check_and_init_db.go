@@ -6,20 +6,21 @@ import (
 	"gin-quasar-admin/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
+	"runtime"
 )
 
-type ApiCheckAndInitDb struct {
-
-}
+type ApiCheckAndInitDb struct {}
 
 func (a *ApiCheckAndInitDb) CheckDb(c *gin.Context)  {
+	goVersion := runtime.Version()
+	ginVersion := gin.Version
 	if global.GqaDb != nil {
 		global.GqaLog.Info("数据库无需初始化")
-		global.SuccessMessageData(gin.H{"needInit": false}, "数据库无需初始化", c)
+		global.SuccessMessageData(gin.H{"needInit": false, "goVersion": goVersion, "ginVersion": ginVersion}, "数据库无需初始化", c)
 		return
 	} else {
 		global.GqaLog.Info("数据库需要初始化")
-		global.SuccessMessageData(gin.H{"needInit": true}, "数据库需要初始化", c)
+		global.SuccessMessageData(gin.H{"needInit": true, "goVersion": goVersion, "ginVersion": ginVersion}, "数据库需要初始化", c)
 		return
 	}
 }
