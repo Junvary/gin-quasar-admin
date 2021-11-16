@@ -53,12 +53,6 @@
                 <GqaLanguage />
                 <!-- <q-brand-color /> -->
                 <q-space />
-                <div class="text-subtitle2 text-center text-primary">
-                    Vue版本：{{ $vueVersion }}
-                </div>
-                <div class="text-subtitle2 text-center text-primary">
-                    Quasar版本：{{ $quasarVersion }}
-                </div>
             </q-card-actions>
 
         </q-card>

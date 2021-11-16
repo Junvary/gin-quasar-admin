@@ -81,7 +81,7 @@ header {
     align-items: center;
     transition: 0.6s;
     padding: 40px 100px;
-    // z-index: 100000;
+    z-index: 100;
     box-sizing: border-box;
 }
 header.sticky {

@@ -15,6 +15,8 @@
                     <div class="q-gutter-md">
                         <div class="row">
                             <q-input class="col" v-model="addOrEditDetail.id" label="ID" disable />
+                            <q-input class="col" v-model.number="addOrEditDetail.sort" type="number"
+                                :rules="[ val => val >= 1 || '排序必须大于0']" label="排序" />
                         </div>
                         <div class="row">
                             <q-field class="col" label="创建时间" stack-label disable>
@@ -46,6 +48,14 @@
                             <q-input class="col" v-model="addOrEditDetail.roleName" label="角色名(中文)"
                                 :rules="[ val => val && val.length > 0 || '必须输入角色名']" />
                         </div>
+                        <q-field label="是否启用" stack-label>
+                            <template v-slot:control>
+                                <q-option-group v-model="addOrEditDetail.status" :options="options.statusOnOff"
+                                    color="primary" inline>
+                                </q-option-group>
+                            </template>
+                        </q-field>
+                        <q-input v-model="addOrEditDetail.remark" type="textarea" label="备注" />
                         <div class="row justify-between">
                             <!-- <div class="col-6">
                                 <q-field label="数据归属" stack-label>
@@ -56,18 +66,6 @@
                                     </template>
                                 </q-field>
                             </div> -->
-                            <div class="col-6 q-gutter-md">
-                                <q-field label="是否启用" stack-label>
-                                    <template v-slot:control>
-                                        <q-option-group v-model="addOrEditDetail.status" :options="options.statusOnOff"
-                                            color="primary" inline>
-                                        </q-option-group>
-                                    </template>
-                                </q-field>
-                                <q-input v-model.number="addOrEditDetail.sort" type="number"
-                                    :rules="[ val => val >= 1 || '排序必须大于0']" label="排序" />
-                                <q-input v-model="addOrEditDetail.remark" type="textarea" label="备注" />
-                            </div>
                         </div>
                     </div>
                 </q-form>

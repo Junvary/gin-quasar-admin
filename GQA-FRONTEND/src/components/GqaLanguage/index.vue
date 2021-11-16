@@ -8,7 +8,7 @@ import { useQuasar } from 'quasar'
 import languages from 'quasar/lang/index.json'
 import { ref, watch } from 'vue'
 
-const appLanguages = languages.filter((lang) => ['de', 'en-US', 'zh-CN'].includes(lang.isoName))
+const appLanguages = languages.filter((lang) => ['zh-CN', 'de', 'en-US'].includes(lang.isoName))
 
 const langOptions = appLanguages.map((lang) => ({
     label: lang.nativeName,

@@ -3,28 +3,28 @@
         <q-list dense>
             <q-item clickable v-close-popup v-ripple>
                 <q-item-section>
-                    <q-chip color="primary" text-color="white" icon="img:icon/vue.svg">
+                    <q-chip icon="img:icon/vue.svg">
                         Vue版本： {{ $vueVersion }}
                     </q-chip>
                 </q-item-section>
             </q-item>
             <q-item clickable v-close-popup v-ripple>
                 <q-item-section>
-                    <q-chip color="primary" text-color="white" icon="img:icon/quasar.svg">
+                    <q-chip icon="img:icon/quasar.svg">
                         Quasar版本：{{ $quasarVersion }}
                     </q-chip>
                 </q-item-section>
             </q-item>
             <q-item clickable v-close-popup v-ripple>
                 <q-item-section>
-                    <q-chip color="primary" text-color="white" icon="img:icon/golang.svg">
+                    <q-chip icon="img:icon/golang.svg">
                         Go版本：{{ goVersion }}
                     </q-chip>
                 </q-item-section>
             </q-item>
             <q-item clickable v-close-popup v-ripple>
                 <q-item-section>
-                    <q-chip color="primary" text-color="white" icon="img:icon/gin.svg">
+                    <q-chip icon="img:icon/gin.svg">
                         Gin版本：{{ ginVersion }}
                     </q-chip>
                 </q-item-section>
