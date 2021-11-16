@@ -5,6 +5,7 @@
 <script>
 import { defineComponent } from 'vue'
 import { gqaFrontendMixin } from 'src/mixins/gqaFrontendMixin'
+import { GqaFrontendDefault } from 'src/settings'
 
 export default defineComponent({
     name: 'App',
@@ -13,6 +14,9 @@ export default defineComponent({
         gqaFrontend() {
             document.title = this.gqaFrontend.gqaSubTitle
         },
+    },
+    beforeMount() {
+        document.title = this.gqaFrontend.gqaSubTitle || GqaFrontendDefault.gqaSubTitle
     },
 })
 </script>
