@@ -22,7 +22,13 @@
                 <q-td :props="props" class="bg-green-1">
                     {{props.row.custom}}
                     <q-popup-edit v-model="props.row.custom" class="bg-green-13">
-                        <template v-slot>
+                        <template v-slot v-if="props.row.gqaOption === 'gqaShowGit'">
+                            自定义：{{ props.row.gqaOption }}
+                            <q-option-group v-model="props.row.custom" :options="options.statusYesNo" color="primary"
+                                inline>
+                            </q-option-group>
+                        </template>
+                        <template v-slot v-else>
                             自定义：{{ props.row.gqaOption }}
                             <q-input v-model="props.row.custom" dense autofocus />
                         </template>
@@ -61,10 +67,11 @@ import { mapActions } from 'vuex'
 import addOrEditDialog from './modules/addOrEditDialog'
 import { putAction } from 'src/api/manage'
 import GqaDictShow from 'src/components/GqaDictShow'
+import { addOrEditMixin } from 'src/mixins/addOrEditMixin'
 
 export default {
     name: 'ConfigFrontend',
-    mixins: [tableDataMixin],
+    mixins: [tableDataMixin, addOrEditMixin],
     components: {
         addOrEditDialog,
         GqaDictShow,

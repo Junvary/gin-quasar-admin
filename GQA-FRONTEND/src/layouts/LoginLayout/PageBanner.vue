@@ -9,7 +9,8 @@
                     {{ gqaFrontend.gqaDescribe }}
                 </p>
                 <div class="buttons">
-                    <q-btn push color="primary" @click="openLink('https://gitee.com/junvary/gin-quasar-admin')">
+                    <q-btn push color="primary" @click="openLink('https://gitee.com/junvary/gin-quasar-admin')"
+                        v-if="gqaFrontend.gqaShowGit === 'yes'">
                         访问Gitee
                     </q-btn>
 
@@ -17,7 +18,8 @@
                         {{checkDbStatus ? '系统需要初始化' : '用户登录'}}
                     </q-btn>
 
-                    <q-btn push color="primary" @click="openLink('https://github.com/Junvary/gin-quasar-admin')">
+                    <q-btn push color="primary" @click="openLink('https://github.com/Junvary/gin-quasar-admin')"
+                        v-if="gqaFrontend.gqaShowGit === 'yes'">
                         访问Github
                     </q-btn>
                 </div>

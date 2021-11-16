@@ -31,7 +31,7 @@
                 <UserMenu style="margin: 0 5px" />
                 <!-- <q-language-switcher/> -->
                 <Setting style="margin: 0 5px" />
-                <GitLink style="margin: 0 5px" />
+                <GitLink style="margin: 0 5px" v-if="gqaFrontend.gqaShowGit === 'yes'" />
 
             </q-toolbar>
             <!-- </div> -->
