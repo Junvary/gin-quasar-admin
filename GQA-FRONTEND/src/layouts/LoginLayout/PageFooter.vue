@@ -4,16 +4,14 @@
             <div class="col">
                 <div class="footer-box-cloumn">
                     <div class="footer-box">
-                        <q-avatar class="gin-quasar-admin-logo">
-                            <img src="gqa128.png" />
-                        </q-avatar>
+                        <GqaAvatar size="xl" :src="gqaFrontend.gqaWebLogo" />
                         <span style="font-size: 25px; font-weight: bold">
-                            Gin-Quasar-Admin
+                            {{ gqaFrontend.gqaSubTitle }}
                         </span>
                     </div>
 
                     <p style="text-transform: capitalize;">
-                        Be the change you want to see in the world.
+                        {{ gqaFrontend.gqaDescribe }}
                     </p>
                 </div>
             </div>
@@ -51,8 +49,15 @@
 </template>
 
 <script>
+import { gqaFrontendMixin } from 'src/mixins/gqaFrontendMixin'
+import GqaAvatar from 'src/components/GqaAvatar'
+
 export default {
     name: 'PageFooter',
+    mixins: [gqaFrontendMixin],
+    components: {
+        GqaAvatar,
+    },
     data() {
         return {
             thisYear: new Date(),

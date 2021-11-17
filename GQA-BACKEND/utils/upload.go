@@ -52,13 +52,20 @@ func UploadFile(createPath string, fileHeader *multipart.FileHeader) (filename s
 	return filename, nil
 }
 
-func CheckFileSize(file multipart.File, maxSizeString string) bool {
+func CheckFileSize(file multipart.File, maxSizeString string, unit string) bool {
 	content, _ := ioutil.ReadAll(file)
 	size := len(content)
 	maxSize, _ := strconv.Atoi(maxSizeString)
-	// 转换成M
-	if size > maxSize*1024*1024 {
-		return false
+	if unit == "M"{
+		// 转换成M
+		if size > maxSize*1024*1024 {
+			return false
+		}
+	}else {
+		// 默认转换成K
+		if size > maxSize*1024 {
+			return false
+		}
 	}
 	return true
 }

@@ -1,12 +1,12 @@
 <template>
     <header>
         <a href="javascript:;" class="logo">
-            <q-avatar class="gin-quasar-admin-logo">
-                <img src="gqa128.png" />
-            </q-avatar>
+
+            <GqaAvatar size="xl" :src="gqaFrontend.gqaWebLogo" />
             <span style="margin-left: 10px">
                 {{ gqaFrontend.gqaMainTitle }}
             </span>
+
         </a>
         <ul>
             <li>
@@ -43,12 +43,14 @@
 <script>
 import { gqaFrontendMixin } from 'src/mixins/gqaFrontendMixin'
 import GqaVersion from 'src/components/GqaVersion'
+import GqaAvatar from 'src/components/GqaAvatar'
 
 export default {
     name: 'PageHeader',
     mixins: [gqaFrontendMixin],
     components: {
         GqaVersion,
+        GqaAvatar,
     },
     methods: {
         flow() {

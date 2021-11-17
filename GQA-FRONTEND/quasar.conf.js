@@ -54,9 +54,9 @@ module.exports = configure(function (ctx) {
             env: {
                 API: ctx.dev
                     // 测试代理地址
-                    ? "/gqa-api"
+                    ? "/gqa-api/"
                     // 正式代理地址
-                    : "/gqa-api"
+                    : "/gqa-api/"
 
             },
 
@@ -89,12 +89,12 @@ module.exports = configure(function (ctx) {
             port: 8080,
             open: true, // opens browser window automatically
             proxy: {
-                '/gqa-api': {
+                '/gqa-api/': {
                     // 测试后台地址
                     target: 'http://127.0.0.1:8888/',
                     changeOrigin: true,
                     pathRewrite: {
-                        '^/gqa-api': ''
+                        '^/gqa-api/': ''
                     }
                 }
             }

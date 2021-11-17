@@ -5,9 +5,7 @@
             <q-toolbar class="bg-primary glossy ">
                 <q-btn flat dense round icon=" sync_alt" aria-label="Menu" @click="leftDrawerOpen = !leftDrawerOpen" />
 
-                <q-avatar class="gin-quasar-admin-logo">
-                    <img src="gqa128.png" />
-                </q-avatar>
+                <GqaAvatar class="gin-quasar-admin-logo" :src="gqaFrontend.gqaWebLogo" />
 
                 <q-toolbar-title shrink class="text-bold text-italic">
                     {{ gqaFrontend.gqaSubTitle }}
@@ -76,6 +74,7 @@ import GitLink from './GitLink'
 import UserMenu from './UserMenu'
 import Setting from './Setting'
 import PageFooter from './PageFooter'
+import GqaAvatar from 'src/components/GqaAvatar'
 
 export default {
     name: 'MainLayout',
@@ -89,6 +88,7 @@ export default {
         UserMenu,
         Setting,
         PageFooter,
+        GqaAvatar,
     },
     computed: {
         matched() {

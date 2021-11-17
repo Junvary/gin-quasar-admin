@@ -17,6 +17,8 @@ upload:
   avatar-url: avatar
   file-save-path: upload/file
   file-url: file
+  web-logo-save-path: upload/logo
+  web-logo-url: logo
 zap:
   prefix: 【gin-quasar-admin】
   level: info

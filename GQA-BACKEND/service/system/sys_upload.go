@@ -18,7 +18,7 @@ func (s *ServiceUpload) UploadAvatar(username string, avatar multipart.File, ava
 	if maxSizeString == ""{
 		return errors.New("找不到头像大小配置！"), ""
 	}
-	if !utils.CheckFileSize(avatar, maxSizeString){
+	if !utils.CheckFileSize(avatar, maxSizeString, "M"){
 		return errors.New("头像大小超出限制！"), ""
 	}
 	// 检查文件后缀
@@ -45,7 +45,7 @@ func (s *ServiceUpload) UploadFile(file multipart.File, fileHeader *multipart.Fi
 	if maxSizeString == ""{
 		return errors.New("没有找到文件大小配置！"), ""
 	}
-	if !utils.CheckFileSize(file, maxSizeString){
+	if !utils.CheckFileSize(file, maxSizeString, "M"){
 		return errors.New("文件大小超出限制！"), ""
 	}
 	// 检查文件后缀
@@ -59,6 +59,33 @@ func (s *ServiceUpload) UploadFile(file multipart.File, fileHeader *multipart.Fi
 	createPath := global.GqaConfig.Upload.FileSavePath + "/" + strconv.Itoa(time.Now().Year()) + "/" + time.Now().Month().String()
 	createUrl := global.GqaConfig.Upload.FileUrl  + "/" + strconv.Itoa(time.Now().Year()) + "/" + time.Now().Month().String()
 	filename, err := utils.UploadFile(createPath, fileHeader)
+	if err != nil{
+		return err, ""
+	}
+	fileUrl = "gqa-upload:" + createUrl + "/" + filename
+	return nil, fileUrl
+}
+
+func (s *ServiceUpload) UploadWebLogo(logo multipart.File, logoHeader *multipart.FileHeader) (err error, fileUrl string) {
+	// 检查文件大小
+	maxSizeString := utils.GetConfigBackend("webLogoMaxSize")
+	if maxSizeString == ""{
+		return errors.New("没有找到网站Logo大小配置！"), ""
+	}
+	if !utils.CheckFileSize(logo, maxSizeString, "M"){
+		return errors.New("网站Logo大小超出限制！"), ""
+	}
+	// 检查文件后缀
+	extListString := utils.GetConfigBackend("webLogoExt")
+	if extListString == ""{
+		return errors.New("没有找到网站Logo后缀配置！"), ""
+	}
+	if !utils.CheckFileExt(logoHeader, extListString){
+		return errors.New("网站Logo后缀不被允许！"), ""
+	}
+	createPath := global.GqaConfig.Upload.WebLogoSavePath
+	createUrl := global.GqaConfig.Upload.WebLogoUrl
+	filename, err := utils.UploadFile(createPath, logoHeader)
 	if err != nil{
 		return err, ""
 	}

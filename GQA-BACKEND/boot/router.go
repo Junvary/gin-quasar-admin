@@ -11,9 +11,15 @@ import (
 func Router() *gin.Engine {
 	var Router = gin.Default()
 
-	// 为文件提供静态资源路径 头像和文件 无须鉴权
+	/*
+		为文件提供静态资源路径 头像和文件 无须鉴权
+	 */
+	//头像
 	Router.StaticFS(global.GqaConfig.Upload.AvatarUrl, http.Dir(global.GqaConfig.Upload.AvatarSavePath))
+	//文件
 	Router.StaticFS(global.GqaConfig.Upload.FileUrl, http.Dir(global.GqaConfig.Upload.FileSavePath))
+	//网站Logo
+	Router.StaticFS(global.GqaConfig.Upload.WebLogoUrl, http.Dir(global.GqaConfig.Upload.WebLogoSavePath))
 
 	/*
 		公共路由分组：以 public 开头，路由内部无须再次分组，无须鉴权。

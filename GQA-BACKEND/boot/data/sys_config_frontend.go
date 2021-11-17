@@ -23,7 +23,10 @@ var sysConfigFrontendData = []system.SysConfigFrontend{
 	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 3, Remark: "网站描述", CreatedAt: time.Now(), CreatedBy: "admin"},
 		GqaOption: "gqaDescribe", Default: "Be the change you want to see in the world.",
 	},
-	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 4, Remark: "显示仓库入口", CreatedAt: time.Now(), CreatedBy: "admin"},
+	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 4, Remark: "网站Logo", CreatedAt: time.Now(), CreatedBy: "admin"},
+		GqaOption: "gqaWebLogo", Default: "",
+	},
+	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 5, Remark: "显示仓库入口", CreatedAt: time.Now(), CreatedBy: "admin"},
 		GqaOption: "gqaShowGit", Default: "yes",
 	},
 }

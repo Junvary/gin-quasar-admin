@@ -18,19 +18,50 @@
                     @click="props.toggleFullscreen" class="q-ml-md" />
             </template>
 
+            <template v-slot:body-cell-default="props">
+                <q-td :props="props">
+                    <template v-if="props.row.gqaOption === 'gqaWebLogo'">
+                        <GqaAvatar :src="props.row.default" />
+                    </template>
+                    <template v-else>
+                        {{props.row.default}}
+                    </template>
+                </q-td>
+            </template>
+
             <template v-slot:body-cell-custom="props">
                 <q-td :props="props" class="bg-green-1">
-                    {{props.row.custom}}
+                    <template v-if="props.row.gqaOption === 'gqaWebLogo'">
+                        <GqaAvatar :src="props.row.custom" />
+                    </template>
+                    <template v-else>
+                        {{props.row.custom}}
+                    </template>
+
                     <q-popup-edit v-model="props.row.custom" class="bg-green-13">
+                        <!-- 使用是否字典显示 -->
                         <template v-slot v-if="props.row.gqaOption === 'gqaShowGit'">
                             自定义：{{ props.row.gqaOption }}
                             <q-option-group v-model="props.row.custom" :options="options.statusYesNo" color="primary"
                                 inline>
                             </q-option-group>
                         </template>
+                        <!-- LinkIco上传图标 -->
+                        <template v-slot v-else-if="props.row.gqaOption === 'gqaWebLogo'">
+                            自定义：{{ props.row.gqaOption }}
+                            <q-file class="col" v-model="webLogoFile" max-files="1">
+                                <template v-slot:prepend>
+                                    <GqaAvatar :src="props.row.custom" />
+                                </template>
+                                <template v-slot:after v-if="webLogoFile">
+                                    <q-btn dense flat color="primary" icon="cloud_upload" @click="handleUpload" />
+                                </template>
+                            </q-file>
+                        </template>
+                        <!-- 默认的输入框 -->
                         <template v-slot v-else>
                             自定义：{{ props.row.gqaOption }}
-                            <q-input v-model="props.row.custom" dense autofocus />
+                            <q-input v-model="props.row.custom" dense autofocus clearable />
                         </template>
                     </q-popup-edit>
                 </q-td>
@@ -65,9 +96,10 @@
 import { tableDataMixin } from 'src/mixins/tableDataMixin'
 import { mapActions } from 'vuex'
 import addOrEditDialog from './modules/addOrEditDialog'
-import { putAction } from 'src/api/manage'
+import { putAction, postAction } from 'src/api/manage'
 import GqaDictShow from 'src/components/GqaDictShow'
 import { addOrEditMixin } from 'src/mixins/addOrEditMixin'
+import GqaAvatar from 'src/components/GqaAvatar'
 
 export default {
     name: 'ConfigFrontend',
@@ -75,6 +107,7 @@ export default {
     components: {
         addOrEditDialog,
         GqaDictShow,
+        GqaAvatar,
     },
     data() {
         return {
@@ -82,6 +115,7 @@ export default {
                 list: 'config-frontend/config-frontend-list',
                 edit: 'config-frontend/config-frontend-edit',
                 delete: 'config-frontend/config-frontend-delete',
+                linkIcoUrl: 'upload/web-logo',
             },
             columns: [
                 { name: 'sort', align: 'center', label: '排序', field: 'sort' },
@@ -93,6 +127,7 @@ export default {
                 { name: 'stable', align: 'center', label: '系统内置', field: 'stable' },
                 { name: 'actions', align: 'center', label: '操作', field: 'actions' },
             ],
+            webLogoFile: null,
         }
     },
     created() {
@@ -111,6 +146,30 @@ export default {
                     this.SetGqaFrontend(this.tableData)
                 })
             }
+        },
+        handleUpload() {
+            if (!this.webLogoFile) {
+                this.$q.notify({
+                    type: 'negative',
+                    message: '请选择文件！',
+                })
+                return
+            }
+            let form = new FormData()
+            form.append('file', this.webLogoFile)
+            postAction(this.url.linkIcoUrl, form).then((res) => {
+                if (res.code === 1) {
+                    const gqaWebLogo = this.tableData.filter((item) => {
+                        return item.gqaOption === 'gqaWebLogo'
+                    })
+                    gqaWebLogo[0].custom = res.data.records
+                    this.webLogoFile = null
+                    this.$q.notify({
+                        type: 'positive',
+                        message: '网站Logo上传成功！',
+                    })
+                }
+            })
         },
     },
 }
