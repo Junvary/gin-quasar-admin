@@ -1,6 +1,6 @@
 <template>
-    <q-menu v-model="showVersion">
-        <q-list dense>
+    <q-menu v-model="showVersion" anchor="bottom right" self="top right">
+        <q-list dense bordered separator>
             <q-item clickable v-close-popup v-ripple>
                 <q-item-section>
                     <q-chip icon="img:icon/vue.svg">

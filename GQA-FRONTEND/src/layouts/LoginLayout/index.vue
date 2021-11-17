@@ -18,10 +18,15 @@
                         <img src="gqa128.png" />
                     </q-avatar>
 
-                    <q-toolbar-title>
+                    <q-toolbar-title class="row justify-between items-center">
                         <span class="text-weight-bold">
                             欢迎使用 Gin-Quasar-Admin！
                         </span>
+
+                        <q-btn dense push rounded glossy color="primary">
+                            查看版本信息
+                            <GqaVersion />
+                        </q-btn>
                     </q-toolbar-title>
 
                 </q-toolbar>
@@ -32,12 +37,14 @@
                             <q-step :name="1" title="欢迎" icon="home" :done="step > 1">
                                 <div class="text-h5 column text-center q-gutter-md">
                                     <span class="col">
-                                        嘿,看起来这是你第一次使用 Gin-Quasar-Admin
+                                        嘿，看起来这是你第一次运行 Gin-Quasar-Admin！
                                     </span>
                                     <span class="col">
                                         首先你需要
-                                        <span class="text-red">初始化数据库</span>，
-                                        后续根据提示进行网站
+                                        <span class="text-red">初始化数据库</span>
+                                    </span>
+                                    <span class="col">
+                                        后续使用管理员账户进行
                                         <span class="text-red">个性化配置</span>
                                     </span>
                                     <span class="col">
@@ -52,7 +59,7 @@
                                         首先，你需要对数据库进行初始化，请确保已经安装并启动了数据库
                                     </span>
                                     <span class="col text-red text-h7">
-                                        *系统会为你自动创建数据库*
+                                        *系统会为你自动创建数据库，并导入初始数据*
                                     </span>
                                     <q-input outlined bottom-slots v-model.trim="form.dbType" label="数据库类型" disable
                                         :rules="[(val) =>(val && val.length > 0) || '请输入数据库类型',]">
@@ -183,6 +190,8 @@ import PageFooter from './PageFooter'
 import { getAction, postAction } from 'src/api/manage'
 import { checkDbUrl, initDbUrl } from 'src/api/url'
 
+import GqaVersion from 'src/components/GqaVersion'
+
 export default {
     components: {
         PageHeader,
@@ -194,6 +203,7 @@ export default {
         PageDocument,
         PageDownload,
         PageFooter,
+        GqaVersion,
     },
     computed: {
         initLabel() {
