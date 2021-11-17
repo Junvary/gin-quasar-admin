@@ -22,11 +22,22 @@
                         <span class="text-weight-bold">
                             欢迎使用 Gin-Quasar-Admin！
                         </span>
+                        <span class="q-gutter-md">
+                            <q-btn dense push rounded glossy color="primary"
+                                @click="openLink('https://gitee.com/junvary/gin-quasar-admin')">
+                                访问Gitee
+                            </q-btn>
+                            <q-btn dense push rounded glossy color="primary"
+                                @click="openLink('https://github.com/Junvary/gin-quasar-admin')">
+                                访问Github
+                            </q-btn>
 
-                        <q-btn dense push rounded glossy color="primary">
-                            查看版本信息
-                            <GqaVersion />
-                        </q-btn>
+                            <q-btn dense push rounded glossy color="primary">
+                                查看版本信息
+                                <GqaVersion />
+                            </q-btn>
+                        </span>
+
                     </q-toolbar-title>
 
                 </q-toolbar>
@@ -301,6 +312,9 @@ export default {
         getPublic() {
             this.GetGqaDict()
             this.GetGqaFrontend()
+        },
+        openLink(url) {
+            window.open(url)
         },
     },
 }
