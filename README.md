@@ -9,23 +9,21 @@
 <img src="https://img.shields.io/badge/gin-1.7.3-brightgreen"/>
 <img src="https://img.shields.io/badge/golang-1.17.2-brightgreen"/>
 </div>
+#### Gin-Quasar-Admin 后端使用Go语言+Gin框架，前端使用Vue3+Quasar2框架。
 
-<center>
-Gin-Quasar-Admin 后端使用Go语言+Gin框架，前端使用Vue3+Quasar2框架。项目在不断完善中，欢迎clone和fork试用，
-</center>
+#### 项目在不断完善中，欢迎clone和fork试用。（pr请提交dev分支）
 
-<center>
-项目在不断完善中，欢迎clone和fork试用（pr请提交dev分支）
-</center>
+#### 如果你感觉不错，麻烦给个小小的 Star 鼓励一下！
 
-<center>
-如果你感觉不错，麻烦给个小小的 Star 鼓励一下！
-</center>
+***
+
 提示：数据库目前仅支持Mysql，文件上传目前仅支持本地上传。
 
 github：https://github.com/Junvary/gin-quasar-admin
 
 gitee：https://gitee.com/junvary/gin-quasar-admin
+
+***
 
 ### 项目特点（部分开发中）：
 
