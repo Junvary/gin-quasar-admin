@@ -21,8 +21,11 @@ Gin-Quasar-Admin 后端使用Go语言+Gin框架，前端使用Vue3+Quasar2框架
 <center>
 如果你感觉不错，麻烦给个小小的 Star 鼓励一下！
 </center>
-
 提示：数据库目前仅支持Mysql，文件上传目前仅支持本地上传。
+
+github：https://github.com/Junvary/gin-quasar-admin
+
+gitee：https://gitee.com/junvary/gin-quasar-admin
 
 ### 项目特点（部分开发中）：
 
