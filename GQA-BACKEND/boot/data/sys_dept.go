@@ -28,7 +28,7 @@ var sysDeptData = []system.SysDept{
 	},
 }
 
-func (s *sysDept) Init() error {
+func (s *sysDept) LoadData() error {
 	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
 		var count int64
 		tx.Model(&system.SysDept{}).Count(&count)

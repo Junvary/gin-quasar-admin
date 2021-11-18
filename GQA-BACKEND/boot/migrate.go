@@ -2,6 +2,7 @@ package boot
 
 import (
 	"gin-quasar-admin/global"
+	"gin-quasar-admin/gqa_plugin"
 	"gin-quasar-admin/model/system"
 	gormadapter "github.com/casbin/gorm-adapter/v3"
 	"go.uber.org/zap"
@@ -10,6 +11,7 @@ import (
 )
 
 func Migrate(db *gorm.DB) {
+	//迁移Gin-Quasar-Admin数据库
 	err := db.AutoMigrate(
 		system.SysUser{},
 		system.SysRole{},
@@ -24,8 +26,14 @@ func Migrate(db *gorm.DB) {
 		system.SysConfigFrontend{},
 	)
 	if err != nil {
-		global.GqaLog.Error("register table failed", zap.Any("err", err))
+		global.GqaLog.Error("迁移【Gin-Quasar-admin】数据库失败！", zap.Any("err", err))
 		os.Exit(0)
 	}
-	global.GqaLog.Info("register table success")
+	//迁移GQA-Plugin数据库
+	err = db.AutoMigrate(gqa_plugin.MigratePluginModel())
+	if err != nil {
+		global.GqaLog.Error("迁移【GQA-Plugin】数据库失败！", zap.Any("err", err))
+		os.Exit(0)
+	}
+	global.GqaLog.Info("迁移数据库成功！")
 }

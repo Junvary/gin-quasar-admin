@@ -70,7 +70,7 @@ var sysMenuData = []system.SysMenu{
 	},
 }
 
-func (s *sysMenu) Init() error {
+func (s *sysMenu) LoadData() error {
 	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
 		var count int64
 		tx.Model(&system.SysMenu{}).Count(&count)

@@ -22,7 +22,7 @@ var sysUserData = []system.SysUser{
 	},
 }
 
-func (s *sysUser) Init() error {
+func (s *sysUser) LoadData() error {
 	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
 		var count int64
 		tx.Model(&system.SysUser{}).Count(&count)

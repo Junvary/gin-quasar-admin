@@ -2,13 +2,16 @@ package public
 
 import (
 	"database/sql"
+	"errors"
 	"fmt"
 	"gin-quasar-admin/boot/data"
 	"gin-quasar-admin/config/config"
 	"gin-quasar-admin/global"
+	"gin-quasar-admin/gqa_plugin"
 	"gin-quasar-admin/model/system"
 	"gin-quasar-admin/utils"
 	gormadapter "github.com/casbin/gorm-adapter/v3"
+	"go.uber.org/zap"
 
 	//"github.com/google/uuid"
 	"github.com/spf13/viper"
@@ -52,7 +55,7 @@ func (s *ServiceCheckAndInitDb) CheckAndInitDb(initDbInfo system.RequestInitDb) 
 		sqlDB.SetMaxOpenConns(MysqlConfig.MaxOpenConns)
 		global.GqaDb = db
 	}
-
+	//迁移Gin-Quasar-Admin数据库
 	err := global.GqaDb.AutoMigrate(
 		system.SysUser{},
 		system.SysRole{},
@@ -68,9 +71,18 @@ func (s *ServiceCheckAndInitDb) CheckAndInitDb(initDbInfo system.RequestInitDb) 
 	)
 	if err != nil {
 		global.GqaDb = nil
-		return err
+		global.GqaLog.Error("迁移【Gin-Quasar-admin】数据库失败！", zap.Any("err", err))
+		return errors.New("迁移【Gin-Quasar-admin】数据库失败：" + err.Error())
 	}
-	err = s.initDB(
+	//迁移GQA-Plugin数据库
+	err = global.GqaDb.AutoMigrate(gqa_plugin.MigratePluginModel()...)
+	if err != nil {
+		global.GqaDb = nil
+		global.GqaLog.Error("迁移【GQA-Plugin】数据库失败！", zap.Any("err", err))
+		return errors.New("迁移【GQA-Plugin】数据库失败：" + err.Error())
+	}
+	//初始化Gin-Quasar-Admin数据
+	err = s.loadData(
 		data.SysUser,
 		data.SysRole,
 		data.SysUserRole,
@@ -85,7 +97,15 @@ func (s *ServiceCheckAndInitDb) CheckAndInitDb(initDbInfo system.RequestInitDb) 
 	)
 	if err != nil {
 		global.GqaDb = nil
-		return err
+		global.GqaLog.Error("初始化【Gin-Quasar-admin】数据失败！", zap.Any("err", err))
+		return errors.New("初始化【Gin-Quasar-admin】数据失败：" + err.Error())
+	}
+	//初始化GQA-Plugin数据
+	err = s.loadData(gqa_plugin.LoadPluginData()...)
+	if err != nil {
+		global.GqaDb = nil
+		global.GqaLog.Error("初始化【GQA-Plugin】数据失败！", zap.Any("err", err))
+		return errors.New("初始化【GQA-Plugin】数据失败：" + err.Error())
 	}
 
 	if err = s.writeConfig(global.GqaViper, MysqlConfig); err != nil {
@@ -112,9 +132,9 @@ func (s *ServiceCheckAndInitDb) createTable(dsn string, driver string, createSql
 	return err
 }
 
-func (s *ServiceCheckAndInitDb) initDB(InitDBFunctions ...interface{ Init() (err error) }) (err error) {
+func (s *ServiceCheckAndInitDb) loadData(InitDBFunctions ...interface{ LoadData() (err error) }) (err error) {
 	for _, v := range InitDBFunctions {
-		err = v.Init()
+		err = v.LoadData()
 		if err != nil {
 			return err
 		}

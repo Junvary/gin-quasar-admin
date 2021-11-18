@@ -77,7 +77,7 @@ var sysCasbinData = []gormadapter.CasbinRule{
 	{Ptype: "p", V0: "super-admin", V1: "/config-frontend/config-frontend-delete", V2: "DELETE"},
 }
 
-func (s *sysCasbin) Init() error {
+func (s *sysCasbin) LoadData() error {
 	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
 		var count int64
 		tx.Model(&[]gormadapter.CasbinRule{}).Count(&count)

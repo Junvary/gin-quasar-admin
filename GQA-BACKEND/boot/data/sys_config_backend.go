@@ -58,7 +58,7 @@ var sysConfigBackendData = []system.SysConfigBackend{
 	},
 }
 
-func (s *sysConfigBackend) Init() error {
+func (s *sysConfigBackend) LoadData() error {
 	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
 		var count int64
 		tx.Model(&system.SysConfigBackend{}).Count(&count)

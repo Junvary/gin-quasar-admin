@@ -53,7 +53,7 @@ var sysDictData = []system.SysDict{
 	},
 }
 
-func (s *sysDict) Init() error {
+func (s *sysDict) LoadData() error {
 	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
 		var count int64
 		tx.Model(&system.SysDict{}).Count(&count)

@@ -19,7 +19,7 @@ var sysRoleData = []system.SysRole{
 	},
 }
 
-func (s *sysRole) Init() error {
+func (s *sysRole) LoadData() error {
 	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
 		var count int64
 		tx.Model(&system.SysRole{}).Count(&count)

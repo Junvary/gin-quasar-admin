@@ -2,6 +2,7 @@ package boot
 
 import (
 	"gin-quasar-admin/global"
+	"gin-quasar-admin/gqa_plugin"
 	"gin-quasar-admin/middleware"
 	"gin-quasar-admin/router"
 	"github.com/gin-gonic/gin"
@@ -56,6 +57,8 @@ func Router() *gin.Engine {
 		routerSystem.InitRouterConfigBackend(PrivateGroup)
 		routerSystem.InitRouterConfigFrontend(PrivateGroup)
 	}
+    //加载插件路由
+	gqa_plugin.RegisterPluginRouter(PublicGroup, PrivateGroup)
 
 	return Router
 }

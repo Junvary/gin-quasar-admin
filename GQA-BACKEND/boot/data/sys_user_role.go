@@ -16,7 +16,7 @@ var sysUserRoleData = []system.SysUserRole{
 	{"super-admin", 1},
 }
 
-func (s *sysUserRole) Init() error {
+func (s *sysUserRole) LoadData() error {
 	return global.GqaDb.Table("sys_user_role").Transaction(func(tx *gorm.DB) error {
 		var count int64
 		tx.Model(&system.SysUserRole{}).Count(&count)

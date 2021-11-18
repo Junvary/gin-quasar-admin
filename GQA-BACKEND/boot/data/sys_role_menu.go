@@ -28,7 +28,7 @@ var sysRoleMenuData = []system.SysRoleMenu{
 	{"super-admin", 12},
 }
 
-func (s *sysRoleMenu) Init() error {
+func (s *sysRoleMenu) LoadData() error {
 	return global.GqaDb.Table("sys_role_menu").Transaction(func(tx *gorm.DB) error {
 		var count int64
 		tx.Model(&system.SysRoleMenu{}).Count(&count)

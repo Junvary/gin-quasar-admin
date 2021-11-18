@@ -31,7 +31,7 @@ var sysConfigFrontendData = []system.SysConfigFrontend{
 	},
 }
 
-func (s *sysConfigFrontend) Init() error {
+func (s *sysConfigFrontend) LoadData() error {
 	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
 		var count int64
 		tx.Model(&system.SysConfigFrontend{}).Count(&count)

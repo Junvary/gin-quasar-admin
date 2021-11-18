@@ -163,7 +163,7 @@ var sysApiData = []system.SysApi{
 	},
 }
 
-func (s *sysApi) Init() error {
+func (s *sysApi) LoadData() error {
 	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
 		var count int64
 		tx.Model(&system.SysApi{}).Count(&count)
