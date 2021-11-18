@@ -3,7 +3,7 @@ package data
 import (
 	"fmt"
 	"gin-quasar-admin/global"
-	"gin-quasar-admin/gqa_plugin/xk/model"
+	"gin-quasar-admin/gqaplugin/xk/model"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
 	"time"

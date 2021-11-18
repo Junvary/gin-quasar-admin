@@ -1,7 +1,7 @@
-package gqa_plugin
+package gqaplugin
 
 import (
-	"gin-quasar-admin/gqa_plugin/xk"
+	"gin-quasar-admin/gqaplugin/xk"
 	"github.com/gin-gonic/gin"
 )
 

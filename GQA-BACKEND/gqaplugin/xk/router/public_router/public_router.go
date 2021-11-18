@@ -1,7 +1,7 @@
 package public_router
 
 import (
-	"gin-quasar-admin/gqa_plugin/xk/api/public_api"
+	"gin-quasar-admin/gqaplugin/xk/api/public_api"
 	"github.com/gin-gonic/gin"
 )
 

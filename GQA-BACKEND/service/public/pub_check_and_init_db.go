@@ -7,7 +7,7 @@ import (
 	"gin-quasar-admin/boot/data"
 	"gin-quasar-admin/config/config"
 	"gin-quasar-admin/global"
-	"gin-quasar-admin/gqa_plugin"
+	"gin-quasar-admin/gqaplugin"
 	"gin-quasar-admin/model/system"
 	"gin-quasar-admin/utils"
 	gormadapter "github.com/casbin/gorm-adapter/v3"
@@ -75,7 +75,7 @@ func (s *ServiceCheckAndInitDb) CheckAndInitDb(initDbInfo system.RequestInitDb) 
 		return errors.New("迁移【Gin-Quasar-admin】数据库失败：" + err.Error())
 	}
 	//迁移GQA-Plugin数据库
-	err = global.GqaDb.AutoMigrate(gqa_plugin.MigratePluginModel()...)
+	err = global.GqaDb.AutoMigrate(gqaplugin.MigratePluginModel()...)
 	if err != nil {
 		global.GqaDb = nil
 		global.GqaLog.Error("迁移【GQA-Plugin】数据库失败！", zap.Any("err", err))
@@ -101,7 +101,7 @@ func (s *ServiceCheckAndInitDb) CheckAndInitDb(initDbInfo system.RequestInitDb) 
 		return errors.New("初始化【Gin-Quasar-admin】数据失败：" + err.Error())
 	}
 	//初始化GQA-Plugin数据
-	err = s.loadData(gqa_plugin.LoadPluginData()...)
+	err = s.loadData(gqaplugin.LoadPluginData()...)
 	if err != nil {
 		global.GqaDb = nil
 		global.GqaLog.Error("初始化【GQA-Plugin】数据失败！", zap.Any("err", err))

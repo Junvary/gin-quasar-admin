@@ -2,7 +2,7 @@ package boot
 
 import (
 	"gin-quasar-admin/global"
-	"gin-quasar-admin/gqa_plugin"
+	"gin-quasar-admin/gqaplugin"
 	"gin-quasar-admin/model/system"
 	gormadapter "github.com/casbin/gorm-adapter/v3"
 	"go.uber.org/zap"
@@ -30,7 +30,7 @@ func Migrate(db *gorm.DB) {
 		os.Exit(0)
 	}
 	//迁移GQA-Plugin数据库
-	err = db.AutoMigrate(gqa_plugin.MigratePluginModel())
+	err = db.AutoMigrate(gqaplugin.MigratePluginModel())
 	if err != nil {
 		global.GqaLog.Error("迁移【GQA-Plugin】数据库失败！", zap.Any("err", err))
 		os.Exit(0)

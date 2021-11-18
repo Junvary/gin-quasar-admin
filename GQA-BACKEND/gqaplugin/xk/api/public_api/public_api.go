@@ -2,7 +2,7 @@ package public_api
 
 import (
 	"gin-quasar-admin/global"
-	"gin-quasar-admin/gqa_plugin/xk/service/public_service"
+	"gin-quasar-admin/gqaplugin/xk/service/public_service"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )

@@ -2,7 +2,7 @@ package public_service
 
 import (
 	"gin-quasar-admin/global"
-	"gin-quasar-admin/gqa_plugin/xk/model"
+	"gin-quasar-admin/gqaplugin/xk/model"
 )
 
 func GetNews() (err error, news []model.GqaPluginXkNews) {
