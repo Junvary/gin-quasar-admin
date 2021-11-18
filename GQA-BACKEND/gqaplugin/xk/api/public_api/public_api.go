@@ -13,6 +13,6 @@ func GetNews(c *gin.Context)  {
 		global.GqaLog.Error("获取新闻列表！", zap.Any("err", err))
 		global.ErrorMessage("获取新闻列表，"+err.Error(), c)
 	} else {
-		global.SuccessMessageData(gin.H{"records": news}, "添加字典成功！", c)
+		global.SuccessMessageData(gin.H{"records": news}, "获取新闻列表！", c)
 	}
 }

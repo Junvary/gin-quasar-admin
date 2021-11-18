@@ -7,6 +7,6 @@ import (
 
 func GetNews() (err error, news []model.GqaPluginXkNews) {
 	var newsList []model.GqaPluginXkNews
-	err = global.GqaDb.Model(&newsList).Error
+	err = global.GqaDb.Find(&newsList).Error
 	return err, newsList
 }
