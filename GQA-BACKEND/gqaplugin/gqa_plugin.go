@@ -1,8 +1,12 @@
 package gqaplugin
 
 import (
-	//本地插件引入
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/example"
+	//github插件引入方式（以下二选一）
+	example "github.com/Junvary/gqa-plugin-example"
+	//-----------------------------------------------------------------------
+	//本地插件引入方式（以上二选一）
+	//"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/example"
+
 	"github.com/gin-gonic/gin"
 )
 
