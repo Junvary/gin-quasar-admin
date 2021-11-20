@@ -5,7 +5,7 @@ import (
 	"gin-quasar-admin/model/system"
 )
 
-type GqaPluginXkNews struct {
+type GqaPluginExampleNews struct {
 	UpdatedByUser *system.SysUser `json:"updatedByUser" gorm:"foreignKey:UpdatedBy;references:Username"`
 	CreatedByUser *system.SysUser `json:"createdByUser" gorm:"foreignKey:CreatedBy;references:Username"`
 	global.GqaModel

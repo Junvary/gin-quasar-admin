@@ -10,7 +10,6 @@ require (
 	github.com/mojocn/base64Captcha v1.3.5
 	github.com/spf13/viper v1.9.0
 	go.uber.org/zap v1.19.1
-	golang.org/x/sync v0.0.0-20210220032951-036812b2e83c
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 	gorm.io/driver/mysql v1.1.2
 	gorm.io/gorm v1.21.16
