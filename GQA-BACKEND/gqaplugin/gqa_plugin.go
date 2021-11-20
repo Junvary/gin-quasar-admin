@@ -20,8 +20,8 @@ func MigratePluginModel() []interface{} { //迁移插件数据库
 	var model []interface{}
 	model = append(model,
 		example.PluginExample.PluginMigrate()...,
-	//顺序添加其他插件
-	//??.Plugin??.PluginMigrate(),
+		//顺序添加其他插件
+		//??.Plugin??.PluginMigrate(),
 	)
 	return model
 }
@@ -30,8 +30,8 @@ func LoadPluginData() []interface{ LoadData() (err error) } { //初始化插件�
 	var data []interface{ LoadData() (err error) }
 	data = append(data,
 		example.PluginExample.PluginData()...,
-	//顺序添加其他插件
-	//??.Plugin??.PluginData()...,
+		//顺序添加其他插件
+		//??.Plugin??.PluginData()...,
 	)
 	return data
 }
