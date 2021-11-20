@@ -11,8 +11,10 @@ import (
 )
 
 /*
-	1.import插件
-	2.插件填入以下三个方法
+	1.import插件(github模式、本地模式)
+	2.最好为github模式引入方式提供别名
+	3.插件填入以下三个方法
+	4.本地插件开发完毕，可按example方式提交单独仓库引用
 */
 
 func RegisterPluginRouter(PublicGroup, PrivateGroup *gin.RouterGroup) { //注册插件路由
