@@ -1,6 +1,6 @@
 package public
 
-import "gin-quasar-admin/api"
+import "github.com/Junvary/gin-quasar-admin/GQA-BACKEND/api"
 
 type RouterPublic struct {
 	RouterCheckDb

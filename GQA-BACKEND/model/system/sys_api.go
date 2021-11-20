@@ -1,6 +1,6 @@
 package system
 
-import "gin-quasar-admin/global"
+import "github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 
 type SysApi struct {
 	UpdatedByUser *SysUser `json:"updatedByUser" gorm:"foreignKey:UpdatedBy;references:Username"`

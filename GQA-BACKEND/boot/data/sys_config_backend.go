@@ -2,8 +2,8 @@ package data
 
 import (
 	"fmt"
-	"gin-quasar-admin/global"
-	"gin-quasar-admin/model/system"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model/system"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
 	"time"
@@ -21,7 +21,7 @@ var sysConfigBackendData = []system.SysConfigBackend{
 		GqaOption: "defaultPassword", Default: "123456",
 	},
 	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 3, Remark: "验证码字符数", CreatedAt: time.Now(), CreatedBy: "admin"},
-		GqaOption: "captchaKeyLong", Default: "6",
+		GqaOption: "captchaKeyLong", Default: "4",
 	},
 	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 4, Remark: "验证码宽度", CreatedAt: time.Now(), CreatedBy: "admin"},
 		GqaOption: "captchaWidth", Default: "240",
