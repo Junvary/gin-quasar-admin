@@ -1,11 +1,11 @@
 package gqaplugin
 
 import (
-	//github插件引入方式（以下二选一）
-	example "github.com/Junvary/gqa-plugin-example"
+	//插件引入方式1：github插件引入方式
+	//example "github.com/Junvary/gqa-plugin-example"
 	//-----------------------------------------------------------------------
-	//本地插件引入方式（以上二选一）
-	//"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/example"
+	//插件引入方式2：本地插件引入方式
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/example"
 
 	"github.com/gin-gonic/gin"
 )
@@ -14,7 +14,7 @@ import (
 	1.import插件(github模式、本地模式)
 	2.最好为github模式引入方式提供别名
 	3.插件填入以下三个方法
-	4.本地插件开发完毕，可按example方式提交单独仓库引用
+	4.本地插件开发完毕，可按example方式提交单独仓库引用（上面方式1），即可去除本地插件包目录，如example目录。
 */
 
 func RegisterPluginRouter(PublicGroup, PrivateGroup *gin.RouterGroup) { //注册插件路由
@@ -48,7 +48,7 @@ func LoadPluginData() []interface{ LoadData() (err error) } { //初始化插件�
 */
 
 type GqaPlugin interface {
-	PluginCode() string                                //插件代号，用于路由分组名
+	PluginCode() string                                //插件编码，用于路由分组名
 	PluginName() string                                //插件名称
 	PluginRouterPublic(publicGroup *gin.RouterGroup)   //公开路由
 	PluginRouterPrivate(privateGroup *gin.RouterGroup) //鉴权路由
@@ -57,6 +57,7 @@ type GqaPlugin interface {
 }
 
 func PluginRouter(publicGroup, privateGroup *gin.RouterGroup, Plugin ...GqaPlugin) {
+	//为插件单独提供路由分组，分组取名为：上面接口中的 PluginCode() 方法
 	for i := range Plugin {
 		PublicGroup := publicGroup.Group(Plugin[i].PluginCode())
 		Plugin[i].PluginRouterPublic(PublicGroup)

@@ -16,14 +16,14 @@ func (s *ServiceApi) GetApiList(requestApiList system.RequestApiList) (err error
 	db := global.GqaDb.Model(&system.SysApi{})
 	var apiList []system.SysApi
 	//配置搜索
-	if requestApiList.Group != ""{
-		db = db.Where("group like ?", "%" + requestApiList.Group + "%")
+	if requestApiList.ApiGroup != "" {
+		db = db.Where("api_group like ?", "%"+requestApiList.ApiGroup+"%")
 	}
-	if requestApiList.Path != ""{
-		db = db.Where("path like ?", "%" + requestApiList.Path + "%")
+	if requestApiList.ApiPath != "" {
+		db = db.Where("api_path like ?", "%"+requestApiList.ApiPath+"%")
 	}
-	if requestApiList.Method != ""{
-		db = db.Where("method like ?", "%" + requestApiList.Method + "%")
+	if requestApiList.ApiMethod != "" {
+		db = db.Where("api_method like ?", "%"+requestApiList.ApiMethod+"%")
 	}
 	err = db.Count(&total).Error
 	if err != nil {
@@ -39,7 +39,7 @@ func (s *ServiceApi) EditApi(toEditApi system.SysApi) (err error) {
 		return err
 	}
 	if sysApi.Stable == "yes" {
-		return errors.New("系统内置不允许编辑：" + sysApi.Path)
+		return errors.New("系统内置不允许编辑：" + sysApi.ApiPath)
 	}
 	err = global.GqaDb.Updates(&sysApi).Error
 	return err
@@ -47,8 +47,8 @@ func (s *ServiceApi) EditApi(toEditApi system.SysApi) (err error) {
 
 func (s *ServiceApi) AddApi(toAddApi system.SysApi) (err error) {
 	var api system.SysApi
-	if !errors.Is(global.GqaDb.Where("path = ? and method = ?", toAddApi.Path, toAddApi.Method).First(&api).Error, gorm.ErrRecordNotFound) {
-		return errors.New("此配置已存在：" + toAddApi.Path)
+	if !errors.Is(global.GqaDb.Where("api_path = ? and api_method = ?", toAddApi.ApiPath, toAddApi.ApiMethod).First(&api).Error, gorm.ErrRecordNotFound) {
+		return errors.New("此配置已存在：" + toAddApi.ApiPath)
 	}
 	err = global.GqaDb.Create(&api).Error
 	return err
@@ -60,7 +60,7 @@ func (s *ServiceApi) DeleteApi(id uint) (err error) {
 		return err
 	}
 	if sysApi.Stable == "yes" {
-		return errors.New("系统内置不允许删除：" + sysApi.Path)
+		return errors.New("系统内置不允许删除：" + sysApi.ApiPath)
 	}
 	err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&sysApi).Error
 	return err

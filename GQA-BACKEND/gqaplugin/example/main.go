@@ -12,12 +12,12 @@ var PluginExample = new(example)
 
 type example struct{}
 
-func (*example) PluginCode() string {
-	return "example"
+func (*example) PluginCode() string { //PluginCode返回值：请使用 "plugin-"前缀开头
+	return "plugin-example"
 }
 
 func (*example) PluginName() string {
-	return "哈哈哈"
+	return "插件示例"
 }
 
 func (p *example) PluginRouterPublic(publicGroup *gin.RouterGroup) {
@@ -42,6 +42,8 @@ func (p *example) PluginData() []interface{ LoadData() (err error) } {
 	//实现接口方法，初始化数据，填入插件中的初始化数据
 	var DataList = []interface{ LoadData() (err error) }{
 		data.PluginExampleNews,
+		data.PluginExampleSysApi,
+		data.PluginExampleSysCasbin,
 	}
 	return DataList
 }

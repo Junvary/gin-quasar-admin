@@ -1,11 +1,14 @@
 package private_router
 
-import "github.com/gin-gonic/gin"
+import (
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/example/api/public_api"
+	"github.com/gin-gonic/gin"
+)
 
 func InitPrivateRouter(privateGroup *gin.RouterGroup) {
+	//插件路由在注册的时候被分配为 PluginCode() 分组，无须再次分组。
 	{
-		privateGroup.GET("", func(context *gin.Context) {
-			context.JSON(200, "看不到")
-		})
+		//获取news列表
+		privateGroup.GET("news-list", public_api.GetNews)
 	}
 }

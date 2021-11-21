@@ -61,9 +61,9 @@ func (a *ApiApi) AddApi(c *gin.Context) {
 			Sort:      toAddApi.Sort,
 			Remark:    toAddApi.Remark,
 		},
-		Group:  toAddApi.Group,
-		Path:   toAddApi.Path,
-		Method: toAddApi.Method,
+		ApiGroup:  toAddApi.ApiGroup,
+		ApiPath:   toAddApi.ApiPath,
+		ApiMethod: toAddApi.ApiMethod,
 	}
 	if err := ServiceApi.AddApi(*addApi); err != nil {
 		global.GqaLog.Error("添加API失败！", zap.Any("err", err))

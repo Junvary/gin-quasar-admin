@@ -25,14 +25,14 @@ func (p *pluginExampleNews) LoadData() error {
 		tx.Model(&model.GqaPluginExampleNews{}).Count(&count)
 		if count != 0 {
 			fmt.Println("[GQA-Plugin] --> gqa_plugin_example_news 表的初始数据已存在，跳过初始化数据！数据量：", count)
-			global.GqaLog.Error("gqa_plugin_example_news 表的初始数据已存在，跳过初始化数据！", zap.Any("数据量", count))
+			global.GqaLog.Error("[GQA-Plugin] --> gqa_plugin_example_news 表的初始数据已存在，跳过初始化数据！", zap.Any("数据量", count))
 			return nil
 		}
 		if err := tx.Create(&newsData).Error; err != nil { // 遇到错误时回滚事务
 			return err
 		}
 		fmt.Println("[GQA-Plugin] --> gqa_plugin_example_news 表初始数据成功！")
-		global.GqaLog.Error("gqa_plugin_example_news 表初始数据成功！")
+		global.GqaLog.Error("[GQA-Plugin] --> gqa_plugin_example_news 表初始数据成功！")
 		return nil
 	})
 }

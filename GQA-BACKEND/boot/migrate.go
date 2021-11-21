@@ -30,7 +30,7 @@ func Migrate(db *gorm.DB) {
 		os.Exit(0)
 	}
 	//迁移GQA-Plugin数据库
-	err = db.AutoMigrate(gqaplugin.MigratePluginModel())
+	err = db.AutoMigrate(gqaplugin.MigratePluginModel()...)
 	if err != nil {
 		global.GqaLog.Error("迁移【GQA-Plugin】数据库失败！", zap.Any("err", err))
 		os.Exit(0)

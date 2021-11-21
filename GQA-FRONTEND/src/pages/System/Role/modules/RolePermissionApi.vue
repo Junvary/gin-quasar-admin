@@ -10,22 +10,25 @@
                 v-if="tableData.length !== 0" tick-strategy="strict" v-model:ticked="ticked">
                 <template v-slot:default-header="prop">
                     <div class="row items-center">
-                        <q-chip color="primary" dense>
-                            {{ prop.node.group }}
+                        <q-chip color="accent" dense v-if="prop.node.apiGroup.substring(0, 7)=== 'plugin-'">
+                            {{ prop.node.apiGroup }}
                         </q-chip>
-                        <q-chip color="primary" dense v-if="prop.node.method=== 'POST'">
-                            {{ prop.node.method }}
+                        <q-chip color="primary" dense v-else>
+                            {{ prop.node.apiGroup }}
                         </q-chip>
-                        <q-chip color="positive" dense v-if="prop.node.method=== 'GET'">
-                            {{ prop.node.method }}
+                        <q-chip color="primary" dense v-if="prop.node.apiMethod=== 'POST'">
+                            {{ prop.node.apiMethod }}
                         </q-chip>
-                        <q-chip color="negative" dense v-if="prop.node.method=== 'DELETE'">
-                            {{ prop.node.method }}
+                        <q-chip color="positive" dense v-if="prop.node.apiMethod=== 'GET'">
+                            {{ prop.node.apiMethod }}
                         </q-chip>
-                        <q-chip color="warning" dense v-if="prop.node.method=== 'PUT'">
-                            {{ prop.node.method }}
+                        <q-chip color="negative" dense v-if="prop.node.apiMethod=== 'DELETE'">
+                            {{ prop.node.apiMethod }}
                         </q-chip>
-                        <div class="text-weight-bold">{{ prop.node.path }}</div>
+                        <q-chip color="warning" dense v-if="prop.node.apiMethod=== 'PUT'">
+                            {{ prop.node.apiMethod }}
+                        </q-chip>
+                        <div class="text-weight-bold">{{ prop.node.apiPath }}</div>
                         <span class="text-weight-light text-black">
                             （{{ prop.node.remark}}）
                         </span>
@@ -62,7 +65,7 @@ export default {
                 }
                 const data = this.tableData
                 for (let item of data) {
-                    item.trueId = 'p:' + item.path + 'm:' + item.method
+                    item.trueId = 'p:' + item.apiPath + 'm:' + item.apiMethod
                 }
                 return data
             }
@@ -110,8 +113,8 @@ export default {
                 for (let t of this.ticked) {
                     if (t === item.trueId) {
                         policy.push({
-                            V1: item.path,
-                            V2: item.method,
+                            V1: item.apiPath,
+                            V2: item.apiMethod,
                         })
                     }
                 }
