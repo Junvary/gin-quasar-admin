@@ -31,7 +31,7 @@ func (p *example) PluginRouterPrivate(privateGroup *gin.RouterGroup) {
 }
 
 func (p *example) PluginMigrate() []interface{} {
-	//实现接口方法，数据表初始化，填入插件中的数据库模型
+	//实现接口方法，迁移插件数据表
 	var ModelList = []interface{}{
 		model.GqaPluginExampleNews{},
 	}
@@ -39,7 +39,7 @@ func (p *example) PluginMigrate() []interface{} {
 }
 
 func (p *example) PluginData() []interface{ LoadData() (err error) } {
-	//实现接口方法，初始化数据，填入插件中的初始化数据
+	//实现接口方法，初始化数据
 	var DataList = []interface{ LoadData() (err error) }{
 		data.PluginExampleNews,
 		data.PluginExampleSysApi,
