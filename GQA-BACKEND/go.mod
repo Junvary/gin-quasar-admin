@@ -3,6 +3,7 @@ module github.com/Junvary/gin-quasar-admin/GQA-BACKEND
 go 1.17
 
 require (
+	github.com/Junvary/gqa-plugin-example v0.0.0-20211122093526-d0bab6fdc78e
 	github.com/casbin/casbin/v2 v2.39.0
 	github.com/casbin/gorm-adapter/v3 v3.4.5
 	github.com/fsnotify/fsnotify v1.5.1
@@ -13,8 +14,10 @@ require (
 	go.uber.org/zap v1.19.1
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 	gorm.io/driver/mysql v1.1.2
-	gorm.io/gorm v1.21.16
+	gorm.io/gorm v1.22.3
 )
+
+replace gorm.io/gorm v1.22.3 => gorm.io/gorm v1.21.16
 
 require (
 	github.com/Knetic/govaluate v3.0.1-0.20171022003610-9aa49832a739+incompatible // indirect
