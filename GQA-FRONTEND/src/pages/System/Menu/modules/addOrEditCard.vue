@@ -55,7 +55,8 @@
                         </div>
 
                         <div class="row">
-                            <q-input class="col" v-model="addOrEditDetail.sort" type="number" label="排序" />
+                            <q-input class="col" v-model.number="addOrEditDetail.sort" type="number"
+                                :rules="[ val => val >= 1 || '排序必须大于0']" label=" 排序" />
                             <q-input class="col" v-model="addOrEditDetail.title" label="菜单名"
                                 :rules="[ val => val && val.length > 0 || '必须输入菜单名']" />
                             <q-input class="col" v-model="addOrEditDetail.name" label="菜单Name(英，唯一)"
@@ -107,8 +108,8 @@
                     <div class="q-gutter-md col-3">
                         <q-field label="父级菜单" stack-label>
                             <template v-slot:control>
-                                <q-tree :nodes="menuTree" default-expand-all node-key="id" label-key="name"
-                                    selected-color="primary" v-model:selected="addOrEditDetail.parentId"
+                                <q-tree :nodes="menuTree" default-expand-all node-key="name" label-key="name"
+                                    selected-color="primary" v-model:selected="addOrEditDetail.parentCode"
                                     v-if="menuTree.length !== 0" @update:selected="onSelected">
                                     <template v-slot:default-header="prop">
                                         <div class="row items-center">
@@ -148,7 +149,7 @@ export default {
     computed: {
         menuTree() {
             if (this.tableData.length !== 0) {
-                return ArrayToTree(this.tableData)
+                return ArrayToTree(this.tableData, 'name', 'parentCode')
             }
             return []
         },
@@ -164,7 +165,7 @@ export default {
                 sort: 1,
                 status: 'on',
                 remark: '',
-                parentId: 0,
+                parentCode: '',
                 name: '',
                 path: '',
                 component: '',
@@ -201,7 +202,7 @@ export default {
                 sort: 1,
                 status: 'on',
                 remark: '',
-                parentId: 0,
+                parentCode: '',
                 name: '',
                 path: '',
                 component: '',
@@ -225,7 +226,7 @@ export default {
             this.getTableData()
         },
         onSelected(key) {
-            this.addOrEditDetail.parentId = key
+            this.addOrEditDetail.parentCode = key
         },
         onClose() {
             this.addOrEditVisible = false

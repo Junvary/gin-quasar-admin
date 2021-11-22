@@ -2,8 +2,8 @@
     <q-page padding>
 
         <div class="row q-gutter-md items-center" style="margin-bottom: 10px">
-            <q-input style="width: 20%" v-model="queryParams.value" label="字典编码" />
-            <q-input style="width: 20%" v-model="queryParams.label" label="字典名称" />
+            <q-input style="width: 20%" v-model="queryParams.dictCode" label="字典编码" />
+            <q-input style="width: 20%" v-model="queryParams.dictLabel" label="字典名称" />
             <q-btn color="primary" @click="handleSearch" label="搜索" />
             <q-btn color="primary" @click="resetSearch" label="重置" />
         </div>
@@ -67,8 +67,8 @@ export default {
             },
             columns: [
                 { name: 'sort', align: 'center', label: '排序', field: 'sort' },
-                { name: 'value', align: 'center', label: '字典编码', field: 'value' },
-                { name: 'label', align: 'center', label: '字典名称', field: 'label' },
+                { name: 'dictCode', align: 'center', label: '字典编码', field: 'dictCode' },
+                { name: 'dictLabel', align: 'center', label: '字典名称', field: 'dictLabel' },
                 { name: 'status', align: 'center', label: '状态', field: 'status' },
                 { name: 'stable', align: 'center', label: '系统内置', field: 'stable' },
                 { name: 'actions', align: 'center', label: '操作', field: 'actions' },

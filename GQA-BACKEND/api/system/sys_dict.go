@@ -18,16 +18,16 @@ func (a *ApiDict) GetDictList(c *gin.Context) {
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
-	if err, dictList, total, parentId := ServiceDict.GetDictList(requestDictList); err != nil {
+	if err, dictList, total, parentCode := ServiceDict.GetDictList(requestDictList); err != nil {
 		global.GqaLog.Error("获取字典列表失败！", zap.Any("err", err))
 		global.ErrorMessage("获取字典列表失败，"+err.Error(), c)
 	} else {
 		global.SuccessData(system.ResponsePageWithParentId{
-			Records:  dictList,
-			Page:     requestDictList.Page,
-			PageSize: requestDictList.PageSize,
-			Total:    total,
-			ParentId: parentId,
+			Records:    dictList,
+			Page:       requestDictList.Page,
+			PageSize:   requestDictList.PageSize,
+			Total:      total,
+			ParentCode: parentCode,
 		}, c)
 	}
 }
@@ -62,9 +62,9 @@ func (a *ApiDict) AddDict(c *gin.Context) {
 			Sort:      toAddDict.Sort,
 			Remark:    toAddDict.Remark,
 		},
-		ParentId: toAddDict.ParentId,
-		Value:    toAddDict.Value,
-		Label:    toAddDict.Label,
+		ParentCode: toAddDict.ParentCode,
+		DictCode:   toAddDict.DictCode,
+		DictLabel:  toAddDict.DictLabel,
 	}
 	if err := ServiceDict.AddDict(*addDict); err != nil {
 		global.GqaLog.Error("添加字典失败！", zap.Any("err", err))

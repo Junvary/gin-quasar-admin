@@ -1,5 +1,5 @@
 <template>
-    <q-expansion-item group="multiple" :default-opened="itemOpen">
+    <q-expansion-item :group="addRoutesItem.name" :default-opened="itemOpen" :header-inset-level="initLevel">
         <template v-slot:header>
             <q-item-section avatar>
                 <q-icon :name="addRoutesItem.icon" color="primary" />

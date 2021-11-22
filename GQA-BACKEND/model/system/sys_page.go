@@ -12,9 +12,9 @@ type ResponsePage struct {
 }
 
 type ResponsePageWithParentId struct {
-	Records  interface{} `json:"records"`
-	Total    int64       `json:"total"`
-	Page     int         `json:"page"`
-	PageSize int         `json:"pageSize"`
-	ParentId uint        `json:"parentId"`
+	Records    interface{} `json:"records"`
+	Total      int64       `json:"total"`
+	Page       int         `json:"page"`
+	PageSize   int         `json:"pageSize"`
+	ParentCode string      `json:"parentCode"`
 }

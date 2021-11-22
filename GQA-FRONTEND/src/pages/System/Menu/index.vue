@@ -58,7 +58,7 @@ export default {
     computed: {
         menuTree() {
             if (this.tableData.length !== 0) {
-                return ArrayToTree(this.tableData)
+                return ArrayToTree(this.tableData, 'name', 'parentCode')
             }
             return []
         },

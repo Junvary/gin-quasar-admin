@@ -5,8 +5,8 @@
                 :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
 
                 <template v-slot:top="props">
-                    <q-btn dense color="primary" @click="showAddForm({parentId: parentDict.id})">
-                        新增 {{ parentDict.label}} 字典项：
+                    <q-btn dense color="primary" @click="showAddForm({parentCode: parentDict.dictCode})">
+                        新增 {{ parentDict.dictLabel}} 字典项：
                     </q-btn>
                     <q-space />
                     <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
@@ -70,8 +70,8 @@ export default {
             },
             columns: [
                 { name: 'sort', align: 'center', label: '排序', field: 'sort' },
-                { name: 'value', align: 'center', label: '字典编码', field: 'value' },
-                { name: 'label', align: 'center', label: '字典名称', field: 'label' },
+                { name: 'dictCode', align: 'center', label: '字典编码', field: 'dictCode' },
+                { name: 'dictLabel', align: 'center', label: '字典名称', field: 'dictLabel' },
                 { name: 'status', align: 'center', label: '状态', field: 'status' },
                 { name: 'stable', align: 'center', label: '系统内置', field: 'stable' },
                 { name: 'actions', align: 'center', label: '操作', field: 'actions' },
@@ -82,7 +82,7 @@ export default {
         show(row) {
             this.dictDetailVisible = true
             this.parentDict = row
-            this.queryParams.parentId = this.parentDict.id
+            this.queryParams.parentCode = this.parentDict.dictCode
             this.getTableData()
         },
     },

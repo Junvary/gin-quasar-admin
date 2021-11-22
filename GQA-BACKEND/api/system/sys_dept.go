@@ -61,11 +61,11 @@ func (a *ApiDept) AddDept(c *gin.Context) {
 			Sort:      toAddDept.Sort,
 			Remark:    toAddDept.Remark,
 		},
-		ParentId: toAddDept.ParentId,
-		DeptCode: toAddDept.DeptCode,
-		DeptName: toAddDept.DeptName,
-		Phone:    toAddDept.Phone,
-		OwnerId:  toAddDept.OwnerId,
+		ParentCode: toAddDept.ParentCode,
+		DeptCode:   toAddDept.DeptCode,
+		DeptName:   toAddDept.DeptName,
+		Phone:      toAddDept.Phone,
+		OwnerId:    toAddDept.OwnerId,
 	}
 	if err := ServiceDept.AddDept(*addDept); err != nil {
 		global.GqaLog.Error("添加部门失败！", zap.Any("err", err))

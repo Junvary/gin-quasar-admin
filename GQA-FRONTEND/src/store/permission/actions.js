@@ -12,9 +12,9 @@ export async function GetUserMenu({ commit, state, dispatch }) {
         // 设置所有菜单
         commit('INIT_USER_MENU', routes)
         // 重组搜索
-        const search = HandleAsideMenu(data)
+        const search = HandleAsideMenu(data, "name", "parentCode")
         // 重组侧边栏
-        const aside = HandleAsideMenu(data.filter(value => value.hidden === "no"))
+        const aside = HandleAsideMenu(data.filter(value => value.hidden === "no"), "name", "parentCode")
         // 设置搜索
         commit('SEARCH_MENU', search)
         // 设置侧边栏菜单

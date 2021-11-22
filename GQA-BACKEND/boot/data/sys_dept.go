@@ -14,17 +14,15 @@ var SysDept = new(sysDept)
 type sysDept struct{}
 
 var sysDeptData = []system.SysDept{
-	// 父级设置ID
-	{GqaModel: global.GqaModel{Id: 1, Stable: "yes", Status: "on", Sort: 1, Remark: "这是Gin-Quasar-Admin部门", CreatedAt: time.Now(), CreatedBy: "admin"},
-		ParentId: 0, DeptCode: "gin-quasar-admin", DeptName: "Gin-Quasar-Admin部门", OwnerId: 1,
+	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1, Remark: "这是Gin-Quasar-Admin部门", CreatedAt: time.Now(), CreatedBy: "admin"},
+		DeptCode: "gin-quasar-admin", DeptName: "Gin-Quasar-Admin部门", OwnerId: 1,
 	},
 
-	// 子级内容：
 	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1, Remark: "这是Gin部门", CreatedAt: time.Now(), CreatedBy: "admin"},
-		ParentId: 1, DeptCode: "gin", DeptName: "Gin部门", OwnerId: 1,
+		ParentCode: "gin-quasar-admin", DeptCode: "gin", DeptName: "Gin部门", OwnerId: 1,
 	},
 	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 2, Remark: "这是Quasar部门", CreatedAt: time.Now(), CreatedBy: "admin"},
-		ParentId: 1, DeptCode: "quasar", DeptName: "Quasar部门", OwnerId: 1,
+		ParentCode: "gin-quasar-admin", DeptCode: "quasar", DeptName: "Quasar部门", OwnerId: 1,
 	},
 }
 

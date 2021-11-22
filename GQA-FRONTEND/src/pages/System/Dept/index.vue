@@ -7,8 +7,8 @@
                         <q-btn label="新增部门" color="primary" @click="showAddForm" />
                     </div>
                     <q-separator />
-                    <q-tree :nodes="menuTree" default-expand-all node-key="id" label-key="name" selected-color="primary"
-                        v-model:selected="selectedKey" v-if="menuTree.length !== 0" @update:selected="onSelected">
+                    <q-tree :nodes="deptTree" default-expand-all node-key="id" label-key="name" selected-color="primary"
+                        v-model:selected="selectedKey" v-if="deptTree.length !== 0" @update:selected="onSelected">
                         <template v-slot:default-header="prop">
                             <div class="row items-center">
                                 <q-chip dense color="primary" text-color="white">
@@ -42,7 +42,6 @@
 import { tableDataMixin } from 'src/mixins/tableDataMixin'
 import AddOrEditCard from './modules/addOrEditCard'
 import { getAction, postAction, deleteAction, putAction } from 'src/api/manage'
-import { menuUrl } from 'src/api/url'
 import { ArrayToTree } from 'src/utils/arrayAndTree'
 import GqaDictShow from 'src/components/GqaDictShow'
 
@@ -54,9 +53,9 @@ export default {
         GqaDictShow,
     },
     computed: {
-        menuTree() {
+        deptTree() {
             if (this.tableData.length !== 0) {
-                return ArrayToTree(this.tableData)
+                return ArrayToTree(this.tableData, 'deptCode', 'parentCode')
             }
             return []
         },
@@ -98,7 +97,7 @@ export default {
             }
         },
         handleFinish() {
-            if ((this.$refs.addOrEditDialog.formType = 'add')) {
+            if (this.$refs.addOrEditDialog.formType === 'add') {
                 this.selectedKey = ''
             }
             this.getTableData()

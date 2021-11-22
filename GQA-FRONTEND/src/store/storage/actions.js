@@ -7,10 +7,14 @@ export async function GetGqaDict({ commit, state, dispatch }) {
     const res = await getAction(pubDictUrl)
     if (res.code === 1) {
         const dictDetail = res.data.records
-        const dictList = ArrayToTree(dictDetail)
+        for (let i of dictDetail) {
+            i.value = i.dictCode
+            i.label = i.dictLabel
+        }
+        const dictList = ArrayToTree(dictDetail, "dictCode", "parentCode")
         let dict = {}
         for (let d of dictList) {
-            dict[d.value] = d.children
+            dict[d.dictCode] = d.children
         }
         commit("SET_GQA_DICT", dict)
     }

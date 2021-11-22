@@ -14,42 +14,38 @@ var SysDict = new(sysDict)
 type sysDict struct{}
 
 var sysDictData = []system.SysDict{
-	// 父级设置ID
-	{GqaModel: global.GqaModel{Id: 1, Stable: "yes", Status: "on", Sort: 1, Remark: "这是性别字典", CreatedAt: time.Now(), CreatedBy: "admin"},
-		ParentId: 0, Value: "gender", Label: "性别",
+	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1, Remark: "这是性别字典", CreatedAt: time.Now(), CreatedBy: "admin"},
+		DictCode: "gender", DictLabel: "性别",
 	},
-	// 父级设置ID
-	{GqaModel: global.GqaModel{Id: 2, Stable: "yes", Status: "on", Sort: 2, Remark: "这是启用状态", CreatedAt: time.Now(), CreatedBy: "admin"},
-		ParentId: 0, Value: "statusOnOff", Label: "启用状态",
+	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 2, Remark: "这是启用状态", CreatedAt: time.Now(), CreatedBy: "admin"},
+		DictCode: "statusOnOff", DictLabel: "启用状态",
 	},
-	// 父级设置ID
-	{GqaModel: global.GqaModel{Id: 3, Stable: "yes", Status: "on", Sort: 3, Remark: "这是是否状态", CreatedAt: time.Now(), CreatedBy: "admin"},
-		ParentId: 0, Value: "statusYesNo", Label: "是否状态",
+	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 3, Remark: "这是是否状态", CreatedAt: time.Now(), CreatedBy: "admin"},
+		DictCode: "statusYesNo", DictLabel: "是否状态",
 	},
 
-	// 子级内容：
 	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1, Remark: "这是男", CreatedAt: time.Now(), CreatedBy: "admin"},
-		ParentId: 1, Value: "m", Label: "男",
+		ParentCode: "gender", DictCode: "m", DictLabel: "男",
 	},
 	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 2, Remark: "这是女", CreatedAt: time.Now(), CreatedBy: "admin"},
-		ParentId: 1, Value: "f", Label: "女",
+		ParentCode: "gender", DictCode: "f", DictLabel: "女",
 	},
 	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 3, Remark: "这是保密", CreatedAt: time.Now(), CreatedBy: "admin"},
-		ParentId: 1, Value: "u", Label: "保密",
+		ParentCode: "gender", DictCode: "u", DictLabel: "保密",
 	},
 
 	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1, Remark: "这是启用", CreatedAt: time.Now(), CreatedBy: "admin"},
-		ParentId: 2, Value: "on", Label: "启用",
+		ParentCode: "statusOnOff", DictCode: "on", DictLabel: "启用",
 	},
 	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 2, Remark: "这是禁用", CreatedAt: time.Now(), CreatedBy: "admin"},
-		ParentId: 2, Value: "off", Label: "禁用",
+		ParentCode: "statusOnOff", DictCode: "off", DictLabel: "禁用",
 	},
 
 	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1, Remark: "这是是", CreatedAt: time.Now(), CreatedBy: "admin"},
-		ParentId: 3, Value: "yes", Label: "是",
+		ParentCode: "statusYesNo", DictCode: "yes", DictLabel: "是",
 	},
 	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 2, Remark: "这是否", CreatedAt: time.Now(), CreatedBy: "admin"},
-		ParentId: 3, Value: "no", Label: "否",
+		ParentCode: "statusYesNo", DictCode: "no", DictLabel: "否",
 	},
 }
 

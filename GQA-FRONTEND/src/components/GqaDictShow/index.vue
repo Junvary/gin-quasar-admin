@@ -25,7 +25,7 @@ export default {
     computed: {
         dictLabel() {
             const dict = this.dictList[this.dictName]
-            const label = dict.filter((item) => item.value === this.dictCode)[0].label
+            const label = dict.filter((item) => item.dictCode === this.dictCode)[0].dictLabel
             return label
         },
     },
