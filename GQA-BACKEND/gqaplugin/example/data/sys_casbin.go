@@ -14,7 +14,7 @@ type sysCasbin struct{}
 
 var sysCasbinData = []gormadapter.CasbinRule{
 	// plugin-example组
-	{Ptype: "p", V0: "super-admin", V1: "/plugin-example/news-list", V2: "GET"},
+	{Ptype: "p", V0: "super-admin", V1: "/plugin-example/news-list", V2: "POST"},
 }
 
 func (s *sysCasbin) LoadData() error {

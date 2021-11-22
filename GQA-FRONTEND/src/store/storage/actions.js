@@ -46,3 +46,7 @@ export function SetGqaGoVersion({ commit, state, dispatch }, goVersion) {
 export function SetGqaGinVersion({ commit, state, dispatch }, ginVersion) {
     commit("SET_GQA_GIN_VERSION", ginVersion)
 }
+
+export function SetGqaPluginList({ commit, state, dispatch }, pluginList) {
+    commit("SET_GQA_PLUGIN_LIST", pluginList)
+}

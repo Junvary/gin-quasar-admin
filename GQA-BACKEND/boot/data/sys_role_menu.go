@@ -26,6 +26,9 @@ var sysRoleMenuData = []system.SysRoleMenu{
 	{"super-admin", 10},
 	{"super-admin", 11},
 	{"super-admin", 12},
+	//TODO:暂时先把插件的填上，后续处理
+	{"super-admin", 13},
+	{"super-admin", 14},
 }
 
 func (s *sysRoleMenu) LoadData() error {

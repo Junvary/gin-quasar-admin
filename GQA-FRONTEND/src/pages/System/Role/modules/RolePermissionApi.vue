@@ -10,22 +10,23 @@
                 v-if="tableData.length !== 0" tick-strategy="strict" v-model:ticked="ticked">
                 <template v-slot:default-header="prop">
                     <div class="row items-center">
-                        <q-chip color="accent" dense v-if="prop.node.apiGroup.substring(0, 7)=== 'plugin-'">
+                        <q-chip color="accent" text-color="white" dense
+                            v-if="prop.node.apiGroup.substring(0, 7)=== 'plugin-'">
                             {{ prop.node.apiGroup }}
                         </q-chip>
-                        <q-chip color="primary" dense v-else>
+                        <q-chip color="primary" text-color="white" dense v-else>
                             {{ prop.node.apiGroup }}
                         </q-chip>
-                        <q-chip color="primary" dense v-if="prop.node.apiMethod=== 'POST'">
+                        <q-chip color="primary" text-color="white" dense v-if="prop.node.apiMethod=== 'POST'">
                             {{ prop.node.apiMethod }}
                         </q-chip>
-                        <q-chip color="positive" dense v-if="prop.node.apiMethod=== 'GET'">
+                        <q-chip color="positive" text-color="white" dense v-if="prop.node.apiMethod=== 'GET'">
                             {{ prop.node.apiMethod }}
                         </q-chip>
-                        <q-chip color="negative" dense v-if="prop.node.apiMethod=== 'DELETE'">
+                        <q-chip color="negative" text-color="white" dense v-if="prop.node.apiMethod=== 'DELETE'">
                             {{ prop.node.apiMethod }}
                         </q-chip>
-                        <q-chip color="warning" dense v-if="prop.node.apiMethod=== 'PUT'">
+                        <q-chip color="warning" text-color="white" dense v-if="prop.node.apiMethod=== 'PUT'">
                             {{ prop.node.apiMethod }}
                         </q-chip>
                         <div class="text-weight-bold">{{ prop.node.apiPath }}</div>
@@ -58,11 +59,11 @@ export default {
     computed: {
         apiData() {
             if (this.tableData.length) {
-                if (this.row.roleCode === 'super-admin') {
-                    for (let i of this.tableData) {
-                        i.disabled = true
-                    }
-                }
+                // if (this.row.roleCode === 'super-admin') {
+                //     for (let i of this.tableData) {
+                //         i.disabled = true
+                //     }
+                // }
                 const data = this.tableData
                 for (let item of data) {
                     item.trueId = 'p:' + item.apiPath + 'm:' + item.apiMethod
@@ -132,8 +133,14 @@ export default {
                 }
             })
         },
-        handleClear() {},
-        handleAll() {},
+        handleClear() {
+            this.ticked = []
+        },
+        handleAll() {
+            this.tableData.forEach((item) => {
+                this.ticked.push('p:' + item.apiPath + 'm:' + item.apiMethod)
+            })
+        },
     },
 }
 </script>

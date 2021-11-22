@@ -37,10 +37,11 @@
                                 <GqaVersion />
                             </q-btn>
                         </span>
-
                     </q-toolbar-title>
-
                 </q-toolbar>
+
+                <GqaPluginList />
+
                 <q-card-section>
                     <q-form class="text-center" ref="initDbForm">
                         <q-stepper v-model="step" ref="stepper" color="primary" animated>
@@ -202,6 +203,7 @@ import { getAction, postAction } from 'src/api/manage'
 import { checkDbUrl, initDbUrl } from 'src/api/url'
 
 import GqaVersion from 'src/components/GqaVersion'
+import GqaPluginList from 'src/components/GqaPluginList'
 
 export default {
     components: {
@@ -215,6 +217,7 @@ export default {
         PageDownload,
         PageFooter,
         GqaVersion,
+        GqaPluginList,
     },
     computed: {
         initLabel() {
@@ -249,14 +252,14 @@ export default {
         this.checkDb()
     },
     methods: {
-        ...mapActions('storage', ['SetGqaGoVersion', 'SetGqaGinVersion']),
+        ...mapActions('storage', ['SetGqaGoVersion', 'SetGqaGinVersion', 'SetGqaPluginList']),
         checkDb() {
             this.checkDbStatus = true
             getAction(checkDbUrl).then((res) => {
                 if (res.code === 1) {
                     this.SetGqaGoVersion(res.data.goVersion)
                     this.SetGqaGinVersion(res.data.ginVersion)
-                    this.ginVersion = res.data.ginVersion
+                    this.SetGqaPluginList(res.data.pluginList)
                     if (res.data.needInit === false) {
                         this.getPublic()
                         this.checkDbStatus = false

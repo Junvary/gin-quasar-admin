@@ -40,12 +40,12 @@ export default {
     computed: {
         menuTree() {
             if (this.tableData.length !== 0) {
-                if (this.row.roleCode === 'super-admin') {
-                    for (let i of this.tableData) {
-                        i.disabled = true
-                    }
-                }
-                return ArrayToTree(this.tableData)
+                // if (this.row.roleCode === 'super-admin') {
+                //     for (let i of this.tableData) {
+                //         i.disabled = true
+                //     }
+                // }
+                return ArrayToTree(this.tableData, 'name', 'parentCode')
             }
             return []
         },
@@ -106,8 +106,14 @@ export default {
                 }
             })
         },
-        handleAll() {},
-        handleClear() {},
+        handleClear() {
+            this.ticked = []
+        },
+        handleAll() {
+            this.tableData.forEach((item) => {
+                this.ticked.push(item.id)
+            })
+        },
     },
 }
 </script>

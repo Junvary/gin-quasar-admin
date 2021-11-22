@@ -3,6 +3,7 @@ export default function () {
         gqaDict: undefined,
         gqaFrontend: undefined,
         goVersion: undefined,
-        ginVersion: undefined
+        ginVersion: undefined,
+        pluginList: undefined
     }
 }

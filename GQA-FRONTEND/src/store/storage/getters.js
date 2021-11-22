@@ -38,3 +38,12 @@ export function gqaGinVersion(state) {
         return ginversion
     }
 }
+
+export function gqaPluginList(state) {
+    const pluginList = LocalStorage.getItem("gqa-pluginList")
+    if (state.pluginList) {
+        return state.pluginList
+    } else {
+        return pluginList
+    }
+}

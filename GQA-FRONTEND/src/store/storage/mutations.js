@@ -20,3 +20,8 @@ export function SET_GQA_GIN_VERSION(state, ginVersion) {
     state.ginVersion = ginVersion
     LocalStorage.set('gqa-ginVersion', ginVersion)
 }
+
+export function SET_GQA_PLUGIN_LIST(state, pluginList) {
+    state.pluginList = pluginList
+    LocalStorage.set('gqa-pluginList', pluginList)
+}

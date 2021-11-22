@@ -60,7 +60,7 @@ var sysMenuData = []system.SysMenu{
 		Title: "系统示例", Icon: "star", Hidden: "no", KeepAlive: "no", IsLink: "no",
 	},
 	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1, Remark: "这是图标合集", CreatedAt: time.Now(), CreatedBy: "admin"},
-		ParentCode: "example", Name: "icon", Path: "/example/icon", Component: "/Example/Icon/index",
+		ParentCode: "example", Name: "icon", Path: "/system/example/icon", Component: "/System/Example/Icon/index",
 		Title: "图标合集", Icon: "mood", Hidden: "no", KeepAlive: "no", IsLink: "no",
 	},
 }
