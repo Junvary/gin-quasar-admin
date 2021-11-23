@@ -1,11 +1,11 @@
 <template>
     <div>
-        <q-btn dense round glossy push color="primary" :icon="`${!right ? 'settings' : 'close'}`"
+        <q-btn dense round glossy push color="primary" :icon="`${!right ? 'color_lens' : 'close'}`"
             @click="right = !right" />
         <q-dialog v-model="right" position="right">
             <q-card style="height: 100%; width: 400px">
                 <q-card-section>
-                    <div class="text-h6">系统设置</div>
+                    <div class="text-h6">颜色风格</div>
                 </q-card-section>
                 <q-card-section>
                     <GqaTheme />

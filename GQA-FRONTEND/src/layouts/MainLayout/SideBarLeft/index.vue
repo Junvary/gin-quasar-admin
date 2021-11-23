@@ -1,6 +1,11 @@
 <template>
     <q-list>
-        <template v-for="(item, index) in addRoutes" :key="index">
+        <q-item clickable v-ripple class="text-primary text-bold text-center text-h6">
+            <q-item-section>
+                {{ itemMenu.title }}
+            </q-item-section>
+        </q-item>
+        <template v-for="(item, index) in itemMenu.children ? itemMenu.children : []" :key="index">
             <SideBarLeftItem :addRoutesItem="item" :initLevel="0" />
         </template>
     </q-list>
@@ -14,6 +19,15 @@ export default {
     name: 'SideBarLeft',
     components: {
         SideBarLeftItem,
+    },
+    props: {
+        itemMenu: {
+            type: Object,
+            required: false,
+            default: () => {
+                return this.addRoutes[0]
+            },
+        },
     },
     computed: {
         ...mapGetters({

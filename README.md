@@ -29,28 +29,49 @@ gitee：https://gitee.com/junvary/gin-quasar-admin
 
 ### 项目特点（部分开发中）：
 
-1. 一键完成数据库和数据的初始化。
-2. 角色为分配各类权限的关键核心。
-3. 用户可以同时拥有多角色的并集权限。
-4. 动态改变后台配置，如验证码、JWT、上传文件大小、后缀等。
-5. 动态改变网站前台配置，如主标题、次标题、描述、Logo等。
+1. 一键完成数据库和数据的初始化，附带插件数据和菜单。
 
+2. 部门管理。
 
+3. 用户可以同时拥有多个角色。
+
+4. 角色绑定菜单和API。
+
+5. 动态改变后台配置，如验证码、JWT、上传文件大小、后缀等。
+
+6. 动态改变网站前台配置，如主标题、次标题、描述、Logo等。
+
+   
 
 ### 项目截图：
 
-美化美化再说。。。手动狗头
+<div align=center>
+    <img src="https://i.loli.net/2021/11/23/Fy9tBToRw1dGlV8.png" /><br/><br/>
+    <img src="https://i.loli.net/2021/11/23/1bFB9XiUoer7AGI.png" /><br/><br/>
+    <img src="https://i.loli.net/2021/11/23/LltM2DzRkjCFEQg.png" /><br/><br/>
+    <img src="https://i.loli.net/2021/11/23/GWLI9lEukAtKd2f.png" /><br/><br/>
+    <img src="https://i.loli.net/2021/11/23/Zuf5neDPs6IwLmT.png" /><br/><br/>
+    <img src="https://i.loli.net/2021/11/23/aAIpSW6UlFb7oh1.png" /><br/><br/>
+    <img src="https://i.loli.net/2021/11/23/JI5c9XEMPAwgGzK.png" /><br/><br/>
+    <img src="https://i.loli.net/2021/11/23/OfGzBRLSmhYJb7n.png" /><br/><br/>
+    <img src="https://i.loli.net/2021/11/23/USfNzBEI83bo4Xn.png" /><br/><br/>
+    <img src="https://i.loli.net/2021/11/23/JF9cuPvRQmDSUZk.png" /><br/><br/>
+</div>
+
+
 
 
 
 ### 这是一句标题，但不知道起什么名字：
 
-任何项目、框架都是各有千秋，体验的多了总会有自己的一些想法，那么就把他们付诸于实际吧。
+任何项目、框架都是各有千秋。
 
-生命在于折腾，乐趣在于想法的实现。
+如果有了自己的一些想法，那么就付诸于实际吧。
 
-水平一般、能力有限，请各位看官见谅，重在不断学习、不断提高。
+生命在于折腾。
 
-鸣谢 https://github.com/flipped-aurora/gin-vue-admin ，感谢奇淼大佬@piexlmax  ，学到了很多！
+乐趣在于想法的实现。
+
+鸣谢 https://github.com/flipped-aurora/gin-vue-admin 
 
  

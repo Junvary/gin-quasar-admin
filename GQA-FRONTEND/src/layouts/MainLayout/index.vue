@@ -3,13 +3,27 @@
         <q-header reveal elevated>
             <!-- <div class="row no-wrap shadow-1"> -->
             <q-toolbar class="bg-primary glossy ">
-                <q-btn flat dense round icon=" sync_alt" aria-label="Menu" @click="leftDrawerOpen = !leftDrawerOpen" />
+                <q-btn dense round glossy push icon="sync_alt" aria-label="Menu"
+                    @click="toggleLeftDrawer = !toggleLeftDrawer" />
 
                 <GqaAvatar class="gin-quasar-admin-logo" :src="gqaFrontend.gqaWebLogo" />
 
                 <q-toolbar-title shrink class="text-bold text-italic">
                     {{ gqaFrontend.gqaSubTitle }}
                 </q-toolbar-title>
+
+                <q-tabs dense inline-label outside-arrows mobile-arrows shrink stretch v-model="currentItemMenu"
+                    style="max-width: 50%;" class="text-white">
+                    <q-tab v-for="item in asideMenu" :key="item.name" :icon="item.icon" :name="item.name"
+                        :label="item.title" @click="changeItemMenu(item)" />
+                </q-tabs>
+
+                <!-- <div class="q-gutter-sm">
+                    <q-btn dense glossy push v-for="item in asideMenu" :key="item.name" :icon="item.icon"
+                        @click="changeItemMenu(item)">
+                        {{item.title}}
+                    </q-btn>
+                </div> -->
 
                 <!-- <TabMenu /> -->
                 <!-- </q-toolbar>
@@ -37,21 +51,16 @@
             <!-- header下面的标签页 -->
             <div class="row bg-primary">
                 <!-- <ChipMenu /> -->
-                <TabMenu />
+                <TabMenu v-show="!pageDashboard" />
             </div>
 
         </q-header>
 
-        <q-drawer elevated v-model="leftDrawerOpen" show-if-above bordered content-class="bg-grey-1">
-            <q-list>
-                <q-item clickable v-ripple>
-                    <q-item-section class="text-primary text-bold text-center">
-                        欢迎访问
-                        {{ gqaFrontend.gqaSubTitle }}
-                    </q-item-section>
-                </q-item>
-                <SideBarLeft />
-            </q-list>
+        <q-drawer elevated v-if="!pageDashboard" v-model="toggleLeftDrawer" show-if-above bordered
+            content-class="bg-grey-1">
+
+            <SideBarLeft :itemMenu="itemMenu" />
+
         </q-drawer>
 
         <q-page-container>
@@ -65,6 +74,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { gqaFrontendMixin } from 'src/mixins/gqaFrontendMixin'
 import SideBarLeft from './SideBarLeft'
 import TabMenu from './TabMenu'
@@ -94,11 +104,46 @@ export default {
         matched() {
             return this.$route.matched
         },
+        ...mapGetters({
+            asideMenu: 'permission/aside',
+            searchMenu: 'permission/search',
+        }),
+        pageDashboard() {
+            const menu = this.itemMenu.name === 'dashboard' || JSON.stringify(this.itemMenu) === '{}'
+            if (this.$route.name === 'dashboard' && menu) {
+                return true
+            }
+            return false
+        },
+    },
+    watch: {
+        $route() {
+            if (this.searchMenu.length) {
+                const parentCode = this.searchMenu.filter((item) => item.name === this.$route.name)[0].parentCode
+                if (parentCode) {
+                    this.changeItemMenu(this.asideMenu.filter((item) => item.name === parentCode)[0])
+                    this.currentItemMenu = this.asideMenu.filter((item) => item.name === parentCode)[0].name
+                } else {
+                    this.changeItemMenu(this.asideMenu[0])
+                    this.currentItemMenu = this.asideMenu[0].name
+                }
+            }
+        },
     },
     data() {
         return {
-            leftDrawerOpen: false,
+            toggleLeftDrawer: false,
+            itemMenu: {},
+            currentItemMenu: 'dashboard',
         }
+    },
+    methods: {
+        changeItemMenu(item) {
+            if (item.name === 'dashboard') {
+                this.$router.push('/dashboard')
+            }
+            this.itemMenu = item
+        },
     },
 }
 </script>

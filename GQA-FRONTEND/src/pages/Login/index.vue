@@ -74,7 +74,7 @@ export default {
         return {
             loginVisible: false,
             isPwd: true,
-            randomImg: 'https://acg.toubiec.cn/random.php',
+            randomImg: 'https://api.ixiaowai.cn/api/api.php',
             form: {
                 username: '',
                 password: '',

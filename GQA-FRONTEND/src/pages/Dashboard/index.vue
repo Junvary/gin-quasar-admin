@@ -1,14 +1,22 @@
 <template>
-    <q-page class="flex flex-center">
-        <img alt="Quasar logo" src="~assets/quasar-logo-vertical.svg" style="width: 200px; height: 200px">
-        1111111111
+    <q-page>
+        <q-img :src="randomImg" class="absolute-full">
+            <div class="absolute-full text-subtitle2 flex flex-center">
+                <span style="font-size: 40px">
+                    欢迎使用 Gin-Quasar-Admin！
+                </span>
+            </div>
+        </q-img>
     </q-page>
 </template>
 
 <script>
-import { defineComponent } from 'vue'
-
-export default defineComponent({
+export default {
     name: 'Dashboard',
-})
+    data() {
+        return {
+            randomImg: 'https://api.ixiaowai.cn/api/api.php',
+        }
+    },
+}
 </script>
