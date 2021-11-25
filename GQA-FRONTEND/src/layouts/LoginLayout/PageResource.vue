@@ -1,12 +1,13 @@
 <template>
-    <div class="q-pa-md row items-center justify-center" id="gqa-document">
-        <q-table style="margin: 80px 0" title="Treats" :rows="data" :columns="columns" row-key="name" />
+    <div class="q-pa-md row items-center justify-around" id="gqa-document">
+        <q-table style="margin: 80px 0" title="资料查阅" :rows="data" :columns="columns" row-key="name" />
+        <q-table style="margin: 80px 0" title="资源下载" :rows="data" :columns="columns" row-key="name" />
     </div>
 </template>
 
 <script>
 export default {
-    name: 'PageDocument',
+    name: 'PageResource',
     data() {
         return {
             columns: [

@@ -5,10 +5,9 @@
             <page-banner :checkDbStatus="checkDbStatus" ref="pageBanner" />
             <page-news />
             <page-project />
-            <!-- <page-honour /> -->
             <page-weapon />
-            <page-document />
-            <page-download />
+            <page-honour />
+            <page-resource />
             <page-footer />
         </q-page-container>
         <q-dialog v-model="initDbVisible" persistent>
@@ -193,10 +192,9 @@ import PageHeader from './PageHeader'
 import PageBanner from './PageBanner'
 import PageNews from './PageNews'
 import PageProject from './PageProject'
-// import PageHonour from './PageHonour'
+import PageHonour from './PageHonour'
 import PageWeapon from './PageWeapon'
-import PageDocument from './PageDocument'
-import PageDownload from './PageDownload'
+import PageResource from './PageResource'
 import PageFooter from './PageFooter'
 
 import { getAction, postAction } from 'src/api/manage'
@@ -211,10 +209,9 @@ export default {
         PageBanner,
         PageNews,
         PageProject,
-        // PageHonour,
+        PageHonour,
         PageWeapon,
-        PageDocument,
-        PageDownload,
+        PageResource,
         PageFooter,
         GqaVersion,
         GqaPluginList,

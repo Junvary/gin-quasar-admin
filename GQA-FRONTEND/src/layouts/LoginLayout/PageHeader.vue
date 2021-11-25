@@ -1,41 +1,21 @@
 <template>
     <header>
-        <a href="javascript:;" class="logo">
-
+        <div class="logo">
             <GqaAvatar size="xl" :src="gqaFrontend.gqaWebLogo" />
             <span style="margin-left: 10px">
                 {{ gqaFrontend.gqaMainTitle }}
             </span>
-
-        </a>
+        </div>
         <ul>
-            <li>
-                <a class="gqa-menu-scroll" href="javascript:;" @click="handleScroll('gqa-banner')">首页</a>
-            </li>
-            <li>
-                <a class="gqa-menu-scroll" href="javascript:;" @click="handleScroll('gqa-news')">最新要闻</a>
-            </li>
-            <li>
-                <a class="gqa-menu-scroll" href="javascript:;" @click="handleScroll('gqa-project')">项目进度</a>
-            </li>
-            <li>
-                <a class="gqa-menu-scroll" href="javascript:;" @click="handleScroll('gqa-honour')">荣誉认证</a>
-            </li>
-            <li>
-                <a class="gqa-menu-scroll" href="javascript:;" @click="handleScroll('gqa-weapon')">武器库</a>
-            </li>
-            <li>
-                <a class="gqa-menu-scroll" href="javascript:;" @click="handleScroll('gqa-document')">相关文档</a>
-            </li>
-            <li>
-                <a class="gqa-menu-scroll" href="javascript:;" @click="handleScroll('gqa-download')">常用下载</a>
-            </li>
-            <li>
-                <a class="gqa-menu-scroll" href="javascript:;">
-                    版本信息
-                    <GqaVersion />
-                </a>
-            </li>
+            <q-btn flat rounded push size="lg" text-color="white" @click="handleScroll('gqa-banner')" label="首页" />
+            <q-btn flat rounded push size="lg" text-color="white" @click="handleScroll('gqa-news')" label="最新要闻" />
+            <q-btn flat rounded push size="lg" text-color="white" @click="handleScroll('gqa-project')" label="项目进度" />
+            <q-btn flat rounded push size="lg" text-color="white" @click="handleScroll('gqa-weapon')" label="武器库" />
+            <q-btn flat rounded push size="lg" text-color="white" @click="handleScroll('gqa-honour')" label="荣誉认证" />
+            <q-btn flat rounded push size="lg" text-color="white" @click="handleScroll('gqa-document')" label="资源查阅" />
+            <q-btn flat rounded push size="lg" text-color="white" label="版本信息">
+                <GqaVersion />
+            </q-btn>
         </ul>
     </header>
 </template>
@@ -103,6 +83,7 @@ header .logo {
     display: flex;
     align-items: center;
     user-select: none;
+    cursor: pointer;
 }
 header ul {
     position: relative;
@@ -110,36 +91,12 @@ header ul {
     justify-content: center;
     align-items: center;
 }
-header ul li {
-    position: relative;
-    list-style: none;
-    &:hover {
-        a {
-            text-shadow: #fff 1px 0 0, #fff 0 1px 0, #fff -1px 0 0, #fff 0 -1px 0;
-            color: #3056d3;
-        }
-    }
-}
-header ul li a {
-    position: relative;
-    margin: 0 15px;
-    text-decoration: none;
-    color: #ffffff;
-    letter-spacing: 2px;
-    font-weight: bold;
-    font-size: 20px;
-    transition: 0.6s;
-    user-select: none;
-}
+
 header.sticky .logo,
-header.sticky ul li a {
+header.sticky {
     color: black;
-    &:hover {
-        text-shadow: #fff 1px 0 0, #fff 0 1px 0, #fff -1px 0 0, #fff 0 -1px 0;
-        color: #3056d3;
+    .q-btn--rounded {
+        color: black !important;
     }
-}
-.gqa-menu-scroll {
-    cursor: pointer;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="gqa-weapon" id="gqa-weapon" style="background: #f3f4fe">
+    <div class="gqa-weapon" id="gqa-weapon">
         <div id="weapon-chart" style="width: 100%; height: 600px"></div>
     </div>
 </template>
@@ -58,7 +58,6 @@ export default {
 
 <style lang="scss" scoped>
 .gqa-weapon {
-    background: #f3f4fe;
     width: 100%;
     display: flex;
     justify-content: center;

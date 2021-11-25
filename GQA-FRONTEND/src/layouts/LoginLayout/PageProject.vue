@@ -1,5 +1,5 @@
 <template>
-    <div class="q-pa-md row items-center justify-center" id="gqa-project" style="background: #f3f4fe">
+    <div class="q-pa-md row items-center justify-center gqa-project" id="gqa-project">
         <q-table style="margin: 80px 0" title="Treats" :rows="data" :columns="columns" row-key="name" />
     </div>
 </template>
@@ -135,4 +135,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.gqa-project {
+    background: rgba(170, 142, 245, 1);
+}
 </style>

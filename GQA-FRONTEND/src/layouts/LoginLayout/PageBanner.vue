@@ -1,5 +1,5 @@
 <template>
-    <section class="gqa-banner" id="gqa-banner">
+    <section class="gin-quasar-admin-banner" id="gqa-banner">
         <div class="container">
             <div class="container-title">
                 <h1>
@@ -62,87 +62,84 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.gqa-banner {
-    background: #3056d3;
+.container {
+    width: 100%;
     padding-top: 180px;
-    .container {
-        width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    .container-title {
+        width: 60%;
         display: flex;
         justify-content: center;
         align-items: center;
+        flex-wrap: wrap;
         flex-direction: column;
-        .container-title {
-            width: 60%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            flex-direction: column;
-            z-index: 99;
-            h1 {
-                color: #ffffff;
-                font-weight: 700;
-                font-size: 50px;
-                line-height: 70px;
-                text-align: center;
-                margin-bottom: 30px;
-                letter-spacing: 20px;
-                user-select: none;
-            }
-            .small-title {
-                font-weight: 400;
-                font-size: 20px;
-                letter-spacing: 2px;
-                line-height: 40px;
-                text-align: center;
-                color: #ffffff;
-                opacity: 0.8;
-                max-width: 600px;
-                margin: auto;
-                margin-bottom: 30px;
-                user-select: none;
-                text-transform: capitalize;
-            }
-            .buttons {
-                width: 40%;
-                display: flex;
-                justify-content: space-around;
-            }
-        }
-        .container-image {
-            margin-top: 150px;
-            max-width: 845px;
-            // margin: auto;
+        z-index: 99;
+        h1 {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 50px;
+            line-height: 70px;
             text-align: center;
-            // position: relative;
-            z-index: 1;
+            margin-bottom: 30px;
+            letter-spacing: 20px;
+            user-select: none;
+        }
+        .small-title {
+            font-weight: 400;
+            font-size: 20px;
+            letter-spacing: 2px;
+            line-height: 40px;
+            text-align: center;
+            color: #ffffff;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: auto;
+            margin-bottom: 30px;
+            user-select: none;
+            text-transform: capitalize;
+        }
+        .buttons {
+            width: 40%;
             display: flex;
-            align-items: flex-end;
-            img {
-                max-width: 100%;
-                text-align: center;
-                opacity: 0.5;
-                border-radius: 20px;
-            }
+            justify-content: space-around;
         }
-        .container-team1 {
-            position: absolute;
-            background-image: url('~src/assets/login/team1.svg');
-            background-size: cover;
-            width: 55vh;
-            height: 35vh;
-            left: 30px;
-            top: 240px;
+    }
+    .container-image {
+        margin-top: 150px;
+        max-width: 845px;
+        // margin: auto;
+        text-align: center;
+        // position: relative;
+        z-index: 1;
+        display: flex;
+        align-items: flex-end;
+        img {
+            max-width: 100%;
+            text-align: center;
+            opacity: 0.5;
+            border-radius: 20px;
         }
-        .container-team2 {
-            position: absolute;
-            background-image: url('~src/assets/login/team2.svg');
-            background-size: cover;
-            width: 55vh;
-            height: 35vh;
-            right: 0;
-            top: 500px;
-        }
+    }
+    .container-team1 {
+        position: absolute;
+        background-image: url('~src/assets/login/team1.svg');
+        background-size: cover;
+        width: 55vh;
+        height: 35vh;
+        left: 30px;
+        top: 240px;
+    }
+    .container-team2 {
+        position: absolute;
+        background-image: url('~src/assets/login/team2.svg');
+        background-size: cover;
+        width: 55vh;
+        height: 35vh;
+        right: 0;
+        top: 500px;
     }
 }
 </style>
