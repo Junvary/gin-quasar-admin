@@ -1,12 +1,14 @@
 package system
 
 import (
+	"encoding/json"
 	"errors"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model/system"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
+	"sort"
 )
 
 type ServiceUser struct {
@@ -102,7 +104,24 @@ func (s *ServiceUser) GetUserMenu(c *gin.Context) (err error, menu []system.SysM
 	if err != nil {
 		return err, nil
 	}
-	return nil, menus
+	//menus切片去重
+	type distinctMenu []system.SysMenu
+	resultMenu := map[string]bool{}
+	for _, v := range menus{
+		data, _ := json.Marshal(v)
+		resultMenu[string(data)] = true
+	}
+	result := distinctMenu{}
+	for mm := range resultMenu{
+		var m system.SysMenu
+		_ = json.Unmarshal([]byte(mm), &m)
+		result = append(result, m)
+	}
+	//result切片排序
+	sort.Slice(result, func(i, j int) bool {
+		return result[i].Sort < result[j].Sort
+	})
+	return nil, result
 }
 
 func (s *ServiceUser) GetUserRole(c *gin.Context) (err error, role []system.SysRole) {

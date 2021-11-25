@@ -9,6 +9,9 @@
             <page-honour />
             <page-resource />
             <page-footer />
+            <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
+                <q-btn dense fab push icon="keyboard_arrow_up" color="primary" />
+            </q-page-scroller>
         </q-page-container>
         <q-dialog v-model="initDbVisible" persistent>
             <q-card style="width: 100%; max-width: 50vw">

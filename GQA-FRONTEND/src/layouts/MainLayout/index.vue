@@ -65,6 +65,9 @@
 
         <q-page-container>
             <router-view />
+            <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
+                <q-btn dense fab push icon="keyboard_arrow_up" color="primary" />
+            </q-page-scroller>
         </q-page-container>
 
         <q-footer reveal elevated>
@@ -121,8 +124,8 @@ export default {
             if (this.searchMenu.length) {
                 const parentCode = this.searchMenu.filter((item) => item.name === this.$route.name)[0].parentCode
                 if (parentCode) {
-                    this.changeItemMenu(this.asideMenu.filter((item) => item.name === parentCode)[0])
-                    this.currentItemMenu = this.asideMenu.filter((item) => item.name === parentCode)[0].name
+                    this.changeItemMenu(this.findInAsideMenu(parentCode, this.asideMenu)[0])
+                    this.currentItemMenu = this.findInAsideMenu(parentCode, this.asideMenu)[0].name
                 } else {
                     this.changeItemMenu(this.asideMenu[0])
                     this.currentItemMenu = this.asideMenu[0].name
@@ -137,12 +140,34 @@ export default {
             currentItemMenu: 'dashboard',
         }
     },
+    created() {
+        const name = this.$route.name
+        const parentCode = this.searchMenu.filter((item) => item.name === name)[0].parentCode
+        if (parentCode) {
+            this.currentItemMenu = parentCode
+            this.changeItemMenu(this.findInAsideMenu(parentCode, this.asideMenu)[0])
+        }
+    },
     methods: {
         changeItemMenu(item) {
             if (item.name === 'dashboard') {
                 this.$router.push('/dashboard')
             }
             this.itemMenu = item
+        },
+        findInAsideMenu(parentCode, menu) {
+            if (menu.filter((item) => item.name === parentCode).length === 0) {
+                for (let subMenu of menu) {
+                    if (subMenu.children && subMenu.children.filter((subItem) => subItem.name === parentCode).length !== 0) {
+                        return [subMenu]
+                    }
+                }
+                for (let subMenu of menu) {
+                    return this.findInAsideMenu(parentCode, subMenu)
+                }
+            } else {
+                return menu.filter((item) => item.name === parentCode)
+            }
         },
     },
 }

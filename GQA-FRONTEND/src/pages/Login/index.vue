@@ -5,11 +5,11 @@
                 <q-img class="col-6" :src="randomImg" />
                 <q-card-section>
                     <div class="text-center">
-                        <q-avatar class="gin-quasar-admin-logo">
-                            <img src="gqa128.png" />
-                        </q-avatar>
+                        <GqaAvatar size="xl" :src="gqaFrontend.gqaWebLogo" />
                     </div>
-                    <div class="text-h4 text-center text-primary ">Gin-Quasar-Admin</div>
+                    <div class="text-h4 text-center text-primary ">
+                        {{ gqaFrontend.gqaMainTitle }}
+                    </div>
                     <div class="text-h6 text-center text-primary q-mt-md q-mb-xs">
                         好久不见，欢迎回来！
                     </div>
@@ -64,11 +64,15 @@ import { mapActions } from 'vuex'
 import { getAction } from 'src/api/manage'
 import { captchaUrl } from 'src/api/url'
 import GqaLanguage from 'src/components/GqaLanguage'
+import GqaAvatar from 'src/components/GqaAvatar'
+import { gqaFrontendMixin } from 'src/mixins/gqaFrontendMixin'
 
 export default {
     name: 'Login',
+    mixins: [gqaFrontendMixin],
     components: {
         GqaLanguage,
+        GqaAvatar,
     },
     data() {
         return {
