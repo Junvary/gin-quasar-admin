@@ -1,7 +1,8 @@
 export default function () {
     return {
         userMenu: [],
-        aside: [],
-        search: [],
+        searchMenu: [],
+        asideMenu: [],
+        topMenu: []
     }
 }

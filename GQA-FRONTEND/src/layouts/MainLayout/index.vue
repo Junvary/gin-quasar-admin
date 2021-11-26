@@ -14,32 +14,14 @@
 
                 <q-tabs dense inline-label outside-arrows mobile-arrows shrink stretch v-model="currentItemMenu"
                     style="max-width: 50%;" class="text-white">
-                    <q-tab v-for="item in asideMenu" :key="item.name" :icon="item.icon" :name="item.name"
-                        :label="item.title" @click="changeItemMenu(item)" />
+                    <q-tab v-for="item in topMenu" :key="item.top.name" :icon="item.top.icon" :name="item.top.name"
+                        :label="item.top.title" @click="changeTopMenu(item)" />
                 </q-tabs>
 
-                <!-- <div class="q-gutter-sm">
-                    <q-btn dense glossy push v-for="item in asideMenu" :key="item.name" :icon="item.icon"
-                        @click="changeItemMenu(item)">
-                        {{item.title}}
-                    </q-btn>
-                </div> -->
-
-                <!-- <TabMenu /> -->
-                <!-- </q-toolbar>
-
-                <q-toolbar class="bg-primary glossy col-4"> -->
                 <q-space />
-                <!-- 简易面包屑 -->
-                <!-- <q-breadcrumbs active-color="white" style="font-size: 13px; margin-left: 20px">
-                    <q-breadcrumbs-el :label="item.title" :icon="item.icon"
-                        v-for="item in matched.slice(1, matched.length)" :key="item.path" />
-                    </q-breadcrumbs> -->
 
                 <Fullscreen style="margin: 0 5px" />
-
                 <Notice style="margin: 0 5px" />
-
                 <UserMenu style="margin: 0 5px" />
                 <!-- <q-language-switcher/> -->
                 <Setting style="margin: 0 5px" />
@@ -59,7 +41,7 @@
         <q-drawer elevated v-if="!pageDashboard" v-model="toggleLeftDrawer" show-if-above bordered
             content-class="bg-grey-1">
 
-            <SideBarLeft :itemMenu="itemMenu" />
+            <SideBarLeft :topMenuItem="topMenuItem" />
 
         </q-drawer>
 
@@ -104,70 +86,50 @@ export default {
         GqaAvatar,
     },
     computed: {
-        matched() {
-            return this.$route.matched
-        },
         ...mapGetters({
-            asideMenu: 'permission/aside',
-            searchMenu: 'permission/search',
+            topMenu: 'permission/topMenu',
         }),
         pageDashboard() {
-            const menu = this.itemMenu.name === 'dashboard' || JSON.stringify(this.itemMenu) === '{}'
+            const menu = this.topMenuItem.top.name === 'dashboard' || JSON.stringify(this.topMenuItem) === '{}'
             if (this.$route.name === 'dashboard' && menu) {
                 return true
             }
             return false
         },
+        findTopItemMenu() {
+            const name = this.$route.name
+            let item = {}
+            for (let m of this.topMenu) {
+                if (m.top.name === name || (m.arrayChildren && m.arrayChildren.find((item) => item.name === name))) {
+                    item = m
+                    break
+                }
+            }
+            this.currentItemMenu = item.top ? item.top.name : {}
+            return item
+        },
     },
     watch: {
         $route() {
-            if (this.searchMenu.length) {
-                const parentCode = this.searchMenu.filter((item) => item.name === this.$route.name)[0].parentCode
-                if (parentCode) {
-                    this.changeItemMenu(this.findInAsideMenu(parentCode, this.asideMenu)[0])
-                    this.currentItemMenu = this.findInAsideMenu(parentCode, this.asideMenu)[0].name
-                } else {
-                    this.changeItemMenu(this.asideMenu[0])
-                    this.currentItemMenu = this.asideMenu[0].name
-                }
-            }
+            this.topMenuItem = this.findTopItemMenu
         },
     },
     data() {
         return {
             toggleLeftDrawer: false,
-            itemMenu: {},
+            topMenuItem: {},
             currentItemMenu: 'dashboard',
         }
     },
     created() {
-        const name = this.$route.name
-        const parentCode = this.searchMenu.filter((item) => item.name === name)[0].parentCode
-        if (parentCode) {
-            this.currentItemMenu = parentCode
-            this.changeItemMenu(this.findInAsideMenu(parentCode, this.asideMenu)[0])
-        }
+        this.topMenuItem = this.findTopItemMenu
     },
     methods: {
-        changeItemMenu(item) {
-            if (item.name === 'dashboard') {
+        changeTopMenu(item) {
+            if (item.top.name === 'dashboard') {
                 this.$router.push('/dashboard')
             }
-            this.itemMenu = item
-        },
-        findInAsideMenu(parentCode, menu) {
-            if (menu.filter((item) => item.name === parentCode).length === 0) {
-                for (let subMenu of menu) {
-                    if (subMenu.children && subMenu.children.filter((subItem) => subItem.name === parentCode).length !== 0) {
-                        return [subMenu]
-                    }
-                }
-                for (let subMenu of menu) {
-                    return this.findInAsideMenu(parentCode, subMenu)
-                }
-            } else {
-                return menu.filter((item) => item.name === parentCode)
-            }
+            this.topMenuItem = item
         },
     },
 }

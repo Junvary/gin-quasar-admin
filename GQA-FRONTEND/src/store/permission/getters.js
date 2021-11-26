@@ -2,10 +2,14 @@ export function userMenu(state) {
     return state.userMenu
 }
 
-export function aside(state) {
-    return state.aside
+export function searchMenu(state) {
+    return state.searchMenu
 }
 
-export function search(state) {
-    return state.search
+export function asideMenu(state) {
+    return state.asideMenu
+}
+
+export function topMenu(state) {
+    return state.topMenu
 }

@@ -5,7 +5,7 @@ export function INIT_USER_MENU(state, routes) {
             if (route.children && route.children.length > 0) {
                 push(route.children)
             } else {
-                if (!route.hidden) {
+                if (route.meta.hidden === "no") {
                     const { meta, name, path } = route
                     menu.push({ meta, name, path })
                 }
@@ -16,30 +16,22 @@ export function INIT_USER_MENU(state, routes) {
     state.userMenu = menu
 }
 
-export function ASIDE_MENU(state, aside) {
-    state.aside = aside
+export function INIT_SEARCH_MENU(state, searchMenu) {
+    state.searchMenu = searchMenu
 }
 
-export function SEARCH_MENU(state, menu) {
-    const search = []
-    const push = function (menu, titlePrefix = []) {
-        menu.forEach(m => {
-            if (m.children) {
-                push(m.children, [...titlePrefix, m.title])
-            } else {
-                search.push({
-                    ...m,
-                    fullTitle: [...titlePrefix, m.title].join(' / ')
-                })
-            }
-        })
-    }
-    push(menu)
-    state.search = search
+export function INIT_ASIDE_MENU(state, asideMenu) {
+    state.asideMenu = asideMenu
 }
+
+export function INIT_TOP_MENU(state, topMenu) {
+    state.topMenu = topMenu
+}
+
 
 export function CLEAR_MENU(state) {
     state.userMenu = []
-    state.aside = []
-    state.search = []
+    state.searchMenu = []
+    state.asideMenu = []
+    state.topMenu = []
 }

@@ -1,26 +1,48 @@
 import { getAction } from 'src/api/manage'
 import { userMenuUrl } from 'src/api/url'
 import { HandleRouter } from 'src/utils/router'
-import { HandleAsideMenu } from 'src/utils/arrayAndTree'
+import { HandleAsideMenu, TreeToArray } from 'src/utils/arrayAndTree'
 
 export async function GetUserMenu({ commit, state, dispatch }) {
     const res = await getAction(userMenuUrl)
     if (res.code === 1) {
         const data = res.data.records
+
         // 拿到鉴权路由表（用户自己的所有菜单），整理称路由
-        const routes = HandleRouter(data)
+        const userMenu = HandleRouter(data)
         // 设置所有菜单
-        commit('INIT_USER_MENU', routes)
-        // 重组搜索
-        const search = HandleAsideMenu(data, "name", "parentCode")
-        // 重组侧边栏
-        const aside = HandleAsideMenu(data.filter(value => value.hidden === "no"), "name", "parentCode")
-        // 设置搜索
-        commit('SEARCH_MENU', search)
+        commit('INIT_USER_MENU', userMenu)
+
+        // 重组搜索菜单
+        const searchMenu = data.filter(value => value.hidden === "no")
+        // 设置搜索菜单
+        commit('INIT_SEARCH_MENU', searchMenu)
+
+        // 重组侧边栏菜单
+        const asideMenu = HandleAsideMenu(data.filter(value => value.hidden === "no"), "name", "parentCode")
         // 设置侧边栏菜单
-        commit('ASIDE_MENU', aside)
+        commit('INIT_ASIDE_MENU', asideMenu)
+
+        // 重组顶部菜单分组详情
+        const topMenu = []
+        asideMenu.forEach(item => {
+            if (item.children && item.children.length) {
+                topMenu.push({
+                    top: item,
+                    treeChildren: item.children,
+                    arrayChildren: TreeToArray(item.children)
+                })
+            } else {
+                topMenu.push({
+                    top: item
+                })
+            }
+        })
+        // 设置顶部分组菜单详情
+        commit('INIT_TOP_MENU', topMenu)
+
         // 返回鉴权路由表
-        return routes
+        return userMenu
     } else {
         return
     }

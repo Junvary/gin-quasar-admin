@@ -1,5 +1,5 @@
 export function AddTabMenu({ commit, state, rootState }, tab) {
-    const base = rootState.permission.userMenu[0]
+    const base = rootState.permission.userMenu.filter(item => item.name === 'dashboard')[0]
     // 退出时userMenu被清空，不走下面逻辑
     if (base) {
         // 如果没有仪表盘，则加入仪表盘
