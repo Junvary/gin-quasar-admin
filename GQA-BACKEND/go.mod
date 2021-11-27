@@ -1,4 +1,4 @@
-module github.com/Junvary/gin-quasar-admin/GQA-BACKEND
+module gin-quasar-admin
 
 go 1.17
 

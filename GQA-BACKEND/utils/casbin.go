@@ -2,7 +2,7 @@ package utils
 
 import (
 	"fmt"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
+	"gin-quasar-admin/global"
 	"github.com/casbin/casbin/v2"
 	gormadapter "github.com/casbin/gorm-adapter/v3"
 	"go.uber.org/zap"

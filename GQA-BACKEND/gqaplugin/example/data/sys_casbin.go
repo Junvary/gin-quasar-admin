@@ -2,7 +2,7 @@ package data
 
 import (
 	"fmt"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
+	"gin-quasar-admin/global"
 	gormadapter "github.com/casbin/gorm-adapter/v3"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
@@ -29,8 +29,8 @@ func (s *sysCasbin) LoadData() error {
 		if err := tx.Create(&sysCasbinData).Error; err != nil { // 遇到错误时回滚事务
 			return err
 		}
-		fmt.Println("[GQA-Plugin] --> example插件数据进入 casbin_rule 表初始数据成功！")
-		global.GqaLog.Error("[GQA-Plugin] --> example插件数据进入 casbin_rule 表初始数据成功！")
+		fmt.Println("[GQA-Plugin] --> example插件初始数据进入 casbin_rule 表成功！")
+		global.GqaLog.Error("[GQA-Plugin] --> example插件初始数据进入 casbin_rule 表成功！")
 		return nil
 	})
 }

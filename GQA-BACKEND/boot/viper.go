@@ -2,7 +2,7 @@ package boot
 
 import (
 	"fmt"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
+	"gin-quasar-admin/global"
 	"github.com/fsnotify/fsnotify"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"

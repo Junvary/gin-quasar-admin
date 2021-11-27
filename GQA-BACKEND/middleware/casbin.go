@@ -2,9 +2,9 @@ package middleware
 
 import (
 	"fmt"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/service"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
+	"gin-quasar-admin/global"
+	"gin-quasar-admin/service"
+	"gin-quasar-admin/utils"
 	"github.com/gin-gonic/gin"
 )
 

@@ -1,10 +1,10 @@
 package boot
 
 import (
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/middleware"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/router"
+	"gin-quasar-admin/global"
+	"gin-quasar-admin/gqaplugin"
+	"gin-quasar-admin/middleware"
+	"gin-quasar-admin/router"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )

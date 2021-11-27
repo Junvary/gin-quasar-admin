@@ -1,10 +1,10 @@
 package example
 
 import (
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/example/data"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/example/model"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/example/router/private_router"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/example/router/public_router"
+	"gin-quasar-admin/gqaplugin/example/data"
+	"gin-quasar-admin/gqaplugin/example/model"
+	"gin-quasar-admin/gqaplugin/example/router/private_router"
+	"gin-quasar-admin/gqaplugin/example/router/public_router"
 	"github.com/gin-gonic/gin"
 )
 
@@ -49,6 +49,7 @@ func (p *example) PluginData() []interface{ LoadData() (err error) } { //实现�
 		data.PluginExampleSysApi,
 		data.PluginExampleSysCasbin,
 		data.PluginExampleSysMenu,
+		data.PluginExampleSysRoleMenu,
 	}
 	return DataList
 }

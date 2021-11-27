@@ -6,7 +6,7 @@
             <q-btn color="primary" :disable="row.roleCode === 'super-admin'" @click="handleRoleMenu">保存菜单权限</q-btn>
         </div>
         <q-card-section style="width: 100%; max-height: 45vw" class="scroll">
-            <q-tree style="width: 100%" :nodes="menuTree" default-expand-all node-key="id" label-key="name"
+            <q-tree style="width: 100%" :nodes="menuTree" default-expand-all node-key="name" label-key="name"
                 selected-color="primary" v-if="menuTree.length !== 0" tick-strategy="strict" v-model:ticked="ticked">
                 <template v-slot:default-header="prop">
                     <div class="row items-center">
@@ -40,11 +40,6 @@ export default {
     computed: {
         menuTree() {
             if (this.tableData.length !== 0) {
-                // if (this.row.roleCode === 'super-admin') {
-                //     for (let i of this.tableData) {
-                //         i.disabled = true
-                //     }
-                // }
                 return ArrayToTree(this.tableData, 'name', 'parentCode')
             }
             return []
@@ -80,7 +75,7 @@ export default {
             }).then((res) => {
                 if (res.code === 1) {
                     res.data.records.forEach((item) => {
-                        this.ticked.push(item.MenuId)
+                        this.ticked.push(item.MenuName)
                     })
                 }
             })
@@ -90,7 +85,7 @@ export default {
             for (let i of this.ticked) {
                 roleMenu.push({
                     roleCode: this.row.roleCode,
-                    menuId: i,
+                    menuName: i,
                 })
             }
             putAction(this.url.roleMenuEdit, {
@@ -111,7 +106,7 @@ export default {
         },
         handleAll() {
             this.tableData.forEach((item) => {
-                this.ticked.push(item.id)
+                this.ticked.push(item.name)
             })
         },
     },

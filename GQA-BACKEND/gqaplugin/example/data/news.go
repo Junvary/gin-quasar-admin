@@ -2,8 +2,8 @@ package data
 
 import (
 	"fmt"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/example/model"
+	"gin-quasar-admin/global"
+	"gin-quasar-admin/gqaplugin/example/model"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
 	"time"
@@ -14,7 +14,7 @@ var PluginExampleNews = new(pluginExampleNews)
 type pluginExampleNews struct{}
 
 var newsData = []model.GqaPluginExampleNews{
-	{GqaModel: global.GqaModel{Stable: "no", Status: "on", Sort: 1, Remark: "新闻1", CreatedAt: time.Now(), CreatedBy: "admin"},
+	{GqaModel: global.GqaModel{Status: "on", Sort: 1, Remark: "新闻1", CreatedAt: time.Now(), CreatedBy: "admin"},
 		Title: "这是测试新闻1的标题", Content: "这是测试新闻1的内容",
 	},
 }

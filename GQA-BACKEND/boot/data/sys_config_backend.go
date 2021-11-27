@@ -2,8 +2,8 @@ package data
 
 import (
 	"fmt"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model/system"
+	"gin-quasar-admin/global"
+	"gin-quasar-admin/model/system"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
 	"time"

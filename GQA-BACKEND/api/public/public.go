@@ -1,6 +1,6 @@
 package public
 
-import "github.com/Junvary/gin-quasar-admin/GQA-BACKEND/service"
+import "gin-quasar-admin/service"
 
 type ApiPublic struct {
 	ApiCheckAndInitDb

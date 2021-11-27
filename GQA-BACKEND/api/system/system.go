@@ -1,6 +1,6 @@
 package system
 
-import "github.com/Junvary/gin-quasar-admin/GQA-BACKEND/service"
+import "gin-quasar-admin/service"
 
 type ApiSystem struct {
 	ApiMenu

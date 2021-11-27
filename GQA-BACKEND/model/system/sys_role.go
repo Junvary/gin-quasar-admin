@@ -1,7 +1,7 @@
 package system
 
 import (
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
+	"gin-quasar-admin/global"
 )
 
 type SysRole struct {
@@ -11,7 +11,7 @@ type SysRole struct {
 	RoleCode string    `json:"roleCode" gorm:"comment:角色编码;not null;uniqueIndex;"`
 	RoleName string    `json:"roleName" gorm:"comment:角色名称;not null;unique;"`
 	User     []SysUser `json:"user" gorm:"many2many:sys_user_role;foreignKey:RoleCode;jointForeignKey:SysRoleRoleCode;references:Id;joinReferences:SysUserId;"`
-	Menu     []SysMenu `json:"menu" gorm:"many2many:sys_role_menu;foreignKey:RoleCode;jointForeignKey:SysRoleRoleCode;references:Id;joinReferences:SysMenuId;"`
+	Menu     []SysMenu `json:"menu" gorm:"many2many:sys_role_menu;foreignKey:RoleCode;jointForeignKey:SysRoleRoleCode;references:Name;joinReferences:SysMenuName;"`
 }
 
 type RequestAddRole struct {
@@ -52,7 +52,7 @@ type RequestRoleMenuEdit struct {
 
 type RequestRoleMenu struct {
 	RoleCode string `json:"roleCode"`
-	MenuId   uint   `json:"menuId"`
+	MenuName string `json:"menuName"`
 }
 
 type RequestRoleApiEdit struct {

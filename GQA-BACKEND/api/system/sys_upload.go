@@ -1,8 +1,8 @@
 package system
 
 import (
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
+	"gin-quasar-admin/global"
+	"gin-quasar-admin/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )

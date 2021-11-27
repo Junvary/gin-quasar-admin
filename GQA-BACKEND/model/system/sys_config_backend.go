@@ -1,6 +1,6 @@
 package system
 
-import "github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
+import "gin-quasar-admin/global"
 
 type SysConfigBackend struct {
 	UpdatedByUser *SysUser `json:"updatedByUser" gorm:"foreignKey:UpdatedBy;references:Username"`

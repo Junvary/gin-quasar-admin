@@ -1,8 +1,8 @@
 package router
 
 import (
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/router/public"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/router/system"
+	"gin-quasar-admin/router/public"
+	"gin-quasar-admin/router/system"
 )
 
 type GroupRouter struct {

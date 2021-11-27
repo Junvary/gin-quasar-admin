@@ -3,7 +3,7 @@ package boot
 import (
 	"context"
 	"fmt"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
+	"gin-quasar-admin/global"
 	"log"
 	"net/http"
 	"os"

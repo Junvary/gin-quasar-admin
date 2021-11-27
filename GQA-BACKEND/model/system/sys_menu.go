@@ -1,6 +1,6 @@
 package system
 
-import "github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
+import "gin-quasar-admin/global"
 
 type SysMenu struct {
 	UpdatedByUser *SysUser `json:"updatedByUser" gorm:"foreignKey:UpdatedBy;references:Username"`
@@ -8,7 +8,7 @@ type SysMenu struct {
 	global.GqaModel
 	//ParentCode 对应 Name
 	ParentCode string    `json:"parentCode" gorm:"comment:父菜单Name;index;"`
-	Name       string    `json:"name" gorm:"菜单Name;not null;unique;"`
+	Name       string    `json:"name" gorm:"菜单Name;not null;unique;index;"`
 	Path       string    `json:"path" gorm:"comment:菜单地址;"`
 	Component  string    `json:"component" gorm:"comment:前端组件;"`
 	Title      string    `json:"title" gorm:"comment:菜单名称"`

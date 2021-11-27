@@ -1,6 +1,6 @@
 package system
 
-import "github.com/Junvary/gin-quasar-admin/GQA-BACKEND/api"
+import "gin-quasar-admin/api"
 
 type RouterSystem struct {
 	RouterMenu

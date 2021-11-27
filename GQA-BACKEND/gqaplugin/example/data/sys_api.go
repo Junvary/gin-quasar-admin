@@ -2,8 +2,8 @@ package data
 
 import (
 	"fmt"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model/system"
+	"gin-quasar-admin/global"
+	"gin-quasar-admin/model/system"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
 	"time"
@@ -14,7 +14,7 @@ var PluginExampleSysApi = new(sysApi)
 type sysApi struct{}
 
 var sysApiData = []system.SysApi{
-	{GqaModel: global.GqaModel{Stable: "no", Status: "on", Sort: 47, Remark: "插件：获取news-list", CreatedAt: time.Now(), CreatedBy: "admin"},
+	{GqaModel: global.GqaModel{Status: "on", Sort: 47, Remark: "插件：获取news-list", CreatedAt: time.Now(), CreatedBy: "admin"},
 		ApiGroup: "plugin-example", ApiPath: "/plugin-example/news-list", ApiMethod: "POST",
 	},
 }
@@ -31,8 +31,8 @@ func (s *sysApi) LoadData() error {
 		if err := tx.Create(&sysApiData).Error; err != nil { // 遇到错误时回滚事务
 			return err
 		}
-		fmt.Println("[GQA-Plugin] --> example插件数据进入 sys_api 表初始数据成功！")
-		global.GqaLog.Error("[GQA-Plugin] --> example插件数据进入 sys_api 表初始数据成功！")
+		fmt.Println("[GQA-Plugin] --> example插件初始数据进入 sys_api 表成功！")
+		global.GqaLog.Error("[GQA-Plugin] --> example插件初始数据进入 sys_api 表成功！")
 		return nil
 	})
 }

@@ -1,6 +1,6 @@
 package config
 
-import "github.com/Junvary/gin-quasar-admin/GQA-BACKEND/config/config"
+import "gin-quasar-admin/config/config"
 
 type Config struct {
 	System  config.System  `mapstructure:"system" json:"system" yaml:"system"`

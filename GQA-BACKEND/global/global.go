@@ -1,7 +1,7 @@
 package global
 
 import (
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/config"
+	"gin-quasar-admin/config"
 	"github.com/casbin/casbin/v2"
 	"github.com/mojocn/base64Captcha"
 	"github.com/spf13/viper"

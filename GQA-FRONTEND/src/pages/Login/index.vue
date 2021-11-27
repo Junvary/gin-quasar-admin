@@ -25,7 +25,7 @@
                             </template>
                         </q-input>
                         <q-input :disable="loading" outlined dense no-error-icon v-model.trim="form.captcha"
-                            placeholder="验证码" :rules="[(val) => (val && val.length > 0) || '请输入验证码',]">
+                            placeholder="验证码" :rules="[(val) => (val && val.length > 0) || '请输入正确的验证码',]">
                             <template v-slot:after>
                                 <q-btn padding="none" style="width: 120px; height: 100%" @click="getCaptcha">
                                     <q-img :src="captchaImage" />
@@ -127,6 +127,7 @@ export default {
                 this.$router.push(this.$route.query.redirect || '/')
             } else {
                 this.getCaptcha()
+                this.form.captcha = ''
                 this.loading = false
             }
         },

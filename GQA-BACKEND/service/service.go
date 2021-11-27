@@ -1,8 +1,8 @@
 package service
 
 import (
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/service/public"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/service/system"
+	"gin-quasar-admin/service/public"
+	"gin-quasar-admin/service/system"
 )
 
 type GroupService struct {

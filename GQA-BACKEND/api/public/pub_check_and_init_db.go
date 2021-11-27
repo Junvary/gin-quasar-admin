@@ -1,10 +1,10 @@
 package public
 
 import (
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model/system"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
+	"gin-quasar-admin/global"
+	"gin-quasar-admin/gqaplugin"
+	"gin-quasar-admin/model/system"
+	"gin-quasar-admin/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 	"runtime"
@@ -60,5 +60,5 @@ func (a *ApiCheckAndInitDb) InitDb(c *gin.Context) {
 		return
 	}
 	global.GqaCasbin = utils.Casbin(global.GqaDb)
-	global.SuccessMessage("系统初始化成功！", c)
+	global.SuccessMessage("系统初始化成功，请登录！", c)
 }

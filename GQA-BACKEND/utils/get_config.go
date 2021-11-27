@@ -1,8 +1,8 @@
 package utils
 
 import (
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model/system"
+	"gin-quasar-admin/global"
+	"gin-quasar-admin/model/system"
 )
 
 func GetConfigBackend(gqaOption string) (key string) {

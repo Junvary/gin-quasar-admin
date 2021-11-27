@@ -69,12 +69,13 @@
 
                             <q-step :name="2" title="初始化数据库" icon="settings" :done="step > 2">
                                 <div class="q-gutter-y-md column">
-                                    <span class="col text-red text-h6">
-                                        首先，你需要对数据库进行初始化，请确保已经安装并启动了数据库
+                                    <span class="col text-red text-h7">
+                                        首先需要对数据库进行初始化，请确保已经安装并启动了数据库
                                     </span>
                                     <span class="col text-red text-h7">
-                                        *系统会为你自动创建数据库，并导入初始数据*
+                                        系统会为你自动创建数据库，并导入初始数据。
                                     </span>
+
                                     <q-input outlined bottom-slots v-model.trim="form.dbType" label="数据库类型" disable
                                         :rules="[(val) =>(val && val.length > 0) || '请输入数据库类型',]">
                                         <template v-slot:before>
@@ -86,39 +87,46 @@
                                             只支持Mysql
                                         </template>
                                     </q-input>
-                                    <q-input outlined v-model.trim="form.host" label="数据库地址"
-                                        :rules="[(val) =>(val && val.length > 0) || '请输入数据库地址',]">
-                                        <template v-slot:before>
-                                            <q-avatar class="gin-quasar-admin-logo">
-                                                <img src="gqa128.png" />
-                                            </q-avatar>
-                                        </template>
-                                    </q-input>
-                                    <q-input outlined v-model.trim="form.port" label="数据库端口"
-                                        :rules="[(val) =>(val && val.length > 0) || '请输入数据库端口',]">
-                                        <template v-slot:before>
-                                            <q-avatar class="gin-quasar-admin-logo">
-                                                <img src="gqa128.png" />
-                                            </q-avatar>
-                                        </template>
-                                    </q-input>
-                                    <q-input outlined v-model.trim="form.username" label="数据库用户名"
-                                        :rules="[(val) =>(val && val.length > 0) || '请输入数据库用户名',]">
-                                        <template v-slot:before>
-                                            <q-avatar class="gin-quasar-admin-logo">
-                                                <img src="gqa128.png" />
-                                            </q-avatar>
-                                        </template>
-                                    </q-input>
-                                    <q-input outlined v-model.trim="form.password" label="数据库密码"
-                                        :rules="[(val) =>(val && val.length > 0) || '请输入数据库密码',]">
-                                        <template v-slot:before>
-                                            <q-avatar class="gin-quasar-admin-logo">
-                                                <img src="gqa128.png" />
-                                            </q-avatar>
-                                        </template>
-                                    </q-input>
-                                    <q-input outlined v-model.trim="form.dbName" label="数据库/Schema名称"
+
+                                    <div class="row">
+                                        <q-input class="col" outlined v-model.trim="form.host" label="数据库地址"
+                                            :rules="[(val) =>(val && val.length > 0) || '请输入数据库地址',]">
+                                            <template v-slot:before>
+                                                <q-avatar class="gin-quasar-admin-logo">
+                                                    <img src="gqa128.png" />
+                                                </q-avatar>
+                                            </template>
+                                        </q-input>
+                                        <q-input class="col" outlined v-model.trim="form.port" label="数据库端口"
+                                            :rules="[(val) =>(val && val.length > 0) || '请输入数据库端口',]">
+                                            <template v-slot:before>
+                                                <q-avatar class="gin-quasar-admin-logo">
+                                                    <img src="gqa128.png" />
+                                                </q-avatar>
+                                            </template>
+                                        </q-input>
+                                    </div>
+
+                                    <div class="row">
+                                        <q-input class="col" outlined v-model.trim="form.username" label="数据库用户名"
+                                            :rules="[(val) =>(val && val.length > 0) || '请输入数据库用户名',]">
+                                            <template v-slot:before>
+                                                <q-avatar class="gin-quasar-admin-logo">
+                                                    <img src="gqa128.png" />
+                                                </q-avatar>
+                                            </template>
+                                        </q-input>
+                                        <q-input class="col" outlined v-model.trim="form.password" label="数据库密码"
+                                            :rules="[(val) =>(val && val.length > 0) || '请输入数据库密码',]">
+                                            <template v-slot:before>
+                                                <q-avatar class="gin-quasar-admin-logo">
+                                                    <img src="gqa128.png" />
+                                                </q-avatar>
+                                            </template>
+                                        </q-input>
+                                    </div>
+
+                                    <q-input outlined v-model.trim="form.dbName" label="自动创建数据库/Schema名称"
                                         :rules="[(val) =>(val && val.length > 0) || '请输入数据库/Schema名',]">
                                         <template v-slot:before>
                                             <q-avatar class="gin-quasar-admin-logo">

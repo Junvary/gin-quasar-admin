@@ -2,8 +2,8 @@ package system
 
 import (
 	"errors"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
+	"gin-quasar-admin/global"
+	"gin-quasar-admin/utils"
 	"mime/multipart"
 	"strconv"
 	"time"

@@ -2,11 +2,12 @@ package gqaplugin
 
 import (
 	//插件引入方式1：github插件引入方式
-	example "github.com/Junvary/gqa-plugin-example"
+	//example "github.com/Junvary/gqa-plugin-example"
 	//-----------------------------------------------------------------------
 	//插件引入方式2：本地插件引入方式
-	//"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/example"
-
+	"gin-quasar-admin/gqaplugin/example"
+	//"gin-quasar-admin/gqaplugin/xk"
+	//其他引用
 	"github.com/gin-gonic/gin"
 )
 
@@ -14,11 +15,12 @@ import (
 	1.import插件(github模式、本地模式)
 	2.最好为github模式引入方式提供别名
 	3.插件填入下面的插件列表：pluginList
-	4.本地插件开发完毕，可按example方式提交单独仓库引用（上面方式1），即可去除本地插件包目录，如example目录。
+	4.本地插件开发完毕，可按xk方式提交单独仓库引用（上面方式1），即可去除本地插件包目录，如xk目录。
 */
 
 var PluginList = []GqaPlugin{ //插件列表顺序填入
 	example.PluginExample,
+	//xk.PluginXk,
 }
 
 /*

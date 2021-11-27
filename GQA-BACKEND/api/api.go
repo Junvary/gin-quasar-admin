@@ -1,8 +1,8 @@
 package api
 
 import (
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/api/public"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/api/system"
+	"gin-quasar-admin/api/public"
+	"gin-quasar-admin/api/system"
 )
 
 type GroupApi struct {

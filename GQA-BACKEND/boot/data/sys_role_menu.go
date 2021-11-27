@@ -2,8 +2,8 @@ package data
 
 import (
 	"fmt"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model/system"
+	"gin-quasar-admin/global"
+	"gin-quasar-admin/model/system"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
 )
@@ -14,21 +14,18 @@ type sysRoleMenu struct{}
 
 var sysRoleMenuData = []system.SysRoleMenu{
 	// 为 super-admin 设置所有 sys_menu 的总数
-	{"super-admin", 1},
-	{"super-admin", 2},
-	{"super-admin", 3},
-	{"super-admin", 4},
-	{"super-admin", 5},
-	{"super-admin", 6},
-	{"super-admin", 7},
-	{"super-admin", 8},
-	{"super-admin", 9},
-	{"super-admin", 10},
-	{"super-admin", 11},
-	{"super-admin", 12},
-	//TODO:暂时先把插件的填上，后续处理
-	{"super-admin", 13},
-	{"super-admin", 14},
+	{"super-admin", "dashboard"},
+	{"super-admin", "system"},
+	{"super-admin", "dept"},
+	{"super-admin", "user"},
+	{"super-admin", "role"},
+	{"super-admin", "menu"},
+	{"super-admin", "dict"},
+	{"super-admin", "config-frontend"},
+	{"super-admin", "config-backend"},
+	{"super-admin", "log"},
+	{"super-admin", "example"},
+	{"super-admin", "icon"},
 }
 
 func (s *sysRoleMenu) LoadData() error {
