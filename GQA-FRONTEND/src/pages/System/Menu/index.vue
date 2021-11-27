@@ -7,16 +7,13 @@
                         <q-btn label="新增菜单" color="primary" @click="showAddForm" />
                     </div>
                     <q-separator />
-                    <q-tree :nodes="menuTree" default-expand-all node-key="id" label-key="name" selected-color="primary"
-                        v-model:selected="selectedKey" v-if="menuTree.length !== 0" @update:selected="onSelected">
+                    <q-tree dense :nodes="menuTree" default-expand-all node-key="id" label-key="name"
+                        selected-color="primary" v-model:selected="selectedKey" v-if="menuTree.length !== 0"
+                        @update:selected="onSelected">
                         <template v-slot:default-header="prop">
                             <div class="row items-center">
-                                <q-chip dense color="primary" text-color="white">
-                                    {{ prop.node.sort}}
-                                </q-chip>
-                                <q-icon :name="prop.node.icon || 'share'" size="28px" class="q-mr-sm" />
+                                <q-icon :name="prop.node.icon || 'share'" size="sm" class="q-mr-sm" />
                                 <div class="text-weight-bold">
-
                                     {{ prop.node.title }}
                                 </div>
                             </div>
@@ -44,7 +41,6 @@
 import { tableDataMixin } from 'src/mixins/tableDataMixin'
 import AddOrEditCard from './modules/addOrEditCard'
 import { getAction, postAction, deleteAction, putAction } from 'src/api/manage'
-import { menuUrl } from 'src/api/url'
 import { ArrayToTree } from 'src/utils/arrayAndTree'
 import GqaDictShow from 'src/components/GqaDictShow'
 
@@ -58,7 +54,8 @@ export default {
     computed: {
         menuTree() {
             if (this.tableData.length !== 0) {
-                return ArrayToTree(this.tableData, 'name', 'parentCode')
+                const mt = ArrayToTree(this.tableData, 'name', 'parentCode')
+                return mt
             }
             return []
         },

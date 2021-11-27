@@ -108,12 +108,12 @@
                     <div class="q-gutter-md col-3">
                         <q-field label="父级菜单" stack-label>
                             <template v-slot:control>
-                                <q-tree :nodes="menuTree" default-expand-all node-key="name" label-key="name"
+                                <q-tree dense :nodes="menuTree" default-expand-all node-key="name" label-key="name"
                                     selected-color="primary" v-model:selected="addOrEditDetail.parentCode"
                                     v-if="menuTree.length !== 0" @update:selected="onSelected">
                                     <template v-slot:default-header="prop">
                                         <div class="row items-center">
-                                            <q-icon :name="prop.node.icon || 'share'" size="28px" class="q-mr-sm" />
+                                            <q-icon :name="prop.node.icon || 'share'" size="sm" class="q-mr-sm" />
                                             <div class="text-weight-bold">{{ prop.node.title }}</div>
                                         </div>
                                     </template>

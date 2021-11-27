@@ -965,10 +965,10 @@
   resolved "https://registry.npm.taobao.org/@positron/stack-trace/download/@positron/stack-trace-1.0.0.tgz#14fcc712a530038ef9be1ce6952315a839f466a8"
   integrity sha1-FPzHEqUwA475vhzmlSMVqDn0Zqg=
 
-"@quasar/app@^3.2.1":
-  version "3.2.1"
-  resolved "https://registry.npmmirror.com/@quasar/app/download/@quasar/app-3.2.1.tgz#d60fede3a81e8e570dd358124c1a3487fb03ae64"
-  integrity sha512-0hf7xW6s+apyrFc2R6QVNu+IDWjDzSSmf8i4mwwRZI2zC5GRzo6mwGFInqY8zuvpkR3jpTtZs0WGX0SFbRx7Vg==
+"@quasar/app@^3.2.3":
+  version "3.2.3"
+  resolved "https://registry.npmmirror.com/@quasar/app/download/@quasar/app-3.2.3.tgz#4a5a458a0682713e86d768c8485ac96da8cb5bf3"
+  integrity sha512-bHANWxtN2IOYhfKRGNadfGuP5NHuAIcvCgS8MVxGU/LMEwBZX8Q7YwYYid2z7gO9G0pCd2d3RH9aQ1IFMeWGRA==
   dependencies:
     "@quasar/babel-preset-app" "2.0.1"
     "@quasar/fastclick" "1.1.4"
@@ -985,11 +985,11 @@
     chokidar "3.5.2"
     ci-info "3.2.0"
     compression-webpack-plugin "9.0.0"
-    copy-webpack-plugin "9.0.1"
+    copy-webpack-plugin "9.1.0"
     cross-spawn "7.0.3"
     css-loader "5.2.6"
-    css-minimizer-webpack-plugin "3.1.1"
-    cssnano "5.0.9"
+    css-minimizer-webpack-plugin "3.1.3"
+    cssnano "5.0.10"
     dot-prop "6.0.1"
     elementtree "0.1.7"
     error-stack-parser "2.0.6"
@@ -1024,11 +1024,11 @@
     sass-loader "12.3.0"
     semver "7.3.5"
     table "6.7.3"
-    terser-webpack-plugin "5.2.4"
+    terser-webpack-plugin "5.2.5"
     ts-loader "9.2.5"
     typescript "4.4.2"
     url-loader "4.1.1"
-    vue "3.2.21"
+    vue "3.2.22"
     vue-loader "16.8.3"
     vue-router "4.0.12"
     vue-style-loader "4.1.3"
@@ -1065,10 +1065,10 @@
     core-js "^3.6.5"
     core-js-compat "^3.6.5"
 
-"@quasar/extras@^1.12.0":
-  version "1.12.0"
-  resolved "https://registry.npmmirror.com/@quasar/extras/download/@quasar/extras-1.12.0.tgz#677fb0fe15a4d62a422d34b09e89911e768866ac"
-  integrity sha512-X4oBMf5xcwk8+z2SrVU3AJ2dbFWZ4+LkjZCcXf4sgfY652CatzX+uaZl5UJtQEnl62PwwFTSPXPGy8t0uWF3sA==
+"@quasar/extras@^1.12.1":
+  version "1.12.1"
+  resolved "https://registry.npmmirror.com/@quasar/extras/download/@quasar/extras-1.12.1.tgz#859f7ac79789f840c1d51f994f5bfd5046b1f261"
+  integrity sha512-EwOnaJEDHo9zCnJzd1sFw1sfMAAq8cJaIjzr2+A9o2NcVLaIhD7YAaJdlIdcNmQnyuPAiq9NghUize8lCS0epw==
 
 "@quasar/fastclick@1.1.4":
   version "1.1.4"
@@ -1265,100 +1265,100 @@
     http-proxy-middleware "^2.0.0"
     webpack "*"
 
-"@vue/compiler-core@3.2.21":
-  version "3.2.21"
-  resolved "https://registry.npmmirror.com/@vue/compiler-core/download/@vue/compiler-core-3.2.21.tgz#26566c32b2ad838199d471ef5df620a83846f24e"
-  integrity sha1-JlZsMrKtg4GZ1HHvXfYgqDhG8k4=
+"@vue/compiler-core@3.2.22":
+  version "3.2.22"
+  resolved "https://registry.npmmirror.com/@vue/compiler-core/download/@vue/compiler-core-3.2.22.tgz#5e3d3b983cc7f430ddbc6a8773c872dcf410dc89"
+  integrity sha512-uAkovrVeTcjzpiM4ECmVaMrv/bjdgAaLzvjcGqQPBEyUrcqsCgccT9fHJ/+hWVGhyMahmBwLqcn4guULNx7sdw==
   dependencies:
     "@babel/parser" "^7.15.0"
-    "@vue/shared" "3.2.21"
+    "@vue/shared" "3.2.22"
     estree-walker "^2.0.2"
     source-map "^0.6.1"
 
-"@vue/compiler-dom@3.2.21":
-  version "3.2.21"
-  resolved "https://registry.npmmirror.com/@vue/compiler-dom/download/@vue/compiler-dom-3.2.21.tgz#d6f6c85364ef8888f9c4e9122bfba11e78fb398c"
-  integrity sha1-1vbIU2TviIj5xOkSK/uhHnj7OYw=
+"@vue/compiler-dom@3.2.22":
+  version "3.2.22"
+  resolved "https://registry.npmmirror.com/@vue/compiler-dom/download/@vue/compiler-dom-3.2.22.tgz#221cc358a6c0651c04e1dd22a8470b21e56ee1a5"
+  integrity sha512-VZdsw/VuO1ODs8K7NQwnMQzKITDkIFlYYC03SVnunuf6eNRxBPEonSyqbWNoo6qNaHAEBTG6VVcZC5xC9bAx1g==
   dependencies:
-    "@vue/compiler-core" "3.2.21"
-    "@vue/shared" "3.2.21"
+    "@vue/compiler-core" "3.2.22"
+    "@vue/shared" "3.2.22"
 
-"@vue/compiler-sfc@3.2.21":
-  version "3.2.21"
-  resolved "https://registry.npmmirror.com/@vue/compiler-sfc/download/@vue/compiler-sfc-3.2.21.tgz#42639ee49e725afb7d8f1d1940e75dc17a56002c"
-  integrity sha1-QmOe5J5yWvt9jx0ZQOddwXpWACw=
+"@vue/compiler-sfc@3.2.22":
+  version "3.2.22"
+  resolved "https://registry.npmmirror.com/@vue/compiler-sfc/download/@vue/compiler-sfc-3.2.22.tgz#ffd0e5e35479b6ade18d12fefec369cbaf2f7718"
+  integrity sha512-tWRQ5ge1tsTDhUwHgueicKJ8rYm6WUVAPTaIpFW3GSwZKcOEJ2rXdfkHFShNVGupeRALz2ET2H84OL0GeRxY0A==
   dependencies:
     "@babel/parser" "^7.15.0"
-    "@vue/compiler-core" "3.2.21"
-    "@vue/compiler-dom" "3.2.21"
-    "@vue/compiler-ssr" "3.2.21"
-    "@vue/ref-transform" "3.2.21"
-    "@vue/shared" "3.2.21"
+    "@vue/compiler-core" "3.2.22"
+    "@vue/compiler-dom" "3.2.22"
+    "@vue/compiler-ssr" "3.2.22"
+    "@vue/ref-transform" "3.2.22"
+    "@vue/shared" "3.2.22"
     estree-walker "^2.0.2"
     magic-string "^0.25.7"
     postcss "^8.1.10"
     source-map "^0.6.1"
 
-"@vue/compiler-ssr@3.2.21":
-  version "3.2.21"
-  resolved "https://registry.npmmirror.com/@vue/compiler-ssr/download/@vue/compiler-ssr-3.2.21.tgz#37d124f89e8adef9fd56b85775de4b5310a0436e"
-  integrity sha1-N9Ek+J6K3vn9VrhXdd5LUxCgQ24=
+"@vue/compiler-ssr@3.2.22":
+  version "3.2.22"
+  resolved "https://registry.npmmirror.com/@vue/compiler-ssr/download/@vue/compiler-ssr-3.2.22.tgz#23552c31b76b45baf5f244713c81d77ab59447d2"
+  integrity sha512-Cl6aoLJtXzzBkk1sKod8S0WBJLts3+ugVC91d22gGpbkw/64WnF12tOZi7Rg54PPLi1NovqyNWPsLH/SAFcu+w==
   dependencies:
-    "@vue/compiler-dom" "3.2.21"
-    "@vue/shared" "3.2.21"
+    "@vue/compiler-dom" "3.2.22"
+    "@vue/shared" "3.2.22"
 
 "@vue/devtools-api@^6.0.0-beta.11", "@vue/devtools-api@^6.0.0-beta.18":
   version "6.0.0-beta.19"
   resolved "https://registry.npmmirror.com/@vue/devtools-api/download/@vue/devtools-api-6.0.0-beta.19.tgz#f8e88059daa424515992426a0c7ea5cde07e99bf"
   integrity sha1-+OiAWdqkJFFZkkJqDH6lzeB+mb8=
 
-"@vue/reactivity@3.2.21":
-  version "3.2.21"
-  resolved "https://registry.npmmirror.com/@vue/reactivity/download/@vue/reactivity-3.2.21.tgz#073ad144192ed78a07e151e95a3baa515e4099a2"
-  integrity sha1-BzrRRBku14oH4VHpWjuqUV5AmaI=
+"@vue/reactivity@3.2.22":
+  version "3.2.22"
+  resolved "https://registry.npmmirror.com/@vue/reactivity/download/@vue/reactivity-3.2.22.tgz#88655c0b4febc561136e6550e329039f860caa0a"
+  integrity sha512-xNkLAItjI0xB+lFeDgKCrSItmrHTaAzSnt8LmdSCPQnDyarmzbi/u4ESQnckWvlL7lSRKiEaOvblaNyqAa7OnQ==
   dependencies:
-    "@vue/shared" "3.2.21"
+    "@vue/shared" "3.2.22"
 
-"@vue/ref-transform@3.2.21":
-  version "3.2.21"
-  resolved "https://registry.npmmirror.com/@vue/ref-transform/download/@vue/ref-transform-3.2.21.tgz#b0c554c9f640c3f005f77e676066aa0faba90984"
-  integrity sha1-sMVUyfZAw/AF935nYGaqD6upCYQ=
+"@vue/ref-transform@3.2.22":
+  version "3.2.22"
+  resolved "https://registry.npmmirror.com/@vue/ref-transform/download/@vue/ref-transform-3.2.22.tgz#16b03994eac71528cceff4cf76178ed9b44ac90a"
+  integrity sha512-qalVWbq5xWWxLZ0L9OroBg/JZhzavQuCcDXblfErxyDEH6Xc5gIJ4feo1SVCICFzhAUgLgQTdSFLpgjBawbFpw==
   dependencies:
     "@babel/parser" "^7.15.0"
-    "@vue/compiler-core" "3.2.21"
-    "@vue/shared" "3.2.21"
+    "@vue/compiler-core" "3.2.22"
+    "@vue/shared" "3.2.22"
     estree-walker "^2.0.2"
     magic-string "^0.25.7"
 
-"@vue/runtime-core@3.2.21":
-  version "3.2.21"
-  resolved "https://registry.npmmirror.com/@vue/runtime-core/download/@vue/runtime-core-3.2.21.tgz#e12dac8c3893b7aebfc37e32066718d8aa686ac5"
-  integrity sha1-4S2sjDiTt66/w34yBmcY2KpoasU=
+"@vue/runtime-core@3.2.22":
+  version "3.2.22"
+  resolved "https://registry.npmmirror.com/@vue/runtime-core/download/@vue/runtime-core-3.2.22.tgz#111f1bc97f20249e05ca2189856d99c82d72de32"
+  integrity sha512-e7WOC55wmHPvmoVUk9VBe/Z9k5bJfWJfVIlkUkiADJn0bOgQD29oh/GS14Kb3aEJXIHLI17Em6+HxNut1sIh7Q==
   dependencies:
-    "@vue/reactivity" "3.2.21"
-    "@vue/shared" "3.2.21"
+    "@vue/reactivity" "3.2.22"
+    "@vue/shared" "3.2.22"
 
-"@vue/runtime-dom@3.2.21":
-  version "3.2.21"
-  resolved "https://registry.npmmirror.com/@vue/runtime-dom/download/@vue/runtime-dom-3.2.21.tgz#33dd15bc85281e773177a30dc6931c294bd77aa1"
-  integrity sha1-M90VvIUoHncxd6MNxpMcKUvXeqE=
+"@vue/runtime-dom@3.2.22":
+  version "3.2.22"
+  resolved "https://registry.npmmirror.com/@vue/runtime-dom/download/@vue/runtime-dom-3.2.22.tgz#c11d75dd51375ee4c74e339f6523ca05e37faa37"
+  integrity sha512-w7VHYJoliLRTLc5beN77wxuOjla4v9wr2FF22xpZFYBmH4U1V7HkYhoHc1BTuNghI15CXT1tNIMhibI1nrQgdw==
   dependencies:
-    "@vue/runtime-core" "3.2.21"
-    "@vue/shared" "3.2.21"
+    "@vue/runtime-core" "3.2.22"
+    "@vue/shared" "3.2.22"
     csstype "^2.6.8"
 
-"@vue/server-renderer@3.2.21":
-  version "3.2.21"
-  resolved "https://registry.npmmirror.com/@vue/server-renderer/download/@vue/server-renderer-3.2.21.tgz#887d0a44de76f72313cff2686a24c0315231d634"
-  integrity sha1-iH0KRN529yMTz/JoaiTAMVIx1jQ=
+"@vue/server-renderer@3.2.22":
+  version "3.2.22"
+  resolved "https://registry.npmmirror.com/@vue/server-renderer/download/@vue/server-renderer-3.2.22.tgz#049c91a495cb0fcdac02dec485c31cb99410885f"
+  integrity sha512-jCwbQgKPXiXoH9VS9F7K+gyEvEMrjutannwEZD1R8fQ9szmOTqC+RRbIY3Uf2ibQjZtZ8DV9a4FjxICvd9zZlQ==
   dependencies:
-    "@vue/compiler-ssr" "3.2.21"
-    "@vue/shared" "3.2.21"
+    "@vue/compiler-ssr" "3.2.22"
+    "@vue/shared" "3.2.22"
 
-"@vue/shared@3.2.21":
-  version "3.2.21"
-  resolved "https://registry.npmmirror.com/@vue/shared/download/@vue/shared-3.2.21.tgz?cache=0&sync_timestamp=1635836337223&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40vue%2Fshared%2Fdownload%2F%40vue%2Fshared-3.2.21.tgz#4cd80c0e62cf65a7adab2449e86b6f0cb33a130b"
-  integrity sha1-TNgMDmLPZaetqyRJ6GtvDLM6Ews=
+"@vue/shared@3.2.22":
+  version "3.2.22"
+  resolved "https://registry.npmmirror.com/@vue/shared/download/@vue/shared-3.2.22.tgz#26dcbe5e530f6c1f2de5ca9aeab92ab00f523b41"
+  integrity sha512-qWVav014mpjEtbWbEgl0q9pEyrrIySKum8UVYjwhC6njrKzknLZPvfuYdQyVbApsqr94tf/3dP4pCuZmmjdCWQ==
 
 "@webassemblyjs/ast@1.11.1":
   version "1.11.1"
@@ -2152,17 +2152,16 @@ cookie@0.4.0:
   resolved "https://registry.npm.taobao.org/cookie/download/cookie-0.4.0.tgz#beb437e7022b3b6d49019d088665303ebe9c14ba"
   integrity sha1-vrQ35wIrO21JAZ0IhmUwPr6cFLo=
 
-copy-webpack-plugin@9.0.1:
-  version "9.0.1"
-  resolved "https://registry.nlark.com/copy-webpack-plugin/download/copy-webpack-plugin-9.0.1.tgz?cache=0&sync_timestamp=1624628458516&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fcopy-webpack-plugin%2Fdownload%2Fcopy-webpack-plugin-9.0.1.tgz#b71d21991599f61a4ee00ba79087b8ba279bbb59"
-  integrity sha1-tx0hmRWZ9hpO4AunkIe4uiebu1k=
+copy-webpack-plugin@9.1.0:
+  version "9.1.0"
+  resolved "https://registry.npmmirror.com/copy-webpack-plugin/download/copy-webpack-plugin-9.1.0.tgz?cache=0&sync_timestamp=1637161330355&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fcopy-webpack-plugin%2Fdownload%2Fcopy-webpack-plugin-9.1.0.tgz#2d2c460c4c4695ec0a58afb2801a1205256c4e6b"
+  integrity sha512-rxnR7PaGigJzhqETHGmAcxKnLZSR5u1Y3/bcIv/1FnqXedcL/E2ewK7ZCNrArJKCiSv8yVXhTqetJh8inDvfsA==
   dependencies:
-    fast-glob "^3.2.5"
-    glob-parent "^6.0.0"
+    fast-glob "^3.2.7"
+    glob-parent "^6.0.1"
     globby "^11.0.3"
     normalize-path "^3.0.0"
-    p-limit "^3.1.0"
-    schema-utils "^3.0.0"
+    schema-utils "^3.1.1"
     serialize-javascript "^6.0.0"
 
 core-js-compat@^3.16.0, core-js-compat@^3.16.2, core-js-compat@^3.6.5:
@@ -2258,14 +2257,13 @@ css-loader@5.2.6:
     schema-utils "^3.0.0"
     semver "^7.3.5"
 
-css-minimizer-webpack-plugin@3.1.1:
-  version "3.1.1"
-  resolved "https://registry.npmmirror.com/css-minimizer-webpack-plugin/download/css-minimizer-webpack-plugin-3.1.1.tgz#27bafa3b75054713565b2266c64b0228acd18634"
-  integrity sha1-J7r6O3UFRxNWWyJmxksCKKzRhjQ=
+css-minimizer-webpack-plugin@3.1.3:
+  version "3.1.3"
+  resolved "https://registry.npmmirror.com/css-minimizer-webpack-plugin/download/css-minimizer-webpack-plugin-3.1.3.tgz#3cfa1c8603f98f0b5e70697b61cbc4857fe1987b"
+  integrity sha512-x+6kzXprepysouo513zKibWCbWTGIvH9OrEsMRRV8EcJ7vYY/zRg0lR8tCzMHMap+lhNPOrYCdDagjRmfnGGxw==
   dependencies:
     cssnano "^5.0.6"
     jest-worker "^27.0.2"
-    p-limit "^3.0.2"
     postcss "^8.3.5"
     schema-utils "^3.1.0"
     serialize-javascript "^6.0.0"
@@ -2335,10 +2333,10 @@ cssnano-preset-default@^5.1.4:
     postcss-svgo "^5.0.2"
     postcss-unique-selectors "^5.0.1"
 
-cssnano-preset-default@^5.1.5:
-  version "5.1.6"
-  resolved "https://registry.npmmirror.com/cssnano-preset-default/download/cssnano-preset-default-5.1.6.tgz?cache=0&sync_timestamp=1636226947365&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fcssnano-preset-default%2Fdownload%2Fcssnano-preset-default-5.1.6.tgz#1bdb83be6a6b1fee6dc5e9ec2e61286bcadcc7a6"
-  integrity sha1-G9uDvmprH+5txensLmEoa8rcx6Y=
+cssnano-preset-default@^5.1.6:
+  version "5.1.7"
+  resolved "https://registry.npmmirror.com/cssnano-preset-default/download/cssnano-preset-default-5.1.7.tgz?cache=0&sync_timestamp=1637084982358&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fcssnano-preset-default%2Fdownload%2Fcssnano-preset-default-5.1.7.tgz#68c3ad1ec6a810482ec7d06b2d70fc34b6b0d70c"
+  integrity sha512-bWDjtTY+BOqrqBtsSQIbN0RLGD2Yr2CnecpP0ydHNafh9ZUEre8c8VYTaH9FEbyOt0eIfEUAYYk5zj92ioO8LA==
   dependencies:
     css-declaration-sorter "^6.0.3"
     cssnano-utils "^2.0.1"
@@ -2349,11 +2347,11 @@ cssnano-preset-default@^5.1.5:
     postcss-discard-duplicates "^5.0.1"
     postcss-discard-empty "^5.0.1"
     postcss-discard-overridden "^5.0.1"
-    postcss-merge-longhand "^5.0.3"
-    postcss-merge-rules "^5.0.2"
+    postcss-merge-longhand "^5.0.4"
+    postcss-merge-rules "^5.0.3"
     postcss-minify-font-values "^5.0.1"
     postcss-minify-gradients "^5.0.3"
-    postcss-minify-params "^5.0.1"
+    postcss-minify-params "^5.0.2"
     postcss-minify-selectors "^5.1.0"
     postcss-normalize-charset "^5.0.1"
     postcss-normalize-display-values "^5.0.1"
@@ -2362,25 +2360,25 @@ cssnano-preset-default@^5.1.5:
     postcss-normalize-string "^5.0.1"
     postcss-normalize-timing-functions "^5.0.1"
     postcss-normalize-unicode "^5.0.1"
-    postcss-normalize-url "^5.0.2"
+    postcss-normalize-url "^5.0.3"
     postcss-normalize-whitespace "^5.0.1"
     postcss-ordered-values "^5.0.2"
     postcss-reduce-initial "^5.0.1"
     postcss-reduce-transforms "^5.0.1"
     postcss-svgo "^5.0.3"
-    postcss-unique-selectors "^5.0.1"
+    postcss-unique-selectors "^5.0.2"
 
 cssnano-utils@^2.0.1:
   version "2.0.1"
   resolved "https://registry.nlark.com/cssnano-utils/download/cssnano-utils-2.0.1.tgz#8660aa2b37ed869d2e2f22918196a9a8b6498ce2"
   integrity sha1-hmCqKzfthp0uLyKRgZapqLZJjOI=
 
-cssnano@5.0.9:
-  version "5.0.9"
-  resolved "https://registry.npmmirror.com/cssnano/download/cssnano-5.0.9.tgz#bd03168835c0883c16754085704f57861a32d99c"
-  integrity sha1-vQMWiDXAiDwWdUCFcE9Xhhoy2Zw=
+cssnano@5.0.10:
+  version "5.0.10"
+  resolved "https://registry.npmmirror.com/cssnano/download/cssnano-5.0.10.tgz?cache=0&sync_timestamp=1637085734194&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fcssnano%2Fdownload%2Fcssnano-5.0.10.tgz#92207eb7c9c6dc08d318050726f9fad0adf7220b"
+  integrity sha1-kiB+t8nG3AjTGAUHJvn60K33Igs=
   dependencies:
-    cssnano-preset-default "^5.1.5"
+    cssnano-preset-default "^5.1.6"
     is-resolvable "^1.1.0"
     lilconfig "^2.0.3"
     yaml "^1.10.2"
@@ -2820,7 +2818,7 @@ fast-deep-equal@^3.1.1:
   resolved "https://registry.npm.taobao.org/fast-deep-equal/download/fast-deep-equal-3.1.3.tgz#3a7d56b559d6cbc3eb512325244e619a65c6c525"
   integrity sha1-On1WtVnWy8PrUSMlJE5hmmXGxSU=
 
-fast-glob@3.2.7, fast-glob@^3.1.1, fast-glob@^3.2.5:
+fast-glob@3.2.7, fast-glob@^3.1.1, fast-glob@^3.2.7:
   version "3.2.7"
   resolved "https://registry.nlark.com/fast-glob/download/fast-glob-3.2.7.tgz?cache=0&sync_timestamp=1625773305786&other_urls=https%3A%2F%2Fregistry.nlark.com%2Ffast-glob%2Fdownload%2Ffast-glob-3.2.7.tgz#fd6cb7a2d7e9aa7a7846111e85a196d6b2f766a1"
   integrity sha1-/Wy3otfpqnp4RhEehaGW1rL3ZqE=
@@ -3034,7 +3032,7 @@ glob-parent@^5.1.2, glob-parent@~5.1.2:
   dependencies:
     is-glob "^4.0.1"
 
-glob-parent@^6.0.0:
+glob-parent@^6.0.1:
   version "6.0.2"
   resolved "https://registry.npmmirror.com/glob-parent/download/glob-parent-6.0.2.tgz?cache=0&sync_timestamp=1632953810778&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fglob-parent%2Fdownload%2Fglob-parent-6.0.2.tgz#6d237d99083950c79290f24c7642a3de9a28f9e3"
   integrity sha1-bSN9mQg5UMeSkPJMdkKj3poo+eM=
@@ -4446,12 +4444,11 @@ postcss-merge-longhand@^5.0.2:
     postcss-value-parser "^4.1.0"
     stylehacks "^5.0.1"
 
-postcss-merge-longhand@^5.0.3:
-  version "5.0.3"
-  resolved "https://registry.npmmirror.com/postcss-merge-longhand/download/postcss-merge-longhand-5.0.3.tgz?cache=0&sync_timestamp=1636226949214&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fpostcss-merge-longhand%2Fdownload%2Fpostcss-merge-longhand-5.0.3.tgz#42194a5ffbaa5513edbf606ef79c44958564658b"
-  integrity sha1-QhlKX/uqVRPtv2Bu95xElYVkZYs=
+postcss-merge-longhand@^5.0.4:
+  version "5.0.4"
+  resolved "https://registry.npmmirror.com/postcss-merge-longhand/download/postcss-merge-longhand-5.0.4.tgz?cache=0&sync_timestamp=1637084982494&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fpostcss-merge-longhand%2Fdownload%2Fpostcss-merge-longhand-5.0.4.tgz#41f4f3270282ea1a145ece078b7679f0cef21c32"
+  integrity sha512-2lZrOVD+d81aoYkZDpWu6+3dTAAGkCKbV5DoRhnIR7KOULVrI/R7bcMjhrH9KTRy6iiHKqmtG+n/MMj1WmqHFw==
   dependencies:
-    css-color-names "^1.0.1"
     postcss-value-parser "^4.1.0"
     stylehacks "^5.0.1"
 
@@ -4465,6 +4462,16 @@ postcss-merge-rules@^5.0.2:
     cssnano-utils "^2.0.1"
     postcss-selector-parser "^6.0.5"
     vendors "^1.0.3"
+
+postcss-merge-rules@^5.0.3:
+  version "5.0.3"
+  resolved "https://registry.npmmirror.com/postcss-merge-rules/download/postcss-merge-rules-5.0.3.tgz?cache=0&sync_timestamp=1637085799347&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fpostcss-merge-rules%2Fdownload%2Fpostcss-merge-rules-5.0.3.tgz#b5cae31f53129812a77e3eb1eeee448f8cf1a1db"
+  integrity sha512-cEKTMEbWazVa5NXd8deLdCnXl+6cYG7m2am+1HzqH0EnTdy8fRysatkaXb2dEnR+fdaDxTvuZ5zoBdv6efF6hg==
+  dependencies:
+    browserslist "^4.16.6"
+    caniuse-api "^3.0.0"
+    cssnano-utils "^2.0.1"
+    postcss-selector-parser "^6.0.5"
 
 postcss-minify-font-values@^5.0.1:
   version "5.0.1"
@@ -4501,6 +4508,16 @@ postcss-minify-params@^5.0.1:
     cssnano-utils "^2.0.1"
     postcss-value-parser "^4.1.0"
     uniqs "^2.0.0"
+
+postcss-minify-params@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.npmmirror.com/postcss-minify-params/download/postcss-minify-params-5.0.2.tgz?cache=0&sync_timestamp=1637084983019&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fpostcss-minify-params%2Fdownload%2Fpostcss-minify-params-5.0.2.tgz#1b644da903473fbbb18fbe07b8e239883684b85c"
+  integrity sha512-qJAPuBzxO1yhLad7h2Dzk/F7n1vPyfHfCCh5grjGfjhi1ttCnq4ZXGIW77GSrEbh9Hus9Lc/e/+tB4vh3/GpDg==
+  dependencies:
+    alphanum-sort "^1.0.2"
+    browserslist "^4.16.6"
+    cssnano-utils "^2.0.1"
+    postcss-value-parser "^4.1.0"
 
 postcss-minify-selectors@^5.1.0:
   version "5.1.0"
@@ -4598,6 +4615,15 @@ postcss-normalize-url@^5.0.2:
     normalize-url "^6.0.1"
     postcss-value-parser "^4.1.0"
 
+postcss-normalize-url@^5.0.3:
+  version "5.0.3"
+  resolved "https://registry.npmmirror.com/postcss-normalize-url/download/postcss-normalize-url-5.0.3.tgz?cache=0&sync_timestamp=1637084983535&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fpostcss-normalize-url%2Fdownload%2Fpostcss-normalize-url-5.0.3.tgz#42eca6ede57fe69075fab0f88ac8e48916ef931c"
+  integrity sha512-qWiUMbvkRx3kc1Dp5opzUwc7MBWZcSDK2yofCmdvFBCpx+zFPkxBC1FASQ59Pt+flYfj/nTZSkmF56+XG5elSg==
+  dependencies:
+    is-absolute-url "^3.0.3"
+    normalize-url "^6.0.1"
+    postcss-value-parser "^4.1.0"
+
 postcss-normalize-whitespace@^5.0.1:
   version "5.0.1"
   resolved "https://registry.nlark.com/postcss-normalize-whitespace/download/postcss-normalize-whitespace-5.0.1.tgz#b0b40b5bcac83585ff07ead2daf2dcfbeeef8e9a"
@@ -4669,6 +4695,14 @@ postcss-unique-selectors@^5.0.1:
     postcss-selector-parser "^6.0.5"
     uniqs "^2.0.0"
 
+postcss-unique-selectors@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.npmmirror.com/postcss-unique-selectors/download/postcss-unique-selectors-5.0.2.tgz?cache=0&sync_timestamp=1637084982907&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fpostcss-unique-selectors%2Fdownload%2Fpostcss-unique-selectors-5.0.2.tgz#5d6893daf534ae52626708e0d62250890108c0c1"
+  integrity sha512-w3zBVlrtZm7loQWRPVC0yjUwwpty7OM6DnEHkxcSQXO1bMS3RJ+JUS5LFMSDZHJcvGsRwhZinCWVqn8Kej4EDA==
+  dependencies:
+    alphanum-sort "^1.0.2"
+    postcss-selector-parser "^6.0.5"
+
 postcss-value-parser@^4.0.2, postcss-value-parser@^4.1.0:
   version "4.1.0"
   resolved "https://registry.npm.taobao.org/postcss-value-parser/download/postcss-value-parser-4.1.0.tgz#443f6a20ced6481a2bda4fa8532a6e55d789a2cb"
@@ -4729,10 +4763,10 @@ qs@6.7.0:
   resolved "https://registry.nlark.com/qs/download/qs-6.7.0.tgz#41dc1a015e3d581f1621776be31afb2876a9b1bc"
   integrity sha1-QdwaAV49WB8WIXdr4xr7KHapsbw=
 
-quasar@^2.3.1:
-  version "2.3.1"
-  resolved "https://registry.npmmirror.com/quasar/download/quasar-2.3.1.tgz#25105604ce1cf41098c8dd50e68e7bef363f6c05"
-  integrity sha512-EK9x9xl+lB2uHyYW51bKXKB2nn5ipa4rpqPBDrdYL0me4q9l37/WYL9n6DZDa+pdnzmtymwebpWcOrB3w8UEZA==
+quasar@^2.3.3:
+  version "2.3.3"
+  resolved "https://registry.npmmirror.com/quasar/download/quasar-2.3.3.tgz#f04797c00d238b88fe2fc42cdabef66bc28f1a6b"
+  integrity sha512-0Q/OWX61IHIIljNUBTibR4bB0uXzR+ZtSa8y8jxerNiRoiIbqdo+FMHCRBvPr/3RUDqQ680YgHVjQEDpUCvM1Q==
 
 querystring@0.2.0:
   version "0.2.0"
@@ -5390,7 +5424,18 @@ tar-stream@^2.2.0:
     inherits "^2.0.3"
     readable-stream "^3.1.1"
 
-terser-webpack-plugin@5.2.4, terser-webpack-plugin@^5.1.3:
+terser-webpack-plugin@5.2.5:
+  version "5.2.5"
+  resolved "https://registry.npmmirror.com/terser-webpack-plugin/download/terser-webpack-plugin-5.2.5.tgz?cache=0&sync_timestamp=1636385901001&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fterser-webpack-plugin%2Fdownload%2Fterser-webpack-plugin-5.2.5.tgz#ce65b9880a0c36872555c4874f45bbdb02ee32c9"
+  integrity sha512-3luOVHku5l0QBeYS8r4CdHYWEGMmIj3H1U64jgkdZzECcSOJAyJ9TjuqcQZvw1Y+4AOBN9SeYJPJmFn2cM4/2g==
+  dependencies:
+    jest-worker "^27.0.6"
+    schema-utils "^3.1.1"
+    serialize-javascript "^6.0.0"
+    source-map "^0.6.1"
+    terser "^5.7.2"
+
+terser-webpack-plugin@^5.1.3:
   version "5.2.4"
   resolved "https://registry.nlark.com/terser-webpack-plugin/download/terser-webpack-plugin-5.2.4.tgz?cache=0&sync_timestamp=1631202322859&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fterser-webpack-plugin%2Fdownload%2Fterser-webpack-plugin-5.2.4.tgz#ad1be7639b1cbe3ea49fab995cbe7224b31747a1"
   integrity sha1-rRvnY5scvj6kn6uZXL5yJLMXR6E=
@@ -5624,16 +5669,16 @@ vue-style-loader@4.1.3:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
 
-vue@3.2.21:
-  version "3.2.21"
-  resolved "https://registry.npmmirror.com/vue/download/vue-3.2.21.tgz#55f5665172d95cf97e806b9aad0a375180be23a1"
-  integrity sha1-VfVmUXLZXPl+gGuarQo3UYC+I6E=
+vue@3.2.22:
+  version "3.2.22"
+  resolved "https://registry.npmmirror.com/vue/download/vue-3.2.22.tgz#46e4dd89e98cc4b851ae1eb35f00ced413a34bb7"
+  integrity sha512-KD5nZpXVZquOC6926Xnp3zOvswrUyO9Rya7ZUoxWFQEjFDW4iACtwzubRB4Um2Om9kj6CaJOqAVRDSFlqLpdgw==
   dependencies:
-    "@vue/compiler-dom" "3.2.21"
-    "@vue/compiler-sfc" "3.2.21"
-    "@vue/runtime-dom" "3.2.21"
-    "@vue/server-renderer" "3.2.21"
-    "@vue/shared" "3.2.21"
+    "@vue/compiler-dom" "3.2.22"
+    "@vue/compiler-sfc" "3.2.22"
+    "@vue/runtime-dom" "3.2.22"
+    "@vue/server-renderer" "3.2.22"
+    "@vue/shared" "3.2.22"
 
 vuex@^4.0.1:
   version "4.0.2"
@@ -5865,10 +5910,10 @@ ws@^8.1.0:
   resolved "https://registry.npmmirror.com/ws/download/ws-8.2.3.tgz?cache=0&sync_timestamp=1633200103980&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fws%2Fdownload%2Fws-8.2.3.tgz#63a56456db1b04367d0b721a0b80cae6d8becbba"
   integrity sha1-Y6VkVtsbBDZ9C3IaC4DK5ti+y7o=
 
-xe-utils@^3.4.0:
-  version "3.4.0"
-  resolved "https://registry.npmmirror.com/xe-utils/download/xe-utils-3.4.0.tgz#b5b52990858298e815763c46bada5741ebab15ed"
-  integrity sha1-tbUpkIWCmOgVdjxGutpXQeurFe0=
+xe-utils@^3.4.3:
+  version "3.4.3"
+  resolved "https://registry.npmmirror.com/xe-utils/download/xe-utils-3.4.3.tgz#6006fed5287e976573c6c34fa4b4c8ff467a7933"
+  integrity sha512-x7tGog6B4EgOSKV5PGTG4I3r1s+do3ZPAQliV6HWcBC5hCDPr27jiphuRUNVhGXNjG1vZ/Rj/DTnvUw9stTHUQ==
 
 yallist@^4.0.0:
   version "4.0.0"

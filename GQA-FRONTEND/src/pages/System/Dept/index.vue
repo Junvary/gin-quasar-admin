@@ -7,8 +7,9 @@
                         <q-btn label="新增部门" color="primary" @click="showAddForm" />
                     </div>
                     <q-separator />
-                    <q-tree :nodes="deptTree" default-expand-all node-key="id" label-key="name" selected-color="primary"
-                        v-model:selected="selectedKey" v-if="deptTree.length !== 0" @update:selected="onSelected">
+                    <q-tree dense :nodes="deptTree" default-expand-all node-key="id" label-key="name"
+                        selected-color="primary" v-model:selected="selectedKey" v-if="deptTree.length !== 0"
+                        @update:selected="onSelected">
                         <template v-slot:default-header="prop">
                             <div class="row items-center">
                                 <q-chip dense color="primary" text-color="white">
