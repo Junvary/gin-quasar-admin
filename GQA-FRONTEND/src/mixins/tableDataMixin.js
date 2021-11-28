@@ -57,6 +57,13 @@ export const tableDataMixin = {
             this.getTableData()
         },
         handleDelete(row) {
+            if (this.url === undefined || !this.url.delete) {
+                this.$q.notify({
+                    type: 'negative',
+                    message: "请先配置url",
+                })
+                return
+            }
             this.$q
                 .dialog({
                     title: '确定删除？',

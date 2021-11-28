@@ -3,8 +3,8 @@
         <q-card style="width: 800px; max-width: 80vw;">
             <q-card-section>
                 <div class="text-h6">
-                    {{formTypeName}}：
-                    {{addOrEditDetail.roleName ? addOrEditDetail.roleName : "后台配置"}}
+                    {{ formTypeName }}后台配置：
+                    {{ addOrEditDetail.gqaOption }}
                 </div>
             </q-card-section>
 
@@ -69,6 +69,10 @@
                 <q-btn :label="'保存' + formTypeName " color="primary" @click="handleAddOrEidt" />
                 <q-btn label="取消" color="negative" v-close-popup />
             </q-card-actions>
+
+            <q-inner-loading :showing="loading">
+                <q-spinner-gears size="50px" color="primary" />
+            </q-inner-loading>
         </q-card>
     </q-dialog>
 </template>

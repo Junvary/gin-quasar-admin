@@ -3,8 +3,8 @@
         <q-card style="width: 800px; max-width: 80vw;">
             <q-card-section>
                 <div class="text-h6">
-                    {{formTypeName}}：
-                    {{addOrEditDetail.dictName ? addOrEditDetail.dictName : "字典"}}
+                    {{ formTypeName }}字典：
+                    {{ addOrEditDetail.dictName }}
                 </div>
             </q-card-section>
 
@@ -70,6 +70,10 @@
                 <q-btn :label="'保存' + formTypeName " color="primary" @click="handleAddOrEidt" />
                 <q-btn label="取消" color="negative" v-close-popup />
             </q-card-actions>
+
+            <q-inner-loading :showing="loading">
+                <q-spinner-gears size="50px" color="primary" />
+            </q-inner-loading>
         </q-card>
     </q-dialog>
 </template>

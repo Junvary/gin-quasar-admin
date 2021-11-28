@@ -3,8 +3,8 @@
         <div class="row justify-between items-center">
             <q-card-section>
                 <div class="text-h6">
-                    {{formTypeName}}：
-                    {{addOrEditDetail.title ? addOrEditDetail.title : "菜单"}}
+                    {{ formTypeName }}菜单：
+                    {{ addOrEditDetail.title }}
                 </div>
             </q-card-section>
             <q-card-actions>

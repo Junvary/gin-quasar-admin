@@ -100,10 +100,11 @@ export default boot(({ app, router, store }) => {
         if (error + '' === 'Error: Network Error') {
             router.push({ name: 'notFound' })
         } else if (error.response && error.response.status === 404) {
-            Notify.create({
-                type: 'negative',
-                message: '请求地址不存在 [' + error.response.request.responseURL + ']',
-            })
+            console.log('请求地址不存在 [' + error.response.request.responseURL + ']')
+            // Notify.create({
+            //     type: 'negative',
+            //     message: '请求地址不存在 [' + error.response.request.responseURL + ']',
+            // })
         }
 
         return Promise.reject(error)

@@ -3,8 +3,8 @@
         <q-card style="width: 800px; max-width: 80vw;">
             <q-card-section>
                 <div class="text-h6">
-                    {{formTypeName}}：
-                    {{addOrEditDetail.nickname ? addOrEditDetail.nickname : addOrEditDetail.realName? addOrEditDetail.realName :"用户"}}
+                    {{ formTypeName }}用户：
+                    {{ addOrEditDetail.nickname ? addOrEditDetail.nickname : addOrEditDetail.realName ? addOrEditDetail.realName : "" }}
                 </div>
             </q-card-section>
 
@@ -89,6 +89,10 @@
                 <q-btn :label="'保存' + formTypeName " color="primary" @click="handleAddOrEidt" />
                 <q-btn label="取消" color="negative" v-close-popup />
             </q-card-actions>
+
+            <q-inner-loading :showing="loading">
+                <q-spinner-gears size="50px" color="primary" />
+            </q-inner-loading>
         </q-card>
     </q-dialog>
 </template>

@@ -1,5 +1,5 @@
 import { getAction, postAction, putAction } from 'src/api/manage'
-import { date } from 'quasar'
+import { FormatDataTime } from 'src/utils/date'
 
 export const addOrEditMixin = {
     computed: {
@@ -14,7 +14,7 @@ export const addOrEditMixin = {
         },
         showDateTime() {
             return (datetime) => {
-                return date.formatDate(datetime, "YYYY-MM-DD HH:mm:ss")
+                return FormatDataTime(datetime)
             }
         }
     },
@@ -61,6 +61,13 @@ export const addOrEditMixin = {
                 //     this.addOrEditDetail.avatar = JSON.stringify(this.addOrEditDetail.avatar)
                 // }
                 if (this.formType === 'edit') {
+                    if (this.url === undefined || !this.url.edit) {
+                        this.$q.notify({
+                            type: 'negative',
+                            message: "请先配置url",
+                        })
+                        return
+                    }
                     const res = await putAction(this.url.edit, this.addOrEditDetail)
                     if (res.code === 1) {
                         this.$q.notify({
@@ -70,6 +77,13 @@ export const addOrEditMixin = {
                         this.addOrEditVisible = false
                     }
                 } else if (this.formType === 'add') {
+                    if (this.url === undefined || !this.url.add) {
+                        this.$q.notify({
+                            type: 'negative',
+                            message: "请先配置url",
+                        })
+                        return
+                    }
                     const res = await postAction(this.url.add, this.addOrEditDetail)
                     if (res.code === 1) {
                         this.$q.notify({
