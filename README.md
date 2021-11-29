@@ -36,17 +36,12 @@ gitee：https://gitee.com/junvary/gin-quasar-admin
 ### 项目截图：
 
 <div align=center>
-    <img src="https://i.loli.net/2021/11/23/Fy9tBToRw1dGlV8.png" /><br/><br/>
-    <img src="https://i.loli.net/2021/11/23/1bFB9XiUoer7AGI.png" /><br/><br/>
-    <img src="https://i.loli.net/2021/11/23/LltM2DzRkjCFEQg.png" /><br/><br/>
-    <img src="https://i.loli.net/2021/11/23/GWLI9lEukAtKd2f.png" /><br/><br/>
-    <img src="https://i.loli.net/2021/11/23/Zuf5neDPs6IwLmT.png" /><br/><br/>
-    <img src="https://i.loli.net/2021/11/23/aAIpSW6UlFb7oh1.png" /><br/><br/>
-    <img src="https://i.loli.net/2021/11/23/JI5c9XEMPAwgGzK.png" /><br/><br/>
-    <img src="https://i.loli.net/2021/11/23/OfGzBRLSmhYJb7n.png" /><br/><br/>
-    <img src="https://i.loli.net/2021/11/23/USfNzBEI83bo4Xn.png" /><br/><br/>
-    <img src="https://i.loli.net/2021/11/23/JF9cuPvRQmDSUZk.png" /><br/><br/>
+    <img src="https://github.com/Junvary/gin-quasar-admin/blob/dev/img/1.png" /><br/><br/>
+    <img src="https://github.com/Junvary/gin-quasar-admin/blob/dev/img/2.png" /><br/><br/>
+    <img src="https://github.com/Junvary/gin-quasar-admin/blob/dev/img/3.png" /><br/><br/>
+    <img src="https://github.com/Junvary/gin-quasar-admin/blob/dev/img/4.png" /><br/><br/>
 </div>
+
 
 
 
