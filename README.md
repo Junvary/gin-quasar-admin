@@ -40,10 +40,8 @@ gitee：https://gitee.com/junvary/gin-quasar-admin
     <img src="https://github.com/Junvary/gin-quasar-admin/blob/dev/img/2.png" /><br/><br/>
     <img src="https://github.com/Junvary/gin-quasar-admin/blob/dev/img/3.png" /><br/><br/>
     <img src="https://github.com/Junvary/gin-quasar-admin/blob/dev/img/4.png" /><br/><br/>
+    <img src="https://github.com/Junvary/gin-quasar-admin/blob/dev/img/5.png" /><br/><br/>
 </div>
-
-
-
 
 
 
