@@ -56,8 +56,6 @@ export default {
                 // 非登录用户，头像为上传
                 return process.env.API + this.src.substring(11)
             } else {
-                // 其他类型，有的时候再说
-                console.log('还未完成其他头像类型...')
                 return this.src
             }
         },

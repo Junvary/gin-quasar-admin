@@ -11,12 +11,36 @@ export default defineComponent({
     name: 'App',
     mixins: [gqaFrontendMixin],
     watch: {
-        gqaFrontend() {
-            document.title = this.gqaFrontend.gqaSubTitle
+        gqaFrontend: {
+            handler(val) {
+                document.title = val.gqaSubTitle
+                this.createLink()
+            },
+            deep: true,
         },
     },
-    beforeMount() {
+    mounted() {
         document.title = this.gqaFrontend.gqaSubTitle || GqaFrontendDefault.gqaSubTitle
+        this.createLink()
+    },
+    methods: {
+        createLink() {
+            const toDelete = document.getElementsByName('gqa-link-href')
+            if (toDelete && toDelete.length) {
+                document.getElementsByTagName('head')[0].removeChild(toDelete[0])
+            }
+            const gqaLink = document.createElement('link')
+            gqaLink.type = 'image/ico'
+            gqaLink.rel = 'icon'
+            gqaLink.setAttribute('name', 'gqa-link-href')
+            if (this.gqaFrontend.gqaHeaderLogo && this.gqaFrontend.gqaHeaderLogo !== '') {
+                const gqaHeaderLogo = '/gqa-api/' + this.gqaFrontend.gqaHeaderLogo.substring(11)
+                gqaLink.href = gqaHeaderLogo
+            } else {
+                gqaLink.href = 'favicon.ico'
+            }
+            document.getElementsByTagName('head')[0].appendChild(gqaLink)
+        },
     },
 })
 </script>

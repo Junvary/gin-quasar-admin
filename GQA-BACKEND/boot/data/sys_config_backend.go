@@ -56,6 +56,12 @@ var sysConfigBackendData = []system.SysConfigBackend{
 	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 14, Remark: "网站Logo允许后缀", CreatedAt: time.Now(), CreatedBy: "admin"},
 		GqaOption: "webLogoExt", Default: ".ico,.png,.jpg",
 	},
+	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 15, Remark: "标签页Logo最大上传（M）", CreatedAt: time.Now(), CreatedBy: "admin"},
+		GqaOption: "headerLogoMaxSize", Default: "1",
+	},
+	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 16, Remark: "标签页Logo允许后缀", CreatedAt: time.Now(), CreatedBy: "admin"},
+		GqaOption: "headerLogoExt", Default: ".ico",
+	},
 }
 
 func (s *sysConfigBackend) LoadData() error {

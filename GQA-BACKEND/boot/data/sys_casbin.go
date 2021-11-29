@@ -63,6 +63,7 @@ var sysCasbinData = []gormadapter.CasbinRule{
 	{Ptype: "p", V0: "super-admin", V1: "/upload/avatar", V2: "POST"},
 	{Ptype: "p", V0: "super-admin", V1: "/upload/file", V2: "POST"},
 	{Ptype: "p", V0: "super-admin", V1: "/upload/web-logo", V2: "POST"},
+	{Ptype: "p", V0: "super-admin", V1: "/upload/header-logo", V2: "POST"},
 
 	// config-backend组
 	{Ptype: "p", V0: "super-admin", V1: "/config-backend/config-backend-list", V2: "POST"},

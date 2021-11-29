@@ -23,6 +23,9 @@
                     <template v-if="props.row.gqaOption === 'gqaWebLogo'">
                         <GqaAvatar :src="props.row.default" />
                     </template>
+                    <template v-else-if="props.row.gqaOption === 'gqaHeaderLogo'">
+                        <GqaAvatar src="favicon.ico" />
+                    </template>
                     <template v-else>
                         {{props.row.default}}
                     </template>
@@ -34,34 +37,51 @@
                     <template v-if="props.row.gqaOption === 'gqaWebLogo'">
                         <GqaAvatar :src="props.row.custom" />
                     </template>
+                    <template v-else-if="props.row.gqaOption === 'gqaHeaderLogo'">
+                        <GqaAvatar :src="props.row.custom || 'favicon.ico'" />
+                    </template>
                     <template v-else>
                         {{props.row.custom}}
                     </template>
 
                     <q-popup-edit v-model="props.row.custom" class="bg-green-13">
                         <!-- 使用是否字典显示 -->
-                        <template v-slot v-if="props.row.gqaOption === 'gqaShowGit'">
+                        <template v-slot="scope" v-if="props.row.gqaOption === 'gqaShowGit'">
                             自定义：{{ props.row.gqaOption }}
                             <q-option-group v-model="props.row.custom" :options="options.statusYesNo" color="primary"
-                                inline>
+                                inline @update:model-value="scope.set">
                             </q-option-group>
                         </template>
-                        <!-- LinkIco上传图标 -->
-                        <template v-slot v-else-if="props.row.gqaOption === 'gqaWebLogo'">
+                        <!-- 网站logo -->
+                        <template v-slot="scope" v-else-if="props.row.gqaOption === 'gqaWebLogo'">
                             自定义：{{ props.row.gqaOption }}
                             <q-file class="col" v-model="webLogoFile" max-files="1">
                                 <template v-slot:prepend>
                                     <GqaAvatar :src="props.row.custom" />
                                 </template>
                                 <template v-slot:after v-if="webLogoFile">
-                                    <q-btn dense flat color="primary" icon="cloud_upload" @click="handleUpload" />
+                                    <q-btn dense flat color="primary" icon="cloud_upload"
+                                        @click="handleUploadWeb(scope)" />
+                                </template>
+                            </q-file>
+                        </template>
+                        <!-- 标签页logo -->
+                        <template v-slot="scope" v-else-if="props.row.gqaOption === 'gqaHeaderLogo'">
+                            自定义：{{ props.row.gqaOption }}
+                            <q-file class="col" v-model="headerLogoFile" max-files="1">
+                                <template v-slot:prepend>
+                                    <GqaAvatar :src="props.row.custom" />
+                                </template>
+                                <template v-slot:after v-if="headerLogoFile">
+                                    <q-btn dense flat color="primary" icon="cloud_upload"
+                                        @click="handleUploadHeader(scope)" />
                                 </template>
                             </q-file>
                         </template>
                         <!-- 默认的输入框 -->
-                        <template v-slot v-else>
+                        <template v-slot="scope" v-else>
                             自定义：{{ props.row.gqaOption }}
-                            <q-input v-model="props.row.custom" dense autofocus clearable />
+                            <q-input v-model="props.row.custom" dense autofocus clearable @keyup.enter="scope.set" />
                         </template>
                     </q-popup-edit>
                 </q-td>
@@ -115,7 +135,8 @@ export default {
                 list: 'config-frontend/config-frontend-list',
                 edit: 'config-frontend/config-frontend-edit',
                 delete: 'config-frontend/config-frontend-delete',
-                linkIcoUrl: 'upload/web-logo',
+                uploadWebUrl: 'upload/web-logo',
+                uploadHeaderUrl: 'upload/header-logo',
             },
             columns: [
                 { name: 'sort', align: 'center', label: '排序', field: 'sort' },
@@ -128,6 +149,7 @@ export default {
                 { name: 'actions', align: 'center', label: '操作', field: 'actions' },
             ],
             webLogoFile: null,
+            headerLogoFile: null,
         }
     },
     created() {
@@ -147,7 +169,7 @@ export default {
                 })
             }
         },
-        handleUpload() {
+        handleUploadWeb(scope) {
             if (!this.webLogoFile) {
                 this.$q.notify({
                     type: 'negative',
@@ -157,7 +179,7 @@ export default {
             }
             let form = new FormData()
             form.append('file', this.webLogoFile)
-            postAction(this.url.linkIcoUrl, form).then((res) => {
+            postAction(this.url.uploadWebUrl, form).then((res) => {
                 if (res.code === 1) {
                     const gqaWebLogo = this.tableData.filter((item) => {
                         return item.gqaOption === 'gqaWebLogo'
@@ -168,6 +190,32 @@ export default {
                         type: 'positive',
                         message: '网站Logo上传成功！',
                     })
+                    scope.set()
+                }
+            })
+        },
+        handleUploadHeader(scope) {
+            if (!this.headerLogoFile) {
+                this.$q.notify({
+                    type: 'negative',
+                    message: '请选择文件！',
+                })
+                return
+            }
+            let form = new FormData()
+            form.append('file', this.headerLogoFile)
+            postAction(this.url.uploadHeaderUrl, form).then((res) => {
+                if (res.code === 1) {
+                    const gqaHeaderLogo = this.tableData.filter((item) => {
+                        return item.gqaOption === 'gqaHeaderLogo'
+                    })
+                    gqaHeaderLogo[0].custom = res.data.records
+                    this.headerLogoFile = null
+                    this.$q.notify({
+                        type: 'positive',
+                        message: '标签页Logo上传成功！',
+                    })
+                    scope.set()
                 }
             })
         },

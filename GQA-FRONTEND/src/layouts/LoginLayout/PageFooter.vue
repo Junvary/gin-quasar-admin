@@ -25,7 +25,7 @@
                 <q-separator />
                 <span class="col">
                     Powered by
-                    <a href="https://github.com/Junvary/gin-quasar-admin" style="color: white">
+                    <a href="https://github.com/Junvary/gin-quasar-admin" target="_blank" style="color: white">
                         Gin-Quasar-Admin
                     </a>
                 </span>

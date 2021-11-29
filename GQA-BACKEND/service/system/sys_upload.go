@@ -92,3 +92,30 @@ func (s *ServiceUpload) UploadWebLogo(logo multipart.File, logoHeader *multipart
 	fileUrl = "gqa-upload:" + createUrl + "/" + filename
 	return nil, fileUrl
 }
+
+func (s *ServiceUpload) UploadHeaderLogo(logo multipart.File, logoHeader *multipart.FileHeader) (err error, fileUrl string) {
+	// 检查文件大小
+	maxSizeString := utils.GetConfigBackend("headerLogoMaxSize")
+	if maxSizeString == ""{
+		return errors.New("没有找到标签页Logo大小配置！"), ""
+	}
+	if !utils.CheckFileSize(logo, maxSizeString, "M"){
+		return errors.New("标签页Logo大小超出限制！"), ""
+	}
+	// 检查文件后缀
+	extListString := utils.GetConfigBackend("headerLogoExt")
+	if extListString == ""{
+		return errors.New("没有找到标签页Logo后缀配置！"), ""
+	}
+	if !utils.CheckFileExt(logoHeader, extListString){
+		return errors.New("标签页Logo后缀不被允许！"), ""
+	}
+	createPath := global.GqaConfig.Upload.WebLogoSavePath
+	createUrl := global.GqaConfig.Upload.WebLogoUrl
+	filename, err := utils.UploadFile(createPath, logoHeader)
+	if err != nil{
+		return err, ""
+	}
+	fileUrl = "gqa-upload:" + createUrl + "/" + filename
+	return nil, fileUrl
+}

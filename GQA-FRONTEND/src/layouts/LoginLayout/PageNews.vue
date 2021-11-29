@@ -9,6 +9,9 @@
                     最新要闻
                 </span>
                 <q-space />
+                <q-input dense v-model="queryParams.title" label="标题" />
+                <q-btn dense @click="handleSearch" label="搜索" />
+                <q-separator vertical />
                 <q-btn dense round push icon="cached" @click="getTableData" />
             </template>
 
