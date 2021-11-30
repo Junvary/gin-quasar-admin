@@ -17,7 +17,8 @@
                             <q-input class="col" v-model="addOrEditDetail.id" label="ID" disable />
                             <q-input class="col" v-model.number="addOrEditDetail.sort" type="number"
                                 :rules="[ val => val >= 1 || '排序必须大于0']" label="排序" />
-                            <q-file class="col" v-model="avatarFile" label="头像" max-files="1">
+                            <q-file class="col" v-model="avatarFile" label="头像" max-files="1" @rejected="rejected"
+                                :accept="gqaBackend.avatarExt" :max-file-size="gqaBackend.avatarMaxSize*1024*1024">
                                 <template v-slot:prepend>
                                     <GqaAvatar :src="addOrEditDetail.avatar" />
                                 </template>
@@ -99,13 +100,14 @@
 
 <script>
 import { addOrEditMixin } from 'src/mixins/addOrEditMixin'
+import { gqaBackendMixin } from 'src/mixins/gqaBackendMixin'
 import { postAction } from 'src/api/manage'
 import GqaAvatar from 'src/components/GqaAvatar'
 import GqaShowName from 'src/components/GqaShowName'
 
 export default {
     name: 'addOrEditDialog',
-    mixins: [addOrEditMixin],
+    mixins: [addOrEditMixin, gqaBackendMixin],
     components: {
         GqaAvatar,
         GqaShowName,
@@ -180,6 +182,12 @@ export default {
                         message: '头像上传成功！',
                     })
                 }
+            })
+        },
+        rejected(rejectedEntries) {
+            this.$q.notify({
+                type: 'negative',
+                message: '文件大小或类型不被允许，请联系管理员！',
             })
         },
     },

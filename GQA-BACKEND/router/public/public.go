@@ -8,6 +8,7 @@ type RouterPublic struct {
 	RouterLogin
 	RouterGetDict
 	RouterGetFrontend
+	RouterGetBackend
 }
 
 var ApiPublic = api.GroupApiApp.ApiPublic
@@ -16,3 +17,4 @@ var ApiCheckAndInitDb = ApiPublic.ApiCheckAndInitDb
 var ApiLogin = ApiPublic.ApiLogin
 var ApiGetDict = ApiPublic.ApiGetDict
 var ApiGetFrontend = ApiPublic.ApiGetFrontend
+var ApiGetBackend = ApiPublic.ApiGetBackend

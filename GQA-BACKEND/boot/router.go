@@ -14,7 +14,7 @@ func Router() *gin.Engine {
 
 	/*
 		为文件提供静态资源路径 头像和文件 无须鉴权
-	 */
+	*/
 	//头像
 	Router.StaticFS(global.GqaConfig.Upload.AvatarUrl, http.Dir(global.GqaConfig.Upload.AvatarSavePath))
 	//文件
@@ -39,6 +39,8 @@ func Router() *gin.Engine {
 		routerPublic.InitRouterGetDict(PublicGroup)
 		//获取网站公共信息：前台配置
 		routerPublic.InitRouterGetFrontend(PublicGroup)
+		//	获取网站公共信息：后台配置
+		routerPublic.InitRouterGetBackend(PublicGroup)
 	}
 	/*
 		鉴权路由分组：这里以空分组，路由内部按实绩情况分组，需要鉴权。
@@ -57,7 +59,7 @@ func Router() *gin.Engine {
 		routerSystem.InitRouterConfigBackend(PrivateGroup)
 		routerSystem.InitRouterConfigFrontend(PrivateGroup)
 	}
-    //加载插件路由
+	//加载插件路由
 	gqaplugin.RegisterPluginRouter(PublicGroup, PrivateGroup)
 
 	return Router

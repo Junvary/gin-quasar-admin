@@ -13,7 +13,7 @@ import { Notify, Dialog } from 'quasar'
 const api = axios.create(
     {
         baseURL: process.env.API,
-        timeout: 15000,
+        timeout: 40000,
         withCredentials: false
     }
 )

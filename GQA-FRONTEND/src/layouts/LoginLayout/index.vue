@@ -319,10 +319,11 @@ export default {
                 })
             }
         },
-        ...mapActions('storage', ['GetGqaDict', 'GetGqaFrontend']),
+        ...mapActions('storage', ['GetGqaDict', 'GetGqaFrontend', 'GetGqaBackend']),
         getPublic() {
             this.GetGqaDict()
             this.GetGqaFrontend()
+            this.GetGqaBackend()
         },
         openLink(url) {
             window.open(url)

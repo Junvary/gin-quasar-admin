@@ -55,7 +55,8 @@
                         <!-- 网站logo -->
                         <template v-slot="scope" v-else-if="props.row.gqaOption === 'gqaWebLogo'">
                             自定义：{{ props.row.gqaOption }}
-                            <q-file class="col" v-model="webLogoFile" max-files="1">
+                            <q-file v-model="webLogoFile" clearable max-files="1" @rejected="rejected"
+                                :accept="gqaBackend.webLogoExt" :max-file-size="gqaBackend.webLogoMaxSize*1024*1024">
                                 <template v-slot:prepend>
                                     <GqaAvatar :src="props.row.custom" />
                                 </template>
@@ -68,7 +69,9 @@
                         <!-- 标签页logo -->
                         <template v-slot="scope" v-else-if="props.row.gqaOption === 'gqaHeaderLogo'">
                             自定义：{{ props.row.gqaOption }}
-                            <q-file class="col" v-model="headerLogoFile" max-files="1">
+                            <q-file v-model="headerLogoFile" clearable max-files="1" @rejected="rejected"
+                                :accept="gqaBackend.headerLogoExt"
+                                :max-file-size="gqaBackend.headerLogoMaxSize*1024*1024">
                                 <template v-slot:prepend>
                                     <GqaAvatar :src="props.row.custom" />
                                 </template>
@@ -114,6 +117,7 @@
 
 <script>
 import { tableDataMixin } from 'src/mixins/tableDataMixin'
+import { gqaBackendMixin } from 'src/mixins/gqaBackendMixin'
 import { mapActions } from 'vuex'
 import addOrEditDialog from './modules/addOrEditDialog'
 import { putAction, postAction } from 'src/api/manage'
@@ -123,7 +127,7 @@ import GqaAvatar from 'src/components/GqaAvatar'
 
 export default {
     name: 'ConfigFrontend',
-    mixins: [tableDataMixin, addOrEditMixin],
+    mixins: [tableDataMixin, addOrEditMixin, gqaBackendMixin],
     components: {
         addOrEditDialog,
         GqaDictShow,
@@ -156,7 +160,7 @@ export default {
         this.getTableData()
     },
     methods: {
-        ...mapActions('storage', ['SetGqaFrontend']),
+        ...mapActions('storage', ['GetGqaFrontend']),
         async handleSave(row) {
             const res = await putAction(this.url.edit, row)
             if (res.code === 1) {
@@ -164,9 +168,7 @@ export default {
                     type: 'positive',
                     message: res.message,
                 })
-                this.getTableData().then(() => {
-                    this.SetGqaFrontend(this.tableData)
-                })
+                this.GetGqaFrontend()
             }
         },
         handleUploadWeb(scope) {
@@ -217,6 +219,12 @@ export default {
                     })
                     scope.set()
                 }
+            })
+        },
+        rejected(rejectedEntries) {
+            this.$q.notify({
+                type: 'negative',
+                message: '文件大小或类型不被允许，请联系管理员！',
             })
         },
     },

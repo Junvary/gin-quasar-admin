@@ -7,4 +7,5 @@ export const userMenuUrl = 'user/user-menu'
 // 网站公共信息：字典
 export const pubDictUrl = 'public/dict-detail-list'
 export const pubFrontendUrl = 'public/config-frontend-list'
+export const pubBackendUrl = 'public/config-backend-list'
 

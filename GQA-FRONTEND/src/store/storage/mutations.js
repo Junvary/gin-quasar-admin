@@ -6,6 +6,11 @@ export function SET_GQA_DICT(state, dict) {
     LocalStorage.set('gqa-dict', dict)
 }
 
+export function SET_GQA_BACKEND(state, backend) {
+    state.gqaBackend = backend
+    LocalStorage.set('gqa-backend', backend)
+}
+
 export function SET_GQA_FRONTEND(state, frontend) {
     state.gqaFrontend = frontend
     LocalStorage.set('gqa-frontend', frontend)

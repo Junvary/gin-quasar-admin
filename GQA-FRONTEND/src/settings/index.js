@@ -12,3 +12,5 @@ export const GqaFrontendDefault = {
     gqaDescribe: "Be the change you want to see in the world.",
     gqaShowGit: "yes"
 }
+// 没有网站后台配置的时候用这个配置
+export const GqaBackendDefault = {}

@@ -5,4 +5,5 @@ type ServicePublic struct {
 	ServiceLogin
 	ServiceGetDict
 	ServiceGetFrontend
+	ServiceGetBackend
 }

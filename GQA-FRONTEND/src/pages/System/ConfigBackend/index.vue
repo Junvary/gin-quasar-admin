@@ -21,8 +21,11 @@
             <template v-slot:body-cell-custom="props">
                 <q-td :props="props" class="bg-green-1">
                     {{props.row.custom}}
-                    <q-popup-edit v-model="props.row.custom" :title="'自定义:' + props.row.gqaOption">
-                        <q-input v-model="props.row.custom" dense autofocus />
+                    <q-popup-edit v-model="props.row.custom" class="bg-green-13">
+                        <template v-slot="scope">
+                            自定义：{{ props.row.gqaOption }}
+                            <q-input v-model="props.row.custom" dense autofocus clearable @keyup.enter="scope.set" />
+                        </template>
                     </q-popup-edit>
                 </q-td>
             </template>
@@ -54,6 +57,7 @@
 
 <script>
 import { tableDataMixin } from 'src/mixins/tableDataMixin'
+import { mapActions } from 'vuex'
 import addOrEditDialog from './modules/addOrEditDialog'
 import { putAction } from 'src/api/manage'
 import GqaDictShow from 'src/components/GqaDictShow'
@@ -88,6 +92,7 @@ export default {
         this.getTableData()
     },
     methods: {
+        ...mapActions('storage', ['GetGqaBackend']),
         async handleSave(row) {
             const res = await putAction(this.url.edit, row)
             if (res.code === 1) {
@@ -95,7 +100,7 @@ export default {
                     type: 'positive',
                     message: res.message,
                 })
-                this.getTableData()
+                this.GetGqaBackend()
             }
         },
     },

@@ -1,5 +1,5 @@
 import { getAction } from "src/api/manage"
-import { pubDictUrl, pubFrontendUrl } from 'src/api/url'
+import { pubDictUrl, pubFrontendUrl, pubBackendUrl } from 'src/api/url'
 import { ArrayToTree } from 'src/utils/arrayAndTree'
 
 
@@ -20,6 +20,17 @@ export async function GetGqaDict({ commit, state, dispatch }) {
     }
 }
 
+export async function GetGqaBackend({ commit, state, dispatch }) {
+    const res = await getAction(pubBackendUrl)
+    if (res.code === 1) {
+        const backend = {}
+        res.data.records.forEach(item => {
+            backend[item.gqaOption] = item.custom ? item.custom : item.default
+        })
+        commit("SET_GQA_BACKEND", backend)
+    }
+}
+
 export async function GetGqaFrontend({ commit, state, dispatch }) {
     const res = await getAction(pubFrontendUrl)
     if (res.code === 1) {
@@ -29,14 +40,6 @@ export async function GetGqaFrontend({ commit, state, dispatch }) {
         })
         commit("SET_GQA_FRONTEND", frontend)
     }
-}
-
-export async function SetGqaFrontend({ commit, state, dispatch }, records) {
-    const frontend = {}
-    records.forEach(item => {
-        frontend[item.gqaOption] = item.custom ? item.custom : item.default
-    })
-    commit("SET_GQA_FRONTEND", frontend)
 }
 
 export function SetGqaGoVersion({ commit, state, dispatch }, goVersion) {

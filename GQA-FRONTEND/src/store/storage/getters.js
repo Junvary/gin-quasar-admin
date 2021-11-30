@@ -1,5 +1,5 @@
 import { LocalStorage } from 'quasar'
-import { GqaFrontendDefault } from 'src/settings'
+import { GqaFrontendDefault, GqaBackendDefault } from 'src/settings'
 
 export function gqaDict(state) {
     const dict = LocalStorage.getItem("gqa-dict")
@@ -7,6 +7,17 @@ export function gqaDict(state) {
         return state.gqaDict
     } else {
         return dict
+    }
+}
+
+export function gqaBackend(state) {
+    const backend = LocalStorage.getItem("gqa-backend")
+    if (state.gqaBackend) {
+        return state.gqaBackend
+    } else if (backend) {
+        return backend
+    } else {
+        return GqaBackendDefault
     }
 }
 

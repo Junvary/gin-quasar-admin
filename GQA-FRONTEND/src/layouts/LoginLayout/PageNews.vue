@@ -10,8 +10,7 @@
                 </span>
                 <q-space />
                 <q-input dense v-model="queryParams.title" label="标题" />
-                <q-btn dense @click="handleSearch" label="搜索" />
-                <q-separator vertical />
+                <q-btn dense color="primary" @click="handleSearch" label="搜索" style="margin: 0 10px" />
                 <q-btn dense round push icon="cached" @click="getTableData" />
             </template>
 
@@ -93,13 +92,14 @@ export default {
             ],
         }
     },
-    created() {
+    async created() {
         try {
-            this.getTableData()
+            await this.getTableData()
         } catch (error) {
             this.tableData = [
                 {
                     title: 'Gin-Quasar-Admin',
+                    content: 'Gin-Quasar-Admin',
                 },
             ]
         }
