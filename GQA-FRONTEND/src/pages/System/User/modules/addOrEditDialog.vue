@@ -187,7 +187,7 @@ export default {
         rejected(rejectedEntries) {
             this.$q.notify({
                 type: 'negative',
-                message: '文件大小或类型不被允许，请联系管理员！',
+                message: '文件重复或大小/类型不被允许，请联系管理员！',
             })
         },
     },

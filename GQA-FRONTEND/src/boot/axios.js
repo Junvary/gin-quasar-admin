@@ -65,10 +65,6 @@ export default boot(({ app, router, store }) => {
                         return response.data
                     }
                 default:
-                    Notify.create({
-                        type: 'negative',
-                        message: response.data.message || '操作失败！',
-                    })
                     return response.data
             }
         }
