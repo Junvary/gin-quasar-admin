@@ -9,8 +9,8 @@
                     最新要闻
                 </span>
                 <q-space />
-                <q-input dense v-model="queryParams.title" label="标题" />
-                <q-btn dense color="primary" @click="handleSearch" label="搜索" style="margin: 0 10px" />
+                <!-- <q-input dense v-model="queryParams.title" label="标题" />
+                <q-btn dense color="primary" @click="handleSearch" label="搜索" style="margin: 0 10px" /> -->
                 <q-btn dense round push icon="cached" @click="getTableData" />
             </template>
 
@@ -49,6 +49,21 @@
                 <q-separator />
 
                 <q-card-section v-html="detail.content" style="max-height: 80vh" class="scroll" />
+
+                <q-separator />
+
+                <q-list bordered separator v-if="detail.attachment">
+                    <q-item-label header class="row items-center justify-between">
+                        <span>附件列表：</span>
+                    </q-item-label>
+                    <q-separator />
+                    <q-item clickable v-ripple v-for="(item, index) in JSON.parse(detail.attachment)" :key="index"
+                        @click="handleDownload(item)">
+                        <q-item-section>
+                            {{item.filename}}
+                        </q-item-section>
+                    </q-item>
+                </q-list>
             </q-card>
         </q-dialog>
     </div>
@@ -58,6 +73,7 @@
 import { tableDataMixin } from 'src/mixins/tableDataMixin'
 import GqaShowName from 'src/components/GqaShowName'
 import { FormatDataTime } from 'src/utils/date'
+import { downloadAction } from 'src/api/manage'
 
 export default {
     name: 'PageNews',
@@ -108,6 +124,9 @@ export default {
         showDetail(row) {
             this.detail = row
             this.showDetailVisible = true
+        },
+        handleDownload(item) {
+            downloadAction(item.fileUrl.substring(11), item.filename)
         },
     },
 }

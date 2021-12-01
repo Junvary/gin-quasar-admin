@@ -1,5 +1,5 @@
 <template>
-    <q-layout>
+    <q-layout style="overflow-x: hidden">
         <q-page-container>
             <page-header />
             <page-banner :checkDbStatus="checkDbStatus" ref="pageBanner" />
