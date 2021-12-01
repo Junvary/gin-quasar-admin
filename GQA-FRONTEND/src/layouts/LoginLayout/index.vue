@@ -307,8 +307,11 @@ export default {
                                     this.initDbVisible = false
                                     this.checkDbStatus = false
                                     this.getPublic()
-                                    this.$refs.pageBanner.showLoginForm()
+                                    // this.$refs.pageBanner.showLoginForm()
                                 }
+                            })
+                            .then(() => {
+                                this.$router.go(0)
                             })
                             .finally(() => {
                                 this.initLoading = false

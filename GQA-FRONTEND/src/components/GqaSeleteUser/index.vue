@@ -17,7 +17,7 @@ export default {
             required: false,
         },
         selectId: {
-            type: Number,
+            type: [Number, Array],
             required: false,
         },
         label: {
@@ -41,14 +41,32 @@ export default {
     },
     computed: {
         showName() {
-            if (this.selectUser.nickname) {
-                return this.selectUser.nickname
-            } else if (this.selectUser.realName) {
-                return this.selectUser.realName
-            } else if (this.selectUser.id) {
-                return this.selectUser.id
+            if (this.selection === 'multiple') {
+                let nickname = ''
+                let realName = ''
+                let id = ''
+                for (let u of this.selectUser) {
+                    if (u.nickname) {
+                        nickname += u.nickname + ' '
+                    } else if (u.realName) {
+                        realName += u.realName + ' '
+                    } else if (u.id) {
+                        id += u.id + ' '
+                    } else {
+                        return ''
+                    }
+                }
+                return nickname || realName || id
             } else {
-                return ''
+                if (this.selectUser.nickname) {
+                    return this.selectUser.nickname
+                } else if (this.selectUser.realName) {
+                    return this.selectUser.realName
+                } else if (this.selectUser.id) {
+                    return this.selectUser.id
+                } else {
+                    return ''
+                }
             }
         },
     },
@@ -57,6 +75,7 @@ export default {
             this.$refs.selectUserDialog.show(this.selectUser)
         },
         handleSelectUser(event) {
+            console.log(event)
             if (this.selection === 'multiple') {
                 const ids = []
                 for (let i of event) {

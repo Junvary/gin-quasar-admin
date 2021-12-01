@@ -59,7 +59,11 @@ export default {
             this.selectUserVisible = true
             this.getTableData()
             if (this.selection === 'multiple') {
-                this.selected = selectUser
+                if (typeof selectUser === Array) {
+                    this.selected = selectUser
+                } else {
+                    this.selected = []
+                }
             } else {
                 this.selected.push(selectUser)
             }
