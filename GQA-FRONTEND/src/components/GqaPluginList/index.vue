@@ -1,5 +1,6 @@
 <template>
-    <q-expansion-item dense expand-separator class="bg-accent text-white" expand-icon-class="text-white">
+    <q-expansion-item dense expand-separator class="bg-accent text-white" expand-icon-class="text-white"
+        v-if="rows && rows.length">
         <template v-slot:header>
             <q-item-section avatar>
                 <q-avatar size="md" icon="install_desktop" color="white" text-color="accent" />
@@ -8,13 +9,15 @@
                 <q-btn dense flat :label="'已装插件（' + rows.length + '）'" />
             </q-item-section>
         </template>
-        <q-table dense hide-bottom hide-header separator="cell" :rows="rows" :columns="columns" row-key="name">
+        <q-table dense hide-bottom separator="cell" :rows="rows" :columns="columns" row-key="name">
+
             <template v-slot:body-cell-first="props">
                 <q-td :props="props">
                     <q-chip dense color="accent" text-color="white">已装插件</q-chip>
                 </q-td>
             </template>
-            <template v-slot:body-cell-actions="props">
+
+            <template v-slot:body-cell-remark="props">
                 <q-td :props="props">
                     <q-chip dense color="accent" text-color="white">
                         描述
@@ -22,6 +25,13 @@
                             {{props.row.PluginRemark}}
                         </q-tooltip>
                     </q-chip>
+                </q-td>
+            </template>
+
+            <template v-slot:body-cell-actions="props">
+                <q-td :props="props">
+                    <q-radio dense name="plugin-login-layout" v-model="choosePlugin" :val="props.row.PluginCode"
+                        @update:model-value="choosePluginLoginLayout(props.row.PluginCode)" />
                 </q-td>
             </template>
         </q-table>
@@ -38,14 +48,41 @@ export default {
     },
     data() {
         return {
+            choosePlugin: this.$q.localStorage.getItem('gqa-pluginCurrent') || '',
             columns: [
                 { name: 'first', align: 'center', label: '已装插件', field: 'first' },
                 { name: 'PluginName', align: 'center', label: '插件名称', field: 'PluginName' },
                 { name: 'PluginCode', align: 'center', label: '插件编码', field: 'PluginCode' },
                 { name: 'PluginVersion', align: 'center', label: '插件版本', field: 'PluginVersion' },
-                { name: 'actions', align: 'center', label: '操作', field: 'actions' },
+                { name: 'remark', align: 'center', label: '描述', field: 'remark' },
+                { name: 'actions', align: 'center', label: '使用首页', field: 'actions' },
             ],
         }
+    },
+    methods: {
+        choosePluginLoginLayout(code) {
+            const tryImport = new Promise((resolve, reject) => {
+                require(`src/layouts/LoginLayout/${code}/index.vue`).default
+                resolve()
+            })
+            tryImport
+                .then(() => {
+                    this.choosePlugin = code
+                    this.$q.localStorage.set('gqa-pluginCurrent', code)
+                    this.$q.notify({
+                        type: 'positive',
+                        message: '切换成功！',
+                    })
+                    this.$emit('changeSuccess')
+                })
+                .catch(() => {
+                    this.$q.notify({
+                        type: 'negative',
+                        message: '此插件还未支持登录页面！',
+                    })
+                    this.choosePlugin = ''
+                })
+        },
     },
 }
 </script>

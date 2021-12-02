@@ -70,21 +70,21 @@ export default boot(({ app, router, store }) => {
         }
     }, error => {
         // 500的情况
-        // if (error + '' === 'Error: Request failed with status code 500') {
-        //     Dialog.create({
-        //         title: "抱歉！",
-        //         message: '数据异常，请退出系统重新登录！',
-        //         persistent: true,
-        //         ok: {
-        //             push: true,
-        //             color: 'negative',
-        //             label: "重新登录"
-        //         },
-        //     }).onOk(() => {
-        //         store.dispatch('user/HandleLogout')
-        //         router.push({ name: 'login' })
-        //     })
-        // }
+        if (error + '' === 'Error: Request failed with status code 500') {
+            Dialog.create({
+                title: "抱歉！",
+                message: '数据异常，请退出系统重新登录！',
+                persistent: true,
+                ok: {
+                    push: true,
+                    color: 'negative',
+                    label: "重新登录"
+                },
+            }).onOk(() => {
+                store.dispatch('user/HandleLogout')
+                router.push({ name: 'login' })
+            })
+        }
         // 超时
         if (error + '' === 'Error: timeout of 40000ms exceeded') {
             Notify.create({

@@ -2,7 +2,7 @@
     <q-dialog v-model="selectUserVisible">
         <q-card style="min-width: 700px; max-width: 45vw">
             <q-card-section class="row justify-between items-center">
-                <div class="text-h7">
+                <div class="text-subtitle1">
                     用户选择器
                     （{{selection === "multiple" ? "多选" : "单选" }}）
                 </div>

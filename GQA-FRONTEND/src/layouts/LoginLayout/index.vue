@@ -1,13 +1,16 @@
 <template>
     <q-layout style="overflow-x: hidden">
         <q-page-container>
-            <page-header />
             <page-banner :checkDbStatus="checkDbStatus" ref="pageBanner" />
-            <page-news />
-            <page-project />
-            <page-weapon />
-            <page-honour />
-            <page-resource />
+
+            <component v-if="pluginCurrent && pluginComponent" :key="pluginCurrent" :is="pluginComponent" />
+            <q-card v-else class="row items-center justify-center" style="padding: 20px 0;">
+                <q-expansion-item label="未安装任何登录页插件，现在安装？" class="shadow-1 overflow-hidden" style="border-radius: 30px"
+                    header-class="bg-primary text-white" expand-icon-class="text-white">
+                    <GqaPluginList @changeSuccess="changeSuccess" />
+                </q-expansion-item>
+            </q-card>
+
             <page-footer />
             <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
                 <q-btn dense fab push icon="keyboard_arrow_up" color="primary" />
@@ -51,40 +54,33 @@
                             <q-step :name="1" title="欢迎" icon="home" :done="step > 1">
                                 <div class="text-h5 column text-center q-gutter-md">
                                     <span class="col">
-                                        嘿，看起来这是你第一次运行 Gin-Quasar-Admin！
+                                        欢迎使用 Gin-Quasar-Admin
                                     </span>
                                     <span class="col">
-                                        首先你需要
-                                        <span class="text-red">初始化数据库</span>
+                                        请跟随本向导完成
+                                        <span class="text-negative">数据库初始化</span>
                                     </span>
                                     <span class="col">
-                                        后续使用管理员账户进行
-                                        <span class="text-red">个性化配置</span>
+                                        完成后可使用管理员账户登录进行
+                                        <span class="text-negative">网站个性化配置</span>
                                     </span>
-                                    <span class="col">
-                                        准备好了吗？让我们开始吧！
+                                    <span class="col text-subtitle1 text-negative">
+                                        ** 可通过上方 “已装插件” 选择登录首页组件 **
                                     </span>
                                 </div>
                             </q-step>
 
                             <q-step :name="2" title="初始化数据库" icon="settings" :done="step > 2">
                                 <div class="q-gutter-y-md column">
-                                    <span class="col text-red text-h7">
-                                        首先需要对数据库进行初始化，请确保已经安装并启动了数据库
+                                    <span class="col text-negative text-subtitle1">
+                                        ** 请确保已经安装并启动了Mysql，但你无须建库，向导会根据下方配置为你自动创建数据库，并导入初始数据 **
                                     </span>
-                                    <span class="col text-red text-h7">
-                                        系统会为你自动创建数据库，并导入初始数据。
-                                    </span>
-
                                     <q-input outlined bottom-slots v-model.trim="form.dbType" label="数据库类型" disable
                                         :rules="[(val) =>(val && val.length > 0) || '请输入数据库类型',]">
                                         <template v-slot:before>
                                             <q-avatar class="gin-quasar-admin-logo">
                                                 <img src="gqa128.png" />
                                             </q-avatar>
-                                        </template>
-                                        <template v-slot:hint>
-                                            只支持Mysql
                                         </template>
                                     </q-input>
 
@@ -141,36 +137,23 @@
                                 <div class="text-h5 column text-center q-gutter-md">
                                     <span class="col">
                                         数据库用户名
-                                        <span class="text-red">{{form.username}}</span>
+                                        <span class="text-negative">{{form.username}}</span>
                                         密码
-                                        <span class="text-red">{{form.password}}</span>
+                                        <span class="text-negative">{{form.password}}</span>
                                         将保存在后台中
                                     </span>
 
                                     <span class="col">
                                         系统将为你建立
-                                        <span class="text-red">{{form.host}}:{{form.port}}</span>
+                                        <span class="text-negative">{{form.host}}:{{form.port}}</span>
                                         的
-                                        <span class="text-red">{{form.dbType}}</span>
+                                        <span class="text-negative">{{form.dbType}}</span>
                                         数据库
-                                        <span class="text-red">{{form.dbName}}</span>
+                                        <span class="text-negative">{{form.dbName}}</span>
                                     </span>
 
                                     <span class="col">
-                                        完成此步后，你需要使用
-                                        <span class="text-red">超级管理员登录</span>
-                                        进行网站
-                                        <span class="text-red">个性化配置</span>
-                                    </span>
-                                    <span class="col">
-                                        后续你也可以在
-                                        <span class="text-red">超级管理员</span>
-                                        的相关菜单中找到
-                                        <span class="text-red">个性化配置</span>
-                                        入口
-                                    </span>
-                                    <span class="col">
-                                        默认超级管理员：admin，密码：123456
+                                        网站默认超级管理员账户：admin / 123456 ，请尽早修改
                                     </span>
                                     <span class="col">
                                         准备就绪？
@@ -199,30 +182,17 @@
 
 <script>
 import { mapActions } from 'vuex'
-import PageHeader from './PageHeader'
 import PageBanner from './PageBanner'
-import PageNews from './PageNews'
-import PageProject from './PageProject'
-import PageHonour from './PageHonour'
-import PageWeapon from './PageWeapon'
-import PageResource from './PageResource'
 import PageFooter from './PageFooter'
-
 import { getAction, postAction } from 'src/api/manage'
 import { checkDbUrl, initDbUrl } from 'src/api/url'
-
 import GqaVersion from 'src/components/GqaVersion'
 import GqaPluginList from 'src/components/GqaPluginList'
+import { markRaw, defineAsyncComponent } from 'vue'
 
 export default {
     components: {
-        PageHeader,
         PageBanner,
-        PageNews,
-        PageProject,
-        PageHonour,
-        PageWeapon,
-        PageResource,
         PageFooter,
         GqaVersion,
         GqaPluginList,
@@ -254,6 +224,8 @@ export default {
                 dbName: 'gin-quasar-admin',
             },
             initLoading: false,
+            pluginCurrent: null,
+            pluginComponent: null,
         }
     },
     created() {
@@ -271,6 +243,17 @@ export default {
                     if (res.data.needInit === false) {
                         this.getPublic()
                         this.checkDbStatus = false
+                        this.pluginCurrent = this.$q.localStorage.getItem('gqa-pluginCurrent')
+                        if (this.pluginCurrent) {
+                            try {
+                                this.pluginComponent = markRaw(defineAsyncComponent(() => import(`src/layouts/LoginLayout/${this.pluginCurrent}/index.vue`)))
+                            } catch (error) {
+                                this.$q.notify({
+                                    type: 'negative',
+                                    message: '所选插件还未支持登录页面！',
+                                })
+                            }
+                        }
                     }
                     if (res.data.needInit === true) {
                         this.$q.notify({
@@ -330,6 +313,9 @@ export default {
         },
         openLink(url) {
             window.open(url)
+        },
+        changeSuccess() {
+            this.$router.go(0)
         },
     },
 }

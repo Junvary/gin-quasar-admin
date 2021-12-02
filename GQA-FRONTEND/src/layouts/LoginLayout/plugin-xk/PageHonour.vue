@@ -1,5 +1,5 @@
 <template>
-    <div class="q-pa-md row items-center justify-center gqa-honour" id="gqa-honour">
+    <div class="row items-center justify-center gqa-honour" id="gqa-honour">
         <q-carousel swipeable animated thumbnails infinite :autoplay="autoplay" arrows transition-prev="slide-right"
             transition-next="slide-left" @mouseenter="autoplay = false" @mouseleave="autoplay = 2000" v-model="slide"
             style="width: 60%; height: 650px">
@@ -74,9 +74,6 @@ export default {
 .gqa-honour {
     background: rgba(248, 192, 147, 1);
     width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     padding: 100px 0;
 }
 </style>

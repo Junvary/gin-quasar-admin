@@ -12,7 +12,7 @@
             <q-btn flat rounded push size="lg" text-color="white" @click="handleScroll('gqa-project')" label="项目进度" />
             <q-btn flat rounded push size="lg" text-color="white" @click="handleScroll('gqa-weapon')" label="武器库" />
             <q-btn flat rounded push size="lg" text-color="white" @click="handleScroll('gqa-honour')" label="荣誉认证" />
-            <q-btn flat rounded push size="lg" text-color="white" @click="handleScroll('gqa-document')" label="资源查阅" />
+            <q-btn flat rounded push size="lg" text-color="white" @click="handleScroll('gqa-resource')" label="资源查阅" />
             <q-btn flat rounded push size="lg" text-color="white" label="版本信息">
                 <GqaVersion />
             </q-btn>

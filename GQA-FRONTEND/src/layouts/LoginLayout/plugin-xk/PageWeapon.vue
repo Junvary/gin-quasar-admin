@@ -1,7 +1,7 @@
 <template>
-    <div class="gqa-weapon" id="gqa-weapon">
-        <PageWeaponCode />
-        <PageWeaponNode />
+    <div class="row items-center justify-around gqa-weapon" id="gqa-weapon">
+        <PageWeaponCode class="col" />
+        <PageWeaponNode class="col" />
     </div>
 </template>
 
@@ -21,9 +21,6 @@ export default {
 <style lang="scss" scoped>
 .gqa-weapon {
     width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     padding: 50px 0;
 }
 </style>

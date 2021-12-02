@@ -1,5 +1,5 @@
 <template>
-    <div class="q-pa-md row items-center justify-center gqa-news" id="gqa-news">
+    <div class="row items-center justify-center gqa-news" id="gqa-news">
         <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
             :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest"
             style="min-width: 50vw; max-width: 90vw">
@@ -135,9 +135,6 @@ export default {
 <style lang="scss" scoped>
 .gqa-news {
     width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     padding: 100px 0;
 }
 </style>
