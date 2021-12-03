@@ -138,3 +138,23 @@ func (s *ServiceUser) GetUserRole(c *gin.Context) (err error, role []system.SysR
 	}
 	return nil, userRole
 }
+
+func (s *ServiceUser) ChangePassword(username string, toChangePassword system.RequestChangePassword) (err error) {
+	if toChangePassword.NewPassword1 != toChangePassword.NewPassword2{
+		return errors.New("两次新密码不一致！")
+	}
+	var sysUser system.SysUser
+	if err = global.GqaDb.Where("username = ?", username).First(&sysUser).Error; err != nil {
+		return err
+	}
+	oldPassword := utils.EncodeMD5(toChangePassword.OldPassword)
+	if sysUser.Password != oldPassword{
+		return errors.New("旧密码错误！")
+	}
+	newPassword := utils.EncodeMD5(toChangePassword.NewPassword1)
+	if oldPassword == newPassword{
+		return errors.New("新旧密码是一样的！")
+	}
+	err = global.GqaDb.Model(&sysUser).Update("password", newPassword).Error
+	return err
+}

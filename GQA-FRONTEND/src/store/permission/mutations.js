@@ -5,10 +5,10 @@ export function INIT_USER_MENU(state, routes) {
             if (route.children && route.children.length > 0) {
                 push(route.children)
             } else {
-                if (route.meta.hidden === "no") {
-                    const { meta, name, path } = route
-                    menu.push({ meta, name, path })
-                }
+                // if (route.meta.hidden === "no") {
+                const { meta, name, path } = route
+                menu.push({ meta, name, path })
+                // }
             }
         })
     }
@@ -20,10 +20,6 @@ export function INIT_SEARCH_MENU(state, searchMenu) {
     state.searchMenu = searchMenu
 }
 
-export function INIT_ASIDE_MENU(state, asideMenu) {
-    state.asideMenu = asideMenu
-}
-
 export function INIT_TOP_MENU(state, topMenu) {
     state.topMenu = topMenu
 }
@@ -32,6 +28,5 @@ export function INIT_TOP_MENU(state, topMenu) {
 export function CLEAR_MENU(state) {
     state.userMenu = []
     state.searchMenu = []
-    state.asideMenu = []
     state.topMenu = []
 }

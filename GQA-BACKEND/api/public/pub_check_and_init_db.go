@@ -22,21 +22,31 @@ func (a *ApiCheckAndInitDb) CheckDb(c *gin.Context) {
 		PluginRemark  string
 	}
 	var pluginList []plugin
-	for _, v := range gqaplugin.PluginList{
+	for _, v := range gqaplugin.PluginList {
 		pluginList = append(pluginList, plugin{
-			PluginName: v.PluginName(),
-			PluginCode: v.PluginCode(),
+			PluginName:    v.PluginName(),
+			PluginCode:    v.PluginCode(),
 			PluginVersion: v.PluginVersion(),
-			PluginRemark: v.PluginRemark(),
+			PluginRemark:  v.PluginRemark(),
 		})
 	}
 	if global.GqaDb != nil {
+		pluginLoginLayout := utils.GetConfigFrontend("gqaPluginLoginLayout")
 		global.GqaLog.Info("数据库无需初始化")
-		global.SuccessMessageData(gin.H{"needInit": false, "goVersion": goVersion, "ginVersion": ginVersion, "pluginList": pluginList}, "数据库无需初始化", c)
+		global.SuccessMessageData(gin.H{
+			"needInit":          false,
+			"goVersion":         goVersion,
+			"ginVersion":        ginVersion,
+			"pluginList":        pluginList,
+			"pluginLoginLayout": pluginLoginLayout}, "数据库无需初始化", c)
 		return
 	} else {
 		global.GqaLog.Info("数据库需要初始化")
-		global.SuccessMessageData(gin.H{"needInit": true, "goVersion": goVersion, "ginVersion": ginVersion, "pluginList": pluginList}, "数据库需要初始化", c)
+		global.SuccessMessageData(gin.H{
+			"needInit":   true,
+			"goVersion":  goVersion,
+			"ginVersion": ginVersion,
+			"pluginList": pluginList}, "数据库需要初始化", c)
 		return
 	}
 }

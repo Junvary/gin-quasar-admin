@@ -40,3 +40,9 @@ type RequestUserList struct {
 	//全部可搜索，直接放开模型，并从service里面配置搜索逻辑
 	//SysUser
 }
+
+type RequestChangePassword struct {
+	OldPassword  string `json:"oldPassword" binding:"required"`
+	NewPassword1 string `json:"newPassword1" binding:"required"`
+	NewPassword2 string `json:"newPassword2" binding:"required"`
+}

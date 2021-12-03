@@ -18,18 +18,13 @@ export async function GetUserMenu({ commit, state, dispatch }) {
         // 设置搜索菜单
         commit('INIT_SEARCH_MENU', searchMenu)
 
-        // 重组侧边栏菜单
-        const asideMenu = HandleAsideMenu(data.filter(value => value.hidden === "no"), "name", "parentCode")
-        // 设置侧边栏菜单
-        commit('INIT_ASIDE_MENU', asideMenu)
-
         // 重组顶部菜单分组详情
         const topMenu = []
-        asideMenu.forEach(item => {
+        HandleAsideMenu(data, "name", "parentCode").forEach(item => {
             if (item.children && item.children.length) {
                 topMenu.push({
                     top: item,
-                    treeChildren: item.children,
+                    treeChildren: item.children.filter(item => item.hidden !== 'yes'),
                     arrayChildren: TreeToArray(item.children)
                 })
             } else {

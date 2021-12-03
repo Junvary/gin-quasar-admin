@@ -24,6 +24,8 @@ func (r *RouterUser) InitRouterUser(Router *gin.RouterGroup) (R gin.IRoutes) {
 		userGroup.GET("user-menu", ApiUser.GetUserMenu)
 		//获取用户的角色列表
 		userGroup.GET("user-role", ApiUser.GetUserRole)
+		//用户修改密码
+		userGroup.POST("user-change-password", ApiUser.ChangePassword)
 	}
 	return Router
 }

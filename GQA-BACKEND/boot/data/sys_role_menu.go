@@ -13,7 +13,8 @@ var SysRoleMenu = new(sysRoleMenu)
 type sysRoleMenu struct{}
 
 var sysRoleMenuData = []system.SysRoleMenu{
-	// 为 super-admin 设置所有 sys_menu 的总数
+	// 为 super-admin 设置所有 sys_menu 的 MenuName
+	{"super-admin", "profile"},
 	{"super-admin", "dashboard"},
 	{"super-admin", "system"},
 	{"super-admin", "dept"},

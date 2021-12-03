@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import { postAction } from 'src/api/manage'
 import { mapActions } from 'vuex'
 
 export default {

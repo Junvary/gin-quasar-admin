@@ -16,3 +16,15 @@ func GetConfigBackend(gqaOption string) (key string) {
 		return sysConfigBackend.Default
 	}
 }
+
+func GetConfigFrontend(gqaOption string) (key string) {
+	var sysConfigFrontend system.SysConfigFrontend
+	if err := global.GqaDb.Where("gqa_option = ?", gqaOption).First(&sysConfigFrontend).Error; err != nil {
+		return ""
+	}
+	if sysConfigFrontend.Custom != "" {
+		return sysConfigFrontend.Custom
+	} else {
+		return sysConfigFrontend.Default
+	}
+}

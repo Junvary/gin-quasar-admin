@@ -6,10 +6,10 @@
             </div>
 
             <div class="text-h2" style="opacity:.4">
-                Oops. Nothing here...
+                恭喜你，这个页面似乎还没人发现！
             </div>
 
-            <q-btn class="q-mt-xl" color="white" text-color="blue" unelevated to="/" label="Go Home" no-caps />
+            <q-btn class="q-mt-xl" color="white" text-color="blue" unelevated to="/" label="带我回家" no-caps />
         </div>
     </div>
 </template>

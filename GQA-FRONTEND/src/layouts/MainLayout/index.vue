@@ -22,7 +22,7 @@
 
                 <Fullscreen style="margin: 0 5px" />
                 <Notice style="margin: 0 5px" />
-                <UserMenu style="margin: 0 5px" />
+                <UserMenu style="margin: 0 5px" @showProfile="$refs.userProfile.show()" />
                 <!-- <q-language-switcher/> -->
                 <Setting style="margin: 0 5px" />
                 <GitLink style="margin: 0 5px" v-if="gqaFrontend.gqaShowGit === 'yes'" />
@@ -55,6 +55,9 @@
         <q-footer reveal elevated>
             <PageFooter />
         </q-footer>
+
+        <UserProfile ref="userProfile" />
+
     </q-layout>
 </template>
 
@@ -70,6 +73,7 @@ import UserMenu from './UserMenu'
 import Setting from './Setting'
 import PageFooter from './PageFooter'
 import GqaAvatar from 'src/components/GqaAvatar'
+import UserProfile from 'src/pages/UserProfile'
 
 export default {
     name: 'MainLayout',
@@ -84,6 +88,7 @@ export default {
         Setting,
         PageFooter,
         GqaAvatar,
+        UserProfile,
     },
     computed: {
         ...mapGetters({
@@ -105,7 +110,7 @@ export default {
                     break
                 }
             }
-            this.currentItemMenu = item.top ? item.top.name : {}
+            this.currentItemMenu = item.top ? item.top.name : ''
             return item
         },
     },

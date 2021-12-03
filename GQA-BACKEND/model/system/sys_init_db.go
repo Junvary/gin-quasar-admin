@@ -1,7 +1,7 @@
 package system
 
 type RequestInitDb struct {
-	DbType   string `json:"dbType"  binding:"required"`
+	DbType   string `json:"dbType" binding:"required"`
 	Host     string `json:"host" binding:"required"`
 	Port     string `json:"port" binding:"required"`
 	Username string `json:"username" binding:"required"`

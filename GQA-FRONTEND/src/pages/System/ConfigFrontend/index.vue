@@ -52,6 +52,12 @@
                                 inline @update:model-value="scope.set">
                             </q-option-group>
                         </template>
+                        <!-- 配置插件可选登录页 -->
+                        <template v-slot="scope" v-else-if="props.row.gqaOption === 'gqaPluginLoginLayout'">
+                            自定义：{{ props.row.gqaOption }}
+                            <GqaPluginList showChoose @changeSuccess="handleSetLoginLayout($event, scope)"
+                                :choosePlugin="props.row.custom" />
+                        </template>
                         <!-- 网站logo -->
                         <template v-slot="scope" v-else-if="props.row.gqaOption === 'gqaWebLogo'">
                             自定义：{{ props.row.gqaOption }}
@@ -124,6 +130,7 @@ import { putAction, postAction } from 'src/api/manage'
 import GqaDictShow from 'src/components/GqaDictShow'
 import { addOrEditMixin } from 'src/mixins/addOrEditMixin'
 import GqaAvatar from 'src/components/GqaAvatar'
+import GqaPluginList from 'src/components/GqaPluginList'
 
 export default {
     name: 'ConfigFrontend',
@@ -132,6 +139,7 @@ export default {
         addOrEditDialog,
         GqaDictShow,
         GqaAvatar,
+        GqaPluginList,
     },
     data() {
         return {
@@ -226,6 +234,13 @@ export default {
                 type: 'negative',
                 message: '文件重复或大小/类型不被允许，请联系管理员！',
             })
+        },
+        handleSetLoginLayout(event, scope) {
+            const gqaPluginLoginLayout = this.tableData.filter((item) => {
+                return item.gqaOption === 'gqaPluginLoginLayout'
+            })
+            gqaPluginLoginLayout[0].custom = event
+            scope.set(event)
         },
     },
 }

@@ -5,10 +5,7 @@
 
             <component v-if="pluginCurrent && pluginComponent" :key="pluginCurrent" :is="pluginComponent" />
             <q-card v-else class="row items-center justify-center" style="padding: 20px 0;">
-                <q-expansion-item label="未安装任何登录页插件，现在安装？" class="shadow-1 overflow-hidden" style="border-radius: 30px"
-                    header-class="bg-primary text-white" expand-icon-class="text-white">
-                    <GqaPluginList @changeSuccess="changeSuccess" />
-                </q-expansion-item>
+                <q-btn color="primary" label="未安装任何登录页插件，请联系管理员！"></q-btn>
             </q-card>
 
             <page-footer />
@@ -243,14 +240,14 @@ export default {
                     if (res.data.needInit === false) {
                         this.getPublic()
                         this.checkDbStatus = false
-                        this.pluginCurrent = this.$q.localStorage.getItem('gqa-pluginCurrent')
+                        this.pluginCurrent = res.data.pluginLoginLayout
                         if (this.pluginCurrent) {
                             try {
                                 this.pluginComponent = markRaw(defineAsyncComponent(() => import(`src/layouts/LoginLayout/${this.pluginCurrent}/index.vue`)))
                             } catch (error) {
                                 this.$q.notify({
                                     type: 'negative',
-                                    message: '所选插件还未支持登录页面！',
+                                    message: '所选插件还未支持登录页面，请联系管理员！',
                                 })
                             }
                         }
@@ -290,11 +287,8 @@ export default {
                                     this.initDbVisible = false
                                     this.checkDbStatus = false
                                     this.getPublic()
-                                    // this.$refs.pageBanner.showLoginForm()
+                                    this.$refs.pageBanner.showLoginForm()
                                 }
-                            })
-                            .then(() => {
-                                this.$router.go(0)
                             })
                             .finally(() => {
                                 this.initLoading = false

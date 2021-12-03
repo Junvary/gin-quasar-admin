@@ -19,7 +19,7 @@
         "xe-utils": "^3.4.3"
     },
     "devDependencies": {
-        "@quasar/app": "^3.2.3"
+        "@quasar/app": "^3.2.4"
     },
     "browserslist": [
         "last 10 Chrome versions",

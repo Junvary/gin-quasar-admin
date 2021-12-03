@@ -28,7 +28,7 @@
                 </q-td>
             </template>
 
-            <template v-slot:body-cell-actions="props">
+            <template v-slot:body-cell-actions="props" v-if="showChoose">
                 <q-td :props="props">
                     <q-radio dense name="plugin-login-layout" v-model="choosePlugin" :val="props.row.PluginCode"
                         @update:model-value="choosePluginLoginLayout(props.row.PluginCode)" />
@@ -41,6 +41,18 @@
 <script>
 export default {
     name: 'GqaPluginList',
+    props: {
+        showChoose: {
+            type: Boolean,
+            required: false,
+            default: false,
+        },
+        choosePlugin: {
+            type: String,
+            required: false,
+            default: '',
+        },
+    },
     computed: {
         rows() {
             return this.$q.localStorage.getItem('gqa-pluginList')
@@ -48,15 +60,22 @@ export default {
     },
     data() {
         return {
-            choosePlugin: this.$q.localStorage.getItem('gqa-pluginCurrent') || '',
-            columns: [
-                { name: 'first', align: 'center', label: '已装插件', field: 'first' },
-                { name: 'PluginName', align: 'center', label: '插件名称', field: 'PluginName' },
-                { name: 'PluginCode', align: 'center', label: '插件编码', field: 'PluginCode' },
-                { name: 'PluginVersion', align: 'center', label: '插件版本', field: 'PluginVersion' },
-                { name: 'remark', align: 'center', label: '描述', field: 'remark' },
-                { name: 'actions', align: 'center', label: '使用首页', field: 'actions' },
-            ],
+            columns: this.showChoose
+                ? [
+                      { name: 'first', align: 'center', label: '已装插件', field: 'first' },
+                      { name: 'PluginName', align: 'center', label: '插件名称', field: 'PluginName' },
+                      { name: 'PluginCode', align: 'center', label: '插件编码', field: 'PluginCode' },
+                      { name: 'PluginVersion', align: 'center', label: '插件版本', field: 'PluginVersion' },
+                      { name: 'remark', align: 'center', label: '描述', field: 'remark' },
+                      { name: 'actions', align: 'center', label: '使用首页', field: 'actions' },
+                  ]
+                : [
+                      { name: 'first', align: 'center', label: '已装插件', field: 'first' },
+                      { name: 'PluginName', align: 'center', label: '插件名称', field: 'PluginName' },
+                      { name: 'PluginCode', align: 'center', label: '插件编码', field: 'PluginCode' },
+                      { name: 'PluginVersion', align: 'center', label: '插件版本', field: 'PluginVersion' },
+                      { name: 'remark', align: 'center', label: '描述', field: 'remark' },
+                  ],
         }
     },
     methods: {
@@ -67,20 +86,18 @@ export default {
             })
             tryImport
                 .then(() => {
-                    this.choosePlugin = code
-                    this.$q.localStorage.set('gqa-pluginCurrent', code)
                     this.$q.notify({
                         type: 'positive',
                         message: '切换成功！',
                     })
-                    this.$emit('changeSuccess')
+                    this.$emit('changeSuccess', code)
                 })
                 .catch(() => {
                     this.$q.notify({
                         type: 'negative',
                         message: '此插件还未支持登录页面！',
                     })
-                    this.choosePlugin = ''
+                    this.$emit('changeSuccess', '')
                 })
         },
     },
