@@ -10,6 +10,12 @@ export async function GetUserMenu({ commit, state, dispatch }) {
 
         // 拿到鉴权路由表（用户自己的所有菜单），整理称路由
         const userMenu = HandleRouter(data)
+        // 加入404界面
+        userMenu.push({
+            path: '/:catchAll(.*)*',
+            name: 'notFound',
+            component: () => import('pages/Error404.vue')
+        })
         // 设置所有菜单
         commit('INIT_USER_MENU', userMenu)
 
