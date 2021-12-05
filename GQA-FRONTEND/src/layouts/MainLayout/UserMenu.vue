@@ -3,7 +3,7 @@
         <template v-slot:label>
             <GqaAvatar loginUser size="26px" />
             <span style="margin-left:5px">
-                欢迎你，
+                {{ $t('Welcome') }}
                 <GqaShowName showMyName />
             </span>
         </template>
@@ -42,9 +42,10 @@
                 </div>
 
                 <div class="row q-gutter-md">
-                    <q-btn icon="person_pin" color="primary" label="个人中心" push size="sm" v-close-popup
+                    <q-btn icon="person_pin" color="primary" :label="$t('UserProfile')" push size="sm" v-close-popup
                         @click="showProfile" />
-                    <q-btn icon="logout" color="primary" label="退出登录" push size="sm" v-close-popup @click="logout" />
+                    <q-btn icon="logout" color="primary" :label="$t('Logout')" push size="sm" v-close-popup
+                        @click="logout" />
                 </div>
             </div>
         </div>
@@ -55,7 +56,6 @@
 import { mapActions } from 'vuex'
 import GqaShowName from 'src/components/GqaShowName'
 import GqaAvatar from 'src/components/GqaAvatar'
-
 export default {
     name: 'UserMenu',
     components: {
@@ -73,8 +73,8 @@ export default {
         logout() {
             this.$q
                 .dialog({
-                    title: '确定退出？',
-                    message: '你真的要退出系统吗？',
+                    title: this.$t('LogoutTitle'),
+                    message: this.$t('LogoutMessage'),
                     cancel: true,
                     persistent: true,
                 })

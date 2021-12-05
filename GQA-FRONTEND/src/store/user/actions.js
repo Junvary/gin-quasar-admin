@@ -31,3 +31,7 @@ export async function HandleLogout({ commit, dispatch }) {
     commit('LOGOUT')
 }
 
+export function ChangeLanguage({ commit }, lang) {
+    commit('CHANGE_LANGUAGE', lang)
+}
+

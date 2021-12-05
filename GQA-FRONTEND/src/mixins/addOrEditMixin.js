@@ -6,11 +6,11 @@ export const addOrEditMixin = {
     computed: {
         formTypeName() {
             if (this.formType === 'edit') {
-                return '编辑'
+                return this.$t('Edit')
             } else if (this.formType === 'add') {
-                return '新增'
+                return this.$t('Add')
             } else {
-                return '错误'
+                return this.$t('Error')
             }
         },
         showDateTime() {
@@ -100,14 +100,14 @@ export const addOrEditMixin = {
                 } else {
                     this.$q.notify({
                         type: 'negative',
-                        message: '无法新增或编辑！',
+                        message: this.$t('CanNotAddOrEdit'),
                     })
                 }
                 this.$emit('handleFinish')
             } else {
                 this.$q.notify({
                     type: 'negative',
-                    message: '请完善表格信息！',
+                    message: this.$t('FixForm'),
                 })
             }
         },

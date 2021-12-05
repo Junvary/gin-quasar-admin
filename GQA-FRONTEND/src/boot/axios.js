@@ -10,13 +10,12 @@ import { Notify, Dialog } from 'quasar'
 // "export default () => {}" function below (which runs individually
 // for each client)
 
-const api = axios.create(
-    {
-        baseURL: process.env.API,
-        timeout: 40000,
-        withCredentials: false
-    }
-)
+const api = axios.create({
+    baseURL: process.env.API,
+    timeout: 40000,
+    withCredentials: false
+})
+
 
 export default boot(({ app, router, store }) => {
     // 请求拦截
@@ -45,13 +44,13 @@ export default boot(({ app, router, store }) => {
                 case 0:
                     if (responseData.data && responseData.data.reload) {
                         Dialog.create({
-                            title: "身份鉴别失败！",
-                            message: response.data.message || '你的身份鉴别已过期，请退出系统重新登录！',
+                            title: this.$t('AxiosCantIdentifyTitle'),
+                            message: response.data.message || this.$t('AxiosCantIdentifyMessage'),
                             persistent: true,
                             ok: {
                                 push: true,
                                 color: 'negative',
-                                label: "重新登录"
+                                label: this.$t('AxiosCantIdentifyOkLabel')
                             },
                         }).onOk(() => {
                             store.dispatch('user/HandleLogout')
@@ -60,7 +59,7 @@ export default boot(({ app, router, store }) => {
                     } else {
                         Notify.create({
                             type: 'negative',
-                            message: response.data.message || '操作失败！',
+                            message: response.data.message || this.$t('AxiosErrorOperation'),
                         })
                         return response.data
                     }
@@ -72,13 +71,13 @@ export default boot(({ app, router, store }) => {
         // 500的情况
         if (error + '' === 'Error: Request failed with status code 500') {
             Dialog.create({
-                title: "抱歉！",
-                message: '数据异常，请退出系统重新登录！',
+                title: this.$t('AxiosErrorAbnormalTitle'),
+                message: this.$t('AxiosErrorAbnormalMessage'),
                 persistent: true,
                 ok: {
                     push: true,
                     color: 'negative',
-                    label: "重新登录"
+                    label: this.$t('AxiosErrorAbnormalOkLabel')
                 },
             }).onOk(() => {
                 store.dispatch('user/HandleLogout')
@@ -89,7 +88,7 @@ export default boot(({ app, router, store }) => {
         if (error + '' === 'Error: timeout of 40000ms exceeded') {
             Notify.create({
                 type: 'negative',
-                message: '后台响应超时！',
+                message: this.$t('AxiosErrorTimeout')
             })
         }
         // 网络错误情况，比如后台没有对应的接口
@@ -97,12 +96,11 @@ export default boot(({ app, router, store }) => {
             router.push({ name: 'notFound' })
         } else if (error.response && error.response.status === 404) {
             console.log('请求地址不存在 [' + error.response.request.responseURL + ']')
-            // Notify.create({
-            //     type: 'negative',
-            //     message: '请求地址不存在 [' + error.response.request.responseURL + ']',
-            // })
+            Notify.create({
+                type: 'negative',
+                message: this.$t('AxiosErrorNoNetwork', { error: error.response.request.responseURL }),
+            })
         }
-
         return Promise.reject(error)
     })
     // for use inside Vue files (Options API) through this.$axios and this.$api

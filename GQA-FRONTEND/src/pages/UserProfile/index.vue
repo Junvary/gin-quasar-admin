@@ -3,7 +3,7 @@
         <q-card class="column full-height full-width">
             <q-card-section class="row items-center q-pb-none">
                 <div class="text-h6">
-                    个人中心
+                    {{ $t('UserProfile') }}
                 </div>
                 <q-space />
                 <q-btn icon="close" flat round dense v-close-popup />
@@ -41,9 +41,8 @@
                         <q-separator inset spaced />
 
                         <div class="row q-gutter-md">
-                            <q-btn color="primary" label="修改密码" @click="showPasswordDialog"></q-btn>
-                            <q-btn color="primary" label="修改密码" @click="showPasswordDialog"></q-btn>
-                            <q-btn color="primary" label="修改密码" @click="showPasswordDialog"></q-btn>
+                            <q-btn color="primary" :label="$t('Change') + ' ' + $t('Password')"
+                                @click="showPasswordDialog"></q-btn>
                         </div>
                     </div>
                     <div class="q-pa-md col-8 column items-center">
@@ -54,32 +53,34 @@
             <q-dialog v-model="passwordDialog" persistent>
                 <q-card style="min-width: 350px">
                     <q-card-section>
-                        <div class="text-h6">修改密码</div>
+                        <div class="text-h6">
+                            {{ $t('Change') + ' ' + $t('Password') }}
+                        </div>
                     </q-card-section>
 
                     <q-card-section class="q-pt-none">
                         <q-form class="q-gutter-md" ref="passwordFormRef">
-                            <q-input filled v-model.trim="passwordForm.oldPassword" label="旧密码"
-                                :type="isPwd ? 'password' : 'text'"
-                                :rules="[ val => val && val.length > 0 || '请输入旧密码']">
+                            <q-input filled v-model.trim="passwordForm.oldPassword" autocomplete="off"
+                                :label="$t('Old') + ' ' + $t('Password')" :type="isPwd ? 'password' : 'text'"
+                                :rules="[ val => val && val.length > 0 || $t('NeedInput')]">
                                 <template v-slot:append>
                                     <q-icon :name="isPwd ? 'visibility_off' : 'visibility'" class="cursor-pointer"
                                         @click="isPwd = !isPwd" />
                                 </template>
                             </q-input>
 
-                            <q-input filled v-model.trim="passwordForm.newPassword1" label="新密码"
-                                :type="isPwd ? 'password' : 'text'"
-                                :rules="[ val => val && val.length > 0 || '请输入新密码']">
+                            <q-input filled v-model.trim="passwordForm.newPassword1" autocomplete="off"
+                                :label="$t('New') + ' ' + $t('Password')" :type="isPwd ? 'password' : 'text'"
+                                :rules="[ val => val && val.length > 0 || $t('NeedInput')]">
                                 <template v-slot:append>
                                     <q-icon :name="isPwd ? 'visibility_off' : 'visibility'" class="cursor-pointer"
                                         @click="isPwd = !isPwd" />
                                 </template>
                             </q-input>
 
-                            <q-input filled v-model.trim="passwordForm.newPassword2" label="确认新密码"
-                                :type="isPwd ? 'password' : 'text'"
-                                :rules="[ val => val && val.length > 0 || '请确认新密码']">
+                            <q-input filled v-model.trim="passwordForm.newPassword2" autocomplete="off"
+                                :label="$t('New') + ' ' + $t('Password')" :type="isPwd ? 'password' : 'text'"
+                                :rules="[ val => val && val.length > 0 || $t('NeedInput')]">
                                 <template v-slot:append>
                                     <q-icon :name="isPwd ? 'visibility_off' : 'visibility'" class="cursor-pointer"
                                         @click="isPwd = !isPwd" />

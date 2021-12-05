@@ -14,7 +14,7 @@ var PluginExampleSysApi = new(sysApi)
 type sysApi struct{}
 
 var sysApiData = []system.SysApi{
-	{GqaModel: global.GqaModel{Status: "on", Sort: 47, Remark: "插件：获取news-list", CreatedAt: time.Now(), CreatedBy: "admin"},
+	{GqaModel: global.GqaModel{Status: "on", Sort: 501, Remark: "插件：获取news-list", CreatedAt: time.Now(), CreatedBy: "admin"},
 		ApiGroup: "plugin-example", ApiPath: "/plugin-example/news-list", ApiMethod: "POST",
 	},
 }

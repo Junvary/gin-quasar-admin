@@ -1,15 +1,20 @@
 <template>
-    <div class="column items-center">
-        <div class="row justify-between" style="width: 100%">
-            <q-btn color="negative" :disable="row.roleCode === 'super-admin'" @click="handleClear">全部清空</q-btn>
-            <q-btn color="negative" :disable="row.roleCode === 'super-admin'" @click="handleAll">全部选择</q-btn>
-            <q-btn color="primary" :disable="row.roleCode === 'super-admin'" @click="handleRoleMenu">保存菜单权限</q-btn>
+    <div class="items-center column">
+        <div class="justify-between row" style="width: 100%">
+            <q-btn color="negative" :disable="row.roleCode === 'super-admin'" @click="handleClear">
+                {{ $t('ClearAll') }}
+            </q-btn>
+            <q-btn color="negative" :disable="row.roleCode === 'super-admin'" @click="handleAll">
+                {{ $t('SelectAll') }}
+            </q-btn>
+            <q-btn color="primary" :disable="row.roleCode === 'super-admin'" @click="handleRoleMenu">
+                {{ $t('PageSystemRolePermissionMenuSaveRights') }}</q-btn>
         </div>
         <q-card-section style="width: 100%; max-height: 70vh" class="scroll">
-            <q-tree style="width: 100%" :nodes="menuTree" default-expand-all node-key="name" label-key="name"
+            <q-tree dense style="width: 100%" :nodes="menuTree" default-expand-all node-key="name" label-key="name"
                 selected-color="primary" v-if="menuTree.length !== 0" tick-strategy="strict" v-model:ticked="ticked">
                 <template v-slot:default-header="prop">
-                    <div class="row items-center">
+                    <div class="items-center row">
                         <q-icon :name="prop.node.icon || 'share'" size="28px" class="q-mr-sm" />
                         <div class="text-weight-bold">{{ prop.node.title }}</div>
                     </div>

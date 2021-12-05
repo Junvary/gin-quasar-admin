@@ -6,21 +6,23 @@
                 <q-avatar size="md" icon="install_desktop" color="white" text-color="accent" />
             </q-item-section>
             <q-item-section>
-                <q-btn dense flat :label="'已装插件（' + rows.length + '）'" />
+                <q-btn dense flat :label="$t('InstalledPlugins') +'（' + rows.length + '）'" />
             </q-item-section>
         </template>
         <q-table dense hide-bottom separator="cell" :rows="rows" :columns="columns" row-key="name">
 
             <template v-slot:body-cell-first="props">
                 <q-td :props="props">
-                    <q-chip dense color="accent" text-color="white">已装插件</q-chip>
+                    <q-chip dense color="accent" text-color="white">
+                        {{ $t('InstalledPlugins') }}
+                    </q-chip>
                 </q-td>
             </template>
 
             <template v-slot:body-cell-remark="props">
                 <q-td :props="props">
                     <q-chip dense color="accent" text-color="white">
-                        描述
+                        {{ $t('PluginDescription') }}
                         <q-tooltip>
                             {{props.row.PluginRemark}}
                         </q-tooltip>
@@ -62,19 +64,19 @@ export default {
         return {
             columns: this.showChoose
                 ? [
-                      { name: 'first', align: 'center', label: '已装插件', field: 'first' },
-                      { name: 'PluginName', align: 'center', label: '插件名称', field: 'PluginName' },
-                      { name: 'PluginCode', align: 'center', label: '插件编码', field: 'PluginCode' },
-                      { name: 'PluginVersion', align: 'center', label: '插件版本', field: 'PluginVersion' },
-                      { name: 'remark', align: 'center', label: '描述', field: 'remark' },
-                      { name: 'actions', align: 'center', label: '使用首页', field: 'actions' },
+                      { name: 'first', align: 'center', label: this.$t('InstalledPlugins'), field: 'first' },
+                      { name: 'PluginName', align: 'center', label: this.$t('PluginName'), field: 'PluginName' },
+                      { name: 'PluginCode', align: 'center', label: this.$t('PluginCode'), field: 'PluginCode' },
+                      { name: 'PluginVersion', align: 'center', label: this.$t('PluginVersion'), field: 'PluginVersion' },
+                      { name: 'remark', align: 'center', label: this.$t('PluginDescription'), field: 'remark' },
+                      { name: 'actions', align: 'center', label: this.$t('PluginChoose'), field: 'actions' },
                   ]
                 : [
-                      { name: 'first', align: 'center', label: '已装插件', field: 'first' },
-                      { name: 'PluginName', align: 'center', label: '插件名称', field: 'PluginName' },
-                      { name: 'PluginCode', align: 'center', label: '插件编码', field: 'PluginCode' },
-                      { name: 'PluginVersion', align: 'center', label: '插件版本', field: 'PluginVersion' },
-                      { name: 'remark', align: 'center', label: '描述', field: 'remark' },
+                      { name: 'first', align: 'center', label: this.$t('InstalledPlugins'), field: 'first' },
+                      { name: 'PluginName', align: 'center', label: this.$t('PluginName'), field: 'PluginName' },
+                      { name: 'PluginCode', align: 'center', label: this.$t('PluginCode'), field: 'PluginCode' },
+                      { name: 'PluginVersion', align: 'center', label: this.$t('PluginVersion'), field: 'PluginVersion' },
+                      { name: 'remark', align: 'center', label: this.$t('PluginDescription'), field: 'remark' },
                   ],
         }
     },

@@ -41,3 +41,8 @@ export function LOGOUT(state) {
     state.realName = undefined
     state.avatar = undefined
 }
+
+export function CHANGE_LANGUAGE(state, lang) {
+    state.language = lang
+    Cookies.set('gqa-language', lang)
+}

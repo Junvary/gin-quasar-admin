@@ -74,7 +74,6 @@ import Setting from './Setting'
 import PageFooter from './PageFooter'
 import GqaAvatar from 'src/components/GqaAvatar'
 import UserProfile from 'src/pages/UserProfile'
-
 export default {
     name: 'MainLayout',
     mixins: [gqaFrontendMixin],

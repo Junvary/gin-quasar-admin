@@ -17,23 +17,23 @@
                             <q-input class="col" v-model="addOrEditDetail.id" label="ID" disable />
                         </div>
                         <div class="row">
-                            <q-field class="col" label="创建时间" stack-label disable>
+                            <q-field class="col" :label="$t('CreatedAt')" stack-label disable>
                                 <template v-slot:control>
                                     {{showDateTime(addOrEditDetail.createdAt)}}
                                 </template>
                             </q-field>
-                            <q-field class="col" label="创建人" stack-label disable>
+                            <q-field class="col" :label="$t('CreatedBy')" stack-label disable>
                                 <template v-slot:control>
                                     <GqaShowName v-if="addOrEditDetail.createdByUser"
                                         :customNameObject="addOrEditDetail.createdByUser" />
                                 </template>
                             </q-field>
-                            <q-field class="col" label="更新时间" stack-label disable>
+                            <q-field class="col" :label="$t('UpdatedAt')" stack-label disable>
                                 <template v-slot:control>
                                     {{showDateTime(addOrEditDetail.updatedAt)}}
                                 </template>
                             </q-field>
-                            <q-field class="col" label="更新人" stack-label disable>
+                            <q-field class="col" :label="$t('UpdatedBy')" stack-label disable>
                                 <template v-slot:control>
                                     <GqaShowName v-if="addOrEditDetail.updatedByUser"
                                         :customNameObject="addOrEditDetail.updatedByUser" />
@@ -42,17 +42,17 @@
                         </div>
                         <div class="row">
                             <q-input class="col" v-model.number="addOrEditDetail.sort" type="number"
-                                :rules="[ val => val >= 1 || '排序必须大于0']" label="排序" />
-                            <q-input class="col" v-model="addOrEditDetail.remark" label="描述" />
+                                :rules="[ val => val >= 1 || $t('SortRule')]" :label="$t('Sort')" />
+                            <q-input class="col" v-model="addOrEditDetail.remark" :label="$t('Remark')" />
                         </div>
                         <div class="row">
-                            <q-input class="col" v-model="addOrEditDetail.gqaOption" label="字段名（英）"
-                                :rules="[ val => val && val.length > 0 || '必须输入字段名']" />
+                            <q-input class="col" v-model="addOrEditDetail.gqaOption" :label="$t('Column')"
+                                :rules="[ val => val && val.length > 0 || $t('NeedInput')]" />
 
-                            <q-input class="col" v-model="addOrEditDetail.default" label="默认值"
-                                :rules="[ val => val && val.length > 0 || '必须输入默认值']" />
+                            <q-input class="col" v-model="addOrEditDetail.default" :label="$t('Default')"
+                                :rules="[ val => val && val.length > 0 || $t('NeedInput')]" />
                         </div>
-                        <q-field label="是否启用" stack-label>
+                        <q-field :label="$t('Status')" stack-label>
                             <template v-slot:control>
                                 <q-option-group v-model="addOrEditDetail.status" :options="options.statusOnOff"
                                     color="primary" inline>
@@ -66,8 +66,8 @@
             <q-separator />
 
             <q-card-actions align="right">
-                <q-btn :label="'保存' + formTypeName " color="primary" @click="handleAddOrEidt" />
-                <q-btn label="取消" color="negative" v-close-popup />
+                <q-btn :label="$t('Save')" color="primary" @click="handleAddOrEidt" />
+                <q-btn :label="$t('Cancel')" color="negative" v-close-popup />
             </q-card-actions>
 
             <q-inner-loading :showing="loading">

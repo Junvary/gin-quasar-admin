@@ -88,7 +88,6 @@
 <script>
 import { addOrEditMixin } from 'src/mixins/addOrEditMixin'
 import GqaShowName from 'src/components/GqaShowName'
-
 export default {
     name: 'addOrEditDialog',
     mixins: [addOrEditMixin],

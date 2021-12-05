@@ -5,13 +5,13 @@
             <q-card>
                 <q-tabs v-model="messageType" dense class="text-grey" active-color="primary" indicator-color="primary"
                     align="justify" narrow-indicator style="padding: 10px">
-                    <q-tab name="message" label="消息提示">
+                    <q-tab name="message" :label="$t('Notice')">
                         <q-badge color="negative" floating>4</q-badge>
                     </q-tab>
-                    <q-tab name="system" label="系统消息">
+                    <q-tab name="system" :label="$t('NoticeSystem')">
                         <q-badge color="negative" floating>4</q-badge>
                     </q-tab>
-                    <q-tab name="todo" label="代办列表">
+                    <q-tab name="todo" :label="$t('NoticeToDo')">
                         <q-badge color="negative" floating>4</q-badge>
                     </q-tab>
                 </q-tabs>
@@ -32,7 +32,7 @@
                             </q-item>
                         </q-list>
                         <q-item clickable v-ripple class="text-center">
-                            <q-item-section>查看所有</q-item-section>
+                            <q-item-section>{{ $t('CheckAll') }}</q-item-section>
                         </q-item>
                     </q-tab-panel>
 
@@ -49,7 +49,7 @@
                             </q-item>
                         </q-list>
                         <q-item clickable v-ripple class="text-center">
-                            <q-item-section>查看所有</q-item-section>
+                            <q-item-section>{{ $t('CheckAll') }}</q-item-section>
                         </q-item>
                     </q-tab-panel>
 
@@ -66,7 +66,7 @@
                             </q-item>
                         </q-list>
                         <q-item clickable v-ripple class="text-center">
-                            <q-item-section>查看所有</q-item-section>
+                            <q-item-section>{{ $t('CheckAll') }}</q-item-section>
                         </q-item>
                     </q-tab-panel>
                 </q-tab-panels>
@@ -90,13 +90,13 @@ export default {
     },
     created() {
         const m = {
-            title: '你有一条消息通知！',
+            title: this.$t('NoticeNew'),
         }
         const s = {
-            title: '你有一条系统消息！',
+            title: this.$t('NoticeSystemNew'),
         }
         const t = {
-            title: '你有一条待办事项！',
+            title: this.$t('NoticeToDoNew'),
         }
         this.message.push(m, m, m, m)
         this.system.push(s, s, s, s)

@@ -12,7 +12,9 @@ LoadingBar.setDefaults({
 function startLoading() {
     Loading.show({
         // spinner: QSpinnerGears,
-        message: '系统努力加载中...'
+        message: function() {
+            return this.$t('SystemLoading')
+        }
     })
     LoadingBar.start()
 }
@@ -39,7 +41,7 @@ export default boot(({ router, store }) => {
                             res.forEach(item => {
                                 router.addRoute(item)
                             })
-                            next({ ...to, replace: true })
+                            next({...to, replace: true })
                         } else {
                             store.dispatch('user/HandleLogout')
                             next({ path: '/', replace: true })

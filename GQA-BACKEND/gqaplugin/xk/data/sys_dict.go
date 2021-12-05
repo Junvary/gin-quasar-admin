@@ -14,7 +14,7 @@ var PluginXkSysDict = new(sysDict)
 type sysDict struct{}
 
 var sysDictData = []system.SysDict{
-	{GqaModel: global.GqaModel{Status: "on", Sort: 4, Remark: "编程语言/框架", CreatedAt: time.Now(), CreatedBy: "admin"},
+	{GqaModel: global.GqaModel{Status: "on", Sort: 801, Remark: "编程语言/框架", CreatedAt: time.Now(), CreatedBy: "admin"},
 		DictCode: "codeLanguage", DictLabel: "编程语言/框架",
 	},
 	{GqaModel: global.GqaModel{Status: "on", Sort: 1, Remark: "Java", CreatedAt: time.Now(), CreatedBy: "admin"},
@@ -39,7 +39,7 @@ var sysDictData = []system.SysDict{
 		ParentCode: "codeLanguage", DictCode: "Bootstrap", DictLabel: "Bootstrap",
 	},
 
-	{GqaModel: global.GqaModel{Status: "on", Sort: 5, Remark: "项目节点", CreatedAt: time.Now(), CreatedBy: "admin"},
+	{GqaModel: global.GqaModel{Status: "on", Sort: 802, Remark: "项目节点", CreatedAt: time.Now(), CreatedBy: "admin"},
 		DictCode: "projectNode", DictLabel: "项目节点",
 	},
 	{GqaModel: global.GqaModel{Status: "on", Sort: 1, Remark: "需求接报", CreatedAt: time.Now(), CreatedBy: "admin"},

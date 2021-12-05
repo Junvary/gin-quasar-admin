@@ -11,21 +11,24 @@
                         {{ gqaFrontend.gqaMainTitle }}
                     </div>
                     <div class="text-h6 text-center text-primary q-mt-md q-mb-xs">
-                        好久不见，欢迎回来！
+                        {{ $t('LoginTitle') }}
                     </div>
                     <q-form @submit="onSubmit" class="q-mt-lg">
                         <q-input :disable="loading" outlined dense no-error-icon v-model.trim="form.username"
-                            placeholder="账号" :rules="[(val) =>(val && val.length > 0) || '请输入用户账号',]" />
+                            :placeholder="$t('Username')" :rules="[(val) =>(val && val.length > 0) || $t('NeedInput'),]"
+                            autocomplete="username" />
                         <q-input :disable="loading" outlined dense no-error-icon :type="isPwd ? 'password' : 'text'"
-                            v-model.trim="form.password" placeholder="密码"
-                            :rules="[(val) =>(val && val.length > 0) || '请输入登录密码',]">
+                            v-model.trim="form.password" :placeholder="$t('Password')"
+                            :rules="[(val) =>(val && val.length > 0) || $t('NeedInput'),]"
+                            autocomplete="current-password">
                             <template v-slot:append>
                                 <q-icon :name="isPwd ? 'visibility_off' : 'visibility'" class="cursor-pointer"
                                     @click="isPwd = !isPwd" />
                             </template>
                         </q-input>
                         <q-input :disable="loading" outlined dense no-error-icon v-model.trim="form.captcha"
-                            placeholder="验证码" :rules="[(val) => (val && val.length > 0) || '请输入正确的验证码',]">
+                            :placeholder="$t('Captcha')"
+                            :rules="[(val) => (val && val.length > 0) || $t('NeedInput'),]">
                             <template v-slot:after>
                                 <q-btn padding="none" style="width: 120px; height: 100%" @click="getCaptcha">
                                     <q-img :src="captchaImage" />
@@ -33,13 +36,14 @@
                             </template>
                         </q-input>
                         <div class="column q-gutter-y-md q-mt-none">
-                            <q-checkbox :disable="loading" v-model="rememberMe" label="自动登录" dense
+                            <q-checkbox :disable="loading" v-model="rememberMe" :label="$t('LoginRememberMe')" dense
                                 @update:model-value="changeRememberMe" />
                         </div>
-                        <div class="q-mt-md row justify-around items-center">
-                            <q-btn label="登录" type="submit" color="primary" :loading="loading" style="width: 48%" />
-                            <q-btn label="取消" @click="loginVisible = false" color="negative" :loading="loading"
+                        <div class="items-center justify-around q-mt-md row">
+                            <q-btn :label="$t('Login')" type="submit" color="primary" :loading="loading"
                                 style="width: 48%" />
+                            <q-btn :label="$t('Cancel')" @click="loginVisible = false" color="negative"
+                                :loading="loading" style="width: 48%" />
                         </div>
                     </q-form>
                     <q-inner-loading :showing="loading">
@@ -51,8 +55,6 @@
 
             <q-card-actions v-if="$q.screen.gt.sm">
                 <GqaLanguage />
-                <!-- <q-brand-color /> -->
-                <q-space />
             </q-card-actions>
 
         </q-card>

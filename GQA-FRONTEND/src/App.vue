@@ -6,6 +6,9 @@
 import { defineComponent } from 'vue'
 import { gqaFrontendMixin } from 'src/mixins/gqaFrontendMixin'
 import { GqaFrontendDefault } from 'src/settings'
+import { mapGetters } from 'vuex'
+import { useI18n } from 'vue-i18n'
+import { Quasar } from 'quasar'
 
 export default defineComponent({
     name: 'App',
@@ -19,9 +22,24 @@ export default defineComponent({
             deep: true,
         },
     },
-    mounted() {
+    computed: {
+        ...mapGetters({
+            language: 'user/language',
+        }),
+    },
+    async mounted() {
         document.title = this.gqaFrontend.gqaSubTitle || GqaFrontendDefault.gqaSubTitle
         this.createLink()
+        // 初始化语言
+        const { locale } = useI18n({ useScope: 'global' })
+        locale.value = this.language
+        await import(
+            /* webpackInclude: /(zh-CN|en-US)\.js$/ */
+            'quasar/lang/' + this.language
+        ).then((lang) => {
+            // ! NOTICE ssrContext param:
+            Quasar.lang.set(lang.default)
+        })
     },
     methods: {
         createLink() {

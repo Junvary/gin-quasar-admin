@@ -11,16 +11,16 @@
                 <div class="buttons">
                     <q-btn push color="primary" @click="openLink('https://gitee.com/junvary/gin-quasar-admin')"
                         v-if="gqaFrontend.gqaShowGit === 'yes'">
-                        访问Gitee
+                        Gitee
                     </q-btn>
 
                     <q-btn push color="primary" @click="showLoginForm" :disable="checkDbStatus">
-                        {{checkDbStatus ? '系统需要初始化' : '用户登录'}}
+                        {{checkDbStatus ? $t('LoginLayoutPageBannerCheckDB') : $t('Login')}}
                     </q-btn>
 
                     <q-btn push color="primary" @click="openLink('https://github.com/Junvary/gin-quasar-admin')"
                         v-if="gqaFrontend.gqaShowGit === 'yes'">
-                        访问Github
+                        Github
                     </q-btn>
                 </div>
             </div>
@@ -37,7 +37,6 @@
 <script>
 import { gqaFrontendMixin } from 'src/mixins/gqaFrontendMixin'
 import LoginDialog from 'src/pages/Login'
-
 export default {
     name: 'PageBanner',
     mixins: [gqaFrontendMixin],

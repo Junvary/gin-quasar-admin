@@ -16,9 +16,10 @@
                         <div class="row">
                             <q-input class="col" v-model="addOrEditDetail.id" label="ID" disable />
                             <q-input class="col" v-model.number="addOrEditDetail.sort" type="number"
-                                :rules="[ val => val >= 1 || '排序必须大于0']" label="排序" />
-                            <q-file class="col" v-model="avatarFile" label="头像" max-files="1" @rejected="rejected"
-                                :accept="gqaBackend.avatarExt" :max-file-size="gqaBackend.avatarMaxSize*1024*1024">
+                                :rules="[ val => val >= 1 || $t('SortRule')]" :label="$t('Sort')" />
+                            <q-file class="col" v-model="avatarFile" :label="$t('Avatar')" max-files="1"
+                                @rejected="rejected" :accept="gqaBackend.avatarExt"
+                                :max-file-size="gqaBackend.avatarMaxSize*1024*1024">
                                 <template v-slot:prepend>
                                     <GqaAvatar :src="addOrEditDetail.avatar" />
                                 </template>
@@ -28,23 +29,23 @@
                             </q-file>
                         </div>
                         <div class="row">
-                            <q-field class="col" label="创建时间" stack-label disable>
+                            <q-field class="col" :label="$t('CreatedAt')" stack-label disable>
                                 <template v-slot:control>
                                     {{showDateTime(addOrEditDetail.createdAt)}}
                                 </template>
                             </q-field>
-                            <q-field class="col" label="创建人" stack-label disable>
+                            <q-field class="col" :label="$t('CreatedBy')" stack-label disable>
                                 <template v-slot:control>
                                     <GqaShowName v-if="addOrEditDetail.createdByUser"
                                         :customNameObject="addOrEditDetail.createdByUser" />
                                 </template>
                             </q-field>
-                            <q-field class="col" label="更新时间" stack-label disable>
+                            <q-field class="col" :label="$t('UpdatedAt')" stack-label disable>
                                 <template v-slot:control>
                                     {{showDateTime(addOrEditDetail.updatedAt)}}
                                 </template>
                             </q-field>
-                            <q-field class="col" label="更新人" stack-label disable>
+                            <q-field class="col" :label="$t('UpdatedBy')" stack-label disable>
                                 <template v-slot:control>
                                     <GqaShowName v-if="addOrEditDetail.updatedByUser"
                                         :customNameObject="addOrEditDetail.updatedByUser" />
@@ -52,26 +53,28 @@
                             </q-field>
                         </div>
                         <div class="row">
-                            <q-input class="col" v-model="addOrEditDetail.username" label="账号" lazy-rules
-                                :rules="[ val => val && val.length > 0 || '必须输入账号']" :disable="formType === 'edit'" />
-                            <q-input class="col" v-model="addOrEditDetail.nickname" label="昵称" />
-                            <q-input class="col" v-model="addOrEditDetail.realName" label="真实姓名" lazy-rules
-                                :rules="[ val => val && val.length > 0 || '必须输入真实姓名']" :disable="formType === 'edit'" />
+                            <q-input class="col" v-model="addOrEditDetail.username" :label="$t('Username')" lazy-rules
+                                :rules="[ val => val && val.length > 0 || $t('NeedInput') ]"
+                                :disable="formType === 'edit'" />
+                            <q-input class="col" v-model="addOrEditDetail.nickname" :label="$t('Nickname')" />
+                            <q-input class="col" v-model="addOrEditDetail.realName" :label="$t('RealName')" lazy-rules
+                                :rules="[ val => val && val.length > 0 || $t('NeedInput') ]"
+                                :disable="formType === 'edit'" />
 
                         </div>
                         <div class="row">
-                            <q-input class="col" v-model="addOrEditDetail.mobile" label="手机" />
-                            <q-input class="col" v-model="addOrEditDetail.email" label="邮箱" />
+                            <q-input class="col" v-model="addOrEditDetail.mobile" :label="$t('Mobile')" />
+                            <q-input class="col" v-model="addOrEditDetail.email" :label="$t('Email')" />
                         </div>
                         <div class="row">
-                            <q-field class="col" label="性别" stack-label>
+                            <q-field class="col" :label="$t('Gender')" stack-label>
                                 <template v-slot:control>
                                     <q-option-group v-model="addOrEditDetail.gender" :options="options.gender"
                                         color="primary" inline>
                                     </q-option-group>
                                 </template>
                             </q-field>
-                            <q-field class="col" label="是否启用" stack-label>
+                            <q-field class="col" :label="$t('Status')" stack-label>
                                 <template v-slot:control>
                                     <q-option-group v-model="addOrEditDetail.status" :options="options.statusOnOff"
                                         color="primary" inline :disable="addOrEditDetail.username ==='admin'">
@@ -79,7 +82,7 @@
                                 </template>
                             </q-field>
                         </div>
-                        <q-input v-model="addOrEditDetail.remark" type="textarea" label="备注" />
+                        <q-input v-model="addOrEditDetail.remark" type="textarea" :label="$t('Remark')" />
                     </div>
                 </q-form>
             </q-card-section>
@@ -87,8 +90,8 @@
             <q-separator />
 
             <q-card-actions align="right">
-                <q-btn :label="'保存' + formTypeName " color="primary" @click="handleAddOrEidt" />
-                <q-btn label="取消" color="negative" v-close-popup />
+                <q-btn :label="$t('Save')" color="primary" @click="handleAddOrEidt" />
+                <q-btn :label="$t('Cancel')" color="negative" v-close-popup />
             </q-card-actions>
 
             <q-inner-loading :showing="loading">
@@ -160,14 +163,14 @@ export default {
                 gender: 'u',
             }
         },
-        chooseFile() {
-            this.$refs.gqaUploader.show('头像', false)
-        },
+        // chooseFile() {
+        //     this.$refs.gqaUploader.show($t('PageSystemUserEditDialogMessagePicture'), false)
+        // },
         handleUpload() {
             if (!this.avatarFile) {
                 this.$q.notify({
                     type: 'negative',
-                    message: '请选择文件！',
+                    message: this.$t('PleaseSelectFile'),
                 })
                 return
             }
@@ -179,7 +182,7 @@ export default {
                     this.avatarFile = null
                     this.$q.notify({
                         type: 'positive',
-                        message: '头像上传成功！',
+                        message: this.$t('UploadSuccess'),
                     })
                 }
             })
@@ -187,7 +190,7 @@ export default {
         rejected(rejectedEntries) {
             this.$q.notify({
                 type: 'negative',
-                message: '文件重复或大小/类型不被允许，请联系管理员！',
+                message: this.$t('FileRejected'),
             })
         },
     },

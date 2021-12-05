@@ -2,8 +2,8 @@
     <q-page padding>
         <q-tabs v-model="tab" dense class="text-grey" active-color="primary" indicator-color="primary" align="justify"
             narrow-indicator>
-            <q-tab name="materia" label="materia" />
-            <q-tab name="fontawesome" label="fontawesome" />
+            <q-tab name="materia" :label="$t('Material')" />
+            <q-tab name="fontawesome" :label="$t('FontAwesome')" />
         </q-tabs>
 
         <q-separator />
@@ -11,7 +11,7 @@
         <q-tab-panels v-model="tab" animated>
             <q-tab-panel name="materia">
                 <div class="row" style="width: 95%">
-                    <div class="col-2 column items-center icon-box" v-for="(item, index) in materialIcons_key"
+                    <div class="items-center col-2 column icon-box" v-for="(item, index) in materialIcons_key"
                         :key="index" @click="copy(item)">
                         <q-icon :name="item" size="xl" />
                         <span>
@@ -23,7 +23,7 @@
 
             <q-tab-panel name="fontawesome">
                 <div class="row" style="width: 95%">
-                    <div class="col-2 column items-center icon-box" v-for="(item, index) in fontawesome_key"
+                    <div class="items-center col-2 column icon-box" v-for="(item, index) in fontawesome_key"
                         :key="index" @click="copy(item)">
                         <q-icon :name="item" size="xl" />
                         <span>
@@ -114,14 +114,14 @@ export default {
             copyToClipboard(e)
                 .then(() => {
                     this.$q.notify({
-                        message: '成功复制到剪切板',
+                        message: this.$t('ClipboardSuccess'),
                         color: 'green',
                     })
                 })
                 .catch(() => {
                     // 不支持复制
                     this.$q.notify({
-                        message: '复制到剪切板失败',
+                        message: this.$t('ClipboardFail'),
                         color: 'warming',
                     })
                 })

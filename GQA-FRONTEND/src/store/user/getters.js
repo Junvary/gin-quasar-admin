@@ -26,3 +26,14 @@ export function rememberMe(state) {
     return state.rememberMe
 }
 
+export function language(state) {
+    if (state.language) {
+        return state.language
+    } else if (Cookies.get('gqa-language')) {
+        return Cookies.get('gqa-language')
+    } else {
+        return 'zh-CN'
+    }
+
+}
+

@@ -3,7 +3,8 @@
         <q-img :src="randomImg" class="absolute-full">
             <div class="absolute-full text-subtitle2 flex flex-center">
                 <span style="font-size: 40px">
-                    欢迎使用 Gin-Quasar-Admin！
+                    {{ $t('WelcomeTo') }}
+                    Gin-Quasar-Admin！
                 </span>
             </div>
         </q-img>

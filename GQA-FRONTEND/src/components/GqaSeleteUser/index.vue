@@ -1,14 +1,17 @@
 <template>
-    <q-input :label="label" v-model="showName" :class="className" readonly>
-        <template v-slot:append>
-            <q-btn dense color="primary" label="选择" @click="showSelectUserDialog" />
-        </template>
-    </q-input>
-    <SelectUserDialog ref="selectUserDialog" @handleSelectUser="handleSelectUser" :selection="selection" />
+    <div>
+        <q-input :label="label || $t('Selete') + $t('User')" v-model="showName" :class="className" readonly>
+            <template v-slot:append>
+                <q-btn dense color="primary" :label="$t('Select')" @click="showSelectUserDialog" />
+            </template>
+        </q-input>
+        <SelectUserDialog ref="selectUserDialog" @handleSelectUser="handleSelectUser" :selection="selection" />
+    </div>
 </template>
 
 <script>
 import SelectUserDialog from './SelectUserDialog'
+
 export default {
     name: 'GqaSeleteUser',
     props: {
@@ -23,7 +26,9 @@ export default {
         label: {
             type: String,
             required: false,
-            default: '选择用户',
+            default: function () {
+                return this.$t('Selete') + this.$t('User')
+            },
         },
         className: {
             type: String,

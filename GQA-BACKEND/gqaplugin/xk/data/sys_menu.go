@@ -14,7 +14,7 @@ var PluginXkSysMenu = new(sysMenu)
 type sysMenu struct{}
 
 var sysMenuData = []system.SysMenu{
-	{GqaModel: global.GqaModel{Status: "on", Sort: 4, Remark: "这是系统开发科插件", CreatedAt: time.Now(), CreatedBy: "admin"},
+	{GqaModel: global.GqaModel{Status: "on", Sort: 801, Remark: "这是系统开发科插件", CreatedAt: time.Now(), CreatedBy: "admin"},
 		Name: "GqaPluginXk", Title: "系统开发科", Icon: "house",
 		Path: "", Component: "",
 	},

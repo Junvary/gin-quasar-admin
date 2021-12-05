@@ -23,7 +23,7 @@ export const tableDataMixin = {
             if (this.url === undefined || !this.url.list) {
                 this.$q.notify({
                     type: 'negative',
-                    message: "请先配置url",
+                    message: this.$t('UrlNotConfig'),
                 })
                 return
             }
@@ -66,8 +66,8 @@ export const tableDataMixin = {
             }
             this.$q
                 .dialog({
-                    title: '确定删除？',
-                    message: `你确定要删除此项吗？`,
+                    title: this.$t('ConfirmDelete'),
+                    message: this.$t('ConfirmDeleteMessage'),
                     cancel: true,
                     persistent: true,
                 })

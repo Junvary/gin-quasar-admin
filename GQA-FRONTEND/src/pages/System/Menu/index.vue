@@ -4,7 +4,7 @@
             <template v-slot:before>
                 <div class="q-pa-md column">
                     <div class="col">
-                        <q-btn label="新增菜单" color="primary" @click="showAddForm" />
+                        <q-btn :label="$t('Add') + ' ' + $t('Menu')" color="primary" @click="showAddForm" />
                     </div>
                     <q-separator />
                     <q-tree dense :nodes="menuTree" default-expand-all node-key="id" label-key="name"
@@ -19,7 +19,7 @@
                             </div>
                             <q-space></q-space>
                             <GqaDictShow dictName="statusOnOff" :dictCode="prop.node.status" />
-                            <q-btn label="删除" style="float-right" color="negative" dense
+                            <q-btn :label="$t('Delete')" style="float-right" color="negative" dense
                                 @click="handleDelete(prop.node)" />
                         </template>
                     </q-tree>
@@ -103,8 +103,8 @@ export default {
         handleDelete(row) {
             this.$q
                 .dialog({
-                    title: '确定删除？',
-                    message: `你确定要删除此项吗？`,
+                    title: this.$t('ConfirmDelete'),
+                    message: this.$t('ConfirmDeleteMessage'),
                     cancel: true,
                     persistent: true,
                 })

@@ -1,11 +1,11 @@
 <template>
-    <q-tabs dense inline-label outside-arrows mobile-arrows class="bg-primary text-white shadow-2" style="width: 100%"
+    <q-tabs dense inline-label outside-arrows mobile-arrows class="text-white bg-primary shadow-2" style="width: 100%"
         v-if="!loginPage">
         <q-route-tab exact replace v-for="tab in tabMenus" :to="tab.path" :key="tab.path" :name="tab.path"
             :ripple="{ color: 'primary' }">
             <template v-slot>
                 <q-icon size="1.3rem" v-if="tab.meta.icon" :name="tab.meta.icon" />
-                <span class="tab-label">{{ tab.meta.title || '未命名' }}</span>
+                <span class="tab-label">{{ tab.meta.title || $t('Unknown') }}</span>
                 <q-icon v-if="tab.path !== '/dashboard'" class="tab-close" name="close"
                     @click.prevent.stop="removeTab(tab)" />
                 <q-menu touch-position context-menu>
@@ -15,7 +15,7 @@
                                 <q-icon name="code" />
                             </q-item-section>
                             <q-item-section @click="removeOtherTab(tab)">
-                                关闭其他
+                                {{ $t('CloseOther') }}
                             </q-item-section>
                         </q-item>
                         <q-item clickable v-close-popup>
@@ -23,7 +23,7 @@
                                 <q-icon name="keyboard_arrow_right" />
                             </q-item-section>
                             <q-item-section @click="removeRightTab(tab)">
-                                关闭右侧
+                                {{ $t('CloseRight') }}
                             </q-item-section>
                         </q-item>
                         <q-item clickable v-close-popup>
@@ -31,7 +31,7 @@
                                 <q-icon name="keyboard_arrow_left" />
                             </q-item-section>
                             <q-item-section @click="removeLeftTab(tab)">
-                                关闭左侧
+                                {{ $t('CloseLeft') }}
                             </q-item-section>
                         </q-item>
                         <q-item clickable v-close-popup>
@@ -39,7 +39,7 @@
                                 <q-icon name="close" />
                             </q-item-section>
                             <q-item-section @click="removeAllTab">
-                                关闭所有
+                                {{ $t('CloseAll') }}
                             </q-item-section>
                         </q-item>
                     </q-list>

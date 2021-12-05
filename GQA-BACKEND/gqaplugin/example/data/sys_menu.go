@@ -14,7 +14,7 @@ var PluginExampleSysMenu = new(sysMenu)
 type sysMenu struct{}
 
 var sysMenuData = []system.SysMenu{
-	{GqaModel: global.GqaModel{Status: "on", Sort: 3, Remark: "这是插件菜单示例", CreatedAt: time.Now(), CreatedBy: "admin"},
+	{GqaModel: global.GqaModel{Status: "on", Sort: 501, Remark: "这是插件菜单示例", CreatedAt: time.Now(), CreatedBy: "admin"},
 		Name: "GqaPluginExample", Title: "插件示例", Icon: "install_desktop",
 		Path: "", Component: "",
 	},

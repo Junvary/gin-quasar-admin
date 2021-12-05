@@ -3,14 +3,14 @@
         <q-card style="min-width: 700px; max-width: 50vw">
             <q-card-section>
                 <div class="text-h6">
-                    权限：{{row.roleName}}
+                    {{ $t('PageSystemRolePermissionDialogRights') }} {{row.roleName}}
                 </div>
             </q-card-section>
 
             <q-tabs v-model="tab" dense class="text-grey" active-color="primary" indicator-color="primary"
                 align="justify" narrow-indicator>
-                <q-tab name="menu" label="菜单权限" />
-                <q-tab name="api" label="API权限" />
+                <q-tab name="menu" :label="$t('Menu') + ' ' + $t('Permission')" />
+                <q-tab name="api" :label="$t('Api') + ' ' + $t('Permission')" />
                 <q-tab name="movies" label="Movies" />
             </q-tabs>
 

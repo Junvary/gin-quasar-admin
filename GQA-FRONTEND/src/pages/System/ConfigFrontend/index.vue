@@ -1,18 +1,18 @@
 <template>
     <q-page padding>
 
-        <div class="row q-gutter-md items-center" style="margin-bottom: 10px">
-            <q-input style="width: 20%" v-model="queryParams.gqaOption" label="前台配置名" />
-            <q-input style="width: 20%" v-model="queryParams.remark" label="描述" />
-            <q-btn color="primary" @click="handleSearch" label="搜索" />
-            <q-btn color="primary" @click="resetSearch" label="重置" />
+        <div class="items-center row q-gutter-md" style="margin-bottom: 10px">
+            <q-input style="width: 20%" v-model="queryParams.gqaOption" :label="$t('Config') + $t('Name')" />
+            <q-input style="width: 20%" v-model="queryParams.remark" :label="$t('Config') + $t('Remark')" />
+            <q-btn color="primary" @click="handleSearch" :label="$t('Search')" />
+            <q-btn color="primary" @click="resetSearch" :label="$t('Reset')" />
         </div>
 
         <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
             :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
 
             <template v-slot:top="props">
-                <q-btn color="primary" @click="showAddForm()" label="新增前台配置" />
+                <q-btn color="primary" @click="showAddForm()" :label="$t('Add') + ' ' + $t('Config')" />
                 <q-space />
                 <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
                     @click="props.toggleFullscreen" class="q-ml-md" />
@@ -47,20 +47,20 @@
                     <q-popup-edit v-model="props.row.custom" class="bg-green-13">
                         <!-- 使用是否字典显示 -->
                         <template v-slot="scope" v-if="props.row.gqaOption === 'gqaShowGit'">
-                            自定义：{{ props.row.gqaOption }}
+                            {{ $t('Custom') + ' ' + props.row.gqaOption }}
                             <q-option-group v-model="props.row.custom" :options="options.statusYesNo" color="primary"
                                 inline @update:model-value="scope.set">
                             </q-option-group>
                         </template>
                         <!-- 配置插件可选登录页 -->
                         <template v-slot="scope" v-else-if="props.row.gqaOption === 'gqaPluginLoginLayout'">
-                            自定义：{{ props.row.gqaOption }}
+                            {{ $t('Custom') + ' ' + props.row.gqaOption }}
                             <GqaPluginList showChoose @changeSuccess="handleSetLoginLayout($event, scope)"
                                 :choosePlugin="props.row.custom" />
                         </template>
                         <!-- 网站logo -->
                         <template v-slot="scope" v-else-if="props.row.gqaOption === 'gqaWebLogo'">
-                            自定义：{{ props.row.gqaOption }}
+                            {{ $t('Custom') + ' ' + props.row.gqaOption }}
                             <q-file v-model="webLogoFile" clearable max-files="1" @rejected="rejected"
                                 :accept="gqaBackend.webLogoExt" :max-file-size="gqaBackend.webLogoMaxSize*1024*1024">
                                 <template v-slot:prepend>
@@ -74,7 +74,7 @@
                         </template>
                         <!-- 标签页logo -->
                         <template v-slot="scope" v-else-if="props.row.gqaOption === 'gqaHeaderLogo'">
-                            自定义：{{ props.row.gqaOption }}
+                            {{ $t('Custom') + ' ' + props.row.gqaOption }}
                             <q-file v-model="headerLogoFile" clearable max-files="1" @rejected="rejected"
                                 :accept="gqaBackend.headerLogoExt"
                                 :max-file-size="gqaBackend.headerLogoMaxSize*1024*1024">
@@ -89,7 +89,7 @@
                         </template>
                         <!-- 默认的输入框 -->
                         <template v-slot="scope" v-else>
-                            自定义：{{ props.row.gqaOption }}
+                            {{ $t('Custom') + ' ' + props.row.gqaOption }}
                             <q-input v-model="props.row.custom" dense autofocus clearable @keyup.enter="scope.set" />
                         </template>
                     </q-popup-edit>
@@ -111,8 +111,8 @@
             <template v-slot:body-cell-actions="props">
                 <q-td :props="props">
                     <div class="q-gutter-xs">
-                        <q-btn dense color="primary" @click="handleSave(props.row)" label="保存编辑" />
-                        <q-btn color="negative" @click="handleDelete(props.row)" label="删除" />
+                        <q-btn dense color="primary" @click="handleSave(props.row)" :label="$t('Save')" />
+                        <q-btn color="negative" @click="handleDelete(props.row)" :label="$t('Delete')" />
                     </div>
                 </q-td>
             </template>
@@ -151,14 +151,14 @@ export default {
                 uploadHeaderUrl: 'upload/header-logo',
             },
             columns: [
-                { name: 'sort', align: 'center', label: '排序', field: 'sort' },
-                { name: 'gqaOption', align: 'center', label: '前台配置名', field: 'gqaOption' },
-                { name: 'remark', align: 'center', label: '描述', field: 'remark' },
-                { name: 'default', align: 'center', label: '默认网站前台配置', field: 'default' },
-                { name: 'custom', align: 'center', label: '自定义网站前台配置', field: 'custom' },
-                { name: 'status', align: 'center', label: '状态', field: 'status' },
-                { name: 'stable', align: 'center', label: '系统内置', field: 'stable' },
-                { name: 'actions', align: 'center', label: '操作', field: 'actions' },
+                { name: 'sort', align: 'center', label: this.$t('Sort'), field: 'sort' },
+                { name: 'gqaOption', align: 'center', label: this.$t('Option'), field: 'gqaOption' },
+                { name: 'remark', align: 'center', label: this.$t('Remark'), field: 'remark' },
+                { name: 'default', align: 'center', label: this.$t('Default'), field: 'default' },
+                { name: 'custom', align: 'center', label: this.$t('Custom'), field: 'custom' },
+                { name: 'status', align: 'center', label: this.$t('Status'), field: 'status' },
+                { name: 'stable', align: 'center', label: this.$t('Stable'), field: 'stable' },
+                { name: 'actions', align: 'center', label: this.$t('Actions'), field: 'actions' },
             ],
             webLogoFile: null,
             headerLogoFile: null,

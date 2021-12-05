@@ -6,7 +6,7 @@
 
                 <template v-slot:top="props">
                     <q-btn dense color="primary" @click="showAddForm({parentCode: parentDict.dictCode})">
-                        新增 {{ parentDict.dictLabel}} 字典项：
+                        {{ $t('Add') }} {{ parentDict.dictLabel}} {{ $t('Item') }}：
                     </q-btn>
                     <q-space />
                     <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
@@ -28,8 +28,8 @@
                 <template v-slot:body-cell-actions="props">
                     <q-td :props="props">
                         <div class="q-gutter-xs">
-                            <q-btn dense color="primary" @click="showEditForm(props.row)" label="编辑" />
-                            <q-btn dense color="negative" @click="handleDelete(props.row)" label="删除" />
+                            <q-btn dense color="primary" @click="showEditForm(props.row)" :label="$t('Edit')" />
+                            <q-btn dense color="negative" @click="handleDelete(props.row)" :label="$t('Delete')" />
                         </div>
                     </q-td>
                 </template>
@@ -69,12 +69,12 @@ export default {
                 queryById: 'dict/dict-id',
             },
             columns: [
-                { name: 'sort', align: 'center', label: '排序', field: 'sort' },
-                { name: 'dictCode', align: 'center', label: '字典编码', field: 'dictCode' },
-                { name: 'dictLabel', align: 'center', label: '字典名称', field: 'dictLabel' },
-                { name: 'status', align: 'center', label: '状态', field: 'status' },
-                { name: 'stable', align: 'center', label: '系统内置', field: 'stable' },
-                { name: 'actions', align: 'center', label: '操作', field: 'actions' },
+                { name: 'sort', align: 'center', label: this.$t('Sort'), field: 'sort' },
+                { name: 'dictCode', align: 'center', label: this.$t('Dict') + this.$t('Code'), field: 'dictCode' },
+                { name: 'dictLabel', align: 'center', label: this.$t('Dict') + this.$t('Name'), field: 'dictLabel' },
+                { name: 'status', align: 'center', label: this.$t('Status'), field: 'status' },
+                { name: 'stable', align: 'center', label: this.$t('Stable'), field: 'stable' },
+                { name: 'actions', align: 'center', label: this.$t('Actions'), field: 'actions' },
             ],
         }
     },
