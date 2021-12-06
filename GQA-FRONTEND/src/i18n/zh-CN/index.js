@@ -6,6 +6,7 @@ export default {
     English: '英文',
     Unique: '唯一',
     Option: '配置名',
+    User: '用户',
     Role: '角色',
     Menu: '菜单',
     Api: 'Api',
@@ -25,7 +26,6 @@ export default {
     // Base
     Welcome: '欢迎，',
     WelcomeTo: '欢迎使用',
-    User: '用户',
     Username: '账号',
     Password: '密码',
     Captcha: '验证码',
@@ -168,4 +168,17 @@ export default {
     AxiosErrorAbnormalOkLabel: '重新登录',
     SystemLoading: '系统努力加载中...',
     GqaUserName: 'GQA用户',
+    // Menu
+    Dashboard: '仪表盘',
+    SystemManage: '系统管理',
+    DeptManage: '部门管理',
+    UserManage: '用户管理',
+    RoleManage: '角色管理',
+    MenuManage: '菜单管理',
+    DictManage: '字典管理',
+    FrontendManage: '前台配置管理',
+    BackendManage: '后台配置管理',
+    LogManage: '日志管理',
+    SystemExample: '系统示例',
+    SystemIcon: '图标合集',
 }

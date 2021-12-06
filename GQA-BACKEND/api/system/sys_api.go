@@ -8,8 +8,7 @@ import (
 	"go.uber.org/zap"
 )
 
-type ApiApi struct {
-}
+type ApiApi struct {}
 
 func (a *ApiApi) GetApiList(c *gin.Context) {
 	var requestApiList system.RequestApiList

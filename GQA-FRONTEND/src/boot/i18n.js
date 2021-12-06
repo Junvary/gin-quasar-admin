@@ -5,8 +5,10 @@ export default ({ app, store }) => {
     // Create I18n instance
     const i18n = createI18n({
         locale: store.getters['user/language'],
-        fallbackLocale: 'en-US',
-        messages
+        fallbackLocale: 'zh-CN',
+        messages,
+        silentTranslationWarn: true,
+        silentFallbackWarn: true
     })
 
     // Tell app to use the I18n instance

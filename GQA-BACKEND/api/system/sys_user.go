@@ -142,7 +142,7 @@ func (a *ApiUser) GetUserRole(c *gin.Context) {
 	global.SuccessMessageData(gin.H{"records": role}, "获取用户角色成功！", c)
 }
 
-func (a *ApiUser)ChangePassword(c *gin.Context)  {
+func (a *ApiUser) ChangePassword(c *gin.Context) {
 	var toChangePassword system.RequestChangePassword
 	if err := c.ShouldBindJSON(&toChangePassword); err != nil {
 		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))

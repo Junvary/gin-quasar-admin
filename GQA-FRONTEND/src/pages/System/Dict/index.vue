@@ -58,20 +58,24 @@ export default {
         dictDetailDialog,
         GqaDictShow,
     },
-    data() {
-        return {
-            url: {
-                list: 'dict/dict-list',
-                delete: 'dict/dict-delete',
-            },
-            columns: [
+    computed: {
+        columns() {
+            return [
                 { name: 'sort', align: 'center', label: this.$t('Sort'), field: 'sort' },
                 { name: 'dictCode', align: 'center', label: this.$t('Dict') + this.$t('Code'), field: 'dictCode' },
                 { name: 'dictLabel', align: 'center', label: this.$t('Dict') + this.$t('Name'), field: 'dictLabel' },
                 { name: 'status', align: 'center', label: this.$t('Status'), field: 'status' },
                 { name: 'stable', align: 'center', label: this.$t('Stable'), field: 'stable' },
                 { name: 'actions', align: 'center', label: this.$t('Actions'), field: 'actions' },
-            ],
+            ]
+        },
+    },
+    data() {
+        return {
+            url: {
+                list: 'dict/dict-list',
+                delete: 'dict/dict-delete',
+            },
         }
     },
     created() {

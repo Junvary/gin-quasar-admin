@@ -6,6 +6,7 @@ export default {
     English: 'English',
     Unique: 'unique',
     Option: 'Option',
+    User: 'User',
     Role: 'Role',
     Menu: 'Menu',
     Api: 'Api',
@@ -25,7 +26,6 @@ export default {
     // Base
     Welcome: 'Welcome,',
     WelcomeTo: 'Welcome to',
-    User: 'User',
     Username: 'Username',
     Password: 'Password',
     Captcha: 'Captcha',
@@ -36,7 +36,7 @@ export default {
     Column: 'Column Name (English)',
     Sort: 'Sort By',
     SortRule: 'Sort By must be greater than 0',
-    NeedInput: 'Must Input',
+    NeedInput: 'Please type something',
     Status: 'Status',
     Stable: 'Stable',
     Actions: 'Actions',
@@ -47,7 +47,7 @@ export default {
     CreatedBy: 'Created by',
     UpdatedAt: 'Updated at',
     UpdatedBy: 'Updated by',
-    Phone: 'Phone Number',
+    Phone: 'PhoneNumber',
     Parent: 'Parent',
     Avatar: 'Avatar',
     Gender: 'Gender',
@@ -168,17 +168,17 @@ export default {
     AxiosErrorAbnormalOkLabel: 'Please relogin',
     SystemLoading: 'System loading...',
     GqaUserName: 'GQA User',
-
-
-
-
-    PageSystemUserEditDialogMessagePicture: 'User image',
-
-
-
-
-
-
-
-
+    // Menu
+    Dashboard: 'Dashboard',
+    SystemManage: 'System Manage',
+    DeptManage: 'Dept Manage',
+    UserManage: 'User Manage',
+    RoleManage: 'Role Manage',
+    MenuManage: 'Menu Manage',
+    DictManage: 'Dict Manage',
+    FrontendManage: 'Frontend Manage',
+    BackendManage: 'Backend Manage',
+    LogManage: 'Log Manage',
+    SystemExample: 'Example',
+    SystemIcon: 'Icons',
 }

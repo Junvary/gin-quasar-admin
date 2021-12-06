@@ -8,8 +8,7 @@ import (
 	"go.uber.org/zap"
 )
 
-type ApiDept struct {
-}
+type ApiDept struct {}
 
 func (a *ApiDept) GetDeptList(c *gin.Context) {
 	var requestDeptList system.RequestDeptList

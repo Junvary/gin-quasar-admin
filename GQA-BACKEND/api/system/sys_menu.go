@@ -8,8 +8,7 @@ import (
 	"go.uber.org/zap"
 )
 
-type ApiMenu struct {
-}
+type ApiMenu struct {}
 
 func (a *ApiMenu) GetMenuList(c *gin.Context) {
 	var requestMenuList system.RequestMenuList

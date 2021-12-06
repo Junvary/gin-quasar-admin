@@ -14,7 +14,7 @@
                             <div class="row items-center">
                                 <q-icon :name="prop.node.icon || 'share'" size="sm" class="q-mr-sm" />
                                 <div class="text-weight-bold">
-                                    {{ prop.node.title }}
+                                    {{ $t(prop.node.title) }}
                                 </div>
                             </div>
                             <q-space></q-space>

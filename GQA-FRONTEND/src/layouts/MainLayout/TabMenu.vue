@@ -5,7 +5,7 @@
             :ripple="{ color: 'primary' }">
             <template v-slot>
                 <q-icon size="1.3rem" v-if="tab.meta.icon" :name="tab.meta.icon" />
-                <span class="tab-label">{{ tab.meta.title || $t('Unknown') }}</span>
+                <span class="tab-label">{{ $t(tab.meta.title) || $t('Unknown') }}</span>
                 <q-icon v-if="tab.path !== '/dashboard'" class="tab-close" name="close"
                     @click.prevent.stop="removeTab(tab)" />
                 <q-menu touch-position context-menu>

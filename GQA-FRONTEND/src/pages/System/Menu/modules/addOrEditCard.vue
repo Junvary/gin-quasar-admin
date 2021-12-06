@@ -115,7 +115,7 @@
                                     <template v-slot:default-header="prop">
                                         <div class="row items-center">
                                             <q-icon :name="prop.node.icon || 'share'" size="sm" class="q-mr-sm" />
-                                            <div class="text-weight-bold">{{ prop.node.title }}</div>
+                                            <div class="text-weight-bold">{{ $t(prop.node.title) }}</div>
                                         </div>
                                     </template>
                                 </q-tree>

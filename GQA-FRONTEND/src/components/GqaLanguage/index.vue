@@ -43,7 +43,7 @@ export default {
             lang,
             langOptions,
             changeLang(val) {
-                location.reload()
+                // location.reload()
             },
         }
     },

@@ -20,27 +20,26 @@
                         <img src="gqa128.png" />
                     </q-avatar>
 
-                    <q-toolbar-title class="row justify-between items-center">
+                    <q-toolbar-title class="row items-center">
                         <span class="text-weight-bold">
                             {{ $t('WelcomeTo')}}
                             Gin-Quasar-Admin
                         </span>
-                        <span class="q-gutter-md row">
-                            <GqaLanguage />
-                            <q-btn dense push rounded glossy color="primary"
-                                @click="openLink('https://gitee.com/junvary/gin-quasar-admin')">
-                                Gitee
-                            </q-btn>
-                            <q-btn dense push rounded glossy color="primary"
-                                @click="openLink('https://github.com/Junvary/gin-quasar-admin')">
-                                Github
-                            </q-btn>
+                        <q-space />
+                        <GqaLanguage style="width: 15%" />
+                        <q-btn dense push rounded glossy color="primary"
+                            @click="openLink('https://gitee.com/junvary/gin-quasar-admin')">
+                            Gitee
+                        </q-btn>
+                        <q-btn dense push rounded glossy color="primary" style="margin: 0 5px"
+                            @click="openLink('https://github.com/Junvary/gin-quasar-admin')">
+                            Github
+                        </q-btn>
 
-                            <q-btn dense push rounded glossy color="primary">
-                                {{ $t('Versions') }}
-                                <GqaVersion />
-                            </q-btn>
-                        </span>
+                        <q-btn dense push rounded glossy color="primary">
+                            {{ $t('Versions') }}
+                            <GqaVersion />
+                        </q-btn>
                     </q-toolbar-title>
                 </q-toolbar>
 

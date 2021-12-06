@@ -65,8 +65,17 @@ export default {
         RoleUserDialog,
         GqaDictShow,
     },
-    created() {
-        this.getTableData()
+    computed: {
+        columns() {
+            return [
+                { name: 'sort', align: 'center', label: this.$t('Sort'), field: 'sort' },
+                { name: 'roleCode', align: 'center', label: this.$t('Role') + this.$t('Code'), field: 'roleCode' },
+                { name: 'roleName', align: 'center', label: this.$t('Role') + this.$t('Name'), field: 'roleName' },
+                { name: 'status', align: 'center', label: this.$t('Status'), field: 'status' },
+                { name: 'stable', align: 'center', label: this.$t('Stable'), field: 'stable' },
+                { name: 'actions', align: 'center', label: this.$t('Actions'), field: 'actions' },
+            ]
+        },
     },
     data() {
         return {
@@ -74,17 +83,11 @@ export default {
                 list: 'role/role-list',
                 delete: 'role/role-delete',
             },
-            columns: [
-                { name: 'sort', align: 'center', label: this.$t('Sort'), field: 'sort' },
-                { name: 'roleCode', align: 'center', label: this.$t('Role') + this.$t('Code'), field: 'roleCode' },
-                { name: 'roleName', align: 'center', label: this.$t('Role') + this.$t('Name'), field: 'roleName' },
-                { name: 'status', align: 'center', label: this.$t('Status'), field: 'status' },
-                { name: 'stable', align: 'center', label: this.$t('Stable'), field: 'stable' },
-                { name: 'actions', align: 'center', label: this.$t('Actions'), field: 'actions' },
-            ],
         }
     },
-
+    created() {
+        this.getTableData()
+    },
     methods: {
         showRolePermission(row) {
             this.$refs.rolePermissionDialog.show(row)

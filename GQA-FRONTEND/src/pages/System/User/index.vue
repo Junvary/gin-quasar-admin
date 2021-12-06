@@ -88,13 +88,9 @@ export default {
         GqaAvatar,
         GqaDictShow,
     },
-    data() {
-        return {
-            url: {
-                list: 'user/user-list',
-                delete: 'user/user-delete',
-            },
-            columns: [
+    computed: {
+        columns() {
+            return [
                 { name: 'sort', align: 'center', label: this.$t('Sort'), field: 'sort' },
                 { name: 'avatar', align: 'center', label: this.$t('Avatar'), field: 'avatar' },
                 { name: 'username', align: 'center', label: this.$t('Username'), field: 'username' },
@@ -107,7 +103,15 @@ export default {
                 { name: 'status', align: 'center', label: this.$t('Status'), field: 'status' },
                 { name: 'stable', align: 'center', label: this.$t('Stable'), field: 'stable' },
                 { name: 'actions', align: 'center', label: this.$t('Actions'), field: 'actions' },
-            ],
+            ]
+        },
+    },
+    data() {
+        return {
+            url: {
+                list: 'user/user-list',
+                delete: 'user/user-delete',
+            },
         }
     },
     created() {

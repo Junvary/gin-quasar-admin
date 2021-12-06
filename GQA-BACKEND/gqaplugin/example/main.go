@@ -17,7 +17,7 @@ func (*example) PluginCode() string { //实现接口方法，插件编码。返�
 }
 
 func (*example) PluginName() string { //实现接口方法，插件名称
-	return "插件示例"
+	return "Plugin Example"
 }
 
 func (*example) PluginVersion() string { //实现接口方法，插件版本
@@ -25,7 +25,7 @@ func (*example) PluginVersion() string { //实现接口方法，插件版本
 }
 
 func (*example) PluginRemark() string { //实现接口方法，插件描述
-	return "这是example插件的一段描述。"
+	return "describe plugin example"
 }
 
 func (p *example) PluginRouterPublic(publicGroup *gin.RouterGroup) { //实现接口方法，公开路由初始化

@@ -4,7 +4,7 @@
         <q-item-section avatar>
             <q-icon :name="addRoutesItem.icon" color="primary" />
         </q-item-section>
-        <q-item-section>{{ addRoutesItem.title }}</q-item-section>
+        <q-item-section>{{ $t(addRoutesItem.title) }}</q-item-section>
     </q-item>
 </template>
 

@@ -69,14 +69,9 @@ export default {
         addOrEditDialog,
         GqaDictShow,
     },
-    data() {
-        return {
-            url: {
-                list: 'config-backend/config-backend-list',
-                edit: 'config-backend/config-backend-edit',
-                delete: 'config-backend/config-backend-delete',
-            },
-            columns: [
+    computed: {
+        columns() {
+            return [
                 { name: 'sort', align: 'center', label: this.$t('Sort'), field: 'sort' },
                 { name: 'gqaOption', align: 'center', label: this.$t('Option'), field: 'gqaOption' },
                 { name: 'remark', align: 'center', label: this.$t('Remark'), field: 'remark' },
@@ -85,7 +80,16 @@ export default {
                 { name: 'status', align: 'center', label: this.$t('Status'), field: 'status' },
                 { name: 'stable', align: 'center', label: this.$t('Stable'), field: 'stable' },
                 { name: 'actions', align: 'center', label: this.$t('Actions'), field: 'actions' },
-            ],
+            ]
+        },
+    },
+    data() {
+        return {
+            url: {
+                list: 'config-backend/config-backend-list',
+                edit: 'config-backend/config-backend-edit',
+                delete: 'config-backend/config-backend-delete',
+            },
         }
     },
     created() {

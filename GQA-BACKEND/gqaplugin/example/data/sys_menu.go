@@ -14,12 +14,12 @@ var PluginExampleSysMenu = new(sysMenu)
 type sysMenu struct{}
 
 var sysMenuData = []system.SysMenu{
-	{GqaModel: global.GqaModel{Status: "on", Sort: 501, Remark: "这是插件菜单示例", CreatedAt: time.Now(), CreatedBy: "admin"},
-		Name: "GqaPluginExample", Title: "插件示例", Icon: "install_desktop",
+	{GqaModel: global.GqaModel{Status: "on", Sort: 501, Remark: "describe plugin example", CreatedAt: time.Now(), CreatedBy: "admin"},
+		Name: "GqaPluginExample", Title: "Plugin Example", Icon: "install_desktop",
 		Path: "", Component: "",
 	},
-	{GqaModel: global.GqaModel{Status: "on", Sort: 1, Remark: "这是示例插件", CreatedAt: time.Now(), CreatedBy: "admin"},
-		Name: "plugin-example", ParentCode: "GqaPluginExample", Title: "example插件", Icon: "install_desktop",
+	{GqaModel: global.GqaModel{Status: "on", Sort: 1, Remark: "this is a example menu", CreatedAt: time.Now(), CreatedBy: "admin"},
+		Name: "plugin-example", ParentCode: "GqaPluginExample", Title: "Menu Example", Icon: "install_desktop",
 		Path: "/plugin-example/example", Component: "/Plugin/Example/index",
 	},
 }

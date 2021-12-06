@@ -13,9 +13,9 @@
                 </q-toolbar-title>
 
                 <q-tabs dense inline-label outside-arrows mobile-arrows shrink stretch v-model="currentItemMenu"
-                    style="max-width: 50%;" class="text-white">
+                    style="max-width: 100%;" class="text-white">
                     <q-tab v-for="item in topMenu" :key="item.top.name" :icon="item.top.icon" :name="item.top.name"
-                        :label="item.top.title" @click="changeTopMenu(item)" />
+                        :label="$t(item.top.title)" @click="changeTopMenu(item)" />
                 </q-tabs>
 
                 <q-space />

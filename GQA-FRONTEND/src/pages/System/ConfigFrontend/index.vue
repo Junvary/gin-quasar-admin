@@ -141,6 +141,20 @@ export default {
         GqaAvatar,
         GqaPluginList,
     },
+    computed: {
+        columns() {
+            return [
+                { name: 'sort', align: 'center', label: this.$t('Sort'), field: 'sort' },
+                { name: 'gqaOption', align: 'center', label: this.$t('Option'), field: 'gqaOption' },
+                { name: 'remark', align: 'center', label: this.$t('Remark'), field: 'remark' },
+                { name: 'default', align: 'center', label: this.$t('Default'), field: 'default' },
+                { name: 'custom', align: 'center', label: this.$t('Custom'), field: 'custom' },
+                { name: 'status', align: 'center', label: this.$t('Status'), field: 'status' },
+                { name: 'stable', align: 'center', label: this.$t('Stable'), field: 'stable' },
+                { name: 'actions', align: 'center', label: this.$t('Actions'), field: 'actions' },
+            ]
+        },
+    },
     data() {
         return {
             url: {
@@ -150,16 +164,6 @@ export default {
                 uploadWebUrl: 'upload/web-logo',
                 uploadHeaderUrl: 'upload/header-logo',
             },
-            columns: [
-                { name: 'sort', align: 'center', label: this.$t('Sort'), field: 'sort' },
-                { name: 'gqaOption', align: 'center', label: this.$t('Option'), field: 'gqaOption' },
-                { name: 'remark', align: 'center', label: this.$t('Remark'), field: 'remark' },
-                { name: 'default', align: 'center', label: this.$t('Default'), field: 'default' },
-                { name: 'custom', align: 'center', label: this.$t('Custom'), field: 'custom' },
-                { name: 'status', align: 'center', label: this.$t('Status'), field: 'status' },
-                { name: 'stable', align: 'center', label: this.$t('Stable'), field: 'stable' },
-                { name: 'actions', align: 'center', label: this.$t('Actions'), field: 'actions' },
-            ],
             webLogoFile: null,
             headerLogoFile: null,
         }

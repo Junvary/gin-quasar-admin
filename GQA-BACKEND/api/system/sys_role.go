@@ -8,8 +8,7 @@ import (
 	"go.uber.org/zap"
 )
 
-type ApiRole struct {
-}
+type ApiRole struct {}
 
 func (a *ApiRole) GetRoleList(c *gin.Context) {
 	var requestRoleList system.RequestRoleList
