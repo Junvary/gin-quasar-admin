@@ -15,7 +15,7 @@
 
 #### Gin-Quasar-Admin 使用 Go+Gin+Vue3+Quasar2 搭建，可以通过简单的配置快速形成自己的网站，并通过插件形式开发个性化逻辑。
 
-### 特色功能：
+### 主要功能：
 
 1. 动态配置网站浏览器标签页图标。
 2. 动态配置网站 主标题、次标题、网站描述等。
@@ -23,6 +23,7 @@
 4. 用户可以同时拥有多个角色。
 5. 角色授权菜单和api接口。
 6. 部门管理、字典管理、用户管理、菜单管理等。
+7. i18n。
 
 #### 项目在不断完善中，欢迎clone和fork试用。如果你感觉不错，麻烦给个小小的 Star 鼓励一下！
 
@@ -38,11 +39,19 @@ gitee：https://gitee.com/junvary/gin-quasar-admin
 
 <div align=center>
     <img src="https://github.com/Junvary/gin-quasar-admin/blob/dev/img/1.png" /><br/><br/>
+    <img src="https://s2.loli.net/2021/12/06/vNYn7UpcHOowdlV.png" /><br/><br/>
     <img src="https://github.com/Junvary/gin-quasar-admin/blob/dev/img/2.png" /><br/><br/>
+    <img src="https://s2.loli.net/2021/12/06/5lmnMOfixvhb3Q7.png" /><br/><br/>
     <img src="https://github.com/Junvary/gin-quasar-admin/blob/dev/img/3.png" /><br/><br/>
+    <img src="https://s2.loli.net/2021/12/06/BRKo4mLf1OQsDFP.png" /><br/><br/>
     <img src="https://github.com/Junvary/gin-quasar-admin/blob/dev/img/4.png" /><br/><br/>
+    <img src="https://s2.loli.net/2021/12/06/xeSPZN8q1lVLYgj.png" /><br/><br/>
     <img src="https://github.com/Junvary/gin-quasar-admin/blob/dev/img/5.png" /><br/><br/>
+    <img src="https://s2.loli.net/2021/12/06/IYxVW7PEmyRtM2J.png" /><br/><br/>
 </div>
+
+
+
 
 
 

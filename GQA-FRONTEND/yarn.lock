@@ -1125,10 +1125,10 @@
     core-js "^3.6.5"
     core-js-compat "^3.6.5"
 
-"@quasar/extras@^1.12.1":
-  version "1.12.1"
-  resolved "https://registry.npmmirror.com/@quasar/extras/download/@quasar/extras-1.12.1.tgz#859f7ac79789f840c1d51f994f5bfd5046b1f261"
-  integrity sha512-EwOnaJEDHo9zCnJzd1sFw1sfMAAq8cJaIjzr2+A9o2NcVLaIhD7YAaJdlIdcNmQnyuPAiq9NghUize8lCS0epw==
+"@quasar/extras@^1.12.2":
+  version "1.12.2"
+  resolved "https://registry.npmmirror.com/@quasar/extras/download/@quasar/extras-1.12.2.tgz#1d70b8aa38fd2f4eaf2bdc7148837180f8073d24"
+  integrity sha512-WDsmEdKJX5axXlkrVZUGAq++tsJ2jRwgSnZXt4TT6csyxM0rmDAoVbYNrc0KaQuEe9QXgHT2QDaaYzymfE616A==
 
 "@quasar/fastclick@1.1.4":
   version "1.1.4"

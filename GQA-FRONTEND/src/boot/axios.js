@@ -1,7 +1,8 @@
 import { boot } from 'quasar/wrappers'
 import axios from 'axios'
 import { Notify, Dialog } from 'quasar'
-// import { GetToken } from 'src/utils/cookies'
+import { createI18n } from 'vue-i18n'
+import messages from 'src/i18n'
 
 // Be careful when using SSR for cross-request state pollution
 // due to creating a Singleton instance here;
@@ -18,6 +19,13 @@ const api = axios.create({
 
 
 export default boot(({ app, router, store }) => {
+    const i18n = createI18n({
+        locale: store.getters['user/language'],
+        fallbackLocale: 'zh-CN',
+        messages,
+        silentTranslationWarn: true,
+        silentFallbackWarn: true
+    })
     // 请求拦截
     api.interceptors.request.use(res => {
         const token = store.getters['user/token']
@@ -44,13 +52,13 @@ export default boot(({ app, router, store }) => {
                 case 0:
                     if (responseData.data && responseData.data.reload) {
                         Dialog.create({
-                            title: this.$t('AxiosCantIdentifyTitle'),
-                            message: response.data.message || this.$t('AxiosCantIdentifyMessage'),
+                            title: i18n.global.t('AxiosCantIdentifyTitle'),
+                            message: response.data.message || i18n.global.t('AxiosCantIdentifyMessage'),
                             persistent: true,
                             ok: {
                                 push: true,
                                 color: 'negative',
-                                label: this.$t('AxiosCantIdentifyOkLabel')
+                                label: i18n.global.t('AxiosCantIdentifyOkLabel')
                             },
                         }).onOk(() => {
                             store.dispatch('user/HandleLogout')
@@ -59,7 +67,7 @@ export default boot(({ app, router, store }) => {
                     } else {
                         Notify.create({
                             type: 'negative',
-                            message: response.data.message || this.$t('AxiosErrorOperation'),
+                            message: response.data.message || i18n.global.t('AxiosErrorOperation'),
                         })
                         return response.data
                     }
@@ -71,13 +79,13 @@ export default boot(({ app, router, store }) => {
         // 500的情况
         if (error + '' === 'Error: Request failed with status code 500') {
             Dialog.create({
-                title: this.$t('AxiosErrorAbnormalTitle'),
-                message: this.$t('AxiosErrorAbnormalMessage'),
+                title: i18n.global.t('AxiosErrorAbnormalTitle'),
+                message: i18n.global.t('AxiosErrorAbnormalMessage'),
                 persistent: true,
                 ok: {
                     push: true,
                     color: 'negative',
-                    label: this.$t('AxiosErrorAbnormalOkLabel')
+                    label: i18n.global.t('AxiosErrorAbnormalOkLabel')
                 },
             }).onOk(() => {
                 store.dispatch('user/HandleLogout')
@@ -88,7 +96,7 @@ export default boot(({ app, router, store }) => {
         if (error + '' === 'Error: timeout of 40000ms exceeded') {
             Notify.create({
                 type: 'negative',
-                message: this.$t('AxiosErrorTimeout')
+                message: i18n.global.t('AxiosErrorTimeout')
             })
         }
         // 网络错误情况，比如后台没有对应的接口
@@ -98,7 +106,7 @@ export default boot(({ app, router, store }) => {
             console.log('请求地址不存在 [' + error.response.request.responseURL + ']')
             Notify.create({
                 type: 'negative',
-                message: this.$t('AxiosErrorNoNetwork', { error: error.response.request.responseURL }),
+                message: i18n.global.t('AxiosErrorNoNetwork', { error: error.response.request.responseURL }),
             })
         }
         return Promise.reject(error)

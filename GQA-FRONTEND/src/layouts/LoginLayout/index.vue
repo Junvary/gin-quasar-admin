@@ -270,7 +270,8 @@ export default {
                     if (res.data.needInit === true) {
                         this.$q.notify({
                             type: 'warning',
-                            message: res.message,
+                            // message: res.message,
+                            message: this.$t('DbNeedInit'),
                         })
                         this.initDbVisible = true
                     }
@@ -297,7 +298,7 @@ export default {
                                     this.$refs.stepper.next()
                                     this.$q.notify({
                                         type: 'positive',
-                                        message: res.message,
+                                        message: this.$t('DbInitSuccess'),
                                     })
                                     this.initDbVisible = false
                                     this.checkDbStatus = false

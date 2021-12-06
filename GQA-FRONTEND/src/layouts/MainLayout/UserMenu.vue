@@ -4,6 +4,7 @@
             <GqaAvatar loginUser size="26px" />
             <span style="margin-left:5px">
                 {{ $t('Welcome') }}
+                &nbsp;
                 <GqaShowName showMyName />
             </span>
         </template>

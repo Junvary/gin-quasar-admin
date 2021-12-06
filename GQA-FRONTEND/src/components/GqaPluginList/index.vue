@@ -59,26 +59,26 @@ export default {
         rows() {
             return this.$q.localStorage.getItem('gqa-pluginList')
         },
-    },
-    data() {
-        return {
-            columns: this.showChoose
-                ? [
-                      { name: 'first', align: 'center', label: this.$t('InstalledPlugins'), field: 'first' },
-                      { name: 'PluginName', align: 'center', label: this.$t('PluginName'), field: 'PluginName' },
-                      { name: 'PluginCode', align: 'center', label: this.$t('PluginCode'), field: 'PluginCode' },
-                      { name: 'PluginVersion', align: 'center', label: this.$t('PluginVersion'), field: 'PluginVersion' },
-                      { name: 'remark', align: 'center', label: this.$t('PluginDescription'), field: 'remark' },
-                      { name: 'actions', align: 'center', label: this.$t('PluginChoose'), field: 'actions' },
-                  ]
-                : [
-                      { name: 'first', align: 'center', label: this.$t('InstalledPlugins'), field: 'first' },
-                      { name: 'PluginName', align: 'center', label: this.$t('PluginName'), field: 'PluginName' },
-                      { name: 'PluginCode', align: 'center', label: this.$t('PluginCode'), field: 'PluginCode' },
-                      { name: 'PluginVersion', align: 'center', label: this.$t('PluginVersion'), field: 'PluginVersion' },
-                      { name: 'remark', align: 'center', label: this.$t('PluginDescription'), field: 'remark' },
-                  ],
-        }
+        columns() {
+            if (this.showChoose) {
+                return [
+                    { name: 'first', align: 'center', label: this.$t('InstalledPlugins'), field: 'first' },
+                    { name: 'PluginName', align: 'center', label: this.$t('PluginName'), field: 'PluginName' },
+                    { name: 'PluginCode', align: 'center', label: this.$t('PluginCode'), field: 'PluginCode' },
+                    { name: 'PluginVersion', align: 'center', label: this.$t('PluginVersion'), field: 'PluginVersion' },
+                    { name: 'remark', align: 'center', label: this.$t('PluginDescription'), field: 'remark' },
+                    { name: 'actions', align: 'center', label: this.$t('PluginChoose'), field: 'actions' },
+                ]
+            } else {
+                return [
+                    { name: 'first', align: 'center', label: this.$t('InstalledPlugins'), field: 'first' },
+                    { name: 'PluginName', align: 'center', label: this.$t('PluginName'), field: 'PluginName' },
+                    { name: 'PluginCode', align: 'center', label: this.$t('PluginCode'), field: 'PluginCode' },
+                    { name: 'PluginVersion', align: 'center', label: this.$t('PluginVersion'), field: 'PluginVersion' },
+                    { name: 'remark', align: 'center', label: this.$t('PluginDescription'), field: 'remark' },
+                ]
+            }
+        },
     },
     methods: {
         choosePluginLoginLayout(code) {

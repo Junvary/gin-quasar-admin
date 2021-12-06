@@ -23,6 +23,8 @@ export default {
     New: '新',
     Old: '旧',
     SwitchLanguage: '切换语言',
+    DbNeedInit: '数据库需要初始化！',
+    DbInitSuccess: '系统初始化成功，请登录！',
     // Base
     Welcome: '欢迎，',
     WelcomeTo: '欢迎使用',
