@@ -1,7 +1,8 @@
 <template>
     <q-list>
         <q-item clickable v-ripple class="text-primary text-bold text-center text-h6">
-            <q-item-section>
+            <q-item-section class="row items-center justify-center">
+                <q-icon :name="topMenuItem.top.icon" size="sm" v-if="topMenuItem.top.icon" />
                 {{ topMenuItem.top ? $t(topMenuItem.top.title) : "" }}
             </q-item-section>
         </q-item>

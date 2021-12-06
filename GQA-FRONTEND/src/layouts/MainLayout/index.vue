@@ -14,7 +14,7 @@
 
                 <q-tabs dense inline-label outside-arrows mobile-arrows shrink stretch v-model="currentItemMenu"
                     style="max-width: 100%;" class="text-white">
-                    <q-tab v-for="item in topMenu" :key="item.top.name" :icon="item.top.icon" :name="item.top.name"
+                    <q-tab v-for="item in topMenu" :key="item.top.name" :name="item.top.name"
                         :label="$t(item.top.title)" @click="changeTopMenu(item)" />
                 </q-tabs>
 
