@@ -11,7 +11,7 @@ export default {
     Menu: 'Menu',
     Api: 'Api',
     Dept: 'Department',
-    Permission: 'Authority',
+    Permission: 'Permission',
     Dict: 'Dictionary',
     Detail: 'Detail',
     Owner: 'Owner',
@@ -84,6 +84,7 @@ export default {
     FixForm: 'Please correct the form information!',
     Login: 'Sign In',
     Logout: 'Logout',
+    Relogin: 'Login Again',
     LogoutTitle: 'Logout?',
     LogoutMessage: 'Do you really want to logout?',
     ColseOther: 'Close others',
@@ -138,11 +139,6 @@ export default {
     LoginRememberMe: 'Remember Me',
     // Banner
     LoginLayoutPageBannerCheckDB: 'DB has to be initialized',
-    // Role
-    PageSystemRoleUserDialogDeleteNotAllowed: 'Sorry,you can not remove superadministrators from the Super Administrator group!',
-    PageSystemRolePermissionMenuSaveRights: 'Save Menu Rights',
-    PageSystemRolePermissionDialogRights: 'Permissions: ',
-    PageSystemRolePermissionAPISave: 'Save API Rights',
     // Component
     ComponentThemeColor: 'Theme color',
     ComponentSelectUserTitle: '{oneOrMultiple} user selection',
@@ -151,19 +147,17 @@ export default {
     NoticeSystem: 'System Information',
     NoticeToDo: 'Todo Information',
     CheckAll: 'View all',
-    NoticeNew: 'You have a message notification!',
+    NoticeNew: 'You have a notification message !',
     NoticeSystemNew: 'You have a system message!',
-    NoticeToDoNew: 'You have a thing to do!',
+    NoticeToDoNew: 'You have something to do!',
     // Other
     PageError404Title: 'Oops. Nothing here...',
     PageError404Home: 'Go Home',
     AxiosCantIdentifyTitle: 'Identity failed!',
-    AxiosCantIdentifyMessage: 'Your identification has expired, please finish the system to log in!',
-    AxiosCantIdentifyOkLabel: 'Please Relogin',
+    AxiosCantIdentifyMessage: 'Your identification has expired, please login again!',
     AxiosErrorOperation: 'Operation failed!',
     AxiosErrorTimeout: 'Timeout occured!',
     AxiosErrorNoNetwork: 'The request address does not exist [{error}]',
-    AxiosErrorAbnormalTitle: 'Error',
     AxiosErrorAbnormalMessage: 'Data exception,please login again!',
     SystemLoading: 'System loading...',
     GqaUserName: 'GQA User',
@@ -181,5 +175,6 @@ export default {
     SystemExample: 'Example',
     SystemIcon: 'Icons',
     // help
-    GqaSelectUserHelp: 'Multi selector is only for adding users.Deselecting will do nothing(delete users from the outside)'
+    GqaSelectUserHelp: 'Multi selector is only for adding users.Deselecting will do nothing(delete users from the outside)',
+    CanNotDeleteThis: 'Sorry!You can not delete this!'
 }

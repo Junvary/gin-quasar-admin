@@ -6,7 +6,7 @@
             <q-btn color="negative" :disable="row.roleCode === 'super-admin'" @click="handleAll">
                 {{ $t('SelectAll') }}</q-btn>
             <q-btn color="primary" :disable="row.roleCode === 'super-admin'" @click="handleRoleApi">
-                {{ $t('PageSystemRolePermissionAPISave') }}</q-btn>
+                {{ $t('Save') }}</q-btn>
         </div>
 
         <q-card-section style="width: 100%; max-height: 70vh" class="scroll">

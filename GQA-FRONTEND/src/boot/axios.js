@@ -58,7 +58,7 @@ export default boot(({ app, router, store }) => {
                             ok: {
                                 push: true,
                                 color: 'negative',
-                                label: i18n.global.t('AxiosCantIdentifyOkLabel')
+                                label: i18n.global.t('Relogin')
                             },
                         }).onOk(() => {
                             store.dispatch('user/HandleLogout')
@@ -79,7 +79,7 @@ export default boot(({ app, router, store }) => {
         // 500的情况
         if (error + '' === 'Error: Request failed with status code 500') {
             Dialog.create({
-                title: i18n.global.t('AxiosErrorAbnormalTitle'),
+                title: i18n.global.t('Error'),
                 message: i18n.global.t('AxiosErrorAbnormalMessage'),
                 persistent: true,
                 ok: {

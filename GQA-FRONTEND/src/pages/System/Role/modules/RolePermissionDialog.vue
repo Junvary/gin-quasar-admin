@@ -3,7 +3,7 @@
         <q-card style="min-width: 700px; max-width: 50vw">
             <q-card-section>
                 <div class="text-h6">
-                    {{ $t('PageSystemRolePermissionDialogRights') }} {{row.roleName}}
+                    {{ $t('Permission') }} {{row.roleName}}
                 </div>
             </q-card-section>
 

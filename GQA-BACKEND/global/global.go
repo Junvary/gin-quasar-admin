@@ -28,7 +28,7 @@ type GqaModel struct {
 	Sort      uint           `json:"sort" gorm:"comment:排序;default:1;"`
 	Remark    string         `json:"remark" gorm:"comment:备注描述;type:text;"`
 	CreatedAt time.Time      `json:"createdAt"`
-	CreatedBy string         `json:"createdBy"`
+	CreatedBy string         `json:"createdBy" gorm:"index;"`
 	UpdatedAt time.Time      `json:"updatedAt"`
 	UpdatedBy string         `json:"updatedBy"`
 	DeletedAt gorm.DeletedAt `json:"-" gorm:"index"`

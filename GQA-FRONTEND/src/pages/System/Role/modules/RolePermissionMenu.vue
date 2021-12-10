@@ -8,7 +8,7 @@
                 {{ $t('SelectAll') }}
             </q-btn>
             <q-btn color="primary" :disable="row.roleCode === 'super-admin'" @click="handleRoleMenu">
-                {{ $t('PageSystemRolePermissionMenuSaveRights') }}</q-btn>
+                {{ $t('Save') }}</q-btn>
         </div>
         <q-card-section style="width: 100%; max-height: 70vh" class="scroll">
             <q-tree dense style="width: 100%" :nodes="menuTree" default-expand-all node-key="name" label-key="name"

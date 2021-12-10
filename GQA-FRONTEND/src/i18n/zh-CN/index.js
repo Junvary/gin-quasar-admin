@@ -84,6 +84,7 @@ export default {
     FixForm: '请完善表格信息!',
     Login: '登录',
     Logout: '退出登录',
+    Relogin: '重新登录',
     LogoutTitle: '确定退出？',
     LogoutMessage: '你真的要退出系统吗？',
     ColosOther: '关闭其他',
@@ -138,11 +139,6 @@ export default {
     LoginRememberMe: '自动登录',
     // Banner
     LoginLayoutPageBannerCheckDB: '系统需要初始化',
-    // Role
-    PageSystemRoleUserDialogDeleteNotAllowed: '抱歉，你不能把超级管理员从超级管理员组中移除!',
-    PageSystemRolePermissionMenuSaveRights: '保存菜单权限',
-    PageSystemRolePermissionDialogRights: '权限:',
-    PageSystemRolePermissionAPISave: '保存Api权限',
     // Component
     ComponentThemeColor: '主题颜色',
     ComponentSelectUserTitle: '用户选择器 {oneOrMultiple}',
@@ -153,17 +149,15 @@ export default {
     CheckAll: '查看所有',
     NoticeNew: '你有一条消息通知!',
     NoticeSystemNew: '你有一条系统消息!',
-    NoticeToDoNew: '你有一条待办事项!',
+    NoticeToDoNew: '你有新的待办事项!',
     // Other
     PageError404Title: '你发现了一个没人来过的页面!',
     PageError404Home: '带我回去',
     AxiosCantIdentifyTitle: '身份鉴别失败!',
     AxiosCantIdentifyMessage: '你的身份鉴别已过期，请退出系统重新登录!',
-    AxiosCantIdentifyOkLabel: '"重新登录"',
     AxiosErrorOperation: '操作失败!',
     AxiosErrorTimeout: '后台响应超时!',
     AxiosErrorNoNetwork: '请求地址不存在 [{error}]',
-    AxiosErrorAbnormalTitle: '"抱歉!"',
     AxiosErrorAbnormalMessage: '数据异常，请重新登录!',
     SystemLoading: '系统努力加载中...',
     GqaUserName: 'GQA用户',
@@ -181,5 +175,6 @@ export default {
     SystemExample: '系统示例',
     SystemIcon: '图标合集',
     // help
-    GqaSelectUserHelp: '多选选择器只供添加用户使用，取消选择不会影响实际效果(请从外部删除)'
+    GqaSelectUserHelp: '多选选择器只供添加用户使用，取消选择不会影响实际效果(请从外部删除)',
+    CanNotDeleteThis: '抱歉!你不能删除此项!'
 }

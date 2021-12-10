@@ -76,7 +76,7 @@ export default {
                     if (this.record.roleCode === 'super-admin' && row.username === 'admin') {
                         this.$q.notify({
                             type: 'negative',
-                            message: this.$t('PageSystemRoleUserDialogDeleteNotAllowed'),
+                            message: this.$t('CanNotDeleteThis'),
                         })
                         return false
                     }
