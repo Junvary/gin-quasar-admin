@@ -54,7 +54,7 @@
 
                 <q-list bordered separator v-if="detail.attachment">
                     <q-item-label header class="row items-center justify-between">
-                        <span>附件列表：</span>
+                        <span>附件列表:</span>
                     </q-item-label>
                     <q-separator />
                     <q-item clickable v-ripple v-for="(item, index) in JSON.parse(detail.attachment)" :key="index"

@@ -47,6 +47,9 @@ var sysCasbinData = []gormadapter.CasbinRule{
 	{Ptype: "p", V0: "super-admin", V1: "/dept/dept-add", V2: "POST"},
 	{Ptype: "p", V0: "super-admin", V1: "/dept/dept-delete", V2: "DELETE"},
 	{Ptype: "p", V0: "super-admin", V1: "/dept/dept-id", V2: "POST"},
+	{Ptype: "p", V0: "super-admin", V1: "/dept/dept-user", V2: "POST"},
+	{Ptype: "p", V0: "super-admin", V1: "/dept/dept-user-remove", V2: "POST"},
+	{Ptype: "p", V0: "super-admin", V1: "/dept/dept-user-add", V2: "POST"},
 	// dict组
 	{Ptype: "p", V0: "super-admin", V1: "/dict/dict-list", V2: "POST"},
 	{Ptype: "p", V0: "super-admin", V1: "/dict/dict-edit", V2: "PUT"},

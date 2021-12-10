@@ -6,7 +6,7 @@
 
                 <template v-slot:top="props">
                     <q-btn dense color="primary" @click="showAddForm({parentCode: parentDict.dictCode})">
-                        {{ $t('Add') }} {{ parentDict.dictLabel}} {{ $t('Item') }}：
+                        {{ $t('Add') }} {{ parentDict.dictLabel}} {{ $t('Item') }}:
                     </q-btn>
                     <q-space />
                     <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"

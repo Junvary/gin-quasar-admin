@@ -3,7 +3,7 @@
         <q-card style="width: 1400px; max-width: 80vw;">
             <q-card-section>
                 <div class="text-h6">
-                    {{ formTypeName }}荣誉认证：
+                    {{ formTypeName }}荣誉认证:
                     {{ addOrEditDetail.title }}
                 </div>
             </q-card-section>

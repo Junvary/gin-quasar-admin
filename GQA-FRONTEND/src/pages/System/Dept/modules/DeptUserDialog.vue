@@ -1,11 +1,11 @@
 <template>
-    <q-dialog v-model="roleUserVisible" position="right">
+    <q-dialog v-model="deptUserVisible" position="right">
         <q-card style="min-width: 500px; max-width: 45vw">
             <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
                 :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
 
                 <template v-slot:top="props">
-                    <q-btn dense color="primary" @click="showAddUserForm()" :label="$t('Add') + $t('Users')" />
+                    <q-btn dense color="primary" @click="showAddUserForm()" :label="$t('Add') + ' ' + $t('User')" />
                     <q-space />
                     <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
                         @click="props.toggleFullscreen" class="q-ml-md" />
@@ -30,19 +30,19 @@ import { postAction } from 'src/api/manage'
 import SelectUserDialog from 'src/components/GqaSeleteUser/SelectUserDialog'
 
 export default {
-    name: 'RoleUserDialog',
+    name: 'DeptUserDialog',
     mixins: [tableDataMixin],
     components: {
         SelectUserDialog,
     },
     data() {
         return {
-            roleUserVisible: false,
-            record: {},
+            deptUserVisible: false,
+            deptCode: '',
             url: {
-                list: 'role/role-user',
-                removeUser: 'role/role-user-remove',
-                addUser: 'role/role-user-add',
+                list: 'dept/dept-user',
+                removeUser: 'dept/dept-user-remove',
+                addUser: 'dept/dept-user-add',
             },
             columns: [
                 { name: 'sort', align: 'center', label: this.$t('Sort'), field: 'sort' },
@@ -54,11 +54,11 @@ export default {
         }
     },
     methods: {
-        show(row) {
+        show(deptCode) {
             this.tableData = []
-            this.record = row
-            this.queryParams.roleCode = this.record.roleCode
-            this.roleUserVisible = true
+            this.deptCode = deptCode
+            this.queryParams.deptCode = this.deptCode
+            this.deptUserVisible = true
             this.getTableData()
         },
         showAddUserForm() {
@@ -73,16 +73,9 @@ export default {
                     persistent: true,
                 })
                 .onOk(async () => {
-                    if (this.record.roleCode === 'super-admin' && row.username === 'admin') {
-                        this.$q.notify({
-                            type: 'negative',
-                            message: this.$t('PageSystemRoleUserDialogDeleteNotAllowed'),
-                        })
-                        return false
-                    }
                     const res = await postAction(this.url.removeUser, {
-                        roleCode: this.record.roleCode,
-                        username: row.username,
+                        deptCode: this.deptCode,
+                        Username: row.username,
                     })
                     if (res.code === 1) {
                         this.$q.notify({
@@ -99,7 +92,7 @@ export default {
                 usernameList.push(i.username)
             }
             postAction(this.url.addUser, {
-                roleCode: this.record.roleCode,
+                deptCode: this.deptCode,
                 username: usernameList,
             }).then((res) => {
                 if (res.code === 1) {

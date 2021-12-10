@@ -16,19 +16,19 @@
                         <q-item-section avatar>
                             <q-icon size="lg" name="star" class="text-warning" />
                         </q-item-section>
-                        <q-item-section>等级：23</q-item-section>
+                        <q-item-section>等级:23</q-item-section>
                     </q-item>
                     <q-item clickable v-ripple>
                         <q-item-section avatar>
                             <q-icon size="lg" name="star" class="text-warning" />
                         </q-item-section>
-                        <q-item-section>积分：88888</q-item-section>
+                        <q-item-section>积分:88888</q-item-section>
                     </q-item>
                     <q-item clickable v-ripple>
                         <q-item-section avatar>
                             <q-icon size="lg" name="star" class="text-warning" />
                         </q-item-section>
-                        <q-item-section>成就：888</q-item-section>
+                        <q-item-section>成就:888</q-item-section>
                     </q-item>
                 </q-list>
             </div>

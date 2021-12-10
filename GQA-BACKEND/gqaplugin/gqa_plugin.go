@@ -5,10 +5,10 @@ import (
 	"github.com/gin-gonic/gin"
 	// 1.插件引入方式1：github插件引入方式
 	example "github.com/Junvary/gqa-plugin-example"
-	xk "github.com/Junvary/gqa-plugin-xk"
+	//xk "github.com/Junvary/gqa-plugin-xk"
 	// 2.插件引入方式2：本地插件引入方式
 	//"gin-quasar-admin/gqaplugin/example"
-	//"gin-quasar-admin/gqaplugin/xk"
+	"gin-quasar-admin/gqaplugin/xk"
 )
 
 /*

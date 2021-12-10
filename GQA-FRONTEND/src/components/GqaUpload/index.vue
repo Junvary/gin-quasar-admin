@@ -2,7 +2,7 @@
     <div>
         <q-list bordered separator v-if="showAttachmentList">
             <q-item-label header class="row items-center justify-between">
-                <span>附件列表：</span>
+                <span>附件列表:</span>
                 <q-btn dense color="negative" @click="newUpload">重新上传</q-btn>
             </q-item-label>
             <q-separator />
@@ -24,8 +24,8 @@
                             </q-item-label>
 
                             <q-item-label caption :class="file.__status === 'uploaded' ? 'text-positive': ''">
-                                <q-badge>大小</q-badge>：{{ file.__sizeLabel }}
-                                <q-badge>进度</q-badge>：{{ file.__progressLabel }}
+                                <q-badge>大小</q-badge>:{{ file.__sizeLabel }}
+                                <q-badge>进度</q-badge>:{{ file.__progressLabel }}
                                 <q-badge>状态</q-badge>: {{ file.__status  }}
                             </q-item-label>
                         </q-item-section>

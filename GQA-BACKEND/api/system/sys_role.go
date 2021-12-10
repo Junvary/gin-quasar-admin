@@ -178,8 +178,8 @@ func (a *ApiRole) QueryUserByRole(c *gin.Context) {
 		return
 	}
 	if err, userList := ServiceRole.QueryUserByRole(&roleCode); err != nil {
-		global.GqaLog.Error("查找用户角色失败！", zap.Any("err", err))
-		global.ErrorMessage("查找用户角色失败，"+err.Error(), c)
+		global.GqaLog.Error("查找角色用户失败！", zap.Any("err", err))
+		global.ErrorMessage("查找角色用户失败，"+err.Error(), c)
 	} else {
 		global.SuccessData(gin.H{"records": userList}, c)
 	}
@@ -192,15 +192,15 @@ func (a *ApiRole) RemoveRoleUser(c *gin.Context) {
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
-	if toDeleteRoleUser.UserId == 1 && toDeleteRoleUser.RoleCode == "super-admin" {
+	if toDeleteRoleUser.Username == "admin" && toDeleteRoleUser.RoleCode == "super-admin" {
 		global.ErrorMessage("抱歉，你不能把超级管理员从超级管理员组中移除！", c)
 		return
 	}
 	if err := ServiceRole.RemoveRoleUser(&toDeleteRoleUser); err != nil {
-		global.GqaLog.Error("移除用户角色失败！", zap.Any("err", err))
-		global.ErrorMessage("移除用户角色失败，"+err.Error(), c)
+		global.GqaLog.Error("移除角色用户失败！", zap.Any("err", err))
+		global.ErrorMessage("移除角色用户失败，"+err.Error(), c)
 	} else {
-		global.SuccessMessage("移除用户角色成功！", c)
+		global.SuccessMessage("移除角色用户成功！", c)
 	}
 }
 
@@ -212,9 +212,9 @@ func (a *ApiRole) AddRoleUser(c *gin.Context) {
 		return
 	}
 	if err := ServiceRole.AddRoleUser(&toAddRoleUser); err != nil {
-		global.GqaLog.Error("添加用户角色失败！", zap.Any("err", err))
-		global.ErrorMessage("添加用户角色失败，"+err.Error(), c)
+		global.GqaLog.Error("添加角色用户失败！", zap.Any("err", err))
+		global.ErrorMessage("添加角色用户失败，"+err.Error(), c)
 	} else {
-		global.SuccessMessage("添加用户角色成功！", c)
+		global.SuccessMessage("添加角色用户成功！", c)
 	}
 }

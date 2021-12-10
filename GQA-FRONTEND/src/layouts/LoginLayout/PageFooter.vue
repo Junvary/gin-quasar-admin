@@ -20,7 +20,7 @@
 
             <div class="column items-center" style="margin-top: 20px">
                 <span class="col">
-                    技术支持：{{thisYear}}
+                    技术支持:{{thisYear}}
                 </span>
                 <q-separator />
                 <span class="col">

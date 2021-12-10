@@ -29,8 +29,8 @@ export const HandleRouter = (menuData) => {
 }
 
 const pageImporter = (component) => {
-    // Quasar2 版本：
+    // Quasar2 版本:
     return () => Promise.resolve(require(`src/pages${component}.vue`).default)
-    // Quasar1 版本：
+    // Quasar1 版本:
     // return (resolve) => require([`src/pages/${component}`], resolve)
 }

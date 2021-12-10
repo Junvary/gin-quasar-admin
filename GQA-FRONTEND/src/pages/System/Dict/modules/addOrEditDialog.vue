@@ -3,7 +3,7 @@
         <q-card style="width: 800px; max-width: 80vw;">
             <q-card-section>
                 <div class="text-h6">
-                    {{ formTypeName }}字典：
+                    {{ formTypeName }}字典:
                     {{ addOrEditDetail.dictName }}
                 </div>
             </q-card-section>

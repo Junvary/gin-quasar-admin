@@ -137,22 +137,26 @@ func (s *ServiceRole) QueryUserByRole(roleCode *system.RequestRoleCode) (err err
 
 func (s *ServiceRole) RemoveRoleUser(toRemoveRoleUser *system.RequestRoleUser) (err error) {
 	var roleUser system.SysUserRole
-	if toRemoveRoleUser.UserId == 1 && toRemoveRoleUser.RoleCode == "super-admin"{
+	if toRemoveRoleUser.Username == "admin" && toRemoveRoleUser.RoleCode == "super-admin"{
 		return errors.New("抱歉，你不能把超级管理员从超级管理员组中移除！")
 	}
-	err = global.GqaDb.Where("sys_role_role_code = ? and sys_user_id = ?", toRemoveRoleUser.RoleCode, toRemoveRoleUser.UserId).Delete(&roleUser).Error
+	err = global.GqaDb.Where("sys_role_role_code = ? and sys_user_username = ?", toRemoveRoleUser.RoleCode, toRemoveRoleUser.Username).Delete(&roleUser).Error
 	return err
 }
 
 func (s *ServiceRole) AddRoleUser(toAddRoleUser *system.RequestRoleUserAdd) (err error) {
 	var roleUser []system.RequestRoleUser
-	for _, r := range toAddRoleUser.UserId {
+	for _, r := range toAddRoleUser.Username {
 		ur := system.RequestRoleUser{
-			UserId:   r,
+			Username:   r,
 			RoleCode: toAddRoleUser.RoleCode,
 		}
 		roleUser = append(roleUser, ur)
 	}
-	err = global.GqaDb.Model(&system.SysUserRole{}).Save(&roleUser).Error
-	return err
+	if len(roleUser) != 0 {
+		err = global.GqaDb.Model(&system.SysUserRole{}).Save(&roleUser).Error
+		return err
+	}else{
+		return errors.New("本次操作没有影响！")
+	}
 }

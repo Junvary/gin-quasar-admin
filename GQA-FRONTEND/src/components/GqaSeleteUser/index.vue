@@ -19,8 +19,8 @@ export default {
             type: [Object, Array],
             required: false,
         },
-        selectId: {
-            type: [Number, Array],
+        selectUsername: {
+            type: [String, Array],
             required: false,
         },
         label: {
@@ -80,17 +80,21 @@ export default {
             this.$refs.selectUserDialog.show(this.selectUser)
         },
         handleSelectUser(event) {
-            console.log(event)
             if (this.selection === 'multiple') {
-                const ids = []
+                const usernameList = []
                 for (let i of event) {
-                    ids.push(i.id)
+                    usernameList.push(i.username)
                 }
                 this.$emit('update:selectUser', event)
-                this.$emit('update:selectId', ids)
+                this.$emit('update:selectUsername', usernameList)
             } else {
-                this.$emit('update:selectUser', event[0])
-                this.$emit('update:selectId', event[0].id)
+                if (event.length) {
+                    this.$emit('update:selectUser', event[0])
+                    this.$emit('update:selectUsername', event[0].username)
+                } else {
+                    this.$emit('update:selectUser', {})
+                    this.$emit('update:selectUsername', '')
+                }
             }
         },
     },

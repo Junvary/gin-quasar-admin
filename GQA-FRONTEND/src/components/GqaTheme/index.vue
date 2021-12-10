@@ -2,7 +2,7 @@
     <div>
         <q-field label-slot stack-label>
             <template v-slot:label>
-                <span>{{ $t('ComponentThemeColor') }} primary：{{primary}}</span>
+                <span>{{ $t('ComponentThemeColor') }} primary:{{primary}}</span>
                 <q-avatar round size="xs" color="primary" style="margin-left: 5px" />
             </template>
             <template v-slot:control>
@@ -28,7 +28,7 @@
         </q-field>
         <q-field label-slot stack-label>
             <template v-slot:label>
-                <span>{{ $t('ComponentThemeColor') }} secondary：{{secondary}}</span>
+                <span>{{ $t('ComponentThemeColor') }} secondary:{{secondary}}</span>
                 <q-avatar round size="xs" color="secondary" style="margin-left: 5px" />
             </template>
             <template v-slot:control>
@@ -54,7 +54,7 @@
         </q-field>
         <q-field label-slot stack-label>
             <template v-slot:label>
-                <span>{{ $t('ComponentThemeColor') }} accent：{{accent}}</span>
+                <span>{{ $t('ComponentThemeColor') }} accent:{{accent}}</span>
                 <q-avatar round size="xs" color="accent" style="margin-left: 5px" />
             </template>
             <template v-slot:control>
@@ -80,7 +80,7 @@
         </q-field>
         <q-field label-slot stack-label>
             <template v-slot:label>
-                <span>{{ $t('ComponentThemeColor') }} dark：{{dark}}</span>
+                <span>{{ $t('ComponentThemeColor') }} dark:{{dark}}</span>
                 <q-avatar round size="xs" color="dark" style="margin-left: 5px" />
             </template>
             <template v-slot:control>
@@ -106,7 +106,7 @@
         </q-field>
         <q-field label-slot stack-label>
             <template v-slot:label>
-                <span>{{ $t('ComponentThemeColor') }} positive：{{positive}}</span>
+                <span>{{ $t('ComponentThemeColor') }} positive:{{positive}}</span>
                 <q-avatar round size="xs" color="positive" style="margin-left: 5px" />
             </template>
             <template v-slot:control>
@@ -132,7 +132,7 @@
         </q-field>
         <q-field label-slot stack-label>
             <template v-slot:label>
-                <span>{{ $t('ComponentThemeColor') }} negative：{{negative}}</span>
+                <span>{{ $t('ComponentThemeColor') }} negative:{{negative}}</span>
                 <q-avatar round size="xs" color="negative" style="margin-left: 5px" />
             </template>
             <template v-slot:control>
@@ -158,7 +158,7 @@
         </q-field>
         <q-field label-slot stack-label>
             <template v-slot:label>
-                <span>{{ $t('ComponentThemeColor') }} info：{{info}}</span>
+                <span>{{ $t('ComponentThemeColor') }} info:{{info}}</span>
                 <q-avatar round size="xs" color="info" style="margin-left: 5px" />
             </template>
             <template v-slot:control>
@@ -184,7 +184,7 @@
         </q-field>
         <q-field label-slot stack-label>
             <template v-slot:label>
-                <span>{{ $t('ComponentThemeColor') }} warning：{{warning}}</span>
+                <span>{{ $t('ComponentThemeColor') }} warning:{{warning}}</span>
                 <q-avatar round size="xs" color="warning" style="margin-left: 5px" />
             </template>
             <template v-slot:control>

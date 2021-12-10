@@ -10,7 +10,7 @@ const PublicRoutes = [
     // // Always leave this as last one,
     // // but you can also remove it
 
-    // 以下内容在动态路由中添加，解决刷新404的问题：store-permission-actions
+    // 以下内容在动态路由中添加，解决刷新404的问题:store-permission-actions
     // {
     //     path: '/:catchAll(.*)*',
     //     name: 'notFound',

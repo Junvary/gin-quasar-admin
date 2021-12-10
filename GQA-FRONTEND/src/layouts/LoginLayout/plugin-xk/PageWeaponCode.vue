@@ -65,7 +65,7 @@ export default {
                         },
                         label: {
                             show: true,
-                            // formatter: '{b}：{c}',
+                            // formatter: '{b}:{c}',
                         },
                     },
                 ],

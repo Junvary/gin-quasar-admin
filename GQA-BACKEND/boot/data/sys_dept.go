@@ -15,14 +15,14 @@ type sysDept struct{}
 
 var sysDeptData = []system.SysDept{
 	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1, Remark: "这是Gin-Quasar-Admin部门", CreatedAt: time.Now(), CreatedBy: "admin"},
-		DeptCode: "gin-quasar-admin", DeptName: "Gin-Quasar-Admin", OwnerId: 1,
+		DeptCode: "gin-quasar-admin", DeptName: "Gin-Quasar-Admin", OwnerUsername: "admin",
 	},
 
 	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1, Remark: "这是Gin部门", CreatedAt: time.Now(), CreatedBy: "admin"},
-		ParentCode: "gin-quasar-admin", DeptCode: "gin", DeptName: "Gin", OwnerId: 1,
+		ParentCode: "gin-quasar-admin", DeptCode: "gin", DeptName: "Gin", OwnerUsername: "admin",
 	},
 	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 2, Remark: "这是Quasar部门", CreatedAt: time.Now(), CreatedBy: "admin"},
-		ParentCode: "gin-quasar-admin", DeptCode: "quasar", DeptName: "Quasar", OwnerId: 1,
+		ParentCode: "gin-quasar-admin", DeptCode: "quasar", DeptName: "Quasar",
 	},
 }
 

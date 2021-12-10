@@ -8,6 +8,10 @@
                 <q-btn dense color="primary" @click="handleSelectUser()" :label="$t('Select')" />
             </q-card-section>
 
+            <span class="text-subtitle2 text-negative row justify-center" v-if="selection === 'multiple'">
+                {{ $t('GqaSelectUserHelp') }}
+            </span>
+
             <q-separator />
 
             <q-card-section class="items-center row q-gutter-md">
@@ -17,7 +21,7 @@
                 <q-btn dense color="primary" @click="resetSearch" :label="$t('Reset')" />
             </q-card-section>
 
-            <q-table row-key="id" :rows="tableData" :columns="columns" v-model:pagination="pagination"
+            <q-table row-key="username" :rows="tableData" :columns="columns" v-model:pagination="pagination"
                 :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest" :selection="selection"
                 v-model:selected="selected">
             </q-table>
@@ -27,12 +31,13 @@
 
 <script>
 import { tableDataMixin } from 'src/mixins/tableDataMixin'
+import { ArrayOrObject } from 'src/utils/arrayOrObject'
 
 export default {
     name: 'SelectUserDialog',
     mixins: [tableDataMixin],
     props: {
-        // 必须传递单选多选： multiple, single
+        // 必须传递单选多选: multiple, single
         selection: {
             type: String,
             required: true,
@@ -58,7 +63,7 @@ export default {
             this.selectUserVisible = true
             this.getTableData()
             if (this.selection === 'multiple') {
-                if (typeof selectUser === Array) {
+                if (ArrayOrObject(selectUser) === 'Array') {
                     this.selected = selectUser
                 } else {
                     this.selected = []

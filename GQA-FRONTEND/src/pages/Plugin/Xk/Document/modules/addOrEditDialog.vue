@@ -3,7 +3,7 @@
         <q-card style="width: 1400px; max-width: 80vw;">
             <q-card-section>
                 <div class="text-h6">
-                    {{ formTypeName }}文档：
+                    {{ formTypeName }}文档:
                     {{ addOrEditDetail.title }}
                 </div>
             </q-card-section>

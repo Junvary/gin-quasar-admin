@@ -10,7 +10,7 @@ type SysRole struct {
 	global.GqaModel
 	RoleCode string    `json:"roleCode" gorm:"comment:角色编码;not null;uniqueIndex;"`
 	RoleName string    `json:"roleName" gorm:"comment:角色名称;not null;unique;"`
-	User     []SysUser `json:"user" gorm:"many2many:sys_user_role;foreignKey:RoleCode;jointForeignKey:SysRoleRoleCode;references:Id;joinReferences:SysUserId;"`
+	User     []SysUser `json:"user" gorm:"many2many:sys_user_role;foreignKey:RoleCode;jointForeignKey:SysRoleRoleCode;references:Username;joinReferences:SysUserUsername;"`
 	Menu     []SysMenu `json:"menu" gorm:"many2many:sys_role_menu;foreignKey:RoleCode;jointForeignKey:SysRoleRoleCode;references:Name;joinReferences:SysMenuName;"`
 }
 
@@ -37,12 +37,12 @@ type RequestRoleCode struct {
 
 type RequestRoleUser struct {
 	RoleCode string `json:"roleCode"`
-	UserId   uint   `json:"userId"`
+	Username string `json:"username"`
 }
 
 type RequestRoleUserAdd struct {
-	RoleCode string `json:"roleCode"`
-	UserId   []uint `json:"userId"`
+	RoleCode string   `json:"roleCode"`
+	Username []string `json:"username"`
 }
 
 type RequestRoleMenuEdit struct {

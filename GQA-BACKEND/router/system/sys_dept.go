@@ -19,6 +19,12 @@ func (r *RouterDept) InitRouterDept(Router *gin.RouterGroup) (R gin.IRoutes) {
 		deptGroup.DELETE("dept-delete", ApiDept.DeleteDept)
 		//根据ID查找部门
 		deptGroup.POST("dept-id", ApiDept.QueryDeptById)
+		//根据部门查找用户
+		deptGroup.POST("dept-user", ApiDept.QueryUserByDept)
+		//从部门中移除某个用户
+		deptGroup.POST("dept-user-remove", ApiDept.RemoveDeptUser)
+		//添加用户到某个部门
+		deptGroup.POST("dept-user-add", ApiDept.AddDeptUser)
 	}
 	return Router
 }

@@ -3,7 +3,7 @@
         <q-card style="width: 800px; max-width: 80vw;">
             <q-card-section>
                 <div class="text-h6">
-                    {{ formTypeName }}角色：
+                    {{ formTypeName }}角色:
                     {{ addOrEditDetail.roleName }}
                 </div>
             </q-card-section>

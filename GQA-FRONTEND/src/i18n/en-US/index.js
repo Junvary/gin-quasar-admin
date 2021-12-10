@@ -75,9 +75,8 @@ export default {
     SelectAll: 'Select All',
     Search: 'Search',
     Reset: 'Reset',
-    DeleteQuestion: 'You really want to delete?',
-    ConfirmDelete: 'Confirm Delete?',
-    ConfirmDeleteMessage: 'Determine this menu to delete?',
+    ConfirmDelete: 'Want to Delete?',
+    ConfirmDeleteMessage: 'Are you sure to delete this item?',
     PleaseSelectFile: 'Please select a file!',
     UploadSuccess: 'Upload success!',
     UrlNotConfig: 'URL not cofigured',
@@ -140,8 +139,7 @@ export default {
     // Banner
     LoginLayoutPageBannerCheckDB: 'DB has to be initialized',
     // Role
-    PageSystemRoleUserDialogDeleteMessage: `Determine that the user wants to remove this user?`,
-    PageSystemRoleUserDialogDeleteNotAllowed: 'Unfortunately, you can not remove superadministrators from the Super Administrator group!',
+    PageSystemRoleUserDialogDeleteNotAllowed: 'Sorry,you can not remove superadministrators from the Super Administrator group!',
     PageSystemRolePermissionMenuSaveRights: 'Save Menu Rights',
     PageSystemRolePermissionDialogRights: 'Permissions: ',
     PageSystemRolePermissionAPISave: 'Save API Rights',
@@ -165,9 +163,8 @@ export default {
     AxiosErrorOperation: 'Operation failed!',
     AxiosErrorTimeout: 'Timeout occured!',
     AxiosErrorNoNetwork: 'The request address does not exist [{error}]',
-    AxiosErrorAbnormalTitle: '"Error"',
-    AxiosErrorAbnormalMessage: 'Data is abnormal, please finish the system to log in!',
-    AxiosErrorAbnormalOkLabel: 'Please relogin',
+    AxiosErrorAbnormalTitle: 'Error',
+    AxiosErrorAbnormalMessage: 'Data exception,please login again!',
     SystemLoading: 'System loading...',
     GqaUserName: 'GQA User',
     // Menu
@@ -183,4 +180,6 @@ export default {
     LogManage: 'Log Manage',
     SystemExample: 'Example',
     SystemIcon: 'Icons',
+    // help
+    GqaSelectUserHelp: 'Multi selector is only for adding users.Deselecting will do nothing(delete users from the outside)'
 }

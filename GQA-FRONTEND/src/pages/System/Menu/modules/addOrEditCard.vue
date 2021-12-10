@@ -3,7 +3,7 @@
         <div class="row justify-between items-center">
             <q-card-section>
                 <div class="text-h6">
-                    {{ formTypeName }}{{ $t('Menu') }}：
+                    {{ formTypeName }}{{ $t('Menu') }}:
                     {{ addOrEditDetail.title }}
                 </div>
             </q-card-section>

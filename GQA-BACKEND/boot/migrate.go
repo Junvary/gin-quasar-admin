@@ -19,6 +19,7 @@ func Migrate(db *gorm.DB) {
 		system.SysMenu{},
 		system.SysRoleMenu{},
 		system.SysDept{},
+		system.SysDeptUser{},
 		system.SysDict{},
 		system.SysApi{},
 		gormadapter.CasbinRule{},

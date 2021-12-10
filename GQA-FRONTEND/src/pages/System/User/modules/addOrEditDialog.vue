@@ -3,7 +3,7 @@
         <q-card style="width: 800px; max-width: 80vw;">
             <q-card-section>
                 <div class="text-h6">
-                    {{ formTypeName }}用户：
+                    {{ formTypeName }}用户:
                     {{ addOrEditDetail.nickname ? addOrEditDetail.nickname : addOrEditDetail.realName ? addOrEditDetail.realName : "" }}
                 </div>
             </q-card-section>

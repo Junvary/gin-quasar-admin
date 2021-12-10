@@ -3,11 +3,12 @@
         <div class="items-center justify-between row">
             <q-card-section>
                 <div class="text-h6">
-                    {{ formTypeName }}部门：
+                    {{ formTypeName }}部门:
                     {{ addOrEditDetail.deptName }}
                 </div>
             </q-card-section>
             <q-card-actions>
+                <q-btn :label="$t('User')" color="warning" @click="showDeptUser(detail.deptCode)" />
                 <q-btn :label="$t('Save')" color="primary" @click="handleAddOrEidt" />
                 <q-btn :label="$t('Cancel')" color="negative" @click="onClose" />
             </q-card-actions>
@@ -22,8 +23,8 @@
                         <div class="row">
                             <q-input class="col" label="ID" v-model="addOrEditDetail.id" disable />
                             <GqaSeleteUser className="col" :label="$t('Owner')"
-                                v-model:selectUser="addOrEditDetail.owner" v-model:selectId="addOrEditDetail.ownerId"
-                                selection="single" />
+                                v-model:selectUser="addOrEditDetail.owner"
+                                v-model:selectUsername="addOrEditDetail.ownerUsername" selection="single" />
                         </div>
 
                         <div class="row">
@@ -101,6 +102,8 @@
         <q-inner-loading :showing="loading">
             <q-spinner-gears size="50px" color="primary" />
         </q-inner-loading>
+
+        <dept-user-dialog ref="deptUserDialog" />
     </q-card>
 </template>
 
@@ -110,6 +113,7 @@ import { tableDataMixin } from 'src/mixins/tableDataMixin'
 import { ArrayToTree } from 'src/utils/arrayAndTree'
 import GqaSeleteUser from 'src/components/GqaSeleteUser'
 import GqaShowName from 'src/components/GqaShowName'
+import DeptUserDialog from './DeptUserDialog'
 
 export default {
     name: 'addOrEditCard',
@@ -117,6 +121,7 @@ export default {
     components: {
         GqaShowName,
         GqaSeleteUser,
+        DeptUserDialog,
     },
     computed: {
         deptTree() {
@@ -195,6 +200,9 @@ export default {
         onClose() {
             this.addOrEditVisible = false
             this.$emit('handleFinish')
+        },
+        showDeptUser(deptCode) {
+            this.$refs.deptUserDialog.show(deptCode)
         },
     },
 }

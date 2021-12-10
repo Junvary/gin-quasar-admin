@@ -16,7 +16,8 @@ type SysUser struct {
 	Gender   string    `json:"gender" gorm:"comment:性别;default:u"`
 	Mobile   string    `json:"mobile" gorm:"comment:手机号"`
 	Email    string    `json:"email" gorm:"comment:邮箱"`
-	Role     []SysRole `json:"role" gorm:"many2many:sys_user_role;foreignKey:Id;joinForeignKey:SysUserId;references:RoleCode;joinReferences:SysRoleRoleCode;"`
+	Role     []SysRole `json:"role" gorm:"many2many:sys_user_role;foreignKey:Username;joinForeignKey:SysUserUsername;references:RoleCode;joinReferences:SysRoleRoleCode;"`
+	Dept     []SysDept `json:"dept" gorm:"many2many:sys_dept_user;foreignKey:Username;joinForeignKey:SysUserUsername;references:DeptCode;joinReferences:SysDeptDeptCode;"`
 }
 
 type RequestAddUser struct {

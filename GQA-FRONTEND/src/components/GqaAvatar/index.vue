@@ -24,7 +24,7 @@ export default {
         size: {
             type: String,
             required: false,
-            default: 'md', // 可选：'xs', 'sm', 'md', 'lg', 'xl'， '**px'
+            default: 'md', // 可选:'xs', 'sm', 'md', 'lg', 'xl'， '**px'
         },
     },
     computed: {

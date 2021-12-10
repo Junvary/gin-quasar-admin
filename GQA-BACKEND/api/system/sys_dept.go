@@ -8,7 +8,7 @@ import (
 	"go.uber.org/zap"
 )
 
-type ApiDept struct {}
+type ApiDept struct{}
 
 func (a *ApiDept) GetDeptList(c *gin.Context) {
 	var requestDeptList system.RequestDeptList
@@ -60,11 +60,11 @@ func (a *ApiDept) AddDept(c *gin.Context) {
 			Sort:      toAddDept.Sort,
 			Remark:    toAddDept.Remark,
 		},
-		ParentCode: toAddDept.ParentCode,
-		DeptCode:   toAddDept.DeptCode,
-		DeptName:   toAddDept.DeptName,
-		Phone:      toAddDept.Phone,
-		OwnerId:    toAddDept.OwnerId,
+		ParentCode:    toAddDept.ParentCode,
+		DeptCode:      toAddDept.DeptCode,
+		DeptName:      toAddDept.DeptName,
+		Phone:         toAddDept.Phone,
+		OwnerUsername: toAddDept.OwnerUsername,
 	}
 	if err := ServiceDept.AddDept(*addDept); err != nil {
 		global.GqaLog.Error("添加部门失败！", zap.Any("err", err))
@@ -101,5 +101,50 @@ func (a *ApiDept) QueryDeptById(c *gin.Context) {
 		global.ErrorMessage("查找部门失败，"+err.Error(), c)
 	} else {
 		global.SuccessMessageData(gin.H{"records": dept}, "查找部门成功！", c)
+	}
+}
+
+func (a *ApiDept) QueryUserByDept(c *gin.Context) {
+	var deptCode system.RequestDeptCode
+	if err := c.ShouldBindJSON(&deptCode); err != nil {
+		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
+		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
+		return
+	}
+	if err, userList := ServiceDept.QueryUserByDept(&deptCode); err != nil {
+		global.GqaLog.Error("查找部门用户失败！", zap.Any("err", err))
+		global.ErrorMessage("查找部门用户失败，"+err.Error(), c)
+	} else {
+		global.SuccessData(gin.H{"records": userList}, c)
+	}
+}
+
+func (a *ApiDept) RemoveDeptUser(c *gin.Context) {
+	var toDeleteDeptUser system.RequestDeptUser
+	if err := c.ShouldBindJSON(&toDeleteDeptUser); err != nil {
+		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
+		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
+		return
+	}
+	if err := ServiceDept.RemoveDeptUser(&toDeleteDeptUser); err != nil {
+		global.GqaLog.Error("移除部门用户失败！", zap.Any("err", err))
+		global.ErrorMessage("移除部门用户失败，"+err.Error(), c)
+	} else {
+		global.SuccessMessage("移除部门用户成功！", c)
+	}
+}
+
+func (a *ApiDept) AddDeptUser(c *gin.Context) {
+	var toAddDeptUser system.RequestDeptUserAdd
+	if err := c.ShouldBindJSON(&toAddDeptUser); err != nil {
+		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
+		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
+		return
+	}
+	if err := ServiceDept.AddDeptUser(&toAddDeptUser); err != nil {
+		global.GqaLog.Error("添加部门用户失败！", zap.Any("err", err))
+		global.ErrorMessage("添加部门用户失败，"+err.Error(), c)
+	} else {
+		global.SuccessMessage("添加部门用户成功！", c)
 	}
 }

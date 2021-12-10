@@ -85,7 +85,7 @@ export default boot(({ app, router, store }) => {
                 ok: {
                     push: true,
                     color: 'negative',
-                    label: i18n.global.t('AxiosErrorAbnormalOkLabel')
+                    label: i18n.global.t('Logout')
                 },
             }).onOk(() => {
                 store.dispatch('user/HandleLogout')

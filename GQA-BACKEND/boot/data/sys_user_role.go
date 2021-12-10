@@ -13,7 +13,7 @@ var SysUserRole = new(sysUserRole)
 type sysUserRole struct{}
 
 var sysUserRoleData = []system.SysUserRole{
-	{"super-admin", 1},
+	{"super-admin", "admin"},
 }
 
 func (s *sysUserRole) LoadData() error {
