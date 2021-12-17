@@ -14,7 +14,7 @@ var SysDept = new(sysDept)
 type sysDept struct{}
 
 var sysDeptData = []system.SysDept{
-	{GqaModel: global.GqaModel{Status: "on", Sort: 1, Remark: "这是Gin-Quasar-Admin部门", CreatedAt: time.Now(), CreatedBy: "admin"},
+	{GqaModel: global.GqaModel{Status: "on", Sort: 1001, Remark: "这是Gin-Quasar-Admin部门", CreatedAt: time.Now(), CreatedBy: "admin"},
 		DeptCode: "gin-quasar-admin", DeptName: "Gin-Quasar-Admin", OwnerUsername: "admin",
 	},
 

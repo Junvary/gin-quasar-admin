@@ -14,7 +14,7 @@ var SysRole = new(sysRole)
 type sysRole struct{}
 
 var sysRoleData = []system.SysRole{
-	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1, Remark: "超级管理员角色组", CreatedAt: time.Now(), CreatedBy: "admin"},
+	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1001, Remark: "超级管理员角色组", CreatedAt: time.Now(), CreatedBy: "admin"},
 		RoleCode: "super-admin", RoleName: "超级管理员组",
 	},
 }

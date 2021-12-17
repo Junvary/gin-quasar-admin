@@ -15,7 +15,7 @@ type sysUser struct{}
 
 var sysUserData = []system.SysUser{
 	// 超级管理员默认ID为1
-	{GqaModel: global.GqaModel{Id: 1, Stable: "yes", Status: "on", Sort: 1, Remark: "我是超管我怕谁？", CreatedAt: time.Now(), CreatedBy: "admin"},
+	{GqaModel: global.GqaModel{Id: 1, Stable: "yes", Status: "on", Sort: 1001, Remark: "我是超管我怕谁？", CreatedAt: time.Now(), CreatedBy: "admin"},
 		Avatar: "", Username: "admin", Password: "e10adc3949ba59abbe56e057f20f883e",
 		Nickname: "我是超管", RealName: "超级管理员",
 		Gender: "u", Mobile: "1234567890", Email: "11111111111",

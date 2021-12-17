@@ -14,13 +14,13 @@ var SysDict = new(sysDict)
 type sysDict struct{}
 
 var sysDictData = []system.SysDict{
-	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1, Remark: "这是性别字典", CreatedAt: time.Now(), CreatedBy: "admin"},
+	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1001, Remark: "这是性别字典", CreatedAt: time.Now(), CreatedBy: "admin"},
 		DictCode: "gender", DictLabel: "性别",
 	},
-	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 2, Remark: "这是启用状态", CreatedAt: time.Now(), CreatedBy: "admin"},
+	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1002, Remark: "这是启用状态", CreatedAt: time.Now(), CreatedBy: "admin"},
 		DictCode: "statusOnOff", DictLabel: "启用状态",
 	},
-	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 3, Remark: "这是是否状态", CreatedAt: time.Now(), CreatedBy: "admin"},
+	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1003, Remark: "这是是否状态", CreatedAt: time.Now(), CreatedBy: "admin"},
 		DictCode: "statusYesNo", DictLabel: "是否状态",
 	},
 

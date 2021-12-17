@@ -38,8 +38,8 @@ export default {
     Config: 'Config',
     // Column
     Column: 'Column Name (English)',
-    Sort: 'Sort By',
-    SortRule: 'Sort By must be greater than 0',
+    Sort: 'Sort',
+    SortRule: 'Sort must be greater than 0',
     NeedInput: 'Please type something',
     Status: 'Status',
     Stable: 'Stable',
