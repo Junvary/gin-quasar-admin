@@ -3,7 +3,7 @@
         <q-card style="width: 800px; max-width: 80vw;">
             <q-card-section>
                 <div class="text-h6">
-                    {{ formTypeName }}后台配置:
+                    {{ formTypeName }} {{ $t('Backend') }} {{ $t('Config') }}:
                     {{ addOrEditDetail.gqaOption }}
                 </div>
             </q-card-section>

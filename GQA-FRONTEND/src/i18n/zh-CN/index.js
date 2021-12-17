@@ -1,6 +1,6 @@
 export default {
     // Define
-    Code: '编码',
+    Code: '编码(英)',
     Name: '名称',
     Title: '名',
     English: '英文',
@@ -22,6 +22,8 @@ export default {
     UserProfile: '个人中心',
     New: '新',
     Old: '旧',
+    Frontend: '前台',
+    Backend: '后台',
     SwitchLanguage: '切换语言',
     DbNeedInit: '数据库需要初始化!',
     DbInitSuccess: '系统初始化成功，请登录!',

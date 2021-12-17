@@ -3,7 +3,7 @@
         <div class="items-center justify-between row">
             <q-card-section>
                 <div class="text-h6">
-                    {{ formTypeName }}部门:
+                    {{ formTypeName }} {{ $t('Dept') }}:
                     {{ addOrEditDetail.deptName }}
                 </div>
             </q-card-section>

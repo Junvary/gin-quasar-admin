@@ -1,6 +1,6 @@
 export default {
     // Define
-    Code: 'Code',
+    Code: 'Code(english)',
     Name: 'Name',
     Title: 'Title',
     English: 'English',
@@ -22,6 +22,8 @@ export default {
     UserProfile: 'User Profile',
     New: 'New',
     Old: 'Old',
+    Frontend: 'Frontend',
+    Backend: 'Backend',
     SwitchLanguage: 'Switch Language',
     DbNeedInit: 'The database needs to be initialized!',
     DbInitSuccess: 'System initialization succeeded. Please login!',
@@ -164,7 +166,7 @@ export default {
     // Menu
     Dashboard: 'Dashboard',
     SystemManage: 'System Manage',
-    DeptManage: 'Dept Manage',
+    DeptManage: 'Department Manage',
     UserManage: 'User Manage',
     RoleManage: 'Role Manage',
     MenuManage: 'Menu Manage',
