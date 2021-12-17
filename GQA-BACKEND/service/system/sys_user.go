@@ -75,7 +75,11 @@ func (s *ServiceUser) DeleteUser(id uint) (err error) {
 		return err
 	}
 	var sysDeptUser system.SysDeptUser
-	err = global.GqaDb.Where("sys_user_username = ?", sysUser.Username).Delete(&sysDeptUser).Error
+	if err = global.GqaDb.Where("sys_user_username = ?", sysUser.Username).Delete(&sysDeptUser).Error; err!=nil{
+		return err
+	}
+	var sysUserRole system.SysUserRole
+	err = global.GqaDb.Where("sys_user_username = ?", sysUser.Username).Delete(&sysUserRole).Error
 	return err
 }
 
