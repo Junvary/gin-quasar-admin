@@ -11,21 +11,21 @@
             <q-item clickable v-close-popup v-ripple>
                 <q-item-section>
                     <q-chip icon="img:icon/quasar.svg">
-                        Quasar:{{ $quasarVersion }}
+                        Quasar: {{ $quasarVersion }}
                     </q-chip>
                 </q-item-section>
             </q-item>
             <q-item clickable v-close-popup v-ripple>
                 <q-item-section>
                     <q-chip icon="img:icon/golang.svg">
-                        Go:{{ goVersion }}
+                        Go: {{ goVersion }}
                     </q-chip>
                 </q-item-section>
             </q-item>
             <q-item clickable v-close-popup v-ripple>
                 <q-item-section>
                     <q-chip icon="img:icon/gin.svg">
-                        Gin:{{ ginVersion }}
+                        Gin: {{ ginVersion }}
                     </q-chip>
                 </q-item-section>
             </q-item>

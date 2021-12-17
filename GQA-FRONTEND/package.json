@@ -14,14 +14,14 @@
         "core-js": "^3.6.5",
         "echarts": "^5.2.1",
         "mitt": "^3.0.0",
-        "quasar": "^2.3.3",
+        "quasar": "^2.3.4",
         "vue-i18n": "^9.2.0-beta.22",
         "vuex": "^4.0.1",
         "xe-utils": "^3.4.3"
     },
     "devDependencies": {
         "@intlify/vue-i18n-loader": "^4.0.1",
-        "@quasar/app": "^3.2.4"
+        "@quasar/app": "^3.2.5"
     },
     "browserslist": [
         "last 10 Chrome versions",

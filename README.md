@@ -4,11 +4,12 @@
 <h1>Gin-Quasar-Admin</h1>
 </div>
 <div align=center>
-<img src="https://img.shields.io/badge/quasar-2.3.3-brightgreen"/>
-<img src="https://img.shields.io/badge/vue-3.2.23-brightgreen"/>
-<img src="https://img.shields.io/badge/gin-1.7.3-brightgreen"/>
+<img src="https://img.shields.io/badge/quasar-2.3.4-brightgreen"/>
+<img src="https://img.shields.io/badge/vue-3.2.26-brightgreen"/>
+<img src="https://img.shields.io/badge/gin-1.7.7-brightgreen"/>
 <img src="https://img.shields.io/badge/golang-1.17.2-brightgreen"/>
 </div>
+
 
 
 
