@@ -160,3 +160,17 @@ func (s *ServiceRole) AddRoleUser(toAddRoleUser *system.RequestRoleUserAdd) (err
 		return errors.New("本次操作没有影响！")
 	}
 }
+
+func (s *ServiceRole) EditRoleDeptDataPermission(toEditRoleDeptDataPermission *system.RequestRoleDeptDataPermission) (err error) {
+	var sysRole system.SysRole
+	if err = global.GqaDb.Where("role_code = ?", toEditRoleDeptDataPermission.RoleCode).First(&sysRole).Error; err != nil {
+		return err
+	}
+	if sysRole.Stable == "yes" {
+		return errors.New("系统内置不允许编辑：" + toEditRoleDeptDataPermission.RoleCode)
+	}
+	sysRole.DeptDataPermissionType = toEditRoleDeptDataPermission.DeptDataPermissionType
+	sysRole.DeptDataPermissionCustom = toEditRoleDeptDataPermission.DeptDataPermissionCustom
+	err = global.GqaDb.Save(&sysRole).Error
+	return err
+}

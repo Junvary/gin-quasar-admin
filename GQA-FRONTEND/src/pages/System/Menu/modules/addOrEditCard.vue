@@ -74,15 +74,15 @@
                         <div class="row">
                             <q-field class="col" :label="$t('IsLink')" stack-label>
                                 <template v-slot:control>
-                                    <q-option-group v-model="addOrEditDetail.isLink" :options="options.statusYesNo"
+                                    <q-option-group v-model="addOrEditDetail.isLink" :options="dictOptions.statusYesNo"
                                         color="primary" inline>
                                     </q-option-group>
                                 </template>
                             </q-field>
                             <q-field class="col" :label="$t('KeepAlive')" stack-label>
                                 <template v-slot:control>
-                                    <q-option-group v-model="addOrEditDetail.keepAlive" :options="options.statusYesNo"
-                                        color="primary" inline>
+                                    <q-option-group v-model="addOrEditDetail.keepAlive"
+                                        :options="dictOptions.statusYesNo" color="primary" inline>
                                     </q-option-group>
                                 </template>
                             </q-field>
@@ -91,14 +91,14 @@
                         <div class="row">
                             <q-field class="col" :label="$t('Hidden')" stack-label>
                                 <template v-slot:control>
-                                    <q-option-group v-model="addOrEditDetail.hidden" :options="options.statusYesNo"
+                                    <q-option-group v-model="addOrEditDetail.hidden" :options="dictOptions.statusYesNo"
                                         color="primary" inline>
                                     </q-option-group>
                                 </template>
                             </q-field>
                             <q-field class="col" :label="$t('Status')" stack-label>
                                 <template v-slot:control>
-                                    <q-option-group v-model="addOrEditDetail.status" :options="options.statusOnOff"
+                                    <q-option-group v-model="addOrEditDetail.status" :options="dictOptions.statusOnOff"
                                         color="primary" inline>
                                     </q-option-group>
                                 </template>

@@ -69,14 +69,14 @@
                         <div class="row">
                             <q-field class="col" :label="$t('Gender')" stack-label>
                                 <template v-slot:control>
-                                    <q-option-group v-model="addOrEditDetail.gender" :options="options.gender"
+                                    <q-option-group v-model="addOrEditDetail.gender" :options="dictOptions.gender"
                                         color="primary" inline>
                                     </q-option-group>
                                 </template>
                             </q-field>
                             <q-field class="col" :label="$t('Status')" stack-label>
                                 <template v-slot:control>
-                                    <q-option-group v-model="addOrEditDetail.status" :options="options.statusOnOff"
+                                    <q-option-group v-model="addOrEditDetail.status" :options="dictOptions.statusOnOff"
                                         color="primary" inline :disable="addOrEditDetail.username ==='admin'">
                                     </q-option-group>
                                 </template>

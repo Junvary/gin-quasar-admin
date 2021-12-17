@@ -10,6 +10,7 @@ export default {
     Role: 'Role',
     Menu: 'Menu',
     Api: 'Api',
+    Data: 'Data',
     Dept: 'Department',
     Permission: 'Permission',
     Dict: 'Dictionary',
@@ -178,5 +179,7 @@ export default {
     SystemIcon: 'Icons',
     // help
     GqaSelectUserHelp: 'Multi selector is only for adding users.Deselecting will do nothing(delete users from the outside)',
-    CanNotDeleteThis: 'Sorry!You can not delete this!'
+    CanNotDeleteThis: 'Sorry!You can not delete this!',
+    // data permission
+    DeptDataPermissionType: 'Department Data Permission Type',
 }

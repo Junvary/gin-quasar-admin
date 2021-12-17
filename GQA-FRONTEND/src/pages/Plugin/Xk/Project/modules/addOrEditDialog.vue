@@ -47,7 +47,7 @@
                                 :rules="[ val => val && val.length > 0 || '必须输入项目名称']" />
                             <q-field dense label="是否启用" stack-label>
                                 <template v-slot:control>
-                                    <q-option-group v-model="addOrEditDetail.status" :options="options.statusOnOff"
+                                    <q-option-group v-model="addOrEditDetail.status" :options="dictOptions.statusOnOff"
                                         color="primary" inline>
                                     </q-option-group>
                                 </template>
@@ -55,9 +55,9 @@
                         </div>
                         <div class="row">
                             <q-input class="col" v-model="addOrEditDetail.demand" label="需求单位" />
-                            <q-select class="col" v-model="addOrEditDetail.language" :options="options.codeLanguage"
+                            <q-select class="col" v-model="addOrEditDetail.language" :options="dictOptions.codeLanguage"
                                 multiple clearable emit-value map-options label="项目语言" />
-                            <q-select class="col" v-model="addOrEditDetail.node" :options="options.projectNode"
+                            <q-select class="col" v-model="addOrEditDetail.node" :options="dictOptions.projectNode"
                                 clearable emit-value map-options label="项目节点" />
                             <GqaSeleteUser className="col" label="牵头人" v-model:selectUser="addOrEditDetail.leader"
                                 v-model:selectId="addOrEditDetail.leaderId" selection="single" />

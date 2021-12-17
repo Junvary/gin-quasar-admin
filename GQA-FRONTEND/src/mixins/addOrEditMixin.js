@@ -1,6 +1,6 @@
 import { getAction, postAction, putAction } from 'src/api/manage'
 import { FormatDataTime } from 'src/utils/date'
-import { mapActions } from 'vuex'
+import { DictOptions } from 'src/utils/dict'
 
 export const addOrEditMixin = {
     computed: {
@@ -25,20 +25,14 @@ export const addOrEditMixin = {
             addOrEditVisible: false,
             formType: '',
             loading: false,
-            options: {},
+            dictOptions: {},
         }
     },
     async created() {
-        const detailLocal = this.$q.localStorage.getItem('gqa-dict')
-        if (detailLocal) {
-            this.options = detailLocal
-        } else {
-            await this.GetGqaDict()
-            this.options = this.$q.localStorage.getItem('gqa-dict')
-        }
+        this.dictOptions = await DictOptions()
     },
     methods: {
-        ...mapActions('storage', ['GetGqaDict']),
+
         show(row) {
             this.loading = true
             this.resetDetail()

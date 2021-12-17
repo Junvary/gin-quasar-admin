@@ -48,8 +48,8 @@
                         <!-- 使用是否字典显示 -->
                         <template v-slot="scope" v-if="props.row.gqaOption === 'gqaShowGit'">
                             {{ $t('Custom') + ' ' + props.row.gqaOption }}
-                            <q-option-group v-model="props.row.custom" :options="options.statusYesNo" color="primary"
-                                inline @update:model-value="scope.set">
+                            <q-option-group v-model="props.row.custom" :options="dictOptions.statusYesNo"
+                                color="primary" inline @update:model-value="scope.set">
                             </q-option-group>
                         </template>
                         <!-- 配置插件可选登录页 -->

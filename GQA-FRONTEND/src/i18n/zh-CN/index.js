@@ -10,6 +10,7 @@ export default {
     Role: '角色',
     Menu: '菜单',
     Api: 'Api',
+    Data: '数据',
     Dept: '部门',
     Permission: '权限',
     Dict: '字典',
@@ -178,5 +179,7 @@ export default {
     SystemIcon: '图标合集',
     // help
     GqaSelectUserHelp: '多选选择器只供添加用户使用，取消选择不会影响实际效果(请从外部删除)',
-    CanNotDeleteThis: '抱歉!你不能删除此项!'
+    CanNotDeleteThis: '抱歉!你不能删除此项!',
+    // data permission
+    DeptDataPermissionType: '部门数据权限分类',
 }

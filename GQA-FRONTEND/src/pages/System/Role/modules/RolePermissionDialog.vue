@@ -11,7 +11,7 @@
                 align="justify" narrow-indicator>
                 <q-tab name="menu" :label="$t('Menu') + ' ' + $t('Permission')" />
                 <q-tab name="api" :label="$t('Api') + ' ' + $t('Permission')" />
-                <q-tab name="movies" label="Movies" />
+                <q-tab name="data" :label="$t('Data') + ' ' + $t('Permission')" />
             </q-tabs>
 
             <q-separator />
@@ -25,9 +25,8 @@
                     <role-permission-api :row="row" />
                 </q-tab-panel>
 
-                <q-tab-panel name="movies">
-                    <div class="text-h6">Movies</div>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                <q-tab-panel name="data">
+                    <role-permission-data :row="row" />
                 </q-tab-panel>
             </q-tab-panels>
         </q-card>
@@ -37,12 +36,14 @@
 <script>
 import RolePermissionMenu from './RolePermissionMenu'
 import RolePermissionApi from './RolePermissionApi'
+import RolePermissionData from './RolePermissionData'
 
 export default {
     name: 'RolePermissionDialog',
     components: {
         RolePermissionMenu,
         RolePermissionApi,
+        RolePermissionData,
     },
     data() {
         return {

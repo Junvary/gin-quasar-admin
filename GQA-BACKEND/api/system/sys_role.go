@@ -218,3 +218,18 @@ func (a *ApiRole) AddRoleUser(c *gin.Context) {
 		global.SuccessMessage("添加角色用户成功！", c)
 	}
 }
+
+func (a *ApiRole) EditRoleDeptDataPermission(c *gin.Context) {
+	var toEditRoleDeptDataPermission system.RequestRoleDeptDataPermission
+	if err := c.ShouldBindJSON(&toEditRoleDeptDataPermission); err != nil {
+		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
+		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
+		return
+	}
+	if err := ServiceRole.EditRoleDeptDataPermission(&toEditRoleDeptDataPermission); err != nil {
+		global.GqaLog.Error("编辑角色部门数据权限失败！", zap.Any("err", err))
+		global.ErrorMessage("编辑角色部门数据权限失败，"+err.Error(), c)
+	} else {
+		global.SuccessMessage("编辑角色部门数据权限成功！", c)
+	}
+}
