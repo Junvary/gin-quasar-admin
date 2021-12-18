@@ -12,7 +12,7 @@ LoadingBar.setDefaults({
 function startLoading() {
     Loading.show({
         // spinner: QSpinnerGears,
-        message: function() {
+        message: function () {
             return this.$t('SystemLoading')
         }
     })
@@ -41,7 +41,7 @@ export default boot(({ router, store }) => {
                             res.forEach(item => {
                                 router.addRoute(item)
                             })
-                            next({...to, replace: true })
+                            next({ ...to, replace: true })
                         } else {
                             store.dispatch('user/HandleLogout')
                             next({ path: '/', replace: true })

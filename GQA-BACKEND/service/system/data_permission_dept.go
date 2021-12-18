@@ -1,6 +1,7 @@
 package system
 
 import (
+	"errors"
 	"gin-quasar-admin/global"
 	"gin-quasar-admin/model/system"
 	"gin-quasar-admin/utils"
@@ -28,20 +29,25 @@ func DeptDataPermission(username string, db *gorm.DB) (err error, permissionDb *
 	tList := utils.RemoveDuplicateElementFromSlice(permissionTypeList)
 	cList := utils.RemoveDuplicateElementFromSlice(permissionCustomList)
 	tempDb := db
+	//创建循环节点
 	Loop:
 	for _, v := range tList {
 		switch v {
 		case "all":
+			//如果权限列表中包含 all，那么直接放弃其他判断，跳出循环
 			permissionDb = db
 			break Loop
 		case "user":
+			//用户自己的数据权限，直接查找创建人为自己的数据
 			permissionDb = tempDb.Where("created_by = ?", username)
 		case "dept":
+			//部门数据权限
 			var deptList []system.SysDept
 			if err = global.GqaDb.Model(&user).Association("Dept").Find(&deptList); err != nil {
 				return err, nil
 			}
 			var deptUserList []string
+			//通过用户所在部门查找这些部门的用户集
 			for _, dept := range deptList {
 				var deptUser []system.SysDeptUser
 				global.GqaDb.Where("sys_dept_dept_code = ?", dept.DeptCode).Find(&deptUser)
@@ -52,10 +58,12 @@ func DeptDataPermission(username string, db *gorm.DB) (err error, permissionDb *
 			allUser := utils.RemoveDuplicateElementFromSlice(deptUserList)
 			permissionDb = tempDb.Or(tempDb.Where("created_by in ?", allUser))
 		case "deptWithChildren":
+			//包含子部门的部门数据权限
 			var deptList []system.SysDept
 			if err = global.GqaDb.Model(&user).Association("Dept").Find(&deptList); err != nil {
 				return err, nil
 			}
+			//用户所在部门，且包含所有子部门的用户集
 			var deptListTotal []string
 			for _, dept := range deptList {
 				deptListTotal = append(deptListTotal, dept.DeptCode)
@@ -73,14 +81,9 @@ func DeptDataPermission(username string, db *gorm.DB) (err error, permissionDb *
 			allUser := utils.RemoveDuplicateElementFromSlice(deptUserList)
 			permissionDb = tempDb.Or(tempDb.Where("created_by in ?", allUser))
 		case "custom":
-			var deptListTotal []string
-			for _, cl:= range cList{
-				deptListTotal = append(deptListTotal, cl)
-				deptListTotal= append(deptListTotal, GetChildrenFromDept(cl)...)
-			}
-			deptListTotal = utils.RemoveDuplicateElementFromSlice(deptListTotal)
+			//自定义部门数据权限
 			var deptUserList []string
-			for _, dept := range deptListTotal {
+			for _, dept := range cList {
 				var deptUser []system.SysDeptUser
 				global.GqaDb.Where("sys_dept_dept_code = ?", dept).Find(&deptUser)
 				for _, u := range deptUser {
@@ -89,12 +92,16 @@ func DeptDataPermission(username string, db *gorm.DB) (err error, permissionDb *
 			}
 			allUser := utils.RemoveDuplicateElementFromSlice(deptUserList)
 			permissionDb = tempDb.Or(tempDb.Where("created_by in ?", allUser))
+		default:
+			permissionDb = tempDb
+			return errors.New("没有数据权限配置！"), nil
 		}
 	}
 	return nil, permissionDb
 }
 
 func GetChildrenFromDept(deptCode string) (dl []string) {
+	//递归函数，查出所有子部门和部门
 	var deptList []system.SysDept
 	global.GqaDb.Where("parent_code = ?", deptCode).Find(&deptList)
 	var deptListString []string
