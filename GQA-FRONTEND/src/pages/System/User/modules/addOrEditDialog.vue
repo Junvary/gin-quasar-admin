@@ -67,6 +67,22 @@
                             <q-input class="col" v-model="addOrEditDetail.email" :label="$t('Email')" />
                         </div>
                         <div class="row">
+                            <q-field class="col" :label="$t('Role')" stack-label>
+                                <template v-slot:control>
+                                    <span v-for="(item, index) in addOrEditDetail.role" :key="index">
+                                        {{ item.roleName }};&nbsp;
+                                    </span>
+                                </template>
+                            </q-field>
+                            <q-field class="col" :label="$t('Dept')" stack-label>
+                                <template v-slot:control>
+                                    <span v-for="(item, index) in addOrEditDetail.dept" :key="index">
+                                        {{ item.deptName }};&nbsp;
+                                    </span>
+                                </template>
+                            </q-field>
+                        </div>
+                        <div class="row">
                             <q-field class="col" :label="$t('Gender')" stack-label>
                                 <template v-slot:control>
                                     <q-option-group v-model="addOrEditDetail.gender" :options="dictOptions.gender"

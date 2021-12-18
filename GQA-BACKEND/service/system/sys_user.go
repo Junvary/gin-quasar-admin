@@ -30,7 +30,8 @@ func (s *ServiceUser) GetUserList(requestUserList system.RequestUserList) (err e
 	if err != nil {
 		return
 	}
-	err = db.Limit(pageSize).Offset(offset).Order(global.OrderByColumn(requestUserList.SortBy, requestUserList.Desc)).Find(&userList).Error
+	err = db.Limit(pageSize).Offset(offset).Order(global.OrderByColumn(requestUserList.SortBy, requestUserList.Desc)).
+		Preload("Role").Preload("Dept").Find(&userList).Error
 	return err, userList, total
 }
 
@@ -91,7 +92,8 @@ func (s *ServiceUser) GetUserByUsername(username string) (err error, userInfo sy
 
 func (s *ServiceUser) QueryUserById(id uint) (err error, userInfo system.SysUser) {
 	var user system.SysUser
-	err = global.GqaDb.Preload("CreatedByUser").Preload("UpdatedByUser").First(&user, "id = ?", id).Error
+	err = global.GqaDb.Preload("CreatedByUser").Preload("UpdatedByUser").
+		Preload("Role").Preload("Dept").First(&user, "id = ?", id).Error
 	return err, user
 }
 

@@ -30,6 +30,26 @@
                 </q-td>
             </template>
 
+            <template v-slot:body-cell-role="props">
+                <q-td :props="props">
+                    <div class="column items-center q-gutter-xs">
+                        <q-badge class="col" color="primary" v-for="(item, index) in props.row.role" :key="index">
+                            {{ item.roleName }}
+                        </q-badge>
+                    </div>
+                </q-td>
+            </template>
+
+            <template v-slot:body-cell-dept="props">
+                <q-td :props="props">
+                    <div class="column items-center q-gutter-xs">
+                        <q-badge class="col" color="primary" v-for="(item, index) in props.row.dept" :key="index">
+                            {{ item.deptName }}
+                        </q-badge>
+                    </div>
+                </q-td>
+            </template>
+
             <template v-slot:body-cell-status="props">
                 <q-td :props="props">
                     <GqaDictShow dictName="statusOnOff" :dictCode="props.row.status" />
@@ -41,25 +61,6 @@
                     <GqaDictShow dictName="statusYesNo" :dictCode="props.row.stable" />
                 </q-td>
             </template>
-
-            <!-- <template v-slot:body-cell-dept="props">
-                <q-td :props="props">
-                    <div class="q-gutter-xs">
-                        {{ getDeptName(props.row.dept) }}
-                    </div>
-                </q-td>
-            </template>
-
-            <template v-slot:body-cell-role="props">
-                <q-td :props="props">
-                    <div class="q-gutter-xs">
-                        <q-chip color="primary" text-color="white" v-for="(item, index) in props.row.role" :key="index">
-                            {{ getRoleName(item) }}
-                        </q-chip>
-
-                    </div>
-                </q-td>
-            </template> -->
 
             <template v-slot:body-cell-actions="props">
                 <q-td :props="props">
@@ -97,7 +98,8 @@ export default {
                 { name: 'nickname', align: 'center', label: this.$t('Nickname'), field: 'nickname' },
                 { name: 'realName', align: 'center', label: this.$t('RealName'), field: 'realName' },
                 { name: 'gender', align: 'center', label: this.$t('Gender'), field: 'gender' },
-                { name: 'mobile', align: 'center', label: this.$t('Mobile'), field: 'mobile' },
+                { name: 'role', align: 'center', label: this.$t('Role'), field: 'role' },
+                // { name: 'mobile', align: 'center', label: this.$t('Mobile'), field: 'mobile' },
                 // { name: 'email', align: 'center', label: '邮箱', field: 'email' },
                 { name: 'dept', align: 'center', label: this.$t('Dept'), field: 'dept' },
                 { name: 'status', align: 'center', label: this.$t('Status'), field: 'status' },
