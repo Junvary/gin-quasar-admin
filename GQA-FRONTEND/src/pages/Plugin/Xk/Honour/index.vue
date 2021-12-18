@@ -29,6 +29,12 @@
                 </q-td>
             </template>
 
+            <template v-slot:body-cell-createdAt="props">
+                <q-td :props="props">
+                    {{ showDateTime(props.row.createdAt) }}
+                </q-td>
+            </template>
+
             <template v-slot:body-cell-actions="props">
                 <q-td :props="props">
                     <div class="q-gutter-xs">
@@ -56,6 +62,13 @@ export default {
         GqaShowName,
         addOrEditDialog,
     },
+    computed: {
+        showDateTime() {
+            return (datetime) => {
+                return FormatDataTime(datetime)
+            }
+        },
+    },
     data() {
         return {
             pagination: {
@@ -72,6 +85,7 @@ export default {
                 { name: 'sort', align: 'center', label: '排序', field: 'sort' },
                 { name: 'title', align: 'center', label: '荣誉认证标题', field: 'title' },
                 { name: 'createdBy', align: 'center', label: '发布人', field: 'createdBy' },
+                { name: 'createdAt', align: 'center', label: '发布时间', field: 'createdAt' },
                 { name: 'status', align: 'center', label: '状态', field: 'status' },
                 { name: 'actions', align: 'center', label: '操作', field: 'actions' },
             ],

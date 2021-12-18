@@ -1,5 +1,5 @@
 <template>
-    <q-dialog v-model="rolePermissionVisible" position="top">
+    <q-dialog v-model="rolePermissionVisible" position="top" @hide="$emit('handleFinish')">
         <q-card style="min-width: 700px; max-width: 50vw">
             <q-card-section>
                 <div class="text-h6">
@@ -37,6 +37,7 @@
 import RolePermissionMenu from './RolePermissionMenu'
 import RolePermissionApi from './RolePermissionApi'
 import RolePermissionData from './RolePermissionData'
+import { getAction } from 'src/api/manage'
 
 export default {
     name: 'RolePermissionDialog',

@@ -44,7 +44,7 @@
             </template>
         </q-table>
         <add-or-edit-dialog ref="addOrEditDialog" @handleFinish="handleFinish" />
-        <role-permission-dialog ref="rolePermissionDialog" />
+        <role-permission-dialog ref="rolePermissionDialog" @handleFinish="handleFinish" />
         <role-user-dialog ref="roleUserDialog" />
     </q-page>
 </template>

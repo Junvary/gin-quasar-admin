@@ -3,12 +3,18 @@ package private_service
 import (
 	"gin-quasar-admin/global"
 	"gin-quasar-admin/gqaplugin/xk/model"
+	"gin-quasar-admin/service/system"
+	"gorm.io/gorm"
 )
 
-func GetNewsList(getNewsList model.RequestNewsList) (err error, news []model.GqaPluginXkNews, total int64) {
+func GetNewsList(getNewsList model.RequestNewsList, username string) (err error, news []model.GqaPluginXkNews, total int64) {
 	pageSize := getNewsList.PageSize
 	offset := getNewsList.PageSize * (getNewsList.Page - 1)
-	db := global.GqaDb.Model(&model.GqaPluginXkNews{})
+	//db := global.GqaDb.Model(&model.GqaPluginXkNews{})
+	var db *gorm.DB
+	if err, db = system.DeptDataPermission(username, global.GqaDb.Model(&model.GqaPluginXkNews{})); err!=nil{
+		return
+	}
 	var newsList []model.GqaPluginXkNews
 	//配置搜索
 	if getNewsList.Title != ""{

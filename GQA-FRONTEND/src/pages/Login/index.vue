@@ -124,11 +124,11 @@ export default {
                 Captcha,
                 CaptchaId,
             })
+            this.getCaptcha()
             if (res) {
                 this.loading = false
                 this.$router.push(this.$route.query.redirect || '/')
             } else {
-                this.getCaptcha()
                 this.form.captcha = ''
                 this.loading = false
             }

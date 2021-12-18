@@ -17,7 +17,7 @@ func GetNewsList(c *gin.Context)  {
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
-	if err, news, total := private_service.GetNewsList(getNewsList); err!=nil{
+	if err, news, total := private_service.GetNewsList(getNewsList, utils.GetUsername(c)); err!=nil{
 		global.GqaLog.Error("获取最新要闻列表失败！", zap.Any("err", err))
 		global.ErrorMessage("获取最新要闻列表失败！"+err.Error(), c)
 	} else {
