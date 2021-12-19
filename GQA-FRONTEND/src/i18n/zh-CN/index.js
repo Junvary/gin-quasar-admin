@@ -87,6 +87,7 @@ export default {
     FixForm: '请完善表格信息!',
     Login: '登录',
     Logout: '退出登录',
+    RefreshTokenSuccess: '刷新Token成功!',
     Relogin: '重新登录',
     LogoutTitle: '确定退出？',
     LogoutMessage: '你真的要退出系统吗？',

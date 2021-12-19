@@ -27,13 +27,13 @@ export default boot(({ app, router, store }) => {
         silentFallbackWarn: true
     })
     // 请求拦截
-    api.interceptors.request.use(res => {
+    api.interceptors.request.use(request => {
         const token = store.getters['user/token']
-        res.headers = {
+        request.headers = {
             'Content-Type': 'application/json;charset=utf-8',
             'Gqa-Token': token,
         }
-        return res
+        return request
     }, error => {
         Notify.create({
             type: 'negative',
@@ -43,6 +43,15 @@ export default boot(({ app, router, store }) => {
     })
     // 响应拦截
     api.interceptors.response.use(response => {
+        // 如果JWT的ExpiresAt已经过期，但是RefreshAt没有过期，那么后台会在headers里插入Gqa-Refresh-Token，这里保存下来，形成更换token逻辑
+        if (response.headers['gqa-refresh-token']) {
+            store.dispatch('user/SetToken', response.headers['gqa-refresh-token'])
+            Notify.create({
+                type: 'positive',
+                message: i18n.global.t('RefreshTokenSuccess'),
+            })
+            return api(response.config)
+        }
         const responseData = response.data
         const { code } = responseData
         if (code === 1) {

@@ -87,6 +87,7 @@ export default {
     FixForm: 'Please correct the form information!',
     Login: 'Sign In',
     Logout: 'Logout',
+    RefreshTokenSuccess: 'Refresh Token Success!',
     Relogin: 'Login Again',
     LogoutTitle: 'Logout?',
     LogoutMessage: 'Do you really want to logout?',

@@ -7,7 +7,7 @@ import (
 	"go.uber.org/zap"
 )
 
-type ApiUpload struct {}
+type ApiUpload struct{}
 
 func (a *ApiUpload) UploadAvatar(c *gin.Context) {
 	username := utils.GetUsername(c)

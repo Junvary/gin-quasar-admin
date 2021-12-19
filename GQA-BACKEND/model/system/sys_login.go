@@ -5,7 +5,8 @@ import (
 )
 
 type GqaJwtClaims struct {
-	Username   string `json:"username"`
+	Username  string `json:"username"`
+	RefreshAt int64  `json:"refreshAt"`
 	jwt.StandardClaims
 }
 

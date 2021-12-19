@@ -8,7 +8,7 @@ import (
 	"go.uber.org/zap"
 )
 
-type ApiDict struct {}
+type ApiDict struct{}
 
 func (a *ApiDict) GetDictList(c *gin.Context) {
 	var requestDictList system.RequestDictList

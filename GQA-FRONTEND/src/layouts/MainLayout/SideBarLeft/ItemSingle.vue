@@ -1,8 +1,8 @@
 <template>
     <q-item clickable v-ripple exact :to="{ path: addRoutesItem.path }" :inset-level="initLevel"
-        active-class="text-primary text-bold text-italic">
+        active-class="bg-primary text-white text-bold text-italic">
         <q-item-section avatar>
-            <q-icon :name="addRoutesItem.icon" color="primary" />
+            <q-icon :name="addRoutesItem.icon" />
         </q-item-section>
         <q-item-section>{{ $t(addRoutesItem.title) }}</q-item-section>
     </q-item>

@@ -2,7 +2,7 @@
     <q-expansion-item :group="addRoutesItem.name" :default-opened="itemOpen" :header-inset-level="initLevel">
         <template v-slot:header>
             <q-item-section avatar>
-                <q-icon :name="addRoutesItem.icon" color="primary" />
+                <q-icon :name="addRoutesItem.icon" />
             </q-item-section>
             <q-item-section>{{ $t(addRoutesItem.title) }}</q-item-section>
         </template>
