@@ -12,9 +12,9 @@ func (r *RouterLog) InitRouterLog(Router *gin.RouterGroup) (R gin.IRoutes) {
 		//删除登录日志
 		logGroup.DELETE("log-login-delete", ApiLogLogin.DeleteLogLogin)
 		//获取操作日志列表
-		logGroup.POST("log-operation-list", ApiLogLogin.GetLogLoginList)
+		logGroup.POST("log-operation-list", ApiLogOperation.GetLogOperationList)
 		//删除操作日志
-		logGroup.DELETE("log-operation-delete", ApiLogLogin.DeleteLogLogin)
+		logGroup.DELETE("log-operation-delete", ApiLogOperation.DeleteLogOperation)
 	}
 	return Router
 }

@@ -134,21 +134,6 @@ func (s *ServiceUser) GetUserMenu(c *gin.Context) (err error, menu []system.SysM
 	return nil, result
 }
 
-func (s *ServiceUser) GetUserRole(c *gin.Context) (err error, role []system.SysRole) {
-	username := utils.GetUsername(c)
-	var user system.SysUser
-	err = global.GqaDb.Preload("Role").Where("username=?", username).First(&user).Error
-	if err != nil {
-		return err, nil
-	}
-	var userRole []system.SysRole
-	err = global.GqaDb.Model(&user).Association("Role").Find(&userRole)
-	if err != nil {
-		return err, nil
-	}
-	return nil, userRole
-}
-
 func (s *ServiceUser) ChangePassword(username string, toChangePassword system.RequestChangePassword) (err error) {
 	if toChangePassword.NewPassword1 != toChangePassword.NewPassword2{
 		return errors.New("两次新密码不一致！")

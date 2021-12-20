@@ -17,7 +17,7 @@ func GetProjectList(c *gin.Context) {
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
-	if err, project, total := private_service.GetProjectList(getProjectList); err != nil {
+	if err, project, total := private_service.GetProjectList(getProjectList, utils.GetUsername(c)); err != nil {
 		global.GqaLog.Error("获取项目列表失败！", zap.Any("err", err))
 		global.ErrorMessage("获取项目列表失败！"+err.Error(), c)
 	} else {
@@ -38,7 +38,7 @@ func EditProject(c *gin.Context) {
 		return
 	}
 	toEditProject.UpdatedBy = utils.GetUsername(c)
-	if err := private_service.EditProject(toEditProject); err != nil {
+	if err := private_service.EditProject(toEditProject, utils.GetUsername(c)); err != nil {
 		global.GqaLog.Error("编辑新闻失败！", zap.Any("err", err))
 		global.ErrorMessage("编辑新闻失败，"+err.Error(), c)
 	} else {
@@ -60,14 +60,14 @@ func AddProject(c *gin.Context) {
 			Sort:      toAddProject.Sort,
 			Remark:    toAddProject.Remark,
 		},
-		ProjectName: toAddProject.ProjectName,
-		Demand:      toAddProject.Demand,
-		LeaderId:    toAddProject.LeaderId,
-		Player:    toAddProject.Player,
-		Language:    toAddProject.Language,
-		Node:        toAddProject.Node,
+		ProjectName:    toAddProject.ProjectName,
+		Demand:         toAddProject.Demand,
+		LeaderUsername: toAddProject.LeaderUsername,
+		Player:         toAddProject.Player,
+		Language:       toAddProject.Language,
+		Node:           toAddProject.Node,
 	}
-	if err := private_service.AddProject(*addProject); err != nil {
+	if err := private_service.AddProject(*addProject, utils.GetUsername(c)); err != nil {
 		global.GqaLog.Error("添加项目失败！", zap.Any("err", err))
 		global.ErrorMessage("添加项目失败，"+err.Error(), c)
 	} else {
@@ -82,7 +82,7 @@ func DeleteProject(c *gin.Context) {
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
-	if err := private_service.DeleteProject(toDeleteId.Id); err != nil {
+	if err := private_service.DeleteProject(toDeleteId.Id, utils.GetUsername(c)); err != nil {
 		global.GqaLog.Error("删除项目失败！", zap.Any("err", err))
 		global.ErrorMessage("删除项目失败，"+err.Error(), c)
 	} else {
@@ -97,7 +97,7 @@ func QueryProjectById(c *gin.Context) {
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
-	if err, dept := private_service.QueryProjectById(toQueryId.Id); err != nil {
+	if err, dept := private_service.QueryProjectById(toQueryId.Id, utils.GetUsername(c)); err != nil {
 		global.GqaLog.Error("查找项目失败！", zap.Any("err", err))
 		global.ErrorMessage("查找项目失败，"+err.Error(), c)
 	} else {

@@ -1,45 +1,80 @@
 <template>
     <q-page padding>
-        <q-table row-key="id" separator="cell" :data="tableData" :columns="columns" v-model:pagination="pagination"
+
+        <div class="items-center row q-gutter-md" style="margin-bottom: 10px">
+            <q-input style="width: 20%" v-model="queryParams.operationUsername" :label="$t('User')" />
+
+            <q-btn color="primary" @click="handleSearch" :label="$t('Search')" />
+            <q-btn color="primary" @click="resetSearch" :label="$t('Reset')" />
+        </div>
+
+        <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
             :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
-            <template v-slot:body-cell-actions="props">
+
+            <template v-slot:top="props">
+                <q-space />
+                <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
+                    @click="props.toggleFullscreen" class="q-ml-md" />
+            </template>
+
+            <template v-slot:body-cell-createdAt="props">
                 <q-td :props="props">
-                    <div class="q-gutter-xs">
-                        <q-btn color="primary" @click="handleDelete(props.row)" label="删除" />
-                    </div>
+                    {{ showDateTime(props.row.createdAt) }}
                 </q-td>
             </template>
+
         </q-table>
     </q-page>
 </template>
 
 <script>
 import { tableDataMixin } from 'src/mixins/tableDataMixin'
+import GqaDictShow from 'src/components/GqaDictShow'
+import { DictOptions } from 'src/utils/dict'
+import { FormatDateTime } from 'src/utils/date'
 
 export default {
     name: 'Operation',
     mixins: [tableDataMixin],
+    components: {
+        GqaDictShow,
+    },
+    computed: {
+        columns() {
+            return [
+                { name: 'id', align: 'center', label: 'ID', field: 'id' },
+                { name: 'operationUsername', align: 'center', label: this.$t('User'), field: 'operationUsername' },
+                { name: 'operationIp', align: 'center', label: 'IP', field: 'operationIp' },
+                { name: 'operationMethod', align: 'center', label: this.$t('Method'), field: 'operationMethod' },
+                { name: 'operationApi', align: 'center', label: this.$t('Api'), field: 'operationApi' },
+                { name: 'operationStatus', align: 'center', label: this.$t('Status'), field: 'operationStatus' },
+                { name: 'createdAt', align: 'center', label: this.$t('CreatedAt'), field: 'createdAt' },
+            ]
+        },
+        showDateTime() {
+            return (datetime) => {
+                return FormatDateTime(datetime)
+            }
+        },
+    },
     data() {
         return {
-            url: {
-                list: 'api/system/operation_log/',
+            pagination: {
+                sortBy: 'created_at',
+                descending: true,
+                page: 1,
+                rowsPerPage: 10,
             },
-            columns: [
-                { name: 'request_modular', align: 'center', label: '请求模块', field: 'request_modular' },
-                { name: 'request_path', align: 'center', label: '请求地址', field: 'request_path' },
-                { name: 'request_method', align: 'center', label: '请求方法', field: 'request_method' },
-                { name: 'request_ip', align: 'center', label: 'IP地址', field: 'request_ip' },
-                { name: 'request_browser', align: 'center', label: '浏览器', field: 'request_browser' },
-                { name: 'request_os', align: 'center', label: '操作系统', field: 'request_os' },
-                { name: 'response_code', align: 'center', label: '响应码', field: 'response_code' },
-                { name: 'json_result', align: 'center', label: '返回信息', field: 'json_result' },
-                { name: 'create_datetime', align: 'center', label: '创建时间', field: 'create_datetime' },
-                { name: 'actions', align: 'center', label: '操作', field: 'actions' },
-            ],
+            url: {
+                list: 'log/log-operation-list',
+                delete: 'log/log-operation-delete',
+            },
+            dictOptions: {},
         }
     },
-    created() {
+    async created() {
         this.getTableData()
+        this.dictOptions = await DictOptions()
     },
 }
 </script>

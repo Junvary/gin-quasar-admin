@@ -56,11 +56,13 @@
                         <div class="row">
                             <q-input class="col" v-model="addOrEditDetail.demand" label="需求单位" />
                             <q-select class="col" v-model="addOrEditDetail.language" :options="dictOptions.codeLanguage"
-                                multiple clearable emit-value map-options label="项目语言" />
+                                multiple clearable emit-value map-options
+                                :rules="[ val => val && val.length > 0 || '必须选择项目语言']" label="项目语言" />
                             <q-select class="col" v-model="addOrEditDetail.node" :options="dictOptions.projectNode"
-                                clearable emit-value map-options label="项目节点" />
+                                clearable emit-value map-options :rules="[ val => val && val.length > 0 || '必须选择项目节点']"
+                                label="项目节点" />
                             <GqaSeleteUser className="col" label="牵头人" v-model:selectUser="addOrEditDetail.leader"
-                                v-model:selectId="addOrEditDetail.leaderId" selection="single" />
+                                v-model:selectUsername="addOrEditDetail.leaderUsername" selection="single" />
                         </div>
                         <q-select bottom-slots label="参与人" v-model="addOrEditDetail.player" use-input use-chips multiple
                             hide-dropdown-icon input-debounce="0" new-value-mode="add-unique">
@@ -151,7 +153,7 @@ export default {
             })
             if (res.code === 1) {
                 this.addOrEditDetail = res.data.records
-                this.addOrEditDetail.player = this.addOrEditDetail.player.split(',')
+                this.addOrEditDetail.player = this.addOrEditDetail.player !== '' ? this.addOrEditDetail.player.split(',') : []
                 this.addOrEditDetail.language = this.addOrEditDetail.language.split(',')
             }
             this.loading = false

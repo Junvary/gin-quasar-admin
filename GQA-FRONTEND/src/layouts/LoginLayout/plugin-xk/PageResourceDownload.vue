@@ -72,7 +72,7 @@
 <script>
 import { tableDataMixin } from 'src/mixins/tableDataMixin'
 import GqaShowName from 'src/components/GqaShowName'
-import { FormatDataTime } from 'src/utils/date'
+import { FormatDateTime } from 'src/utils/date'
 import { downloadAction } from 'src/api/manage'
 
 export default {
@@ -84,7 +84,7 @@ export default {
     computed: {
         showDateTime() {
             return (datetime) => {
-                return FormatDataTime(datetime)
+                return FormatDateTime(datetime)
             }
         },
     },

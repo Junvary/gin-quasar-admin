@@ -27,31 +27,47 @@ func GetNewsList(getNewsList model.RequestNewsList, username string) (err error,
 	return err, newsList, total
 }
 
-func EditNews(toEditNews model.GqaPluginXkNews) (err error) {
+func EditNews(toEditNews model.GqaPluginXkNews, username string) (err error) {
+	var db *gorm.DB
+	if err, db = system.DeptDataPermission(username, global.GqaDb.Model(&model.GqaPluginXkNews{})); err != nil {
+		return err
+	}
 	var news model.GqaPluginXkNews
-	if err = global.GqaDb.Where("id = ?", toEditNews.Id).First(&news).Error; err != nil {
+	if err = db.Where("id = ?", toEditNews.Id).First(&news).Error; err != nil {
 		return err
 	}
 	err = global.GqaDb.Updates(&toEditNews).Error
 	return err
 }
 
-func AddNews(toAddNews model.GqaPluginXkNews) (err error) {
-	err = global.GqaDb.Create(&toAddNews).Error
-	return err
-}
-
-func DeleteNews(id uint) (err error) {
-	var news model.GqaPluginXkNews
-	if err = global.GqaDb.Where("id = ?", id).First(&news).Error; err != nil {
+func AddNews(toAddNews model.GqaPluginXkNews, username string) (err error) {
+	var db *gorm.DB
+	if err, db = system.DeptDataPermission(username, global.GqaDb.Model(&model.GqaPluginXkNews{})); err != nil {
 		return err
 	}
-	err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&news).Error
+	err = db.Create(&toAddNews).Error
 	return err
 }
 
-func QueryNewsById(id uint) (err error, newsInfo model.GqaPluginXkNews) {
+func DeleteNews(id uint, username string) (err error) {
+	var db *gorm.DB
+	if err, db = system.DeptDataPermission(username, global.GqaDb.Model(&model.GqaPluginXkNews{})); err != nil {
+		return err
+	}
 	var news model.GqaPluginXkNews
-	err = global.GqaDb.Preload("CreatedByUser").Preload("UpdatedByUser").First(&news, "id = ?", id).Error
+	if err = db.Where("id = ?", id).First(&news).Error; err != nil {
+		return err
+	}
+	err = db.Where("id = ?", id).Unscoped().Delete(&news).Error
+	return err
+}
+
+func QueryNewsById(id uint, username string) (err error, newsInfo model.GqaPluginXkNews) {
+	var news model.GqaPluginXkNews
+	var db *gorm.DB
+	if err, db = system.DeptDataPermission(username, global.GqaDb.Model(&model.GqaPluginXkNews{})); err != nil {
+		return err, news
+	}
+	err = db.Preload("CreatedByUser").Preload("UpdatedByUser").First(&news, "id = ?", id).Error
 	return err, news
 }

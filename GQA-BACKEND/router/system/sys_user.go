@@ -1,14 +1,14 @@
 package system
 
 import (
+	"gin-quasar-admin/middleware"
 	"github.com/gin-gonic/gin"
 )
 
-type RouterUser struct {
-}
+type RouterUser struct {}
 
 func (r *RouterUser) InitRouterUser(Router *gin.RouterGroup) (R gin.IRoutes) {
-	userGroup := Router.Group("user")
+	userGroup := Router.Group("user").Use(middleware.LogOperationHandler())
 	{
 		//获取用户列表
 		userGroup.POST("user-list", ApiUser.GetUserList)
@@ -22,8 +22,6 @@ func (r *RouterUser) InitRouterUser(Router *gin.RouterGroup) (R gin.IRoutes) {
 		userGroup.POST("user-id", ApiUser.QueryUserById)
 		//获取用户的菜单
 		userGroup.GET("user-menu", ApiUser.GetUserMenu)
-		//获取用户的角色列表
-		userGroup.GET("user-role", ApiUser.GetUserRole)
 		//用户修改密码
 		userGroup.POST("user-change-password", ApiUser.ChangePassword)
 	}

@@ -11,4 +11,5 @@ type ServiceSystem struct {
 	ServiceConfigBackend
 	ServiceConfigFrontend
 	ServiceLogLogin
+	ServiceLogOperation
 }

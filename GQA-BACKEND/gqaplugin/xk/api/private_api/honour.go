@@ -17,7 +17,7 @@ func GetHonourList(c *gin.Context)  {
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
-	if err, honour, total := private_service.GetHonourList(getHonourList); err!=nil{
+	if err, honour, total := private_service.GetHonourList(getHonourList, utils.GetUsername(c)); err!=nil{
 		global.GqaLog.Error("获取荣誉认证列表失败！", zap.Any("err", err))
 		global.ErrorMessage("获取荣誉认证列表失败！"+err.Error(), c)
 	} else {
@@ -38,7 +38,7 @@ func EditHonour(c *gin.Context) {
 		return
 	}
 	toEditHonour.UpdatedBy = utils.GetUsername(c)
-	if err := private_service.EditHonour(toEditHonour); err != nil {
+	if err := private_service.EditHonour(toEditHonour, utils.GetUsername(c)); err != nil {
 		global.GqaLog.Error("编辑荣誉认证失败！", zap.Any("err", err))
 		global.ErrorMessage("编辑荣誉认证失败，"+err.Error(), c)
 	} else {
@@ -63,7 +63,7 @@ func AddHonour(c *gin.Context) {
 		Title: toAddHonour.Title,
 		Attachment: toAddHonour.Attachment,
 	}
-	if err := private_service.AddHonour(*addHonour); err != nil {
+	if err := private_service.AddHonour(*addHonour, utils.GetUsername(c)); err != nil {
 		global.GqaLog.Error("添加荣誉认证失败！", zap.Any("err", err))
 		global.ErrorMessage("添加荣誉认证失败，"+err.Error(), c)
 	} else {
@@ -78,7 +78,7 @@ func DeleteHonour(c *gin.Context) {
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
-	if err := private_service.DeleteHonour(toDeleteId.Id); err != nil {
+	if err := private_service.DeleteHonour(toDeleteId.Id, utils.GetUsername(c)); err != nil {
 		global.GqaLog.Error("删除荣誉认证失败！", zap.Any("err", err))
 		global.ErrorMessage("删除荣誉认证失败，"+err.Error(), c)
 	} else {
@@ -93,7 +93,7 @@ func  QueryHonourById(c *gin.Context) {
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
-	if err, dept := private_service.QueryHonourById(toQueryId.Id); err != nil {
+	if err, dept := private_service.QueryHonourById(toQueryId.Id, utils.GetUsername(c)); err != nil {
 		global.GqaLog.Error("查找荣誉认证失败！", zap.Any("err", err))
 		global.ErrorMessage("查找荣誉认证失败，"+err.Error(), c)
 	} else {

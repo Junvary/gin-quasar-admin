@@ -9,25 +9,25 @@ type GqaPluginXkProject struct {
 	UpdatedByUser *system.SysUser `json:"updatedByUser" gorm:"foreignKey:UpdatedBy;references:Username"`
 	CreatedByUser *system.SysUser `json:"createdByUser" gorm:"foreignKey:CreatedBy;references:Username"`
 	global.GqaModel
-	ProjectName string         `json:"projectName" gorm:"comment:项目名称;not null;index"`
-	Demand      string         `json:"demand" gorm:"comment:需求单位;"`
-	LeaderId    uint           `json:"leaderId" gorm:"comment:牵头人ID;"`
-	Leader      system.SysUser `json:"leader" gorm:"comment:牵头人;foreignKey:LeaderId;references:Id"`
-	Player      string         `json:"player" gorm:"comment:参与人;"`
-	Language    string         `json:"language" gorm:"comment:项目语言"`
-	Node        string         `json:"node" gorm:"comment:项目节点"`
+	ProjectName    string         `json:"projectName" gorm:"comment:项目名称;not null;index"`
+	Demand         string         `json:"demand" gorm:"comment:需求单位;"`
+	LeaderUsername string         `json:"leaderUsername" gorm:"comment:牵头人username;"`
+	Leader         system.SysUser `json:"leader" gorm:"comment:牵头人;foreignKey:LeaderUsername;references:Username"`
+	Player         string         `json:"player" gorm:"comment:参与人;"`
+	Language       string         `json:"language" gorm:"comment:项目语言"`
+	Node           string         `json:"node" gorm:"comment:项目节点"`
 }
 
 type RequestAddProject struct {
-	Status      string `json:"status"`
-	Sort        uint   `json:"sort"`
-	Remark      string `json:"remark"`
-	ProjectName string `json:"projectName"`
-	Demand      string `json:"demand"`
-	LeaderId    uint   `json:"leaderId"`
-	Player      string `json:"player"`
-	Language    string `json:"language"`
-	Node        string `json:"node"`
+	Status         string `json:"status"`
+	Sort           uint   `json:"sort"`
+	Remark         string `json:"remark"`
+	ProjectName    string `json:"projectName"`
+	Demand         string `json:"demand"`
+	LeaderUsername string `json:"leaderUsername"`
+	Player         string `json:"player"`
+	Language       string `json:"language"`
+	Node           string `json:"node"`
 }
 
 type RequestProjectList struct {

@@ -53,6 +53,7 @@ import { tableDataMixin } from 'src/mixins/tableDataMixin'
 import GqaDictShow from 'src/components/GqaDictShow'
 import GqaShowName from 'src/components/GqaShowName'
 import addOrEditDialog from './modules/addOrEditDialog'
+import { FormatDateTime } from 'src/utils/date'
 
 export default {
     name: 'News',
@@ -65,7 +66,7 @@ export default {
     computed: {
         showDateTime() {
             return (datetime) => {
-                return FormatDataTime(datetime)
+                return FormatDateTime(datetime)
             }
         },
     },

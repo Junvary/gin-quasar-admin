@@ -1,13 +1,14 @@
 package system
 
 import (
+	"gin-quasar-admin/middleware"
 	"github.com/gin-gonic/gin"
 )
 
 type RouterConfigBackend struct {}
 
 func (r *RouterConfigBackend) InitRouterConfigBackend(Router *gin.RouterGroup) (R gin.IRoutes) {
-	configGroup := Router.Group("config-backend")
+	configGroup := Router.Group("config-backend").Use(middleware.LogOperationHandler())
 	{
 		//获取config列表
 		configGroup.POST("config-backend-list", ApiConfigBackend.GetConfigBackendList)

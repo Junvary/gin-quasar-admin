@@ -38,7 +38,7 @@ func EditNews(c *gin.Context) {
 		return
 	}
 	toEditNews.UpdatedBy = utils.GetUsername(c)
-	if err := private_service.EditNews(toEditNews); err != nil {
+	if err := private_service.EditNews(toEditNews, utils.GetUsername(c)); err != nil {
 		global.GqaLog.Error("编辑最新要闻失败！", zap.Any("err", err))
 		global.ErrorMessage("编辑最新要闻失败，"+err.Error(), c)
 	} else {
@@ -64,7 +64,7 @@ func AddNews(c *gin.Context) {
 		Content: toAddNews.Content,
 		Attachment: toAddNews.Attachment,
 	}
-	if err := private_service.AddNews(*addNews); err != nil {
+	if err := private_service.AddNews(*addNews, utils.GetUsername(c)); err != nil {
 		global.GqaLog.Error("添加最新要闻失败！", zap.Any("err", err))
 		global.ErrorMessage("添加最新要闻失败，"+err.Error(), c)
 	} else {
@@ -79,7 +79,7 @@ func DeleteNews(c *gin.Context) {
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
-	if err := private_service.DeleteNews(toDeleteId.Id); err != nil {
+	if err := private_service.DeleteNews(toDeleteId.Id, utils.GetUsername(c)); err != nil {
 		global.GqaLog.Error("删除最新要闻失败！", zap.Any("err", err))
 		global.ErrorMessage("删除最新要闻失败，"+err.Error(), c)
 	} else {
@@ -94,7 +94,7 @@ func  QueryNewsById(c *gin.Context) {
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
-	if err, dept := private_service.QueryNewsById(toQueryId.Id); err != nil {
+	if err, dept := private_service.QueryNewsById(toQueryId.Id, utils.GetUsername(c)); err != nil {
 		global.GqaLog.Error("查找最新要闻失败！", zap.Any("err", err))
 		global.ErrorMessage("查找最新要闻失败，"+err.Error(), c)
 	} else {

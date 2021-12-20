@@ -26,14 +26,18 @@ export default {
     },
     computed: {
         dictLabel() {
-            const codeList = this.dictCode.split(',')
-            const dict = this.dictList[this.dictName]
-            let label = ''
-            for (let d of codeList) {
-                const l = dict.filter((item) => item.dictCode === d)[0].dictLabel
-                label += l + ' '
+            if (this.dictCode !== '') {
+                const codeList = this.dictCode.split(',')
+                const dict = this.dictList[this.dictName]
+                let label = ''
+                for (let d of codeList) {
+                    const l = dict.filter((item) => item.dictCode === d)[0].dictLabel
+                    label += l + ' '
+                }
+                return label
+            } else {
+                return ''
             }
-            return label
         },
     },
     data() {

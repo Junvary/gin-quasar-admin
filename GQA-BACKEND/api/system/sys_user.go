@@ -134,14 +134,6 @@ func (a *ApiUser) GetUserMenu(c *gin.Context) {
 	global.SuccessMessageData(gin.H{"records": menu}, "获取用户菜单成功！", c)
 }
 
-func (a *ApiUser) GetUserRole(c *gin.Context) {
-	err, role := ServiceUser.GetUserRole(c)
-	if err != nil {
-		global.ErrorMessage("获取用户角色失败，"+err.Error(), c)
-	}
-	global.SuccessMessageData(gin.H{"records": role}, "获取用户角色成功！", c)
-}
-
 func (a *ApiUser) ChangePassword(c *gin.Context) {
 	var toChangePassword system.RequestChangePassword
 	if err := c.ShouldBindJSON(&toChangePassword); err != nil {

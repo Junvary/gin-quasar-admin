@@ -17,7 +17,7 @@ func GetDocumentList(c *gin.Context)  {
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
-	if err, document, total := private_service.GetDocumentList(getDocumentList); err!=nil{
+	if err, document, total := private_service.GetDocumentList(getDocumentList, utils.GetUsername(c)); err!=nil{
 		global.GqaLog.Error("获取文档列表失败！", zap.Any("err", err))
 		global.ErrorMessage("获取文档列表失败！"+err.Error(), c)
 	} else {
@@ -38,7 +38,7 @@ func EditDocument(c *gin.Context) {
 		return
 	}
 	toEditDocument.UpdatedBy = utils.GetUsername(c)
-	if err := private_service.EditDocument(toEditDocument); err != nil {
+	if err := private_service.EditDocument(toEditDocument, utils.GetUsername(c)); err != nil {
 		global.GqaLog.Error("编辑文档失败！", zap.Any("err", err))
 		global.ErrorMessage("编辑文档失败，"+err.Error(), c)
 	} else {
@@ -64,7 +64,7 @@ func AddDocument(c *gin.Context) {
 		Content: toAddDocument.Content,
 		Attachment: toAddDocument.Attachment,
 	}
-	if err := private_service.AddDocument(*addDocument); err != nil {
+	if err := private_service.AddDocument(*addDocument, utils.GetUsername(c)); err != nil {
 		global.GqaLog.Error("添加文档失败！", zap.Any("err", err))
 		global.ErrorMessage("添加文档失败，"+err.Error(), c)
 	} else {
@@ -79,7 +79,7 @@ func DeleteDocument(c *gin.Context) {
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
-	if err := private_service.DeleteDocument(toDeleteId.Id); err != nil {
+	if err := private_service.DeleteDocument(toDeleteId.Id, utils.GetUsername(c)); err != nil {
 		global.GqaLog.Error("删除文档失败！", zap.Any("err", err))
 		global.ErrorMessage("删除文档失败，"+err.Error(), c)
 	} else {
@@ -94,7 +94,7 @@ func  QueryDocumentById(c *gin.Context) {
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
-	if err, dept := private_service.QueryDocumentById(toQueryId.Id); err != nil {
+	if err, dept := private_service.QueryDocumentById(toQueryId.Id, utils.GetUsername(c)); err != nil {
 		global.GqaLog.Error("查找文档失败！", zap.Any("err", err))
 		global.ErrorMessage("查找文档失败，"+err.Error(), c)
 	} else {

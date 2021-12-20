@@ -25,13 +25,14 @@
 
             <template v-slot:body-cell-language="props">
                 <q-td :props="props">
-                    <GqaDictShow dictName="codeLanguage" :dictCode="props.row.language" />
+                    <GqaDictShow dictName="codeLanguage" :dictCode="props.row.language"
+                        v-if="props.row.language !== ''" />
                 </q-td>
             </template>
 
             <template v-slot:body-cell-node="props">
                 <q-td :props="props">
-                    <GqaDictShow dictName="projectNode" :dictCode="props.row.node" />
+                    <GqaDictShow dictName="projectNode" :dictCode="props.row.node" v-if="props.row.node !== ''" />
                 </q-td>
             </template>
 

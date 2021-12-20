@@ -3,14 +3,13 @@ package middleware
 import (
 	"fmt"
 	"gin-quasar-admin/global"
-	"gin-quasar-admin/service"
 	"gin-quasar-admin/utils"
 	"github.com/gin-gonic/gin"
 )
 
 func CasbinHandler() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		err, subList := service.GroupServiceApp.ServiceSystem.GetUserRole(c)
+		err, subList := utils.GetUserRole(c)
 		if err != nil {
 			global.GqaLog.Error("Casbin中间件获取角色失败！")
 			global.ErrorMessage("Casbin中间件获取角色失败！", c)

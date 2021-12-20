@@ -53,7 +53,7 @@
 import { tableDataMixin } from 'src/mixins/tableDataMixin'
 import GqaDictShow from 'src/components/GqaDictShow'
 import { DictOptions } from 'src/utils/dict'
-import { FormatDataTime } from 'src/utils/date'
+import { FormatDateTime } from 'src/utils/date'
 
 export default {
     name: 'Login',
@@ -77,7 +77,7 @@ export default {
         },
         showDateTime() {
             return (datetime) => {
-                return FormatDataTime(datetime)
+                return FormatDateTime(datetime)
             }
         },
     },

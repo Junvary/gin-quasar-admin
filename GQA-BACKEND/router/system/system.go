@@ -26,3 +26,4 @@ var ApiUpload = ApiSystem.ApiUpload
 var ApiConfigBackend = ApiSystem.ApiConfigBackend
 var ApiConfigFrontend = ApiSystem.ApiConfigFrontend
 var ApiLogLogin = ApiSystem.ApiLogLogin
+var ApiLogOperation = ApiSystem.ApiLogOperation

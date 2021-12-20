@@ -4,6 +4,7 @@ export default {
     Os: 'Operation System',
     Platform: 'Platform',
     LoginSuccess: 'Login Success',
+    Method: 'Method',
     Code: 'Code(english)',
     Name: 'Name',
     Title: 'Title',
