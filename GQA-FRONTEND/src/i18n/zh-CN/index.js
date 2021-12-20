@@ -1,5 +1,9 @@
 export default {
     // Define
+    Browser: '浏览器',
+    Os: '操作系统',
+    Platform: '平台',
+    LoginSuccess: '登录成功',
     Code: '编码(英)',
     Name: '名称',
     Title: '名',

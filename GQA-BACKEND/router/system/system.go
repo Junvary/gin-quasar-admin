@@ -12,6 +12,7 @@ type RouterSystem struct {
 	RouterUpload
 	RouterConfigBackend
 	RouterConfigFrontend
+	RouterLog
 }
 
 var ApiSystem = api.GroupApiApp.ApiSystem
@@ -24,3 +25,4 @@ var ApiApi = ApiSystem.ApiApi
 var ApiUpload = ApiSystem.ApiUpload
 var ApiConfigBackend = ApiSystem.ApiConfigBackend
 var ApiConfigFrontend = ApiSystem.ApiConfigFrontend
+var ApiLogLogin = ApiSystem.ApiLogLogin

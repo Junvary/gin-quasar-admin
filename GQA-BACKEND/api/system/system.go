@@ -12,6 +12,7 @@ type ApiSystem struct {
 	ApiUpload
 	ApiConfigBackend
 	ApiConfigFrontend
+	ApiLogLogin
 }
 
 var ServiceSystem = service.GroupServiceApp.ServiceSystem
@@ -24,3 +25,4 @@ var ServiceApi = ServiceSystem.ServiceApi
 var ServiceUpload = ServiceSystem.ServiceUpload
 var ServiceConfigBackend = ServiceSystem.ServiceConfigBackend
 var ServiceConfigFrontend = ServiceSystem.ServiceConfigFrontend
+var ServiceLogLogin = ServiceSystem.ServiceLogLogin

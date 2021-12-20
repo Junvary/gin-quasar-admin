@@ -7,24 +7,26 @@
                         <q-btn :label="$t('Add') + ' ' + $t('Dept')" color="primary" @click="showAddForm" />
                     </div>
                     <q-separator />
-                    <q-tree dense :nodes="deptTree" default-expand-all node-key="id" label-key="name"
-                        selected-color="primary" v-model:selected="selectedKey" v-if="deptTree.length !== 0"
-                        @update:selected="onSelected">
-                        <template v-slot:default-header="prop">
-                            <div class="items-center row">
-                                <q-chip dense color="primary" text-color="white">
-                                    {{ prop.node.sort}}
-                                </q-chip>
-                                <div class="text-weight-bold">
-                                    {{ prop.node.deptName }}
+                    <q-scroll-area style="height: 75vh; width: 100%">
+                        <q-tree dense :nodes="deptTree" default-expand-all node-key="id" label-key="name"
+                            selected-color="primary" v-model:selected="selectedKey" v-if="deptTree.length !== 0"
+                            @update:selected="onSelected" style="margin-right: 10px">
+                            <template v-slot:default-header="prop">
+                                <div class="items-center row">
+                                    <q-chip dense color="primary" text-color="white">
+                                        {{ prop.node.sort}}
+                                    </q-chip>
+                                    <div class="text-weight-bold">
+                                        {{ prop.node.deptName }}
+                                    </div>
                                 </div>
-                            </div>
-                            <q-space></q-space>
-                            <GqaDictShow dictName="statusOnOff" :dictCode="prop.node.status" />
-                            <q-btn :label="$t('Delete')" style="float-right" color="negative" dense
-                                @click="handleDelete(prop.node)" />
-                        </template>
-                    </q-tree>
+                                <q-space></q-space>
+                                <GqaDictShow dictName="statusOnOff" :dictCode="prop.node.status" />
+                                <q-btn :label="$t('Delete')" style="float-right" color="negative" dense
+                                    @click="handleDelete(prop.node)" />
+                            </template>
+                        </q-tree>
+                    </q-scroll-area>
                     <q-inner-loading :showing="loading">
                         <q-spinner-gears size="50px" color="primary" />
                     </q-inner-loading>

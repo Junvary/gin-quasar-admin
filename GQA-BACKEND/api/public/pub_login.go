@@ -8,7 +8,7 @@ import (
 	"go.uber.org/zap"
 )
 
-type ApiLogin struct {}
+type ApiLogin struct{}
 
 func (a *ApiLogin) Login(c *gin.Context) {
 	var l system.RequestLogin
@@ -21,20 +21,29 @@ func (a *ApiLogin) Login(c *gin.Context) {
 		if err, user := ServiceLogin.Login(u); err != nil {
 			global.GqaLog.Error(l.Username+" 登录失败，用户名或密码错误！", zap.Any("err", err))
 			global.ErrorMessage("用户名或密码错误，"+err.Error(), c)
+			if err = ServiceLogin.LogLogin(l.Username, c, "no", "登录失败，用户名或密码错误！"); err != nil {
+				global.GqaLog.Error("登录日志记录错误！", zap.Any("err", err))
+			}
 		} else {
 			a.createToken(*user, c)
 		}
 	} else {
 		global.ErrorMessage("验证码错误！", c)
+		if err := ServiceLogin.LogLogin(l.Username, c, "no", "验证码错误！"); err != nil {
+			global.GqaLog.Error("登录日志记录错误！", zap.Any("err", err))
+		}
 	}
 }
 
 func (a *ApiLogin) createToken(user system.SysUser, c *gin.Context) {
 	ss := utils.CreateToken(user.Username)
-	if ss == ""{
+	if ss == "" {
 		global.GqaLog.Error("Jwt配置错误，请重新初始化数据库！")
 		global.ErrorMessage("Jwt配置错误，请重新初始化数据库！", c)
 		return
+	}
+	if err := ServiceLogin.LogLogin(user.Username, c, "yes", "登录成功！"); err != nil {
+		global.GqaLog.Error("登录日志记录错误！", zap.Any("err", err))
 	}
 	global.SuccessMessageData(system.ResponseLogin{
 		Avatar:   user.Avatar,

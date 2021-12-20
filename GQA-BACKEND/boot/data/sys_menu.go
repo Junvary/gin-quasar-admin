@@ -59,7 +59,7 @@ var sysMenuData = []system.SysMenu{
 		Name: "log-login", ParentCode: "log", Title: "LogLogin", Icon: "toc",
 		Path: "/system/log/log-login", Component: "/System/Log/Login/index",
 	},
-	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1, Remark: "这是操作日志", CreatedAt: time.Now(), CreatedBy: "admin"},
+	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 2, Remark: "这是操作日志", CreatedAt: time.Now(), CreatedBy: "admin"},
 		Name: "log-operation", ParentCode: "log", Title: "LogOperation", Icon: "toc",
 		Path: "/system/log/log-operation", Component: "/System/Log/Operation/index",
 	},

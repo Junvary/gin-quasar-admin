@@ -1,5 +1,9 @@
 export default {
     // Define
+    Browser: 'Browser',
+    Os: 'Operation System',
+    Platform: 'Platform',
+    LoginSuccess: 'Login Success',
     Code: 'Code(english)',
     Name: 'Name',
     Title: 'Title',

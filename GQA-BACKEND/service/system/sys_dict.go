@@ -7,8 +7,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type ServiceDict struct {
-}
+type ServiceDict struct {}
 
 func (s *ServiceDict) GetDictList(requestDictList system.RequestDictList) (err error, role interface{}, total int64, parentCode string) {
 	pageSize := requestDictList.PageSize

@@ -31,7 +31,7 @@
                         <div class="row">
                             <q-field class="col" :label="$t('CreatedAt')" stack-label disable>
                                 <template v-slot:control>
-                                    {{showDateTime(addOrEditDetail.createdAt)}}
+                                    {{ showDateTime(addOrEditDetail.createdAt) }}
                                 </template>
                             </q-field>
                             <q-field class="col" :label="$t('CreatedBy')" stack-label disable>
@@ -42,7 +42,7 @@
                             </q-field>
                             <q-field class="col" :label="$t('UpdatedAt')" stack-label disable>
                                 <template v-slot:control>
-                                    {{showDateTime(addOrEditDetail.updatedAt)}}
+                                    {{ showDateTime(addOrEditDetail.updatedAt) }}
                                 </template>
                             </q-field>
                             <q-field class="col" :label="$t('UpdatedBy')" stack-label disable>

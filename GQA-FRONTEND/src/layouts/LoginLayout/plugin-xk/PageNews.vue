@@ -24,7 +24,7 @@
 
             <template v-slot:body-cell-createdAt="props">
                 <q-td :props="props">
-                    {{showDateTime(props.row.createdAt)}}
+                    {{ showDateTime(props.row.createdAt) }}
                 </q-td>
             </template>
 

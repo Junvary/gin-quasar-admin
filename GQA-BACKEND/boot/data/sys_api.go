@@ -179,6 +179,18 @@ var sysApiData = []system.SysApi{
 	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1055, Remark: "删除前台配置", CreatedAt: time.Now(), CreatedBy: "admin"},
 		ApiGroup: "config-frontend", ApiPath: "/config-frontend/config-frontend-delete", ApiMethod: "DELETE",
 	},
+	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1056, Remark: "获取登录日志列表", CreatedAt: time.Now(), CreatedBy: "admin"},
+		ApiGroup: "log", ApiPath: "/log/log-login-list", ApiMethod: "POST",
+	},
+	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1057, Remark: "删除登录日志", CreatedAt: time.Now(), CreatedBy: "admin"},
+		ApiGroup: "log", ApiPath: "/log/log-login-delete", ApiMethod: "DELETE",
+	},
+	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1058, Remark: "获取操作日志列表", CreatedAt: time.Now(), CreatedBy: "admin"},
+		ApiGroup: "log", ApiPath: "/log/log-operation-list", ApiMethod: "POST",
+	},
+	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1059, Remark: "删除登录日志", CreatedAt: time.Now(), CreatedBy: "admin"},
+		ApiGroup: "log", ApiPath: "/log/log-operation-delete", ApiMethod: "DELETE",
+	},
 }
 
 func (s *sysApi) LoadData() error {

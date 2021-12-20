@@ -32,7 +32,7 @@
                         <div class="row">
                             <q-field class="col" :label="$t('CreatedAt')" stack-label disable>
                                 <template v-slot:control>
-                                    {{showDateTime(addOrEditDetail.createdAt)}}
+                                    {{ showDateTime(addOrEditDetail.createdAt) }}
                                 </template>
                             </q-field>
                             <q-field class="col" :label="$t('CreatedBy')" stack-label disable>
@@ -43,7 +43,7 @@
                             </q-field>
                             <q-field class="col" :label="$t('UpdatedAt')" stack-label disable>
                                 <template v-slot:control>
-                                    {{showDateTime(addOrEditDetail.updatedAt)}}
+                                    {{ showDateTime(addOrEditDetail.updatedAt) }}
                                 </template>
                             </q-field>
                             <q-field class="col" :label="$t('UpdatedBy')" stack-label disable>
@@ -109,16 +109,18 @@
                     <div class="q-gutter-md col-3">
                         <q-field :label="$t('Parent')" stack-label>
                             <template v-slot:control>
-                                <q-tree dense :nodes="menuTree" default-expand-all node-key="name" label-key="name"
-                                    selected-color="primary" v-model:selected="addOrEditDetail.parentCode"
-                                    v-if="menuTree.length !== 0" @update:selected="onSelected">
-                                    <template v-slot:default-header="prop">
-                                        <div class="row items-center">
-                                            <q-icon :name="prop.node.icon || 'share'" size="sm" class="q-mr-sm" />
-                                            <div class="text-weight-bold">{{ $t(prop.node.title) }}</div>
-                                        </div>
-                                    </template>
-                                </q-tree>
+                                <q-scroll-area style="height: 65vh; width: 100%">
+                                    <q-tree dense :nodes="menuTree" default-expand-all node-key="name" label-key="name"
+                                        selected-color="primary" v-model:selected="addOrEditDetail.parentCode"
+                                        v-if="menuTree.length !== 0" @update:selected="onSelected">
+                                        <template v-slot:default-header="prop">
+                                            <div class="row items-center">
+                                                <q-icon :name="prop.node.icon || 'share'" size="sm" class="q-mr-sm" />
+                                                <div class="text-weight-bold">{{ $t(prop.node.title) }}</div>
+                                            </div>
+                                        </template>
+                                    </q-tree>
+                                </q-scroll-area>
                             </template>
                         </q-field>
                     </div>

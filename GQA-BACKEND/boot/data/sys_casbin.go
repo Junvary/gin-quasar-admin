@@ -13,7 +13,7 @@ var SysCasbin = new(sysCasbin)
 type sysCasbin struct{}
 
 var sysCasbinData = []gormadapter.CasbinRule{
-	// user组
+	//user组
 	{Ptype: "p", V0: "super-admin", V1: "/user/user-list", V2: "POST"},
 	{Ptype: "p", V0: "super-admin", V1: "/user/user-edit", V2: "PUT"},
 	{Ptype: "p", V0: "super-admin", V1: "/user/user-add", V2: "POST"},
@@ -22,7 +22,7 @@ var sysCasbinData = []gormadapter.CasbinRule{
 	{Ptype: "p", V0: "super-admin", V1: "/user/user-menu", V2: "GET"},
 	{Ptype: "p", V0: "super-admin", V1: "/user/user-role", V2: "GET"},
 	{Ptype: "p", V0: "super-admin", V1: "/user/user-change-password", V2: "POST"},
-	// role组
+	//role组
 	{Ptype: "p", V0: "super-admin", V1: "/role/role-list", V2: "POST"},
 	{Ptype: "p", V0: "super-admin", V1: "/role/role-edit", V2: "PUT"},
 	{Ptype: "p", V0: "super-admin", V1: "/role/role-add", V2: "POST"},
@@ -36,13 +36,13 @@ var sysCasbinData = []gormadapter.CasbinRule{
 	{Ptype: "p", V0: "super-admin", V1: "/role/role-user-remove", V2: "POST"},
 	{Ptype: "p", V0: "super-admin", V1: "/role/role-user-add", V2: "POST"},
 	{Ptype: "p", V0: "super-admin", V1: "/role/role-dept-data-permission-edit", V2: "PUT"},
-	// menu组
+	//menu组
 	{Ptype: "p", V0: "super-admin", V1: "/menu/menu-list", V2: "POST"},
 	{Ptype: "p", V0: "super-admin", V1: "/menu/menu-edit", V2: "PUT"},
 	{Ptype: "p", V0: "super-admin", V1: "/menu/menu-add", V2: "POST"},
 	{Ptype: "p", V0: "super-admin", V1: "/menu/menu-delete", V2: "DELETE"},
 	{Ptype: "p", V0: "super-admin", V1: "/menu/menu-id", V2: "POST"},
-	// dept组
+	//dept组
 	{Ptype: "p", V0: "super-admin", V1: "/dept/dept-list", V2: "POST"},
 	{Ptype: "p", V0: "super-admin", V1: "/dept/dept-edit", V2: "PUT"},
 	{Ptype: "p", V0: "super-admin", V1: "/dept/dept-add", V2: "POST"},
@@ -51,36 +51,42 @@ var sysCasbinData = []gormadapter.CasbinRule{
 	{Ptype: "p", V0: "super-admin", V1: "/dept/dept-user", V2: "POST"},
 	{Ptype: "p", V0: "super-admin", V1: "/dept/dept-user-remove", V2: "POST"},
 	{Ptype: "p", V0: "super-admin", V1: "/dept/dept-user-add", V2: "POST"},
-	// dict组
+	//dict组
 	{Ptype: "p", V0: "super-admin", V1: "/dict/dict-list", V2: "POST"},
 	{Ptype: "p", V0: "super-admin", V1: "/dict/dict-edit", V2: "PUT"},
 	{Ptype: "p", V0: "super-admin", V1: "/dict/dict-add", V2: "POST"},
 	{Ptype: "p", V0: "super-admin", V1: "/dict/dict-delete", V2: "DELETE"},
 	{Ptype: "p", V0: "super-admin", V1: "/dict/dict-id", V2: "POST"},
 
-	// api组
+	//api组
 	{Ptype: "p", V0: "super-admin", V1: "/api/api-list", V2: "POST"},
 	{Ptype: "p", V0: "super-admin", V1: "/api/api-edit", V2: "PUT"},
 	{Ptype: "p", V0: "super-admin", V1: "/api/api-add", V2: "POST"},
 	{Ptype: "p", V0: "super-admin", V1: "/api/api-delete", V2: "DELETE"},
 
-	// upload组
+	//upload组
 	{Ptype: "p", V0: "super-admin", V1: "/upload/avatar", V2: "POST"},
 	{Ptype: "p", V0: "super-admin", V1: "/upload/file", V2: "POST"},
 	{Ptype: "p", V0: "super-admin", V1: "/upload/web-logo", V2: "POST"},
 	{Ptype: "p", V0: "super-admin", V1: "/upload/header-logo", V2: "POST"},
 
-	// config-backend组
+	//config-backend组
 	{Ptype: "p", V0: "super-admin", V1: "/config-backend/config-backend-list", V2: "POST"},
 	{Ptype: "p", V0: "super-admin", V1: "/config-backend/config-backend-edit", V2: "PUT"},
 	{Ptype: "p", V0: "super-admin", V1: "/config-backend/config-backend-add", V2: "POST"},
 	{Ptype: "p", V0: "super-admin", V1: "/config-backend/config-backend-delete", V2: "DELETE"},
 
-	// config-frontend组
+	//config-frontend组
 	{Ptype: "p", V0: "super-admin", V1: "/config-frontend/config-frontend-list", V2: "POST"},
 	{Ptype: "p", V0: "super-admin", V1: "/config-frontend/config-frontend-edit", V2: "PUT"},
 	{Ptype: "p", V0: "super-admin", V1: "/config-frontend/config-frontend-add", V2: "POST"},
 	{Ptype: "p", V0: "super-admin", V1: "/config-frontend/config-frontend-delete", V2: "DELETE"},
+
+	//log组
+	{Ptype: "p", V0: "super-admin", V1: "/log/log-login-list", V2: "POST"},
+	{Ptype: "p", V0: "super-admin", V1: "/log/log-login-delete", V2: "DELETE"},
+	{Ptype: "p", V0: "super-admin", V1: "/log/log-operation-list", V2: "POST"},
+	{Ptype: "p", V0: "super-admin", V1: "/log/log-operation-delete", V2: "DELETE"},
 }
 
 func (s *sysCasbin) LoadData() error {

@@ -10,4 +10,5 @@ type ServiceSystem struct {
 	ServiceUpload
 	ServiceConfigBackend
 	ServiceConfigFrontend
+	ServiceLogLogin
 }
