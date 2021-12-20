@@ -176,8 +176,10 @@ export default {
     FrontendManage: 'Frontend Manage',
     BackendManage: 'Backend Manage',
     LogManage: 'Log Manage',
+    LogLogin: 'Login Log',
+    LogOperation: 'Operation Log',
     SystemExample: 'Example',
-    SystemIcon: 'Icons',
+    ExampleIcon: 'Icons',
     // help
     GqaSelectUserHelp: 'Multi selector is only for adding users.Deselecting will do nothing(delete users from the outside)',
     CanNotDeleteThis: 'Sorry!You can not delete this!',

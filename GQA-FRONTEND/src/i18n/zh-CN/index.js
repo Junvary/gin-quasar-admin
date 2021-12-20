@@ -176,8 +176,10 @@ export default {
     FrontendManage: '前台配置管理',
     BackendManage: '后台配置管理',
     LogManage: '日志管理',
+    LogLogin: '登录日志',
+    LogOperation: '操作日志',
     SystemExample: '系统示例',
-    SystemIcon: '图标合集',
+    ExampleIcon: '图标合集',
     // help
     GqaSelectUserHelp: '多选选择器只供添加用户使用，取消选择不会影响实际效果(请从外部删除)',
     CanNotDeleteThis: '抱歉!你不能删除此项!',
