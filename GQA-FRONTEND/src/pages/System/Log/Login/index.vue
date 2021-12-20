@@ -14,7 +14,6 @@
             :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
 
             <template v-slot:top="props">
-                <q-btn color="primary" @click="showAddForm()" :label="$t('Add') + ' ' + $t('Role')" />
                 <q-space />
                 <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
                     @click="props.toggleFullscreen" class="q-ml-md" />
@@ -22,7 +21,9 @@
 
             <template v-slot:body-cell-loginSuccess="props">
                 <q-td :props="props">
-                    <GqaDictShow dictName="statusYesNo" :dictCode="props.row.loginSuccess" />
+                    <q-badge align="middle" :color="props.row.loginSuccess === 'no' ? 'negative' : 'positive'">
+                        <GqaDictShow dictName="statusYesNo" :dictCode="props.row.loginSuccess" />
+                    </q-badge>
                 </q-td>
             </template>
 
