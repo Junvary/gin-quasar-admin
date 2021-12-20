@@ -1,6 +1,5 @@
 <template>
-    <q-expansion-item :group="addRoutesItem.name" :default-opened="itemOpen" :header-inset-level="initLevel"
-        v-model="itemOpen">
+    <q-expansion-item :group="addRoutesItem.name" v-model="itemOpen" :header-inset-level="initLevel">
         <template v-slot:header>
             <q-item-section avatar>
                 <q-icon :name="addRoutesItem.icon" />
@@ -26,14 +25,28 @@ export default {
             default: 0,
         },
     },
-    computed: {
-        itemOpen() {
+    watch: {
+        $route() {
+            this.changeOpen()
+        },
+    },
+    created() {
+        this.changeOpen()
+    },
+    data() {
+        return {
+            itemOpen: false,
+        }
+    },
+    methods: {
+        changeOpen() {
             for (let item of this.addRoutesItem.children) {
                 if (item.path === this.$route.path || item.parentCode === this.$route.name) {
-                    return true
+                    this.itemOpen = true
+                    return
                 }
             }
-            return false
+            this.itemOpen = false
         },
     },
 }
