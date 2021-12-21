@@ -97,14 +97,14 @@ func (s *sysApi) LoadData() error {
 		tx.Model(&system.SysApi{}).Where("api_group = ?", "plugin-xk").Count(&count)
 		if count != 0 {
 			fmt.Println("[GQA-Plugin] --> sys_api 表中xk插件数据已存在，跳过初始化数据！数据量：", count)
-			global.GqaLog.Error("[GQA-Plugin] --> sys_api 表中xk插件数据已存在，跳过初始化数据！", zap.Any("数据量", count))
+			global.GqaLog.Warn("[GQA-Plugin] --> sys_api 表中xk插件数据已存在，跳过初始化数据！", zap.Any("数据量", count))
 			return nil
 		}
 		if err := tx.Create(&sysApiData).Error; err != nil { // 遇到错误时回滚事务
 			return err
 		}
 		fmt.Println("[GQA-Plugin] --> xk插件初始数据进入 sys_api 表成功！")
-		global.GqaLog.Error("[GQA-Plugin] --> xk插件初始数据进入 sys_api 表成功！")
+		global.GqaLog.Info("[GQA-Plugin] --> xk插件初始数据进入 sys_api 表成功！")
 		return nil
 	})
 }

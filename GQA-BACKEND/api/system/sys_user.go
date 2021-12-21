@@ -46,6 +46,7 @@ func (a *ApiUser) EditUser(c *gin.Context) {
 		global.GqaLog.Error("编辑用户失败！", zap.Any("err", err))
 		global.ErrorMessage("编辑用户失败，"+err.Error(), c)
 	} else {
+		global.GqaLog.Warn(utils.GetUsername(c) + "编辑用户成功！")
 		global.SuccessMessage("编辑用户成功！", c)
 	}
 }
@@ -95,18 +96,21 @@ func (a *ApiUser) DeleteUser(c *gin.Context) {
 		return
 	}
 	if currentUser.Id == toDeleteId.Id {
+		global.GqaLog.Error(utils.GetUsername(c) + "你不能删除自己！")
 		global.ErrorMessage("你不能删除自己！", c)
 		return
 	}
 	// 初始化时 admin 的 Id 为 1，这里就这样判断了，可以增加更多的逻辑。
 	if toDeleteId.Id == 1 {
+		global.GqaLog.Error(utils.GetUsername(c) + "超级管理员不能被删除！")
 		global.ErrorMessage("超级管理员不能被删除！", c)
 		return
 	}
 	if err := ServiceUser.DeleteUser(toDeleteId.Id); err != nil {
-		global.GqaLog.Error("删除用户失败！", zap.Any("err", err))
+		global.GqaLog.Error(utils.GetUsername(c) + "删除用户失败！", zap.Any("err", err))
 		global.ErrorMessage("删除用户失败，"+err.Error(), c)
 	} else {
+		global.GqaLog.Warn(utils.GetUsername(c) + "删除用户成功！" )
 		global.SuccessMessage("删除用户成功！", c)
 	}
 }
@@ -146,6 +150,7 @@ func (a *ApiUser) ChangePassword(c *gin.Context) {
 		global.GqaLog.Error("修改密码失败！", zap.Any("err", err))
 		global.ErrorMessage("修改密码失败，"+err.Error(), c)
 	} else {
+		global.GqaLog.Warn(utils.GetUsername(c) + "修改密码成功！")
 		global.SuccessMessage("修改密码成功！", c)
 	}
 }

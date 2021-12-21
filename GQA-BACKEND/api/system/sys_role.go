@@ -42,6 +42,7 @@ func (a *ApiRole) EditRole(c *gin.Context) {
 		global.GqaLog.Error("编辑角色失败！", zap.Any("err", err))
 		global.ErrorMessage("编辑角色失败，"+err.Error(), c)
 	} else {
+		global.GqaLog.Warn(utils.GetUsername(c) + "编辑角色成功！")
 		global.SuccessMessage("编辑角色成功！", c)
 	}
 }
@@ -82,6 +83,7 @@ func (a *ApiRole) DeleteRole(c *gin.Context) {
 		global.GqaLog.Error("删除角色失败！", zap.Any("err", err))
 		global.ErrorMessage("删除角色失败，"+err.Error(), c)
 	} else {
+		global.GqaLog.Warn(utils.GetUsername(c) + "删除角色成功！")
 		global.SuccessMessage("删除角色成功！", c)
 	}
 }
@@ -131,6 +133,7 @@ func (a *ApiRole) EditRoleMenu(c *gin.Context) {
 		global.GqaLog.Error("编辑角色菜单失败！", zap.Any("err", err))
 		global.ErrorMessage("编辑角色菜单失败，"+err.Error(), c)
 	} else {
+		global.GqaLog.Warn(utils.GetUsername(c) + "编辑角色菜单成功！")
 		global.SuccessMessage("编辑角色菜单成功！", c)
 	}
 }
@@ -166,6 +169,7 @@ func (a *ApiRole) EditRoleApi(c *gin.Context) {
 		global.ErrorMessage("编辑角色API失败，"+err.Error(), c)
 	} else {
 		global.GqaCasbin = utils.Casbin(global.GqaDb)
+		global.GqaLog.Warn(utils.GetUsername(c) + "编辑角色API成功！")
 		global.SuccessMessage("编辑角色API成功！", c)
 	}
 }
@@ -200,6 +204,7 @@ func (a *ApiRole) RemoveRoleUser(c *gin.Context) {
 		global.GqaLog.Error("移除角色用户失败！", zap.Any("err", err))
 		global.ErrorMessage("移除角色用户失败，"+err.Error(), c)
 	} else {
+		global.GqaLog.Warn(utils.GetUsername(c) + "移除角色用户成功！")
 		global.SuccessMessage("移除角色用户成功！", c)
 	}
 }
@@ -230,6 +235,7 @@ func (a *ApiRole) EditRoleDeptDataPermission(c *gin.Context) {
 		global.GqaLog.Error("编辑角色部门数据权限失败！", zap.Any("err", err))
 		global.ErrorMessage("编辑角色部门数据权限失败，"+err.Error(), c)
 	} else {
+		global.GqaLog.Warn(utils.GetUsername(c) + "编辑角色部门数据权限成功！")
 		global.SuccessMessage("编辑角色部门数据权限成功！", c)
 	}
 }

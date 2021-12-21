@@ -1,14 +1,13 @@
 package system
 
 import (
-	"gin-quasar-admin/middleware"
 	"github.com/gin-gonic/gin"
 )
 
 type RouterRole struct {}
 
 func (r *RouterRole) InitRouterRole(Router *gin.RouterGroup) (R gin.IRoutes) {
-	roleGroup := Router.Group("role").Use(middleware.LogOperationHandler())
+	roleGroup := Router.Group("role")/*.Use(middleware.LogOperationHandler())*/
 	{
 		//获取角色列表
 		roleGroup.POST("role-list", ApiRole.GetRoleList)

@@ -1,14 +1,13 @@
 package system
 
 import (
-	"gin-quasar-admin/middleware"
 	"github.com/gin-gonic/gin"
 )
 
 type RouterUpload struct {}
 
 func (r *RouterUpload) InitRouterUpload(Router *gin.RouterGroup) (R gin.IRoutes) {
-	uploadGroup := Router.Group("upload").Use(middleware.LogOperationHandler())
+	uploadGroup := Router.Group("upload")/*.Use(middleware.LogOperationHandler())*/
 	{
 		//上传头像
 		uploadGroup.POST("avatar", ApiUpload.UploadAvatar)

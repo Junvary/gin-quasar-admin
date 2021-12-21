@@ -43,6 +43,7 @@ func (a *ApiDict) EditDict(c *gin.Context) {
 		global.GqaLog.Error("编辑字典失败!", zap.Any("err", err))
 		global.ErrorMessage("编辑字典失败，"+err.Error(), c)
 	} else {
+		global.GqaLog.Warn(utils.GetUsername(c) + "编辑字典成功！")
 		global.SuccessMessage("编辑字典成功！", c)
 	}
 }
@@ -84,6 +85,7 @@ func (a *ApiDict) DeleteDict(c *gin.Context) {
 		global.GqaLog.Error("删除字典失败！", zap.Any("err", err))
 		global.ErrorMessage("删除字典失败，"+err.Error(), c)
 	} else {
+		global.GqaLog.Warn(utils.GetUsername(c) + "删除字典成功！")
 		global.SuccessMessage("删除字典成功！", c)
 	}
 }

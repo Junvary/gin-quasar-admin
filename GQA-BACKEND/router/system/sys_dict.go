@@ -1,14 +1,13 @@
 package system
 
 import (
-	"gin-quasar-admin/middleware"
 	"github.com/gin-gonic/gin"
 )
 
 type RouterDict struct {}
 
 func (r *RouterDict) InitRouterDict(Router *gin.RouterGroup) (R gin.IRoutes) {
-	dictGroup := Router.Group("dict").Use(middleware.LogOperationHandler())
+	dictGroup := Router.Group("dict")/*.Use(middleware.LogOperationHandler())*/
 	{
 		//获取根字典列表
 		dictGroup.POST("dict-list", ApiDict.GetDictList)

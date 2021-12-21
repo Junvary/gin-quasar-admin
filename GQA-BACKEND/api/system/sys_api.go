@@ -42,6 +42,7 @@ func (a *ApiApi) EditApi(c *gin.Context) {
 		global.GqaLog.Error("编辑API失败！", zap.Any("err", err))
 		global.ErrorMessage("编辑API失败，"+err.Error(), c)
 	} else {
+		global.GqaLog.Warn(utils.GetUsername(c) + "编辑API成功！")
 		global.SuccessMessage("编辑API成功！", c)
 	}
 }
@@ -83,6 +84,7 @@ func (a *ApiApi) DeleteApi(c *gin.Context) {
 		global.GqaLog.Error("删除API失败！", zap.Any("err", err))
 		global.ErrorMessage("删除API失败，"+err.Error(), c)
 	} else {
+		global.GqaLog.Warn(utils.GetUsername(c) + "删除API成功！")
 		global.SuccessMessage("删除API成功！", c)
 	}
 }

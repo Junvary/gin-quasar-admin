@@ -1,14 +1,13 @@
 package system
 
 import (
-	"gin-quasar-admin/middleware"
 	"github.com/gin-gonic/gin"
 )
 
 type RouterUser struct {}
 
 func (r *RouterUser) InitRouterUser(Router *gin.RouterGroup) (R gin.IRoutes) {
-	userGroup := Router.Group("user").Use(middleware.LogOperationHandler())
+	userGroup := Router.Group("user")/*.Use(middleware.LogOperationHandler())*/
 	{
 		//获取用户列表
 		userGroup.POST("user-list", ApiUser.GetUserList)

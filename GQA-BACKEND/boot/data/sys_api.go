@@ -199,14 +199,14 @@ func (s *sysApi) LoadData() error {
 		tx.Model(&system.SysApi{}).Count(&count)
 		if count != 0 {
 			fmt.Println("[Gin-Quasar-Admin] --> sys_api 表的初始数据已存在，跳过初始化数据！数据量：", count)
-			global.GqaLog.Error("[Gin-Quasar-Admin] --> sys_api 表的初始数据已存在，跳过初始化数据！", zap.Any("数据量", count))
+			global.GqaLog.Warn("[Gin-Quasar-Admin] --> sys_api 表的初始数据已存在，跳过初始化数据！", zap.Any("数据量", count))
 			return nil
 		}
 		if err := tx.Create(&sysApiData).Error; err != nil { // 遇到错误时回滚事务
 			return err
 		}
 		fmt.Println("[Gin-Quasar-Admin] --> sys_api 表初始数据成功！")
-		global.GqaLog.Error("[Gin-Quasar-Admin] --> sys_api 表初始数据成功！")
+		global.GqaLog.Info("[Gin-Quasar-Admin] --> sys_api 表初始数据成功！")
 		return nil
 	})
 }
