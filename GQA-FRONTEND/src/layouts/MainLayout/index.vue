@@ -21,6 +21,7 @@
                 <q-space />
 
                 <Fullscreen style="margin: 0 5px" />
+                <Chat style="margin: 0 5px" />
                 <Notice style="margin: 0 5px" />
                 <UserMenu style="margin: 0 5px" @showProfile="$refs.userProfile.show()" />
                 <!-- <q-language-switcher/> -->
@@ -67,6 +68,7 @@ import { gqaFrontendMixin } from 'src/mixins/gqaFrontendMixin'
 import SideBarLeft from './SideBarLeft'
 import TabMenu from './TabMenu'
 import Fullscreen from './Fullscreen'
+import Chat from './Chat'
 import Notice from './Notice'
 import GitLink from './GitLink'
 import UserMenu from './UserMenu'
@@ -81,6 +83,7 @@ export default {
         SideBarLeft,
         TabMenu,
         Fullscreen,
+        Chat,
         Notice,
         GitLink,
         UserMenu,

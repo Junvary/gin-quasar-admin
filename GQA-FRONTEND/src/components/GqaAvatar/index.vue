@@ -31,7 +31,7 @@ export default {
         avatarSrc() {
             const cookieAvatar = this.$q.cookies.get('gqa-avatar')
             if (this.loginUser) {
-                // 登录游湖的头像
+                // 登录用户的头像
                 if (cookieAvatar) {
                     // 如果Cookies里拿到头像，就显示
                     if (cookieAvatar.substring(0, 4) === 'http') {

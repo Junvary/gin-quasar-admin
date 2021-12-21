@@ -9,6 +9,7 @@ type ApiPublic struct {
 	ApiGetDict
 	ApiGetFrontend
 	ApiGetBackend
+	ApiWebSocket
 }
 
 var ServicePublic = service.GroupServiceApp.ServicePublic

@@ -39,8 +39,10 @@ func Router() *gin.Engine {
 		routerPublic.InitRouterGetDict(PublicGroup)
 		//获取网站公共信息：前台配置
 		routerPublic.InitRouterGetFrontend(PublicGroup)
-		//	获取网站公共信息：后台配置
+		//获取网站公共信息：后台配置
 		routerPublic.InitRouterGetBackend(PublicGroup)
+		//websocket
+		routerPublic.InitRouterWebSocket(PublicGroup)
 	}
 	/*
 		鉴权路由分组：这里以空分组，路由内部按实绩情况分组，需要鉴权。

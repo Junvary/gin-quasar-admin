@@ -1,6 +1,6 @@
 <template>
     <span>
-        {{trueName}}
+        {{ trueName }}
     </span>
 </template>
 
