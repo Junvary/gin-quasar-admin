@@ -11,8 +11,7 @@ import (
 	"sort"
 )
 
-type ServiceUser struct {
-}
+type ServiceUser struct {}
 
 func (s *ServiceUser) GetUserList(requestUserList system.RequestUserList) (err error, user interface{}, total int64) {
 	pageSize := requestUserList.PageSize

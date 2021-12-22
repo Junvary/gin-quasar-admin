@@ -87,6 +87,15 @@ var sysCasbinData = []gormadapter.CasbinRule{
 	{Ptype: "p", V0: "super-admin", V1: "/log/log-login-delete", V2: "DELETE"},
 	{Ptype: "p", V0: "super-admin", V1: "/log/log-operation-list", V2: "POST"},
 	{Ptype: "p", V0: "super-admin", V1: "/log/log-operation-delete", V2: "DELETE"},
+
+	//notice组
+	{Ptype: "p", V0: "super-admin", V1: "/notice/notice-list", V2: "POST"},
+	{Ptype: "p", V0: "super-admin", V1: "/notice/notice-edit", V2: "PUT"},
+	{Ptype: "p", V0: "super-admin", V1: "/notice/notice-add", V2: "POST"},
+	{Ptype: "p", V0: "super-admin", V1: "/notice/notice-delete", V2: "DELETE"},
+	{Ptype: "p", V0: "super-admin", V1: "/notice/notice-id", V2: "POST"},
+	{Ptype: "p", V0: "super-admin", V1: "/notice/notice-id-read", V2: "POST"},
+	{Ptype: "p", V0: "super-admin", V1: "/notice/notice-send", V2: "POST"},
 }
 
 func (s *sysCasbin) LoadData() error {

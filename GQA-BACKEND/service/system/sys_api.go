@@ -41,7 +41,7 @@ func (s *ServiceApi) EditApi(toEditApi system.SysApi) (err error) {
 	if sysApi.Stable == "yes" {
 		return errors.New("系统内置不允许编辑：" + sysApi.ApiPath)
 	}
-	err = global.GqaDb.Updates(&sysApi).Error
+	err = global.GqaDb.Updates(&toEditApi).Error
 	return err
 }
 

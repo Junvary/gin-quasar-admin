@@ -25,6 +25,9 @@
                             </q-item>
                         </q-list>
                     </q-scroll-area>
+                    <q-inner-loading :showing="loading">
+                        <q-spinner-gears size="50px" color="primary" />
+                    </q-inner-loading>
                 </q-card-section>
 
                 <q-separator vertical inset />
@@ -51,7 +54,6 @@
                     </q-input>
                 </q-form>
             </q-card-actions>
-
         </q-card>
     </q-dialog>
 </template>
@@ -152,6 +154,7 @@ export default {
                     name: this.myName,
                     avatar: this.myAvatar,
                     text: this.newMessage,
+                    messageType: 'chat',
                 })
                 this.newMessage = ''
                 this.$refs.newMessageForm.reset()

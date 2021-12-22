@@ -11,11 +11,12 @@ import (
 
 type ApiWebSocket struct{}
 
-type BackMessage struct { //接收与返回的结构体
-	Name   string `json:"name"`
-	Avatar string `json:"avatar"`
-	Text   string `json:"text"`
-	Stamp  string `json:"stamp"`
+type WsMessage struct { //接收与返回的结构体
+	Name        string `json:"name"`
+	Avatar      string `json:"avatar"`
+	Text        string `json:"text"`
+	Stamp       string `json:"stamp"`
+	MessageType string `json:"messageType"`
 }
 
 var (
@@ -36,7 +37,7 @@ func (a *ApiWebSocket) WebSocket(c *gin.Context) {
 	if err != nil {
 		return
 	}
-	
+
 	clientId := uuid.New().String()
 
 	defer func() {
@@ -53,13 +54,15 @@ func (a *ApiWebSocket) WebSocket(c *gin.Context) {
 		if err != nil {
 			break
 		}
-		var bm BackMessage
-		if err = json.Unmarshal(message, &bm); err != nil {
+		var wsMessage WsMessage
+		if err = json.Unmarshal(message, &wsMessage); err != nil {
 			return
 		}
-		bm.Stamp = time.Now().Format("2006-01-02 15:04:05")
-		bmByte, _ := json.Marshal(bm)
-		broadcastMsg <- bmByte
+		wsMessage.Stamp = time.Now().Format("2006-01-02 15:04:05")
+		bmByte, _ := json.Marshal(wsMessage)
+		if wsMessage.MessageType == "chat"{
+			broadcastMsg <- bmByte
+		}
 	}
 }
 
@@ -71,14 +74,10 @@ func broadcast() {
 		}
 		go func() {
 			for id, client := range clients {
-				//tip：id可以判断不给谁发消息
 				if err := client.WriteMessage(websocket.TextMessage, v); err != nil {
-					//发送失败，客户端异常（断线...）
 					delete(clients, id)
 				}
 			}
 		}()
 	}
 }
-
-
