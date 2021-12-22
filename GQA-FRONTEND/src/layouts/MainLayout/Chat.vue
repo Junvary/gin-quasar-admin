@@ -1,15 +1,16 @@
 <template>
     <div>
         <q-btn dense round glossy push color="primary" icon="groups" @click="showChat">
-            <q-badge color="negative" floating>8</q-badge>
+            <q-badge color="negative" floating v-if="badgeCount">
+                {{ badgeCount }}
+            </q-badge>
         </q-btn>
-        <ChatDialog ref="chatDialog" :oldMessage="oldMessage" @sendMessage="sendMessage" />
+        <ChatDialog ref="chatDialog" :oldMessage="oldMessage" @sendMessage="sendMessage" @changeShow="changeShow" />
     </div>
 </template>
 
 <script>
 import ChatDialog from './ChatDialog.vue'
-import Store from 'src/store'
 
 export default {
     name: 'Chat',
@@ -34,6 +35,8 @@ export default {
             websock: null,
             lockReconnect: false,
             oldMessage: [],
+            badgeCount: 0,
+            chatDialogShow: false,
         }
     },
     mounted() {
@@ -42,6 +45,10 @@ export default {
     methods: {
         showChat() {
             this.$refs.chatDialog.show()
+            this.badgeCount = 0
+        },
+        changeShow(event) {
+            this.chatDialogShow = event
         },
         initWebSocket() {
             this.websock = new WebSocket('ws://127.0.0.1:8888/public/ws')
@@ -67,6 +74,9 @@ export default {
                 newData.sent = false
             }
             this.oldMessage.push(newData)
+            if (!this.chatDialogShow) {
+                this.badgeCount += 1
+            }
         },
         websocketOnclose: function (e) {
             console.log('Gin-Quasar-Admin: WebSocket连接已关闭 (' + e + ')')

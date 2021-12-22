@@ -1,5 +1,6 @@
 <template>
-    <q-dialog persistent v-model="chatDialogVisible" transition-hide="scale">
+    <q-dialog persistent v-model="chatDialogVisible" transition-hide="scale" @before-show="beforeShow"
+        @before-hide="beforeHide">
         <q-card bordered style="width: 750px; max-width: 45vw;">
             <q-bar class="bg-primary text-white">
                 <q-space />
@@ -109,9 +110,12 @@ export default {
     watch: {
         oldMessage: {
             handler() {
-                this.$nextTick(() => {
-                    this.$refs.messageScroll.setScrollPosition('vertical', this.oldMessage.length * 75, 200)
-                })
+                // 只有在Dialog打开的时候滚动到最底部
+                if (this.chatDialogVisible) {
+                    this.$nextTick(() => {
+                        this.$refs.messageScroll.setScrollPosition('vertical', this.oldMessage.length * 75, 200)
+                    })
+                }
             },
             deep: true,
         },
@@ -130,9 +134,16 @@ export default {
             this.chatDialogVisible = true
             this.getTableData()
             this.$nextTick(() => {
-                this.$refs.userScroll.setScrollPosition('vertical', this.tableData.length * 55)
+                // userList不要滚动到最底部了，保持在最上面
+                // this.$refs.userScroll.setScrollPosition('vertical', this.tableData.length * 55)
                 this.$refs.messageScroll.setScrollPosition('vertical', this.oldMessage.length * 75)
             })
+        },
+        beforeShow() {
+            this.$emit('changeShow', true)
+        },
+        beforeHide() {
+            this.$emit('changeShow', false)
         },
         async sendMessage() {
             const success = await this.$refs.newMessageForm.validate()

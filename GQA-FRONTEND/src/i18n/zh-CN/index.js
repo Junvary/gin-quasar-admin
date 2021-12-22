@@ -96,7 +96,7 @@ export default {
     Relogin: '重新登录',
     LogoutTitle: '确定退出？',
     LogoutMessage: '你真的要退出系统吗？',
-    ColosOther: '关闭其他',
+    CloseOther: '关闭其他',
     CloseRight: '关闭右侧',
     CloseLeft: '关闭左侧',
     CloseAll: '关闭所有',
