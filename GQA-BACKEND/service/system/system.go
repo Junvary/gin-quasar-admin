@@ -12,4 +12,5 @@ type ServiceSystem struct {
 	ServiceConfigFrontend
 	ServiceLogLogin
 	ServiceLogOperation
+	ServiceNotice
 }

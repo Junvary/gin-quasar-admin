@@ -1,21 +1,21 @@
 <template>
-    <div>
-        <q-btn dense round glossy push color="primary" icon="groups" @click="showChat">
-            <q-badge color="negative" floating v-if="badgeCount">
-                {{ badgeCount }}
-            </q-badge>
-        </q-btn>
-        <ChatDialog ref="chatDialog" :oldMessage="oldMessage" @sendMessage="sendMessage" @changeShow="changeShow" />
+    <div class="row">
+        <Chat style="margin: 0 5px" ref="moduleChat" :oldMessage="chatOldMessage"
+            @changeChatDialogShow="changeChatDialogShow" @sendMessage="sendMessage" />
+        <Notice style="margin: 0 5px" />
     </div>
 </template>
 
 <script>
-import ChatDialog from './ChatDialog.vue'
+import Chat from './modules/Chat'
+import Notice from './modules/Notice'
+import { GqaUsername } from 'src/settings'
 
 export default {
-    name: 'Chat',
+    name: 'ChatAndNotice',
     components: {
-        ChatDialog,
+        Chat,
+        Notice,
     },
     computed: {
         myName() {
@@ -34,20 +34,15 @@ export default {
         return {
             websock: null,
             lockReconnect: false,
-            oldMessage: [],
-            badgeCount: 0,
             chatDialogShow: false,
+            chatOldMessage: [],
         }
     },
     mounted() {
         this.initWebSocket()
     },
     methods: {
-        showChat() {
-            this.$refs.chatDialog.show()
-            this.badgeCount = 0
-        },
-        changeShow(event) {
+        changeChatDialogShow(event) {
             this.chatDialogShow = event
         },
         initWebSocket() {
@@ -57,15 +52,14 @@ export default {
             this.websock.onmessage = this.websocketOnmessage
             this.websock.onclose = this.websocketOnclose
         },
-        websocketOnopen: function () {
+        websocketOnopen() {
             console.log('Gin-Quasar-Admin: WebSocket连接成功!')
         },
-        websocketOnerror: function (e) {
-            console.log(e)
+        websocketOnerror() {
             console.log('Gin-Quasar-Admin: WebSocket连接发生错误，开始重新连接!')
             this.reconnect()
         },
-        websocketOnmessage: function (e) {
+        websocketOnmessage(e) {
             let newData = JSON.parse(e.data)
             newData.text = [newData.text]
             if (newData.name === this.myName) {
@@ -73,16 +67,16 @@ export default {
             } else {
                 newData.sent = false
             }
-            this.oldMessage.push(newData)
+            this.chatOldMessage.push(newData)
             if (!this.chatDialogShow) {
-                this.badgeCount += 1
+                this.$refs.moduleChat.receiveMessage(1)
             }
         },
-        websocketOnclose: function (e) {
-            console.log('Gin-Quasar-Admin: WebSocket连接已关闭 (' + e + ')')
-            console.log(e)
+        websocketOnclose(e) {
             if (e) {
                 console.log('Gin-Quasar-Admin: WebSocket连接已关闭 (' + e.code + ')')
+            } else {
+                console.log('Gin-Quasar-Admin: WebSocket连接已关闭 (' + e + ')')
             }
         },
         reconnect() {

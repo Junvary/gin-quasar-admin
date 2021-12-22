@@ -5,12 +5,13 @@
             <q-card>
                 <q-tabs v-model="messageType" dense class="text-grey" active-color="primary" indicator-color="primary"
                     align="justify" narrow-indicator style="padding: 10px">
-                    <q-tab name="message" :label="$t('Notice')">
-                        <q-badge color="negative" floating>4</q-badge>
-                    </q-tab>
                     <q-tab name="system" :label="$t('NoticeSystem')">
                         <q-badge color="negative" floating>4</q-badge>
                     </q-tab>
+                    <q-tab name="message" :label="$t('NoticeMessage')">
+                        <q-badge color="negative" floating>4</q-badge>
+                    </q-tab>
+
                     <q-tab name="todo" :label="$t('NoticeToDo')">
                         <q-badge color="negative" floating>4</q-badge>
                     </q-tab>
@@ -82,7 +83,7 @@ export default {
     name: 'Notice',
     data() {
         return {
-            messageType: 'message',
+            messageType: 'system',
             message: [],
             system: [],
             todo: [],

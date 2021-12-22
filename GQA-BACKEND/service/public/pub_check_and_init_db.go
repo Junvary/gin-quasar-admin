@@ -71,6 +71,7 @@ func (s *ServiceCheckAndInitDb) CheckAndInitDb(initDbInfo system.RequestInitDb) 
 		system.SysConfigFrontend{},
 		system.SysLogLogin{},
 		system.SysLogOperation{},
+		system.SysNotice{},
 	)
 	if err != nil {
 		global.GqaDb = nil

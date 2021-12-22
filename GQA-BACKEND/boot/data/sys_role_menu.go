@@ -29,6 +29,7 @@ var sysRoleMenuData = []system.SysRoleMenu{
 	{"super-admin", "log-operation"},
 	{"super-admin", "example"},
 	{"super-admin", "example-icon"},
+	{"super-admin", "notice"},
 }
 
 func (s *sysRoleMenu) LoadData() error {

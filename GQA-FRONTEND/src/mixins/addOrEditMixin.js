@@ -32,7 +32,6 @@ export const addOrEditMixin = {
         this.dictOptions = await DictOptions()
     },
     methods: {
-
         show(row) {
             this.loading = true
             this.resetDetail()

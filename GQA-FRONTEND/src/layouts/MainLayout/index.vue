@@ -1,7 +1,6 @@
 <template>
     <q-layout view="hHh LpR lFr">
         <q-header reveal elevated>
-            <!-- <div class="row no-wrap shadow-1"> -->
             <q-toolbar class="bg-primary glossy ">
                 <q-btn dense round glossy push icon="sync_alt" aria-label="Menu"
                     @click="toggleLeftDrawer = !toggleLeftDrawer" />
@@ -21,15 +20,16 @@
                 <q-space />
 
                 <Fullscreen style="margin: 0 5px" />
-                <Chat style="margin: 0 5px" />
-                <Notice style="margin: 0 5px" />
+
+                <ChatAndNotice />
+
                 <UserMenu style="margin: 0 5px" @showProfile="$refs.userProfile.show()" />
                 <!-- <q-language-switcher/> -->
                 <Setting style="margin: 0 5px" />
                 <GitLink style="margin: 0 5px" v-if="gqaFrontend.gqaShowGit === 'yes'" />
 
             </q-toolbar>
-            <!-- </div> -->
+
             <q-separator />
             <!-- header下面的标签页 -->
             <div class="row bg-primary">
@@ -68,8 +68,7 @@ import { gqaFrontendMixin } from 'src/mixins/gqaFrontendMixin'
 import SideBarLeft from './SideBarLeft'
 import TabMenu from './TabMenu'
 import Fullscreen from './Fullscreen'
-import Chat from './Chat'
-import Notice from './Notice'
+import ChatAndNotice from './ChatAndNotice'
 import GitLink from './GitLink'
 import UserMenu from './UserMenu'
 import Setting from './Setting'
@@ -83,8 +82,7 @@ export default {
         SideBarLeft,
         TabMenu,
         Fullscreen,
-        Chat,
-        Notice,
+        ChatAndNotice,
         GitLink,
         UserMenu,
         Setting,

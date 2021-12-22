@@ -71,6 +71,10 @@ var sysMenuData = []system.SysMenu{
 		Name: "example-icon", ParentCode: "example", Title: "ExampleIcon", Icon: "mood",
 		Path: "/system/example/icon", Component: "/System/Example/Icon/index",
 	},
+	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 10, Remark: "这是消息管理", CreatedAt: time.Now(), CreatedBy: "admin"},
+		Name: "notice", ParentCode: "system", Title: "NoticeManage", Icon: "notifications",
+		Path: "/system/notice", Component: "/System/Notice/index",
+	},
 }
 
 func (s *sysMenu) LoadData() error {
