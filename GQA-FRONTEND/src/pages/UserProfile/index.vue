@@ -91,8 +91,8 @@
                     </q-card-section>
 
                     <q-card-actions align="right" class="text-primary">
-                        <q-btn flat label="取消" v-close-popup />
-                        <q-btn flat label="确定更改" @click="handleChangePasswrod" />
+                        <q-btn flat :label="$t('Cancel')" v-close-popup />
+                        <q-btn flat :label="$t('Save')" @click="handleChangePasswrod" />
                     </q-card-actions>
                 </q-card>
             </q-dialog>
@@ -146,14 +146,14 @@ export default {
                 if (this.passwordForm.newPassword1 !== this.passwordForm.newPassword2) {
                     this.$q.notify({
                         type: 'negative',
-                        message: '两次新密码不一致!',
+                        message: this.$t('TwoPasswordsCheck'),
                     })
                 } else {
                     const res = await postAction(this.changePasswordUrl, this.passwordForm)
                     if (res.code === 1) {
                         this.$q.notify({
                             type: 'positive',
-                            message: '修改密码成功，请重新登录!',
+                            message: this.$t('Change') + ' ' + this.$t('Password') + ' ' + this.$t('Success') + ',' + this.$t('Relogin'),
                         })
                         this.passwordDialog = false
                         this.HandleLogout()
@@ -163,7 +163,7 @@ export default {
             } else {
                 this.$q.notify({
                     type: 'negative',
-                    message: '请完善表格信息!',
+                    message: this.$t('FixForm'),
                 })
             }
         },

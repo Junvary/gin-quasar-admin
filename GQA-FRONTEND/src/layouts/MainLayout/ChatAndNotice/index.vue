@@ -86,7 +86,7 @@ export default {
             }
         },
         websocketOnclose(e) {
-            if (e.code) {
+            if (e && e.code) {
                 console.log('Gin-Quasar-Admin: WebSocket连接已关闭:', e.code)
             } else {
                 console.log('Gin-Quasar-Admin: WebSocket连接已关闭:', e)

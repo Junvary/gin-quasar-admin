@@ -204,4 +204,6 @@ export default {
     CanNotDeleteThis: 'Sorry!You can not delete this!',
     // data permission
     DeptDataPermissionType: 'Department Data Permission Type',
+    // user profile
+    TwoPasswordsCheck: 'Passwords are inconsistent!'
 }

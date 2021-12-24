@@ -204,4 +204,6 @@ export default {
     CanNotDeleteThis: '抱歉!你不能删除此项!',
     // data permission
     DeptDataPermissionType: '部门数据权限分类',
+    // user profile
+    TwoPasswordsCheck: '两次新密码不一致!'
 }
