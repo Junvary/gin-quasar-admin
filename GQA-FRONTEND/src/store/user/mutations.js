@@ -9,6 +9,11 @@ export function SET_TOKEN(state, token) {
     }
 }
 
+export function SET_USERNAME(state, username) {
+    state.username = username
+    Cookies.set('gqa-username', username)
+}
+
 export function SET_NICKNAME(state, nickname) {
     state.nickname = nickname
     Cookies.set('gqa-nickname', nickname)
@@ -31,12 +36,14 @@ export function CHANGE_REMEMBER_ME(state, type) {
 export function LOGOUT(state) {
     SessionStorage.remove('gqa-token')
     Cookies.remove('gqa-token')
+    Cookies.remove('gqa-username')
     Cookies.remove('gqa-nickname')
     Cookies.remove('gqa-realName')
     Cookies.remove('gqa-avatar')
     // 字典不删除
     // LocalStorage.remove('gqa-dict')
     state.token = undefined
+    state.username = undefined
     state.nickname = undefined
     state.realName = undefined
     state.avatar = undefined

@@ -48,14 +48,15 @@
 
                         <q-input v-model="addOrEditDetail.noticeContent" type="textarea" :label="$t('Content')" />
 
-                        <q-field :label="$t('Send')" stack-label>
+                        <q-field :label="$t('SendTo')" stack-label>
                             <template v-slot:control>
-                                <q-option-group :options="selectUserTypeOption" v-model="selectUserType"
-                                    @update:model-value="changeSelectUserType" />
+                                <q-option-group :options="noticeToUserTypeOption" name="noticeToUserType"
+                                    v-model="addOrEditDetail.noticeToUserType" inline
+                                    @update:model-value="changenoticeToUserType" />
                             </template>
                         </q-field>
 
-                        <q-select v-if="this.selectUserType=== 'some' && this.changeTableData.length"
+                        <q-select v-if="this.addOrEditDetail.noticeToUserType=== 'some' && this.changeTableData.length"
                             v-model="selectUser" :options="changeTableData" multiple clearable emit-value map-options
                             :rules="[ val => val && val.length > 0 || $t('NeedInput')]" :label="$t('User')" />
 
@@ -81,8 +82,6 @@
 import { tableDataMixin } from 'src/mixins/tableDataMixin'
 import { addOrEditMixin } from 'src/mixins/addOrEditMixin'
 import GqaShowName from 'src/components/GqaShowName'
-import GqaEditor from 'src/components/GqaEditor'
-import GqaUpload from 'src/components/GqaUpload'
 import { getAction, postAction, putAction } from 'src/api/manage'
 
 export default {
@@ -90,11 +89,9 @@ export default {
     mixins: [addOrEditMixin, tableDataMixin],
     components: {
         GqaShowName,
-        GqaEditor,
-        GqaUpload,
     },
     computed: {
-        selectUserTypeOption() {
+        noticeToUserTypeOption() {
             return [
                 { label: this.$t('All') + this.$t('User'), value: 'all' },
                 { label: this.$t('Some') + this.$t('User'), value: 'some' },
@@ -129,7 +126,8 @@ export default {
                 noticeTitle: '',
                 noticeContent: '',
                 noticeType: '',
-                noticeToUser: '',
+                noticeToUserType: '',
+                noticeToUser: [],
             },
             url: {
                 list: 'user/user-list',
@@ -137,7 +135,6 @@ export default {
                 edit: 'notice/notice-edit',
                 queryById: 'notice/notice-id',
             },
-            selectUserType: null,
             selectUser: [],
         }
     },
@@ -145,20 +142,15 @@ export default {
         show(row) {
             this.loading = true
             this.resetDetail()
+            if (row && row.noticeToUserType === 'some') {
+                this.changenoticeToUserType('some')
+            }
             this.addOrEditDetail = Object.assign(this.detail, row)
             this.addOrEditVisible = true
             if (!this.addOrEditDetail.id) {
                 this.loading = false
             } else {
                 this.handleQueryById(this.addOrEditDetail.id)
-            }
-            if (this.addOrEditDetail.noticeToUser === 'all') {
-                this.selectUserType = 'all'
-            } else if (!this.addOrEditDetail.noticeToUser) {
-                this.selectUserType = ''
-            } else {
-                this.selectUserType = 'some'
-                this.changeSelectUserType('some')
             }
         },
         resetDetail() {
@@ -171,48 +163,52 @@ export default {
                 noticeTitle: '',
                 noticeContent: '',
                 noticeType: '',
-                noticeToUser: '',
+                noticeToUserType: '',
+                noticeToUser: [],
             }
         },
-        changeSelectUserType(val) {
+        changenoticeToUserType(val) {
             if (val === 'some') {
                 this.selectUser = []
                 this.getTableData().then(() => {
-                    if (this.addOrEditDetail.noticeToUser && this.addOrEditDetail.noticeToUser !== 'all') {
-                        this.selectUser = this.addOrEditDetail.noticeToUser.split(',')
+                    if (this.addOrEditDetail.noticeToUserType === 'some') {
+                        for (let u of this.addOrEditDetail.noticeToUser) {
+                            this.selectUser.push(u.toUser)
+                        }
                     }
                 })
             }
         },
         async handleAddOrEidt() {
-            if (!this.selectUserType) {
+            if (!this.addOrEditDetail.noticeToUserType) {
                 this.$q.notify({
                     type: 'negative',
-                    message: this.$t('FixForm') + ': ' + this.$t('Send'),
+                    message: this.$t('FixForm') + ': ' + this.$t('SendTo'),
                 })
                 return
             }
             const success = await this.$refs.addOrEditForm.validate()
             if (success) {
-                if (this.selectUserType === 'all') {
-                    this.addOrEditDetail.noticeToUser = this.selectUserType
-                } else if (this.selectUserType === 'some') {
-                    this.addOrEditDetail.noticeToUser = this.selectUser.join(',')
+                if (this.addOrEditDetail.noticeToUserType === 'some') {
+                    this.addOrEditDetail.noticeToUser = this.selectUser
                 } else {
-                    this.$q.notify({
-                        type: 'negative',
-                        message: this.$t('FixForm') + ': ' + this.$t('Send'),
-                    })
-                    return
+                    this.addOrEditDetail.noticeToUser = []
                 }
                 if (this.formType === 'edit') {
                     if (this.url === undefined || !this.url.edit) {
                         this.$q.notify({
                             type: 'negative',
-                            message: '请先配置url',
+                            message: this.$t('UrlNotConfig'),
                         })
                         return
                     }
+                    this.addOrEditDetail.noticeToUser = []
+                    this.selectUser.forEach((item) => {
+                        this.addOrEditDetail.noticeToUser.push({
+                            noticeId: this.addOrEditDetail.noticeId,
+                            toUser: item,
+                        })
+                    })
                     const res = await putAction(this.url.edit, this.addOrEditDetail)
                     if (res.code === 1) {
                         this.$q.notify({
@@ -225,7 +221,7 @@ export default {
                     if (this.url === undefined || !this.url.add) {
                         this.$q.notify({
                             type: 'negative',
-                            message: '请先配置url',
+                            message: this.$t('UrlNotConfig'),
                         })
                         return
                     }

@@ -5,10 +5,12 @@ export async function HandleLogin({ commit, dispatch }, loginForm) {
     const res = await postAction(loginUrl, loginForm)
     if (res.code === 1) {
         const token = res.data.token
+        const username = res.data.username
         const nickname = res.data.nickname
         const realName = res.data.realName
         const avatar = res.data.avatar
         dispatch('SetToken', token)
+        commit('SET_USERNAME', username)
         commit('SET_NICKNAME', nickname)
         commit('SET_REALNAME', realName)
         commit('SET_AVATAR', avatar)
