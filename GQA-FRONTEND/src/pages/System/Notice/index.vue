@@ -5,8 +5,8 @@
             <q-input style="width: 20%" v-model="queryParams.noticeTitle" :label="$t('Title')" />
             <q-select style="width: 20%" v-model="queryParams.noticeType" :options="dictOptions.noticeType" emit-value
                 map-options :label="$t('Notice') + $t('Type')" />
-            <q-select style="width: 20%" v-model="queryParams.noticeRead" :options="dictOptions.statusYesNo" emit-value
-                map-options :label="$t('Read') + $t('Status')" />
+            <q-select style="width: 20%" v-model="queryParams.noticeSent" :options="dictOptions.statusYesNo" emit-value
+                map-options :label="$t('Sent')" />
             <q-btn color="primary" @click="handleSearch" :label="$t('Search')" />
             <q-btn color="primary" @click="resetSearch" :label="$t('Reset')" />
         </div>
@@ -24,12 +24,6 @@
             <template v-slot:body-cell-noticeType="props">
                 <q-td :props="props">
                     <GqaDictShow dictName="noticeType" :dictCode="props.row.noticeType" />
-                </q-td>
-            </template>
-
-            <template v-slot:body-cell-noticeRead="props">
-                <q-td :props="props">
-                    <GqaDictShow dictName="statusYesNo" :dictCode="props.row.noticeRead" />
                 </q-td>
             </template>
 
@@ -74,7 +68,6 @@ export default {
                 { name: 'id', align: 'center', label: 'ID', field: 'id' },
                 { name: 'noticeTitle', align: 'center', label: this.$t('Title'), field: 'noticeTitle' },
                 { name: 'noticeType', align: 'center', label: this.$t('Type'), field: 'noticeType' },
-                { name: 'noticeRead', align: 'center', label: this.$t('Read') + this.$t('Status'), field: 'noticeRead' },
                 { name: 'noticeSent', align: 'center', label: this.$t('Sent'), field: 'noticeSent' },
                 { name: 'actions', align: 'center', label: this.$t('Actions'), field: 'actions' },
             ]
@@ -82,6 +75,12 @@ export default {
     },
     data() {
         return {
+            pagination: {
+                sortBy: 'created_at',
+                descending: true,
+                page: 1,
+                rowsPerPage: 10,
+            },
             url: {
                 list: 'notice/notice-list',
                 delete: 'notice/notice-delete',
@@ -96,15 +95,23 @@ export default {
     },
     methods: {
         sendMessage(row) {
-            postAction(this.url.send, row).then((res) => {
-                if (res.code === 1) {
-                    this.$q.notify({
-                        type: 'positive',
-                        message: this.$t('Send') + ' ' + this.$t('Success'),
-                    })
-                    this.getTableData()
-                }
-            })
+            this.$q
+                .dialog({
+                    title: this.$t('Confirm') + ' ' + this.$t('Send'),
+                    message: this.$t('ConfirmSend'),
+                    cancel: true,
+                    persistent: true,
+                })
+                .onOk(async () => {
+                    const res = await postAction(this.url.send, row)
+                    if (res.code === 1) {
+                        this.$q.notify({
+                            type: 'positive',
+                            message: this.$t('Send') + ' ' + this.$t('Success'),
+                        })
+                        this.getTableData()
+                    }
+                })
         },
     },
 }

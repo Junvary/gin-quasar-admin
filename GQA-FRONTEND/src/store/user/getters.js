@@ -10,16 +10,44 @@ export function token(state) {
     }
 }
 
+export function username(state) {
+    if (state.username) {
+        return state.username
+    } else if (Cookies.get('gqa-username')) {
+        return Cookies.get('gqa-username')
+    } else {
+        return ""
+    }
+}
+
 export function nickname(state) {
-    return state.nickname
+    if (state.nickname) {
+        return state.nickname
+    } else if (Cookies.get('gqa-nickname')) {
+        return Cookies.get('gqa-nickname')
+    } else {
+        return ""
+    }
 }
 
 export function realName(state) {
-    return state.realName
+    if (state.realName) {
+        return state.realName
+    } else if (Cookies.get('gqa-realName')) {
+        return Cookies.get('gqa-realName')
+    } else {
+        return ""
+    }
 }
 
 export function avatar(state) {
-    return state.avatar
+    if (state.avatar) {
+        return state.avatar
+    } else if (Cookies.get('gqa-avatar')) {
+        return Cookies.get('gqa-avatar')
+    } else {
+        return ""
+    }
 }
 
 export function rememberMe(state) {

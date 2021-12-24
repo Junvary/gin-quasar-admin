@@ -1,5 +1,7 @@
 export default {
     // Define
+    Confirm: 'Confirm',
+    ConfirmSend: 'Are you sure to send this notice?',
     All: 'All',
     Some: 'Some',
     Browser: 'Browser',
@@ -16,6 +18,7 @@ export default {
     Type: 'Type',
     Read: 'Read',
     Send: 'Send',
+    SendTo: 'Send To',
     Sent: 'Sent',
     English: 'English',
     Unique: 'unique',

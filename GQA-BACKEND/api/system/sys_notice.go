@@ -54,16 +54,8 @@ func (a *ApiNotice) AddNotice(c *gin.Context) {
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
-	addNotice := &system.SysNotice{
-		GqaModel: global.GqaModel{
-			CreatedBy: utils.GetUsername(c),
-		},
-		NoticeTitle:   toAddNotice.NoticeTitle,
-		NoticeContent: toAddNotice.NoticeContent,
-		NoticeType:    toAddNotice.NoticeType,
-		NoticeToUser:  toAddNotice.NoticeToUser,
-	}
-	if err := ServiceNotice.AddNotice(*addNotice); err != nil {
+	username := utils.GetUsername(c)
+	if err := ServiceNotice.AddNotice(toAddNotice, username); err != nil {
 		global.GqaLog.Error("添加消息失败！", zap.Any("err", err))
 		global.ErrorMessage("添加消息失败，"+err.Error(), c)
 	} else {
@@ -109,7 +101,8 @@ func (a *ApiNotice) QueryNoticeByIdRead(c *gin.Context) {
 		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
 		return
 	}
-	if err, role := ServiceNotice.QueryNoticeByIdRead(toQueryId.Id); err != nil {
+	username := utils.GetUsername(c)
+	if err, role := ServiceNotice.QueryNoticeByIdRead(toQueryId.Id, username); err != nil {
 		global.GqaLog.Error("查找消息失败！", zap.Any("err", err))
 		global.ErrorMessage("查找消息失败，"+err.Error(), c)
 	} else {

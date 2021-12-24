@@ -2,27 +2,17 @@ package public
 
 import (
 	"encoding/json"
+	"gin-quasar-admin/model/system"
+	"gin-quasar-admin/service/public"
 	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
 	"github.com/gorilla/websocket"
 	"net/http"
+	"strconv"
 	"time"
 )
 
 type ApiWebSocket struct{}
 
-type WsMessage struct { //接收与返回的结构体
-	Name        string `json:"name"`
-	Avatar      string `json:"avatar"`
-	Text        string `json:"text"`
-	Stamp       string `json:"stamp"`
-	MessageType string `json:"messageType"`
-}
-
-var (
-	clients      = make(map[string]*websocket.Conn)
-	broadcastMsg = make(chan []byte, 100)
-)
 
 var upGrader = websocket.Upgrader{
 	CheckOrigin: func(r *http.Request) bool {
@@ -31,22 +21,22 @@ var upGrader = websocket.Upgrader{
 }
 
 func (a *ApiWebSocket) WebSocket(c *gin.Context) {
-	go broadcast()
+	go public.Broadcast()
 
 	ws, err := upGrader.Upgrade(c.Writer, c.Request, nil)
 	if err != nil {
 		return
 	}
-
-	clientId := uuid.New().String()
+	//前端传递username，取出来和时间戳拼接，加上_是为了放重
+	clientId := c.Param("username") + "_" + strconv.FormatInt(time.Now().Unix(), 10)
 
 	defer func() {
 		//连接断开，删除无效client
-		delete(clients, clientId)
+		delete(system.Clients, clientId)
 		ws.Close()
 	}()
 
-	clients[clientId] = ws
+	system.Clients[clientId] = ws
 
 	for {
 		//读取websocket发来的数据
@@ -54,30 +44,16 @@ func (a *ApiWebSocket) WebSocket(c *gin.Context) {
 		if err != nil {
 			break
 		}
-		var wsMessage WsMessage
+		var wsMessage system.WsMessage
 		if err = json.Unmarshal(message, &wsMessage); err != nil {
 			return
 		}
 		wsMessage.Stamp = time.Now().Format("2006-01-02 15:04:05")
-		bmByte, _ := json.Marshal(wsMessage)
+		byteMessage, _ := json.Marshal(wsMessage)
 		if wsMessage.MessageType == "chat"{
-			broadcastMsg <- bmByte
+			system.BroadcastMsg <- byteMessage
 		}
 	}
 }
 
-func broadcast() {
-	for {
-		v, ok := <-broadcastMsg
-		if !ok {
-			break
-		}
-		go func() {
-			for id, client := range clients {
-				if err := client.WriteMessage(websocket.TextMessage, v); err != nil {
-					delete(clients, id)
-				}
-			}
-		}()
-	}
-}
+

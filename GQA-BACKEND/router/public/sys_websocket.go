@@ -8,7 +8,7 @@ func (r *RouterWebSocket) InitRouterWebSocket(Router *gin.RouterGroup) (R gin.IR
 	webSocketGroup := Router.Group("")
 	{
 		//获取用户列表
-		webSocketGroup.GET("ws", ApiWebSocket.WebSocket)
+		webSocketGroup.GET("ws/:username", ApiWebSocket.WebSocket)
 	}
 	return Router
 }

@@ -1,5 +1,7 @@
 export default {
     // Define
+    Confirm: '确定',
+    ConfirmSend: '确定发送这条信息吗?',
     All: '所有',
     Some: '部分',
     Browser: '浏览器',
@@ -16,6 +18,7 @@ export default {
     Type: '类型',
     Read: '阅读',
     Send: '发送',
+    SendTo: '发送给',
     Sent: '已发送',
     English: '英文',
     Unique: '唯一',

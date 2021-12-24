@@ -46,7 +46,7 @@
                         </div>
                     </div>
                     <div class="q-pa-md col-8 column items-center">
-                        <profileDetail />
+                        <ProfileDetail ref="profileDetail" />
                     </div>
                 </div>
             </q-card-section>
@@ -103,7 +103,7 @@
 <script>
 import GqaShowName from 'src/components/GqaShowName'
 import GqaAvatar from 'src/components/GqaAvatar'
-import profileDetail from './modules/profileDetail'
+import ProfileDetail from './modules/ProfileDetail'
 import { postAction } from 'src/api/manage'
 import { mapActions } from 'vuex'
 
@@ -112,7 +112,7 @@ export default {
     components: {
         GqaShowName,
         GqaAvatar,
-        profileDetail,
+        ProfileDetail,
     },
     data() {
         return {
@@ -128,8 +128,13 @@ export default {
         }
     },
     methods: {
-        show() {
+        show(type) {
             this.showProfile = true
+            if (type) {
+                this.$nextTick(() => {
+                    this.$refs.profileDetail.changeMessageType(type)
+                })
+            }
         },
         showPasswordDialog() {
             this.passwordDialog = true
@@ -141,14 +146,14 @@ export default {
                 if (this.passwordForm.newPassword1 !== this.passwordForm.newPassword2) {
                     this.$q.notify({
                         type: 'negative',
-                        message: '两次新密码不一致！',
+                        message: '两次新密码不一致!',
                     })
                 } else {
                     const res = await postAction(this.changePasswordUrl, this.passwordForm)
                     if (res.code === 1) {
                         this.$q.notify({
                             type: 'positive',
-                            message: '修改密码成功，请重新登录！',
+                            message: '修改密码成功，请重新登录!',
                         })
                         this.passwordDialog = false
                         this.HandleLogout()
@@ -158,7 +163,7 @@ export default {
             } else {
                 this.$q.notify({
                     type: 'negative',
-                    message: '请完善表格信息！',
+                    message: '请完善表格信息!',
                 })
             }
         },
