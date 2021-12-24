@@ -25,7 +25,7 @@ import NoticeSystem from './NoticeSystem'
 import NoticeMessage from './NoticeMessage'
 
 export default {
-    name: 'ProfileDetail',
+    name: 'NoticeTab',
     components: {
         NoticeSystem,
         NoticeMessage,

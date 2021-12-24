@@ -46,7 +46,7 @@
                         </div>
                     </div>
                     <div class="q-pa-md col-8 column items-center">
-                        <ProfileDetail ref="profileDetail" />
+                        <NoticeTab ref="profileDetail" />
                     </div>
                 </div>
             </q-card-section>
@@ -103,7 +103,7 @@
 <script>
 import GqaShowName from 'src/components/GqaShowName'
 import GqaAvatar from 'src/components/GqaAvatar'
-import ProfileDetail from './modules/ProfileDetail'
+import NoticeTab from './modules/NoticeTab'
 import { postAction } from 'src/api/manage'
 import { mapActions } from 'vuex'
 
@@ -112,7 +112,7 @@ export default {
     components: {
         GqaShowName,
         GqaAvatar,
-        ProfileDetail,
+        NoticeTab,
     },
     data() {
         return {
