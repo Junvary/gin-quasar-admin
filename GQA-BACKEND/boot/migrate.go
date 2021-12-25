@@ -29,6 +29,7 @@ func Migrate(db *gorm.DB) {
 		system.SysLogOperation{},
 		system.SysNotice{},
 		system.SysNoticeToUser{},
+		system.SysTodoNote{},
 	)
 	if err != nil {
 		global.GqaLog.Error("迁移【Gin-Quasar-admin】数据库失败！", zap.Any("err", err))

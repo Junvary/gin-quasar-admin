@@ -46,7 +46,7 @@
                         </div>
                     </div>
                     <div class="q-pa-md col-8 column items-center">
-                        <NoticeTab ref="profileDetail" />
+                        <NoticeTab ref="noticeTab" />
                     </div>
                 </div>
             </q-card-section>
@@ -132,7 +132,7 @@ export default {
             this.showProfile = true
             if (type) {
                 this.$nextTick(() => {
-                    this.$refs.profileDetail.changeMessageType(type)
+                    this.$refs.noticeTab.changeMessageType(type)
                 })
             }
         },

@@ -1,14 +1,14 @@
 <template>
     <div>
         <q-list bordered separator style="min-width: 300px">
-            <q-item clickable v-ripple v-for="(item, index) in messageData.slice(0, 5)" :key="index"
-                @click="toNoticeDetail(item)">
+            <q-item clickable v-ripple v-for="(item, index) in todoNoteData.slice(0, 5)" :key="index"
+                @click="toTodoDetail(item)">
                 <q-item-section avatar>
-                    <q-icon color="primary" name="message" />
+                    <q-icon color="primary" name="notifications" />
                 </q-item-section>
 
                 <q-item-section>
-                    {{ item.noticeTitle }}
+                    {{ item.todoDetail }}
                 </q-item-section>
             </q-item>
         </q-list>
@@ -19,18 +19,18 @@
         </q-item>
 
         <UserProfile ref="userProfile" />
-        <NoticeDetail ref="noticeDetail" />
+        <NoticeTodoNoteDetail ref="noticeTodoNoteDetail" />
     </div>
 </template>
 
 <script>
 import UserProfile from 'src/pages/UserProfile'
-import NoticeDetail from 'src/pages/UserProfile/modules/NoticeDetail.vue'
+import NoticeTodoNoteDetail from 'src/pages/UserProfile/modules/NoticeTodoNoteDetail.vue'
 
 export default {
-    name: 'NoticeMessage',
+    name: 'NoticeTodoNote',
     props: {
-        messageData: {
+        todoNoteData: {
             type: Array,
             required: false,
             default: () => [],
@@ -38,14 +38,15 @@ export default {
     },
     components: {
         UserProfile,
-        NoticeDetail,
+        NoticeTodoNoteDetail,
     },
     methods: {
         toUserProfile() {
-            this.$refs.userProfile.show('message')
+            this.$refs.userProfile.show('todoNote')
         },
-        toNoticeDetail(item) {
-            this.$refs.noticeDetail.show(item)
+        toTodoDetail(item) {
+            this.$refs.noticeTodoNoteDetail.formType = 'edit'
+            this.$refs.noticeTodoNoteDetail.show(item)
         },
     },
 }

@@ -212,6 +212,21 @@ var sysApiData = []system.SysApi{
 	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1066, Remark: "发送消息", CreatedAt: time.Now(), CreatedBy: "admin"},
 		ApiGroup: "notice", ApiPath: "/notice/notice-send", ApiMethod: "POST",
 	},
+	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1067, Remark: "获取待办便签列表", CreatedAt: time.Now(), CreatedBy: "admin"},
+		ApiGroup: "todoNote", ApiPath: "/todo-note/todo-note-list", ApiMethod: "POST",
+	},
+	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1068, Remark: "编辑待办便签信息", CreatedAt: time.Now(), CreatedBy: "admin"},
+		ApiGroup: "todoNote", ApiPath: "/todo-note/todo-note-edit", ApiMethod: "PUT",
+	},
+	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1069, Remark: "新增待办便签", CreatedAt: time.Now(), CreatedBy: "admin"},
+		ApiGroup: "todoNote", ApiPath: "/todo-note/todo-note-add", ApiMethod: "POST",
+	},
+	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1070, Remark: "删除待办便签", CreatedAt: time.Now(), CreatedBy: "admin"},
+		ApiGroup: "todoNote", ApiPath: "/todo-note/todo-note-delete", ApiMethod: "DELETE",
+	},
+	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1071, Remark: "根据ID查找待办便签", CreatedAt: time.Now(), CreatedBy: "admin"},
+		ApiGroup: "todoNote", ApiPath: "/todo-note/todo-note-id", ApiMethod: "POST",
+	},
 }
 
 func (s *sysApi) LoadData() error {

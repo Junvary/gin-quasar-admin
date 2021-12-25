@@ -41,13 +41,22 @@
 
         <q-drawer elevated v-if="!pageDashboard" v-model="toggleLeftDrawer" show-if-above bordered
             content-class="bg-grey-1">
-
             <SideBarLeft :topMenuItem="topMenuItem" />
-
         </q-drawer>
 
         <q-page-container>
             <router-view />
+
+            <q-page-sticky position="bottom-right" :offset="fabPos">
+                <q-btn fab glossy push icon="add" color="primary" :disable="draggingFab"
+                    v-touch-pan.prevent.mouse="moveFab" @click="addTodoNote">
+                    <q-tooltip>
+                        {{ $t('Add') + ' ' + $t('TodoNote') }}
+                    </q-tooltip>
+                </q-btn>
+                <NoticeTodoNoteDetail ref="noticeTodoNoteDetail" />
+            </q-page-sticky>
+
             <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
                 <q-btn dense fab push icon="keyboard_arrow_up" color="primary" />
             </q-page-scroller>
@@ -75,6 +84,8 @@ import Setting from './Setting'
 import PageFooter from './PageFooter'
 import GqaAvatar from 'src/components/GqaAvatar'
 import UserProfile from 'src/pages/UserProfile'
+import NoticeTodoNoteDetail from 'src/pages/UserProfile/modules/NoticeTodoNoteDetail.vue'
+
 export default {
     name: 'MainLayout',
     mixins: [gqaFrontendMixin],
@@ -89,6 +100,7 @@ export default {
         PageFooter,
         GqaAvatar,
         UserProfile,
+        NoticeTodoNoteDetail,
     },
     computed: {
         ...mapGetters({
@@ -124,6 +136,8 @@ export default {
             toggleLeftDrawer: false,
             topMenuItem: {},
             currentItemMenu: 'dashboard',
+            draggingFab: false,
+            fabPos: [18, 80],
         }
     },
     created() {
@@ -135,6 +149,14 @@ export default {
                 this.$router.push('/dashboard')
             }
             this.topMenuItem = item
+        },
+        moveFab(ev) {
+            this.draggingFab = ev.isFirst !== true && ev.isFinal !== true
+            this.fabPos = [this.fabPos[0] - ev.delta.x, this.fabPos[1] - ev.delta.y]
+        },
+        addTodoNote() {
+            this.$refs.noticeTodoNoteDetail.formType = 'add'
+            this.$refs.noticeTodoNoteDetail.show({})
         },
     },
 }

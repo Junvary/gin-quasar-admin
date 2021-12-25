@@ -167,11 +167,11 @@ export default {
     Notice: 'Notice',
     NoticeSystem: 'System Notice',
     NoticeMessage: 'Message Notice',
-    NoticeToDo: 'Todo List',
     CheckAll: 'View all',
     NoticeNew: 'You have a notification message !',
     NoticeSystemNew: 'You have a system message!',
-    NoticeToDoNew: 'You have something to do!',
+    TodoNote: 'Todo Note',
+    Done: 'Done',
     // Other
     PageError404Title: 'Oops. Nothing here...',
     PageError404Home: 'Go Home',

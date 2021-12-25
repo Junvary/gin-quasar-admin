@@ -14,6 +14,7 @@ type RouterSystem struct {
 	RouterConfigFrontend
 	RouterLog
 	RouterNotice
+	RouterTodoNote
 }
 
 var ApiSystem = api.GroupApiApp.ApiSystem
@@ -29,3 +30,4 @@ var ApiConfigFrontend = ApiSystem.ApiConfigFrontend
 var ApiLogLogin = ApiSystem.ApiLogLogin
 var ApiLogOperation = ApiSystem.ApiLogOperation
 var ApiNotice = ApiSystem.ApiNotice
+var ApiTodoNote = ApiSystem.ApiTodoNote

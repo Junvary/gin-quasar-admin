@@ -7,8 +7,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type ServiceDept struct {
-}
+type ServiceDept struct {}
 
 func (s *ServiceDept) GetDeptList(requestDeptList system.RequestDeptList) (err error, role interface{}, total int64) {
 	pageSize := requestDeptList.PageSize

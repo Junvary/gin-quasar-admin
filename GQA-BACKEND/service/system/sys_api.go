@@ -7,8 +7,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type ServiceApi struct {
-}
+type ServiceApi struct {}
 
 func (s *ServiceApi) GetApiList(requestApiList system.RequestApiList) (err error, api interface{}, total int64) {
 	pageSize := requestApiList.PageSize

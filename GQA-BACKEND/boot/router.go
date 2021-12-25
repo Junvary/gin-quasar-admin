@@ -62,6 +62,7 @@ func Router() *gin.Engine {
 		routerSystem.InitRouterConfigFrontend(PrivateGroup)
 		routerSystem.InitRouterLog(PrivateGroup)
 		routerSystem.InitRouterNotice(PrivateGroup)
+		routerSystem.InitRouterTodoNote(PrivateGroup)
 	}
 	//加载插件路由
 	gqaplugin.RegisterPluginRouter(PublicGroup, PrivateGroup)

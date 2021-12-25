@@ -1,7 +1,8 @@
 <template>
     <div>
         <q-list bordered separator style="min-width: 300px">
-            <q-item clickable v-ripple v-for="(item, index) in systemData" :key="index" @click="toNoticeDetail(item)">
+            <q-item clickable v-ripple v-for="(item, index) in systemData.slice(0, 5)" :key="index"
+                @click="toNoticeDetail(item)">
                 <q-item-section avatar>
                     <q-icon color="primary" name="notifications" />
                 </q-item-section>

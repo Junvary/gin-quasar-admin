@@ -13,4 +13,5 @@ type ServiceSystem struct {
 	ServiceLogLogin
 	ServiceLogOperation
 	ServiceNotice
+	ServiceTodoNote
 }

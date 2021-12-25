@@ -1,11 +1,11 @@
 <template>
     <q-btn dense round glossy push color="primary" icon="notifications">
-        <q-badge color="negative" floating>
-            {{ tableData.length + 4 }}
+        <q-badge color="negative" floating v-if="tableData.length + todoNoteData.length">
+            {{ tableData.length + todoNoteData.length }}
         </q-badge>
         <q-menu>
             <q-card>
-                <q-tabs v-model="messageType" dense class="text-grey" active-color="primary" indicator-color="primary"
+                <q-tabs v-model="noticeType" dense class="text-grey" active-color="primary" indicator-color="primary"
                     align="justify" narrow-indicator style="padding: 10px">
                     <q-tab name="system" :label="$t('NoticeSystem')">
                         <q-badge color="negative" floating v-if="systemData.length">
@@ -18,14 +18,16 @@
                         </q-badge>
                     </q-tab>
 
-                    <q-tab name="todo" :label="$t('NoticeToDo')">
-                        <q-badge color="negative" floating>4</q-badge>
+                    <q-tab name="todoNote" :label="$t('TodoNote')">
+                        <q-badge color="negative" floating v-if="todoNoteData.length">
+                            {{ todoNoteData.length }}
+                        </q-badge>
                     </q-tab>
                 </q-tabs>
 
                 <q-separator />
 
-                <q-tab-panels v-model="messageType" animated>
+                <q-tab-panels v-model="noticeType" animated>
                     <q-tab-panel style="padding: 0" name="system">
                         <NoticeSystem :systemData="systemData" />
                     </q-tab-panel>
@@ -34,21 +36,8 @@
                         <NoticeMessage :messageData="messageData" />
                     </q-tab-panel>
 
-                    <q-tab-panel style="padding: 0" name="todo">
-                        <q-list bordered separator style="min-width: 300px">
-                            <q-item clickable v-ripple v-for="(item, index) in todo" :key="index">
-                                <q-item-section avatar>
-                                    <q-icon color="primary" name="list" />
-                                </q-item-section>
-
-                                <q-item-section>
-                                    {{item.title}}
-                                </q-item-section>
-                            </q-item>
-                        </q-list>
-                        <q-item clickable v-ripple class="text-center">
-                            <q-item-section>{{ $t('CheckAll') }}</q-item-section>
-                        </q-item>
+                    <q-tab-panel style="padding: 0" name="todoNote">
+                        <NoticeTodoNote :todoNoteData="todoNoteData" />
                     </q-tab-panel>
                 </q-tab-panels>
             </q-card>
@@ -62,7 +51,9 @@
 import { tableDataMixin } from 'src/mixins/tableDataMixin'
 import NoticeSystem from './NoticeSystem'
 import NoticeMessage from './NoticeMessage'
+import NoticeTodoNote from './NoticeTodoNote'
 import { mapGetters } from 'vuex'
+import { postAction } from 'src/api/manage'
 
 export default {
     name: 'Notice',
@@ -70,6 +61,7 @@ export default {
     components: {
         NoticeSystem,
         NoticeMessage,
+        NoticeTodoNote,
     },
     computed: {
         ...mapGetters({
@@ -84,11 +76,14 @@ export default {
     },
     data() {
         return {
-            messageType: 'system',
+            noticeType: 'system',
             queryParams: {
                 noticeRead: 'no',
                 noticeSent: 'yes',
                 noticeToUser: this.username,
+            },
+            todoQueryParams: {
+                todoStatus: 'no',
             },
             pagination: {
                 sortBy: 'created_at',
@@ -98,21 +93,50 @@ export default {
             },
             url: {
                 list: 'notice/notice-list',
+                todoNoteList: 'todo-note/todo-note-list',
             },
-            todo: [],
+            todoNoteData: [],
         }
     },
     mounted() {
         this.$bus.on('noticeGetTableData', () => {
             this.getTableData()
+            this.getTodoNoteData({ pagination: this.pagination })
         })
         this.queryParams.noticeToUser = this.username
         this.getTableData()
-        const t = {
-            title: this.$t('NoticeToDoNew'),
-        }
-
-        this.todo.push(t, t, t, t)
+        this.getTodoNoteData({ pagination: this.pagination })
+    },
+    methods: {
+        async getTodoNoteData(props) {
+            if (this.url === undefined || !this.url.todoNoteList) {
+                this.$q.notify({
+                    type: 'negative',
+                    message: this.$t('UrlNotConfig'),
+                })
+                return
+            }
+            this.todoNoteData = []
+            // 组装分页和过滤条件
+            const params = {}
+            params.sortBy = props.pagination.sortBy
+            params.desc = props.pagination.descending
+            params.page = props.pagination.page
+            params.pageSize = props.pagination.rowsPerPage
+            const allParams = Object.assign({}, params, this.todoQueryParams)
+            // 带参数请求数据
+            await postAction(this.url.todoNoteList, allParams)
+                .then((res) => {
+                    if (res.code === 1) {
+                        // 最终要把分页给同步掉
+                        this.pagination = props.pagination
+                        this.todoNoteData = res.data.records
+                    }
+                })
+                .finally(() => {
+                    this.loading = false
+                })
+        },
     },
 }
 </script>
