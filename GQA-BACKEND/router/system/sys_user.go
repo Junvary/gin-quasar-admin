@@ -23,6 +23,8 @@ func (r *RouterUser) InitRouterUser(Router *gin.RouterGroup) (R gin.IRoutes) {
 		userGroup.GET("user-menu", ApiUser.GetUserMenu)
 		//用户修改密码
 		userGroup.POST("user-change-password", ApiUser.ChangePassword)
+		//用户修改昵称
+		userGroup.POST("user-change-nickname", ApiUser.ChangeNickname)
 	}
 	return Router
 }

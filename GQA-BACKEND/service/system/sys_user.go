@@ -152,3 +152,12 @@ func (s *ServiceUser) ChangePassword(username string, toChangePassword system.Re
 	err = global.GqaDb.Model(&sysUser).Update("password", newPassword).Error
 	return err
 }
+
+func (s *ServiceUser) ChangeNickname(username string, toChangeNickname system.RequestChangeNickname) (err error) {
+	var sysUser system.SysUser
+	if err = global.GqaDb.Where("username = ?", username).First(&sysUser).Error; err != nil {
+		return err
+	}
+	err = global.GqaDb.Model(&sysUser).Update("nickname", toChangeNickname.Nickname).Error
+	return err
+}

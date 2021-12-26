@@ -154,3 +154,24 @@ func (a *ApiUser) ChangePassword(c *gin.Context) {
 		global.SuccessMessage("修改密码成功！", c)
 	}
 }
+
+func (a *ApiUser) ChangeNickname(c *gin.Context) {
+	var toChangeNickname system.RequestChangeNickname
+	if err := c.ShouldBindJSON(&toChangeNickname); err != nil {
+		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
+		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
+		return
+	}
+	if toChangeNickname.Nickname == ""{
+		global.GqaLog.Error("修改昵称失败！不能为空！")
+		global.ErrorMessage("修改昵称失败！不能为空！", c)
+	}
+	username := utils.GetUsername(c)
+	if err := ServiceUser.ChangeNickname(username, toChangeNickname); err != nil {
+		global.GqaLog.Error("修改昵称失败！", zap.Any("err", err))
+		global.ErrorMessage("修改昵称失败，"+err.Error(), c)
+	} else {
+		global.GqaLog.Warn(utils.GetUsername(c) + "修改昵称成功！")
+		global.SuccessMessage("修改昵称成功！", c)
+	}
+}

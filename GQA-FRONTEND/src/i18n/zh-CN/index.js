@@ -52,6 +52,7 @@ export default {
     Password: '密码',
     Captcha: '验证码',
     Nickname: '昵称',
+    NicknameMessage: '昵称会代替真实姓名显示于系统中',
     RealName: '真实姓名',
     Config: '配置',
     // Column

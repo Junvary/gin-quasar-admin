@@ -47,3 +47,7 @@ type RequestChangePassword struct {
 	NewPassword1 string `json:"newPassword1" binding:"required"`
 	NewPassword2 string `json:"newPassword2" binding:"required"`
 }
+
+type RequestChangeNickname struct {
+	Nickname  string `json:"nickname" binding:"required"`
+}

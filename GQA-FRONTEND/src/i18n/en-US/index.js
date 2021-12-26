@@ -52,6 +52,7 @@ export default {
     Password: 'Password',
     Captcha: 'Captcha',
     Nickname: 'Nickname',
+    NicknameMessage: 'The nickname will overwrite the real name in the system',
     RealName: 'RealName',
     Config: 'Config',
     // Column
