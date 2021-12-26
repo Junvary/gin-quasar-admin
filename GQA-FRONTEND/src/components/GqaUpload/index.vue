@@ -79,7 +79,7 @@ export default {
     },
     data() {
         return {
-            uploadUrl: '/gqa-api/upload/file',
+            uploadUrl: process.env.API + 'upload/file',
             fileList: [],
             showAttachmentList: false,
         }

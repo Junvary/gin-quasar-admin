@@ -45,6 +45,7 @@ export default {
     SwitchLanguage: 'Switch Language',
     DbNeedInit: 'The database needs to be initialized!',
     DbInitSuccess: 'System initialization succeeded. Please login!',
+    TechnicalSupport: 'Technical Support',
     // Base
     Welcome: 'Welcome',
     WelcomeTo: 'Welcome to',

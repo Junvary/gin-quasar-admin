@@ -94,7 +94,7 @@ export default {
             text-align: center;
             color: #ffffff;
             opacity: 0.8;
-            max-width: 600px;
+            max-width: 750px;
             margin: auto;
             margin-bottom: 30px;
             user-select: none;

@@ -40,6 +40,9 @@ export default defineComponent({
             // ! NOTICE ssrContext param:
             Quasar.lang.set(lang.default)
         })
+        console.info('欢迎使用Gin-Quasar-Admin!')
+        console.info('项目地址: https://github.com/Junvary/gin-quasar-admin ')
+        console.info('欢迎交流，感谢Star!')
     },
     methods: {
         createLink() {
@@ -52,7 +55,7 @@ export default defineComponent({
             gqaLink.rel = 'icon'
             gqaLink.setAttribute('name', 'gqa-link-href')
             if (this.gqaFrontend.gqaHeaderLogo && this.gqaFrontend.gqaHeaderLogo !== '') {
-                const gqaHeaderLogo = '/gqa-api/' + this.gqaFrontend.gqaHeaderLogo.substring(11)
+                const gqaHeaderLogo = process.env.API + this.gqaFrontend.gqaHeaderLogo.substring(11)
                 gqaLink.href = gqaHeaderLogo
             } else {
                 gqaLink.href = 'favicon.ico'

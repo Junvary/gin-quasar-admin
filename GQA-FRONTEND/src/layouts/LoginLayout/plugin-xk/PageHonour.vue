@@ -37,7 +37,7 @@ export default {
                     if (item.attachment) {
                         for (let a of JSON.parse(item.attachment)) {
                             honourList.push({
-                                src: '/gqa-api/' + a.fileUrl.substring(11),
+                                src: process.env.API + a.fileUrl.substring(11),
                             })
                         }
                     }

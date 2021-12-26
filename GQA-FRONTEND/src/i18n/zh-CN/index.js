@@ -45,6 +45,7 @@ export default {
     SwitchLanguage: '切换语言',
     DbNeedInit: '数据库需要初始化!',
     DbInitSuccess: '系统初始化成功，请登录!',
+    TechnicalSupport: '技术支持',
     // Base
     Welcome: '欢迎',
     WelcomeTo: '欢迎使用',

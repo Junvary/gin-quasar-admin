@@ -21,7 +21,7 @@ var sysConfigFrontendData = []system.SysConfigFrontend{
 		GqaOption: "gqaSubTitle", Default: "Gin-Quasar-Admin",
 	},
 	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1003, Remark: "网站描述", CreatedAt: time.Now(), CreatedBy: "admin"},
-		GqaOption: "gqaDescribe", Default: "Be the change you want to see in the world.",
+		GqaOption: "gqaDescribe", Default: "Lorem ipsum dolor sit amet consectetur adipisicing elit",
 	},
 	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1004, Remark: "登录页插件", CreatedAt: time.Now(), CreatedBy: "admin"},
 		GqaOption: "gqaPluginLoginLayout", Default: "",
