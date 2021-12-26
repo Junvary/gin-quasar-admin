@@ -111,3 +111,16 @@
 .q-btn {
     text-transform: none;
 }
+
+
+.gqa-form {
+    & .q-field__messages {
+        & div {
+            width        : max-content;
+            border-radius: 5px;
+            background   : $negative;
+            color        : #fff;
+            padding      : 3px;
+        }
+    }
+}

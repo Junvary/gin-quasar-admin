@@ -56,9 +56,9 @@ module.exports = configure(function (ctx) {
             env: {
                 API: ctx.dev
                     // 测试代理地址
-                    ? "/gqa-api/"
+                    ? "http://127.0.0.1:8888/"
                     // 正式代理地址
-                    : "/gqa-api/"
+                    : "http://127.0.0.1:8888/"
             },
 
             // transpile: false,
@@ -98,21 +98,22 @@ module.exports = configure(function (ctx) {
         },
 
         // Full list of options: https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
-        devServer: {
-            https: false,
-            port: 8080,
-            open: true, // opens browser window automatically
-            proxy: {
-                '/gqa-api/': {
-                    // 测试后台地址
-                    target: "http://127.0.0.1:8888/",
-                    changeOrigin: true,
-                    pathRewrite: {
-                        '^/gqa-api/': ''
-                    }
-                }
-            }
-        },
+        // 改为后端跨域，devServer移除
+        // devServer: {
+        //     https: false,
+        //     port: 8080,
+        //     open: true, // opens browser window automatically
+        //     proxy: {
+        //         '/gqa-api/': {
+        //             // 测试后台地址
+        //             target: "http://127.0.0.1:8888/",
+        //             changeOrigin: true,
+        //             pathRewrite: {
+        //                 '^/gqa-api/': ''
+        //             }
+        //         }
+        //     }
+        // },
 
         // https://v2.quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
         framework: {

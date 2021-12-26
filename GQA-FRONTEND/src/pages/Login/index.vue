@@ -13,7 +13,7 @@
                     <div class="text-h6 text-center text-primary q-mt-md q-mb-xs">
                         {{ $t('LoginTitle') }}
                     </div>
-                    <q-form @submit="onSubmit" class="q-mt-lg">
+                    <q-form @submit="onSubmit" class="q-mt-lg gqa-form">
                         <q-input :disable="loading" outlined dense no-error-icon v-model.trim="form.username"
                             :placeholder="$t('Username')" :rules="[(val) =>(val && val.length > 0) || $t('NeedInput'),]"
                             autocomplete="username" />

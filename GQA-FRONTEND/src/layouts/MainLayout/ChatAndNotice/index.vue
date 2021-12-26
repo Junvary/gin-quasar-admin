@@ -36,10 +36,11 @@ export default {
     },
     data() {
         return {
-            websock: null,
+            ws: null,
             lockReconnect: false,
             chatDialogShow: false,
             chatOldMessage: [],
+            timer: null,
         }
     },
     mounted() {
@@ -53,11 +54,11 @@ export default {
             this.chatDialogShow = event
         },
         initWebSocket() {
-            this.websock = new WebSocket('ws://127.0.0.1:8888/public/ws/' + this.username)
-            this.websock.onopen = this.websocketOnopen
-            this.websock.onerror = this.websocketOnerror
-            this.websock.onmessage = this.websocketOnmessage
-            this.websock.onclose = this.websocketOnclose
+            this.ws = new WebSocket(process.env.API.replace('https://', 'wss://').replace('http://', 'ws://') + 'public/ws/' + this.username)
+            this.ws.onopen = this.websocketOnopen
+            this.ws.onerror = this.websocketOnerror
+            this.ws.onmessage = this.websocketOnmessage
+            this.ws.onclose = this.websocketOnclose
         },
         websocketOnopen() {
             console.log('Gin-Quasar-Admin: WebSocket连接成功!')
@@ -87,26 +88,27 @@ export default {
         },
         websocketOnclose(e) {
             if (e && e.code) {
-                console.log('Gin-Quasar-Admin: WebSocket连接已关闭:', e.code)
+                console.log('Gin-Quasar-Admin: WebSocket连接已关闭:', e, e.code)
+                this.reconnect()
             } else {
-                console.log('Gin-Quasar-Admin: WebSocket连接已关闭:', e)
+                console.log('Gin-Quasar-Admin: WebSocket连接已关闭。')
+                clearInterval(this.timer)
+                this.timer = null
             }
-            this.reconnect()
         },
         reconnect() {
-            const that = this
-            if (that.lockReconnect) return
-            that.lockReconnect = true
+            if (this.lockReconnect) return
+            this.lockReconnect = true
             //没连接上会一直重连，设置延迟避免请求过多
-            setTimeout(function () {
+            this.timer = setTimeout(function () {
                 console.log('Gin-Quasar-Admin: WebSocket尝试重连...')
-                that.initWebSocket()
-                that.lockReconnect = false
+                this.initWebSocket()
+                this.lockReconnect = false
             }, 5000)
         },
         sendMessage(event) {
             try {
-                this.websock.send(JSON.stringify(event))
+                this.ws.send(JSON.stringify(event))
             } catch (error) {
                 console.log(error)
             }

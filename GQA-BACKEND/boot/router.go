@@ -11,6 +11,7 @@ import (
 
 func Router() *gin.Engine {
 	var Router = gin.Default()
+	Router.Use(middleware.Cors())
 
 	/*
 		为文件提供静态资源路径 头像和文件 无须鉴权
