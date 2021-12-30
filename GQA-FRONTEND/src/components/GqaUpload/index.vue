@@ -14,7 +14,7 @@
         </q-list>
         <q-uploader v-else style="width: 100%" :multiple="multiple" :factory="factoryFn" :label="title"
             @uploaded="uploaded" :accept="gqaBackend.fileExt" :max-file-size="gqaBackend.fileMaxSize*1024*1024"
-            @failed="failed" @start="start" @finish="finish" @removed="removed" @rejected="rejected">
+            @failed="failed" @start="start" @finish="finish" @removed="removed" @rejected="rejected" :color="color">
             <template v-slot:list="scope">
                 <q-list separator>
                     <q-item v-for="file in scope.files" :key="file.name">
@@ -71,11 +71,26 @@ export default {
             required: false,
             default: true,
         },
+        color: {
+            type: String,
+            required: false,
+            default: 'primary',
+        },
     },
     computed: {
         ...mapGetters({
             token: 'user/token',
         }),
+    },
+    watch: {
+        attachment() {
+            if (this.attachment && this.attachment !== '') {
+                this.fileList = JSON.parse(this.attachment)
+                this.showAttachmentList = true
+            } else {
+                this.newUpload()
+            }
+        },
     },
     data() {
         return {
@@ -115,7 +130,7 @@ export default {
         failed(info) {
             this.$q.notify({
                 type: 'negative',
-                message: info.files[0].name + '上传失败！',
+                message: info.files[0].name + '上传失败!',
             })
         },
         start() {},
@@ -130,7 +145,7 @@ export default {
         rejected(rejectedEntries) {
             this.$q.notify({
                 type: 'negative',
-                message: '文件重复或大小/类型不被允许，请联系管理员！',
+                message: '文件重复或大小/类型不被允许，请联系管理员!',
             })
         },
         newUpload() {

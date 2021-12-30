@@ -58,7 +58,8 @@
                             <q-select class="col" v-model="addOrEditDetail.language" :options="dictOptions.codeLanguage"
                                 multiple clearable emit-value map-options
                                 :rules="[ val => val && val.length > 0 || '必须选择项目语言']" label="项目语言" />
-                            <q-select class="col" v-model="addOrEditDetail.node" :options="dictOptions.projectNode"
+                            <q-select class="col" v-model="addOrEditDetail.node"
+                                :options="dictOptions.projectNode.filter(item=>item.dictCode.indexOf('p') !== -1)"
                                 clearable emit-value map-options :rules="[ val => val && val.length > 0 || '必须选择项目节点']"
                                 label="项目节点" />
                             <GqaSeleteUser className="col" label="牵头人" v-model:selectUser="addOrEditDetail.leader"

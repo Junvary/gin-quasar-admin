@@ -26,6 +26,8 @@ func InitPrivateRouter(privateGroup *gin.RouterGroup) {
 		xkRouter.POST("project-list", private_api.GetProjectList)
 		//编辑project信息
 		xkRouter.PUT("project-edit", private_api.EditProject)
+		//编辑project详情
+		xkRouter.PUT("project-edit-detail", private_api.EditProjectDetail)
 		//新增project
 		xkRouter.POST("project-add", private_api.AddProject)
 		//删除project

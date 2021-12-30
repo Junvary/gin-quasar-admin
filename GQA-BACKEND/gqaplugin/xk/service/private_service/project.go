@@ -16,8 +16,8 @@ func GetProjectList(getProjectList model.RequestProjectList, username string) (e
 		return err, projectList, 0
 	}
 	//配置搜索
-	if getProjectList.ProjectName != ""{
-		db = db.Where("project_name like ?", "%" + getProjectList.ProjectName + "%")
+	if getProjectList.ProjectName != "" {
+		db = db.Where("project_name like ?", "%"+getProjectList.ProjectName+"%")
 	}
 	err = db.Count(&total).Error
 	if err != nil {
@@ -28,7 +28,7 @@ func GetProjectList(getProjectList model.RequestProjectList, username string) (e
 	return err, projectList, total
 }
 
-func  EditProject(toEditProject model.GqaPluginXkProject, username string) (err error) {
+func EditProject(toEditProject model.GqaPluginXkProject, username string) (err error) {
 	var db *gorm.DB
 	if err, db = system.DeptDataPermission(username, global.GqaDb.Model(&model.GqaPluginXkProject{})); err != nil {
 		return err
@@ -38,6 +38,15 @@ func  EditProject(toEditProject model.GqaPluginXkProject, username string) (err 
 		return err
 	}
 	err = db.Updates(&toEditProject).Error
+	return err
+}
+
+func EditProjectDetail(toEditProjectDetail model.RequestEditProjectDetail) (err error) {
+	var projectDetail model.GqaPluginXkProjectDetail
+	if err = global.GqaDb.Where("project_id = ?", toEditProjectDetail.ProjectId).Unscoped().Delete(&projectDetail).Error; err != nil {
+		return err
+	}
+	err = global.GqaDb.Create(&toEditProjectDetail.ProjectDetail).Error
 	return err
 }
 
@@ -69,6 +78,7 @@ func QueryProjectById(id uint, username string) (err error, projectInfo model.Gq
 	if err, db = system.DeptDataPermission(username, global.GqaDb.Model(&model.GqaPluginXkProject{})); err != nil {
 		return err, project
 	}
-	err = db.Preload("Leader").Preload("CreatedByUser").Preload("UpdatedByUser").First(&project, "id = ?", id).Error
+	err = db.Preload("Leader").Preload("CreatedByUser").Preload("UpdatedByUser").Preload("ProjectDetail").
+		First(&project, "id = ?", id).Error
 	return err, project
 }

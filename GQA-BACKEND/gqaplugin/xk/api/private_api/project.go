@@ -7,6 +7,7 @@ import (
 	"gin-quasar-admin/model/system"
 	"gin-quasar-admin/utils"
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 	"go.uber.org/zap"
 )
 
@@ -39,10 +40,25 @@ func EditProject(c *gin.Context) {
 	}
 	toEditProject.UpdatedBy = utils.GetUsername(c)
 	if err := private_service.EditProject(toEditProject, utils.GetUsername(c)); err != nil {
-		global.GqaLog.Error("编辑新闻失败！", zap.Any("err", err))
-		global.ErrorMessage("编辑新闻失败，"+err.Error(), c)
+		global.GqaLog.Error("编辑项目失败！", zap.Any("err", err))
+		global.ErrorMessage("编辑项目失败，"+err.Error(), c)
 	} else {
-		global.SuccessMessage("编辑新闻成功！", c)
+		global.SuccessMessage("编辑项目成功！", c)
+	}
+}
+
+func EditProjectDetail(c *gin.Context) {
+	var toEditProjectDetail model.RequestEditProjectDetail
+	if err := c.ShouldBindJSON(&toEditProjectDetail); err != nil {
+		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
+		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
+		return
+	}
+	if err := private_service.EditProjectDetail(toEditProjectDetail); err != nil {
+		global.GqaLog.Error("编辑项目失败！", zap.Any("err", err))
+		global.ErrorMessage("编辑项目失败，"+err.Error(), c)
+	} else {
+		global.SuccessMessage("编辑项目成功！", c)
 	}
 }
 
@@ -60,6 +76,7 @@ func AddProject(c *gin.Context) {
 			Sort:      toAddProject.Sort,
 			Remark:    toAddProject.Remark,
 		},
+		ProjectId:      uuid.New(),
 		ProjectName:    toAddProject.ProjectName,
 		Demand:         toAddProject.Demand,
 		LeaderUsername: toAddProject.LeaderUsername,

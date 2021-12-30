@@ -45,6 +45,8 @@
             <template v-slot:body-cell-actions="props">
                 <q-td :props="props">
                     <div class="q-gutter-xs">
+                        <q-btn color="warning" @click="showProjectDetailChart(props.row)" label="进度图" />
+                        <q-btn color="warning" @click="showProjectDetail(props.row)" label="维护进度" />
                         <q-btn color="primary" @click="showEditForm(props.row)" label="编辑" />
                         <q-btn color="negative" @click="handleDelete(props.row)" label="删除" />
                     </div>
@@ -52,6 +54,8 @@
             </template>
         </q-table>
         <add-or-edit-dialog ref="addOrEditDialog" @handleFinish="handleFinish" />
+        <ProjectDetailDialog ref="projectDetailDialog" />
+        <ProjectDetailChartDialog ref="projectDetailChartDialog" />
     </q-page>
 </template>
 
@@ -60,6 +64,8 @@ import { tableDataMixin } from 'src/mixins/tableDataMixin'
 import GqaDictShow from 'src/components/GqaDictShow'
 import GqaShowName from 'src/components/GqaShowName'
 import addOrEditDialog from './modules/addOrEditDialog'
+import ProjectDetailDialog from './modules/ProjectDetailDialog'
+import ProjectDetailChartDialog from './modules/ProjectDetailChartDialog'
 
 export default {
     name: 'News',
@@ -68,6 +74,8 @@ export default {
         GqaDictShow,
         GqaShowName,
         addOrEditDialog,
+        ProjectDetailDialog,
+        ProjectDetailChartDialog,
     },
     data() {
         return {
@@ -96,6 +104,14 @@ export default {
     },
     created() {
         this.getTableData()
+    },
+    methods: {
+        showProjectDetail(row) {
+            this.$refs.projectDetailDialog.show(row)
+        },
+        showProjectDetailChart(row) {
+            this.$refs.projectDetailChartDialog.show(row)
+        },
     },
 }
 </script>

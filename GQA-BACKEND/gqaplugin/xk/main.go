@@ -40,6 +40,7 @@ func (p *xk) PluginMigrate() []interface{} { //实现接口方法，迁移插件
 	var ModelList = []interface{}{
 		model.GqaPluginXkNews{},
 		model.GqaPluginXkProject{},
+		model.GqaPluginXkProjectDetail{},
 		model.GqaPluginXkHonour{},
 		model.GqaPluginXkDocument{},
 		model.GqaPluginXkDownload{},

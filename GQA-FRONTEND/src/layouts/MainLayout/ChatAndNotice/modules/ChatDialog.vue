@@ -3,6 +3,7 @@
         @before-hide="beforeHide">
         <q-card bordered style="width: 750px; max-width: 45vw;">
             <q-bar class="bg-primary text-white">
+                {{ gqaFrontend.gqaSubTitle }}
                 <q-space />
                 <q-btn dense flat icon="close" v-close-popup />
             </q-bar>
@@ -63,10 +64,11 @@ import { tableDataMixin } from 'src/mixins/tableDataMixin'
 import GqaAvatar from 'src/components/GqaAvatar'
 import GqaShowName from 'src/components/GqaShowName'
 import { GqaLoginAvatar, GqaUsername } from 'src/settings'
+import { gqaFrontendMixin } from 'src/mixins/gqaFrontendMixin'
 
 export default {
     name: 'ChatDialog',
-    mixins: [tableDataMixin],
+    mixins: [tableDataMixin, gqaFrontendMixin],
     props: {
         oldMessage: {
             type: Array,

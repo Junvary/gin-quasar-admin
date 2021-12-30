@@ -23,6 +23,7 @@ var sysCasbinData = []gormadapter.CasbinRule{
 	//project
 	{Ptype: "p", V0: "super-admin", V1: "/plugin-xk/project-list", V2: "POST"},
 	{Ptype: "p", V0: "super-admin", V1: "/plugin-xk/project-edit", V2: "PUT"},
+	{Ptype: "p", V0: "super-admin", V1: "/plugin-xk/project-edit-detail", V2: "PUT"},
 	{Ptype: "p", V0: "super-admin", V1: "/plugin-xk/project-add", V2: "POST"},
 	{Ptype: "p", V0: "super-admin", V1: "/plugin-xk/project-delete", V2: "DELETE"},
 	{Ptype: "p", V0: "super-admin", V1: "/plugin-xk/project-id", V2: "POST"},
