@@ -39,7 +39,7 @@
                                 </span>
                                 <q-input outlined v-model="projectForm[item.dictCode].content" autogrow
                                     :label="item.dictLabel + ' 备注'" />
-                                <GqaUpload title="上传附件" v-model:attachment="projectForm[item.dictCode].attachment"
+                                <GqaUpload v-model:attachment="projectForm[item.dictCode].attachment"
                                     :color="checkColor(item)" />
                             </div>
                         </q-timeline-entry>

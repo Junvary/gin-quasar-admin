@@ -80,8 +80,8 @@
             <q-separator />
 
             <q-card-actions align="right">
-                <q-btn :label="'保存' + formTypeName " color="primary" @click="handleAddOrEidt" />
-                <q-btn label="取消" color="negative" v-close-popup />
+                <q-btn :label="$t('Save') + formTypeName" color="primary" @click="handleAddOrEidt" />
+                <q-btn :label="$t('Cancel')" color="negative" v-close-popup />
             </q-card-actions>
 
             <q-inner-loading :showing="loading">

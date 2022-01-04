@@ -54,7 +54,7 @@
                             </q-field>
                         </div>
                         <div class="row ">
-                            <GqaUpload class="col" title="上传附件" v-model:attachment="addOrEditDetail.attachment" />
+                            <GqaUpload class="col" v-model:attachment="addOrEditDetail.attachment" />
                             <q-separator vertical spaced />
                             <q-input class="col" v-model="addOrEditDetail.remark" type="textarea" label="备注" />
                         </div>
@@ -66,8 +66,8 @@
             <q-separator />
 
             <q-card-actions align="right">
-                <q-btn :label="'保存' + formTypeName " color="primary" @click="handleAddOrEidt" />
-                <q-btn label="取消" color="negative" v-close-popup />
+                <q-btn :label="$t('Save') + formTypeName" color="primary" @click="handleAddOrEidt" />
+                <q-btn :label="$t('Cancel')" color="negative" v-close-popup />
             </q-card-actions>
 
             <q-inner-loading :showing="loading">

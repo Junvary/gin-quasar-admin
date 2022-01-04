@@ -100,7 +100,6 @@ export default {
     ConfirmDelete: '确定删除？',
     ConfirmDeleteMessage: '确定删除此项吗？',
     PleaseSelectFile: '请选择文件!',
-    UploadSuccess: '上传成功!',
     UrlNotConfig: '请先配置url',
     CanNotAddOrEdit: '无法新增或编辑!',
     FixForm: '请完善表格信息',
@@ -207,5 +206,12 @@ export default {
     // data permission
     DeptDataPermissionType: '部门数据权限分类',
     // user profile
-    TwoPasswordsCheck: '两次新密码不一致!'
+    TwoPasswordsCheck: '两次新密码不一致!',
+    // upload
+    Size: '大小',
+    Progress: '进度',
+    UploadFiles: '上传附件',
+    UploadSuccess: '上传成功!',
+    UploadFailed: '上传失败!',
+    SizeOrExtError: '文件重复或大小/类型不被允许',
 }

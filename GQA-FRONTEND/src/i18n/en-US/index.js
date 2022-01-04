@@ -100,7 +100,6 @@ export default {
     ConfirmDelete: 'Want to Delete?',
     ConfirmDeleteMessage: 'Are you sure to delete this item?',
     PleaseSelectFile: 'Please select a file!',
-    UploadSuccess: 'Upload success!',
     UrlNotConfig: 'URL not cofigured',
     CanNotAddOrEdit: 'Add or edit not possible!',
     FixForm: 'Please fix the form',
@@ -207,5 +206,12 @@ export default {
     // data permission
     DeptDataPermissionType: 'Department Data Permission Type',
     // user profile
-    TwoPasswordsCheck: 'Passwords are inconsistent!'
+    TwoPasswordsCheck: 'Passwords are inconsistent!',
+    // upload
+    Size: 'size',
+    Progress: 'progress',
+    UploadFiles: 'Upload files',
+    UploadSuccess: 'Upload success!',
+    UploadFailed: 'Upload failed!',
+    SizeOrExtError: 'Size or ext not allowed!',
 }

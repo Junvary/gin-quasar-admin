@@ -1,20 +1,9 @@
 <template>
     <div>
-        <q-list bordered separator v-if="showAttachmentList">
-            <q-item-label header class="row items-center justify-between">
-                <span>附件列表:</span>
-                <q-btn dense color="negative" @click="newUpload">重新上传</q-btn>
-            </q-item-label>
-            <q-separator />
-            <q-item clickable v-ripple v-for="(item, index) in fileList" :key="index" @click="handleDownload(item)">
-                <q-item-section>
-                    {{item.filename}}
-                </q-item-section>
-            </q-item>
-        </q-list>
-        <q-uploader v-else style="width: 100%" :multiple="multiple" :factory="factoryFn" :label="title"
-            @uploaded="uploaded" :accept="gqaBackend.fileExt" :max-file-size="gqaBackend.fileMaxSize*1024*1024"
-            @failed="failed" @start="start" @finish="finish" @removed="removed" @rejected="rejected" :color="color">
+        <q-uploader style="width: 100%" :multiple="multiple" :factory="factoryFn"
+            :label="title === '' ? $t('UploadFiles') : title " @uploaded="uploaded" :accept="gqaBackend.fileExt"
+            :max-file-size="gqaBackend.fileMaxSize*1024*1024" @failed="failed" @finish="finish" @removed="removed"
+            @rejected="rejected" :color="color">
             <template v-slot:list="scope">
                 <q-list separator>
                     <q-item v-for="file in scope.files" :key="file.name">
@@ -24,9 +13,15 @@
                             </q-item-label>
 
                             <q-item-label caption :class="file.__status === 'uploaded' ? 'text-positive': ''">
-                                <q-badge>大小</q-badge>:{{ file.__sizeLabel }}
-                                <q-badge>进度</q-badge>:{{ file.__progressLabel }}
-                                <q-badge>状态</q-badge>: {{ file.__status  }}
+                                <q-badge>
+                                    {{ $t('Size') }}
+                                </q-badge>:{{ file.__sizeLabel }}
+                                <q-badge>
+                                    {{ $t('Progress')  }}
+                                </q-badge>:{{ file.__progressLabel }}
+                                <q-badge>
+                                    {{ $t('Status') }}
+                                </q-badge>: {{ file.__status  }}
                             </q-item-label>
                         </q-item-section>
 
@@ -43,6 +38,17 @@
                 </q-list>
             </template>
         </q-uploader>
+        <q-list bordered separator v-if="fileList.length">
+            <q-item clickable v-ripple active v-for="(item, index) in fileList" :key="index"
+                @click="handleDownload(item)" active-class="text-primary">
+                <q-item-section>
+                    {{item.filename}}
+                </q-item-section>
+                <q-item-section avatar>
+                    <q-btn round push dense color="primary" icon="delete" @click.stop="deleteOne(item)" />
+                </q-item-section>
+            </q-item>
+        </q-list>
     </div>
 
 </template>
@@ -59,7 +65,7 @@ export default {
         title: {
             type: String,
             required: false,
-            default: '上传附件',
+            default: '',
         },
         attachment: {
             type: String,
@@ -86,9 +92,6 @@ export default {
         attachment() {
             if (this.attachment && this.attachment !== '') {
                 this.fileList = JSON.parse(this.attachment)
-                this.showAttachmentList = true
-            } else {
-                this.newUpload()
             }
         },
     },
@@ -96,15 +99,12 @@ export default {
         return {
             uploadUrl: process.env.API + 'upload/file',
             fileList: [],
-            showAttachmentList: false,
         }
     },
     created() {
         if (this.attachment && this.attachment !== '') {
             this.fileList = JSON.parse(this.attachment)
-            this.showAttachmentList = true
         } else {
-            this.newUpload()
         }
     },
     methods: {
@@ -119,7 +119,7 @@ export default {
         uploaded(info) {
             this.$q.notify({
                 type: 'positive',
-                message: info.files[0].name + '上传成功！',
+                message: info.files[0].name + this.$t('UploadSuccess'),
             })
             const res = JSON.parse(info.xhr.response)
             this.fileList.push({
@@ -130,12 +130,8 @@ export default {
         failed(info) {
             this.$q.notify({
                 type: 'negative',
-                message: info.files[0].name + '上传失败!',
+                message: info.files[0].name + this.$t('UploadFailed'),
             })
-        },
-        start() {},
-        finish() {
-            this.$emit('update:attachment', JSON.stringify(this.fileList))
         },
         removed(files) {
             files.forEach((item) => {
@@ -145,15 +141,26 @@ export default {
         rejected(rejectedEntries) {
             this.$q.notify({
                 type: 'negative',
-                message: '文件重复或大小/类型不被允许，请联系管理员!',
+                message: this.$t('SizeOrExtError'),
             })
-        },
-        newUpload() {
-            this.fileList = []
-            this.showAttachmentList = false
         },
         handleDownload(item) {
             downloadAction(item.fileUrl.substring(11), item.filename)
+        },
+        finish() {
+            if (this.fileList.length) {
+                this.$emit('update:attachment', JSON.stringify(this.fileList))
+            } else {
+                this.$emit('update:attachment', '')
+            }
+        },
+        deleteOne(item) {
+            this.fileList = this.fileList.filter((file) => file.fileUrl !== item.fileUrl)
+            if (this.fileList.length) {
+                this.$emit('update:attachment', JSON.stringify(this.fileList))
+            } else {
+                this.$emit('update:attachment', '')
+            }
         },
     },
 }
