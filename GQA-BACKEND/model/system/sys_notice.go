@@ -1,7 +1,7 @@
 package system
 
 import (
-	"gin-quasar-admin/global"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/google/uuid"
 )
 

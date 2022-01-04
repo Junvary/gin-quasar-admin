@@ -1,10 +1,10 @@
 package xk
 
 import (
-	"gin-quasar-admin/gqaplugin/xk/data"
-	"gin-quasar-admin/gqaplugin/xk/model"
-	"gin-quasar-admin/gqaplugin/xk/router/private_router"
-	"gin-quasar-admin/gqaplugin/xk/router/public_router"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/xk/data"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/xk/model"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/xk/router/private_router"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/xk/router/public_router"
 	"github.com/gin-gonic/gin"
 )
 

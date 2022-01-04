@@ -86,7 +86,7 @@ export default {
                 updatedAt: '',
                 updatedBy: '',
                 todoDetail: '',
-                todoStatus: '',
+                todoStatus: 'no',
             },
             url: {
                 add: 'todo-note/todo-note-add',
@@ -104,7 +104,7 @@ export default {
                 updatedAt: '',
                 updatedBy: '',
                 todoDetail: '',
-                todoStatus: '',
+                todoStatus: 'no',
             }
         },
         hide() {

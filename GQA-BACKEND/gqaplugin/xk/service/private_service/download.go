@@ -1,9 +1,9 @@
 package private_service
 
 import (
-	"gin-quasar-admin/global"
-	"gin-quasar-admin/gqaplugin/xk/model"
-	"gin-quasar-admin/service/system"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/xk/model"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/service/system"
 	"gorm.io/gorm"
 )
 

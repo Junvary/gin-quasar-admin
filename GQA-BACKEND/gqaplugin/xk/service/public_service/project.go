@@ -1,8 +1,8 @@
 package public_service
 
 import (
-	"gin-quasar-admin/global"
-	"gin-quasar-admin/gqaplugin/xk/model"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/xk/model"
 )
 
 func GetProject(getProjectList model.RequestProjectList) (err error, project []model.GqaPluginXkProject, total int64) {

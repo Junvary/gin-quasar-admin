@@ -1,9 +1,8 @@
-module gin-quasar-admin
+module github.com/Junvary/gin-quasar-admin/GQA-BACKEND
 
 go 1.17
 
 require (
-	github.com/Junvary/gqa-plugin-example v0.0.0-20211206043750-8a89226d57d0
 	github.com/casbin/casbin/v2 v2.39.0
 	github.com/casbin/gorm-adapter/v3 v3.4.5
 	github.com/fsnotify/fsnotify v1.5.1

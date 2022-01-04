@@ -2,8 +2,8 @@ package utils
 
 import (
 	"fmt"
-	"gin-quasar-admin/global"
-	"gin-quasar-admin/model/system"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model/system"
 	"github.com/casbin/casbin/v2"
 	gormadapter "github.com/casbin/gorm-adapter/v3"
 	"github.com/gin-gonic/gin"

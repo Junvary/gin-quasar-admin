@@ -2,7 +2,7 @@ package boot
 
 import (
 	"fmt"
-	"gin-quasar-admin/global"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"

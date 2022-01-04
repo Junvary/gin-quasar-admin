@@ -1,10 +1,10 @@
 package public_api
 
 import (
-	"gin-quasar-admin/global"
-	"gin-quasar-admin/gqaplugin/xk/model"
-	"gin-quasar-admin/gqaplugin/xk/service/public_service"
-	"gin-quasar-admin/model/system"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/xk/model"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/xk/service/public_service"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model/system"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )

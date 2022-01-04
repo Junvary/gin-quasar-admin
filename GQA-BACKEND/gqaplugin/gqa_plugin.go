@@ -4,11 +4,11 @@ import (
 	//其他引用
 	"github.com/gin-gonic/gin"
 	// 1.插件引入方式1：github插件引入方式
-	example "github.com/Junvary/gqa-plugin-example"
+	//example "github.com/Junvary/gqa-plugin-example"
 	//xk "github.com/Junvary/gqa-plugin-xk"
-	// 2.插件引入方式2：本地插件引入方式
-	//"gin-quasar-admin/gqaplugin/example"
-	"gin-quasar-admin/gqaplugin/xk"
+	// 2.插件引入方式2：本地插件引入方式（GQA的引入模式从本地改为github）
+	//"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/example"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/xk"
 )
 
 /*
@@ -19,7 +19,7 @@ import (
 */
 
 var PluginList = []GqaPlugin{ //插件列表顺序填入
-	example.PluginExample,
+	//example.PluginExample,
 	xk.PluginXk,
 }
 

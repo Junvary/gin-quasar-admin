@@ -2,8 +2,8 @@ package public
 
 import (
 	"encoding/json"
-	"gin-quasar-admin/model/system"
-	"gin-quasar-admin/service/public"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model/system"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/service/public"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	"net/http"

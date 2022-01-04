@@ -2,7 +2,7 @@ package public
 
 import (
 	"encoding/json"
-	"gin-quasar-admin/model/system"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model/system"
 	"github.com/gorilla/websocket"
 	"strings"
 )

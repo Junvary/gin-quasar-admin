@@ -1,8 +1,8 @@
 package public_service
 
 import (
-	"gin-quasar-admin/global"
-	"gin-quasar-admin/gqaplugin/xk/model"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/xk/model"
 )
 
 func GetHonour(getHonourList model.RequestHonourList) (err error, honour []model.GqaPluginXkHonour, total int64) {

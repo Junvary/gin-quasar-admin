@@ -1,7 +1,7 @@
 package private_router
 
 import (
-	"gin-quasar-admin/gqaplugin/example/api/private_api"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/example/api/private_api"
 	"github.com/gin-gonic/gin"
 )
 
