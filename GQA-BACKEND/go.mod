@@ -3,12 +3,13 @@ module github.com/Junvary/gin-quasar-admin/GQA-BACKEND
 go 1.17
 
 require (
+	github.com/Junvary/gqa-plugin-xk v0.0.0-20220104055723-8ec6af11ec9e
 	github.com/casbin/casbin/v2 v2.39.0
-	github.com/casbin/gorm-adapter/v3 v3.4.5
+	github.com/casbin/gorm-adapter/v3 v3.4.6
 	github.com/fsnotify/fsnotify v1.5.1
 	github.com/gin-gonic/gin v1.7.7
 	github.com/golang-jwt/jwt v3.2.2+incompatible
-	github.com/google/uuid v1.1.2
+	github.com/google/uuid v1.3.0
 	github.com/gorilla/websocket v1.4.2
 	github.com/mojocn/base64Captcha v1.3.5
 	github.com/mssola/user_agent v0.5.3
