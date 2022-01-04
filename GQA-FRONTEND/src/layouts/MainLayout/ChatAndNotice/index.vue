@@ -99,8 +99,7 @@ export default {
         reconnect() {
             if (this.lockReconnect) return
             this.lockReconnect = true
-            //没连接上会一直重连，设置延迟避免请求过多
-            this.timer = setTimeout(function () {
+            this.timer = setTimeout(() => {
                 console.log('Gin-Quasar-Admin: WebSocket尝试重连...')
                 this.initWebSocket()
                 this.lockReconnect = false
