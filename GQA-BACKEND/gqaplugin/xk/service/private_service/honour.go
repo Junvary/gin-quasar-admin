@@ -2,8 +2,9 @@ package private_service
 
 import (
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/xk/model"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/service/system"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
+	"github.com/Junvary/gqa-plugin-xk/model"
 	"gorm.io/gorm"
 )
 
@@ -36,7 +37,11 @@ func  EditHonour(toEditHonour model.GqaPluginXkHonour, username string) (err err
 	if err = db.Where("id = ?", toEditHonour.Id).First(&honour).Error; err != nil {
 		return err
 	}
-	err = db.Updates(&toEditHonour).Error
+	//err = db.Updates(&toEditHonour).Error
+	err = db.Updates(utils.MergeMap(utils.GlobalModelToMap(&toEditHonour.GqaModel), map[string]interface{}{
+		"title":      toEditHonour.Title,
+		"attachment": toEditHonour.Attachment,
+	})).Error
 	return err
 }
 

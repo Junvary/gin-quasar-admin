@@ -2,8 +2,9 @@ package private_service
 
 import (
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/xk/model"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/service/system"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
+	"github.com/Junvary/gqa-plugin-xk/model"
 	"gorm.io/gorm"
 )
 
@@ -36,7 +37,12 @@ func  EditDownload(toEditDownload model.GqaPluginXkDownload, username string) (e
 	if err = db.Where("id = ?", toEditDownload.Id).First(&download).Error; err != nil {
 		return err
 	}
-	err = db.Updates(&toEditDownload).Error
+	//err = db.Updates(&toEditDownload).Error
+	err = db.Updates(utils.MergeMap(utils.GlobalModelToMap(&toEditDownload.GqaModel), map[string]interface{}{
+		"title":      toEditDownload.Title,
+		"content":    toEditDownload.Content,
+		"attachment": toEditDownload.Attachment,
+	})).Error
 	return err
 }
 

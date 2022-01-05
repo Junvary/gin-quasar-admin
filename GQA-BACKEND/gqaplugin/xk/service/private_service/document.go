@@ -2,8 +2,9 @@ package private_service
 
 import (
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/xk/model"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/service/system"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
+	"github.com/Junvary/gqa-plugin-xk/model"
 	"gorm.io/gorm"
 )
 
@@ -16,8 +17,8 @@ func GetDocumentList(getDocumentList model.RequestDocumentList, username string)
 		return err, documentList, 0
 	}
 	//配置搜索
-	if getDocumentList.Title != ""{
-		db = db.Where("title like ?", "%" + getDocumentList.Title + "%")
+	if getDocumentList.Title != "" {
+		db = db.Where("title like ?", "%"+getDocumentList.Title+"%")
 	}
 	err = db.Count(&total).Error
 	if err != nil {
@@ -27,7 +28,7 @@ func GetDocumentList(getDocumentList model.RequestDocumentList, username string)
 	return err, documentList, total
 }
 
-func  EditDocument(toEditDocument model.GqaPluginXkDocument, username string) (err error) {
+func EditDocument(toEditDocument model.GqaPluginXkDocument, username string) (err error) {
 	var db *gorm.DB
 	if err, db = system.DeptDataPermission(username, global.GqaDb.Model(&model.GqaPluginXkDocument{})); err != nil {
 		return err
@@ -36,7 +37,12 @@ func  EditDocument(toEditDocument model.GqaPluginXkDocument, username string) (e
 	if err = db.Where("id = ?", toEditDocument.Id).First(&document).Error; err != nil {
 		return err
 	}
-	err = db.Updates(&toEditDocument).Error
+	//err = db.Updates(&toEditDocument).Error
+	err = db.Updates(utils.MergeMap(utils.GlobalModelToMap(&toEditDocument.GqaModel), map[string]interface{}{
+		"title": toEditDocument.Title,
+		"content": toEditDocument.Content,
+		"attachment": toEditDocument.Attachment,
+	})).Error
 	return err
 }
 

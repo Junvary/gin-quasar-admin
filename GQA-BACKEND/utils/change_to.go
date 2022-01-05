@@ -1,6 +1,9 @@
 package utils
 
-import "reflect"
+import (
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
+	"reflect"
+)
 
 func StructToMap(obj interface{}) map[string]interface{} {
 	obj1 := reflect.TypeOf(obj)
@@ -15,4 +18,21 @@ func StructToMap(obj interface{}) map[string]interface{} {
 		}
 	}
 	return data
+}
+
+func GlobalModelToMap(model *global.GqaModel) map[string]interface{} {
+	var data = make(map[string]interface{})
+	data["remark"] = model.Remark
+	data["updated_by"] = model.UpdatedBy
+	return data
+}
+
+func MergeMap(mObj ...map[string]interface{}) map[string]interface{} {
+	newObj := map[string]interface{}{}
+	for _, m := range mObj {
+		for k, v := range m {
+			newObj[k] = v
+		}
+	}
+	return newObj
 }

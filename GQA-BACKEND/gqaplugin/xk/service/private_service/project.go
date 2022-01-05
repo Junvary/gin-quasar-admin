@@ -2,8 +2,9 @@ package private_service
 
 import (
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/xk/model"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/service/system"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
+	"github.com/Junvary/gqa-plugin-xk/model"
 	"gorm.io/gorm"
 )
 
@@ -37,7 +38,15 @@ func EditProject(toEditProject model.GqaPluginXkProject, username string) (err e
 	if err = db.Where("id = ?", toEditProject.Id).First(&project).Error; err != nil {
 		return err
 	}
-	err = db.Updates(&toEditProject).Error
+	//err = db.Updates(&toEditProject).Error
+	err = db.Updates(utils.MergeMap(utils.GlobalModelToMap(&toEditProject.GqaModel), map[string]interface{}{
+		"project_name":    toEditProject.ProjectName,
+		"demand":          toEditProject.Demand,
+		"leader_username": toEditProject.LeaderUsername,
+		"player":          toEditProject.Player,
+		"language":        toEditProject.Language,
+		"node":            toEditProject.Node,
+	})).Error
 	return err
 }
 

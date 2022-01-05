@@ -2,8 +2,9 @@ package private_service
 
 import (
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/xk/model"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/service/system"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
+	"github.com/Junvary/gqa-plugin-xk/model"
 	"gorm.io/gorm"
 )
 
@@ -36,7 +37,12 @@ func EditNews(toEditNews model.GqaPluginXkNews, username string) (err error) {
 	if err = db.Where("id = ?", toEditNews.Id).First(&news).Error; err != nil {
 		return err
 	}
-	err = global.GqaDb.Updates(&toEditNews).Error
+	//err = global.GqaDb.Updates(&toEditNews).Error
+	err = db.Updates(utils.MergeMap(utils.GlobalModelToMap(&toEditNews.GqaModel), map[string]interface{}{
+		"title":      toEditNews.Title,
+		"content":    toEditNews.Content,
+		"attachment": toEditNews.Attachment,
+	})).Error
 	return err
 }
 

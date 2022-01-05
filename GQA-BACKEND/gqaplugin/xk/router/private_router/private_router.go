@@ -1,8 +1,8 @@
 package private_router
 
 import (
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/xk/api/private_api"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/middleware"
+	"github.com/Junvary/gqa-plugin-xk/api/private_api"
 	"github.com/gin-gonic/gin"
 )
 

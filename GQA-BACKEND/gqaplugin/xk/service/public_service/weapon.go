@@ -2,8 +2,8 @@ package public_service
 
 import (
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/xk/model"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model/system"
+	"github.com/Junvary/gqa-plugin-xk/model"
 )
 
 func GetWeaponLanguage() (err error, language []interface{}) {
