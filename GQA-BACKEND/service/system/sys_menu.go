@@ -37,7 +37,8 @@ func (s *ServiceMenu) EditMenu(toEditMenu system.SysMenu) (err error) {
 	if sysMenu.Stable == "yes" {
 		return errors.New("系统内置不允许编辑：" + toEditMenu.Title)
 	}
-	err = global.GqaDb.Updates(&toEditMenu).Error
+	//err = global.GqaDb.Updates(&toEditMenu).Error
+	err = global.GqaDb.Save(&toEditMenu).Error
 	return err
 }
 

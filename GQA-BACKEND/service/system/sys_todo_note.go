@@ -29,7 +29,8 @@ func (s *ServiceTodoNote) EditTodoNote(toEditTodoNote system.SysTodoNote) (err e
 	if err = global.GqaDb.Where("id = ?", toEditTodoNote.Id).First(&sysTodoNote).Error; err != nil {
 		return err
 	}
-	err = global.GqaDb.Updates(&toEditTodoNote).Error
+	//err = global.GqaDb.Updates(&toEditTodoNote).Error
+	err = global.GqaDb.Save(&toEditTodoNote).Error
 	return err
 }
 

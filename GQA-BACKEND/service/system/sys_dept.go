@@ -37,7 +37,8 @@ func (s *ServiceDept) EditDept(toEditDept system.SysDept) (err error) {
 	if sysDept.Stable == "yes" {
 		return errors.New("系统内置不允许编辑：" + toEditDept.DeptCode)
 	}
-	err = global.GqaDb.Updates(&toEditDept).Error
+	//err = global.GqaDb.Updates(&toEditDept).Error
+	err = global.GqaDb.Save(&toEditDept).Error
 	return err
 }
 

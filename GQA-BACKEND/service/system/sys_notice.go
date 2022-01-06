@@ -71,7 +71,8 @@ func (s *ServiceNotice) EditNotice(toEditNotice system.SysNotice) (err error) {
 	if err = global.GqaDb.Where("notice_id = ?", toEditNotice.NoticeId).Unscoped().Delete(&sysNoticeToUser).Error; err != nil {
 		return err
 	}
-	err = global.GqaDb.Updates(&toEditNotice).Error
+	//err = global.GqaDb.Updates(&toEditNotice).Error
+	err = global.GqaDb.Save(&toEditNotice).Error
 	return err
 }
 

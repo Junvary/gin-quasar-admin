@@ -42,7 +42,8 @@ func (s *ServiceUser) EditUser(toEditUser system.SysUser) (err error) {
 	if sysUser.Stable == "yes" {
 		return errors.New("系统内置不允许编辑：" + toEditUser.Username)
 	}
-	err = global.GqaDb.Updates(&toEditUser).Error
+	//err = global.GqaDb.Updates(&toEditUser).Error
+	err = global.GqaDb.Save(&toEditUser).Error
 	return err
 }
 

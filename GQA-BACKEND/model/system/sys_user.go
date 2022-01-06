@@ -11,7 +11,7 @@ type SysUser struct {
 	Avatar   string    `json:"avatar" gorm:"comment:头像"`
 	Username string    `json:"username" gorm:"comment:用户名;not null;uniqueIndex;"`
 	Password string    `json:"-"  gorm:"comment:用户登录密码"`
-	Nickname string    `json:"nickname" gorm:"comment:用户昵称;default:GQA用户"`
+	Nickname string    `json:"nickname" gorm:"comment:用户昵称;"`
 	RealName string    `json:"realName" gorm:"comment:真实姓名"`
 	Gender   string    `json:"gender" gorm:"comment:性别;default:u"`
 	Mobile   string    `json:"mobile" gorm:"comment:手机号"`

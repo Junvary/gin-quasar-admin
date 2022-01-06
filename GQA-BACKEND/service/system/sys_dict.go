@@ -37,7 +37,8 @@ func (s *ServiceDict) EditDict(toEditDict system.SysDict) (err error) {
 	if sysDict.Stable == "yes" {
 		return errors.New("系统内置不允许编辑：" + toEditDict.DictCode)
 	}
-	err = global.GqaDb.Updates(&toEditDict).Error
+	//err = global.GqaDb.Updates(&toEditDict).Error
+	err = global.GqaDb.Save(&toEditDict).Error
 	return err
 }
 
