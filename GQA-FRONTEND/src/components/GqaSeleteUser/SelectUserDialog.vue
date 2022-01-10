@@ -5,12 +5,11 @@
                 <div class="text-subtitle1">
                     {{ $t('ComponentSelectUserTitle', {oneOrMultiple: selection === "multiple" ? $t('SelectMultiple') : $t('SelectOne')}) }}
                 </div>
+                <span class="text-subtitle2 text-negative row justify-center" v-if="selection === 'multiple'">
+                    {{ $t('GqaSelectUserHelp') }}
+                </span>
                 <q-btn dense color="primary" @click="handleSelectUser()" :label="$t('Select')" />
             </q-card-section>
-
-            <span class="text-subtitle2 text-negative row justify-center" v-if="selection === 'multiple'">
-                {{ $t('GqaSelectUserHelp') }}
-            </span>
 
             <q-separator />
 

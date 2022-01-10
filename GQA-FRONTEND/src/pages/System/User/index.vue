@@ -110,6 +110,9 @@ export default {
     },
     data() {
         return {
+            queryParams: {
+                withAdmin: true,
+            },
             url: {
                 list: 'user/user-list',
                 delete: 'user/user-delete',

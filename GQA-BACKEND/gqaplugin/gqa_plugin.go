@@ -9,6 +9,7 @@ import (
 	// 2.插件引入方式2：本地插件引入方式（GQA的引入模式从本地改为github）
 	//"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/example"
 	//"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/xk"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/vote"
 )
 
 /*
@@ -21,6 +22,7 @@ import (
 var PluginList = []GqaPlugin{ //插件列表顺序填入
 	//example.PluginExample,
 	xk.PluginXk,
+	vote.PluginVote,
 }
 
 /*

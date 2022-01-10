@@ -29,9 +29,16 @@ func (s *ServiceUser) GetUserList(requestUserList system.RequestUserList) (err e
 	if err != nil {
 		return
 	}
-	err = db.Limit(pageSize).Offset(offset).Order(global.OrderByColumn(requestUserList.SortBy, requestUserList.Desc)).
-		Preload("Role").Preload("Dept").Find(&userList).Error
-	return err, userList, total
+	if requestUserList.WithAdmin{
+		err = db.Limit(pageSize).Offset(offset).Order(global.OrderByColumn(requestUserList.SortBy, requestUserList.Desc)).
+			Preload("Role").Preload("Dept").Find(&userList).Error
+		return err, userList, total
+	}else{
+		err = db.Where("username != ?", "admin").Limit(pageSize).Offset(offset).
+			Order(global.OrderByColumn(requestUserList.SortBy, requestUserList.Desc)).
+			Preload("Role").Preload("Dept").Find(&userList).Error
+		return err, userList, total
+	}
 }
 
 func (s *ServiceUser) EditUser(toEditUser system.SysUser) (err error) {

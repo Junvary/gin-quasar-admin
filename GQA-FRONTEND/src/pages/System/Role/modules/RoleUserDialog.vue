@@ -5,7 +5,7 @@
                 :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
 
                 <template v-slot:top="props">
-                    <q-btn dense color="primary" @click="showAddUserForm()" :label="$t('Add') + $t('Users')" />
+                    <q-btn dense color="primary" @click="showAddUserForm()" :label="$t('Add') + $t('User')" />
                     <q-space />
                     <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
                         @click="props.toggleFullscreen" class="q-ml-md" />
