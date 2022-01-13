@@ -32,6 +32,6 @@ type RequestAddScoreDetail struct {
 
 type RequestScoreResultList struct {
 	global.RequestPageAndSort
-	VoteType string `json:"voteType"`
+	VoteType  string `json:"voteType"`
+	VoteMonth string `json:"voteMonth"`
 }
-

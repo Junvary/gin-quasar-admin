@@ -81,6 +81,9 @@ func VoteResultList(getVoteScoreList model.RequestScoreResultList, username stri
 	var db *gorm.DB
 	db = global.GqaDb.Model(&model.GqaPluginVoteScoreResult{})
 	//配置搜索
+	if getVoteScoreList.VoteMonth != "" {
+		db = db.Where("vote_month = ?", getVoteScoreList.VoteMonth)
+	}
 	if getVoteScoreList.VoteType != "" {
 		db = db.Where("vote_type like ?", "%"+getVoteScoreList.VoteType+"%")
 	}
@@ -89,6 +92,7 @@ func VoteResultList(getVoteScoreList model.RequestScoreResultList, username stri
 		return
 	}
 	err = db.Limit(pageSize).Offset(offset).Order(global.OrderByColumn("vote_month", true)).
+		Order(global.OrderByColumn("candidate", false)).
 		Preload("CandidateByUser").Preload("VoteFromByUser").Find(&voteScoreList).Error
 	return err, voteScoreList, total
 }

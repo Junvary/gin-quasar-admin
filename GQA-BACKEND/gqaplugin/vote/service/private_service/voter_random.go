@@ -61,8 +61,14 @@ func VoterRandomGet(getVoterRandomNumber model.RequestGetVoterRandom, username s
 		for _, v := range baseVoterList {
 			baseVoterUsernameList = append(baseVoterUsernameList, v.Voter)
 		}
-		//取出剩余用户
-		db := global.GqaDb.Where("username != ? and username not in ?", "admin", baseVoterUsernameList).Find(&system.SysUser{})
+		var db *gorm.DB
+		if len(baseVoterUsernameList) != 0 {
+			//取出剩余用户
+			db = global.GqaDb.Where("username != ? and username not in ?", "admin", baseVoterUsernameList).Find(&system.SysUser{})
+		}else{
+			//取出剩余用户，没有固定用户时，baseVoterUsernameList的值为null，忽略sql的not in 语句。
+			db = global.GqaDb.Where("username != ?", "admin").Find(&system.SysUser{})
+		}
 		//按数量随机选取用户
 		var surplusUser []system.SysUser
 		err = db.Order("rand()").Limit(int(getVoterRandomNumber.RandomNumber)).Find(&surplusUser).Error
@@ -71,6 +77,9 @@ func VoterRandomGet(getVoterRandomNumber model.RequestGetVoterRandom, username s
 }
 
 func VoterRandomAdd(toAddVoterRandom *model.RequestAddVoterRandom, username string) (err error) {
+	if len(toAddVoterRandom.Voter) == 0{
+		return errors.New("没有发现固定投票人！")
+	}
 	var addVoterRandom []model.GqaPluginVoteVoterRandom
 	var randomId = uuid.New()
 	for _, v := range toAddVoterRandom.Voter {

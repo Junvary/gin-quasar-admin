@@ -1,7 +1,7 @@
 <template>
     <q-page padding>
         <div class="row q-gutter-md items-center" style="margin-bottom: 10px">
-            <q-input style="width: 20%" v-model="searchMonth" label="选择年月" />
+            <q-input style="width: 20%" v-model="queryParams.voteMonth" label="选择年月" clearable />
             <q-select style="width: 20%" v-model="queryParams.voteType" :options="dictOptions.voteType" emit-value
                 map-options label="投票类型" />
             <q-btn color="primary" @click="changeTableData" label="确定" />
@@ -12,8 +12,9 @@
 
             <template v-slot:top="props">
                 <span class="text-h6">
-                    {{ searchMonth }}
-                    <GqaDictShow dictName="voteType" :dictCode="queryParams.voteType" />
+                    <!-- {{ queryParams.voteMonth }}
+                    <GqaDictShow dictName="voteType" :dictCode="queryParams.voteType" /> -->
+                    {{ chartTitle }}
                     投票明细
                 </span>
                 <q-space />
@@ -75,8 +76,8 @@ export default {
         return {
             queryParams: {
                 voteType: 'v1',
+                voteMonth: '',
             },
-            searchMonth: '',
             myChart: {},
             option: {},
             dictOptions: {},
@@ -99,6 +100,7 @@ export default {
                 page: 1,
                 rowsPerPage: 10,
             },
+            chartTitle: '',
         }
     },
     computed: {
@@ -125,13 +127,21 @@ export default {
     },
     async created() {
         const timeStamp = Date.now()
-        this.searchMonth = date.formatDate(timeStamp, 'YYYYMM')
+        this.queryParams.voteMonth = date.formatDate(timeStamp, 'YYYYMM')
         this.dictOptions = await DictOptions()
         this.changeTableData()
     },
     methods: {
+        changeChartTitle() {
+            if (this.queryParams.voteMonth) {
+                this.chartTitle = this.dictOptions.voteType.filter((item) => item.dictCode === this.queryParams.voteType)[0].dictLabel + this.queryParams.voteMonth
+            } else {
+                this.chartTitle = this.dictOptions.voteType.filter((item) => item.dictCode === this.queryParams.voteType)[0].dictLabel + '(总)'
+            }
+        },
         changeTableData() {
             this.getTableData().then(() => {
+                this.changeChartTitle()
                 for (let i of this.tableData) {
                     i.candidateMonth = i.candidate + i.voteMonth
                 }
@@ -139,11 +149,11 @@ export default {
                     user: [],
                 }
                 this.monthUserScore = []
-                this.getMonthScore(this.searchMonth)
+                this.getMonthScore(this.queryParams.voteMonth)
             })
         },
         getMonthScore(month) {
-            const monthScoreTemp = this.tableData.filter((item) => item.voteMonth === month)
+            const monthScoreTemp = this.tableData /*.filter((item) => item.voteMonth === month)*/
             const onlyIdList = []
             for (let i of monthScoreTemp) {
                 if (onlyIdList.indexOf(i.candidateMonth) === -1) {
@@ -172,6 +182,45 @@ export default {
                 }
             }
 
+            // 未选择quearyParams.voteMonth的情况，展示所有分数，需要将重复人合并处理
+            if (!this.queryParams.voteMonth) {
+                const allScore = {
+                    user: [],
+                }
+                for (let i in this.monthScore.user) {
+                    if (allScore.user.indexOf(this.monthScore.user[i]) === -1) {
+                        allScore.user.push(this.monthScore.user[i])
+                        for (let item in this.monthScore) {
+                            if (item !== 'user') {
+                                if (allScore[item] && allScore[item].length) {
+                                    allScore[item].push(this.monthScore[item][i])
+                                } else {
+                                    allScore[item] = [this.monthScore[item][i]]
+                                }
+                            }
+                        }
+                    } else {
+                        for (let item in this.monthScore) {
+                            const allScoreDetailKey = allScore.user.indexOf(this.monthScore.user[i])
+                            if (item !== 'user') {
+                                allScore[item][allScoreDetailKey] = Number(allScore[item][allScoreDetailKey]) + Number(this.monthScore[item][i])
+                            }
+                        }
+                    }
+                }
+                for (let userIndex in allScore.user) {
+                    for (let i in allScore) {
+                        if (i !== 'user') {
+                            allScore[i][userIndex] = allScore[i][userIndex] / this.monthScore.user.filter((item) => item === allScore.user[userIndex]).length
+                        }
+                    }
+                }
+
+                // 计算平均分
+                this.monthScore = allScore
+            }
+
+            // 计算平均分
             for (let u = 0; u < this.monthScore.user.length; u++) {
                 let userScore = 0
                 let userNumber = 1
@@ -183,6 +232,7 @@ export default {
                 }
                 this.monthUserScore.push((userScore / (userNumber - 1)).toFixed(2))
             }
+            console.log(this.monthScore)
             this.updateMonthScoreEcharts()
         },
         updateMonthScoreEcharts() {
@@ -211,7 +261,7 @@ export default {
             })
             this.option = {
                 title: {
-                    text: this.searchMonth + '得分情况',
+                    text: this.chartTitle + ' 得分情况',
                     // left: 'center',
                 },
                 tooltip: {
