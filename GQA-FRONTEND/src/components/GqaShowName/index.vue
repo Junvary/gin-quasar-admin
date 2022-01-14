@@ -37,8 +37,10 @@ export default {
                 // 其他用户的名字
                 if (this.customNameObject.nickname) {
                     return this.customNameObject.nickname
-                } else {
+                } else if (this.customNameObject.realName) {
                     return this.customNameObject.realName
+                } else {
+                    return this.customNameObject.username
                 }
             } else if (this.showMyName) {
                 const nickname = this.$q.cookies.get('gqa-nickname')
