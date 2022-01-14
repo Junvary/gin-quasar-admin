@@ -47,19 +47,23 @@
         <q-page-container>
             <router-view />
 
-            <q-page-sticky position="bottom-right" :offset="fabPos">
-                <q-btn fab glossy push icon="add" color="primary" :disable="draggingFab"
+            <q-page-sticky position="bottom-right" :offset="fabPos" class="column">
+                <q-btn class="col" fab glossy push icon="add" color="primary" :disable="draggingFab"
                     v-touch-pan.prevent.mouse="moveFab" @click="addTodoNote">
                     <q-tooltip>
                         {{ $t('Add') + ' ' + $t('TodoNote') }}
                     </q-tooltip>
                 </q-btn>
+                <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[0, -80]">
+                    <q-btn push fab glossy rounded icon="keyboard_arrow_up" color="primary"
+                        v-touch-pan.prevent.mouse="moveFab" />
+                </q-page-scroller>
                 <NoticeTodoNoteDetail ref="noticeTodoNoteDetail" />
             </q-page-sticky>
 
-            <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
-                <q-btn dense fab push icon="keyboard_arrow_up" color="primary" />
-            </q-page-scroller>
+            <!-- <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
+                <q-btn push fab glossy rounded icon="keyboard_arrow_up" color="primary" />
+            </q-page-scroller> -->
         </q-page-container>
 
         <q-footer reveal elevated>
@@ -137,7 +141,7 @@ export default {
             topMenuItem: {},
             currentItemMenu: 'dashboard',
             draggingFab: false,
-            fabPos: [18, 80],
+            fabPos: [3, 80],
         }
     },
     created() {

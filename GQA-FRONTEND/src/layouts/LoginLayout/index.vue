@@ -8,8 +8,9 @@
                 <q-btn color="primary" :label="$t('LoginLayoutWithoutPlugin')"></q-btn>
             </q-card>
 
-            <page-footer />
-            <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
+            <page-footer style="z-index: 0" />
+
+            <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[3, 18]">
                 <q-btn dense fab push icon="keyboard_arrow_up" color="primary" />
             </q-page-scroller>
         </q-page-container>
