@@ -54,3 +54,23 @@ func VoteResultList(c *gin.Context)  {
 	}
 }
 
+func VoteResultChart(c *gin.Context)  {
+	var getVoteScoreList model.RequestScoreResultList
+	if err := c.ShouldBindJSON(&getVoteScoreList); err != nil {
+		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
+		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
+		return
+	}
+	if err, voter, total := private_service.VoteResultChart(getVoteScoreList, utils.GetUsername(c)); err != nil {
+		global.GqaLog.Error("获取投票结果图形失败！", zap.Any("err", err))
+		global.ErrorMessage("获取投票结果图形失败！"+err.Error(), c)
+	} else {
+		global.SuccessData(system.ResponsePage{
+			Records:  voter,
+			Page:     getVoteScoreList.Page,
+			PageSize: getVoteScoreList.PageSize,
+			Total:    total,
+		}, c)
+	}
+}
+

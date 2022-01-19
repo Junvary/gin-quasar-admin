@@ -12,7 +12,7 @@ type GqaPluginVoteScoreResult struct {
 	CandidateByUser system.SysUser `json:"candidateByUser" gorm:"foreignKey:Candidate;references:Username"`
 	VoteType        string         `json:"voteType" gorm:"primaryKey;comment:投票类型;type:varchar(10)"`
 	VoteTypeDetail  string         `json:"voteTypeDetail" gorm:"primaryKey;comment:投票细类;type:varchar(10)"`
-	VoteScore       uint8          `json:"voteScore" gorm:"comment:得分"`
+	VoteScore       float64        `json:"voteScore" gorm:"comment:得分"`
 	VoteFrom        string         `json:"voteFrom" gorm:"primaryKey;comment:投票人;type:varchar(15)"`
 	VoteFromByUser  system.SysUser `json:"voteFromByUser" gorm:"foreignKey:VoteFrom;references:Username"`
 	VoteMonth       string         `json:"voteMonth" gorm:"primaryKey;comment:投票时段;index;type:varchar(10)"`
@@ -24,10 +24,10 @@ type RequestAddScore struct {
 }
 
 type RequestAddScoreDetail struct {
-	Candidate      string `json:"candidate"`
-	VoteType       string `json:"voteType"`
-	VoteTypeDetail string `json:"voteTypeDetail"`
-	VoteScore      uint8  `json:"voteScore"`
+	Candidate      string  `json:"candidate"`
+	VoteType       string  `json:"voteType"`
+	VoteTypeDetail string  `json:"voteTypeDetail"`
+	VoteScore      float64 `json:"voteScore"`
 }
 
 type RequestScoreResultList struct {

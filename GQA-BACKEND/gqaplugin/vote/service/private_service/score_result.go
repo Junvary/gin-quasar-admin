@@ -97,6 +97,31 @@ func VoteResultList(getVoteScoreList model.RequestScoreResultList, username stri
 	return err, voteScoreList, total
 }
 
+func VoteResultChart(getVoteScoreList model.RequestScoreResultList, username string) (err error, score []model.GqaPluginVoteScoreResult, total int64) {
+	pageSize := getVoteScoreList.PageSize
+	offset := getVoteScoreList.PageSize * (getVoteScoreList.Page - 1)
+	var voteScoreList []model.GqaPluginVoteScoreResult
+	var db *gorm.DB
+	db = global.GqaDb.Model(&model.GqaPluginVoteScoreResult{})
+	//配置搜索
+	if getVoteScoreList.VoteMonth != "" {
+		db = db.Where("vote_month = ?", getVoteScoreList.VoteMonth)
+	}
+	if getVoteScoreList.VoteType != "" {
+		db = db.Where("vote_type like ?", "%"+getVoteScoreList.VoteType+"%")
+	}
+	err = db.Count(&total).Error
+	if err != nil {
+		return
+	}
+	err = db.Select("id, candidate, vote_type, vote_type_detail, avg(vote_score) as vote_score, vote_from, vote_month, created_at").
+		Group("candidate").Group("vote_type_detail").
+		Limit(pageSize).Offset(offset).Order(global.OrderByColumn("vote_month", true)).
+		Order(global.OrderByColumn("candidate", false)).
+		Preload("CandidateByUser").Preload("VoteFromByUser").Find(&voteScoreList).Error
+	return err, voteScoreList, total
+}
+
 func checkUserInVoterRandom(username string, voteType string) (ifIn bool) {
 	var userInVoter model.GqaPluginVoteVoterRandom
 	var userInVoterList []model.GqaPluginVoteVoterRandom

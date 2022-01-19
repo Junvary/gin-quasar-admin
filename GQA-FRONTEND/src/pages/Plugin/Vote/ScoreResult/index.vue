@@ -1,13 +1,13 @@
 <template>
     <q-page padding>
         <div class="row q-gutter-md items-center" style="margin-bottom: 10px">
-            <q-input style="width: 20%" v-model="queryParams.voteMonth" label="选择年月" clearable />
+            <q-input style="width: 20%" v-model="queryParams.voteMonth" label="选择年月" clearable placeholder="202201" />
             <q-select style="width: 20%" v-model="queryParams.voteType" :options="dictOptions.voteType" emit-value
                 map-options label="投票类型" />
-            <q-btn color="primary" @click="changeTableData" label="确定" />
+            <q-btn color="primary" @click="getTableDataAll" label="确定" />
         </div>
         <div ref="monthScoreChart" style="width: 100%; height: 500px"></div>
-        <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="paginationList"
+        <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
             :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
 
             <template v-slot:top="props">
@@ -37,12 +37,14 @@
             <template v-slot:body-cell-candidate="props">
                 <q-td :props="props">
                     <GqaShowName :customNameObject="props.row.candidateByUser" />
+                    ({{ props.row.candidate }})
                 </q-td>
             </template>
 
             <template v-slot:body-cell-voteFrom="props">
                 <q-td :props="props">
                     <GqaShowName :customNameObject="props.row.voteFromByUser" />
+                    ({{ props.row.voteFrom }})
                 </q-td>
             </template>
 
@@ -58,6 +60,7 @@
 
 <script>
 import { tableDataMixin } from 'src/mixins/tableDataMixin'
+import { postAction } from 'src/api/manage'
 import { DictOptions } from 'src/utils/dict'
 import { date } from 'quasar'
 import { markRaw } from 'vue'
@@ -74,6 +77,7 @@ export default {
     },
     data() {
         return {
+            tableDataChart: [],
             queryParams: {
                 voteType: 'v1',
                 voteMonth: '',
@@ -83,18 +87,19 @@ export default {
             dictOptions: {},
             url: {
                 list: 'plugin-vote/vote-result-list',
+                chart: 'plugin-vote/vote-result-chart',
             },
             monthScore: {
                 user: [],
             },
             monthUserScore: [],
-            pagination: {
+            paginationChart: {
                 sortBy: 'created_at',
                 descending: true,
                 page: 1,
                 rowsPerPage: 10000,
             },
-            paginationList: {
+            pagination: {
                 sortBy: 'created_at',
                 descending: true,
                 page: 1,
@@ -129,9 +134,51 @@ export default {
         const timeStamp = Date.now()
         this.queryParams.voteMonth = date.formatDate(timeStamp, 'YYYYMM')
         this.dictOptions = await DictOptions()
-        this.changeTableData()
+        this.getTableDataAll()
     },
     methods: {
+        getTableDataAll() {
+            this.getTableDataList()
+            this.getTableDataChart()
+        },
+        getTableDataList() {
+            this.getTableData()
+        },
+        async getTableDataChart() {
+            await this.onRequestChart({ pagination: this.paginationChart })
+        },
+        async onRequestChart(props) {
+            this.paginationChart = []
+            // 组装分页和过滤条件
+            const params = {}
+            params.sortBy = props.pagination.sortBy
+            params.desc = props.pagination.descending
+            params.page = props.pagination.page
+            params.pageSize = props.pagination.rowsPerPage
+            const allParams = Object.assign({}, params, this.queryParams)
+            // 带参数请求数据
+            await postAction(this.url.chart, allParams).then((res) => {
+                if (res.code === 1) {
+                    // 最终要把分页给同步掉
+                    this.paginationChart = props.pagination
+                    // 并且加入总数字段
+                    this.paginationChart.rowsNumber = res.data.total
+                    this.tableDataChart = res.data.records
+                    this.changeTableData()
+                }
+            })
+        },
+        changeTableData() {
+            this.changeChartTitle()
+            for (let i of this.tableDataChart) {
+                i.candidateMonth = i.candidate + i.voteMonth
+            }
+            this.monthScore = {
+                user: [],
+            }
+            this.monthUserScore = []
+            this.getMonthScore(this.queryParams.voteMonth)
+        },
         changeChartTitle() {
             if (this.queryParams.voteMonth) {
                 this.chartTitle = this.dictOptions.voteType.filter((item) => item.dictCode === this.queryParams.voteType)[0].dictLabel + this.queryParams.voteMonth
@@ -139,21 +186,8 @@ export default {
                 this.chartTitle = this.dictOptions.voteType.filter((item) => item.dictCode === this.queryParams.voteType)[0].dictLabel + '(总)'
             }
         },
-        changeTableData() {
-            this.getTableData().then(() => {
-                this.changeChartTitle()
-                for (let i of this.tableData) {
-                    i.candidateMonth = i.candidate + i.voteMonth
-                }
-                this.monthScore = {
-                    user: [],
-                }
-                this.monthUserScore = []
-                this.getMonthScore(this.queryParams.voteMonth)
-            })
-        },
         getMonthScore(month) {
-            const monthScoreTemp = this.tableData /*.filter((item) => item.voteMonth === month)*/
+            const monthScoreTemp = this.tableDataChart /*.filter((item) => item.voteMonth === month)*/
             const onlyIdList = []
             for (let i of monthScoreTemp) {
                 if (onlyIdList.indexOf(i.candidateMonth) === -1) {
@@ -232,7 +266,7 @@ export default {
                 }
                 this.monthUserScore.push((userScore / (userNumber - 1)).toFixed(2))
             }
-            console.log(this.monthScore)
+            // console.log(this.monthScore)
             this.updateMonthScoreEcharts()
         },
         updateMonthScoreEcharts() {
@@ -250,7 +284,7 @@ export default {
                 })
             }
             series.push({
-                name: '平均得分',
+                name: '总平均得分',
                 type: 'line',
                 yAxisIndex: 1,
                 data: this.monthUserScore,
@@ -294,14 +328,14 @@ export default {
                 yAxis: [
                     {
                         type: 'value',
-                        name: '分项得分',
+                        name: '分项平均得分',
                         axisLabel: {
                             formatter: '{value}',
                         },
                     },
                     {
                         type: 'value',
-                        name: '平均得分',
+                        name: '总平均得分',
                         axisLabel: {
                             formatter: '{value}',
                         },
