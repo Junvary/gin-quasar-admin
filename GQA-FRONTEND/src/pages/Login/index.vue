@@ -7,10 +7,10 @@
                     <div class="text-center">
                         <GqaAvatar size="xl" :src="gqaFrontend.gqaWebLogo" />
                     </div>
-                    <div class="text-h4 text-center text-primary ">
-                        {{ gqaFrontend.gqaMainTitle }}
+                    <div class="text-h5 text-center text-primary ">
+                        {{ gqaFrontend.gqaSubTitle }}
                     </div>
-                    <div class="text-h6 text-center text-primary q-mt-md q-mb-xs">
+                    <div class="text-h7 text-center text-primary q-mt-md q-mb-xs">
                         {{ $t('LoginTitle') }}
                     </div>
                     <q-form @submit="onSubmit" class="q-mt-lg gqa-form">

@@ -57,7 +57,7 @@ var sysConfigBackendData = []system.SysConfigBackend{
 		GqaOption: "webLogoMaxSize", Default: "2",
 	},
 	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1015, Remark: "网站Logo允许后缀", CreatedAt: time.Now(), CreatedBy: "admin"},
-		GqaOption: "webLogoExt", Default: ".ico,.png,.jpg",
+		GqaOption: "webLogoExt", Default: ".png,.jpg",
 	},
 	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1016, Remark: "标签页Logo最大上传（M）", CreatedAt: time.Now(), CreatedBy: "admin"},
 		GqaOption: "headerLogoMaxSize", Default: "1",
