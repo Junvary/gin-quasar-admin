@@ -1,42 +1,78 @@
 <template>
-    <section class="gin-quasar-admin-banner" id="gqa-banner">
-        <div class="container">
-            <div class="container-title">
-                <h1>
-                    {{ gqaFrontend.gqaSubTitle }}
-                </h1>
-                <p class="small-title">
-                    {{ gqaFrontend.gqaDescribe }}
-                </p>
-                <div class="buttons">
-                    <q-btn push color="primary" @click="openLink('https://gitee.com/junvary/gin-quasar-admin')"
-                        v-if="gqaFrontend.gqaShowGit === 'yes'">
-                        Gitee
-                    </q-btn>
+    <div>
+        <section id="gqa-banner" v-if="bannerImage !== ''">
+            <q-img :src="bannerImage" fit="cover" style="width: 100%; max-height: 95vh">
+                <div class="container-custom">
+                    <div class="container-title">
+                        <h1>
+                            {{ gqaFrontend.gqaSubTitle }}
+                        </h1>
+                        <p class="small-title">
+                            {{ gqaFrontend.gqaDescribe }}
+                        </p>
+                        <div class="buttons">
+                            <q-btn push color="primary" @click="openLink('https://gitee.com/junvary/gin-quasar-admin')"
+                                v-if="gqaFrontend.gqaShowGit === 'yes'">
+                                Gitee
+                            </q-btn>
 
-                    <q-btn push color="primary" @click="showLoginForm" :disable="checkDbStatus">
-                        {{checkDbStatus ? $t('LoginLayoutPageBannerCheckDB') : $t('Login')}}
-                    </q-btn>
+                            <q-btn push color="primary" @click="showLoginForm" :disable="checkDbStatus">
+                                {{checkDbStatus ? $t('LoginLayoutPageBannerCheckDB') : $t('Login')}}
+                            </q-btn>
 
-                    <q-btn push color="primary" @click="openLink('https://github.com/Junvary/gin-quasar-admin')"
-                        v-if="gqaFrontend.gqaShowGit === 'yes'">
-                        Github
-                    </q-btn>
+                            <q-btn push color="primary" @click="openLink('https://github.com/Junvary/gin-quasar-admin')"
+                                v-if="gqaFrontend.gqaShowGit === 'yes'">
+                                Github
+                            </q-btn>
+                        </div>
+                    </div>
                 </div>
+            </q-img>
+        </section>
+
+        <section class="gin-quasar-admin-banner" id="gqa-banner" v-else>
+            <div class="container-default">
+                <div class="container-title">
+                    <h1>
+                        {{ gqaFrontend.gqaSubTitle }}
+                    </h1>
+                    <p class="small-title">
+                        {{ gqaFrontend.gqaDescribe }}
+                    </p>
+                    <div class="buttons">
+                        <q-btn push color="primary" @click="openLink('https://gitee.com/junvary/gin-quasar-admin')"
+                            v-if="gqaFrontend.gqaShowGit === 'yes'">
+                            Gitee
+                        </q-btn>
+
+                        <q-btn push color="primary" @click="showLoginForm" :disable="checkDbStatus">
+                            {{checkDbStatus ? $t('LoginLayoutPageBannerCheckDB') : $t('Login')}}
+                        </q-btn>
+
+                        <q-btn push color="primary" @click="openLink('https://github.com/Junvary/gin-quasar-admin')"
+                            v-if="gqaFrontend.gqaShowGit === 'yes'">
+                            Github
+                        </q-btn>
+                    </div>
+                </div>
+                <div class="container-image">
+                    <img src="~src/assets/login/code.png" alt="container-image">
+                </div>
+                <div class="container-team1"></div>
+                <div class="container-team2"></div>
             </div>
-            <div class="container-image">
-                <img src="~src/assets/login/code.png" alt="container-image">
-            </div>
-            <div class="container-team1"></div>
-            <div class="container-team2"></div>
-        </div>
+        </section>
+
         <login-dialog ref="loginDialog" />
-    </section>
+
+    </div>
+
 </template>
 
 <script>
 import { gqaFrontendMixin } from 'src/mixins/gqaFrontendMixin'
 import LoginDialog from 'src/pages/Login'
+
 export default {
     name: 'PageBanner',
     mixins: [gqaFrontendMixin],
@@ -44,6 +80,14 @@ export default {
         checkDbStatus: {
             type: Boolean,
             required: true,
+        },
+    },
+    computed: {
+        bannerImage() {
+            if (this.gqaFrontend.gqaBannerImage && this.gqaFrontend.gqaBannerImage.substring(0, 11) === 'gqa-upload:') {
+                return process.env.API + this.gqaFrontend.gqaBannerImage.substring(11)
+            }
+            return ''
         },
     },
     components: {
@@ -61,9 +105,56 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.container {
+.container-custom {
     width: 100%;
-    padding-top: 180px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    .container-title {
+        width: 60%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        flex-direction: column;
+        z-index: 99;
+        margin-bottom: 10vh;
+        h1 {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 50px;
+            line-height: 70px;
+            text-align: center;
+            margin-bottom: 30px;
+            letter-spacing: 20px;
+            user-select: none;
+        }
+        .small-title {
+            font-weight: 400;
+            font-size: 20px;
+            letter-spacing: 2px;
+            line-height: 40px;
+            text-align: center;
+            color: #ffffff;
+            opacity: 0.8;
+            max-width: 750px;
+            margin: auto;
+            margin-bottom: 30px;
+            user-select: none;
+            text-transform: capitalize;
+        }
+        .buttons {
+            width: 40%;
+            display: flex;
+            justify-content: space-around;
+        }
+    }
+}
+.container-default {
+    width: 100%;
+    padding-top: 20vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -114,7 +205,8 @@ export default {
         // position: relative;
         z-index: 1;
         display: flex;
-        align-items: flex-end;
+        flex: 1;
+        // align-items: flex-end;
         img {
             max-width: 100%;
             text-align: center;

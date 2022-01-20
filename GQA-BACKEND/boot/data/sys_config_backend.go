@@ -51,7 +51,7 @@ var sysConfigBackendData = []system.SysConfigBackend{
 		GqaOption: "fileMaxSize", Default: "10",
 	},
 	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1013, Remark: "文件允许后缀", CreatedAt: time.Now(), CreatedBy: "admin"},
-		GqaOption: "fileExt", Default: ".png,.jpg,.docx,.xlsx,.txt,.doc,.xls",
+		GqaOption: "fileExt", Default: ".png,.jpg,.docx,.xlsx,.txt,.doc,.xls,.zip",
 	},
 	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1014, Remark: "网站Logo最大上传（M）", CreatedAt: time.Now(), CreatedBy: "admin"},
 		GqaOption: "webLogoMaxSize", Default: "2",
@@ -64,6 +64,12 @@ var sysConfigBackendData = []system.SysConfigBackend{
 	},
 	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1017, Remark: "标签页Logo允许后缀", CreatedAt: time.Now(), CreatedBy: "admin"},
 		GqaOption: "headerLogoExt", Default: ".ico",
+	},
+	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1018, Remark: "网站首页大图最大上传（M）", CreatedAt: time.Now(), CreatedBy: "admin"},
+		GqaOption: "bannerImageMaxSize", Default: "4",
+	},
+	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1019, Remark: "网站首页大图允许后缀", CreatedAt: time.Now(), CreatedBy: "admin"},
+		GqaOption: "bannerImageExt", Default: ".png,.jpg",
 	},
 }
 

@@ -42,6 +42,22 @@ func (a *ApiUpload) UploadFile(c *gin.Context) {
 	}
 }
 
+func (a *ApiUpload) UploadBannerImage(c *gin.Context) {
+	img, bannerImage, err := c.Request.FormFile("file")
+	if err != nil {
+		global.GqaLog.Error("解析文件失败！", zap.Any("err", err))
+		global.ErrorMessage("解析文件失败，"+err.Error(), c)
+		return
+	}
+	err, bannerImageUrl := ServiceUpload.UploadBannerImage(img, bannerImage)
+	if err != nil {
+		global.GqaLog.Error("上传网站Logo失败！", zap.Any("err", err))
+		global.ErrorMessage("上传网站Logo失败，"+err.Error(), c)
+	} else {
+		global.SuccessData(gin.H{"records": bannerImageUrl}, c)
+	}
+}
+
 func (a *ApiUpload) UploadWebLogo(c *gin.Context) {
 	logo, logoHeader, err := c.Request.FormFile("file")
 	if err != nil {

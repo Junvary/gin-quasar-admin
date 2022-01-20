@@ -1,9 +1,14 @@
 <template>
     <q-layout style="overflow-x: hidden">
         <q-page-container>
+
             <page-banner :checkDbStatus="checkDbStatus" ref="pageBanner" />
 
+            <GqaScrollDown id="login-layout-scroll-down" class="login-layout-scroll-down"
+                v-if="pluginCurrent && pluginComponent && showScrollDown" @click="scrollDown" />
+
             <component v-if="pluginCurrent && pluginComponent" :key="pluginCurrent" :is="pluginComponent" />
+
             <q-card v-else class="row items-center justify-center" style="padding: 20px 0;">
                 <q-btn color="primary" :label="$t('LoginLayoutWithoutPlugin')"></q-btn>
             </q-card>
@@ -202,6 +207,8 @@ import { checkDbUrl, initDbUrl } from 'src/api/url'
 import GqaVersion from 'src/components/GqaVersion'
 import GqaPluginList from 'src/components/GqaPluginList'
 import { markRaw, defineAsyncComponent } from 'vue'
+import GqaScrollDown from 'src/components/GqaScrollDown'
+
 export default {
     components: {
         GqaLanguage,
@@ -209,6 +216,7 @@ export default {
         PageFooter,
         GqaVersion,
         GqaPluginList,
+        GqaScrollDown,
     },
     computed: {
         initLabel() {
@@ -239,12 +247,25 @@ export default {
             initLoading: false,
             pluginCurrent: null,
             pluginComponent: null,
+            showScrollDown: true,
         }
     },
     created() {
         this.checkDb()
+        window.addEventListener('scroll', this.documentTop)
+    },
+    unmounted() {
+        window.removeEventListener('scroll', this.documentTop)
     },
     methods: {
+        documentTop() {
+            let top = document.documentElement.scrollTop
+            if (top > 200) {
+                this.showScrollDown = false
+            } else {
+                this.showScrollDown = true
+            }
+        },
         ...mapActions('storage', ['SetGqaGoVersion', 'SetGqaGinVersion', 'SetGqaPluginList']),
         checkDb() {
             this.checkDbStatus = true
@@ -328,9 +349,22 @@ export default {
         changeSuccess() {
             this.$router.go(0)
         },
+        scrollDown() {
+            document.getElementById('login-layout-scroll-down').nextElementSibling.scrollIntoView({
+                behavior: 'smooth',
+            })
+        },
     },
 }
 </script>
 
 <style lang="scss" scoped>
+.login-layout-scroll-down {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -60px;
+    z-index: 100;
+}
 </style>

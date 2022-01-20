@@ -22,6 +22,8 @@ func Router() *gin.Engine {
 	Router.StaticFS(global.GqaConfig.Upload.FileUrl, http.Dir(global.GqaConfig.Upload.FileSavePath))
 	//网站Logo
 	Router.StaticFS(global.GqaConfig.Upload.WebLogoUrl, http.Dir(global.GqaConfig.Upload.WebLogoSavePath))
+	//首页大图
+	Router.StaticFS(global.GqaConfig.Upload.BannerImageUrl, http.Dir(global.GqaConfig.Upload.BannerImageSavePath))
 
 	/*
 		公共路由分组：以 public 开头，路由内部无须再次分组，无须鉴权。

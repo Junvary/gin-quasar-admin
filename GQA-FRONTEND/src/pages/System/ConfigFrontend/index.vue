@@ -26,6 +26,9 @@
                     <template v-else-if="props.row.gqaOption === 'gqaHeaderLogo'">
                         <GqaAvatar src="favicon.ico" />
                     </template>
+                    <template v-else-if="props.row.gqaOption === 'gqaBannerImage'">
+                        默认效果
+                    </template>
                     <template v-else>
                         {{props.row.default}}
                     </template>
@@ -34,7 +37,10 @@
 
             <template v-slot:body-cell-custom="props">
                 <q-td :props="props" class="bg-green-1">
-                    <template v-if="props.row.gqaOption === 'gqaWebLogo'">
+                    <template v-if="props.row.gqaOption === 'gqaBannerImage'">
+                        <GqaAvatar :src="props.row.custom" v-if="props.row.custom !== ''" />
+                    </template>
+                    <template v-else-if="props.row.gqaOption === 'gqaWebLogo'">
                         <GqaAvatar :src="props.row.custom" />
                     </template>
                     <template v-else-if="props.row.gqaOption === 'gqaHeaderLogo'">
@@ -57,6 +63,20 @@
                             {{ $t('Custom') + ' ' + props.row.gqaOption }}
                             <GqaPluginList showChoose @changeSuccess="handleSetLoginLayout($event, scope)"
                                 :choosePlugin="props.row.custom" />
+                        </template>
+                        <!-- 首页大图 -->
+                        <template v-slot="scope" v-else-if="props.row.gqaOption === 'gqaBannerImage'">
+                            {{ $t('Custom') + ' ' + props.row.gqaOption }}
+                            <q-file v-model="bannerImage" clearable max-files="1" @rejected="rejected"
+                                :accept="gqaBackend.webLogoExt" :max-file-size="gqaBackend.webLogoMaxSize*1024*1024">
+                                <template v-slot:prepend v-if="props.row.custom !== ''">
+                                    <GqaAvatar :src="props.row.custom" />
+                                </template>
+                                <template v-slot:after v-if="bannerImage">
+                                    <q-btn dense flat color="primary" icon="cloud_upload"
+                                        @click="handleUploadBannerImage(scope)" />
+                                </template>
+                            </q-file>
                         </template>
                         <!-- 网站logo -->
                         <template v-slot="scope" v-else-if="props.row.gqaOption === 'gqaWebLogo'">
@@ -111,6 +131,7 @@
             <template v-slot:body-cell-actions="props">
                 <q-td :props="props">
                     <div class="q-gutter-xs">
+                        <q-btn dense color="warning" @click="handleReset(props.row)" :label="$t('Reset')" />
                         <q-btn dense color="primary" @click="handleSave(props.row)" :label="$t('Save')" />
                         <q-btn color="negative" @click="handleDelete(props.row)" :label="$t('Delete')" />
                     </div>
@@ -161,9 +182,11 @@ export default {
                 list: 'config-frontend/config-frontend-list',
                 edit: 'config-frontend/config-frontend-edit',
                 delete: 'config-frontend/config-frontend-delete',
+                uploadBannerImage: 'upload/banner-image',
                 uploadWebUrl: 'upload/web-logo',
                 uploadHeaderUrl: 'upload/header-logo',
             },
+            bannerImage: null,
             webLogoFile: null,
             headerLogoFile: null,
         }
@@ -173,6 +196,9 @@ export default {
     },
     methods: {
         ...mapActions('storage', ['GetGqaFrontend']),
+        handleReset(row) {
+            row.custom = ''
+        },
         async handleSave(row) {
             const res = await putAction(this.url.edit, row)
             if (res.code === 1) {
@@ -182,6 +208,31 @@ export default {
                 })
                 this.GetGqaFrontend()
             }
+        },
+        handleUploadBannerImage(scope) {
+            if (!this.bannerImage) {
+                this.$q.notify({
+                    type: 'negative',
+                    message: '请选择图片！',
+                })
+                return
+            }
+            let form = new FormData()
+            form.append('file', this.bannerImage)
+            postAction(this.url.uploadBannerImage, form).then((res) => {
+                if (res.code === 1) {
+                    const bi = this.tableData.filter((item) => {
+                        return item.gqaOption === 'gqaBannerImage'
+                    })
+                    bi[0].custom = res.data.records
+                    this.bannerImage = null
+                    this.$q.notify({
+                        type: 'positive',
+                        message: '首页大图上传成功！',
+                    })
+                    scope.set()
+                }
+            })
         },
         handleUploadWeb(scope) {
             if (!this.webLogoFile) {

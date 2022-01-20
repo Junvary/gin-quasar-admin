@@ -61,9 +61,6 @@
                 <NoticeTodoNoteDetail ref="noticeTodoNoteDetail" />
             </q-page-sticky>
 
-            <!-- <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
-                <q-btn push fab glossy rounded icon="keyboard_arrow_up" color="primary" />
-            </q-page-scroller> -->
         </q-page-container>
 
         <q-footer reveal elevated>

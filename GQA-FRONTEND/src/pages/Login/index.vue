@@ -2,7 +2,7 @@
     <q-dialog persistent v-model="loginVisible" transition-hide="slide-down">
         <q-card bordered style="width: 700px; max-width: 45vw;">
             <q-card-section horizontal>
-                <q-img class="col-6" :src="randomImg" />
+                <q-img class="col-6" :src="bannerImage" fit="cover" />
                 <q-card-section>
                     <div class="text-center">
                         <GqaAvatar size="xl" :src="gqaFrontend.gqaWebLogo" />
@@ -76,6 +76,14 @@ export default {
         GqaLanguage,
         GqaAvatar,
     },
+    computed: {
+        bannerImage() {
+            if (this.gqaFrontend.gqaBannerImage && this.gqaFrontend.gqaBannerImage.substring(0, 11) === 'gqa-upload:') {
+                return process.env.API + this.gqaFrontend.gqaBannerImage.substring(11)
+            }
+            return this.randomImg
+        },
+    },
     data() {
         return {
             loginVisible: false,
@@ -128,6 +136,8 @@ export default {
             if (res) {
                 this.loading = false
                 this.$router.push(this.$route.query.redirect || '/')
+                this.form.captcha = ''
+                this.loading = false
             } else {
                 this.form.captcha = ''
                 this.loading = false

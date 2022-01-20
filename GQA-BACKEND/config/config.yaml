@@ -19,6 +19,8 @@ upload:
   file-url: file
   web-logo-save-path: upload/logo
   web-logo-url: logo
+  banner-image-save-path: upload/banner
+  banner-image-url: banner
 zap:
   prefix: 【gin-quasar-admin】
   level: info

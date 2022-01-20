@@ -66,6 +66,33 @@ func (s *ServiceUpload) UploadFile(file multipart.File, fileHeader *multipart.Fi
 	return nil, fileUrl
 }
 
+func (s *ServiceUpload) UploadBannerImage(img multipart.File, bannerImage *multipart.FileHeader) (err error, fileUrl string) {
+	// 检查文件大小
+	maxSizeString := utils.GetConfigBackend("bannerImageMaxSize")
+	if maxSizeString == ""{
+		return errors.New("没有找到网站首页大图大小配置！"), ""
+	}
+	if !utils.CheckFileSize(img, maxSizeString, "M"){
+		return errors.New("网站首页大图大小超出限制！"), ""
+	}
+	// 检查文件后缀
+	extListString := utils.GetConfigBackend("bannerImageExt")
+	if extListString == ""{
+		return errors.New("没有找到网站首页大图后缀配置！"), ""
+	}
+	if !utils.CheckFileExt(bannerImage, extListString){
+		return errors.New("网站首页大图后缀不被允许！"), ""
+	}
+	createPath := global.GqaConfig.Upload.WebLogoSavePath
+	createUrl := global.GqaConfig.Upload.WebLogoUrl
+	filename, err := utils.UploadFile(createPath, bannerImage)
+	if err != nil{
+		return err, ""
+	}
+	fileUrl = "gqa-upload:" + createUrl + "/" + filename
+	return nil, fileUrl
+}
+
 func (s *ServiceUpload) UploadWebLogo(logo multipart.File, logoHeader *multipart.FileHeader) (err error, fileUrl string) {
 	// 检查文件大小
 	maxSizeString := utils.GetConfigBackend("webLogoMaxSize")
