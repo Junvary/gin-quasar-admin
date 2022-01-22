@@ -10,10 +10,13 @@ import { tableDataMixin } from 'src/mixins/tableDataMixin'
 export default {
     name: 'PageWeaponCode',
     mixins: [tableDataMixin],
+    computed: {
+        myChart() {
+            return this.$echarts.init(this.$refs.codeChart)
+        },
+    },
     data() {
         return {
-            myChart: {},
-            option: {},
             url: {
                 list: 'public/plugin-xk/weapon-language-list',
             },
@@ -26,13 +29,12 @@ export default {
         }
     },
     async mounted() {
-        this.myChart = this.$echarts.init(this.$refs.codeChart)
         await this.getTableData()
         this.updateEcharts()
     },
     methods: {
         updateEcharts() {
-            this.option = {
+            const option = {
                 title: {
                     text: '项目语言',
                     subtext: this.tableData && this.tableData.length ? '项目使用语言' : '纯属虚构',
@@ -70,7 +72,7 @@ export default {
                     },
                 ],
             }
-            this.myChart.setOption(this.option)
+            this.myChart.setOption(option)
         },
     },
 }

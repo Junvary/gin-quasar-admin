@@ -15,9 +15,8 @@ export default {
     name: 'ProjectDetailChartDialog',
     data() {
         return {
+            myChart: null,
             projectDetailChartVisible: false,
-            myChart: {},
-            option: {},
             url: {
                 queryById: 'plugin-xk/project-id',
             },
@@ -85,11 +84,11 @@ export default {
             return {
                 type: 'rect',
                 shape: rectShape,
-                style: api.style(),
+                style: { fill: '#1976D2', stroke: '#1976D2' },
             }
         },
         updateEcharts() {
-            this.option = {
+            const option = {
                 tooltip: {
                     formatter: function (params) {
                         const node = params.name
@@ -141,7 +140,7 @@ export default {
                     },
                 ],
             }
-            this.myChart.setOption(this.option)
+            this.myChart.setOption(option)
         },
     },
 }

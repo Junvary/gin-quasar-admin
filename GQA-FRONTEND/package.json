@@ -12,7 +12,7 @@
         "@quasar/extras": "^1.12.4",
         "axios": "^0.21.1",
         "core-js": "^3.6.5",
-        "echarts": "^5.2.1",
+        "echarts": "^5.2.2",
         "mitt": "^3.0.0",
         "quasar": "^2.4.11",
         "vue-i18n": "^9.2.0-beta.22",

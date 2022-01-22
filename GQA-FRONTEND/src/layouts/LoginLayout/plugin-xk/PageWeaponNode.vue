@@ -10,10 +10,13 @@ import { tableDataMixin } from 'src/mixins/tableDataMixin'
 export default {
     name: 'PageWeaponNode',
     mixins: [tableDataMixin],
+    computed: {
+        myChart() {
+            return this.$echarts.init(this.$refs.nodeChart)
+        },
+    },
     data() {
         return {
-            myChart: {},
-            option: {},
             url: {
                 list: 'public/plugin-xk/weapon-node-list',
             },
@@ -26,13 +29,12 @@ export default {
         }
     },
     async mounted() {
-        this.myChart = this.$echarts.init(this.$refs.nodeChart)
         await this.getTableData()
         this.updateEcharts()
     },
     methods: {
         updateEcharts() {
-            this.option = {
+            const option = {
                 title: {
                     text: '项目节点',
                     subtext: this.tableData && this.tableData.length ? '项目当前节点' : '纯属虚构',
@@ -68,7 +70,7 @@ export default {
                     },
                 ],
             }
-            this.myChart.setOption(this.option)
+            this.myChart.setOption(option)
         },
     },
 }
