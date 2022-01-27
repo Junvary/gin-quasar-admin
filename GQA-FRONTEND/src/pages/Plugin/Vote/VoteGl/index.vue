@@ -24,7 +24,7 @@
                                     <div class="col-2">
                                         <q-chip class="glossy" color="primary" text-color="white">
                                             <GqaShowName :customNameObject="item.candidateByUser" />
-                                            {{personTotalScore(voteResultDy[item.candidate])}}
+                                            {{personTotalScore(voteResultGl[item.candidate])}}
                                         </q-chip>
                                     </div>
                                     <div class="col-10 row">

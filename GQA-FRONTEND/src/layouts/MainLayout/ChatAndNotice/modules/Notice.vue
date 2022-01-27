@@ -104,7 +104,6 @@ export default {
             this.getTodoNoteData({ pagination: this.pagination })
         })
         this.queryParams.noticeToUser = String(this.username)
-        console.log(typeof this.queryParams.noticeToUser, this.queryParams.noticeToUser)
         this.getTableData()
         this.getTodoNoteData({ pagination: this.pagination })
     },
