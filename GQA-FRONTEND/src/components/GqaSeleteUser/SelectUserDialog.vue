@@ -3,7 +3,13 @@
         <q-card style="min-width: 700px; max-width: 45vw">
             <q-card-section class="row justify-between items-center">
                 <div class="text-subtitle1">
-                    {{ $t('ComponentSelectUserTitle', {oneOrMultiple: selection === "multiple" ? $t('SelectMultiple') : $t('SelectOne')}) }}
+                    <span v-if="title !== ''">
+                        {{ title }}
+                        {{selection === "multiple" ? $t('SelectMultiple') : $t('SelectOne')}}
+                    </span>
+                    <span v-else>
+                        {{ $t('ComponentSelectUserTitle', {oneOrMultiple: selection === "multiple" ? $t('SelectMultiple') : $t('SelectOne')}) }}
+                    </span>
                 </div>
                 <span class="text-subtitle2 text-negative row justify-center" v-if="selection === 'multiple'">
                     {{ $t('GqaSelectUserHelp') }}
@@ -40,6 +46,11 @@ export default {
         selection: {
             type: String,
             required: true,
+        },
+        title: {
+            type: String,
+            required: false,
+            default: '',
         },
     },
     data() {

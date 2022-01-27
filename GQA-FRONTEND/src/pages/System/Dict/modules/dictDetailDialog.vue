@@ -72,6 +72,8 @@ export default {
                 { name: 'sort', align: 'center', label: this.$t('Sort'), field: 'sort' },
                 { name: 'dictCode', align: 'center', label: this.$t('Dict') + this.$t('Code'), field: 'dictCode' },
                 { name: 'dictLabel', align: 'center', label: this.$t('Dict') + this.$t('Name'), field: 'dictLabel' },
+                { name: 'dictExt1', align: 'center', label: 'Ext1', field: 'dictExt1' },
+                { name: 'dictExt2', align: 'center', label: 'Ext2', field: 'dictExt2' },
                 { name: 'status', align: 'center', label: this.$t('Status'), field: 'status' },
                 { name: 'stable', align: 'center', label: this.$t('Stable'), field: 'stable' },
                 { name: 'actions', align: 'center', label: this.$t('Actions'), field: 'actions' },

@@ -15,7 +15,8 @@ type sysRoleMenu struct{}
 var sysRoleMenuData = []system.SysRoleMenu{
 	// 为 super-admin 设置所有 sys_menu 的总数
 	{"super-admin", "GqaPluginVote"},
-	{"super-admin", "plugin-vote-vote"},
+	{"super-admin", "plugin-vote-vote-dy"},
+	{"super-admin", "plugin-vote-vote-gl"},
 	{"super-admin", "plugin-vote-voter-random"},
 	{"super-admin", "plugin-vote-voter"},
 	{"super-admin", "plugin-vote-candidate"},

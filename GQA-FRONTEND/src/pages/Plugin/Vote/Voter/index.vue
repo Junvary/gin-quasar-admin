@@ -2,9 +2,15 @@
     <q-page padding>
 
         <div class="items-center row q-gutter-md" style="margin-bottom: 10px">
-            <q-input style="width: 20%" v-model="queryParams.voter" label="固定投票人" />
+            <q-input style="width: 20%" v-model="queryParams.voter" label="固定投票人" clearable />
             <q-select style="width: 20%" v-model="queryParams.voteType" :options="dictOptions.voteType" emit-value
-                map-options label="投票类型" />
+                map-options label="投票类型" @update:model-value="handleSearchWithRatio" />
+            <q-select style="width: 20%" v-if="queryParams.voteType === 'dy'" v-model="queryParams.voteRatio"
+                :options="dictOptions.voteDyRatio" emit-value map-options label="投票权重"
+                @update:model-value="handleSearch" />
+            <q-select style="width: 20%" v-if="queryParams.voteType === 'gl'" v-model="queryParams.voteRatio"
+                :options="dictOptions.voteGlRatio" emit-value map-options label="投票权重"
+                @update:model-value="handleSearch" />
             <q-btn color="primary" @click="handleSearch" :label="$t('Search')" />
             <q-btn color="primary" @click="resetSearch" :label="$t('Reset')" />
         </div>
@@ -13,11 +19,22 @@
             :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
 
             <template v-slot:top="props">
-                <q-btn dense color="primary" @click="showAddUserForm()">
-                    新增投票人(
-                    <GqaDictShow dictName="voteType" :dictCode="queryParams.voteType" />
-                    )
-                </q-btn>
+                <div class="q-gutter-xs" v-if="queryParams.voteType === 'dy'">
+                    <q-btn v-for="(item, index) in dictOptions.voteDyRatio" :key="index" dense color="primary"
+                        @click="showAddUserForm(item.dictCode, item.dictLabel)">
+                        新增
+                        {{item.dictLabel}}({{item.dictExt1}}%)
+                    </q-btn>
+                </div>
+
+                <div class="q-gutter-xs" v-if="queryParams.voteType === 'gl'">
+                    <q-btn v-for="(item, index) in dictOptions.voteGlRatio" :key="index" dense color="primary"
+                        @click="showAddUserForm(item.dictCode, item.dictLabel)">
+                        新增
+                        {{item.dictLabel}}({{item.dictExt1}}%)
+                    </q-btn>
+                </div>
+
                 <q-space />
                 <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
                     @click="props.toggleFullscreen" class="q-ml-md" />
@@ -53,6 +70,15 @@
                 </q-td>
             </template>
 
+            <template v-slot:body-cell-voteRatio="props">
+                <q-td :props="props" v-if="queryParams.voteType === 'dy'">
+                    <GqaDictShow dictName="voteDyRatio" :dictCode="props.row.voteRatio" withExt1 ext1="%" />
+                </q-td>
+                <q-td :props="props" v-if="queryParams.voteType === 'gl'">
+                    <GqaDictShow dictName="voteGlRatio" :dictCode="props.row.voteRatio" withExt1 ext1="%" />
+                </q-td>
+            </template>
+
             <template v-slot:body-cell-actions="props">
                 <q-td :props="props">
                     <div class="q-gutter-xs">
@@ -62,7 +88,8 @@
             </template>
         </q-table>
 
-        <SelectUserDialog ref="selectUserDialog" @handleSelectUser="handleAddUser" selection="multiple" />
+        <SelectUserDialog ref="selectUserDialog" @handleSelectUser="handleAddUser" selection="multiple"
+            :title="selectRatioLabel" />
     </q-page>
 </template>
 
@@ -90,6 +117,7 @@ export default {
                 { name: 'nickname', align: 'center', label: this.$t('Nickname'), field: 'nickname' },
                 { name: 'realName', align: 'center', label: this.$t('RealName'), field: 'realName' },
                 { name: 'voteType', align: 'center', label: '投票类型', field: 'voteType' },
+                { name: 'voteRatio', align: 'center', label: '投票权重', field: 'voteRatio' },
                 { name: 'actions', align: 'center', label: this.$t('Actions'), field: 'actions' },
             ]
         },
@@ -97,7 +125,8 @@ export default {
     data() {
         return {
             queryParams: {
-                voteType: 'v1',
+                voteType: 'dy',
+                voteRatio: '',
             },
             url: {
                 list: 'plugin-vote/voter-list',
@@ -105,6 +134,8 @@ export default {
                 delete: 'plugin-vote/voter-delete',
             },
             dictOptions: {},
+            selectRatio: '',
+            selectRatioLabel: '',
         }
     },
     async created() {
@@ -112,7 +143,20 @@ export default {
         this.dictOptions = await DictOptions()
     },
     methods: {
-        showAddUserForm() {
+        resetSearch() {
+            this.queryParams = {
+                voteType: 'dy',
+                voteRatio: '',
+            }
+            this.getTableData()
+        },
+        handleSearchWithRatio() {
+            this.queryParams.voteRatio = ''
+            this.handleSearch()
+        },
+        showAddUserForm(dictCode, dictLabel) {
+            this.selectRatio = dictCode
+            this.selectRatioLabel = dictLabel
             this.$refs.selectUserDialog.show()
         },
         handleAddUser(event) {
@@ -123,6 +167,7 @@ export default {
             postAction(this.url.add, {
                 voter: usernameList,
                 voteType: this.queryParams.voteType,
+                voteRatio: this.selectRatio,
             }).then((res) => {
                 if (res.code === 1) {
                     this.$q.notify({

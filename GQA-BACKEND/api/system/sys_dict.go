@@ -65,6 +65,8 @@ func (a *ApiDict) AddDict(c *gin.Context) {
 		ParentCode: toAddDict.ParentCode,
 		DictCode:   toAddDict.DictCode,
 		DictLabel:  toAddDict.DictLabel,
+		DictExt1:   toAddDict.DictExt1,
+		DictExt2:   toAddDict.DictExt2,
 	}
 	if err := ServiceDict.AddDict(*addDict); err != nil {
 		global.GqaLog.Error("添加字典失败！", zap.Any("err", err))

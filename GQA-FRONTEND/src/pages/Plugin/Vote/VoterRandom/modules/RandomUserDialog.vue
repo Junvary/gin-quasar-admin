@@ -6,7 +6,7 @@
                     v-model:pagination="paginationBase" :rows-per-page-options="pageOptions" :loading="loadingBase"
                     @request="onRequestBase">
                     <template v-slot:top>
-                        <span class="text-h6">
+                        <span class="row text-h6">
                             <GqaDictShow dictName="voteType" :dictCode="queryParams.voteType" />
                             : 固定投票人
                         </span>
@@ -41,8 +41,19 @@
                             <GqaDictShow dictName="voteType" :dictCode="props.row.voteType" />
                         </q-td>
                     </template>
+                    <template v-slot:body-cell-voteRatio="props">
+                        <q-td :props="props" v-if="props.row.voteType === 'dy'">
+                            <GqaDictShow dictName="voteDyRatio" :dictCode="props.row.voteRatio" withExt1 ext1="%" />
+                        </q-td>
+                        <q-td :props="props" v-if="props.row.voteType === 'gl'">
+                            <GqaDictShow dictName="voteGlRatio" :dictCode="props.row.voteRatio" withExt1 ext1="%" />
+                        </q-td>
+                    </template>
                 </q-table>
-                <q-input v-model="memo" label="投票说明/备注/版本" />
+                <q-form ref="randomMemoForm">
+                    <q-input v-model="memo" label="投票说明/备注/版本"
+                        :rules="[ val => val && val.length > 0 || $t('NeedInput') ]" placeholder="xxxx年第xx期xx投票" />
+                </q-form>
                 <div class="q-gutter-xs">
                     <q-btn label="仅使用固定投票人" color="primary" @click="handleSaveRandom('base')" />
                     <q-btn label="取消" color="negative" v-close-popup />
@@ -56,8 +67,10 @@
                     <GqaDictShow dictName="voteType" :dictCode="queryParams.voteType" />
                     : 随机投票人
                 </span>
-                <q-input v-model.number="queryParams.randomNumber" type="number"
-                    :rules="[ val => val >= 0 || '随机投票人必须大于等于0']" label="选择随机投票人数量" />
+                <q-form ref="randomUserForm">
+                    <q-input v-model.number="queryParams.randomNumber" type="number"
+                        :rules="[ val => val > 0 || '随机投票人数量必须大于0才能抽取']" label="选择随机投票人数量" />
+                </q-form>
                 <div class="q-gutter-xs">
                     <q-btn label="选取随机投票人" color="primary" @click="handleRandom" />
                 </div>
@@ -102,6 +115,16 @@
                                     <GqaDictShow dictName="voteType" :dictCode="queryParams.voteType" />
                                 </q-td>
                             </template>
+
+                            <template v-slot:body-cell-voteRatio="props">
+                                <q-td :props="props" v-if="queryParams.voteType === 'dy'">
+                                    其他评议人员 40 %
+                                </q-td>
+                                <q-td :props="props" v-if="queryParams.voteType === 'gl'">
+                                    职工代表/普通职工 30%
+                                </q-td>
+                            </template>
+
                         </q-table>
                     </q-card-section>
                     <q-separator spaced />
@@ -137,6 +160,7 @@ export default {
                 { name: 'nickname', align: 'center', label: this.$t('Nickname'), field: 'nickname' },
                 { name: 'realName', align: 'center', label: this.$t('RealName'), field: 'realName' },
                 { name: 'voteType', align: 'center', label: '投票类型', field: 'voteType' },
+                { name: 'voteRatio', align: 'center', label: '投票权重', field: 'voteRatio' },
             ]
         },
     },
@@ -199,33 +223,49 @@ export default {
                     this.loadingBase = false
                 })
         },
-        handleRandom() {
-            this.getTableData()
+        async handleRandom() {
+            const success = await this.$refs.randomUserForm.validate()
+            if (success) {
+                this.getTableData()
+            } else {
+                this.$q.notify({
+                    type: 'negative',
+                    message: this.$t('FixForm'),
+                })
+            }
         },
-        handleSaveRandom(type) {
-            const voterList = []
-            for (let item of this.tableDataBase) {
-                voterList.push(item.voter)
-            }
-            if (type === 'all') {
-                for (let r of this.tableData) {
-                    voterList.push(r.username)
+        async handleSaveRandom(type) {
+            const success = await this.$refs.randomMemoForm.validate()
+            if (success) {
+                const voterList = []
+                for (let item of this.tableDataBase) {
+                    voterList.push(item.voter)
                 }
-            }
-            postAction(this.url.add, {
-                voteType: this.queryParams.voteType,
-                memo: this.memo,
-                voter: voterList,
-            }).then((res) => {
-                if (res.code === 1) {
-                    this.$q.notify({
-                        type: 'positive',
-                        message: '创建新版本投票人列表成功!',
-                    })
+                if (type === 'all') {
+                    for (let r of this.tableData) {
+                        voterList.push(r.username)
+                    }
                 }
-                this.$emit('raomdomOver')
-                this.randomUserVisible = false
-            })
+                postAction(this.url.add, {
+                    voteType: this.queryParams.voteType,
+                    memo: this.memo,
+                    voter: voterList,
+                }).then((res) => {
+                    if (res.code === 1) {
+                        this.$q.notify({
+                            type: 'positive',
+                            message: '创建新版本投票人列表成功!',
+                        })
+                    }
+                    this.$emit('raomdomOver')
+                    this.randomUserVisible = false
+                })
+            } else {
+                this.$q.notify({
+                    type: 'negative',
+                    message: this.$t('FixForm'),
+                })
+            }
         },
     },
 }

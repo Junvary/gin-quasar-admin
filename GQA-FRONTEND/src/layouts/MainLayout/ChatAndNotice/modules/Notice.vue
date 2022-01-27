@@ -80,7 +80,7 @@ export default {
             queryParams: {
                 noticeRead: 'no',
                 noticeSent: 'yes',
-                noticeToUser: this.username,
+                noticeToUser: String(this.username),
             },
             todoQueryParams: {
                 todoStatus: 'no',
@@ -103,7 +103,8 @@ export default {
             this.getTableData()
             this.getTodoNoteData({ pagination: this.pagination })
         })
-        this.queryParams.noticeToUser = this.username
+        this.queryParams.noticeToUser = String(this.username)
+        console.log(typeof this.queryParams.noticeToUser, this.queryParams.noticeToUser)
         this.getTableData()
         this.getTodoNoteData({ pagination: this.pagination })
     },

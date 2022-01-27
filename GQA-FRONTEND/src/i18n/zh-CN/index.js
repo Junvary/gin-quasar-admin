@@ -201,7 +201,7 @@ export default {
     ExampleIcon: '图标合集',
     NoticeManage: '消息管理',
     // help
-    GqaSelectUserHelp: '多选选择器只供添加用户使用，取消选择不会影响实际效果(请从外部删除)',
+    GqaSelectUserHelp: '只供添加用户使用，取消选择需从外部删除',
     CanNotDeleteThis: '抱歉!你不能删除此项!',
     // data permission
     DeptDataPermissionType: '部门数据权限分类',

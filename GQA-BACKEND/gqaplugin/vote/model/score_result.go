@@ -13,6 +13,8 @@ type GqaPluginVoteScoreResult struct {
 	VoteType        string         `json:"voteType" gorm:"primaryKey;comment:投票类型;type:varchar(10)"`
 	VoteTypeDetail  string         `json:"voteTypeDetail" gorm:"primaryKey;comment:投票细类;type:varchar(10)"`
 	VoteScore       float64        `json:"voteScore" gorm:"comment:得分"`
+	VoteRatio       string         `json:"voteRatio" gorm:"comment:投票权重;not null"`
+	Ratio           uint8          `json:"ratio" gorm:"comment:权重值;not null"`
 	VoteFrom        string         `json:"voteFrom" gorm:"primaryKey;comment:投票人;type:varchar(15)"`
 	VoteFromByUser  system.SysUser `json:"voteFromByUser" gorm:"foreignKey:VoteFrom;references:Username"`
 	VoteMonth       string         `json:"voteMonth" gorm:"primaryKey;comment:投票时段;index;type:varchar(10)"`

@@ -3,7 +3,7 @@
         <div class="row q-gutter-md items-center" style="margin-bottom: 10px">
             <q-input style="width: 20%" v-model="queryParams.voteMonth" label="选择年月" clearable placeholder="202201" />
             <q-select style="width: 20%" v-model="queryParams.voteType" :options="dictOptions.voteType" emit-value
-                map-options label="投票类型" />
+                map-options label="投票类型" @update:model-value="getTableDataAll" />
             <q-btn color="primary" @click="getTableDataAll" label="确定" />
         </div>
         <div ref="monthScoreChart" style="width: 100%; height: 500px"></div>
@@ -29,8 +29,11 @@
             </template>
 
             <template v-slot:body-cell-voteTypeDetail="props">
-                <q-td :props="props">
-                    <GqaDictShow dictName="voteTypeDetail" :dictCode="props.row.voteTypeDetail" />
+                <q-td :props="props" v-if="queryParams.voteType === 'dy'">
+                    <GqaDictShow dictName="voteTypeDetailDy" :dictCode="props.row.voteTypeDetail" />
+                </q-td>
+                <q-td :props="props" v-if="queryParams.voteType === 'gl'">
+                    <GqaDictShow dictName="voteTypeDetailGl" :dictCode="props.row.voteTypeDetail" />
                 </q-td>
             </template>
 
@@ -38,6 +41,17 @@
                 <q-td :props="props">
                     <GqaShowName :customNameObject="props.row.candidateByUser" />
                     ({{ props.row.candidate }})
+                </q-td>
+            </template>
+
+            <template v-slot:body-cell-voteRatio="props">
+                <q-td :props="props" v-if="queryParams.voteType === 'dy'">
+                    <GqaDictShow dictName="voteDyRatio" :dictCode="props.row.voteRatio" />
+                    {{ props.row.ratio }}%
+                </q-td>
+                <q-td :props="props" v-if="queryParams.voteType === 'gl'">
+                    <GqaDictShow dictName="voteGlRatio" :dictCode="props.row.voteRatio" />
+                    {{ props.row.ratio }}%
                 </q-td>
             </template>
 
@@ -79,7 +93,7 @@ export default {
         return {
             tableDataChart: [],
             queryParams: {
-                voteType: 'v1',
+                voteType: 'dy',
                 voteMonth: '',
             },
             myChart: {},
@@ -119,7 +133,8 @@ export default {
                 { name: 'voteType', align: 'center', label: '投票类型', field: 'voteType' },
                 { name: 'voteTypeDetail', align: 'center', label: '投票细类', field: 'voteTypeDetail' },
                 { name: 'candidate', align: 'center', label: '候选人', field: 'candidate' },
-                { name: 'voteScore', align: 'center', label: '分数', field: 'voteScore' },
+                { name: 'voteScore', align: 'center', label: '投票分数', field: 'voteScore' },
+                { name: 'voteRatio', align: 'center', label: '投票权重', field: 'voteRatio' },
                 { name: 'voteFrom', align: 'center', label: '投票人', field: 'voteFrom' },
                 { name: 'voteMonth', align: 'center', label: '投票周期', field: 'voteMonth' },
                 { name: 'createdAt', align: 'center', label: '投票时间', field: 'createdAt' },
@@ -271,18 +286,35 @@ export default {
         },
         updateMonthScoreEcharts() {
             const series = []
-            for (let dict of this.dictOptions.voteTypeDetail) {
-                series.push({
-                    name: dict.dictLabel,
-                    type: 'bar',
-                    data: this.monthScore[dict.dictCode],
-                    label: {
-                        show: true,
-                        position: 'inside',
-                        formatter: '{a}\n{c}',
-                    },
-                })
+            if (this.queryParams.voteType === 'dy') {
+                for (let dict of this.dictOptions.voteTypeDetailDy) {
+                    series.push({
+                        name: dict.dictLabel,
+                        type: 'bar',
+                        data: this.monthScore[dict.dictCode],
+                        label: {
+                            show: true,
+                            position: 'inside',
+                            formatter: '{a}\n{c}',
+                        },
+                    })
+                }
             }
+            if (this.queryParams.voteType === 'gl') {
+                for (let dict of this.dictOptions.voteTypeDetailGl) {
+                    series.push({
+                        name: dict.dictLabel,
+                        type: 'bar',
+                        data: this.monthScore[dict.dictCode],
+                        label: {
+                            show: true,
+                            position: 'inside',
+                            formatter: '{a}\n{c}',
+                        },
+                    })
+                }
+            }
+
             series.push({
                 name: '总平均得分',
                 type: 'line',

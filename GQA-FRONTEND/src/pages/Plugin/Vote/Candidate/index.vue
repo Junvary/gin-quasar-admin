@@ -2,11 +2,10 @@
     <q-page padding>
 
         <div class="items-center row q-gutter-md" style="margin-bottom: 10px">
-            <q-input style="width: 20%" v-model="queryParams.candidate" label="候选人" />
+            <q-input style="width: 20%" v-model="queryParams.candidate" label="候选人" clearable />
             <q-select style="width: 20%" v-model="queryParams.voteType" :options="dictOptions.voteType" emit-value
-                map-options label="投票类型" />
+                map-options label="投票类型" @update:model-value="handleSearch" />
             <q-btn color="primary" @click="handleSearch" :label="$t('Search')" />
-            <q-btn color="primary" @click="resetSearch" :label="$t('Reset')" />
         </div>
 
         <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
@@ -97,7 +96,7 @@ export default {
     data() {
         return {
             queryParams: {
-                voteType: 'v1',
+                voteType: 'dy',
             },
             url: {
                 list: 'plugin-vote/candidate-list',

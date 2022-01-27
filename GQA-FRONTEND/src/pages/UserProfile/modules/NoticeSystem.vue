@@ -66,7 +66,7 @@ export default {
             queryParams: {
                 noticeType: 'system',
                 noticeSent: 'yes',
-                noticeToUser: this.username,
+                noticeToUser: String(this.username),
             },
             pagination: {
                 sortBy: 'created_at',
@@ -80,7 +80,7 @@ export default {
         }
     },
     mounted() {
-        this.queryParams.noticeToUser = this.username
+        this.queryParams.noticeToUser = String(this.username)
         this.getTableData()
     },
     methods: {

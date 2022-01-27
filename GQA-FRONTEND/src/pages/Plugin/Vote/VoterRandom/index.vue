@@ -2,10 +2,11 @@
     <q-page padding>
 
         <div class="items-center row q-gutter-md" style="margin-bottom: 10px">
-            <q-input style="width: 20%" v-model="queryParams.voter" label="投票人" />
+            <q-input style="width: 20%" v-model="queryParams.voter" label="投票人" clearable />
+            <q-input style="width: 20%" v-model="queryParams.voteVersion" label="投票版本" clearable />
             <q-select style="width: 20%" v-model="queryParams.voteType" :options="dictOptions.voteType" emit-value
-                map-options label="投票类型" />
-            <q-input style="width: 20%" v-model="queryParams.voteVersion" label="投票版本" />
+                map-options label="投票类型" @update:model-value="handleSearch" />
+
             <q-btn color="primary" @click="handleSearch" :label="$t('Search')" />
         </div>
 
@@ -14,7 +15,7 @@
 
             <template v-slot:top="props">
                 <q-btn dense color="primary" @click="showRandomUser()">
-                    随机选取投票人(
+                    随机选取新一批投票人(
                     <GqaDictShow dictName="voteType" :dictCode="queryParams.voteType" />
                     )
                 </q-btn>
@@ -97,14 +98,14 @@ export default {
         },
         columns() {
             return [
-                { name: 'voteVersion', align: 'center', label: '版本', field: 'voteVersion' },
                 { name: 'voteType', align: 'center', label: '投票类型', field: 'voteType' },
-                { name: 'memo', align: 'center', label: '说明', field: 'memo' },
-                { name: 'createdAt', align: 'center', label: '创建时间', field: 'createdAt' },
+                { name: 'voteVersion', align: 'center', label: '投票版本', field: 'voteVersion' },
+                { name: 'memo', align: 'center', label: '投票说明', field: 'memo' },
                 { name: 'avatar', align: 'center', label: this.$t('Avatar'), field: 'avatar' },
                 { name: 'username', align: 'center', label: this.$t('Username'), field: 'username' },
                 { name: 'nickname', align: 'center', label: this.$t('Nickname'), field: 'nickname' },
                 { name: 'realName', align: 'center', label: this.$t('RealName'), field: 'realName' },
+                { name: 'createdAt', align: 'center', label: '创建时间', field: 'createdAt' },
                 { name: 'actions', align: 'center', label: this.$t('Actions'), field: 'actions' },
             ]
         },
@@ -112,7 +113,7 @@ export default {
     data() {
         return {
             queryParams: {
-                voteType: 'v1',
+                voteType: 'dy',
             },
             url: {
                 list: 'plugin-vote/voter-random-list',

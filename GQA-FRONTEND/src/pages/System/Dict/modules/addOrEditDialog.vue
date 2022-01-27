@@ -50,6 +50,10 @@
                                 lazy-rules :rules="[ val => val && val.length > 0 || $t('NeedInput')]" />
                         </div>
                         <div class="row">
+                            <q-input class="col" v-model="addOrEditDetail.dictExt1" label="Ext1" lazy-rules />
+                            <q-input class="col" v-model="addOrEditDetail.dictExt2" label="Ext2" lazy-rules />
+                        </div>
+                        <div class="row">
                             <q-field class="col" :label="$t('Status')" stack-label>
                                 <template v-slot:control>
                                     <q-option-group v-model="addOrEditDetail.status" :options="dictOptions.statusOnOff"

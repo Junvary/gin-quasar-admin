@@ -201,7 +201,7 @@ export default {
     ExampleIcon: 'Icons',
     NoticeManage: 'Notice Manage',
     // help
-    GqaSelectUserHelp: 'Multi selector is only for adding users.Deselecting will do nothing(delete users from the outside)',
+    GqaSelectUserHelp: 'Only for add users,delete them from the outside',
     CanNotDeleteThis: 'Sorry!You can not delete this!',
     // data permission
     DeptDataPermissionType: 'Department Data Permission Type',

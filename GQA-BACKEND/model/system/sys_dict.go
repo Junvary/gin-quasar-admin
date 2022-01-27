@@ -10,6 +10,8 @@ type SysDict struct {
 	ParentCode string `json:"parentCode" gorm:"comment:父字典DictCode;index"`
 	DictCode   string `json:"dictCode" gorm:"comment:字典编码;not null;index;"`
 	DictLabel  string `json:"dictLabel" gorm:"comment:字典名称;not null;"`
+	DictExt1   string `json:"dictExt1" gorm:"comment:字典扩展项1;"`
+	DictExt2   string `json:"dictExt2" gorm:"comment:字典扩展项2;"`
 }
 
 type RequestAddDict struct {
@@ -19,6 +21,8 @@ type RequestAddDict struct {
 	ParentCode string `json:"parentCode"`
 	DictCode   string `json:"dictCode"`
 	DictLabel  string `json:"dictLabel"`
+	DictExt1   string `json:"dictExt1"`
+	DictExt2   string `json:"dictExt2"`
 }
 
 type RequestDictList struct {
