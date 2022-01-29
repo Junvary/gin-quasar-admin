@@ -2,7 +2,7 @@
     <footer>
         <div v-if="bannerImage !== ''">
             <q-img :src="bannerImage" fit="cover" style="width: 100%; height: 25vh;">
-                <div class="column items-center" style="width: 100%">
+                <div class="column items-center" style="width: 100%; height: 100%">
                     <div class="row justify-center" style="width: 100%">
                         <div class="column items-center q-gutter-y-md">
                             <div class="col">
