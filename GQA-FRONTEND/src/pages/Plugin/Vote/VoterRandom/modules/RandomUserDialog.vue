@@ -1,139 +1,132 @@
 <template>
     <q-dialog v-model="randomUserVisible" position="top">
-        <q-card style="width: 1000px; max-width: 80vw;">
-            <q-card-section align="center">
-                <q-table row-key="id" separator="cell" :rows="tableDataBase" :columns="columns"
-                    v-model:pagination="paginationBase" :rows-per-page-options="pageOptions" :loading="loadingBase"
-                    @request="onRequestBase">
-                    <template v-slot:top>
-                        <span class="row text-h6">
-                            <GqaDictShow dictName="voteType" :dictCode="queryParams.voteType" />
-                            : 固定投票人
-                        </span>
+        <q-card style="width: 80vw; max-width: 80vw;">
+            <div class="row">
+                <q-card-section align="center" class="col">
+                    <q-table row-key="id" separator="cell" :rows="tableDataBase" :columns="columns"
+                        v-model:pagination="paginationBase" :rows-per-page-options="pageOptions" :loading="loadingBase"
+                        @request="onRequestBase">
+                        <template v-slot:top>
+                            <span class="row text-h6">
+                                <GqaDictShow dictName="voteType" :dictCode="queryParams.voteType" />
+                                : 固定投票人
+                            </span>
+                            <q-space></q-space>
+                            <q-btn label="仅使用固定投票人" color="primary" @click="handleSaveRandom('base')" />
+                        </template>
+                        <template v-slot:body-cell-avatar="props">
+                            <q-td :props="props">
+                                <GqaAvatar :src="props.row.voterByUser.avatar" />
+                            </q-td>
+                        </template>
 
-                    </template>
-                    <template v-slot:body-cell-avatar="props">
-                        <q-td :props="props">
-                            <GqaAvatar :src="props.row.voterByUser.avatar" />
-                        </q-td>
-                    </template>
+                        <template v-slot:body-cell-username="props">
+                            <q-td :props="props">
+                                {{ props.row.voter }}
+                            </q-td>
+                        </template>
 
-                    <template v-slot:body-cell-username="props">
-                        <q-td :props="props">
-                            {{ props.row.voter }}
-                        </q-td>
-                    </template>
+                        <template v-slot:body-cell-nickname="props">
+                            <q-td :props="props">
+                                {{ props.row.voterByUser.nickname }}
+                            </q-td>
+                        </template>
 
-                    <template v-slot:body-cell-nickname="props">
-                        <q-td :props="props">
-                            {{ props.row.voterByUser.nickname }}
-                        </q-td>
-                    </template>
+                        <template v-slot:body-cell-realName="props">
+                            <q-td :props="props">
+                                {{ props.row.voterByUser.realName }}
+                            </q-td>
+                        </template>
 
-                    <template v-slot:body-cell-realName="props">
-                        <q-td :props="props">
-                            {{ props.row.voterByUser.realName }}
-                        </q-td>
-                    </template>
+                        <template v-slot:body-cell-voteType="props">
+                            <q-td :props="props">
+                                <GqaDictShow dictName="voteType" :dictCode="props.row.voteType" />
+                            </q-td>
+                        </template>
+                        <template v-slot:body-cell-voteRatio="props">
+                            <q-td :props="props" v-if="props.row.voteType === 'dy'">
+                                <GqaDictShow dictName="voteDyRatio" :dictCode="props.row.voteRatio" withExt1 ext1="%" />
+                            </q-td>
+                            <q-td :props="props" v-if="props.row.voteType === 'gl'">
+                                <GqaDictShow dictName="voteGlRatio" :dictCode="props.row.voteRatio" withExt1 ext1="%" />
+                            </q-td>
+                        </template>
+                    </q-table>
 
-                    <template v-slot:body-cell-voteType="props">
-                        <q-td :props="props">
-                            <GqaDictShow dictName="voteType" :dictCode="props.row.voteType" />
-                        </q-td>
-                    </template>
-                    <template v-slot:body-cell-voteRatio="props">
-                        <q-td :props="props" v-if="props.row.voteType === 'dy'">
-                            <GqaDictShow dictName="voteDyRatio" :dictCode="props.row.voteRatio" withExt1 ext1="%" />
-                        </q-td>
-                        <q-td :props="props" v-if="props.row.voteType === 'gl'">
-                            <GqaDictShow dictName="voteGlRatio" :dictCode="props.row.voteRatio" withExt1 ext1="%" />
-                        </q-td>
-                    </template>
-                </q-table>
-                <q-form ref="randomMemoForm">
-                    <q-input v-model="memo" label="投票说明/备注/版本"
-                        :rules="[ val => val && val.length > 0 || $t('NeedInput') ]" placeholder="xxxx年第xx期xx投票" />
-                </q-form>
-                <div class="q-gutter-xs">
-                    <q-btn label="仅使用固定投票人" color="primary" @click="handleSaveRandom('base')" />
-                    <q-btn label="取消" color="negative" v-close-popup />
-                </div>
-            </q-card-section>
+                </q-card-section>
+                <q-card-section align="center" class="col">
+                    <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns"
+                        v-model:pagination="pagination" :rows-per-page-options="pageOptions" :loading="loading"
+                        @request="onRequest">
+                        <template v-slot:top>
+                            <span class="row text-h6">
+                                <GqaDictShow dictName="voteType" :dictCode="queryParams.voteType" />
+                                : 随机投票人
+                            </span>
+                            <q-space></q-space>
+                        </template>
+                        <template v-slot:body-cell-avatar="props">
+                            <q-td :props="props">
+                                <GqaAvatar :src="props.row.avatar" />
+                            </q-td>
+                        </template>
 
-            <q-separator />
+                        <template v-slot:body-cell-username="props">
+                            <q-td :props="props">
+                                {{ props.row.username }}
+                            </q-td>
+                        </template>
 
-            <q-card-section align="center">
-                <span class="text-h6">
-                    <GqaDictShow dictName="voteType" :dictCode="queryParams.voteType" />
-                    : 随机投票人
-                </span>
-                <q-form ref="randomUserForm">
-                    <q-input v-model.number="queryParams.randomNumber" type="number"
-                        :rules="[ val => val > 0 || '随机投票人数量必须大于0才能抽取']" label="选择随机投票人数量" />
-                </q-form>
-                <div class="q-gutter-xs">
-                    <q-btn label="选取随机投票人" color="primary" @click="handleRandom" />
-                </div>
-                <div v-if="tableData.length">
-                    <q-card-section align="center">
-                        <div class="text-h6">
-                            系统为你随机选取了
-                            {{ queryParams.randomNumber }}
-                            个投票人如下:
-                        </div>
-                    </q-card-section>
-                    <q-card-section align="center">
-                        <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns"
-                            v-model:pagination="pagination" :rows-per-page-options="pageOptions" :loading="loading"
-                            @request="onRequest">
-                            <template v-slot:body-cell-avatar="props">
-                                <q-td :props="props">
-                                    <GqaAvatar :src="props.row.avatar" />
-                                </q-td>
-                            </template>
+                        <template v-slot:body-cell-nickname="props">
+                            <q-td :props="props">
+                                {{ props.row.nickname }}
+                            </q-td>
+                        </template>
 
-                            <template v-slot:body-cell-username="props">
-                                <q-td :props="props">
-                                    {{ props.row.username }}
-                                </q-td>
-                            </template>
+                        <template v-slot:body-cell-realName="props">
+                            <q-td :props="props">
+                                {{ props.row.realName }}
+                            </q-td>
+                        </template>
 
-                            <template v-slot:body-cell-nickname="props">
-                                <q-td :props="props">
-                                    {{ props.row.nickname }}
-                                </q-td>
-                            </template>
+                        <template v-slot:body-cell-voteType="props">
+                            <q-td :props="props">
+                                <GqaDictShow dictName="voteType" :dictCode="queryParams.voteType" />
+                            </q-td>
+                        </template>
 
-                            <template v-slot:body-cell-realName="props">
-                                <q-td :props="props">
-                                    {{ props.row.realName }}
-                                </q-td>
-                            </template>
+                        <template v-slot:body-cell-voteRatio="props">
+                            <q-td :props="props" v-if="queryParams.voteType === 'dy'">
+                                其他评议人员 40 %
+                            </q-td>
+                            <q-td :props="props" v-if="queryParams.voteType === 'gl'">
+                                职工代表/普通职工 30%
+                            </q-td>
+                        </template>
 
-                            <template v-slot:body-cell-voteType="props">
-                                <q-td :props="props">
-                                    <GqaDictShow dictName="voteType" :dictCode="queryParams.voteType" />
-                                </q-td>
-                            </template>
+                    </q-table>
 
-                            <template v-slot:body-cell-voteRatio="props">
-                                <q-td :props="props" v-if="queryParams.voteType === 'dy'">
-                                    其他评议人员 40 %
-                                </q-td>
-                                <q-td :props="props" v-if="queryParams.voteType === 'gl'">
-                                    职工代表/普通职工 30%
-                                </q-td>
-                            </template>
+                    <q-form ref="randomUserForm">
+                        <q-input v-model.number="queryParams.randomNumber" type="number"
+                            :rules="[ val => val > 0 || '随机投票人数量必须大于0才能抽取']" label="选择随机投票人数量" />
+                    </q-form>
+                    <div class="q-gutter-xs">
+                        <q-btn label="选取随机投票人" color="primary" @click="handleRandom" />
+                        <q-btn v-if="tableData.length" label="确认选取固定+随机投票人" color="negative"
+                            @click="handleSaveRandom('all')" />
+                    </div>
+                </q-card-section>
+            </div>
+            <q-form ref="randomMemoForm" style="margin: 0 20px">
+                <q-input v-model="memo" label="投票说明/备注/版本" :rules="[ val => val && val.length > 0 || $t('NeedInput') ]"
+                    placeholder="xxxx年第xx期xx投票" />
+            </q-form>
 
-                        </q-table>
-                    </q-card-section>
-                    <q-separator spaced />
-                    <q-card-actions align="center">
-                        <q-btn label="确认选取固定+随机投票人" color="primary" @click="handleSaveRandom('all')" />
-                        <q-btn label="取消" color="negative" v-close-popup />
-                    </q-card-actions>
-                </div>
-            </q-card-section>
+            <!-- <q-separator /> -->
+
+            <div class="row justify-center items-center q-gutter-xs" style="margin: 10px 0">
+                <q-btn label="取消" color="negative" v-close-popup />
+            </div>
 
         </q-card>
     </q-dialog>
