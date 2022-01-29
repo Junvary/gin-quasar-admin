@@ -15,8 +15,8 @@
                     <div class="q-gutter-md">
                         <div class="row">
                             <q-input class="col" v-model="addOrEditDetail.id" label="ID" disable />
-                            <q-input class="col" v-model.number="addOrEditDetail.sort" type="number"
-                                :rules="[ val => val >= 1 || $t('SortRule')]" :label="$t('Sort')" />
+                            <!-- <q-input class="col" v-model.number="addOrEditDetail.sort" type="number"
+                                :rules="[ val => val >= 1 || $t('SortRule')]" :label="$t('Sort')" /> -->
                             <q-file class="col" v-model="avatarFile" :label="$t('Avatar')" max-files="1"
                                 @rejected="rejected" :accept="gqaBackend.avatarExt"
                                 :max-file-size="gqaBackend.avatarMaxSize*1024*1024">

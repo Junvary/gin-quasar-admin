@@ -92,7 +92,7 @@ export default {
     computed: {
         columns() {
             return [
-                { name: 'sort', align: 'center', label: this.$t('Sort'), field: 'sort' },
+                // { name: 'sort', align: 'center', label: this.$t('Sort'), field: 'sort' },
                 { name: 'avatar', align: 'center', label: this.$t('Avatar'), field: 'avatar' },
                 { name: 'username', align: 'center', label: this.$t('Username'), field: 'username' },
                 { name: 'nickname', align: 'center', label: this.$t('Nickname'), field: 'nickname' },
@@ -116,6 +116,12 @@ export default {
             url: {
                 list: 'user/user-list',
                 delete: 'user/user-delete',
+            },
+            pagination: {
+                sortBy: 'username',
+                descending: false,
+                page: 1,
+                rowsPerPage: 10,
             },
         }
     },

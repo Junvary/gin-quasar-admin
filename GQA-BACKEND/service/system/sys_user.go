@@ -35,9 +35,7 @@ func (s *ServiceUser) GetUserList(requestUserList system.RequestUserList) (err e
 		return err, userList, total
 	}else{
 		err = db.Where("username != ?", "admin").Limit(pageSize).Offset(offset).
-			Order(global.OrderByColumn(requestUserList.SortBy, requestUserList.Desc)).
-			Order(global.OrderByColumn("username", false)).
-			Preload("Role").Preload("Dept").Find(&userList).Error
+			Order(global.OrderByColumn(requestUserList.SortBy, requestUserList.Desc)).Preload("Role").Preload("Dept").Find(&userList).Error
 		return err, userList, total
 	}
 }
