@@ -18,8 +18,10 @@ func InitPrivateRouter(privateGroup *gin.RouterGroup)  {
 		voteRouter.POST("voter-random-add", private_api.VoterRandomAdd)
 		//删除随机和固定投票人
 		voteRouter.DELETE("voter-random-delete", private_api.VoterRandomDelete)
-		//检查是否可以投票
-		voteRouter.POST("can-vote", private_api.CanVote)
+		//检查是否可以投票-党员
+		voteRouter.POST("can-vote-dy", private_api.CanVoteDy)
+		//检查是否可以投票-管理
+		voteRouter.POST("can-vote-gl", private_api.CanVoteGl)
 		//投票结果列表
 		voteRouter.POST("vote-result-list", private_api.VoteResultList)
 		//投票结果图形

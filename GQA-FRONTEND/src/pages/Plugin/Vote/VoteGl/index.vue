@@ -74,7 +74,7 @@ export default {
             url: {
                 list: 'plugin-vote/candidate-list',
                 vote: 'plugin-vote/vote-handle',
-                canVote: 'plugin-vote/can-vote',
+                canVote: 'plugin-vote/can-vote-gl',
             },
             dictOptions: {},
             candidateListGl: [],

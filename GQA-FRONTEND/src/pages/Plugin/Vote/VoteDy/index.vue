@@ -3,7 +3,15 @@
         <div class="row">
             <div class="col" style="padding: 4px">
                 <q-toolbar class="bg-primary text-white shadow-1">
-                    <q-toolbar-title>民主评议党员投票</q-toolbar-title>
+                    <q-toolbar-title>
+                        民主评议党员投票
+                        <span v-if="canVoteJiJian">
+                            & 纪检委员评价
+                        </span>
+                        <span v-if="canVoteZhengGong">
+                            & 政工干事评价
+                        </span>
+                    </q-toolbar-title>
                     <q-space></q-space>
                     <q-btn push glossy color="negative" @click="handleVoteDy"
                         v-if="canVoteDy && candidateListDy.length">
@@ -74,12 +82,14 @@ export default {
             url: {
                 list: 'plugin-vote/candidate-list',
                 vote: 'plugin-vote/vote-handle',
-                canVote: 'plugin-vote/can-vote',
+                canVote: 'plugin-vote/can-vote-dy',
             },
             dictOptions: {},
             candidateListDy: [],
             voteResultDy: {},
             canVoteDy: false,
+            canVoteJiJian: false,
+            canVoteZhengGong: false,
         }
     },
     async created() {
@@ -92,6 +102,8 @@ export default {
             postAction(this.url.canVote).then((res) => {
                 if (res.code === 1) {
                     this.canVoteDy = res.data.records.dy
+                    this.canVoteJiJian = res.data.records.jiJian
+                    this.canVoteZhengGong = res.data.records.zhengGong
                 }
             })
         },

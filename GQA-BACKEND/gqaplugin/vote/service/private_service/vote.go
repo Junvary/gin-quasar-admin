@@ -37,11 +37,11 @@ func VoteHandle(toAddScore *model.RequestAddScore, username string) (err error) 
 	if errors.Is(result.Error, gorm.ErrRecordNotFound) {
 		var ramdomVoterResult system.SysDict
 		if voteType == "dy" {
-			if err = global.GqaDb.Where("dict_ext2 = ?", "dy_base").First(&ramdomVoterResult).Error; err!=nil{
+			if err = global.GqaDb.Where("dict_ext2 = ?", "dy_base").First(&ramdomVoterResult).Error; err != nil {
 				return err
 			}
 		} else {
-			if err = global.GqaDb.Where("dict_ext2 = ?", "gl_base").First(&ramdomVoterResult).Error; err !=nil{
+			if err = global.GqaDb.Where("dict_ext2 = ?", "gl_base").First(&ramdomVoterResult).Error; err != nil {
 				return err
 			}
 		}
@@ -79,11 +79,12 @@ func VoteHandle(toAddScore *model.RequestAddScore, username string) (err error) 
 	}
 }
 
-func CanVote(username string) (err error, canVoteResultList interface{}) {
+func CanVoteDy(username string) (err error, canVoteResultList interface{}) {
 	voteMonth := time.Now().Format("200601")
 	type canVote struct {
-		Dy bool `json:"dy"`
-		Gl bool `json:"gl"`
+		Dy        bool `json:"dy"`
+		JiJian    bool `json:"jiJian"`
+		ZhengGong bool `json:"zhengGong"`
 	}
 	var canVoteResult canVote
 	var alreadyVote int64
@@ -98,6 +99,37 @@ func CanVote(username string) (err error, canVoteResultList interface{}) {
 	} else {
 		canVoteResult.Dy = true
 	}
+	var jiJianList []model.GqaPluginVoteVoter
+	if err = global.GqaDb.Where("vote_type = ? and vote_ratio = ?", "dy", "dy_jijian").Find(&jiJianList).Error; err!=nil{
+		return err, nil
+	}
+	for _, v := range jiJianList{
+		if v.Voter == username{
+			canVoteResult.JiJian = true
+			break
+		}
+	}
+	var zhengGongList []model.GqaPluginVoteVoter
+	if err = global.GqaDb.Where("vote_type = ? and vote_ratio = ?", "dy", "dy_zhenggong").Find(&zhengGongList).Error; err!=nil{
+		return err, nil
+	}
+	for _, v := range zhengGongList{
+		if v.Voter == username{
+			canVoteResult.ZhengGong = true
+			break
+		}
+	}
+	return err, canVoteResult
+}
+
+func CanVoteGl(username string) (err error, canVoteResultList interface{}) {
+	voteMonth := time.Now().Format("200601")
+	type canVote struct {
+		Gl bool `json:"gl"`
+	}
+	var canVoteResult canVote
+	var alreadyVote int64
+	var userInVoter bool
 	if err = global.GqaDb.Where("vote_type = ? and vote_month = ? and vote_from = ?", "gl", voteMonth, username).
 		Find(&model.GqaPluginVoteScoreResult{}).Count(&alreadyVote).Error; err != nil {
 		return err, nil

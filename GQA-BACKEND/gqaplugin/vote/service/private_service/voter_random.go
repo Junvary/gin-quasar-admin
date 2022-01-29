@@ -29,7 +29,9 @@ func VoterRandomList(getVoterRandomList model.RequestVoterRandomList, username s
 	if err != nil {
 		return
 	}
-	err = db.Limit(pageSize).Offset(offset).Order(global.OrderByColumn("created_at", true)).Preload("VoterByUser").Find(&voterRandomList).Error
+	err = db.Limit(pageSize).Offset(offset).
+		Order(global.OrderByColumn("created_at", true)).Order(global.OrderByColumn("voter", false)).
+		Preload("VoterByUser").Find(&voterRandomList).Error
 	return err, voterRandomList, total
 }
 

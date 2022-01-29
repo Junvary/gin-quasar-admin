@@ -24,8 +24,17 @@ func VoteHandle(c *gin.Context) {
 	}
 }
 
-func CanVote(c *gin.Context)  {
-	if err, canVote := private_service.CanVote(utils.GetUsername(c)); err != nil {
+func CanVoteDy(c *gin.Context)  {
+	if err, canVote := private_service.CanVoteDy(utils.GetUsername(c)); err != nil {
+		global.GqaLog.Error("检查投票结果失败！", zap.Any("err", err))
+		global.ErrorMessage("检查投票结果失败，"+err.Error(), c)
+	} else {
+		global.SuccessMessageData(gin.H{"records": canVote}, "检查投票结果成功！", c)
+	}
+}
+
+func CanVoteGl(c *gin.Context)  {
+	if err, canVote := private_service.CanVoteGl(utils.GetUsername(c)); err != nil {
 		global.GqaLog.Error("检查投票结果失败！", zap.Any("err", err))
 		global.ErrorMessage("检查投票结果失败，"+err.Error(), c)
 	} else {
