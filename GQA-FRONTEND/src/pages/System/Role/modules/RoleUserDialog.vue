@@ -45,12 +45,18 @@ export default {
                 addUser: 'role/role-user-add',
             },
             columns: [
-                { name: 'sort', align: 'center', label: this.$t('Sort'), field: 'sort' },
+                // { name: 'sort', align: 'center', label: this.$t('Sort'), field: 'sort' },
                 { name: 'username', align: 'center', label: this.$t('Username'), field: 'username' },
                 { name: 'nickname', align: 'center', label: this.$t('Nickname'), field: 'nickname' },
                 { name: 'realName', align: 'center', label: this.$t('RealName'), field: 'realName' },
                 { name: 'actions', align: 'center', label: this.$t('Actions'), field: 'actions' },
             ],
+            pagination: {
+                sortBy: 'username',
+                descending: false,
+                page: 1,
+                rowsPerPage: 10,
+            },
         }
     },
     methods: {

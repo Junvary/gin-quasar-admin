@@ -39,7 +39,7 @@ func (s *ServiceRole) EditRole(toEditRole system.SysRole) (err error) {
 		return errors.New("系统内置不允许编辑：" + toEditRole.RoleCode)
 	}
 	//err = global.GqaDb.Updates(&toEditRole).Error
-	err = global.GqaDb.Select(&toEditRole).Error
+	err = global.GqaDb.Save(&toEditRole).Error
 	return err
 }
 
