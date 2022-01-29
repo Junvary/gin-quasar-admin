@@ -269,19 +269,22 @@ export default {
                 this.monthScore = allScore
             }
 
-            // 计算平均分
+            // 计算平均分，党员投票需要算出前五项的平均值，再加上两项额外的评价分，最终得总分
             for (let u = 0; u < this.monthScore.user.length; u++) {
                 let userScore = 0
                 let userNumber = 1
+                let pingjiaScore = 0
                 for (let i in this.monthScore) {
-                    if (i !== 'user') {
+                    if (i !== 'user' && i !== 'dy_p_jijian' && i !== 'dy_p_zhenggong') {
                         userNumber += 1
                         userScore += Number(this.monthScore[i][u])
                     }
+                    if (i === 'dy_p_jijian' || i === 'dy_p_zhenggong') {
+                        pingjiaScore += Number(this.monthScore[i][u])
+                    }
                 }
-                this.monthUserScore.push((userScore / (userNumber - 1)).toFixed(2))
+                this.monthUserScore.push((userScore / (userNumber - 1) + pingjiaScore).toFixed(2))
             }
-            // console.log(this.monthScore)
             this.updateMonthScoreEcharts()
         },
         updateMonthScoreEcharts() {
@@ -316,7 +319,7 @@ export default {
             }
 
             series.push({
-                name: '总平均得分',
+                name: '总得分',
                 type: 'line',
                 yAxisIndex: 1,
                 data: this.monthUserScore,
@@ -367,7 +370,7 @@ export default {
                     },
                     {
                         type: 'value',
-                        name: '总平均得分',
+                        name: '总得分',
                         axisLabel: {
                             formatter: '{value}',
                         },

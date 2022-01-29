@@ -42,6 +42,12 @@ var sysDictData = []system.SysDict{
 	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 5, CreatedAt: time.Now(), CreatedBy: "admin"},
 		ParentCode: "voteTypeDetailDy", DictCode: "dy_5", DictLabel: "履行职责",
 	},
+	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 6, CreatedAt: time.Now(), CreatedBy: "admin"},
+		ParentCode: "voteTypeDetailDy", DictCode: "dy_p_zhenggong", DictLabel: "政工干事评价",
+	},
+	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 7, CreatedAt: time.Now(), CreatedBy: "admin"},
+		ParentCode: "voteTypeDetailDy", DictCode: "dy_p_jijian", DictLabel: "纪检委员评价",
+	},
 
 	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 703, Remark: "民主评议业务骨干及管理人员投票细类", CreatedAt: time.Now(), CreatedBy: "admin"},
 		DictCode: "voteTypeDetailGl", DictLabel: "民主评议业务骨干及管理人员投票细类",

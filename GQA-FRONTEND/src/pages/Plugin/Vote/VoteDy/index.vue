@@ -36,8 +36,8 @@
                                         </q-chip>
                                     </div>
                                     <div class="col-10 row">
-                                        <q-input class="col" v-for="(dict, index) in dictOptions.voteTypeDetailDy"
-                                            :key="index" v-model.number="voteResultDy[item.candidate][dict.dictCode]"
+                                        <q-input class="col" v-for="(dict, index) in trueVoteTypeDetailDy" :key="index"
+                                            v-model.number="voteResultDy[item.candidate][dict.dictCode]"
                                             :label="dict.dictLabel" type="number"
                                             :rules="[ val => val >= 1 && val <= 100 ||'必须大于等于1，且小于等于100']" />
                                     </div>
@@ -90,12 +90,12 @@ export default {
             canVoteDy: false,
             canVoteJiJian: false,
             canVoteZhengGong: false,
+            trueVoteTypeDetailDy: [],
         }
     },
     async created() {
         this.dictOptions = await DictOptions()
         this.checkCanVote()
-        this.changeTableData()
     },
     methods: {
         checkCanVote() {
@@ -104,6 +104,18 @@ export default {
                     this.canVoteDy = res.data.records.dy
                     this.canVoteJiJian = res.data.records.jiJian
                     this.canVoteZhengGong = res.data.records.zhengGong
+                    if (this.canVoteDy && !this.canVoteJiJian && !this.canVoteZhengGong) {
+                        this.trueVoteTypeDetailDy = this.dictOptions.voteTypeDetailDy.filter((item) => item.dictCode !== 'dy_p_zhenggong' && item.dictCode !== 'dy_p_jijian')
+                    } else if (this.canVoteDy && !this.canVoteJiJian && this.canVoteZhengGong) {
+                        this.trueVoteTypeDetailDy = this.dictOptions.voteTypeDetailDy.filter((item) => item.dictCode === 'dy_p_zhenggong')
+                    } else if (this.canVoteDy && this.canVoteJiJian && !this.canVoteZhengGong) {
+                        this.trueVoteTypeDetailDy = this.dictOptions.voteTypeDetailDy.filter((item) => item.dictCode === 'dy_p_jijian')
+                    } else if (this.canVoteDy && this.canVoteJiJian && this.canVoteZhengGong) {
+                        this.trueVoteTypeDetailDy = this.dictOptions.voteTypeDetailDy.filter((item) => item.dictCode === 'dy_p_zhenggong' || item.dictCode === 'dy_p_jijian')
+                    } else {
+                        this.trueVoteTypeDetailDy = []
+                    }
+                    this.changeTableData()
                 }
             })
         },
@@ -111,12 +123,13 @@ export default {
             this.getTableData().then(() => {
                 this.candidateListDy = this.tableData.filter((item) => item.voteType === 'dy')
                 for (let dy of this.candidateListDy) {
-                    for (let dict of this.dictOptions.voteTypeDetailDy) {
+                    for (let dict of this.trueVoteTypeDetailDy) {
                         this.voteResultDy[dy.candidate] = Object.assign({}, this.voteResultDy[dy.candidate], {
                             [dict.dictCode]: 95,
                         })
                     }
                 }
+                // console.log(this.voteResultDy)
             })
         },
         async handleVoteDy() {
