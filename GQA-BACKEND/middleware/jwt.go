@@ -34,6 +34,7 @@ func JwtHandler() gin.HandlerFunc {
 					refreshToken := utils.CreateToken(claims.Username)
 					if refreshToken != "" {
 						c.Header("gqa-refresh-token", refreshToken)
+						global.SuccessMessageData(gin.H{"refresh": true}, "以为你刷新令牌！", c)
 						c.Abort()
 						return
 					}

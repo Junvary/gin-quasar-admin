@@ -19,6 +19,7 @@ var sysCasbinData = []gormadapter.CasbinRule{
 	{Ptype: "p", V0: "super-admin", V1: "/user/user-add", V2: "POST"},
 	{Ptype: "p", V0: "super-admin", V1: "/user/user-delete", V2: "DELETE"},
 	{Ptype: "p", V0: "super-admin", V1: "/user/user-id", V2: "POST"},
+	{Ptype: "p", V0: "super-admin", V1: "/user/user-reset-password", V2: "POST"},
 	{Ptype: "p", V0: "super-admin", V1: "/user/user-menu", V2: "GET"},
 	{Ptype: "p", V0: "super-admin", V1: "/user/user-change-password", V2: "POST"},
 	{Ptype: "p", V0: "super-admin", V1: "/user/user-change-nickname", V2: "POST"},

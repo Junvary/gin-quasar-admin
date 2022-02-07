@@ -65,6 +65,8 @@
             <template v-slot:body-cell-actions="props">
                 <q-td :props="props">
                     <div class="q-gutter-xs">
+                        <q-btn color="warning" @click="resetPassword(props.row)"
+                            :label="$t('Reset') + $t('Password')" />
                         <q-btn color="primary" @click="showEditForm(props.row)" :label="$t('Edit')" />
                         <q-btn color="negative" @click="handleDelete(props.row)" :label="$t('Delete')" />
                     </div>
@@ -80,6 +82,7 @@ import { tableDataMixin } from 'src/mixins/tableDataMixin'
 import addOrEditDialog from './modules/addOrEditDialog'
 import GqaAvatar from 'src/components/GqaAvatar'
 import GqaDictShow from 'src/components/GqaDictShow'
+import { postAction } from 'src/api/manage'
 
 export default {
     name: 'User',
@@ -116,6 +119,7 @@ export default {
             url: {
                 list: 'user/user-list',
                 delete: 'user/user-delete',
+                resetPassword: 'user/user-reset-password',
             },
             pagination: {
                 sortBy: 'username',
@@ -127,6 +131,29 @@ export default {
     },
     created() {
         this.getTableData()
+    },
+    methods: {
+        resetPassword(row) {
+            this.$q
+                .dialog({
+                    title: this.$t('Reset') + this.$t('Password'),
+                    message: this.$t('Confirm') + this.$t('Reset') + this.$t('Password') + '?' + '(' + row.username + ')',
+                    cancel: true,
+                    persistent: true,
+                })
+                .onOk(async () => {
+                    const res = await postAction(this.url.resetPassword, {
+                        id: row.id,
+                    })
+                    if (res.code === 1) {
+                        this.$q.notify({
+                            type: 'positive',
+                            message: res.message,
+                        })
+                    }
+                    this.getTableData()
+                })
+        },
     },
 }
 </script>

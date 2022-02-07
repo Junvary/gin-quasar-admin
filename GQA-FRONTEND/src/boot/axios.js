@@ -44,7 +44,7 @@ export default boot(({ app, router, store }) => {
     // 响应拦截
     api.interceptors.response.use(response => {
         // 如果JWT的ExpiresAt已经过期，但是RefreshAt没有过期，那么后台会在headers里插入Gqa-Refresh-Token，这里保存下来，形成更换token逻辑
-        if (response.headers['gqa-refresh-token']) {
+        if (response.headers['gqa-refresh-token'] && response.data.data.refresh) {
             store.dispatch('user/SetToken', response.headers['gqa-refresh-token'])
             Notify.create({
                 type: 'positive',

@@ -130,6 +130,21 @@ func (a *ApiUser) QueryUserById(c *gin.Context) {
 	}
 }
 
+func (a *ApiUser)ResetPassword(c *gin.Context)  {
+	var toResetPasswordId system.RequestQueryById
+	if err := c.ShouldBindJSON(&toResetPasswordId); err != nil {
+		global.GqaLog.Error("模型绑定失败！", zap.Any("err", err))
+		global.ErrorMessage("模型绑定失败，"+err.Error(), c)
+		return
+	}
+	if err := ServiceUser.ResetPassword(toResetPasswordId.Id); err != nil {
+		global.GqaLog.Error("重置用户密码失败！", zap.Any("err", err))
+		global.ErrorMessage("重置用户密码失败，"+err.Error(), c)
+	} else {
+		global.SuccessMessage("重置用户密码成功！", c)
+	}
+}
+
 func (a *ApiUser) GetUserMenu(c *gin.Context) {
 	err, menu := ServiceUser.GetUserMenu(c)
 	if err != nil {

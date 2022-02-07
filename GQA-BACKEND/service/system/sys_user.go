@@ -11,7 +11,7 @@ import (
 	"sort"
 )
 
-type ServiceUser struct {}
+type ServiceUser struct{}
 
 func (s *ServiceUser) GetUserList(requestUserList system.RequestUserList) (err error, user interface{}, total int64) {
 	pageSize := requestUserList.PageSize
@@ -19,21 +19,21 @@ func (s *ServiceUser) GetUserList(requestUserList system.RequestUserList) (err e
 	db := global.GqaDb.Model(&system.SysUser{})
 	var userList []system.SysUser
 	//配置搜索
-	if requestUserList.Username != ""{
-		db = db.Where("username like ?", "%" + requestUserList.Username + "%")
+	if requestUserList.Username != "" {
+		db = db.Where("username like ?", "%"+requestUserList.Username+"%")
 	}
-	if requestUserList.RealName != ""{
-		db = db.Where("real_name like ?", "%" + requestUserList.RealName + "%")
+	if requestUserList.RealName != "" {
+		db = db.Where("real_name like ?", "%"+requestUserList.RealName+"%")
 	}
 	err = db.Count(&total).Error
 	if err != nil {
 		return
 	}
-	if requestUserList.WithAdmin{
+	if requestUserList.WithAdmin {
 		err = db.Limit(pageSize).Offset(offset).Order(global.OrderByColumn(requestUserList.SortBy, requestUserList.Desc)).
 			Preload("Role").Preload("Dept").Find(&userList).Error
 		return err, userList, total
-	}else{
+	} else {
 		err = db.Where("username != ?", "admin").Limit(pageSize).Offset(offset).
 			Order(global.OrderByColumn(requestUserList.SortBy, requestUserList.Desc)).Preload("Role").Preload("Dept").Find(&userList).Error
 		return err, userList, total
@@ -59,11 +59,11 @@ func (s *ServiceUser) AddUser(toAddUser *system.SysUser) (err error) {
 		return errors.New("此用户已存在：" + toAddUser.Username)
 	}
 	defaultPassword := utils.GetConfigBackend("defaultPassword")
-	if defaultPassword == ""{
+	if defaultPassword == "" {
 		toAddUser.Password = utils.EncodeMD5("123456")
 		err = global.GqaDb.Create(&toAddUser).Error
 		return errors.New("未找到配置默认密码，初始密码设置为：123456")
-	}else {
+	} else {
 		toAddUser.Password = utils.EncodeMD5(defaultPassword)
 		err = global.GqaDb.Create(&toAddUser).Error
 		return err
@@ -78,11 +78,11 @@ func (s *ServiceUser) DeleteUser(id uint) (err error) {
 	if sysUser.Stable == "yes" {
 		return errors.New("系统内置不允许删除：" + sysUser.Username)
 	}
-	if err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&sysUser).Error; err!=nil{
+	if err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&sysUser).Error; err != nil {
 		return err
 	}
 	var sysDeptUser system.SysDeptUser
-	if err = global.GqaDb.Where("sys_user_username = ?", sysUser.Username).Delete(&sysDeptUser).Error; err!=nil{
+	if err = global.GqaDb.Where("sys_user_username = ?", sysUser.Username).Delete(&sysDeptUser).Error; err != nil {
 		return err
 	}
 	var sysUserRole system.SysUserRole
@@ -101,6 +101,22 @@ func (s *ServiceUser) QueryUserById(id uint) (err error, userInfo system.SysUser
 	err = global.GqaDb.Preload("CreatedByUser").Preload("UpdatedByUser").
 		Preload("Role").Preload("Dept").First(&user, "id = ?", id).Error
 	return err, user
+}
+
+func (s *ServiceUser) ResetPassword(id uint) (err error) {
+	var sysUser system.SysUser
+	if err = global.GqaDb.Where("id = ?", id).First(&sysUser).Error; err != nil {
+		return err
+	}
+	defaultPassword := utils.GetConfigBackend("defaultPassword")
+	var pwd string
+	if defaultPassword == "" {
+		pwd = utils.EncodeMD5("123456")
+	} else {
+		pwd = utils.EncodeMD5(defaultPassword)
+	}
+	err = global.GqaDb.Model(&sysUser).Update("password", pwd).Error
+	return err
 }
 
 func (s *ServiceUser) GetUserMenu(c *gin.Context) (err error, menu []system.SysMenu) {
@@ -123,12 +139,12 @@ func (s *ServiceUser) GetUserMenu(c *gin.Context) (err error, menu []system.SysM
 	//menus切片去重
 	type distinctMenu []system.SysMenu
 	resultMenu := map[string]bool{}
-	for _, v := range menus{
+	for _, v := range menus {
 		data, _ := json.Marshal(v)
 		resultMenu[string(data)] = true
 	}
 	result := distinctMenu{}
-	for mm := range resultMenu{
+	for mm := range resultMenu {
 		var m system.SysMenu
 		_ = json.Unmarshal([]byte(mm), &m)
 		result = append(result, m)
@@ -141,7 +157,7 @@ func (s *ServiceUser) GetUserMenu(c *gin.Context) (err error, menu []system.SysM
 }
 
 func (s *ServiceUser) ChangePassword(username string, toChangePassword system.RequestChangePassword) (err error) {
-	if toChangePassword.NewPassword1 != toChangePassword.NewPassword2{
+	if toChangePassword.NewPassword1 != toChangePassword.NewPassword2 {
 		return errors.New("两次新密码不一致！")
 	}
 	var sysUser system.SysUser
@@ -149,11 +165,11 @@ func (s *ServiceUser) ChangePassword(username string, toChangePassword system.Re
 		return err
 	}
 	oldPassword := utils.EncodeMD5(toChangePassword.OldPassword)
-	if sysUser.Password != oldPassword{
+	if sysUser.Password != oldPassword {
 		return errors.New("旧密码错误！")
 	}
 	newPassword := utils.EncodeMD5(toChangePassword.NewPassword1)
-	if oldPassword == newPassword{
+	if oldPassword == newPassword {
 		return errors.New("新旧密码是一样的！")
 	}
 	err = global.GqaDb.Model(&sysUser).Update("password", newPassword).Error

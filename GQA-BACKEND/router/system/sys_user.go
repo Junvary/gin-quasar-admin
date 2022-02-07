@@ -19,6 +19,8 @@ func (r *RouterUser) InitRouterUser(Router *gin.RouterGroup) (R gin.IRoutes) {
 		userGroup.DELETE("user-delete", ApiUser.DeleteUser)
 		//根据ID查找用户
 		userGroup.POST("user-id", ApiUser.QueryUserById)
+		//重置用户密码
+		userGroup.POST("user-reset-password", ApiUser.ResetPassword)
 		//获取用户的菜单
 		userGroup.GET("user-menu", ApiUser.GetUserMenu)
 		//用户修改密码
