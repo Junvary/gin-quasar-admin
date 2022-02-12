@@ -5,6 +5,11 @@
                 <q-toolbar class="bg-primary text-white shadow-1">
                     <q-toolbar-title>民主评议业务骨干及管理人员投票</q-toolbar-title>
                     <q-space></q-space>
+                    <span v-if="canVoteGl && candidateListGl.length">
+                        共:
+                        {{candidateListGl.length}}
+                        人&nbsp;&nbsp;&nbsp;&nbsp;
+                    </span>
                     <q-btn push glossy color="negative" @click="handleVoteGl"
                         v-if="canVoteGl && candidateListGl.length">
                         提交本次投票结果
@@ -18,16 +23,17 @@
                 </q-toolbar>
                 <q-form ref="candidateFormGl" v-if="canVoteGl">
                     <template v-if="candidateListGl.length">
-                        <q-card v-for="(item, index) in candidateListGl" :key="index">
+                        <q-card v-for="(item, index) in candidateListGl" :key="index" bordered>
                             <q-card-section style="padding: 0 4px">
                                 <div class="row justify-between items-center">
-                                    <div class="col-2">
+                                    <div class="col-3 row justify-center items-center">
                                         <q-chip class="glossy" color="primary" text-color="white">
                                             <GqaShowName :customNameObject="item.candidateByUser" />
-                                            {{personTotalScore(voteResultGl[item.candidate])}}
+                                            ({{ item.candidate }})
+                                            : {{personTotalScore(voteResultGl[item.candidate])}}
                                         </q-chip>
                                     </div>
-                                    <div class="col-10 row">
+                                    <div class="col-9 row">
                                         <q-input class="col" v-for="(dict, index) in dictOptions.voteTypeDetailGl"
                                             :key="index" v-model.number="voteResultGl[item.candidate][dict.dictCode]"
                                             :label="dict.dictLabel" type="number"
@@ -75,6 +81,12 @@ export default {
                 list: 'plugin-vote/candidate-list',
                 vote: 'plugin-vote/vote-handle',
                 canVote: 'plugin-vote/can-vote-gl',
+            },
+            pagination: {
+                sortBy: 'candidate',
+                descending: false,
+                page: 1,
+                rowsPerPage: 40000,
             },
             dictOptions: {},
             candidateListGl: [],

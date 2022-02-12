@@ -269,22 +269,40 @@ export default {
                 this.monthScore = allScore
             }
 
-            // 计算平均分，党员投票需要算出前五项的平均值，再加上两项额外的评价分，最终得总分
-            for (let u = 0; u < this.monthScore.user.length; u++) {
-                let userScore = 0
-                let userNumber = 1
-                let pingjiaScore = 0
-                for (let i in this.monthScore) {
-                    if (i !== 'user' && i !== 'dy_p_jijian' && i !== 'dy_p_zhenggong') {
-                        userNumber += 1
-                        userScore += Number(this.monthScore[i][u])
+            // 计算平均分，管理人员
+            if (this.queryParams.voteType === 'gl') {
+                for (let u = 0; u < this.monthScore.user.length; u++) {
+                    let userScore = 0
+                    let userNumber = 1
+                    for (let i in this.monthScore) {
+                        if (i !== 'user') {
+                            userNumber += 1
+                            userScore += Number(this.monthScore[i][u])
+                        }
                     }
-                    if (i === 'dy_p_jijian' || i === 'dy_p_zhenggong') {
-                        pingjiaScore += Number(this.monthScore[i][u])
-                    }
+                    this.monthUserScore.push((userScore / (userNumber - 1)).toFixed(2))
                 }
-                this.monthUserScore.push((userScore / (userNumber - 1) + pingjiaScore).toFixed(2))
             }
+
+            // 计算平均分，党员投票需要算出前五项的平均值，再加上两项额外的评价分，最终得总分
+            if (this.queryParams.voteType === 'dy') {
+                for (let u = 0; u < this.monthScore.user.length; u++) {
+                    let userScore = 0
+                    let userNumber = 1
+                    let pingjiaScore = 0
+                    for (let i in this.monthScore) {
+                        if (i !== 'user' && i !== 'dy_p_jijian' && i !== 'dy_p_zhenggong') {
+                            userNumber += 1
+                            userScore += Number(this.monthScore[i][u])
+                        }
+                        if (i === 'dy_p_jijian' || i === 'dy_p_zhenggong') {
+                            pingjiaScore += Number(this.monthScore[i][u])
+                        }
+                    }
+                    this.monthUserScore.push((userScore / (userNumber - 1) + pingjiaScore).toFixed(2))
+                }
+            }
+            // console.log(this.monthUserScore)
             this.updateMonthScoreEcharts()
         },
         updateMonthScoreEcharts() {
@@ -295,11 +313,11 @@ export default {
                         name: dict.dictLabel,
                         type: 'bar',
                         data: this.monthScore[dict.dictCode],
-                        label: {
-                            show: true,
-                            position: 'inside',
-                            formatter: '{a}\n{c}',
-                        },
+                        // label: {
+                        //     show: true,
+                        //     position: 'inside',
+                        //     formatter: '{a}\n{c}',
+                        // },
                     })
                 }
             }
@@ -309,11 +327,11 @@ export default {
                         name: dict.dictLabel,
                         type: 'bar',
                         data: this.monthScore[dict.dictCode],
-                        label: {
-                            show: true,
-                            position: 'inside',
-                            formatter: '{a}\n{c}',
-                        },
+                        // label: {
+                        //     show: true,
+                        //     position: 'inside',
+                        //     formatter: '{a}\n{c}',
+                        // },
                     })
                 }
             }
@@ -358,6 +376,10 @@ export default {
                         axisPointer: {
                             type: 'shadow',
                         },
+                        axisLabel: {
+                            interval: 0,
+                            rotate: 40,
+                        },
                     },
                 ],
                 yAxis: [
@@ -378,6 +400,7 @@ export default {
                 ],
                 series: series,
             }
+            this.myChart.clear()
             this.myChart.setOption(this.option)
         },
     },

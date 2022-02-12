@@ -13,6 +13,11 @@
                         </span>
                     </q-toolbar-title>
                     <q-space></q-space>
+                    <span v-if="canVoteDy && candidateListDy.length">
+                        共:
+                        {{candidateListDy.length}}
+                        人&nbsp;&nbsp;&nbsp;&nbsp;
+                    </span>
                     <q-btn push glossy color="negative" @click="handleVoteDy"
                         v-if="canVoteDy && candidateListDy.length">
                         提交本次投票结果
@@ -26,16 +31,17 @@
                 </q-toolbar>
                 <q-form ref="candidateFormDy" v-if="canVoteDy">
                     <template v-if="candidateListDy.length">
-                        <q-card v-for="(item, index) in candidateListDy" :key="index">
+                        <q-card v-for="(item, index) in candidateListDy" :key="index" bordered>
                             <q-card-section style="padding: 0 4px">
                                 <div class="row justify-between items-center">
-                                    <div class="col-2">
+                                    <div class="col-3 row justify-center items-center">
                                         <q-chip class="glossy" color="primary" text-color="white">
                                             <GqaShowName :customNameObject="item.candidateByUser" />
-                                            : {{personTotalScore(voteResultDy[item.candidate])}}
+                                            ({{ item.candidate }})
+                                            : {{personTotalScore(voteResultDy[item.candidate])}}分
                                         </q-chip>
                                     </div>
-                                    <div class="col-10 row">
+                                    <div class="col-9 row">
                                         <q-input class="col" v-for="(dict, index) in trueVoteTypeDetailDy" :key="index"
                                             v-model.number="voteResultDy[item.candidate][dict.dictCode]"
                                             :label="dict.dictLabel" type="number"
@@ -83,6 +89,12 @@ export default {
                 list: 'plugin-vote/candidate-list',
                 vote: 'plugin-vote/vote-handle',
                 canVote: 'plugin-vote/can-vote-dy',
+            },
+            pagination: {
+                sortBy: 'candidate',
+                descending: false,
+                page: 1,
+                rowsPerPage: 40000,
             },
             dictOptions: {},
             candidateListDy: [],

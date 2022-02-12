@@ -4,8 +4,8 @@
             <div class="row">
                 <q-card-section align="center" class="col">
                     <q-table row-key="id" separator="cell" :rows="tableDataBase" :columns="columns"
-                        v-model:pagination="paginationBase" :rows-per-page-options="pageOptions" :loading="loadingBase"
-                        @request="onRequestBase">
+                        v-model:pagination="paginationBase" :rows-per-page-options="[0]" :loading="loadingBase"
+                        class="my-sticky-header-table" @request="onRequestBase">
                         <template v-slot:top>
                             <span class="row text-h6">
                                 <GqaDictShow dictName="voteType" :dictCode="queryParams.voteType" />
@@ -52,11 +52,11 @@
                             </q-td>
                         </template>
                     </q-table>
-
                 </q-card-section>
                 <q-card-section align="center" class="col">
                     <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns"
-                        v-model:pagination="pagination" :rows-per-page-options="pageOptions" :loading="loading"
+                        v-model:pagination="pagination" :rows-per-page-options="[0]"
+                        :class="tableData.length ? 'my-sticky-header-table2' : ''" :loading="loading"
                         @request="onRequest">
                         <template v-slot:top>
                             <span class="row text-h6">
@@ -165,7 +165,13 @@ export default {
                 sortBy: 'sort',
                 descending: false,
                 page: 1,
-                rowsPerPage: 10,
+                rowsPerPage: 20000,
+            },
+            pagination: {
+                sortBy: 'sort',
+                descending: false,
+                page: 1,
+                rowsPerPage: 20000,
             },
             queryParams: {
                 randomNumber: 0,
@@ -263,3 +269,28 @@ export default {
     },
 }
 </script>
+
+<style lang="scss" scoped>
+.my-sticky-header-table {
+    height: 75vh;
+    thead tr th {
+        position: sticky;
+        z-index: 1;
+    }
+
+    thead tr:first-child th {
+        top: 10;
+    }
+}
+.my-sticky-header-table2 {
+    height: 65vh;
+    thead tr th {
+        position: sticky;
+        z-index: 1;
+    }
+
+    thead tr:first-child th {
+        top: 10;
+    }
+}
+</style>
