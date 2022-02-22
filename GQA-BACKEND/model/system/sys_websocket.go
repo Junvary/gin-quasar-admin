@@ -1,6 +1,6 @@
 package system
 
-import "github.com/gorilla/websocket"
+import "sync"
 
 type WsMessage struct { //接收与返回的结构体
 	Name              string   `json:"name"`
@@ -13,6 +13,7 @@ type WsMessage struct { //接收与返回的结构体
 }
 
 var (
-	Clients      = make(map[string]*websocket.Conn)
+	//Clients      = make(map[string]*websocket.Conn)
+	Clients      sync.Map
 	BroadcastMsg = make(chan []byte, 100)
 )

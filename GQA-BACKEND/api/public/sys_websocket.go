@@ -13,7 +13,6 @@ import (
 
 type ApiWebSocket struct{}
 
-
 var upGrader = websocket.Upgrader{
 	CheckOrigin: func(r *http.Request) bool {
 		return true
@@ -32,11 +31,12 @@ func (a *ApiWebSocket) WebSocket(c *gin.Context) {
 
 	defer func() {
 		//连接断开，删除无效client
-		delete(system.Clients, clientId)
+		//delete(system.Clients, clientId)
+		system.Clients.Delete(clientId)
 		ws.Close()
 	}()
-
-	system.Clients[clientId] = ws
+	system.Clients.Store(clientId, ws)
+	//system.Clients[clientId] = ws
 
 	for {
 		//读取websocket发来的数据
@@ -50,10 +50,8 @@ func (a *ApiWebSocket) WebSocket(c *gin.Context) {
 		}
 		wsMessage.Stamp = time.Now().Format("2006-01-02 15:04:05")
 		byteMessage, _ := json.Marshal(wsMessage)
-		if wsMessage.MessageType == "chat"{
+		if wsMessage.MessageType == "chat" {
 			system.BroadcastMsg <- byteMessage
 		}
 	}
 }
-
-
