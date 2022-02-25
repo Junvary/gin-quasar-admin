@@ -4,14 +4,19 @@
 <h1>Gin-Quasar-Admin</h1>
 </div>
 <div align=center>
-<img src="https://img.shields.io/badge/quasar-2.4.11-brightgreen"/>
-<img src="https://img.shields.io/badge/vue-3.2.26-brightgreen"/>
+<img src="https://img.shields.io/badge/quasar-2.5.5-brightgreen"/>
+<img src="https://img.shields.io/badge/vue-3.2.31-brightgreen"/>
 <img src="https://img.shields.io/badge/gin-1.7.7-brightgreen"/>
 <img src="https://img.shields.io/badge/golang-1.17.2-brightgreen"/>
 </div>
 
 
 
+
+
+```
+升级新版本Quasar后，如遇 Cannot find module 'autoprefixer' 错误，请手动删除yarn.lock文件和node_modules文件夹后，重新执行yarn安装依赖！
+```
 
 
 
