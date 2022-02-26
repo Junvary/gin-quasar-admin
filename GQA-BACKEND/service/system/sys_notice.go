@@ -38,11 +38,10 @@ func (s *ServiceNotice) GetNoticeList(requestNoticeList system.RequestNoticeList
 		for _, v := range noticeToUser {
 			noticeIdList = append(noticeIdList, v.NoticeId)
 		}
-		db = global.GqaDb.Preload("NoticeToUser").Where("notice_id in ?", noticeIdList,
-		).Model(&system.SysNotice{})
+		db = global.GqaDb.Where("notice_id in ?", noticeIdList).Model(&system.SysNotice{})
 	} else {
 		//管理员查询
-		db = global.GqaDb.Preload("NoticeToUser").Model(&system.SysNotice{})
+		db = global.GqaDb.Model(&system.SysNotice{})
 	}
 	if requestNoticeList.NoticeTitle != "" {
 		db = db.Where("notice_title like ?", "%"+requestNoticeList.NoticeTitle+"%")
@@ -58,6 +57,7 @@ func (s *ServiceNotice) GetNoticeList(requestNoticeList system.RequestNoticeList
 		return
 	}
 	err = db.Limit(pageSize).Offset(offset).Order(global.OrderByColumn(requestNoticeList.SortBy, requestNoticeList.Desc)).
+		Preload("NoticeToUser").
 		Find(&noticeList).Error
 	return err, noticeList, total
 }

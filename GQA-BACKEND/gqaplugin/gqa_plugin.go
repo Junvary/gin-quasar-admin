@@ -1,15 +1,16 @@
 package gqaplugin
 
 import (
+	// 1.插件引入方式1：github插件引入方式
+	vote "github.com/Junvary/gqa-plugin-vote"
+	xk "github.com/Junvary/gqa-plugin-xk"
+	//example "github.com/Junvary/gqa-plugin-example"
+	// 2.插件引入方式2：本地插件引入方式（GQA的引入模式从本地改为github）
+	//"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/vote"
+	//"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/xk"
+	//"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/example"
 	//其他引用
 	"github.com/gin-gonic/gin"
-	// 1.插件引入方式1：github插件引入方式
-	//example "github.com/Junvary/gqa-plugin-example"
-	xk "github.com/Junvary/gqa-plugin-xk"
-	// 2.插件引入方式2：本地插件引入方式（GQA的引入模式从本地改为github）
-	//"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/example"
-	//"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/xk"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/vote"
 )
 
 /*
