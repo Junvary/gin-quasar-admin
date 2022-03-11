@@ -3,7 +3,7 @@ module github.com/Junvary/gin-quasar-admin/GQA-BACKEND
 go 1.17
 
 require (
-	github.com/Junvary/gqa-plugin-vote v0.0.1
+	github.com/Junvary/gqa-plugin-vote v0.0.5
 	github.com/Junvary/gqa-plugin-xk v0.0.1
 	github.com/casbin/casbin/v2 v2.41.1
 	github.com/casbin/gorm-adapter/v3 v3.5.0

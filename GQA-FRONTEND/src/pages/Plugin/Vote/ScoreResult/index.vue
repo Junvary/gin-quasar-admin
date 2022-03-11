@@ -6,6 +6,21 @@
                 map-options label="投票类型" @update:model-value="getTableDataAll" />
             <q-btn color="primary" @click="getTableDataAll" label="确定" />
         </div>
+        <q-card style="margin: 15px 0" v-if="tableDataVoted.length">
+            <div class="row justify-center text-h6">
+                本期已有{{tableDataVoted.length}}人完成投票
+            </div>
+            <div class="q-guuter-md">
+                <q-chip dense class="glossy" color="positive" text-color="white" v-for="item in tableDataVoted"
+                    :key="item.voteFrom">
+                    <GqaShowName :customNameObject="item.voteFromByUser" />
+                    ({{item.voteFrom}})
+                </q-chip>
+            </div>
+        </q-card>
+
+        <q-separator />
+
         <div ref="monthScoreChart" style="width: 100%; height: 500px"></div>
         <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
             :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
@@ -91,6 +106,7 @@ export default {
     },
     data() {
         return {
+            tableDataVoted: [],
             tableDataChart: [],
             queryParams: {
                 voteType: 'dy',
@@ -102,6 +118,7 @@ export default {
             url: {
                 list: 'plugin-vote/vote-result-list',
                 chart: 'plugin-vote/vote-result-chart',
+                voted: 'plugin-vote/vote-result-voted',
             },
             monthScore: {
                 user: [],
@@ -155,9 +172,17 @@ export default {
         getTableDataAll() {
             this.getTableDataList()
             this.getTableDataChart()
+            this.getTableDataVoted()
         },
         getTableDataList() {
             this.getTableData()
+        },
+        async getTableDataVoted() {
+            await postAction(this.url.voted, this.queryParams).then((res) => {
+                if (res.code === 1) {
+                    this.tableDataVoted = res.data.records
+                }
+            })
         },
         async getTableDataChart() {
             await this.onRequestChart({ pagination: this.paginationChart })
