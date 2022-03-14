@@ -46,6 +46,7 @@ export default {
     DbNeedInit: 'The database needs to be initialized!',
     DbInitSuccess: 'System initialization succeeded. Please login!',
     TechnicalSupport: 'Technical Support',
+    ChatRoom: 'Chat Room',
     // Base
     Welcome: 'Welcome',
     WelcomeTo: 'Welcome to',

@@ -69,7 +69,7 @@ export default {
         },
         websocketOnmessage(e) {
             let newData = JSON.parse(e.data)
-            console.log('Gin-Quasar-Admin: 收到新消息', e.data)
+            // console.log('Gin-Quasar-Admin: 收到新消息', e.data)
             if (newData.messageType === 'chat') {
                 // 聊天信息
                 newData.text = [newData.text]

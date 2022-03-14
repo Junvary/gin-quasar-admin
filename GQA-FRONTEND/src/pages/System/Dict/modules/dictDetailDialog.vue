@@ -1,6 +1,6 @@
 <template>
     <q-dialog v-model="dictDetailVisible" position="right">
-        <q-card style="width: 800px; max-width: 50vw; height: 100%">
+        <q-card style="width: 1000px; max-width: 50vw; height: 100%">
             <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
                 :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
 
@@ -29,6 +29,7 @@
                     <q-td :props="props">
                         <div class="q-gutter-xs">
                             <q-btn dense color="primary" @click="showEditForm(props.row)" :label="$t('Edit')" />
+                            <q-btn dense color="warning" @click="handleDetail(props.row)" :label="$t('Detail')" />
                             <q-btn dense color="negative" @click="handleDelete(props.row)" :label="$t('Delete')" />
                         </div>
                     </q-td>
@@ -40,6 +41,7 @@
         </q-card>
 
         <add-or-edit-dialog ref="addOrEditDialog" @handleFinish="handleFinish" />
+        <dict-detail-dialog ref="dictDetailDialog" @handleFinish="handleFinish" />
     </q-dialog>
 </template>
 
@@ -86,6 +88,9 @@ export default {
             this.parentDict = row
             this.queryParams.parentCode = this.parentDict.dictCode
             this.getTableData()
+        },
+        handleDetail(row) {
+            this.$refs.dictDetailDialog.show(row)
         },
     },
 }

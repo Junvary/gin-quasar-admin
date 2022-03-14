@@ -4,11 +4,12 @@
         <q-card bordered style="width: 750px; max-width: 45vw;">
             <q-bar class="bg-primary text-white">
                 {{ gqaFrontend.gqaSubTitle }}
+                {{ $t('ChatRoom')}}
                 <q-space />
                 <q-btn dense flat icon="close" v-close-popup />
             </q-bar>
             <q-card-section horizontal style="height: 50vh">
-                <q-card-section class="col-4" style="padding: 0">
+                <!-- <q-card-section class="col-4" style="padding: 0">
                     <q-scroll-area ref="userScroll" visible style="height: 50vh; width: 100%">
                         <q-list>
                             <q-item clickable v-ripple v-for="(item, index) in tableData" :key="index">
@@ -31,7 +32,7 @@
                     </q-inner-loading>
                 </q-card-section>
 
-                <q-separator vertical inset />
+                <q-separator vertical inset /> -->
 
                 <q-card-section style="width: 100%; padding: 0">
                     <q-scroll-area ref="messageScroll" visible style="height: 50vh; width: 100%">
@@ -136,7 +137,7 @@ export default {
     methods: {
         show() {
             this.chatDialogVisible = true
-            this.getTableData()
+            // this.getTableData()
             this.$nextTick(() => {
                 // userList不要滚动到最底部了，保持在最上面
                 // this.$refs.userScroll.setScrollPosition('vertical', this.tableData.length * 55)
