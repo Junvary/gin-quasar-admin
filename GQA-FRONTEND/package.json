@@ -23,7 +23,7 @@
     },
     "devDependencies": {
         "@intlify/vue-i18n-loader": "^4.0.1",
-        "@quasar/app": "^3.3.3"
+        "@quasar/app-webpack": "^3.4.3"
     },
     "browserslist": [
         "last 10 Chrome versions",
