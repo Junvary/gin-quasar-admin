@@ -4,11 +4,12 @@
 <h1>Gin-Quasar-Admin</h1>
 </div>
 <div align=center>
-<img src="https://img.shields.io/badge/quasar-2.5.5-brightgreen"/>
+<img src="https://img.shields.io/badge/quasar-2.6.1-brightgreen"/>
 <img src="https://img.shields.io/badge/vue-3.2.31-brightgreen"/>
 <img src="https://img.shields.io/badge/gin-1.7.7-brightgreen"/>
 <img src="https://img.shields.io/badge/golang-1.17.2-brightgreen"/>
 </div>
+
 
 
 
@@ -21,7 +22,7 @@
 
 
 
-#### Gin-Quasar-Admin 使用 Go+Gin+Vue3+Quasar2 搭建，可以通过简单的配置快速搭建个性化网站，并通过插件形式开发个性化逻辑。项目实现和集成了众多功能，如用户管理、部门管理、角色管理、数据权限、Websocket、聊天室、消息管理、菜单管理、字典管理、i18n等。是Quasar、Go的入门和学习佳品。
+#### Gin-Quasar-Admin 使用 Go+Gin+Vue3+Quasar2 搭建，可以通过简单的配置快速搭建个性化网站，并通过插件形式（可生成模板）开发个性化逻辑。项目实现和集成了众多功能，如用户管理、部门管理、角色管理、数据权限、Websocket、聊天室、消息管理、菜单管理、字典管理、i18n等。是Quasar、Go的入门和学习佳品。
 
 ### 主要功能：
 
@@ -41,6 +42,7 @@
 14. 聊天室。
 15. 消息管理。
 16. 待处理消息和待办便签提醒。
+16. 插件模板生成。
 
 #### 项目在不断完善中，欢迎clone和fork试用。如果你感觉不错，麻烦给个小小的 Star 鼓励一下！
 
@@ -50,7 +52,39 @@ gitee：https://gitee.com/junvary/gin-quasar-admin
 
 ***
 
+### 项目运行：
 
+> 前端：
+>
+> ```
+> // 安装Quasar-cli:
+> yarn global add @quasar/cli
+> 
+> // 进入前端文件夹：GQA-FRONTEND后安装依赖：
+> yarn
+> 
+> // 运行项目：
+> quasar dev
+> 
+> // 打包：
+> quasar build
+> ```
+
+
+
+> 后端：
+>
+> ```go
+> # 安装好Go语言环境，后进入GQA-BACKEND文件夹：
+> go run main.go
+> 
+> # 打包：
+> set GOARCH=amd64
+> set GOOS=linux
+> go build main.go
+> ```
+>
+> 
 
 ### 项目截图：
 

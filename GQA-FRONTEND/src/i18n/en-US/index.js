@@ -47,6 +47,8 @@ export default {
     DbInitSuccess: 'System initialization succeeded. Please login!',
     TechnicalSupport: 'Technical Support',
     ChatRoom: 'Chat Room',
+    Gen: 'Gen',
+    Plugin: 'Plugin',
     // Base
     Welcome: 'Welcome',
     WelcomeTo: 'Welcome to',
@@ -201,6 +203,7 @@ export default {
     SystemExample: 'Example',
     ExampleIcon: 'Icons',
     NoticeManage: 'Notice Manage',
+    GenPlugin: 'Gen Plugin',
     // help
     GqaSelectUserHelp: 'Only for add users,delete them from the outside',
     CanNotDeleteThis: 'Sorry!You can not delete this!',

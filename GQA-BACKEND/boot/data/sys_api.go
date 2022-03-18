@@ -233,6 +233,9 @@ var sysApiData = []system.SysApi{
 	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1073, Remark: "根据ID查找待办便签", CreatedAt: time.Now(), CreatedBy: "admin"},
 		ApiGroup: "todoNote", ApiPath: "/todo-note/todo-note-id", ApiMethod: "POST",
 	},
+	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1074, Remark: "插件代码生成", CreatedAt: time.Now(), CreatedBy: "admin"},
+		ApiGroup: "genPlugin", ApiPath: "/gen-plugin/gen-plugin", ApiMethod: "POST",
+	},
 }
 
 func (s *sysApi) LoadData() error {

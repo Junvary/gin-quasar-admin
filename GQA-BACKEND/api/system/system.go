@@ -16,6 +16,7 @@ type ApiSystem struct {
 	ApiLogOperation
 	ApiNotice
 	ApiTodoNote
+	ApiGenPlugin
 }
 
 var ServiceSystem = service.GroupServiceApp.ServiceSystem
@@ -32,3 +33,4 @@ var ServiceLogLogin = ServiceSystem.ServiceLogLogin
 var ServiceLogOperation = ServiceSystem.ServiceLogOperation
 var ServiceNotice = ServiceSystem.ServiceNotice
 var ServiceTodoNote = ServiceSystem.ServiceTodoNote
+var ServiceGenPlugin = ServiceSystem.ServiceGenPlugin

@@ -14,4 +14,5 @@ type ServiceSystem struct {
 	ServiceLogOperation
 	ServiceNotice
 	ServiceTodoNote
+	ServiceGenPlugin
 }

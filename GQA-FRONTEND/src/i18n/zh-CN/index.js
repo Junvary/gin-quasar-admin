@@ -47,6 +47,8 @@ export default {
     DbInitSuccess: '系统初始化成功，请登录!',
     TechnicalSupport: '技术支持',
     ChatRoom: '聊天室',
+    Gen: '生成',
+    Plugin: '插件',
     // Base
     Welcome: '欢迎',
     WelcomeTo: '欢迎使用',
@@ -201,6 +203,7 @@ export default {
     SystemExample: '系统示例',
     ExampleIcon: '图标合集',
     NoticeManage: '消息管理',
+    GenPlugin: '插件生成',
     // help
     GqaSelectUserHelp: '只供添加用户使用，取消选择需从外部删除',
     CanNotDeleteThis: '抱歉!你不能删除此项!',

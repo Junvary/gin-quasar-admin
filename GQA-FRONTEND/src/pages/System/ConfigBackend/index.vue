@@ -45,7 +45,7 @@
             <template v-slot:body-cell-actions="props">
                 <q-td :props="props">
                     <div class="q-gutter-xs">
-                        <q-btn dense color="primary" @click="handleSave(props.row)" :label="$t('Save')" />
+                        <q-btn color="primary" @click="handleSave(props.row)" :label="$t('Save')" />
                         <q-btn color="negative" @click="handleDelete(props.row)" :label="$t('Delete')" />
                     </div>
                 </q-td>

@@ -15,6 +15,7 @@ type RouterSystem struct {
 	RouterLog
 	RouterNotice
 	RouterTodoNote
+	RouterGenPlugin
 }
 
 var ApiSystem = api.GroupApiApp.ApiSystem
@@ -31,3 +32,4 @@ var ApiLogLogin = ApiSystem.ApiLogLogin
 var ApiLogOperation = ApiSystem.ApiLogOperation
 var ApiNotice = ApiSystem.ApiNotice
 var ApiTodoNote = ApiSystem.ApiTodoNote
+var ApiGenPlugin = ApiSystem.ApiGenPlugin

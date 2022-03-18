@@ -17,6 +17,15 @@ export function postAction(url, params) {
     })
 }
 
+export function postBlobAction(url, params) {
+    return api({
+        url: url,
+        method: 'post',
+        data: params,
+        responseType: 'blob'
+    })
+}
+
 export function putAction(url, params) {
     return api({
         url: url,

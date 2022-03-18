@@ -105,6 +105,9 @@ var sysCasbinData = []gormadapter.CasbinRule{
 	{Ptype: "p", V0: "super-admin", V1: "/todo-note/todo-note-add", V2: "POST"},
 	{Ptype: "p", V0: "super-admin", V1: "/todo-note/todo-note-delete", V2: "DELETE"},
 	{Ptype: "p", V0: "super-admin", V1: "/todo-note/todo-note-id", V2: "POST"},
+
+	//插件代码生成组
+	{Ptype: "p", V0: "super-admin", V1: "/gen-plugin/gen-plugin", V2: "POST"},
 }
 
 func (s *sysCasbin) LoadData() error {
