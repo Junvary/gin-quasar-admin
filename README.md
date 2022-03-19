@@ -115,3 +115,9 @@ gitee：https://gitee.com/junvary/gin-quasar-admin
 鸣谢 https://github.com/flipped-aurora/gin-vue-admin 
 
  
+
+### License
+
+Copyright (c) 2021-time.Now()    Junvary
+
+[MIT License](https://github.com/Junvary/gin-quasar-admin/blob/main/LICENSE)
