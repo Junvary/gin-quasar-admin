@@ -57,7 +57,10 @@ export default {
     },
     computed: {
         rows() {
-            return this.$q.localStorage.getItem('gqa-pluginList')
+            if (Array.isArray(this.$q.localStorage.getItem('gqa-pluginList'))) {
+                return this.$q.localStorage.getItem('gqa-pluginList')
+            }
+            return []
         },
         columns() {
             if (this.showChoose) {
