@@ -1,33 +1,25 @@
 package gqaplugin
 
 import (
-	// 1.插件引入方式1：github插件引入方式
-	vote "github.com/Junvary/gqa-plugin-vote"
-	xk "github.com/Junvary/gqa-plugin-xk"
-	//example "github.com/Junvary/gqa-plugin-example"
-	// 2.插件引入方式2：本地插件引入方式（GQA的引入模式从本地改为github）
-	//"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/vote"
-	//"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/xk"
+	//本地引入方式：
 	//"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/example"
-	//其他引用
+	//github引入方式：
+	//"github.com/Junvary/gqa-plugin-example/gqaplugin/example"
 	"github.com/gin-gonic/gin"
 )
 
 /*
-	1.import插件(github模式、本地模式)
-	2.最好为github模式引入方式提供别名
-	3.插件填入下面的插件列表：pluginList
-	4.本地插件开发完毕，可按xk方式提交单独仓库引用（上面方式1），即可去除本地插件包目录，如xk目录。
+	1.import插件(github引入方式、本地引入方式)
+	2.插件填入下面的插件列表：如：example.PluginExample,
+	3.插件开发完毕，可提交单独仓库，参考各插件仓库说明。
 */
 
-var PluginList = []GqaPlugin{ //插件列表顺序填入
+var PluginList = []GqaPlugin{ //插件加入此切片即可，如：example.PluginExample,
 	//example.PluginExample,
-	xk.PluginXk,
-	vote.PluginVote,
 }
 
 /*
-	下方为各种安装插件的函数
+	===============================下方为各种安装插件的函数===============================
 */
 
 type GqaPlugin interface { //插件需实现的接口

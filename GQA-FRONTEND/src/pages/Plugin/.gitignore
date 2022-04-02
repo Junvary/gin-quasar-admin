@@ -1,4 +1,7 @@
 # 忽略各种插件目录，避免主库提交，插件在单独仓库提交
+/Example
+/Xk
+/Vote
 /Attendance
 /GhAsset
 
