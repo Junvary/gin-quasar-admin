@@ -4,11 +4,12 @@
 <h1>Gin-Quasar-Admin</h1>
 </div>
 <div align=center>
-<img src="https://img.shields.io/badge/quasar-2.6.1-brightgreen"/>
+<img src="https://img.shields.io/badge/quasar-2.6.5-brightgreen"/>
 <img src="https://img.shields.io/badge/vue-3.2.31-brightgreen"/>
 <img src="https://img.shields.io/badge/gin-1.7.7-brightgreen"/>
 <img src="https://img.shields.io/badge/golang-1.17.2-brightgreen"/>
 </div>
+
 
 
 
@@ -42,6 +43,7 @@
 14. 聊天室。
 15. 消息管理。
 16. 待处理消息和待办便签提醒。
+16. 打印。
 16. 插件模板生成。
 
 #### 项目在不断完善中，欢迎clone和fork试用。如果你感觉不错，麻烦给个小小的 Star 鼓励一下！

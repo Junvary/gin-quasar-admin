@@ -12,6 +12,9 @@ type SysDict struct {
 	DictLabel  string `json:"dictLabel" gorm:"comment:字典名称;not null;"`
 	DictExt1   string `json:"dictExt1" gorm:"comment:字典扩展项1;"`
 	DictExt2   string `json:"dictExt2" gorm:"comment:字典扩展项2;"`
+	DictExt3   string `json:"dictExt3" gorm:"comment:字典扩展项3;"`
+	DictExt4   string `json:"dictExt4" gorm:"comment:字典扩展项4;"`
+	DictExt5   string `json:"dictExt5" gorm:"comment:字典扩展项5;"`
 }
 
 type RequestAddDict struct {
@@ -23,6 +26,9 @@ type RequestAddDict struct {
 	DictLabel  string `json:"dictLabel"`
 	DictExt1   string `json:"dictExt1"`
 	DictExt2   string `json:"dictExt2"`
+	DictExt3   string `json:"dictExt3"`
+	DictExt4   string `json:"dictExt4"`
+	DictExt5   string `json:"dictExt5"`
 }
 
 type RequestDictList struct {

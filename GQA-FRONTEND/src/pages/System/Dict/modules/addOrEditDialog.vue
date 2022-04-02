@@ -52,6 +52,9 @@
                         <div class="row">
                             <q-input class="col" v-model="addOrEditDetail.dictExt1" label="Ext1" lazy-rules />
                             <q-input class="col" v-model="addOrEditDetail.dictExt2" label="Ext2" lazy-rules />
+                            <q-input class="col" v-model="addOrEditDetail.dictExt3" label="Ext3" lazy-rules />
+                            <q-input class="col" v-model="addOrEditDetail.dictExt4" label="Ext4" lazy-rules />
+                            <q-input class="col" v-model="addOrEditDetail.dictExt5" label="Ext5" lazy-rules />
                         </div>
                         <div class="row">
                             <q-field class="col" :label="$t('Status')" stack-label>
@@ -105,6 +108,11 @@ export default {
                 parentCode: '',
                 dictCode: '',
                 dictLabel: '',
+                dictExt1: '',
+                dictExt2: '',
+                dictExt3: '',
+                dictExt4: '',
+                dictExt5: '',
             },
             url: {
                 add: 'dict/dict-add',
@@ -127,6 +135,11 @@ export default {
                 parentCode: '',
                 dictCode: '',
                 dictLabel: '',
+                dictExt1: '',
+                dictExt2: '',
+                dictExt3: '',
+                dictExt4: '',
+                dictExt5: '',
             }
         },
     },

@@ -28,3 +28,10 @@ func GetConfigFrontend(gqaOption string) (key string) {
 		return sysConfigFrontend.Default
 	}
 }
+
+func GetDict(dictCode string) (err error, dict []system.SysDict) {
+	if err = global.GqaDb.Where("parent_code = ?", dictCode).Find(&dict).Error; err != nil {
+		return err, nil
+	}
+	return nil, dict
+}

@@ -22,6 +22,8 @@ func StructToMap(obj interface{}) map[string]interface{} {
 
 func GlobalModelToMap(model *global.GqaModel) map[string]interface{} {
 	var data = make(map[string]interface{})
+	data["sort"] = model.Sort
+	data["status"] = model.Status
 	data["remark"] = model.Remark
 	data["updated_by"] = model.UpdatedBy
 	return data

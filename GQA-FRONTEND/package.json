@@ -9,21 +9,22 @@
         "test": "echo \"No test specified\" && exit 0"
     },
     "dependencies": {
-        "@quasar/extras": "^1.13.3",
+        "@quasar/extras": "^1.13.5",
         "axios": "^0.21.1",
         "core-js": "^3.6.5",
         "echarts": "^5.2.2",
         "mitt": "^3.0.0",
-        "quasar": "^2.6.1",
+        "quasar": "^2.6.5",
         "vue": "^3.0.0",
         "vue-i18n": "^9.2.0-beta.22",
         "vue-router": "^4.0.0",
+        "vue3-print-nb": "^0.1.4",
         "vuex": "^4.0.1",
         "xe-utils": "^3.4.3"
     },
     "devDependencies": {
         "@intlify/vue-i18n-loader": "^4.0.1",
-        "@quasar/app-webpack": "^3.4.3"
+        "@quasar/app-webpack": "^3.4.7"
     },
     "browserslist": [
         "last 10 Chrome versions",
