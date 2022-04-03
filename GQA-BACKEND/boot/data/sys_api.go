@@ -32,7 +32,7 @@ var sysApiData = []system.SysApi{
 	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1006, Remark: "重置用户密码", CreatedAt: time.Now(), CreatedBy: "admin"},
 		ApiGroup: "user", ApiPath: "/user/user-reset-password", ApiMethod: "POST",
 	},
-	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1007, Remark: "获取用户的菜单", CreatedAt: time.Now(), CreatedBy: "admin"},
+	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1007, Remark: "获取用户的菜单（必选）", CreatedAt: time.Now(), CreatedBy: "admin"},
 		ApiGroup: "user", ApiPath: "/user/user-menu", ApiMethod: "GET",
 	},
 	{GqaModel: global.GqaModel{Stable: "yes", Status: "on", Sort: 1008, Remark: "用户修改密码", CreatedAt: time.Now(), CreatedBy: "admin"},

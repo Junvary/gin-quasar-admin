@@ -1,6 +1,6 @@
 <template>
     <q-dialog v-model="rolePermissionVisible" position="top" @hide="$emit('handleFinish')">
-        <q-card style="min-width: 700px; max-width: 50vw">
+        <q-card style="min-width: 900px; max-width: 50vw">
             <q-card-section>
                 <div class="text-h6">
                     {{ $t('Permission') }} {{row.roleName}}

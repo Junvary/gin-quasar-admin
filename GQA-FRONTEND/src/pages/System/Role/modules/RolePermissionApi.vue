@@ -10,36 +10,57 @@
         </div>
 
         <q-card-section style="width: 100%; max-height: 70vh" class="scroll">
-            <q-tree dense :nodes="apiData" default-expand-all node-key="trueId" selected-color="primary"
-                v-if="tableData.length !== 0" tick-strategy="strict" v-model:ticked="ticked">
-                <template v-slot:default-header="prop">
-                    <div class="row items-center">
-                        <q-chip color="accent" text-color="white" dense
-                            v-if="prop.node.apiGroup.substring(0, 7)=== 'plugin-'">
-                            {{ prop.node.apiGroup }}
-                        </q-chip>
-                        <q-chip color="primary" text-color="white" dense v-else>
-                            {{ prop.node.apiGroup }}
-                        </q-chip>
-                        <q-chip color="primary" text-color="white" dense v-if="prop.node.apiMethod=== 'POST'">
-                            {{ prop.node.apiMethod }}
-                        </q-chip>
-                        <q-chip color="positive" text-color="white" dense v-if="prop.node.apiMethod=== 'GET'">
-                            {{ prop.node.apiMethod }}
-                        </q-chip>
-                        <q-chip color="negative" text-color="white" dense v-if="prop.node.apiMethod=== 'DELETE'">
-                            {{ prop.node.apiMethod }}
-                        </q-chip>
-                        <q-chip color="warning" text-color="white" dense v-if="prop.node.apiMethod=== 'PUT'">
-                            {{ prop.node.apiMethod }}
-                        </q-chip>
-                        <div class="text-weight-bold">{{ prop.node.apiPath }}</div>
-                        <span class="text-weight-light text-black">
-                            （{{ prop.node.remark}}）
-                        </span>
-                    </div>
+            <q-splitter v-model="splitterModel">
+                <template v-slot:before>
+                    <q-tabs v-model="apiTab" dense vertical class="text-grey" active-color="primary"
+                        indicator-color="primary">
+                        <q-tab v-for="(item, index) in apiData" :name="item.apiGroup"
+                            :label="item.apiGroup + getThisTickedNumber(item)" :key="index" />
+                    </q-tabs>
                 </template>
-            </q-tree>
+                <template v-slot:after>
+                    <q-tab-panels v-model="apiTab" animated swipeable vertical transition-prev="jump-up"
+                        transition-next="jump-up">
+                        <q-tab-panel v-for="(item, index) in apiData" :name="item.apiGroup" :key="index">
+                            <q-tree dense :nodes="item.children" default-expand-all node-key="trueId"
+                                selected-color="primary" v-if="item.children.length !== 0" tick-strategy="strict"
+                                v-model:ticked="ticked">
+                                <template v-slot:default-header="prop">
+                                    <div class="row items-center">
+                                        <q-chip color="accent" text-color="white" dense
+                                            v-if="prop.node.apiGroup.substring(0, 7)=== 'plugin-'">
+                                            {{ prop.node.apiGroup }}
+                                        </q-chip>
+                                        <q-chip color="primary" text-color="white" dense v-else>
+                                            {{ prop.node.apiGroup }}
+                                        </q-chip>
+                                        <q-chip color="primary" text-color="white" dense
+                                            v-if="prop.node.apiMethod=== 'POST'">
+                                            {{ prop.node.apiMethod }}
+                                        </q-chip>
+                                        <q-chip color="positive" text-color="white" dense
+                                            v-if="prop.node.apiMethod=== 'GET'">
+                                            {{ prop.node.apiMethod }}
+                                        </q-chip>
+                                        <q-chip color="negative" text-color="white" dense
+                                            v-if="prop.node.apiMethod=== 'DELETE'">
+                                            {{ prop.node.apiMethod }}
+                                        </q-chip>
+                                        <q-chip color="warning" text-color="white" dense
+                                            v-if="prop.node.apiMethod=== 'PUT'">
+                                            {{ prop.node.apiMethod }}
+                                        </q-chip>
+                                        <div class="text-weight-bold">{{ prop.node.apiPath }}</div>
+                                        <span class="text-weight-light text-black">
+                                            （{{ prop.node.remark}}）
+                                        </span>
+                                    </div>
+                                </template>
+                            </q-tree>
+                        </q-tab-panel>
+                    </q-tab-panels>
+                </template>
+            </q-splitter>
         </q-card-section>
         <q-inner-loading :showing="loading">
             <q-spinner-gears size="50px" color="primary" />
@@ -72,9 +93,39 @@ export default {
                 for (let item of data) {
                     item.trueId = 'p:' + item.apiPath + 'm:' + item.apiMethod
                 }
-                return data
+                this.apiDataTrue = data
+                const apiTree = []
+                for (let d of data) {
+                    if (apiTree.find((item) => item.apiGroup === d.apiGroup) === undefined) {
+                        apiTree.push({
+                            apiGroup: d.apiGroup,
+                            children: [],
+                        })
+                    }
+                }
+                for (let d of data) {
+                    for (let a of apiTree) {
+                        if (a.apiGroup === d.apiGroup) {
+                            a.children.push(d)
+                        }
+                    }
+                }
+                this.apiTab = apiTree[0].apiGroup
+                return apiTree
             }
             return []
+        },
+        getThisTickedNumber() {
+            return (api) => {
+                const allNumber = api.children.length
+                var tickedNumber = 0
+                for (let t of this.ticked) {
+                    if (api.children.find((item) => item.trueId === t) !== undefined) {
+                        tickedNumber++
+                    }
+                }
+                return '(' + tickedNumber + '/' + allNumber + ')'
+            }
         },
     },
     data() {
@@ -92,6 +143,9 @@ export default {
                 roleApiEdit: 'role/role-api-edit',
             },
             ticked: [],
+            apiTab: '',
+            splitterModel: 20,
+            apiDataTrue: [],
         }
     },
     created() {
