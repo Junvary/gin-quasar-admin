@@ -1,5 +1,5 @@
 <template>
-    <q-select v-model="lang" :options="langOptions" :label="$t('SwitchLanguage')" dense borderless emit-value
+    <q-select v-model="lang" :options="langOptions" :label="$t('Switch') + $t('Language')" dense borderless emit-value
         map-options options-dense @update:model-value="changeLang" style="width: 100%" />
 </template>
 

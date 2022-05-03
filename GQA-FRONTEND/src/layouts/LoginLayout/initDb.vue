@@ -1,90 +1,87 @@
 <template>
-    <div class="initDbPage">
-        <div class="row">
-            <div class="col column justify-center items-center text-center" style="margin-bottom: 100px;">
-                <q-avatar class="gin-quasar-admin-logo" size="100px">
-                    <img src="gqa128.png" />
-                </q-avatar><br />
-                <span class="text-weight-bold text-h3 text-white">
-                    {{ $t('WelcomeTo') }}<br />
-                    Gin-Quasar-Admin<sup>v2</sup>
-                </span>
-                <span class="text-white text-subtitle1" style="margin-top: 20px">
-                    {{ t('InitDbHelp1') }}
-                </span>
-                <span class="text-white text-subtitle1" style="margin-bottom: 20px">
-                    {{ t('InitDbHelp2') }}
-                </span>
-                <span class="q-gutter-md">
-                    <q-btn push glossy color="primary" @click="openLink('https://github.com/Junvary/gin-quasar-admin')">
-                        Github
-                    </q-btn>
-                    <q-btn push glossy color="primary">
-                        {{ $t('Version') }}{{ $t('Info') }}
-                        <GqaVersion />
-                    </q-btn>
-                    <q-btn push glossy color="primary" @click="openLink('https://gitee.com/junvary/gin-quasar-admin')">
-                        Gitee
-                    </q-btn>
-                </span>
-            </div>
-            <div class="col row justify-center items-center" style="height: 100vh">
-                <q-card style="width: 80%; background: rgba(255, 255, 255, 0.5);">
-                    <q-toolbar>
-                        <q-avatar class="gin-quasar-admin-logo">
-                            <img src="gqa128.png" />
-                        </q-avatar>
+    <div class="row gin-quasar-admin-init-db-page">
+        <div class="col column justify-center items-center text-center" style="margin-bottom: 100px;">
+            <q-avatar class="gin-quasar-admin-logo" size="100px">
+                <img src="gqa128.png" />
+            </q-avatar><br />
+            <span class="text-weight-bold text-h3 text-white">
+                {{ $t('WelcomeTo') }}<br />
+                Gin-Quasar-Admin<sup>v2</sup>
+            </span>
+            <span class="text-white text-subtitle1" style="margin-top: 20px">
+                {{ t('InitDbHelp1') }}
+            </span>
+            <span class="text-white text-subtitle1" style="margin-bottom: 20px">
+                {{ t('InitDbHelp2') }}
+            </span>
+            <span class="q-gutter-md">
+                <q-btn push glossy color="primary" @click="openLink('https://github.com/Junvary/gin-quasar-admin')">
+                    Github
+                </q-btn>
+                <q-btn push glossy color="primary">
+                    {{ $t('Version') }}{{ $t('Info') }}
+                    <GqaVersion />
+                </q-btn>
+                <q-btn push glossy color="primary" @click="openLink('https://gitee.com/junvary/gin-quasar-admin')">
+                    Gitee
+                </q-btn>
+            </span>
+        </div>
+        <div class="col row column justify-center items-center" style="margin-bottom: 80px;">
+            <q-card style="width: 80%; background: rgba(255, 255, 255, 0.5);">
+                <q-toolbar>
+                    <q-avatar class="gin-quasar-admin-logo">
+                        <img src="gqa128.png" />
+                    </q-avatar>
 
-                        <q-toolbar-title class="row items-center">
-                            <span class="text-weight-bold">
-                                {{ $t('Init') }}
-                                {{ $t('Database') }}
-                            </span>
-                            <q-space />
-                            <GqaLanguage style="width: 20%" />
+                    <q-toolbar-title class="row items-center">
+                        <span class="text-weight-bold">
+                            {{ $t('Init') }}
+                            {{ $t('Database') }}
+                        </span>
+                        <q-space />
+                        <GqaLanguage style="width: 20%" />
 
-                        </q-toolbar-title>
-                    </q-toolbar>
-                    <GqaPluginList />
-                    <q-card-section>
-                        <q-form class="text-center" @submit="onInitDb">
-                            <div class="q-gutter-y-md column">
-                                <div class="row q-gutter-md">
-                                    <q-input class="col" outlined bottom-slots v-model.trim="form.db_type"
-                                        :label="$t('Database') + $t('Type')" disable
-                                        :rules="[(val) => (val && val.length > 0) || $t('NeedInput')]">
-                                    </q-input>
-                                    <q-input class="col" outlined v-model.trim="form.db_host"
-                                        :label="$t('Database') + $t('Address')"
-                                        :rules="[(val) => (val && val.length > 0) || $t('NeedInput')]">
-                                    </q-input>
-                                    <q-input class="col" outlined v-model.trim="form.db_port"
-                                        :label="$t('Database') + $t('Port')"
-                                        :rules="[(val) => (val && val.length > 0) || $t('NeedInput')]">
-                                    </q-input>
-                                </div>
-
-                                <div class="row q-gutter-md">
-                                    <q-input class="col" outlined v-model.trim="form.db_schema"
-                                        :label="$t('Database') + $t('Name')"
-                                        :rules="[(val) => (val && val.length > 0) || $t('NeedInput')]">
-                                    </q-input>
-                                    <q-input class="col" outlined v-model.trim="form.db_user"
-                                        :label="$t('Database') + $t('Username')"
-                                        :rules="[(val) => (val && val.length > 0) || $t('NeedInput')]">
-                                    </q-input>
-                                    <q-input class="col" outlined v-model.trim="form.db_password" autofocus
-                                        :label="$t('Database') + $t('Password')"
-                                        :rules="[(val) => (val && val.length > 0) || $t('NeedInput')]">
-                                    </q-input>
-                                </div>
+                    </q-toolbar-title>
+                </q-toolbar>
+                <GqaPluginList />
+                <q-card-section>
+                    <q-form class="text-center" @submit="onInitDb">
+                        <div class="q-gutter-y-md column">
+                            <div class="row q-gutter-md">
+                                <q-input class="col" outlined bottom-slots v-model.trim="form.db_type"
+                                    :label="$t('Database') + $t('Type')" disable
+                                    :rules="[(val) => (val && val.length > 0) || $t('NeedInput')]">
+                                </q-input>
+                                <q-input class="col" outlined v-model.trim="form.db_host"
+                                    :label="$t('Database') + $t('Address')"
+                                    :rules="[(val) => (val && val.length > 0) || $t('NeedInput')]">
+                                </q-input>
+                                <q-input class="col" outlined v-model.trim="form.db_port"
+                                    :label="$t('Database') + $t('Port')"
+                                    :rules="[(val) => (val && val.length > 0) || $t('NeedInput')]">
+                                </q-input>
                             </div>
-                            <q-btn type="submit" color="primary" :label="$t('Start') + $t('Init')"
-                                :loading="initLoading" />
-                        </q-form>
-                    </q-card-section>
-                </q-card>
-            </div>
+
+                            <div class="row q-gutter-md">
+                                <q-input class="col" outlined v-model.trim="form.db_schema"
+                                    :label="$t('Database') + $t('Name')"
+                                    :rules="[(val) => (val && val.length > 0) || $t('NeedInput')]">
+                                </q-input>
+                                <q-input class="col" outlined v-model.trim="form.db_user"
+                                    :label="$t('Database') + $t('Username')"
+                                    :rules="[(val) => (val && val.length > 0) || $t('NeedInput')]">
+                                </q-input>
+                                <q-input class="col" outlined v-model.trim="form.db_password" autofocus
+                                    :label="$t('Database') + $t('Password')"
+                                    :rules="[(val) => (val && val.length > 0) || $t('NeedInput')]">
+                                </q-input>
+                            </div>
+                        </div>
+                        <q-btn type="submit" color="primary" :label="$t('Start') + $t('Init')" :loading="initLoading" />
+                    </q-form>
+                </q-card-section>
+            </q-card>
         </div>
     </div>
 </template>
@@ -148,11 +145,3 @@ const checkDb = async () => {
     }
 }
 </script>
-
-<style lang="scss" scoped>
-.initDbPage {
-    height: 100vh;
-    background: linear-gradient(60deg, $primary 0%, $positive 100%);
-    overflow: hidden;
-}
-</style>

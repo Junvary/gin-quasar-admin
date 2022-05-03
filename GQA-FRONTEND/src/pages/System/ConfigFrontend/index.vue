@@ -214,7 +214,7 @@ const handleUploadBannerImage = (scope) => {
     form.append('file', bannerImage.value)
     postAction(url.uploadBannerImage, form).then((res) => {
         if (res.code === 1) {
-            const bi = tableData.filter((item) => {
+            const bi = tableData.value.filter((item) => {
                 return item.config_item === 'bannerImage'
             })
             bi[0].item_custom = res.data.records
@@ -239,10 +239,10 @@ const handleUploadLogo = (scope) => {
     form.append('file', logoFile.value)
     postAction(url.uploadLogo, form).then((res) => {
         if (res.code === 1) {
-            const gqaWebLogo = tableData.filter((item) => {
+            const logo = tableData.value.filter((item) => {
                 return item.config_item === 'logo'
             })
-            gqaWebLogo[0].item_custom = res.data.records
+            logo[0].item_custom = res.data.records
             logoFile.value = null
             $q.notify({
                 type: 'positive',
@@ -264,10 +264,10 @@ const handleUploadFavicon = (scope) => {
     form.append('file', faviconFile.value)
     postAction(url.uploadFavicon, form).then((res) => {
         if (res.code === 1) {
-            const gqaHeaderLogo = tableData.filter((item) => {
+            const favicon = tableData.value.filter((item) => {
                 return item.config_item === 'favicon'
             })
-            gqaHeaderLogo[0].item_custom = res.data.records
+            favicon[0].item_custom = res.data.records
             faviconFile.value = null
             $q.notify({
                 type: 'positive',
@@ -284,10 +284,10 @@ const rejected = (rejectedEntries) => {
     })
 }
 const handleSetLoginLayout = (event, scope) => {
-    const gqaPluginLoginLayout = tableData.filter((item) => {
+    const pluginLoginLayout = tableData.filter((item) => {
         return item.config_item === 'pluginLoginLayout'
     })
-    gqaPluginLoginLayout[0].item_custom = event
+    pluginLoginLayout[0].item_custom = event
     scope.set(event)
 }
 </script>

@@ -5,7 +5,7 @@
                 <div class="text-h6">
                     {{ formTypeName }} {{ $t('User') }}:
                     {{ recordDetail.value.nickname ? recordDetail.value.nickname :
-                            recordDetail.value.real_name ? recordDetail.value.real_name : ""
+                    recordDetail.value.real_name ? recordDetail.value.real_name : ""
                     }}
                 </div>
             </q-card-section>
@@ -106,7 +106,7 @@ const url = {
     add: 'user/add-user',
     edit: 'user/edit-user',
     queryById: 'user/query-user-by-id',
-    avatarUrl: 'upload/avatar',
+    avatarUrl: 'upload/upload-avatar',
 }
 const {
     dictOptions,

@@ -16,8 +16,8 @@
                                 Gitee
                             </q-btn>
 
-                            <q-btn push color="primary" @click="showLoginForm" :disable="checkDbStatus">
-                                {{ checkDbStatus ? $t('Need') + $t('Init') : $t('Login') }}
+                            <q-btn push color="primary" @click="showLoginForm">
+                                {{ $t('Login') }}
                             </q-btn>
 
                             <q-btn push color="primary" @click="openLink('https://github.com/Junvary/gin-quasar-admin')"
@@ -55,11 +55,6 @@
                         </q-btn>
                     </div>
                 </div>
-                <div class="container-image">
-                    <img src="~src/assets/code.png" alt="container-image">
-                </div>
-                <div class="container-team1"></div>
-                <div class="container-team2"></div>
             </div>
         </section>
 
@@ -74,14 +69,13 @@ import LoginDialog from './LoginDialog.vue'
 import { useStorageStore } from 'src/stores/storage'
 
 const loginDialog = ref(null);
-
+const storageStore = useStorageStore()
 const gqaFrontend = computed(() => {
-    const storageStore = useStorageStore()
     return storageStore.GetGqaFrontend()
 })
 const bannerImage = computed(() => {
-    if (gqaFrontend.value.gqaBannerImage && gqaFrontend.value.gqaBannerImage.substring(0, 11) === 'gqa-upload:') {
-        return process.env.API + gqaFrontend.value.gqaBannerImage.substring(11)
+    if (gqaFrontend.value.bannerImage && gqaFrontend.value.bannerImage.substring(0, 11) === 'gqa-upload:') {
+        return process.env.API + gqaFrontend.value.bannerImage.substring(11)
     }
     return ''
 })
@@ -198,45 +192,6 @@ const openLink = (url) => {
             display: flex;
             justify-content: space-around;
         }
-    }
-
-    .container-image {
-        margin-top: 150px;
-        max-width: 845px;
-        // margin: auto;
-        text-align: center;
-        // position: relative;
-        z-index: 1;
-        display: flex;
-        flex: 1;
-
-        // align-items: flex-end;
-        img {
-            max-width: 100%;
-            text-align: center;
-            opacity: 0.5;
-            border-radius: 20px;
-        }
-    }
-
-    .container-team1 {
-        position: absolute;
-        background-image: url('src/assets/team1.svg');
-        background-size: cover;
-        width: 55vh;
-        height: 35vh;
-        left: 30px;
-        top: 240px;
-    }
-
-    .container-team2 {
-        position: absolute;
-        background-image: url('src/assets/team2.svg');
-        background-size: cover;
-        width: 55vh;
-        height: 35vh;
-        right: 0;
-        top: 500px;
     }
 }
 </style>

@@ -31,7 +31,7 @@ const { loginUser, src, size } = toRefs(props)
 
 const avatarSrc = computed(() => {
     const cookieAvatar = $q.cookies.get('gqa-avatar')
-    if (loginUser) {
+    if (loginUser.value) {
         // 登录用户的头像
         if (cookieAvatar) {
             // 如果Cookies里拿到头像，就显示
@@ -47,17 +47,17 @@ const avatarSrc = computed(() => {
             // 否则显示默认头像
             return GqaDefaultAvatar
         }
-    } else if (src === '') {
+    } else if (src.value === '') {
         // 非登录用户，没有头像配置
         return GqaDefaultAvatar
-    } else if (src.substring(0, 4) === 'http') {
+    } else if (src.value.substring(0, 4) === 'http') {
         // 非登录上传，头像为链接
-        return src
-    } else if (src.substring(0, 11) === 'gqa-upload:') {
+        return src.value
+    } else if (src.value.substring(0, 11) === 'gqa-upload:') {
         // 非登录用户，头像为上传
-        return process.env.API + src.substring(11)
+        return process.env.API + src.value.substring(11)
     } else {
-        return src
+        return src.value
     }
 })
 </script>

@@ -26,10 +26,10 @@ func Router() *gin.Engine {
 }
 
 func StaticFS(r *gin.Engine) {
-	r.StaticFS("/"+global.GqaServeAvatar, http.Dir(global.GqaServeUpload))
-	r.StaticFS("/"+global.GqaServeFile, http.Dir(global.GqaServeUpload))
-	r.StaticFS("/"+global.GqaServeLogo, http.Dir(global.GqaServeUpload))
-	r.StaticFS("/"+global.GqaServeBanner, http.Dir(global.GqaServeUpload))
+	r.StaticFS("/"+global.GqaServeAvatar, http.Dir(global.GqaServeUpload+"/"+global.GqaServeAvatar))
+	r.StaticFS("/"+global.GqaServeFile, http.Dir(global.GqaServeUpload+"/"+global.GqaServeFile))
+	r.StaticFS("/"+global.GqaServeLogo, http.Dir(global.GqaServeUpload+"/"+global.GqaServeLogo))
+	r.StaticFS("/"+global.GqaServeBanner, http.Dir(global.GqaServeUpload+"/"+global.GqaServeBanner))
 }
 
 func RouterPublic(PublicGroup *gin.RouterGroup) {

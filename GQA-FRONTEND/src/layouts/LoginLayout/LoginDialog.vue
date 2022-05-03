@@ -5,7 +5,7 @@
                 <q-img class="col-6" :src="bannerImage" fit="cover" />
                 <q-card-section>
                     <div class="text-center">
-                        <GqaAvatar size="xl" :src="gqaFrontend.gqaWebLogo" />
+                        <GqaAvatar size="xl" :src="gqaFrontend.logo" />
                     </div>
                     <div class="text-h5 text-center text-primary ">
                         {{ gqaFrontend.subTitle }}
@@ -90,8 +90,8 @@ const gqaFrontend = computed(() => {
     return storageStore.GetGqaFrontend()
 })
 const bannerImage = computed(() => {
-    if (gqaFrontend.gqaBannerImage && gqaFrontend.gqaBannerImage.substring(0, 11) === 'gqa-upload:') {
-        return process.env.API + gqaFrontend.gqaBannerImage.substring(11)
+    if (gqaFrontend.bannerImage && gqaFrontend.bannerImage.substring(0, 11) === 'gqa-upload:') {
+        return process.env.API + gqaFrontend.bannerImage.substring(11)
     }
     return randomImg
 })
