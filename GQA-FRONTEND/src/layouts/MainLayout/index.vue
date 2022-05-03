@@ -32,10 +32,9 @@
 
             </q-toolbar>
 
-            <q-separator />
+            <!-- <q-separator /> -->
             <!-- header下面的标签页 -->
-            <div class="row bg-primary">
-                <!-- <ChipMenu /> -->
+            <div class="row bg-white">
                 <TabMenu v-show="!pageDashboard" />
             </div>
 

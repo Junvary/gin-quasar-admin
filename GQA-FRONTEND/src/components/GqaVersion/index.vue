@@ -1,5 +1,5 @@
 <template>
-    <q-menu v-model="showVersion" anchor="bottom right" self="top right">
+    <q-menu v-model="showVersion" cover anchor="center middle">
         <q-list dense bordered separator>
             <q-item clickable v-close-popup>
                 <q-item-section>

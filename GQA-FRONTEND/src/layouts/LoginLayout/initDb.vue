@@ -28,7 +28,7 @@
             </span>
         </div>
         <div class="col row column justify-center items-center" style="margin-bottom: 80px;">
-            <q-card style="width: 80%; background: rgba(255, 255, 255, 0.5);">
+            <q-card style="width: 80%; background: rgba(255, 255, 255, 0.2);">
                 <q-toolbar>
                     <q-avatar class="gin-quasar-admin-logo">
                         <img src="gqa128.png" />
@@ -46,7 +46,7 @@
                 </q-toolbar>
                 <GqaPluginList />
                 <q-card-section>
-                    <q-form class="text-center" @submit="onInitDb">
+                    <q-form class="text-center gqa-form" @submit="onInitDb">
                         <div class="q-gutter-y-md column">
                             <div class="row q-gutter-md">
                                 <q-input class="col" outlined bottom-slots v-model.trim="form.db_type"
