@@ -7,36 +7,30 @@
     </component>
 </template>
 
-<script>
+<script setup>
 import ItemSingle from './ItemSingle'
 import ItemMultiple from './ItemMultiple'
+import { computed, toRefs } from 'vue';
 
-export default {
-    name: 'SideBarLeftItem',
-    props: {
-        addRoutesItem: {
-            default: function () {
-                return null
-            },
-            type: Object,
+const props = defineProps({
+    addRoutesItem: {
+        default: function () {
+            return null
         },
-        initLevel: {
-            type: Number,
-            default: 0,
-        },
+        type: Object,
     },
-    components: {
-        ItemSingle,
-        ItemMultiple,
+    initLevel: {
+        type: Number,
+        default: 0,
     },
-    computed: {
-        chooseComponent() {
-            if (this.addRoutesItem.children) {
-                return 'ItemMultiple'
-            } else {
-                return 'ItemSingle'
-            }
-        },
-    },
-}
+})
+const { addRoutesItem, initLevel } = toRefs(props)
+const chooseComponent = computed(() => {
+    if (addRoutesItem.value?.children?.length) {
+        return ItemMultiple
+    } else {
+        return ItemSingle
+    }
+})
 </script>
+

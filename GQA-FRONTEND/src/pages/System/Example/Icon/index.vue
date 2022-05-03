@@ -15,7 +15,7 @@
                         :key="index" @click="copy(item)">
                         <q-icon :name="item" size="xl" />
                         <span>
-                            {{item}}
+                            {{ item }}
                         </span>
                     </div>
                 </div>
@@ -27,7 +27,7 @@
                         :key="index" @click="copy(item)">
                         <q-icon :name="item" size="xl" />
                         <span>
-                            {{item}}
+                            {{ item }}
                         </span>
                     </div>
                 </div>
@@ -37,96 +37,91 @@
     </q-page>
 </template>
 
-<script>
+<script setup>
+import { useQuasar } from 'quasar'
+import { useI18n } from 'vue-i18n'
 import * as materialIconsSet from '@quasar/extras/material-icons'
-import * as fontawesomeSet from '@quasar/extras/fontawesome-v5'
+import * as fontawesomeSet from '@quasar/extras/fontawesome-v6'
 import { copyToClipboard } from 'quasar'
+import { onMounted, ref } from 'vue';
 
-export default {
-    name: 'Icon',
-    data() {
-        return {
-            tab: 'materia',
-            materialIcons_key: [],
-            fontawesome_key: [],
+const $q = useQuasar()
+const { t } = useI18n()
+const tab = ref('materia')
+const materialIcons_key = ref([])
+const fontawesome_key = ref([])
+
+onMounted(() => {
+    initMaterial()
+    initFontawesome()
+})
+const initMaterial = () => {
+    // 获取图标 materialIcons 下划线格式命名集合
+    for (const i in materialIconsSet) {
+        materialIcons_key.value.push(toLowerLine(i))
+    }
+}
+const initFontawesome = () => {
+    // 获取图标 fontawesomeSet 下划线格式命名集合
+    for (const i in fontawesomeSet) {
+        fontawesome_key.value.push(toLowerLine(i))
+    }
+}
+const toLowerLine = (str) => {
+    if (str.substr(0, 3) === 'mat') {
+        let t = str.replace(/([A-Z]|\d+)/g, (a, l) => `_${l.toLowerCase()}`).substring(4)
+        switch (t) {
+            case 'crop_32':
+                t = 'crop_3_2'
+                break
+            case 'crop_169':
+                t = 'crop_16_9'
+                break
+            case 'crop_54':
+                t = 'crop_5_4'
+                break
+            case 'crop_75':
+                t = 'crop_7_5'
+                break
+            default:
+                break
         }
-    },
-    created() {
-        this.initMaterial()
-        this.initFontawesome()
-    },
-    methods: {
-        initMaterial() {
-            // 获取图标 materialIcons 下划线格式命名集合
-            for (const i in materialIconsSet) {
-                this.materialIcons_key.push(this.toLowerLine(i))
-            }
-        },
-        initFontawesome() {
-            // 获取图标 fontawesomeSet 下划线格式命名集合
-            for (const i in fontawesomeSet) {
-                this.fontawesome_key.push(this.toLowerLine(i))
-            }
-        },
-        toLowerLine(str) {
-            if (str.substr(0, 3) === 'mat') {
-                let t = str.replace(/([A-Z]|\d+)/g, (a, l) => `_${l.toLowerCase()}`).substring(4)
-                switch (t) {
-                    case 'crop_32':
-                        t = 'crop_3_2'
-                        break
-                    case 'crop_169':
-                        t = 'crop_16_9'
-                        break
-                    case 'crop_54':
-                        t = 'crop_5_4'
-                        break
-                    case 'crop_75':
-                        t = 'crop_7_5'
-                        break
-                    default:
-                        break
-                }
-                return t
-            }
-            if (str.substr(0, 2) === 'fa') {
-                let t = str.replace(/([A-Z])/g, (a, l) => `-${l.toLowerCase()}`).replace(/-/, ' fa-')
-                switch (t) {
-                    case 'fab500px':
-                        t = 'fab fa-500px'
-                        break
-                    case 'fas fa-stopwatch20':
-                        t = 'fas fa-stopwatch-20'
-                        break
-                    case 'fab fa-font-awesome-logo-full':
-                        t = 'fas fa-stopwatch-20'
-                        break
-                    case 'far fa-font-awesome-logo-full':
-                        t = 'fas fa-stopwatch-20'
-                        break
-                    default:
-                        break
-                }
-                return t
-            }
-        },
-        copy(e) {
-            copyToClipboard(e)
-                .then(() => {
-                    this.$q.notify({
-                        message: this.$t('ClipboardSuccess'),
-                        color: 'green',
-                    })
-                })
-                .catch(() => {
-                    // 不支持复制
-                    this.$q.notify({
-                        message: this.$t('ClipboardFail'),
-                        color: 'warming',
-                    })
-                })
-        },
-    },
+        return t
+    }
+    if (str.substr(0, 2) === 'fa') {
+        let t = str.replace(/([A-Z])/g, (a, l) => `-${l.toLowerCase()}`).replace(/-/, ' fa-')
+        switch (t) {
+            case 'fab500px':
+                t = 'fab fa-500px'
+                break
+            case 'fas fa-stopwatch20':
+                t = 'fas fa-stopwatch-20'
+                break
+            case 'fab fa-font-awesome-logo-full':
+                t = 'fas fa-stopwatch-20'
+                break
+            case 'far fa-font-awesome-logo-full':
+                t = 'fas fa-stopwatch-20'
+                break
+            default:
+                break
+        }
+        return t
+    }
+}
+const copy = (e) => {
+    copyToClipboard(e).then(() => {
+        $q.notify({
+            message: t('ClipboardSuccess'),
+            color: 'green',
+        })
+    }).catch(() => {
+        // 不支持复制
+        $q.notify({
+            message: t('ClipboardFail'),
+            color: 'warming',
+        })
+    })
 }
 </script>
 
@@ -135,6 +130,7 @@ export default {
     margin-bottom: 10px;
     color: #363f45;
     cursor: pointer;
+
     &:hover {
         background: #edecec;
         box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);

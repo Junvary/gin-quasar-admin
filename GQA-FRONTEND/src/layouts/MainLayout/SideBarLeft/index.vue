@@ -1,8 +1,8 @@
 <template>
     <q-list>
-        <q-item clickable v-ripple class="text-primary text-bold text-center text-h6">
+        <q-item clickable class="text-primary text-bold text-center text-h6">
             <q-item-section class="row items-center justify-center">
-                <q-icon :name="topMenuItem.top.icon" size="sm" v-if="topMenuItem.top.icon" />
+                <q-icon :name="topMenuItem.top?.icon" size="sm" v-if="topMenuItem.top?.icon" />
                 {{ topMenuItem.top ? $t(topMenuItem.top.title) : "" }}
             </q-item-section>
         </q-item>
@@ -12,22 +12,17 @@
     </q-list>
 </template>
 
-<script>
+<script setup>
+import { toRefs } from 'vue';
 import SideBarLeftItem from './SideBarLeftItem'
-
-export default {
-    name: 'SideBarLeft',
-    components: {
-        SideBarLeftItem,
-    },
-    props: {
-        topMenuItem: {
-            type: Object,
-            required: false,
-            default: () => {
-                return {}
-            },
+const props = defineProps({
+    topMenuItem: {
+        type: Object,
+        required: false,
+        default: () => {
+            return {}
         },
     },
-}
+})
+const { topMenuItem } = toRefs(props)
 </script>

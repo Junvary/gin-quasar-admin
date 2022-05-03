@@ -3,8 +3,4 @@
         @click="$q.fullscreen.toggle()" />
 </template>
 
-<script>
-export default {
-    name: 'Fullscreen',
-}
-</script>
+<script setup></script>

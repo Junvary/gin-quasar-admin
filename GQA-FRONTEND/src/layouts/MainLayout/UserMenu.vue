@@ -12,19 +12,19 @@
             <div class="column">
                 <div class="text-h6">摘要</div>
                 <q-list>
-                    <q-item clickable v-ripple>
+                    <q-item clickable>
                         <q-item-section avatar>
                             <q-icon size="lg" name="star" class="text-warning" />
                         </q-item-section>
                         <q-item-section>等级:23</q-item-section>
                     </q-item>
-                    <q-item clickable v-ripple>
+                    <q-item clickable>
                         <q-item-section avatar>
                             <q-icon size="lg" name="star" class="text-warning" />
                         </q-item-section>
                         <q-item-section>积分:88888</q-item-section>
                     </q-item>
-                    <q-item clickable v-ripple>
+                    <q-item clickable>
                         <q-item-section avatar>
                             <q-icon size="lg" name="star" class="text-warning" />
                         </q-item-section>
@@ -53,41 +53,34 @@
     </q-btn-dropdown>
 </template>
 
-<script>
-import { mapActions } from 'vuex'
-import GqaShowName from 'src/components/GqaShowName'
-import GqaAvatar from 'src/components/GqaAvatar'
-export default {
-    name: 'UserMenu',
-    components: {
-        GqaShowName,
-        GqaAvatar,
-    },
-    data() {
-        return {
-            mobileData: false,
-            bluetooth: true,
-        }
-    },
-    methods: {
-        ...mapActions('user', ['HandleLogout']),
-        logout() {
-            this.$q
-                .dialog({
-                    title: this.$t('LogoutTitle'),
-                    message: this.$t('LogoutMessage'),
-                    cancel: true,
-                    persistent: true,
-                })
-                .onOk(() => {
-                    this.HandleLogout().then(() => {
-                        this.$router.push({ name: 'login' })
-                    })
-                })
-        },
-        showProfile() {
-            this.$emit('showProfile')
-        },
-    },
+<script setup>
+import { useUserStore } from 'src/stores/user'
+import GqaShowName from 'src/components/GqaShowName/index.vue'
+import GqaAvatar from 'src/components/GqaAvatar/index.vue'
+import { useQuasar } from 'quasar'
+import { useI18n } from 'vue-i18n'
+import { useRouter } from 'vue-router'
+
+const userStore = useUserStore()
+const $q = useQuasar()
+const { t } = useI18n()
+const router = useRouter()
+
+const logout = () => {
+    $q.dialog({
+        title: t('LogoutTitle'),
+        message: t('LogoutMessage'),
+        cancel: true,
+        persistent: true,
+    }).onOk(() => {
+        userStore.HandleLogout()
+        router.push({ path: '/login' })
+
+    })
+}
+
+const emit = defineEmits(['showProfile'])
+const showProfile = () => {
+    emit('showProfile')
 }
 </script>

@@ -2,10 +2,10 @@
     <q-page padding>
 
         <div class="items-center row q-gutter-md" style="margin-bottom: 10px">
-            <q-input style="width: 20%" v-model="queryParams.noticeTitle" :label="$t('Title')" />
-            <q-select style="width: 20%" v-model="queryParams.noticeType" :options="dictOptions.noticeType" emit-value
+            <q-input style="width: 20%" v-model="queryParams.notice_title" :label="$t('Title')" />
+            <q-select style="width: 20%" v-model="queryParams.notice_type" :options="dictOptions.noticeType" emit-value
                 map-options :label="$t('Notice') + $t('Type')" />
-            <q-select style="width: 20%" v-model="queryParams.noticeSent" :options="dictOptions.statusYesNo" emit-value
+            <q-select style="width: 20%" v-model="queryParams.notice_sent" :options="dictOptions.statusYesNo" emit-value
                 map-options :label="$t('Sent')" />
             <q-btn color="primary" @click="handleSearch" :label="$t('Search')" />
             <q-btn color="primary" @click="resetSearch" :label="$t('Reset')" />
@@ -21,15 +21,15 @@
                     @click="props.toggleFullscreen" class="q-ml-md" />
             </template>
 
-            <template v-slot:body-cell-noticeType="props">
+            <template v-slot:body-cell-notice_type="props">
                 <q-td :props="props">
-                    <GqaDictShow dictName="noticeType" :dictCode="props.row.noticeType" />
+                    <GqaDictShow dictName="noticeType" :dictCode="props.row.notice_type" />
                 </q-td>
             </template>
 
-            <template v-slot:body-cell-noticeSent="props">
+            <template v-slot:body-cell-notice_sent="props">
                 <q-td :props="props">
-                    <GqaDictShow dictName="statusYesNo" :dictCode="props.row.noticeSent" />
+                    <GqaDictShow dictName="statusYesNo" :dictCode="props.row.notice_sent" />
                 </q-td>
             </template>
 
@@ -37,82 +37,88 @@
                 <q-td :props="props">
                     <div class="q-gutter-xs">
                         <q-btn color="warning" @click="sendMessage(props.row)" :label="$t('Send')"
-                            v-if="props.row.noticeSent === 'no'" />
+                            v-if="props.row.notice_sent === 'no'" />
                         <q-btn color="primary" @click="showEditForm(props.row)" :label="$t('Edit')" />
                         <q-btn color="negative" @click="handleDelete(props.row)" :label="$t('Delete')" />
                     </div>
                 </q-td>
             </template>
         </q-table>
-        <add-or-edit-dialog ref="addOrEditDialog" @handleFinish="handleFinish" />
+        <recordDetail ref="recordDetailDialog" @handleFinish="handleFinish" />
     </q-page>
 </template>
 
-<script>
-import { tableDataMixin } from 'src/mixins/tableDataMixin'
-import addOrEditDialog from './modules/addOrEditDialog'
-import GqaDictShow from 'src/components/GqaDictShow'
-import { DictOptions } from 'src/utils/dict'
+<script setup>
+import useTableData from 'src/composables/useTableData'
+import { useQuasar } from 'quasar'
 import { postAction } from 'src/api/manage'
+import { computed, onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import recordDetail from './modules/recordDetail'
+import { DictOptions } from 'src/utils/dict'
 
-export default {
-    name: 'Notice',
-    mixins: [tableDataMixin],
-    components: {
-        addOrEditDialog,
-        GqaDictShow,
-    },
-    computed: {
-        columns() {
-            return [
-                { name: 'id', align: 'center', label: 'ID', field: 'id' },
-                { name: 'noticeTitle', align: 'center', label: this.$t('Title'), field: 'noticeTitle' },
-                { name: 'noticeType', align: 'center', label: this.$t('Type'), field: 'noticeType' },
-                { name: 'noticeSent', align: 'center', label: this.$t('Sent'), field: 'noticeSent' },
-                { name: 'actions', align: 'center', label: this.$t('Actions'), field: 'actions' },
-            ]
-        },
-    },
-    data() {
-        return {
-            pagination: {
-                sortBy: 'created_at',
-                descending: true,
-                page: 1,
-                rowsPerPage: 10,
-            },
-            url: {
-                list: 'notice/notice-list',
-                delete: 'notice/notice-delete',
-                send: 'notice/notice-send',
-            },
-            dictOptions: {},
+const $q = useQuasar()
+const { t } = useI18n()
+const url = {
+    list: 'notice/get-notice-list',
+    delete: 'notice/delete-notice-by-id',
+    send: 'notice/send-notice',
+}
+const columns = computed(() => {
+    return [
+        { name: 'id', align: 'center', label: 'ID', field: 'id' },
+        { name: 'notice_title', align: 'center', label: t('Title'), field: 'notice_title' },
+        { name: 'notice_type', align: 'center', label: t('Type'), field: 'notice_type' },
+        { name: 'notice_sent', align: 'center', label: t('Sent'), field: 'notice_sent' },
+        { name: 'actions', align: 'center', label: t('Actions'), field: 'actions' },
+    ]
+})
+const {
+    pagination,
+    queryParams,
+    pageOptions,
+    GqaDictShow,
+    GqaAvatar,
+    loading,
+    tableData,
+    recordDetailDialog,
+    showAddForm,
+    showEditForm,
+    onRequest,
+    handleSearch,
+    resetSearch,
+    handleFinish,
+    handleDelete,
+} = useTableData(url)
+
+const dictOptions = ref({})
+onMounted(async () => {
+    dictOptions.value = await DictOptions()
+    pagination.value.sortBy = 'created_at'
+    onRequest({
+        pagination: pagination.value,
+        queryParams: queryParams.value
+    })
+})
+
+const sendMessage = (row) => {
+    $q.dialog({
+        title: t('Confirm') + ' ' + t('Send'),
+        message: t('ConfirmSend'),
+        cancel: true,
+        persistent: true,
+    }).onOk(async () => {
+        const res = await postAction(url.send, row)
+        if (res.code === 1) {
+            $q.notify({
+                type: 'positive',
+                message: t('Send') + ' ' + t('Success'),
+            })
+            onRequest({
+                pagination: pagination.value,
+                queryParams: queryParams.value
+            })
         }
-    },
-    async created() {
-        this.getTableData()
-        this.dictOptions = await DictOptions()
-    },
-    methods: {
-        sendMessage(row) {
-            this.$q
-                .dialog({
-                    title: this.$t('Confirm') + ' ' + this.$t('Send'),
-                    message: this.$t('ConfirmSend'),
-                    cancel: true,
-                    persistent: true,
-                })
-                .onOk(async () => {
-                    const res = await postAction(this.url.send, row)
-                    if (res.code === 1) {
-                        this.$q.notify({
-                            type: 'positive',
-                            message: this.$t('Send') + ' ' + this.$t('Success'),
-                        })
-                        this.getTableData()
-                    }
-                })
-        },
-    },
+    })
 }
 </script>

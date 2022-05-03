@@ -1,9 +1,8 @@
 <template>
     <q-page padding>
-
         <div class="items-center row q-gutter-md" style="margin-bottom: 10px">
-            <q-input style="width: 20%" v-model="queryParams.gqaOption" :label="$t('Config') + $t('Name')" />
-            <q-input style="width: 20%" v-model="queryParams.remark" :label="$t('Config') + $t('Remark')" />
+            <q-input style="width: 20%" v-model="queryParams.config_item" :label="$t('Config') + $t('Name')" />
+            <q-input style="width: 20%" v-model="queryParams.memo" :label="$t('Config') + $t('Remark')" />
             <q-btn color="primary" @click="handleSearch" :label="$t('Search')" />
             <q-btn color="primary" @click="resetSearch" :label="$t('Reset')" />
         </div>
@@ -18,99 +17,83 @@
                     @click="props.toggleFullscreen" class="q-ml-md" />
             </template>
 
-            <template v-slot:body-cell-default="props">
+            <template v-slot:body-cell-item_default="props">
                 <q-td :props="props">
-                    <template v-if="props.row.gqaOption === 'gqaWebLogo'">
-                        <GqaAvatar :src="props.row.default" />
+                    <template v-if="props.row.config_item === 'logo'">
+                        <GqaAvatar :src="props.row.item_default" />
                     </template>
-                    <template v-else-if="props.row.gqaOption === 'gqaHeaderLogo'">
+                    <template v-else-if="props.row.config_item === 'favicon'">
                         <GqaAvatar src="favicon.ico" />
                     </template>
-                    <template v-else-if="props.row.gqaOption === 'gqaBannerImage'">
+                    <template v-else-if="props.row.config_item === 'bannerImage'">
                         默认效果
                     </template>
                     <template v-else>
-                        {{props.row.default}}
+                        {{ props.row.item_default }}
                     </template>
                 </q-td>
             </template>
 
-            <template v-slot:body-cell-custom="props">
+            <template v-slot:body-cell-item_custom="props">
                 <q-td :props="props" class="bg-green-1">
-                    <template v-if="props.row.gqaOption === 'gqaBannerImage'">
-                        <GqaAvatar :src="props.row.custom" v-if="props.row.custom !== ''" />
+                    <template v-if="props.row.config_item === 'bannerImage'">
+                        <GqaAvatar :src="props.row.item_custom" v-if="props.row.item_custom !== ''" />
                     </template>
-                    <template v-else-if="props.row.gqaOption === 'gqaWebLogo'">
-                        <GqaAvatar :src="props.row.custom" />
+                    <template v-else-if="props.row.config_item === 'logo'">
+                        <GqaAvatar :src="props.row.item_custom" />
                     </template>
-                    <template v-else-if="props.row.gqaOption === 'gqaHeaderLogo'">
-                        <GqaAvatar :src="props.row.custom || 'favicon.ico'" />
+                    <template v-else-if="props.row.config_item === 'favicon'">
+                        <GqaAvatar :src="props.row.item_custom || 'favicon.ico'" />
                     </template>
                     <template v-else>
-                        {{props.row.custom}}
+                        {{ props.row.item_custom }}
                     </template>
 
-                    <q-popup-edit v-model="props.row.custom" class="bg-green-13">
-                        <!-- 使用是否字典显示 -->
-                        <template v-slot="scope" v-if="props.row.gqaOption === 'gqaShowGit'">
-                            {{ $t('Custom') + ' ' + props.row.gqaOption }}
-                            <q-option-group v-model="props.row.custom" :options="dictOptions.statusYesNo"
-                                color="primary" inline @update:model-value="scope.set">
+                    <q-popup-edit v-model="props.row.item_custom" class="bg-green-13">
+                        <template v-slot="scope">
+                            {{ $t('Custom') + ' ' + props.row.config_item }}
+                            <q-option-group v-if="props.row.config_item === 'showGit'" v-model="props.row.item_custom"
+                                :options="dictOptions.statusYesNo" color="primary" inline
+                                @update:model-value="scope.set">
                             </q-option-group>
-                        </template>
-                        <!-- 配置插件可选登录页 -->
-                        <template v-slot="scope" v-else-if="props.row.gqaOption === 'gqaPluginLoginLayout'">
-                            {{ $t('Custom') + ' ' + props.row.gqaOption }}
-                            <GqaPluginList showChoose @changeSuccess="handleSetLoginLayout($event, scope)"
-                                :choosePlugin="props.row.custom" />
-                        </template>
-                        <!-- 首页大图 -->
-                        <template v-slot="scope" v-else-if="props.row.gqaOption === 'gqaBannerImage'">
-                            {{ $t('Custom') + ' ' + props.row.gqaOption }}
-                            <q-file v-model="bannerImage" clearable max-files="1" @rejected="rejected"
-                                :accept="gqaBackend.webLogoExt" :max-file-size="gqaBackend.webLogoMaxSize*1024*1024">
-                                <template v-slot:prepend v-if="props.row.custom !== ''">
-                                    <GqaAvatar :src="props.row.custom" />
+                            <GqaPluginList v-else-if="props.row.config_item === 'pluginLoginLayout'" showChoose
+                                @changeSuccess="handleSetLoginLayout($event, scope)"
+                                :choosePlugin="props.row.item_custom" />
+                            <q-file v-else-if="props.row.config_item === 'bannerImage'" v-model="bannerImage" clearable
+                                max-files="1" @rejected="rejected" :accept="gqaBackend.bannerImageExt"
+                                :max-file-size="gqaBackend.bannerImageMaxSize * 1024 * 1024">
+                                <template v-slot:prepend v-if="props.row.item_custom !== ''">
+                                    <GqaAvatar :src="props.row.item_custom" />
                                 </template>
                                 <template v-slot:after v-if="bannerImage">
                                     <q-btn dense flat color="primary" icon="cloud_upload"
                                         @click="handleUploadBannerImage(scope)" />
                                 </template>
                             </q-file>
-                        </template>
-                        <!-- 网站logo -->
-                        <template v-slot="scope" v-else-if="props.row.gqaOption === 'gqaWebLogo'">
-                            {{ $t('Custom') + ' ' + props.row.gqaOption }}
-                            <q-file v-model="webLogoFile" clearable max-files="1" @rejected="rejected"
-                                :accept="gqaBackend.webLogoExt" :max-file-size="gqaBackend.webLogoMaxSize*1024*1024">
+                            <q-file v-else-if="props.row.config_item === 'logo'" v-model="logoFile" clearable
+                                max-files="1" @rejected="rejected" :accept="gqaBackend.logoExt"
+                                :max-file-size="gqaBackend.logoMaxSize * 1024 * 1024">
                                 <template v-slot:prepend>
-                                    <GqaAvatar :src="props.row.custom" />
+                                    <GqaAvatar :src="props.row.item_custom" />
                                 </template>
-                                <template v-slot:after v-if="webLogoFile">
+                                <template v-slot:after v-if="logoFile">
                                     <q-btn dense flat color="primary" icon="cloud_upload"
-                                        @click="handleUploadWeb(scope)" />
+                                        @click="handleUploadLogo(scope)" />
                                 </template>
                             </q-file>
-                        </template>
-                        <!-- 标签页logo -->
-                        <template v-slot="scope" v-else-if="props.row.gqaOption === 'gqaHeaderLogo'">
-                            {{ $t('Custom') + ' ' + props.row.gqaOption }}
-                            <q-file v-model="headerLogoFile" clearable max-files="1" @rejected="rejected"
-                                :accept="gqaBackend.headerLogoExt"
-                                :max-file-size="gqaBackend.headerLogoMaxSize*1024*1024">
+                            <q-file v-else-if="props.row.config_item === 'favicon'" v-model="faviconFile" clearable
+                                max-files="1" @rejected="rejected" :accept="gqaBackend.faviconExt"
+                                :max-file-size="gqaBackend.faviconMaxSize * 1024 * 1024">
                                 <template v-slot:prepend>
-                                    <GqaAvatar :src="props.row.custom" />
+                                    <GqaAvatar :src="props.row.item_custom" />
                                 </template>
-                                <template v-slot:after v-if="headerLogoFile">
+                                <template v-slot:after v-if="faviconFile">
                                     <q-btn dense flat color="primary" icon="cloud_upload"
-                                        @click="handleUploadHeader(scope)" />
+                                        @click="handleUploadFavicon(scope)" />
                                 </template>
                             </q-file>
-                        </template>
-                        <!-- 默认的输入框 -->
-                        <template v-slot="scope" v-else>
-                            {{ $t('Custom') + ' ' + props.row.gqaOption }}
-                            <q-input v-model="props.row.custom" dense autofocus clearable @keyup.enter="scope.set" />
+                            <q-input v-else v-model="props.row.item_custom" dense autofocus clearable
+                                @keyup.enter="scope.set" />
                         </template>
                     </q-popup-edit>
                 </q-td>
@@ -138,165 +121,173 @@
                 </q-td>
             </template>
         </q-table>
-        <add-or-edit-dialog ref="addOrEditDialog" @handleFinish="handleFinish" />
+        <recordDetail ref="recordDetailDialog" @handleFinish="handleFinish" />
     </q-page>
 </template>
 
-<script>
-import { tableDataMixin } from 'src/mixins/tableDataMixin'
-import { gqaBackendMixin } from 'src/mixins/gqaBackendMixin'
-import { mapActions } from 'vuex'
-import addOrEditDialog from './modules/addOrEditDialog'
-import { putAction, postAction } from 'src/api/manage'
-import GqaDictShow from 'src/components/GqaDictShow'
-import { addOrEditMixin } from 'src/mixins/addOrEditMixin'
-import GqaAvatar from 'src/components/GqaAvatar'
-import GqaPluginList from 'src/components/GqaPluginList'
+<script setup>
+import useTableData from 'src/composables/useTableData'
+import { useQuasar } from 'quasar'
+import { postAction } from 'src/api/manage'
+import { computed, onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import GqaPluginList from 'src/components/GqaPluginList/index.vue'
+import { useStorageStore } from 'src/stores/storage'
+import recordDetail from './modules/recordDetail'
 
-export default {
-    name: 'ConfigFrontend',
-    mixins: [tableDataMixin, addOrEditMixin, gqaBackendMixin],
-    components: {
-        addOrEditDialog,
-        GqaDictShow,
-        GqaAvatar,
-        GqaPluginList,
-    },
-    computed: {
-        columns() {
-            return [
-                { name: 'sort', align: 'center', label: this.$t('Sort'), field: 'sort' },
-                { name: 'gqaOption', align: 'center', label: this.$t('Option'), field: 'gqaOption' },
-                { name: 'remark', align: 'center', label: this.$t('Remark'), field: 'remark' },
-                { name: 'default', align: 'center', label: this.$t('Default'), field: 'default' },
-                { name: 'custom', align: 'center', label: this.$t('Custom'), field: 'custom' },
-                { name: 'status', align: 'center', label: this.$t('Status'), field: 'status' },
-                { name: 'stable', align: 'center', label: this.$t('Stable'), field: 'stable' },
-                { name: 'actions', align: 'center', label: this.$t('Actions'), field: 'actions' },
-            ]
-        },
-    },
-    data() {
-        return {
-            url: {
-                list: 'config-frontend/config-frontend-list',
-                edit: 'config-frontend/config-frontend-edit',
-                delete: 'config-frontend/config-frontend-delete',
-                uploadBannerImage: 'upload/banner-image',
-                uploadWebUrl: 'upload/web-logo',
-                uploadHeaderUrl: 'upload/header-logo',
-            },
-            bannerImage: null,
-            webLogoFile: null,
-            headerLogoFile: null,
+const $q = useQuasar()
+const { t } = useI18n()
+const storageStore = useStorageStore()
+const url = {
+    list: 'config-frontend/get-config-frontend-list',
+    edit: 'config-frontend/edit-config-frontend',
+    delete: 'config-frontend/delete-config-frontend-by-id',
+    uploadBannerImage: 'upload/upload-banner-image',
+    uploadLogo: 'upload/upload-logo',
+    uploadFavicon: 'upload/upload-favicon',
+}
+const columns = computed(() => {
+    return [
+        { name: 'sort', align: 'center', label: t('Sort'), field: 'sort' },
+        { name: 'config_item', align: 'center', label: t('Config') + t('Item'), field: 'config_item' },
+        { name: 'memo', align: 'center', label: t('Memo'), field: 'memo' },
+        { name: 'item_default', align: 'center', label: t('Default'), field: 'item_default' },
+        { name: 'item_custom', align: 'center', label: t('Custom'), field: 'item_custom' },
+        { name: 'status', align: 'center', label: t('Status'), field: 'status' },
+        { name: 'stable', align: 'center', label: t('Stable'), field: 'stable' },
+        { name: 'actions', align: 'center', label: t('Actions'), field: 'actions' },
+    ]
+})
+const {
+    gqaBackend,
+    dictOptions,
+    pagination,
+    queryParams,
+    pageOptions,
+    GqaDictShow,
+    GqaAvatar,
+    loading,
+    tableData,
+    recordDetailDialog,
+    showAddForm,
+    showEditForm,
+    onRequest,
+    handleSearch,
+    resetSearch,
+    handleFinish,
+    handleDelete,
+} = useTableData(url)
+
+onMounted(() => {
+    onRequest({
+        pagination: pagination.value,
+        queryParams: queryParams.value
+    })
+})
+
+const bannerImage = ref(null)
+const logoFile = ref(null)
+const faviconFile = ref(null)
+
+const handleReset = (row) => {
+    row.item_custom = ''
+}
+const handleSave = async (row) => {
+    const res = await postAction(url.edit, row)
+    if (res.code === 1) {
+        $q.notify({
+            type: 'positive',
+            message: res.message,
+        })
+        storageStore.SetGqaFrontend()
+    }
+}
+const handleUploadBannerImage = (scope) => {
+    if (!bannerImage.value) {
+        $q.notify({
+            type: 'negative',
+            message: '请选择图片！',
+        })
+        return
+    }
+    let form = new FormData()
+    form.append('file', bannerImage.value)
+    postAction(url.uploadBannerImage, form).then((res) => {
+        if (res.code === 1) {
+            const bi = tableData.filter((item) => {
+                return item.config_item === 'bannerImage'
+            })
+            bi[0].item_custom = res.data.records
+            bannerImage.value = null
+            $q.notify({
+                type: 'positive',
+                message: '首页大图上传成功！',
+            })
+            scope.set()
         }
-    },
-    created() {
-        this.getTableData()
-    },
-    methods: {
-        ...mapActions('storage', ['GetGqaFrontend']),
-        handleReset(row) {
-            row.custom = ''
-        },
-        async handleSave(row) {
-            const res = await putAction(this.url.edit, row)
-            if (res.code === 1) {
-                this.$q.notify({
-                    type: 'positive',
-                    message: res.message,
-                })
-                this.GetGqaFrontend()
-            }
-        },
-        handleUploadBannerImage(scope) {
-            if (!this.bannerImage) {
-                this.$q.notify({
-                    type: 'negative',
-                    message: '请选择图片！',
-                })
-                return
-            }
-            let form = new FormData()
-            form.append('file', this.bannerImage)
-            postAction(this.url.uploadBannerImage, form).then((res) => {
-                if (res.code === 1) {
-                    const bi = this.tableData.filter((item) => {
-                        return item.gqaOption === 'gqaBannerImage'
-                    })
-                    bi[0].custom = res.data.records
-                    this.bannerImage = null
-                    this.$q.notify({
-                        type: 'positive',
-                        message: '首页大图上传成功！',
-                    })
-                    scope.set()
-                }
+    })
+}
+const handleUploadLogo = (scope) => {
+    if (!logoFile.value) {
+        $q.notify({
+            type: 'negative',
+            message: '请选择文件！',
+        })
+        return
+    }
+    let form = new FormData()
+    form.append('file', logoFile.value)
+    postAction(url.uploadLogo, form).then((res) => {
+        if (res.code === 1) {
+            const gqaWebLogo = tableData.filter((item) => {
+                return item.config_item === 'logo'
             })
-        },
-        handleUploadWeb(scope) {
-            if (!this.webLogoFile) {
-                this.$q.notify({
-                    type: 'negative',
-                    message: '请选择文件！',
-                })
-                return
-            }
-            let form = new FormData()
-            form.append('file', this.webLogoFile)
-            postAction(this.url.uploadWebUrl, form).then((res) => {
-                if (res.code === 1) {
-                    const gqaWebLogo = this.tableData.filter((item) => {
-                        return item.gqaOption === 'gqaWebLogo'
-                    })
-                    gqaWebLogo[0].custom = res.data.records
-                    this.webLogoFile = null
-                    this.$q.notify({
-                        type: 'positive',
-                        message: '网站Logo上传成功！',
-                    })
-                    scope.set()
-                }
+            gqaWebLogo[0].item_custom = res.data.records
+            logoFile.value = null
+            $q.notify({
+                type: 'positive',
+                message: '网站Logo上传成功！',
             })
-        },
-        handleUploadHeader(scope) {
-            if (!this.headerLogoFile) {
-                this.$q.notify({
-                    type: 'negative',
-                    message: '请选择文件！',
-                })
-                return
-            }
-            let form = new FormData()
-            form.append('file', this.headerLogoFile)
-            postAction(this.url.uploadHeaderUrl, form).then((res) => {
-                if (res.code === 1) {
-                    const gqaHeaderLogo = this.tableData.filter((item) => {
-                        return item.gqaOption === 'gqaHeaderLogo'
-                    })
-                    gqaHeaderLogo[0].custom = res.data.records
-                    this.headerLogoFile = null
-                    this.$q.notify({
-                        type: 'positive',
-                        message: '标签页Logo上传成功！',
-                    })
-                    scope.set()
-                }
+            scope.set()
+        }
+    })
+}
+const handleUploadFavicon = (scope) => {
+    if (!faviconFile.value) {
+        $q.notify({
+            type: 'negative',
+            message: '请选择文件！',
+        })
+        return
+    }
+    let form = new FormData()
+    form.append('file', faviconFile.value)
+    postAction(url.uploadFavicon, form).then((res) => {
+        if (res.code === 1) {
+            const gqaHeaderLogo = tableData.filter((item) => {
+                return item.config_item === 'favicon'
             })
-        },
-        rejected(rejectedEntries) {
-            this.$q.notify({
-                type: 'negative',
-                message: '文件重复或大小/类型不被允许，请联系管理员！',
+            gqaHeaderLogo[0].item_custom = res.data.records
+            faviconFile.value = null
+            $q.notify({
+                type: 'positive',
+                message: '标签页Logo上传成功！',
             })
-        },
-        handleSetLoginLayout(event, scope) {
-            const gqaPluginLoginLayout = this.tableData.filter((item) => {
-                return item.gqaOption === 'gqaPluginLoginLayout'
-            })
-            gqaPluginLoginLayout[0].custom = event
-            scope.set(event)
-        },
-    },
+            scope.set()
+        }
+    })
+}
+const rejected = (rejectedEntries) => {
+    $q.notify({
+        type: 'negative',
+        message: '文件重复或大小/类型不被允许，请联系管理员！',
+    })
+}
+const handleSetLoginLayout = (event, scope) => {
+    const gqaPluginLoginLayout = tableData.filter((item) => {
+        return item.config_item === 'pluginLoginLayout'
+    })
+    gqaPluginLoginLayout[0].item_custom = event
+    scope.set(event)
 }
 </script>

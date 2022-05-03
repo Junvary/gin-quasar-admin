@@ -1,5 +1,5 @@
 <template>
-    <q-item clickable v-ripple exact :to="{ path: addRoutesItem.path }" :inset-level="initLevel"
+    <q-item clickable exact :to="{ path: addRoutesItem.path }" :inset-level="initLevel"
         active-class="bg-primary text-white text-bold text-italic">
         <q-item-section avatar>
             <q-icon :name="addRoutesItem.icon" />
@@ -8,22 +8,22 @@
     </q-item>
 </template>
 
-<script>
-export default {
-    name: 'MenuItem',
-    props: {
-        addRoutesItem: {
-            default: function () {
-                return null
-            },
-            type: Object,
+<script setup>
+import { toRefs } from 'vue';
+
+const props = defineProps({
+    addRoutesItem: {
+        default: function () {
+            return null
         },
-        initLevel: {
-            type: Number,
-            default: 0,
-        },
+        type: Object,
     },
-}
+    initLevel: {
+        type: Number,
+        default: 0,
+    },
+})
+const { addRoutesItem, initLevel } = toRefs(props)
 </script>
 
 <style lang="scss" scoped>

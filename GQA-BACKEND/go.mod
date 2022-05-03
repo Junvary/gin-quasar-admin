@@ -3,7 +3,6 @@ module github.com/Junvary/gin-quasar-admin/GQA-BACKEND
 go 1.17
 
 require (
-	github.com/casbin/casbin/v2 v2.41.1
 	github.com/casbin/gorm-adapter/v3 v3.5.0
 	github.com/fsnotify/fsnotify v1.5.1
 	github.com/gin-gonic/gin v1.7.7

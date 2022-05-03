@@ -1,10 +1,37 @@
 package config
 
-import "github.com/Junvary/gin-quasar-admin/GQA-BACKEND/config/config"
-
 type Config struct {
-	System  config.System  `mapstructure:"system" json:"system" yaml:"system"`
-	Zap     config.Zap     `mapstructure:"zap" json:"zap" yaml:"zap"`
-	Mysql   config.Mysql   `mapstructure:"mysql" json:"mysql" yaml:"mysql"`
-	Upload  config.Upload  `mapstructure:"upload" json:"upload" yaml:"upload"`
+	Zap    Zap    `yaml:"zap"`
+	Mysql  Mysql  `yaml:"mysql"`
+	System System `yaml:"private"`
+}
+
+type Zap struct {
+	Prefix     string `yaml:"prefix"`
+	Level      string `yaml:"level"`
+	Path       string `yaml:"path"`
+	Filename   string `yaml:"filename"`
+	MaxSize    int    `yaml:"maxSize"`
+	MaxBackups int    `yaml:"maxBackups"`
+	MaxAge     int    `yaml:"maxAge"`
+}
+
+type Mysql struct {
+	Host     string `yaml:"host"`
+	Port     string `yaml:"port"`
+	User     string `yaml:"user"`
+	Password string `yaml:"password"`
+	Database string `yaml:"database"`
+	MaxIdle  int    `yaml:"maxIdle"`
+	MaxOpen  int    `yaml:"maxOpen"`
+}
+
+type System struct {
+	Port           int    `yaml:"port"`
+	SuccessCode    int    `yaml:"successCode"`
+	SuccessMessage string `yaml:"successMessage"`
+	ErrorCode      int    `yaml:"errorCode"`
+	ErrorMessage   string `yaml:"errorMessage"`
+	BindError      string `yaml:"bindError"`
+	GenPluginPath  string `yaml:"genPluginPath"`
 }

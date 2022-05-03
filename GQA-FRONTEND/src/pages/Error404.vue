@@ -16,10 +16,5 @@
     </div>
 </template>
 
-<script>
-import { defineComponent } from 'vue'
+<script setup></script>
 
-export default defineComponent({
-    name: 'Error404',
-})
-</script>

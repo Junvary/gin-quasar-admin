@@ -1,14 +1,15 @@
 <template>
     <div class="items-center column">
         <div class="justify-between row" style="width: 100%">
-            <q-btn color="negative" :disable="row.roleCode === 'super-admin'" @click="handleClear">
-                {{ $t('ClearAll') }}
+            <q-btn color="negative" :disable="row.role_code === 'super-admin'" @click="handleClear">
+                {{ $t('Clear') + $t('All') }}
             </q-btn>
-            <q-btn color="negative" :disable="row.roleCode === 'super-admin'" @click="handleAll">
-                {{ $t('SelectAll') }}
+            <q-btn color="negative" :disable="row.role_code === 'super-admin'" @click="handleAll">
+                {{ $t('Select') + $t('All') }}
             </q-btn>
-            <q-btn color="primary" :disable="row.roleCode === 'super-admin'" @click="handleRoleMenu">
-                {{ $t('Save') }}</q-btn>
+            <q-btn color="primary" :disable="row.role_code === 'super-admin'" @click="handleRoleMenu">
+                {{ $t('Save') }}
+            </q-btn>
         </div>
         <q-card-section style="width: 100%; max-height: 70vh" class="scroll">
             <q-tree dense style="width: 100%" :nodes="menuTree" default-expand-all node-key="name" label-key="name"
@@ -28,92 +29,116 @@
 
 </template>
 
-<script>
-import { tableDataMixin } from 'src/mixins/tableDataMixin'
+<script setup>
+import useTableData from 'src/composables/useTableData'
+import { useQuasar } from 'quasar'
+import { postAction } from 'src/api/manage'
+import { computed, onMounted, ref, toRefs } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { DictOptions } from 'src/utils/dict'
+import { FormatDateTime } from 'src/utils/date'
 import { ArrayToTree } from 'src/utils/arrayAndTree'
-import { postAction, putAction } from 'src/api/manage'
 
-export default {
-    name: 'RolePermissionMenu',
-    mixins: [tableDataMixin],
-    props: {
-        row: {
-            type: Object,
-            required: true,
-        },
-    },
-    computed: {
-        menuTree() {
-            if (this.tableData.length !== 0) {
-                return ArrayToTree(this.tableData, 'name', 'parentCode')
-            }
-            return []
-        },
-    },
-    data() {
-        return {
-            pagination: {
-                sortBy: 'sort',
-                descending: false,
-                page: 1,
-                rowsPerPage: 10000,
-                rowsNumber: 0,
-            },
-            url: {
-                list: 'menu/menu-list',
-                roleMenuList: 'role/role-menu',
-                roleMenuEdit: 'role/role-menu-edit',
-            },
-            ticked: [],
+const $q = useQuasar()
+const { t } = useI18n()
+const url = {
+    list: 'menu/get-menu-list',
+    roleMenuList: 'role/get-role-menu-list',
+    roleMenuEdit: 'role/edit-role-menu',
+}
+const columns = computed(() => {
+    return [
+        { name: 'id', align: 'center', label: 'ID', field: 'id' },
+        { name: 'login_username', align: 'center', label: t('User'), field: 'login_username' },
+        { name: 'login_ip', align: 'center', label: 'IP', field: 'login_ip' },
+        { name: 'login_browser', align: 'center', label: t('Browser'), field: 'login_browser' },
+        { name: 'login_os', align: 'center', label: t('Os'), field: 'login_os' },
+        { name: 'login_platform', align: 'center', label: t('Platform'), field: 'login_platform' },
+        { name: 'created_at', align: 'center', label: t('CreatedAt'), field: 'created_at' },
+        { name: 'login_success', align: 'center', label: t('LoginSuccess'), field: 'login_success' },
+        { name: 'actions', align: 'center', label: t('Actions'), field: 'actions' },
+    ]
+})
+const props = defineProps({
+    row: {
+        type: Object,
+        required: true,
+    }
+})
+const { row } = toRefs(props)
+const {
+    pagination,
+    queryParams,
+    pageOptions,
+    GqaDictShow,
+    GqaAvatar,
+    loading,
+    tableData,
+    recordDetailDialog,
+    showAddForm,
+    showEditForm,
+    onRequest,
+    handleSearch,
+    resetSearch,
+    handleFinish,
+    handleDelete,
+} = useTableData(url)
+
+const menuTree = computed(() => {
+    if (tableData.value.length !== 0) {
+        return ArrayToTree(tableData.value, 'name', 'parent_code')
+    }
+    return []
+})
+onMounted(() => {
+    pagination.value.rowsPerPage = 99999
+    onRequest({
+        pagination: pagination.value,
+        queryParams: queryParams.value
+    })
+    getRoleMenuList()
+})
+const ticked = ref([])
+const getRoleMenuList = () => {
+    // 每次获取前，清空ticked
+    ticked.value = []
+    postAction(url.roleMenuList, {
+        role_code: row.value.role_code,
+    }).then((res) => {
+        if (res.code === 1) {
+            res.data.records.forEach((item) => {
+                ticked.value.push(item.sys_menu_name)
+            })
         }
-    },
-    created() {
-        this.getTableData()
-        this.getRoleMenuList()
-    },
-    methods: {
-        getRoleMenuList() {
-            // 每次获取前，清空ticked
-            this.ticked = []
-            postAction(this.url.roleMenuList, {
-                roleCode: this.row.roleCode,
-            }).then((res) => {
-                if (res.code === 1) {
-                    res.data.records.forEach((item) => {
-                        this.ticked.push(item.MenuName)
-                    })
-                }
+    })
+}
+const handleRoleMenu = () => {
+    const roleMenu = []
+    for (let i of ticked.value) {
+        roleMenu.push({
+            role_code: row.value.role_code,
+            menu_name: i,
+        })
+    }
+    postAction(url.roleMenuEdit, {
+        role_code: row.value.role_code,
+        role_menu: roleMenu,
+    }).then((res) => {
+        if (res.code === 1) {
+            $q.notify({
+                type: 'positive',
+                message: res.message,
             })
-        },
-        handleRoleMenu() {
-            const roleMenu = []
-            for (let i of this.ticked) {
-                roleMenu.push({
-                    roleCode: this.row.roleCode,
-                    menuName: i,
-                })
-            }
-            putAction(this.url.roleMenuEdit, {
-                roleCode: this.row.roleCode,
-                roleMenu: roleMenu,
-            }).then((res) => {
-                if (res.code === 1) {
-                    this.$q.notify({
-                        type: 'positive',
-                        message: res.message,
-                    })
-                    this.getRoleMenuList()
-                }
-            })
-        },
-        handleClear() {
-            this.ticked = []
-        },
-        handleAll() {
-            this.tableData.forEach((item) => {
-                this.ticked.push(item.name)
-            })
-        },
-    },
+            getRoleMenuList()
+        }
+    })
+}
+const handleClear = () => {
+    ticked.value = []
+}
+const handleAll = () => {
+    tableData.value.forEach((item) => {
+        ticked.value.push(item.name)
+    })
 }
 </script>

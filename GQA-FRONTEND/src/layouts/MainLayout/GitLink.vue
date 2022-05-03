@@ -7,13 +7,8 @@
     </q-fab>
 </template>
 
-<script>
-export default {
-    name: 'GitLink',
-    methods: {
-        openLink(url) {
-            window.open(url)
-        },
-    },
+<script setup>
+const openLink = (url) => {
+    window.open(url)
 }
 </script>

@@ -1,18 +1,17 @@
 <template>
     <div>
         <q-list bordered separator style="min-width: 300px">
-            <q-item clickable v-ripple v-for="(item, index) in systemData.slice(0, 5)" :key="index"
-                @click="toNoticeDetail(item)">
+            <q-item clickable v-for="(item, index) in systemData" :key="index" @click="toNoticeDetail(item)">
                 <q-item-section avatar>
                     <q-icon color="primary" name="notifications" />
                 </q-item-section>
 
                 <q-item-section>
-                    {{ item.noticeTitle }}
+                    {{ item.notice_title }}
                 </q-item-section>
             </q-item>
         </q-list>
-        <q-item clickable v-ripple class="text-center" @click="toUserProfile">
+        <q-item clickable class="text-center" @click="toUserProfile">
             <q-item-section>
                 {{ $t('CheckAll') }}
             </q-item-section>
@@ -24,30 +23,27 @@
 
 </template>
 
-<script>
-import UserProfile from 'src/pages/UserProfile'
-import NoticeDetail from 'src/pages/UserProfile/modules/NoticeDetail.vue'
+<script setup>
+import UserProfile from 'src/layouts/MainLayout/UserProfile/index.vue'
+import NoticeDetail from 'src/layouts/MainLayout/UserProfile/modules/NoticeDetail.vue'
+import { ref, toRefs } from 'vue';
 
-export default {
-    name: 'NoticeSystem',
-    props: {
-        systemData: {
-            type: Array,
-            required: false,
-            default: () => [],
-        },
+const props = defineProps({
+    systemData: {
+        type: Array,
+        required: false,
+        default: () => [],
     },
-    components: {
-        UserProfile,
-        NoticeDetail,
-    },
-    methods: {
-        toUserProfile() {
-            this.$refs.userProfile.show('system')
-        },
-        toNoticeDetail(item) {
-            this.$refs.noticeDetail.show(item)
-        },
-    },
+})
+const { systemData } = toRefs(props)
+
+const userProfile = ref(null)
+const toUserProfile = () => {
+    userProfile.value.show('system')
+}
+
+const noticeDetail = ref(null)
+const toNoticeDetail = (item) => {
+    noticeDetail.value.show(item)
 }
 </script>

@@ -1,9 +1,10 @@
 package public
 
 type ServicePublic struct {
-	ServiceCheckAndInitDb
-	ServiceLogin
-	ServiceGetDict
-	ServiceGetFrontend
-	ServiceGetBackend
+	ServiceDb             ServiceDb
+	ServiceLogin          ServiceLogin
+	ServiceDict           ServiceDict
+	ServiceConfigBackend  ServiceConfigBackend
+	ServiceConfigFrontend ServiceConfigFrontend
+	ServiceWebSocket      ServiceWebSocket
 }

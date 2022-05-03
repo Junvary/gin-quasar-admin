@@ -10,47 +10,38 @@
     </q-expansion-item>
 </template>
 
-<script>
-export default {
-    name: 'AsyncSubmenu',
-    props: {
-        addRoutesItem: {
-            default: function () {
-                return null
-            },
-            type: Object,
+<script setup>
+import { watch, onMounted, ref, toRefs } from 'vue';
+import { useRoute } from 'vue-router';
+
+const route = useRoute()
+const props = defineProps({
+    addRoutesItem: {
+        default: function () {
+            return null
         },
-        initLevel: {
-            type: Number,
-            default: 0,
-        },
+        type: Object,
     },
-    watch: {
-        $route() {
-            this.changeOpen()
-        },
+    initLevel: {
+        type: Number,
+        default: 0,
     },
-    created() {
-        this.changeOpen()
-    },
-    data() {
-        return {
-            itemOpen: false,
+})
+const { addRoutesItem, initLevel } = toRefs(props)
+watch(route, () => {
+    changeOpen()
+})
+onMounted(() => {
+    changeOpen()
+})
+const itemOpen = ref(false)
+const changeOpen = () => {
+    for (let item of addRoutesItem.value.children) {
+        if (item.path === route.path || item.parent_code === route.name) {
+            itemOpen.value = true
+            return
         }
-    },
-    methods: {
-        changeOpen() {
-            for (let item of this.addRoutesItem.children) {
-                if (item.path === this.$route.path || item.parentCode === this.$route.name) {
-                    this.itemOpen = true
-                    return
-                }
-            }
-            this.itemOpen = false
-        },
-    },
+    }
+    itemOpen.value = false
 }
 </script>
-
-<style lang="scss">
-</style>

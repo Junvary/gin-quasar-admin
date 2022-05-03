@@ -49,87 +49,67 @@
     </q-tabs>
 </template>
 
-<script>
-import { mapState, mapActions } from 'vuex'
+<script setup>
+import { computed, ref, watch, onMounted, onUnmounted, nextTick } from 'vue';
+import { useTabMenuStore } from 'src/stores/tabMenu'
+import { useRoute, useRouter } from 'vue-router';
+const tabMenuStore = useTabMenuStore()
 
-export default {
-    name: 'TabMenu',
-    data() {
-        return {}
-    },
-    computed: {
-        ...mapState('tabMenu', ['tabMenus', 'currentTab']),
-    },
-    watch: {
-        $route() {
-            this.addTabMenu()
-        },
-    },
-    data() {
-        return {
-            loginPage: false,
-        }
-    },
-    beforeUnmount() {
-        // 退出时，清空tabMenu
-        this.DestroyTabMenu()
-    },
-    created() {
-        this.addTabMenu()
-    },
-    methods: {
-        ...mapActions('tabMenu', ['AddTabMenu', 'ChangeCurrentTab', 'RemoveTab', 'RemoveRightTab', 'RemoveLeftTab', 'DestroyTabMenu']),
-        addTabMenu() {
-            this.AddTabMenu(this.$route)
-        },
-        toTab(tab) {
-            this.ChangeCurrentTab(tab)
-            this.$nextTick(() => {
-                this.$router.push({ path: tab.path })
-            })
-        },
-        removeTab(tab) {
-            this.RemoveTab(tab)
-            this.$nextTick(() => {
-                this.$router.push({ path: this.currentTab.path })
-            })
-        },
-        removeOtherTab(tab) {
-            this.DestroyTabMenu()
-            this.AddTabMenu(tab)
-            // 没有点击在当前激活菜单上，那么跳转到这个菜单
-            if (tab.path !== this.$route.path) {
-                this.$nextTick(() => {
-                    this.$router.push({ path: tab.path })
-                })
-            }
-        },
-        removeRightTab(tab) {
-            this.RemoveRightTab(tab)
-            // 没有点击在当前激活菜单上，那么跳转到这个菜单
-            if (tab.path !== this.$route.path) {
-                this.$nextTick(() => {
-                    this.$router.push({ path: tab.path })
-                })
-            }
-        },
-        removeLeftTab(tab) {
-            this.RemoveLeftTab(tab)
-            // 没有点击在当前激活菜单上，那么跳转到这个菜单
-            if (tab.path !== this.$route.path) {
-                this.$nextTick(() => {
-                    this.$router.push({ path: tab.path })
-                })
-            }
-        },
-        removeAllTab() {
-            this.DestroyTabMenu()
-            this.AddTabMenu()
-            this.$nextTick(() => {
-                this.$router.push({ path: '/' })
-            })
-        },
-    },
+const router = useRouter()
+const route = useRoute()
+const tabMenus = computed(() => tabMenuStore.tabMenus)
+const currentTab = computed(() => tabMenuStore.currentTab)
+watch(route, () => {
+    tabMenuStore.AddTabMenu(Object.assign({}, route))
+})
+onMounted(() => {
+    tabMenuStore.AddTabMenu(Object.assign({}, route))
+})
+onUnmounted(() => {
+    tabMenuStore.DestroyTabMenu()
+})
+const loginPage = ref(false)
+
+const removeTab = (tab) => {
+    tabMenuStore.RemoveTab(tab)
+    nextTick(() => {
+        router.push({ path: currentTab.value.path })
+    })
+}
+const removeOtherTab = (tab) => {
+    tabMenuStore.DestroyTabMenu()
+    tabMenuStore.AddTabMenu(tab)
+    // 没有点击在当前激活菜单上，那么跳转到这个菜单
+    if (tab.path !== route.path) {
+        nextTick(() => {
+            router.push({ path: tab.path })
+        })
+    }
+}
+const removeRightTab = (tab) => {
+    tabMenuStore.RemoveRightTab(tab)
+    // 没有点击在当前激活菜单上，那么跳转到这个菜单
+    if (tab.path !== route.path) {
+        nextTick(() => {
+            router.push({ path: tab.path })
+        })
+    }
+}
+const removeLeftTab = (tab) => {
+    tabMenuStore.RemoveLeftTab(tab)
+    // 没有点击在当前激活菜单上，那么跳转到这个菜单
+    if (tab.path !== route.path) {
+        nextTick(() => {
+            router.push({ path: tab.path })
+        })
+    }
+}
+const removeAllTab = () => {
+    tabMenuStore.DestroyTabMenu()
+    tabMenuStore.AddTabMenu()
+    nextTick(() => {
+        router.push({ path: '/' })
+    })
 }
 </script>
 
@@ -141,12 +121,14 @@ export default {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
 .tab-close {
     display: inline-flex;
     font-size: 1rem;
     border-radius: 0.2rem;
     opacity: 0.5;
     transition: all 0.3s;
+
     &:hover {
         opacity: 1;
     }

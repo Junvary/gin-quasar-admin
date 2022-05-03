@@ -31,10 +31,10 @@ export const tableDataMixin = {
             this.loading = true
             // 组装分页和过滤条件
             const params = {}
-            params.sortBy = props.pagination.sortBy
+            params.sort_by = props.pagination.sortBy
             params.desc = props.pagination.descending
             params.page = props.pagination.page
-            params.pageSize = props.pagination.rowsPerPage
+            params.page_size = props.pagination.rowsPerPage
             const allParams = Object.assign({}, params, this.queryParams)
             // 带参数请求数据
             await postAction(this.url.list, allParams).then(res => {
@@ -66,8 +66,8 @@ export const tableDataMixin = {
             }
             this.$q
                 .dialog({
-                    title: this.$t('ConfirmDelete'),
-                    message: this.$t('ConfirmDeleteMessage'),
+                    title: this.$t('Confirm'),
+                    message: this.$t('Confirm') + this.$t('Delete') + '?',
                     cancel: true,
                     persistent: true,
                 })

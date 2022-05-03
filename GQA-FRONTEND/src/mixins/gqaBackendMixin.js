@@ -1,9 +1,10 @@
-import { mapGetters } from 'vuex'
+import { useStorageStore } from 'src/stores/storage'
 
 export const gqaBackendMixin = {
     computed: {
-        ...mapGetters({
-            gqaBackend: 'storage/gqaBackend',
-        }),
+        gqaBackend() {
+            const storageStore = useStorageStore()
+            return storageStore.GetGqaBackend()
+        }
     }
 }

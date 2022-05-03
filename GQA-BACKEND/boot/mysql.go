@@ -1,37 +1,25 @@
 package boot
 
 import (
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/config"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
-	"gorm.io/gorm/schema"
 )
 
 func Mysql() *gorm.DB {
-	mysqlCfg := global.GqaConfig.Mysql
-	if mysqlCfg.DbName == "" {
+	gqaMysqlConfig := global.GqaConfig.Mysql
+	if gqaMysqlConfig.Database == "" {
 		return nil
 	}
-	dsn := mysqlCfg.Username + ":" + mysqlCfg.Password + "@tcp(" + mysqlCfg.Path + ")/" + mysqlCfg.DbName + "?" + mysqlCfg.Config
-	mysqlConfig := mysql.Config{
-		DSN:                       dsn,   // DSN data source name
-		DefaultStringSize:         255,   // string 类型字段的默认长度
-		DisableDatetimePrecision:  true,  // 禁用 datetime 精度，MySQL 5.6 之前的数据库不支持
-		DontSupportRenameIndex:    true,  // 重命名索引时采用删除并新建的方式，MySQL 5.7 之前的数据库和 MariaDB 不支持重命名索引
-		DontSupportRenameColumn:   true,  // 用 `change` 重命名列，MySQL 8 之前的数据库和 MariaDB 不支持重命名列
-		SkipInitializeWithVersion: false, // 根据版本自动配置
-	}
-	if db, err := gorm.Open(mysql.New(mysqlConfig), gormConfig()); err != nil {
+	mysqlConfig := config.MysqlConfig(gqaMysqlConfig)
+	gormConfig := config.GormConfig()
+	if db, err := gorm.Open(mysql.New(mysqlConfig), &gormConfig); err != nil {
 		return nil
 	} else {
-		sqlDB, _ := db.DB()
-		sqlDB.SetMaxIdleConns(mysqlCfg.MaxIdleConns)
-		sqlDB.SetMaxOpenConns(mysqlCfg.MaxOpenConns)
+		mysqlDb, _ := db.DB()
+		mysqlDb.SetMaxIdleConns(gqaMysqlConfig.MaxIdle)
+		mysqlDb.SetMaxOpenConns(gqaMysqlConfig.MaxOpen)
 		return db
 	}
-}
-
-func gormConfig() *gorm.Config {
-	config := &gorm.Config{DisableForeignKeyConstraintWhenMigrating: true, NamingStrategy: schema.NamingStrategy{SingularTable: true}}
-	return config
 }

@@ -4,6 +4,8 @@ import { Notify, Dialog } from 'quasar'
 import { createI18n } from 'vue-i18n'
 import messages from 'src/i18n'
 
+import { userStore, i18n } from './i18n'
+
 // Be careful when using SSR for cross-request state pollution
 // due to creating a Singleton instance here;
 // If any client changes this (global) instance, it might be a
@@ -19,16 +21,16 @@ const api = axios.create({
 
 
 export default boot(({ app, router, store }) => {
-    const i18n = createI18n({
-        locale: store.getters['user/language'],
-        fallbackLocale: 'zh-CN',
-        messages,
-        silentTranslationWarn: true,
-        silentFallbackWarn: true
-    })
+    // const i18n = createI18n({
+    //     locale: store.getters['user/language'],
+    //     fallbackLocale: 'zh-CN',
+    //     messages,
+    //     silentTranslationWarn: true,
+    //     silentFallbackWarn: true
+    // })
     // 请求拦截
     api.interceptors.request.use(request => {
-        const token = store.getters['user/token']
+        const token = userStore.GetToken()
         request.headers = {
             'Content-Type': 'application/json;charset=utf-8',
             'Gqa-Token': token,
@@ -45,10 +47,11 @@ export default boot(({ app, router, store }) => {
     api.interceptors.response.use(response => {
         // 如果JWT的ExpiresAt已经过期，但是RefreshAt没有过期，那么后台会在headers里插入Gqa-Refresh-Token，这里保存下来，形成更换token逻辑
         if (response.headers['gqa-refresh-token'] && response.data.data.refresh) {
-            store.dispatch('user/SetToken', response.headers['gqa-refresh-token'])
+            userStore.SetToken(response.headers['gqa-refresh-token'])
+            // store.dispatch('user/SetToken', response.headers['gqa-refresh-token'])
             Notify.create({
                 type: 'positive',
-                message: i18n.global.t('RefreshTokenSuccess'),
+                message: i18n.global.t('Refresh') + 'Token' + i18n.global.t('Success'),
             })
             return api(response.config)
         }
@@ -61,8 +64,8 @@ export default boot(({ app, router, store }) => {
                 case 0:
                     if (responseData.data && responseData.data.reload) {
                         Dialog.create({
-                            title: i18n.global.t('AxiosCantIdentifyTitle'),
-                            message: response.data.message || i18n.global.t('AxiosCantIdentifyMessage'),
+                            title: i18n.global.t('Authentication') + ' ' + i18n.global.t('Failed'),
+                            message: response.data.message || i18n.global.t('Please') + ' ' + i18n.global.t('Relogin'),
                             persistent: true,
                             ok: {
                                 push: true,
@@ -70,13 +73,14 @@ export default boot(({ app, router, store }) => {
                                 label: i18n.global.t('Relogin')
                             },
                         }).onOk(() => {
-                            store.dispatch('user/HandleLogout')
+                            userStore.HandleLogout()
+                            // store.dispatch('user/HandleLogout')
                             router.push({ name: 'login' })
                         })
                     } else {
                         Notify.create({
                             type: 'negative',
-                            message: response.data.message || i18n.global.t('AxiosErrorOperation'),
+                            message: response.data.message || i18n.global.t('Operation') + ' ' + i18n.global.t('Failed'),
                         })
                         return response.data
                     }
@@ -89,7 +93,7 @@ export default boot(({ app, router, store }) => {
         if (error + '' === 'Error: Request failed with status code 500') {
             Dialog.create({
                 title: i18n.global.t('Error'),
-                message: i18n.global.t('AxiosErrorAbnormalMessage'),
+                message: i18n.global.t('Data') + ' ' + i18n.global.t('Exception') + ' ' + i18n.global.t('Please') + ' ' + i18n.global.t('Relogin'),
                 persistent: true,
                 ok: {
                     push: true,
@@ -97,7 +101,8 @@ export default boot(({ app, router, store }) => {
                     label: i18n.global.t('Logout')
                 },
             }).onOk(() => {
-                store.dispatch('user/HandleLogout')
+                userStore.HandleLogout()
+                // store.dispatch('user/HandleLogout')
                 router.push({ name: 'login' })
             })
         }
@@ -105,7 +110,7 @@ export default boot(({ app, router, store }) => {
         if (error + '' === 'Error: timeout of 40000ms exceeded') {
             Notify.create({
                 type: 'negative',
-                message: i18n.global.t('AxiosErrorTimeout')
+                message: i18n.global.t('Operation') + ' ' + i18n.global.t('Timeout')
             })
         }
         // 网络错误情况，比如后台没有对应的接口
@@ -115,7 +120,7 @@ export default boot(({ app, router, store }) => {
             console.log('请求地址不存在 [' + error.response.request.responseURL + ']')
             Notify.create({
                 type: 'negative',
-                message: i18n.global.t('AxiosErrorNoNetwork', { error: error.response.request.responseURL }),
+                message: i18n.global.t('Request') + ' ' + i18n.global.t('Address') + ' ' + i18n.global.t('NotFound') + ' ' + error.response.request.responseURL,
             })
         }
         return Promise.reject(error)

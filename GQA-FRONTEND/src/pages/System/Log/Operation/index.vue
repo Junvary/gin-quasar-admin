@@ -17,9 +17,9 @@
                     @click="props.toggleFullscreen" class="q-ml-md" />
             </template>
 
-            <template v-slot:body-cell-createdAt="props">
+            <template v-slot:body-cell-created_at="props">
                 <q-td :props="props">
-                    {{ showDateTime(props.row.createdAt) }}
+                    {{ showDateTime(props.row.created_at) }}
                 </q-td>
             </template>
 
@@ -27,54 +27,63 @@
     </q-page>
 </template>
 
-<script>
-import { tableDataMixin } from 'src/mixins/tableDataMixin'
-import GqaDictShow from 'src/components/GqaDictShow'
+<script setup>
+import useTableData from 'src/composables/useTableData'
+import { useQuasar } from 'quasar'
+import { postAction } from 'src/api/manage'
+import { computed, onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { DictOptions } from 'src/utils/dict'
 import { FormatDateTime } from 'src/utils/date'
 
-export default {
-    name: 'Operation',
-    mixins: [tableDataMixin],
-    components: {
-        GqaDictShow,
-    },
-    computed: {
-        columns() {
-            return [
-                { name: 'id', align: 'center', label: 'ID', field: 'id' },
-                { name: 'operationUsername', align: 'center', label: this.$t('User'), field: 'operationUsername' },
-                { name: 'operationIp', align: 'center', label: 'IP', field: 'operationIp' },
-                { name: 'operationMethod', align: 'center', label: this.$t('Method'), field: 'operationMethod' },
-                { name: 'operationApi', align: 'center', label: this.$t('Api'), field: 'operationApi' },
-                { name: 'operationStatus', align: 'center', label: this.$t('Status'), field: 'operationStatus' },
-                { name: 'createdAt', align: 'center', label: this.$t('CreatedAt'), field: 'createdAt' },
-            ]
-        },
-        showDateTime() {
-            return (datetime) => {
-                return FormatDateTime(datetime)
-            }
-        },
-    },
-    data() {
-        return {
-            pagination: {
-                sortBy: 'created_at',
-                descending: true,
-                page: 1,
-                rowsPerPage: 10,
-            },
-            url: {
-                list: 'log/log-operation-list',
-                delete: 'log/log-operation-delete',
-            },
-            dictOptions: {},
-        }
-    },
-    async created() {
-        this.getTableData()
-        this.dictOptions = await DictOptions()
-    },
+const $q = useQuasar()
+const { t } = useI18n()
+const url = {
+    list: 'log/get-log-operation-list',
+    delete: 'log/delete-log-operation-by-id',
 }
+const columns = computed(() => {
+    return [
+        { name: 'id', align: 'center', label: 'ID', field: 'id' },
+        { name: 'operation_username', align: 'center', label: t('User'), field: 'operation_username' },
+        { name: 'operation_ip', align: 'center', label: 'IP', field: 'operation_ip' },
+        { name: 'operation_method', align: 'center', label: t('Method'), field: 'operation_method' },
+        { name: 'operation_api', align: 'center', label: t('Api'), field: 'operation_api' },
+        { name: 'operation_status', align: 'center', label: t('Status'), field: 'operation_status' },
+        { name: 'created_at', align: 'center', label: t('CreatedAt'), field: 'created_at' },
+    ]
+})
+const {
+    pagination,
+    queryParams,
+    pageOptions,
+    GqaDictShow,
+    GqaAvatar,
+    loading,
+    tableData,
+    recordDetailDialog,
+    showAddForm,
+    showEditForm,
+    onRequest,
+    handleSearch,
+    resetSearch,
+    handleFinish,
+    handleDelete,
+} = useTableData(url)
+
+const dictOptions = ref({})
+onMounted(async () => {
+    dictOptions.value = await DictOptions()
+    pagination.value.sortBy = 'created_at'
+    onRequest({
+        pagination: pagination.value,
+        queryParams: queryParams.value
+    })
+})
+
+const showDateTime = computed(() => {
+    return (datetime) => {
+        return FormatDateTime(datetime)
+    }
+})
 </script>

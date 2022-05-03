@@ -1,128 +1,102 @@
 <template>
     <q-page padding>
-        <q-splitter v-model="splitterModel">
-            <template v-slot:before>
-                <div class="q-pa-md column">
-                    <div class="col">
-                        <q-btn :label="$t('Add') + ' ' + $t('Menu')" color="primary" @click="showAddForm" />
+        <q-btn color="primary" @click="showAddParentForm()" :label="$t('Add') + $t('Parent') + $t('Menu')" />
+        <q-hierarchy separator="cell" dense :columns="columns" :data="menuTree">
+            <template v-slot:body="props">
+                <gqa-tree-td :treeTd="props" firstTd="sort"></gqa-tree-td>
+                <td class="text-center">
+                    <q-icon size="md" :name="props.item.icon" />
+
+                </td>
+                <td class="text-center">
+                    {{ t(props.item.title) ? t(props.item.title) : props.item.title }}
+                </td>
+                <td class="text-center">
+                    <GqaDictShow dictName="statusOnOff" :dictCode="props.item.status" />
+                </td>
+                <td class="text-center">
+                    <GqaDictShow dictName="statusYesNo" :dictCode="props.item.stable" />
+                </td>
+                <td class="text-center">
+                    <div class="q-gutter-xs">
+                        <q-btn dense color="primary" @click="showEditForm(props.item)" :label="$t('Edit')" />
+                        <q-btn dense color="warning" @click="showAddChildrenForm(props.item.name)"
+                            :label="$t('Add') + $t('Children') + $t('Menu')" />
+                        <q-btn dense color="negative" @click="handleDelete(props.item)" :label="$t('Delete')" />
                     </div>
-                    <q-separator />
-                    <q-scroll-area style="height: 75vh; width: 100%">
-                        <q-tree dense :nodes="menuTree" default-expand-all node-key="id" label-key="name"
-                            selected-color="primary" v-model:selected="selectedKey" v-if="menuTree.length !== 0"
-                            @update:selected="onSelected" style="margin-right: 10px">
-                            <template v-slot:default-header="prop">
-                                <div class="row items-center">
-                                    <q-icon :name="prop.node.icon || 'share'" size="sm" class="q-mr-sm" />
-                                    <div class="text-weight-bold">
-                                        {{ $t(prop.node.title) }}
-                                    </div>
-                                </div>
-                                <q-space></q-space>
-                                <GqaDictShow dictName="statusOnOff" :dictCode="prop.node.status" />
-                                <q-btn :label="$t('Delete')" style="float-right" color="negative" dense
-                                    @click="handleDelete(prop.node)" />
-                            </template>
-                        </q-tree>
-                    </q-scroll-area>
-                    <q-inner-loading :showing="loading">
-                        <q-spinner-gears size="50px" color="primary" />
-                    </q-inner-loading>
-                </div>
+                </td>
             </template>
-            <template v-slot:after>
-                <div class="q-pa-md">
-                    <add-or-edit-card ref="addOrEditDialog" @handleFinish="handleFinish" />
-                </div>
-            </template>
-        </q-splitter>
+        </q-hierarchy>
+        <recordDetail ref="recordDetailDialog" @handleFinish="handleFinish" />
     </q-page>
 </template>
 
-<script>
-import { tableDataMixin } from 'src/mixins/tableDataMixin'
-import AddOrEditCard from './modules/addOrEditCard'
-import { getAction, postAction, deleteAction, putAction } from 'src/api/manage'
+<script setup>
+import useTableData from 'src/composables/useTableData'
+import { useQuasar } from 'quasar'
+import { postAction } from 'src/api/manage'
+import { computed, onMounted, ref, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
+import recordDetail from './modules/recordDetail'
 import { ArrayToTree } from 'src/utils/arrayAndTree'
-import GqaDictShow from 'src/components/GqaDictShow'
 
-export default {
-    name: 'Menu',
-    mixins: [tableDataMixin],
-    components: {
-        AddOrEditCard,
-        GqaDictShow,
-    },
-    computed: {
-        menuTree() {
-            if (this.tableData.length !== 0) {
-                const mt = ArrayToTree(this.tableData, 'name', 'parentCode')
-                return mt
-            }
-            return []
-        },
-    },
-    data() {
-        return {
-            url: {
-                list: 'menu/menu-list',
-                delete: 'menu/menu-delete',
-            },
-            pagination: {
-                sortBy: 'sort',
-                descending: false,
-                page: 1,
-                rowsPerPage: 10000,
-                rowsNumber: 0,
-            },
-            splitterModel: 30,
-            selectedKey: '',
-        }
-    },
-    created() {
-        this.getTableData()
-    },
-    methods: {
-        showAddForm() {
-            this.$refs.addOrEditDialog.onClose()
-            this.$refs.addOrEditDialog.formType = 'add'
-            this.$refs.addOrEditDialog.show({})
-        },
-        onSelected(key) {
-            const row = this.tableData.filter((item) => {
-                return item.id === key
-            })
-            if (key) {
-                this.showEditForm(row[0])
-            } else {
-                this.$refs.addOrEditDialog.onClose()
-            }
-        },
-        handleFinish() {
-            this.selectedKey = ''
-            this.getTableData()
-        },
-        handleDelete(row) {
-            this.$q
-                .dialog({
-                    title: this.$t('ConfirmDelete'),
-                    message: this.$t('ConfirmDeleteMessage'),
-                    cancel: true,
-                    persistent: true,
-                })
-                .onOk(async () => {
-                    const res = await deleteAction(this.url.delete, {
-                        id: row.id,
-                    })
-                    if (res.code === 1) {
-                        this.$q.notify({
-                            type: 'positive',
-                            message: res.message,
-                        })
-                    }
-                    this.$refs.addOrEditDialog.onClose()
-                })
-        },
-    },
+const $q = useQuasar()
+const { t } = useI18n()
+const url = {
+    list: 'menu/get-menu-list',
+    delete: 'menu/delete-menu-by-id',
 }
+const columns = computed(() => {
+    return [
+        { name: 'sort', align: 'center', label: t('Sort'), field: 'sort' },
+        { name: 'icon', align: 'center', label: t('Icon'), field: 'icon' },
+        { name: 'title', align: 'center', label: t('Name'), field: 'title' },
+        { name: 'status', align: 'center', label: t('Status'), field: 'status' },
+        { name: 'stable', align: 'center', label: t('Stable'), field: 'stable' },
+        { name: 'actions', align: 'center', label: t('Actions'), field: 'actions' },
+    ]
+})
+const {
+    pagination,
+    queryParams,
+    pageOptions,
+    GqaDictShow,
+    GqaAvatar,
+    loading,
+    tableData,
+    recordDetailDialog,
+    showAddForm,
+    showEditForm,
+    onRequest,
+    handleSearch,
+    resetSearch,
+    handleFinish,
+    handleDelete,
+} = useTableData(url)
+
+onMounted(() => {
+    pagination.value.rowsPerPage = 99999
+    onRequest({
+        pagination: pagination.value,
+        queryParams: queryParams.value
+    })
+})
+
+const menuTree = computed(() => {
+    if (tableData.value.length !== 0) {
+        const mt = ArrayToTree(tableData.value, 'name', 'parent_code')
+        return mt
+    }
+    return []
+})
+
+const showAddParentForm = () => {
+    showAddForm()
+}
+const showAddChildrenForm = (name) => {
+    recordDetailDialog.value.formType = 'add'
+    recordDetailDialog.value.show()
+    recordDetailDialog.value.recordDetail.value.parent_code = name
+}
+
 </script>

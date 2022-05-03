@@ -12,13 +12,13 @@ import (
 	"time"
 )
 
-func Boot()  {
-	srv := &http.Server{
-		Addr: fmt.Sprintf(":%d", global.GqaConfig.System.Port),
+func Boot() {
+	server := &http.Server{
+		Addr:    fmt.Sprintf(":%d", global.GqaConfig.System.Port),
 		Handler: Router(),
 	}
 	go func() {
-		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			log.Fatalf("【gin-quasar-admin】监听：%s\n", err)
 		}
 	}()
@@ -31,18 +31,20 @@ func Boot()  {
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
-	if err := srv.Shutdown(ctx); err != nil {
+	if err := server.Shutdown(ctx); err != nil {
 		log.Fatal("【gin-quasar-admin】强制退出：", err)
 	}
 
 	log.Println("【gin-quasar-admin】退出完成！")
 }
 
-func logo(port string)  {
-	fmt.Print("\n______________                 _______                                                 _______ _________            _____         \n__  ____/___(_)_______         __  __ \\____  ________ _______________ _________        ___    |______  /_______ ___ ___(_)_______ \n_  / __  __  / __  __ \\_________  / / /_  / / /_  __ `/__  ___/_  __ `/__  ___/__________  /| |_  __  / __  __ `__ \\__  / __  __ \\\n/ /_/ /  _  /  _  / / /_/_____// /_/ / / /_/ / / /_/ / _(__  ) / /_/ / _  /    _/_____/_  ___ |/ /_/ /  _  / / / / /_  /  _  / / /\n\\____/   /_/   /_/ /_/         \\___\\_\\ \\__,_/  \\__,_/  /____/  \\__,_/  /_/             /_/  |_|\\__,_/   /_/ /_/ /_/ /_/   /_/ /_/ \n                                                                                                                                  \n")
-	fmt.Println("欢迎使用Gin-Quasar-Admin!")
+var logoText = "  ________.__                 ________                                                 _____       .___      .__        \n /  _____/|__| ____           \\_____  \\  __ _______    ___________ _______            /  _  \\    __| _/_____ |__| ____  \n/   \\  ___|  |/    \\   ______  /  / \\  \\|  |  \\__  \\  /  ___/\\__  \\\\_  __ \\  ______  /  /_\\  \\  / __ |/     \\|  |/    \\ \n\\    \\_\\  \\  |   |  \\ /_____/ /   \\_/.  \\  |  // __ \\_\\___ \\  / __ \\|  | \\/ /_____/ /    |    \\/ /_/ |  Y Y  \\  |   |  \\\n \\______  /__|___|  /         \\_____\\ \\_/____/(____  /____  >(____  /__|            \\____|__  /\\____ |__|_|  /__|___|  /\n        \\/        \\/                 \\__>          \\/     \\/      \\/                        \\/      \\/     \\/        \\/"
+
+func logo(port string) {
+	fmt.Println(logoText)
+	fmt.Println("欢迎使用 Gin-Quasar-Admin (V2版本)")
 	fmt.Println("项目地址: https://github.com/Junvary/gin-quasar-admin ")
 	fmt.Println("欢迎交流，感谢Star!")
 	fmt.Println("系统已启动,开始监听 " + port + " 端口...")
-	global.GqaLog.Info("欢迎使用Gin-Quasar-Admin,系统已启动,开始监听 " + port + " 端口...")
+	global.GqaLogger.Info("欢迎使用Gin-Quasar-Admin,系统已启动,开始监听 " + port + " 端口...")
 }

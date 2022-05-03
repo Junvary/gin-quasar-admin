@@ -1,5 +1,5 @@
 <template>
-    <q-dialog v-model="roleUserVisible" position="right">
+    <q-dialog v-model="roleUserVisible">
         <q-card style="min-width: 500px; max-width: 45vw">
             <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
                 :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
@@ -24,99 +24,122 @@
     </q-dialog>
 </template>
 
-<script>
-import { tableDataMixin } from 'src/mixins/tableDataMixin'
+<script setup>
+import useTableData from 'src/composables/useTableData'
+import { useQuasar } from 'quasar'
 import { postAction } from 'src/api/manage'
+import { computed, onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { DictOptions } from 'src/utils/dict'
+import { FormatDateTime } from 'src/utils/date'
 import SelectUserDialog from 'src/components/GqaSeleteUser/SelectUserDialog'
 
-export default {
-    name: 'RoleUserDialog',
-    mixins: [tableDataMixin],
-    components: {
-        SelectUserDialog,
-    },
-    data() {
-        return {
-            roleUserVisible: false,
-            record: {},
-            url: {
-                list: 'role/role-user',
-                removeUser: 'role/role-user-remove',
-                addUser: 'role/role-user-add',
-            },
-            columns: [
-                // { name: 'sort', align: 'center', label: this.$t('Sort'), field: 'sort' },
-                { name: 'username', align: 'center', label: this.$t('Username'), field: 'username' },
-                { name: 'nickname', align: 'center', label: this.$t('Nickname'), field: 'nickname' },
-                { name: 'realName', align: 'center', label: this.$t('RealName'), field: 'realName' },
-                { name: 'actions', align: 'center', label: this.$t('Actions'), field: 'actions' },
-            ],
-            pagination: {
-                sortBy: 'username',
-                descending: false,
-                page: 1,
-                rowsPerPage: 10,
-            },
-        }
-    },
-    methods: {
-        show(row) {
-            this.tableData = []
-            this.record = row
-            this.queryParams.roleCode = this.record.roleCode
-            this.roleUserVisible = true
-            this.getTableData()
-        },
-        showAddUserForm() {
-            this.$refs.selectUserDialog.show(this.tableData)
-        },
-        handleRemove(row) {
-            this.$q
-                .dialog({
-                    title: this.$t('ConfirmDelete'),
-                    message: this.$t('ConfirmDeleteMessage'),
-                    cancel: true,
-                    persistent: true,
-                })
-                .onOk(async () => {
-                    if (this.record.roleCode === 'super-admin' && row.username === 'admin') {
-                        this.$q.notify({
-                            type: 'negative',
-                            message: this.$t('CanNotDeleteThis'),
-                        })
-                        return false
-                    }
-                    const res = await postAction(this.url.removeUser, {
-                        roleCode: this.record.roleCode,
-                        username: row.username,
-                    })
-                    if (res.code === 1) {
-                        this.$q.notify({
-                            type: 'positive',
-                            message: res.message,
-                        })
-                    }
-                    this.getTableData()
-                })
-        },
-        handleAddUser(event) {
-            const usernameList = []
-            for (let i of event) {
-                usernameList.push(i.username)
-            }
-            postAction(this.url.addUser, {
-                roleCode: this.record.roleCode,
-                username: usernameList,
-            }).then((res) => {
-                if (res.code === 1) {
-                    this.$q.notify({
-                        type: 'positive',
-                        message: res.message,
-                    })
-                }
-                this.getTableData()
+const $q = useQuasar()
+const { t } = useI18n()
+const url = {
+    list: 'role/query-user-by-role',
+    removeUser: 'role/remove-role-user',
+    addUser: 'role/add-role-user',
+}
+const columns = computed(() => {
+    return [
+        // { name: 'sort', align: 'center', label: t('Sort'), field: 'sort' },
+        { name: 'username', align: 'center', label: t('Username'), field: 'username' },
+        { name: 'nickname', align: 'center', label: t('Nickname'), field: 'nickname' },
+        { name: 'real_name', align: 'center', label: t('RealName'), field: 'real_name' },
+        { name: 'actions', align: 'center', label: t('Actions'), field: 'actions' },
+    ]
+})
+const {
+    pagination,
+    queryParams,
+    pageOptions,
+    GqaDictShow,
+    GqaAvatar,
+    loading,
+    tableData,
+    recordDetailDialog,
+    showAddForm,
+    showEditForm,
+    onRequest,
+    handleSearch,
+    resetSearch,
+    handleFinish,
+    handleDelete,
+} = useTableData(url)
+
+const roleUserVisible = ref(false)
+
+const record = ref({})
+
+const show = (row) => {
+    pagination.value.sortBy = 'username'
+    tableData.value = []
+    record.value = row
+    queryParams.value.role_code = record.value.role_code
+    roleUserVisible.value = true
+    onRequest({
+        pagination: pagination.value,
+        queryParams: queryParams.value
+    })
+}
+defineExpose({
+    show
+})
+
+const selectUserDialog = ref(null)
+const showAddUserForm = () => {
+    selectUserDialog.value.show(tableData.value)
+}
+const handleRemove = (row) => {
+    $q.dialog({
+        title: t('Confirm'),
+        message: t('Confirm') + t('Delete') + '?',
+        cancel: true,
+        persistent: true,
+    }).onOk(async () => {
+        if (record.value.roleCode === 'super-admin' && row.username === 'admin') {
+            $q.notify({
+                type: 'negative',
+                message: t('CanNotDeleteThis'),
             })
-        },
-    },
+            return false
+        }
+        const res = await postAction(url.removeUser, {
+            role_code: record.value.role_code,
+            username: row.username,
+        })
+        if (res.code === 1) {
+            $q.notify({
+                type: 'positive',
+                message: res.message,
+            })
+        }
+        onRequest({
+            pagination: pagination.value,
+            queryParams: queryParams.value
+        })
+    })
+}
+const handleAddUser = (event) => {
+    const usernameList = []
+    for (let i of event) {
+        usernameList.push(i.username)
+    }
+    postAction(url.addUser, {
+        role_code: record.value.role_code,
+        username: usernameList,
+    }).then((res) => {
+        if (res.code === 1) {
+            $q.notify({
+                type: 'positive',
+                message: res.message,
+            })
+        }
+        onRequest({
+            pagination: pagination.value,
+            queryParams: queryParams.value
+        })
+    })
 }
 </script>

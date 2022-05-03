@@ -3,18 +3,13 @@ package public
 import "github.com/Junvary/gin-quasar-admin/GQA-BACKEND/service"
 
 type ApiPublic struct {
-	ApiCheckAndInitDb
-	ApiCaptcha
-	ApiLogin
-	ApiGetDict
-	ApiGetFrontend
-	ApiGetBackend
-	ApiWebSocket
+	ApiCaptcha        ApiCaptcha
+	ApiConfigBackend  ApiConfigBackend
+	ApiConfigFrontend ApiConfigFrontend
+	ApiDb             ApiDb
+	ApiDict           ApiDict
+	ApiLogin          ApiLogin
+	ApiWebSocket      ApiWebSocket
 }
 
-var ServicePublic = service.GroupServiceApp.ServicePublic
-var ServiceCheckAndInitDb = ServicePublic.ServiceCheckAndInitDb
-var ServiceLogin = ServicePublic.ServiceLogin
-var ServiceGetDict = ServicePublic.ServiceGetDict
-var ServiceGetFrontend = ServicePublic.ServiceGetFrontend
-var ServiceGetBackend = ServicePublic.ServiceGetBackend
+var servicePublic = service.GqaService.ServicePublic

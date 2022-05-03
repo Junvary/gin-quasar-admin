@@ -1,32 +1,24 @@
 mysql:
-  path:
-  config:
-  db-name:
-  username:
-  password:
-  max-idle-conns: 0
-  max-open-conns: 0
+  host: 127.0.0.1
+  port: "3306"
+  user: root
+  password: "123456"
+  database: gin-quasar-admin
+  maxIdle: 0
+  maxOpen: 0
 system:
   port: 8888
-  success-code: 1
-  success-message: 操作成功
-  error-code: 0
-  error-message: 操作失败
-  gen-plugin-path: gqaplugin/template
-upload:
-  avatar-save-path: upload/avatar
-  avatar-url: avatar
-  file-save-path: upload/file
-  file-url: file
-  web-logo-save-path: upload/logo
-  web-logo-url: logo
-  banner-image-save-path: upload/banner
-  banner-image-url: banner
+  successCode: 1
+  successMessage: 操作成功！
+  errorCode: 0
+  errorMessage: 操作失败！
+  bindError: 入参校验失败！
+  genPluginPath: gqaplugin/template
 zap:
-  prefix: 【gin-quasar-admin】
+  prefix: '[gin-quasar-admin]'
   level: info
-  filepath: log
+  path: gqa-log
   filename: gqa-log
-  max-size: 200
-  max-age: 8
-  max-backups: 10
+  maxSize: 200
+  maxBackups: 10
+  maxAge: 8

@@ -20,7 +20,7 @@ export const ArrayToTree = (arrayData, key, parentKey) => {
     const data = XEUtils.toArrayTree(arrayData, {
         key: key,
         parentKey: parentKey,
-        strict: true
+        // strict: true
     })
     return data
 }

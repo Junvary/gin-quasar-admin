@@ -19,17 +19,17 @@
                     @click="props.toggleFullscreen" class="q-ml-md" />
             </template>
 
-            <template v-slot:body-cell-loginSuccess="props">
+            <template v-slot:body-cell-login_success="props">
                 <q-td :props="props">
-                    <q-badge align="middle" :color="props.row.loginSuccess === 'no' ? 'negative' : 'positive'">
-                        <GqaDictShow dictName="statusYesNo" :dictCode="props.row.loginSuccess" />
+                    <q-badge align="middle" :color="props.row.login_success === 'no' ? 'negative' : 'positive'">
+                        <GqaDictShow dictName="statusYesNo" :dictCode="props.row.login_success" />
                     </q-badge>
                 </q-td>
             </template>
 
-            <template v-slot:body-cell-createdAt="props">
+            <template v-slot:body-cell-created_at="props">
                 <q-td :props="props">
-                    {{ showDateTime(props.row.createdAt) }}
+                    {{ showDateTime(props.row.created_at) }}
                 </q-td>
             </template>
 
@@ -49,56 +49,65 @@
     </q-page>
 </template>
 
-<script>
-import { tableDataMixin } from 'src/mixins/tableDataMixin'
-import GqaDictShow from 'src/components/GqaDictShow'
+<script setup>
+import useTableData from 'src/composables/useTableData'
+import { useQuasar } from 'quasar'
+import { postAction } from 'src/api/manage'
+import { computed, onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { DictOptions } from 'src/utils/dict'
 import { FormatDateTime } from 'src/utils/date'
 
-export default {
-    name: 'Login',
-    mixins: [tableDataMixin],
-    components: {
-        GqaDictShow,
-    },
-    computed: {
-        columns() {
-            return [
-                { name: 'id', align: 'center', label: 'ID', field: 'id' },
-                { name: 'loginUsername', align: 'center', label: this.$t('User'), field: 'loginUsername' },
-                { name: 'loginIp', align: 'center', label: 'IP', field: 'loginIp' },
-                { name: 'loginBrowser', align: 'center', label: this.$t('Browser'), field: 'loginBrowser' },
-                { name: 'loginOs', align: 'center', label: this.$t('Os'), field: 'loginOs' },
-                { name: 'loginPlatform', align: 'center', label: this.$t('Platform'), field: 'loginPlatform' },
-                { name: 'createdAt', align: 'center', label: this.$t('CreatedAt'), field: 'createdAt' },
-                { name: 'loginSuccess', align: 'center', label: this.$t('LoginSuccess'), field: 'loginSuccess' },
-                { name: 'actions', align: 'center', label: this.$t('Actions'), field: 'actions' },
-            ]
-        },
-        showDateTime() {
-            return (datetime) => {
-                return FormatDateTime(datetime)
-            }
-        },
-    },
-    data() {
-        return {
-            pagination: {
-                sortBy: 'created_at',
-                descending: true,
-                page: 1,
-                rowsPerPage: 10,
-            },
-            url: {
-                list: 'log/log-login-list',
-                delete: 'log/log-login-delete',
-            },
-            dictOptions: {},
-        }
-    },
-    async created() {
-        this.getTableData()
-        this.dictOptions = await DictOptions()
-    },
+const $q = useQuasar()
+const { t } = useI18n()
+const url = {
+    list: 'log/get-log-login-list',
+    delete: 'log/delete-log-login-by-id',
 }
+const columns = computed(() => {
+    return [
+        { name: 'id', align: 'center', label: 'ID', field: 'id' },
+        { name: 'login_username', align: 'center', label: t('User'), field: 'login_username' },
+        { name: 'login_ip', align: 'center', label: 'IP', field: 'login_ip' },
+        { name: 'login_browser', align: 'center', label: t('Browser'), field: 'login_browser' },
+        { name: 'login_os', align: 'center', label: t('Os'), field: 'login_os' },
+        { name: 'login_platform', align: 'center', label: t('Platform'), field: 'login_platform' },
+        { name: 'created_at', align: 'center', label: t('CreatedAt'), field: 'created_at' },
+        { name: 'login_success', align: 'center', label: t('LoginSuccess'), field: 'login_success' },
+        { name: 'actions', align: 'center', label: t('Actions'), field: 'actions' },
+    ]
+})
+const {
+    pagination,
+    queryParams,
+    pageOptions,
+    GqaDictShow,
+    GqaAvatar,
+    loading,
+    tableData,
+    recordDetailDialog,
+    showAddForm,
+    showEditForm,
+    onRequest,
+    handleSearch,
+    resetSearch,
+    handleFinish,
+    handleDelete,
+} = useTableData(url)
+
+const dictOptions = ref({})
+onMounted(async () => {
+    dictOptions.value = await DictOptions()
+    pagination.value.sortBy = 'created_at'
+    onRequest({
+        pagination: pagination.value,
+        queryParams: queryParams.value
+    })
+})
+
+const showDateTime = computed(() => {
+    return (datetime) => {
+        return FormatDateTime(datetime)
+    }
+})
 </script>

@@ -18,20 +18,9 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import GqaLanguage from 'src/components/GqaLanguage'
 import GqaTheme from 'src/components/GqaTheme'
-
-export default {
-    name: 'Setting',
-    components: {
-        GqaLanguage,
-        GqaTheme,
-    },
-    data() {
-        return {
-            right: false,
-        }
-    },
-}
+import { ref } from 'vue';
+const right = ref(false)
 </script>

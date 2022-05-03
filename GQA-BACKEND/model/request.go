@@ -1,0 +1,41 @@
+package model
+
+import (
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
+	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
+)
+
+type RequestPage struct {
+	Page     int `json:"page" form:"page"`
+	PageSize int `json:"page_size" form:"pageSize"`
+}
+
+type RequestSort struct {
+	SortBy string `json:"sort_by" form:"sortBy"`
+	Desc   bool   `json:"desc" form:"desc"`
+}
+
+type RequestPageAndSort struct {
+	RequestPage
+	RequestSort
+}
+
+type RequestAdd struct {
+	Sort   uint   `json:"sort"`
+	Status string `json:"status"`
+	Memo   string `json:"memo"`
+}
+
+type RequestQueryById struct {
+	Id uint `json:"id"`
+}
+
+func RequestShouldBindJSON(c *gin.Context, obj interface{}) error {
+	if err := c.ShouldBindJSON(obj); err != nil {
+		global.GqaLogger.Error(global.GqaConfig.System.BindError, zap.Any("err", err))
+		ResponseErrorMessage(global.GqaConfig.System.BindError+err.Error(), c)
+		return err
+	}
+	return nil
+}

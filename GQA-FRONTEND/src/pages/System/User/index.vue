@@ -1,13 +1,11 @@
 <template>
     <q-page padding>
-
         <div class="items-center row q-gutter-md" style="margin-bottom: 10px">
             <q-input style="width: 20%" v-model="queryParams.username" :label="$t('Username')" />
             <q-input style="width: 20%" v-model="queryParams.realName" :label="$t('RealName')" />
             <q-btn color="primary" @click="handleSearch" :label="$t('Search')" />
             <q-btn color="primary" @click="resetSearch" :label="$t('Reset')" />
         </div>
-
         <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
             :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
 
@@ -73,87 +71,89 @@
                 </q-td>
             </template>
         </q-table>
-        <add-or-edit-dialog ref="addOrEditDialog" @handleFinish="handleFinish" />
+        <recordDetail ref="recordDetailDialog" @handleFinish="handleFinish" />
     </q-page>
 </template>
 
-<script>
-import { tableDataMixin } from 'src/mixins/tableDataMixin'
-import addOrEditDialog from './modules/addOrEditDialog'
-import GqaAvatar from 'src/components/GqaAvatar'
-import GqaDictShow from 'src/components/GqaDictShow'
+<script setup>
+import useTableData from 'src/composables/useTableData'
+import { useQuasar } from 'quasar'
 import { postAction } from 'src/api/manage'
+import { computed, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
+import recordDetail from './modules/recordDetail'
 
-export default {
-    name: 'User',
-    mixins: [tableDataMixin],
-    components: {
-        addOrEditDialog,
-        GqaAvatar,
-        GqaDictShow,
-    },
-    computed: {
-        columns() {
-            return [
-                // { name: 'sort', align: 'center', label: this.$t('Sort'), field: 'sort' },
-                { name: 'avatar', align: 'center', label: this.$t('Avatar'), field: 'avatar' },
-                { name: 'username', align: 'center', label: this.$t('Username'), field: 'username' },
-                { name: 'nickname', align: 'center', label: this.$t('Nickname'), field: 'nickname' },
-                { name: 'realName', align: 'center', label: this.$t('RealName'), field: 'realName' },
-                { name: 'gender', align: 'center', label: this.$t('Gender'), field: 'gender' },
-                { name: 'role', align: 'center', label: this.$t('Role'), field: 'role' },
-                // { name: 'mobile', align: 'center', label: this.$t('Mobile'), field: 'mobile' },
-                // { name: 'email', align: 'center', label: '邮箱', field: 'email' },
-                { name: 'dept', align: 'center', label: this.$t('Dept'), field: 'dept' },
-                { name: 'status', align: 'center', label: this.$t('Status'), field: 'status' },
-                { name: 'stable', align: 'center', label: this.$t('Stable'), field: 'stable' },
-                { name: 'actions', align: 'center', label: this.$t('Actions'), field: 'actions' },
-            ]
-        },
-    },
-    data() {
-        return {
-            queryParams: {
-                withAdmin: true,
-            },
-            url: {
-                list: 'user/user-list',
-                delete: 'user/user-delete',
-                resetPassword: 'user/user-reset-password',
-            },
-            pagination: {
-                sortBy: 'username',
-                descending: false,
-                page: 1,
-                rowsPerPage: 10,
-            },
-        }
-    },
-    created() {
-        this.getTableData()
-    },
-    methods: {
-        resetPassword(row) {
-            this.$q
-                .dialog({
-                    title: this.$t('Reset') + this.$t('Password'),
-                    message: this.$t('Confirm') + this.$t('Reset') + this.$t('Password') + '?' + '(' + row.username + ')',
-                    cancel: true,
-                    persistent: true,
-                })
-                .onOk(async () => {
-                    const res = await postAction(this.url.resetPassword, {
-                        id: row.id,
-                    })
-                    if (res.code === 1) {
-                        this.$q.notify({
-                            type: 'positive',
-                            message: res.message,
-                        })
-                    }
-                    this.getTableData()
-                })
-        },
-    },
+const $q = useQuasar()
+const { t } = useI18n()
+const url = {
+    list: 'user/get-user-list',
+    delete: 'user/delete-user-by-id',
+    resetPassword: 'user/reset-password',
 }
+const columns = computed(() => {
+    return [
+        { name: 'avatar', align: 'center', label: t('Avatar'), field: 'avatar' },
+        { name: 'username', align: 'center', label: t('Username'), field: 'username' },
+        { name: 'nickname', align: 'center', label: t('Nickname'), field: 'nickname' },
+        { name: 'real_name', align: 'center', label: t('RealName'), field: 'real_name' },
+        { name: 'gender', align: 'center', label: t('Gender'), field: 'gender' },
+        { name: 'role', align: 'center', label: t('Role'), field: 'role' },
+        { name: 'dept', align: 'center', label: t('Dept'), field: 'dept' },
+        { name: 'status', align: 'center', label: t('Status'), field: 'status' },
+        { name: 'stable', align: 'center', label: t('Stable'), field: 'stable' },
+        { name: 'actions', align: 'center', label: t('Actions'), field: 'actions' },
+    ]
+})
+const {
+    pagination,
+    queryParams,
+    pageOptions,
+    GqaDictShow,
+    GqaAvatar,
+    loading,
+    tableData,
+    recordDetailDialog,
+    showAddForm,
+    showEditForm,
+    onRequest,
+    handleSearch,
+    resetSearch,
+    handleFinish,
+    handleDelete,
+} = useTableData(url)
+
+onMounted(() => {
+    pagination.value.sortBy = 'username'
+    queryParams.value = {
+        withAdmin: true,
+    }
+    onRequest({
+        pagination: pagination.value,
+        queryParams: queryParams.value
+    })
+})
+
+const resetPassword = (row) => {
+    $q.dialog({
+        title: t('Reset') + t('Password'),
+        message: t('Confirm') + t('Reset') + t('Password') + '?' + '(' + row.username + ')',
+        cancel: true,
+        persistent: true,
+    }).onOk(async () => {
+        const res = await postAction(url.resetPassword, {
+            id: row.id,
+        })
+        if (res.code === 1) {
+            $q.notify({
+                type: 'positive',
+                message: res.message,
+            })
+        }
+        onRequest({
+            pagination: pagination.value,
+            queryParams: queryParams.value
+        })
+    })
+}
+
 </script>

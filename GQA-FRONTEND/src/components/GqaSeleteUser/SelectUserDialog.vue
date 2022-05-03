@@ -5,10 +5,14 @@
                 <div class="text-subtitle1">
                     <span v-if="title !== ''">
                         {{ title }}
-                        {{selection === "multiple" ? $t('SelectMultiple') : $t('SelectOne')}}
+                        {{ selection === "multiple" ? $t('SelectMultiple') : $t('SelectSingle') }}
                     </span>
                     <span v-else>
-                        {{ $t('ComponentSelectUserTitle', {oneOrMultiple: selection === "multiple" ? $t('SelectMultiple') : $t('SelectOne')}) }}
+                        {{ $t('SelectUserComponent', {
+                                oneOrMultiple: selection === "multiple" ? $t('SelectMultiple') :
+                                    $t('SelectSingle')
+                            })
+                        }}
                     </span>
                 </div>
                 <span class="text-subtitle2 text-negative row justify-center" v-if="selection === 'multiple'">
@@ -25,7 +29,7 @@
                 <q-btn dense color="primary" @click="handleSearch" :label="$t('Search')" />
                 <q-btn dense color="primary" @click="resetSearch" :label="$t('Reset')" />
             </q-card-section>
-
+            {{ selected }}
             <q-table row-key="username" :rows="tableData" :columns="columns" v-model:pagination="pagination"
                 :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest" :selection="selection"
                 v-model:selected="selected">
@@ -34,58 +38,86 @@
     </q-dialog>
 </template>
 
-<script>
-import { tableDataMixin } from 'src/mixins/tableDataMixin'
+<script setup>
+import useTableData from 'src/composables/useTableData'
+import { useQuasar } from 'quasar'
+import { postAction } from 'src/api/manage'
+import { computed, onMounted, ref, toRefs } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { DictOptions } from 'src/utils/dict'
+import { FormatDateTime } from 'src/utils/date'
 import { ArrayOrObject } from 'src/utils/arrayOrObject'
 
-export default {
-    name: 'SelectUserDialog',
-    mixins: [tableDataMixin],
-    props: {
-        // 必须传递单选多选: multiple, single
-        selection: {
-            type: String,
-            required: true,
-        },
-        title: {
-            type: String,
-            required: false,
-            default: '',
-        },
+const $q = useQuasar()
+const { t } = useI18n()
+const props = defineProps({
+    // 必须传递单选多选: multiple, single
+    selection: {
+        type: String,
+        required: true,
     },
-    data() {
-        return {
-            selectUserVisible: false,
-            url: {
-                list: 'user/user-list',
-            },
-            columns: [
-                { name: 'username', align: 'center', label: this.$parent.$t('Username'), field: 'username' },
-                { name: 'nickname', align: 'center', label: this.$parent.$t('Nickname'), field: 'nickname' },
-                { name: 'realName', align: 'center', label: this.$parent.$t('RealName'), field: 'realName' },
-            ],
-            selected: [],
+    title: {
+        type: String,
+        required: false,
+        default: '',
+    }
+})
+const { selection, title } = toRefs(props)
+const url = {
+    list: 'user/get-user-list',
+}
+const columns = computed(() => {
+    return [
+        { name: 'username', align: 'center', label: t('Username'), field: 'username' },
+        { name: 'nickname', align: 'center', label: t('Nickname'), field: 'nickname' },
+        { name: 'realName', align: 'center', label: t('RealName'), field: 'realName' },
+    ]
+})
+const {
+    pagination,
+    queryParams,
+    pageOptions,
+    GqaDictShow,
+    GqaAvatar,
+    loading,
+    tableData,
+    recordDetailDialog,
+    showAddForm,
+    showEditForm,
+    onRequest,
+    handleSearch,
+    resetSearch,
+    handleFinish,
+    handleDelete,
+} = useTableData(url)
+
+const selectUserVisible = ref(false)
+const selected = ref(null)
+
+const show = (selectUser) => {
+    selected.value = []
+    selectUserVisible.value = true
+    onRequest({
+        pagination: pagination.value,
+        queryParams: queryParams.value
+    })
+    if (selection.value === 'multiple') {
+        if (ArrayOrObject(selectUser) === 'Array') {
+            selected.value = selectUser
+        } else {
+            selected.value = []
         }
-    },
-    methods: {
-        show(selectUser) {
-            this.selected = []
-            this.selectUserVisible = true
-            this.getTableData()
-            if (this.selection === 'multiple') {
-                if (ArrayOrObject(selectUser) === 'Array') {
-                    this.selected = selectUser
-                } else {
-                    this.selected = []
-                }
-            } else {
-                this.selected.push(selectUser)
-            }
-        },
-        handleSelectUser() {
-            this.$emit('handleSelectUser', this.selected)
-            this.selectUserVisible = false
-        },
-    },
+    } else {
+        selected.value.push(selectUser)
+    }
+}
+
+defineExpose({
+    show
+})
+const emit = defineEmits(['handleSelectUser'])
+const handleSelectUser = () => {
+    emit('handleSelectUser', selected.value)
+    selectUserVisible.value = false
 }
 </script>

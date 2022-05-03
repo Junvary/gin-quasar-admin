@@ -1,7 +1,7 @@
 <template>
     <q-btn dense round glossy push color="primary" icon="notifications">
-        <q-badge color="negative" floating v-if="tableData.length + todoNoteData.length">
-            {{ tableData.length + todoNoteData.length }}
+        <q-badge color="negative" floating v-if="tableData.length + noteTodoData.length">
+            {{ tableData.length + noteTodoData.length }}
         </q-badge>
         <q-menu>
             <q-card>
@@ -18,9 +18,9 @@
                         </q-badge>
                     </q-tab>
 
-                    <q-tab name="todoNote" :label="$t('TodoNote')">
-                        <q-badge color="negative" floating v-if="todoNoteData.length">
-                            {{ todoNoteData.length }}
+                    <q-tab name="noteTodo" :label="$t('NoteTodo')">
+                        <q-badge color="negative" floating v-if="noteTodoData.length">
+                            {{ noteTodoData.length }}
                         </q-badge>
                     </q-tab>
                 </q-tabs>
@@ -36,107 +36,120 @@
                         <NoticeMessage :messageData="messageData" />
                     </q-tab-panel>
 
-                    <q-tab-panel style="padding: 0" name="todoNote">
-                        <NoticeTodoNote :todoNoteData="todoNoteData" />
+                    <q-tab-panel style="padding: 0" name="noteTodo">
+                        <NoticeNoteTodo :noteTodoData="noteTodoData" />
                     </q-tab-panel>
                 </q-tab-panels>
             </q-card>
-
         </q-menu>
     </q-btn>
-
 </template>
 
-<script>
-import { tableDataMixin } from 'src/mixins/tableDataMixin'
-import NoticeSystem from './NoticeSystem'
-import NoticeMessage from './NoticeMessage'
-import NoticeTodoNote from './NoticeTodoNote'
-import { mapGetters } from 'vuex'
+<script setup>
+import useTableData from 'src/composables/useTableData'
+import { useQuasar } from 'quasar'
 import { postAction } from 'src/api/manage'
+import { computed, onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { DictOptions } from 'src/utils/dict'
+import { FormatDateTime } from 'src/utils/date'
+import NoticeSystem from './NoticeSystem.vue'
+import NoticeMessage from './NoticeMessage.vue'
+import NoticeNoteTodo from './NoticeNoteTodo.vue'
+import { useUserStore } from 'src/stores/user'
+import { emitter } from 'src/boot/bus'
 
-export default {
-    name: 'Notice',
-    mixins: [tableDataMixin],
-    components: {
-        NoticeSystem,
-        NoticeMessage,
-        NoticeTodoNote,
-    },
-    computed: {
-        ...mapGetters({
-            username: 'user/username',
-        }),
-        systemData() {
-            return this.tableData.filter((item) => item.noticeType === 'system')
-        },
-        messageData() {
-            return this.tableData.filter((item) => item.noticeType === 'message')
-        },
-    },
-    data() {
-        return {
-            noticeType: 'system',
-            queryParams: {
-                noticeRead: 'no',
-                noticeSent: 'yes',
-                noticeToUser: String(this.username),
-            },
-            todoQueryParams: {
-                todoStatus: 'no',
-            },
-            pagination: {
-                sortBy: 'created_at',
-                descending: true,
-                page: 1,
-                rowsPerPage: 9999,
-            },
-            url: {
-                list: 'notice/notice-list',
-                todoNoteList: 'todo-note/todo-note-list',
-            },
-            todoNoteData: [],
-        }
-    },
-    mounted() {
-        this.$bus.on('noticeGetTableData', () => {
-            this.getTableData()
-            this.getTodoNoteData({ pagination: this.pagination })
+const $q = useQuasar()
+const { t } = useI18n()
+const userStore = useUserStore()
+const url = {
+    list: 'notice/get-notice-list',
+    noteTodoList: 'note-todo/get-note-todo-list',
+}
+const {
+    pagination,
+    queryParams,
+    pageOptions,
+    GqaDictShow,
+    GqaAvatar,
+    loading,
+    tableData,
+    recordDetailDialog,
+    showAddForm,
+    showEditForm,
+    onRequest,
+    handleSearch,
+    resetSearch,
+    handleFinish,
+    handleDelete,
+} = useTableData(url)
+
+const username = computed(() => userStore.GetUsername())
+const systemData = computed(() => tableData.value.filter((item) => item.notice_type === 'system'))
+const messageData = computed(() => tableData.value.filter((item) => item.notice_type === 'message'))
+
+const noticeType = ref('system')
+
+onMounted(() => {
+    queryParams.value = {
+        notice_read: 'no',
+        notice_sent: 'yes',
+        notice_to_user: String(username.value),
+    }
+    pagination.value.sortBy = 'created_at'
+    emitter.on('noticeGetTableData', () => {
+        getTableData()
+        getNoteTodoData({ pagination: pagination.value })
+    })
+    queryParams.value.noticeToUser = String(username.value)
+    onRequest({
+        pagination: pagination.value,
+        queryParams: queryParams.value
+    })
+    getNoteTodoData({ pagination: pagination.value })
+})
+
+const todoQueryParams = {
+    todoStatus: 'no',
+}
+
+const getTableData = () => {
+    onRequest({
+        pagination: pagination.value,
+        queryParams: queryParams.value
+    })
+}
+defineExpose({
+    getTableData
+})
+
+const noteTodoData = ref([])
+
+const getNoteTodoData = async (props) => {
+    if (url === undefined || !url.noteTodoList) {
+        $q.notify({
+            type: 'negative',
+            message: t('UrlNotConfig'),
         })
-        this.queryParams.noticeToUser = String(this.username)
-        this.getTableData()
-        this.getTodoNoteData({ pagination: this.pagination })
-    },
-    methods: {
-        async getTodoNoteData(props) {
-            if (this.url === undefined || !this.url.todoNoteList) {
-                this.$q.notify({
-                    type: 'negative',
-                    message: this.$t('UrlNotConfig'),
-                })
-                return
-            }
-            this.todoNoteData = []
-            // 组装分页和过滤条件
-            const params = {}
-            params.sortBy = props.pagination.sortBy
-            params.desc = props.pagination.descending
-            params.page = props.pagination.page
-            params.pageSize = props.pagination.rowsPerPage
-            const allParams = Object.assign({}, params, this.todoQueryParams)
-            // 带参数请求数据
-            await postAction(this.url.todoNoteList, allParams)
-                .then((res) => {
-                    if (res.code === 1) {
-                        // 最终要把分页给同步掉
-                        this.pagination = props.pagination
-                        this.todoNoteData = res.data.records
-                    }
-                })
-                .finally(() => {
-                    this.loading = false
-                })
-        },
-    },
+        return
+    }
+    noteTodoData.value = []
+    // 组装分页和过滤条件
+    const params = {}
+    params.sort_by = props.pagination.sortBy
+    params.desc = props.pagination.descending
+    params.page = props.pagination.page
+    params.page_size = props.pagination.rowsPerPage
+    const allParams = Object.assign({}, params, todoQueryParams.value)
+    // 带参数请求数据
+    await postAction(url.noteTodoList, allParams).then((res) => {
+        if (res.code === 1) {
+            // 最终要把分页给同步掉
+            pagination.value = props.pagination
+            noteTodoData.value = res.data.records
+        }
+    }).finally(() => {
+        loading.value = false
+    })
 }
 </script>

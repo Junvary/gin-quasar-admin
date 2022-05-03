@@ -1,12 +1,13 @@
 <template>
     <div class="items-center column">
         <div class="justify-between row" style="width: 100%">
-            <q-btn color="negative" :disable="row.roleCode === 'super-admin'" @click="handleClear">
-                {{ $t('ClearAll') }}</q-btn>
-            <q-btn color="negative" :disable="row.roleCode === 'super-admin'" @click="handleAll">
-                {{ $t('SelectAll') }}</q-btn>
-            <q-btn color="primary" :disable="row.roleCode === 'super-admin'" @click="handleRoleApi">
-                {{ $t('Save') }}</q-btn>
+            <q-btn color="negative" :disable="row.rolecode === 'super-admin'" @click="handleClear">
+                {{ $t('Clear') + $t('All') }}</q-btn>
+            <q-btn color="negative" :disable="row.rolecode === 'super-admin'" @click="handleAll">
+                {{ $t('Select') + $t('All') }}</q-btn>
+            <q-btn color="primary" :disable="row.rolecode === 'super-admin'" @click="handleRoleApi">
+                {{ $t('Save') }}
+            </q-btn>
         </div>
 
         <q-card-section style="width: 100%; max-height: 70vh" class="scroll">
@@ -14,45 +15,47 @@
                 <template v-slot:before>
                     <q-tabs v-model="apiTab" dense vertical class="text-grey" active-color="primary"
                         indicator-color="primary">
-                        <q-tab v-for="(item, index) in apiData" :name="item.apiGroup"
-                            :label="item.apiGroup + getThisTickedNumber(item)" :key="index" />
+                        <q-tab v-for="(item, index) in apiData" :name="item.api_group"
+                            :label="item.api_group + getThisTickedNumber(item)" :key="index" />
                     </q-tabs>
                 </template>
                 <template v-slot:after>
                     <q-tab-panels v-model="apiTab" animated swipeable vertical transition-prev="jump-up"
                         transition-next="jump-up">
-                        <q-tab-panel v-for="(item, index) in apiData" :name="item.apiGroup" :key="index">
+                        <q-tab-panel v-for="(item, index) in apiData" :name="item.api_group" :key="index">
                             <q-tree dense :nodes="item.children" default-expand-all node-key="trueId"
                                 selected-color="primary" v-if="item.children.length !== 0" tick-strategy="strict"
                                 v-model:ticked="ticked">
                                 <template v-slot:default-header="prop">
                                     <div class="row items-center">
                                         <q-chip color="accent" text-color="white" dense
-                                            v-if="prop.node.apiGroup.substring(0, 7)=== 'plugin-'">
-                                            {{ prop.node.apiGroup }}
+                                            v-if="prop.node.api_group.substring(0, 7) === 'plugin-'">
+                                            {{ prop.node.api_group }}
                                         </q-chip>
                                         <q-chip color="primary" text-color="white" dense v-else>
-                                            {{ prop.node.apiGroup }}
+                                            {{ prop.node.api_group }}
                                         </q-chip>
                                         <q-chip color="primary" text-color="white" dense
-                                            v-if="prop.node.apiMethod=== 'POST'">
-                                            {{ prop.node.apiMethod }}
+                                            v-if="prop.node.api_method === 'POST'">
+                                            {{ prop.node.api_method }}
                                         </q-chip>
                                         <q-chip color="positive" text-color="white" dense
-                                            v-if="prop.node.apiMethod=== 'GET'">
-                                            {{ prop.node.apiMethod }}
+                                            v-if="prop.node.api_method === 'GET'">
+                                            {{ prop.node.api_method }}
                                         </q-chip>
                                         <q-chip color="negative" text-color="white" dense
-                                            v-if="prop.node.apiMethod=== 'DELETE'">
-                                            {{ prop.node.apiMethod }}
+                                            v-if="prop.node.api_method === 'DELETE'">
+                                            {{ prop.node.api_method }}
                                         </q-chip>
                                         <q-chip color="warning" text-color="white" dense
-                                            v-if="prop.node.apiMethod=== 'PUT'">
-                                            {{ prop.node.apiMethod }}
+                                            v-if="prop.node.api_method === 'PUT'">
+                                            {{ prop.node.api_method }}
                                         </q-chip>
-                                        <div class="text-weight-bold">{{ prop.node.apiPath }}</div>
+                                        <div class="text-weight-bold">
+                                            {{ prop.node.api_path }}
+                                        </div>
                                         <span class="text-weight-light text-black">
-                                            （{{ prop.node.remark}}）
+                                            （{{ prop.node.memo }}）
                                         </span>
                                     </div>
                                 </template>
@@ -68,137 +71,153 @@
     </div>
 </template>
 
-<script>
-import { tableDataMixin } from 'src/mixins/tableDataMixin'
-import { postAction, putAction } from 'src/api/manage'
+<script setup>
+import useTableData from 'src/composables/useTableData'
+import { useQuasar } from 'quasar'
+import { postAction } from 'src/api/manage'
+import { computed, onMounted, ref, toRefs } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { DictOptions } from 'src/utils/dict'
+import { FormatDateTime } from 'src/utils/date'
 
-export default {
-    name: 'RolePermissionApi',
-    mixins: [tableDataMixin],
-    props: {
-        row: {
-            type: Object,
-            required: true,
-        },
-    },
-    computed: {
-        apiData() {
-            if (this.tableData.length) {
-                // if (this.row.roleCode === 'super-admin') {
-                //     for (let i of this.tableData) {
-                //         i.disabled = true
-                //     }
-                // }
-                const data = this.tableData
-                for (let item of data) {
-                    item.trueId = 'p:' + item.apiPath + 'm:' + item.apiMethod
-                }
-                this.apiDataTrue = data
-                const apiTree = []
-                for (let d of data) {
-                    if (apiTree.find((item) => item.apiGroup === d.apiGroup) === undefined) {
-                        apiTree.push({
-                            apiGroup: d.apiGroup,
-                            children: [],
-                        })
-                    }
-                }
-                for (let d of data) {
-                    for (let a of apiTree) {
-                        if (a.apiGroup === d.apiGroup) {
-                            a.children.push(d)
-                        }
-                    }
-                }
-                this.apiTab = apiTree[0].apiGroup
-                return apiTree
-            }
-            return []
-        },
-        getThisTickedNumber() {
-            return (api) => {
-                const allNumber = api.children.length
-                var tickedNumber = 0
-                for (let t of this.ticked) {
-                    if (api.children.find((item) => item.trueId === t) !== undefined) {
-                        tickedNumber++
-                    }
-                }
-                return '(' + tickedNumber + '/' + allNumber + ')'
-            }
-        },
-    },
-    data() {
-        return {
-            pagination: {
-                sortBy: 'sort',
-                descending: false,
-                page: 1,
-                rowsPerPage: 10000,
-                rowsNumber: 0,
-            },
-            url: {
-                list: 'api/api-list',
-                roleApiList: 'role/role-api',
-                roleApiEdit: 'role/role-api-edit',
-            },
-            ticked: [],
-            apiTab: '',
-            splitterModel: 20,
-            apiDataTrue: [],
+const $q = useQuasar()
+const { t } = useI18n()
+const splitterModel = ref(20)
+const url = {
+    list: 'api/get-api-list',
+    roleApiList: 'role/get-role-api-list',
+    roleApiEdit: 'role/edit-role-api',
+}
+
+const props = defineProps({
+    row: {
+        type: Object,
+        required: true,
+    }
+})
+const { row } = toRefs(props)
+
+const {
+    pagination,
+    queryParams,
+    pageOptions,
+    GqaDictShow,
+    GqaAvatar,
+    loading,
+    tableData,
+    recordDetailDialog,
+    showAddForm,
+    showEditForm,
+    onRequest,
+    handleSearch,
+    resetSearch,
+    handleFinish,
+    handleDelete,
+} = useTableData(url)
+
+onMounted(() => {
+    pagination.value.rowsPerPage = 99999
+    onRequest({
+        pagination: pagination.value,
+        queryParams: queryParams.value
+    })
+    getRoleApiList()
+})
+
+const apiDataTrue = ref([])
+const apiTab = ref('')
+
+const apiData = computed(() => {
+    if (tableData.value.length) {
+        const data = tableData.value
+        for (let item of data) {
+            item.trueId = 'g:' + item.api_group + 'p:' + item.api_path + 'm:' + item.api_method
         }
-    },
-    created() {
-        this.getTableData()
-        this.getRoleApiList()
-    },
-    methods: {
-        getRoleApiList() {
-            // 每次获取前，清空ticked
-            this.ticked = []
-            postAction(this.url.roleApiList, {
-                roleCode: this.row.roleCode,
-            }).then((res) => {
-                if (res.code === 1) {
-                    res.data.records.forEach((item) => {
-                        this.ticked.push('p:' + item[1] + 'm:' + item[2])
-                    })
+        apiDataTrue.value = data
+        const apiTree = []
+        for (let d of data) {
+            if (apiTree.find((item) => item.api_group === d.api_group) === undefined) {
+                apiTree.push({
+                    api_group: d.api_group,
+                    children: [],
+                })
+            }
+        }
+        for (let d of data) {
+            for (let a of apiTree) {
+                if (a.api_group === d.api_group) {
+                    a.children.push(d)
                 }
+            }
+        }
+        apiTab.value = apiTree[0].api_group
+        console.log(apiTree)
+        return apiTree
+    }
+    return []
+})
+const ticked = ref([])
+
+const getThisTickedNumber = computed(() => {
+    return (api) => {
+        const allNumber = api.children.length
+        var tickedNumber = 0
+        for (let t of ticked.value) {
+            if (api.children.find((item) => item.trueId === t) !== undefined) {
+                tickedNumber++
+            }
+        }
+        return '(' + tickedNumber + '/' + allNumber + ')'
+    }
+})
+
+const getRoleApiList = () => {
+    // 每次获取前，清空ticked
+    ticked.value = []
+    postAction(url.roleApiList, {
+        role_code: row.value.role_code,
+    }).then((res) => {
+        if (res.code === 1) {
+            res.data.records.forEach((item) => {
+                ticked.value.push('g:' + item.api_group + 'p:' + item.api_path + 'm:' + item.api_method)
             })
-        },
-        handleRoleApi() {
-            const policy = []
-            this.tableData.forEach((item) => {
-                for (let t of this.ticked) {
-                    if (t === item.trueId) {
-                        policy.push({
-                            V1: item.apiPath,
-                            V2: item.apiMethod,
-                        })
-                    }
-                }
+        }
+    })
+}
+const handleRoleApi = () => {
+    const roleApi = []
+    tableData.value.forEach((item) => {
+        for (let t of ticked.value) {
+            if (t === item.trueId) {
+                roleApi.push({
+                    role_code: row.value.role_code,
+                    api_group: item.api_group,
+                    api_method: item.api_method,
+                    api_path: item.api_path,
+                })
+            }
+        }
+    })
+    postAction(url.roleApiEdit, {
+        role_code: row.value.role_code,
+        role_api: roleApi,
+    }).then((res) => {
+        if (res.code === 1) {
+            $q.notify({
+                type: 'positive',
+                message: res.message,
             })
-            putAction(this.url.roleApiEdit, {
-                roleCode: this.row.roleCode,
-                policy: policy,
-            }).then((res) => {
-                if (res.code === 1) {
-                    this.$q.notify({
-                        type: 'positive',
-                        message: res.message,
-                    })
-                    this.getRoleApiList()
-                }
-            })
-        },
-        handleClear() {
-            this.ticked = []
-        },
-        handleAll() {
-            this.tableData.forEach((item) => {
-                this.ticked.push('p:' + item.apiPath + 'm:' + item.apiMethod)
-            })
-        },
-    },
+            getRoleApiList()
+        }
+    })
+}
+const handleClear = () => {
+    ticked.value = []
+}
+const handleAll = () => {
+    ticked.value = []
+    tableData.value.forEach((item) => {
+        ticked.value.push('g:' + item.api_group + 'p:' + item.api_path + 'm:' + item.api_method)
+    })
 }
 </script>

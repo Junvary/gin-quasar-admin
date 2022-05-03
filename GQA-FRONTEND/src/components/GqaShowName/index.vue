@@ -4,56 +4,56 @@
     </span>
 </template>
 
-<script>
-import { GqaUsername } from 'src/settings'
+<script setup>
+import { useQuasar } from 'quasar';
+import { GqaDefaultUsername } from 'src/settings'
+import { computed, toRefs } from 'vue';
 
-export default {
-    name: 'GqaShowName',
-    props: {
-        customNameString: {
-            type: String,
-            required: false,
-            default: '',
-        },
-        customNameObject: {
-            type: Object,
-            required: false,
-            default: () => {
-                return {}
-            },
-        },
-        showMyName: {
-            type: Boolean,
-            required: false,
-            default: false,
+const $q = useQuasar()
+const props = defineProps({
+    customNameString: {
+        type: String,
+        required: false,
+        default: '',
+    },
+    customNameObject: {
+        type: Object,
+        required: false,
+        default: () => {
+            return {}
         },
     },
-    computed: {
-        trueName() {
-            if (this.customNameString !== '') {
-                // 自定义名字
-                return this.customNameString
-            } else if (JSON.stringify(this.customNameObject) !== '{}') {
-                // 其他用户的名字
-                if (this.customNameObject.nickname) {
-                    return this.customNameObject.nickname
-                } else if (this.customNameObject.realName) {
-                    return this.customNameObject.realName
-                } else {
-                    return this.customNameObject.username
-                }
-            } else if (this.showMyName) {
-                const nickname = this.$q.cookies.get('gqa-nickname')
-                const realName = this.$q.cookies.get('gqa-realName')
-                if (nickname) {
-                    return nickname
-                } else {
-                    return realName
-                }
-            } else {
-                return GqaUsername
-            }
-        },
+    showMyName: {
+        type: Boolean,
+        required: false,
+        default: false,
     },
-}
+})
+const { customNameString, customNameObject, showMyName } = toRefs(props)
+
+const trueName = computed(() => {
+    if (customNameString.value !== '') {
+        // 自定义名字
+        return customNameString.value
+    } else if (JSON.stringify(customNameObject.value) !== '{}') {
+        // 其他用户的名字
+        if (customNameObject.value.nickname) {
+            return customNameObject.value.nickname
+        } else if (customNameObject.value.realName) {
+            return customNameObject.value.realName
+        } else {
+            return customNameObject.value.username
+        }
+    } else if (showMyName.value) {
+        const nickname = $q.cookies.get('gqa-nickname')
+        const realName = $q.cookies.get('gqa-realName')
+        if (nickname) {
+            return nickname
+        } else {
+            return realName
+        }
+    } else {
+        return GqaDefaultUsername
+    }
+})
 </script>

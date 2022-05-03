@@ -10,66 +10,59 @@ import (
 )
 
 func Router() *gin.Engine {
-	var Router = gin.Default()
-	Router.Use(middleware.Cors())
+	var r = gin.Default()
+	r.Use(middleware.Cors())
+	StaticFS(r)
+	//公共路由分组：以 public 开头，路由内部无须再次分组，无须鉴权。
+	PublicGroup := r.Group("public")
+	RouterPublic(PublicGroup)
 
-	/*
-		为文件提供静态资源路径 头像和文件 无须鉴权
-	*/
-	//头像
-	Router.StaticFS(global.GqaConfig.Upload.AvatarUrl, http.Dir(global.GqaConfig.Upload.AvatarSavePath))
-	//文件
-	Router.StaticFS(global.GqaConfig.Upload.FileUrl, http.Dir(global.GqaConfig.Upload.FileSavePath))
-	//网站Logo
-	Router.StaticFS(global.GqaConfig.Upload.WebLogoUrl, http.Dir(global.GqaConfig.Upload.WebLogoSavePath))
-	//首页大图
-	Router.StaticFS(global.GqaConfig.Upload.BannerImageUrl, http.Dir(global.GqaConfig.Upload.BannerImageSavePath))
+	//鉴权路由分组：这里以空分组，路由内部按实绩情况分组，需要鉴权。
+	PrivateGroup := r.Group("")
+	PrivateGroup.Use(middleware.JwtHandler()).Use(middleware.RoleApiHandler())
+	RouterPrivate(PrivateGroup)
+	RouterPlugin(PublicGroup, PrivateGroup)
+	return r
+}
 
-	/*
-		公共路由分组：以 public 开头，路由内部无须再次分组，无须鉴权。
-	*/
-	PublicGroup := Router.Group("public")
-	//router目录下的public文件夹，提取为本分组
-	routerPublic := router.GroupRouterApp.RouterPublic
+func StaticFS(r *gin.Engine) {
+	r.StaticFS("/"+global.GqaServeAvatar, http.Dir(global.GqaServeUpload))
+	r.StaticFS("/"+global.GqaServeFile, http.Dir(global.GqaServeUpload))
+	r.StaticFS("/"+global.GqaServeLogo, http.Dir(global.GqaServeUpload))
+	r.StaticFS("/"+global.GqaServeBanner, http.Dir(global.GqaServeUpload))
+}
+
+func RouterPublic(PublicGroup *gin.RouterGroup) {
+	routerPublic := router.GqaRouter.RouterPublic
 	{
-		//检查数据库是否需要初始化，个性化配置和初始化数据库
-		routerPublic.InitRouterCheckAndInitDb(PublicGroup)
-		//验证码
-		routerPublic.InitRouterCaptcha(PublicGroup)
-		//登录
-		routerPublic.InitRouterLogin(PublicGroup)
-		//所有网站公共信息：字典
-		routerPublic.InitRouterGetDict(PublicGroup)
-		//获取网站公共信息：前台配置
-		routerPublic.InitRouterGetFrontend(PublicGroup)
-		//获取网站公共信息：后台配置
-		routerPublic.InitRouterGetBackend(PublicGroup)
-		//websocket
-		routerPublic.InitRouterWebSocket(PublicGroup)
+		routerPublic.RouterCaptcha.InitRouterCaptcha(PublicGroup)
+		routerPublic.RouterConfigBackend.InitRouterConfigBackend(PublicGroup)
+		routerPublic.RouterConfigFrontend.InitRouterConfigFrontend(PublicGroup)
+		routerPublic.RouterDb.InitRouterDb(PublicGroup)
+		routerPublic.RouterDict.InitRouterDict(PublicGroup)
+		routerPublic.RouterLogin.InitRouterLogin(PublicGroup)
+		routerPublic.RouterWebsocket.InitRouterWebSocket(PublicGroup)
 	}
-	/*
-		鉴权路由分组：这里以空分组，路由内部按实绩情况分组，需要鉴权。
-	*/
-	PrivateGroup := Router.Group("")
-	PrivateGroup.Use(middleware.JwtHandler()).Use(middleware.CasbinHandler())
-	routerSystem := router.GroupRouterApp.RouterSystem
+}
+
+func RouterPrivate(PrivateGroup *gin.RouterGroup) {
+	routerPrivate := router.GqaRouter.RouterPrivate
 	{
-		routerSystem.InitRouterMenu(PrivateGroup)
-		routerSystem.InitRouterUser(PrivateGroup)
-		routerSystem.InitRouterRole(PrivateGroup)
-		routerSystem.InitRouterDept(PrivateGroup)
-		routerSystem.InitRouterDict(PrivateGroup)
-		routerSystem.InitRouterApi(PrivateGroup)
-		routerSystem.InitRouterUpload(PrivateGroup)
-		routerSystem.InitRouterConfigBackend(PrivateGroup)
-		routerSystem.InitRouterConfigFrontend(PrivateGroup)
-		routerSystem.InitRouterLog(PrivateGroup)
-		routerSystem.InitRouterNotice(PrivateGroup)
-		routerSystem.InitRouterTodoNote(PrivateGroup)
-		routerSystem.InitRouterGenPlugin(PrivateGroup)
+		routerPrivate.RouterApi.InitRouterRouterApi(PrivateGroup)
+		routerPrivate.RouterConfigBackend.InitRouterRouterConfigBackend(PrivateGroup)
+		routerPrivate.RouterConfigFrontend.InitRouterRouterConfigFrontend(PrivateGroup)
+		routerPrivate.RouterDept.InitRouterRouterDept(PrivateGroup)
+		routerPrivate.RouterDict.InitRouterRouterDict(PrivateGroup)
+		routerPrivate.RouterLog.InitRouterRouterLog(PrivateGroup)
+		routerPrivate.RouterMenu.InitRouterRouterMenu(PrivateGroup)
+		routerPrivate.RouterNoteTodo.InitRouterRouterNoteTodo(PrivateGroup)
+		routerPrivate.RouterNotice.InitRouterRouterNotice(PrivateGroup)
+		routerPrivate.RouterRole.InitRouterRouterRole(PrivateGroup)
+		routerPrivate.RouterUpload.InitRouterRouterUpload(PrivateGroup)
+		routerPrivate.RouterUser.InitRouterRouterUser(PrivateGroup)
 	}
-	//加载插件路由
+}
+
+func RouterPlugin(PublicGroup, PrivateGroup *gin.RouterGroup) {
 	gqaplugin.RegisterPluginRouter(PublicGroup, PrivateGroup)
-
-	return Router
 }

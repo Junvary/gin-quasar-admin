@@ -1,95 +1,102 @@
 <template>
     <q-page padding>
-        <div class="row q-gutter-md items-center" style="margin-bottom: 10px">
-            <q-input style="width: 20%" v-model="queryParams.dictCode" :label="$t('Dict') + $t('Code')" />
-            <q-input style="width: 20%" v-model="queryParams.dictLabel" :label="$t('Dict')+ $t('Name')" />
-            <q-btn color="primary" @click="handleSearch" :label="$t('Search')" />
-            <q-btn color="primary" @click="resetSearch" :label="$t('Reset')" />
-        </div>
-
-        <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
-            :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
-
-            <template v-slot:top="props">
-                <q-btn color="primary" @click="showAddForm()" :label="$t('Add') + ' ' + $t('Dict')" />
-                <q-space />
-                <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
-                    @click="props.toggleFullscreen" class="q-ml-md" />
-            </template>
-
-            <template v-slot:body-cell-status="props">
-                <q-td :props="props">
-                    <GqaDictShow dictName="statusOnOff" :dictCode="props.row.status" />
-                </q-td>
-            </template>
-
-            <template v-slot:body-cell-stable="props">
-                <q-td :props="props">
-                    <GqaDictShow dictName="statusYesNo" :dictCode="props.row.stable" />
-                </q-td>
-            </template>
-
-            <template v-slot:body-cell-actions="props">
-                <q-td :props="props">
+        <q-btn color="primary" @click="showAddParentForm()" :label="$t('Add') + $t('Parent') + $t('Dict')" />
+        <q-hierarchy separator="cell" dense :columns="columns" :data="dictTree">
+            <template v-slot:body="props">
+                <gqa-tree-td :treeTd="props" firstTd="sort"></gqa-tree-td>
+                <td class="text-center">{{ props.item.dict_label }}</td>
+                <td class="text-center">{{ props.item.dict_code }}</td>
+                <td class="text-center">{{ props.item.dict_ext_1 }}</td>
+                <td class="text-center">{{ props.item.dict_ext_2 }}</td>
+                <td class="text-center">{{ props.item.dict_ext_3 }}</td>
+                <td class="text-center">{{ props.item.dict_ext_4 }}</td>
+                <td class="text-center">{{ props.item.dict_ext_5 }}</td>
+                <td class="text-center">{{ props.item.status }}</td>
+                <td class="text-center">{{ props.item.stable }}</td>
+                <td class="text-center">
                     <div class="q-gutter-xs">
-                        <q-btn color="primary" @click="showEditForm(props.row)" :label="$t('Edit')" />
-                        <q-btn color="warning" @click="handleDetail(props.row)" :label="$t('Detail')" />
-                        <q-btn color="negative" @click="handleDelete(props.row)" :label="$t('Delete')" />
+                        <q-btn dense color="primary" @click="showEditForm(props.item)" :label="$t('Edit')" />
+                        <q-btn dense color="warning" @click="showAddChildrenForm(props.item.dict_code)"
+                            :label="$t('Add') + $t('Children') + $t('Dict')" />
+                        <q-btn dense color="negative" @click="handleDelete(props.item)" :label="$t('Delete')" />
                     </div>
-                </q-td>
+                </td>
             </template>
-        </q-table>
-        <add-or-edit-dialog ref="addOrEditDialog" @handleFinish="handleFinish" />
-        <dict-detail-dialog ref="dictDetailDialog" @handleFinish="handleFinish" />
+        </q-hierarchy>
+        <recordDetail ref="recordDetailDialog" @handleFinish="handleFinish" />
     </q-page>
 </template>
 
-<script>
-import { tableDataMixin } from 'src/mixins/tableDataMixin'
-import addOrEditDialog from './modules/addOrEditDialog'
-import dictDetailDialog from './modules/dictDetailDialog'
-import GqaDictShow from 'src/components/GqaDictShow'
+<script setup>
+import useTableData from 'src/composables/useTableData'
+import { useQuasar } from 'quasar'
+import { postAction } from 'src/api/manage'
+import { computed, onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import recordDetail from './modules/recordDetail'
+import { ArrayToTree } from 'src/utils/arrayAndTree'
 
-export default {
-    name: 'Dict',
-    mixins: [tableDataMixin],
-    components: {
-        addOrEditDialog,
-        dictDetailDialog,
-        GqaDictShow,
-    },
-    computed: {
-        columns() {
-            return [
-                { name: 'sort', align: 'center', label: this.$t('Sort'), field: 'sort' },
-                { name: 'dictCode', align: 'center', label: this.$t('Dict') + this.$t('Code'), field: 'dictCode' },
-                { name: 'dictLabel', align: 'center', label: this.$t('Dict') + this.$t('Name'), field: 'dictLabel' },
-                { name: 'dictExt1', align: 'center', label: 'Ext1', field: 'dictExt1' },
-                { name: 'dictExt2', align: 'center', label: 'Ext2', field: 'dictExt2' },
-                { name: 'dictExt3', align: 'center', label: 'Ext3', field: 'dictExt3' },
-                { name: 'dictExt4', align: 'center', label: 'Ext4', field: 'dictExt4' },
-                { name: 'dictExt5', align: 'center', label: 'Ext5', field: 'dictExt5' },
-                { name: 'status', align: 'center', label: this.$t('Status'), field: 'status' },
-                { name: 'stable', align: 'center', label: this.$t('Stable'), field: 'stable' },
-                { name: 'actions', align: 'center', label: this.$t('Actions'), field: 'actions' },
-            ]
-        },
-    },
-    data() {
-        return {
-            url: {
-                list: 'dict/dict-list',
-                delete: 'dict/dict-delete',
-            },
-        }
-    },
-    created() {
-        this.getTableData()
-    },
-    methods: {
-        handleDetail(row) {
-            this.$refs.dictDetailDialog.show(row)
-        },
-    },
+const $q = useQuasar()
+const { t } = useI18n()
+const url = {
+    list: 'dict/get-dict-list',
+    delete: 'dict/delete-dict-by-id',
+}
+const columns = computed(() => {
+    return [
+        { name: 'sort', align: 'center', label: t('Sort'), field: 'sort' },
+        { name: 'dict_code', align: 'center', label: t('Dict') + t('Code'), field: 'dict_code' },
+        { name: 'dict_label', align: 'center', label: t('Dict') + t('Name'), field: 'dict_label' },
+        { name: 'dict_ext_1', align: 'center', label: 'Ext1', field: 'dict_ext_1' },
+        { name: 'dict_ext_2', align: 'center', label: 'Ext2', field: 'dict_ext_2' },
+        { name: 'dict_ext_3', align: 'center', label: 'Ext3', field: 'dict_ext_3' },
+        { name: 'dict_ext_4', align: 'center', label: 'Ext4', field: 'dict_ext_4' },
+        { name: 'dict_ext_5', align: 'center', label: 'Ext5', field: 'dict_ext_5' },
+        { name: 'status', align: 'center', label: t('Status'), field: 'status' },
+        { name: 'stable', align: 'center', label: t('Stable'), field: 'stable' },
+        { name: 'actions', align: 'center', label: t('Actions'), field: 'actions' },
+    ]
+})
+const {
+    pagination,
+    queryParams,
+    pageOptions,
+    GqaDictShow,
+    GqaAvatar,
+    loading,
+    tableData,
+    recordDetailDialog,
+    showAddForm,
+    showEditForm,
+    onRequest,
+    handleSearch,
+    resetSearch,
+    handleFinish,
+    handleDelete,
+} = useTableData(url)
+
+onMounted(() => {
+    pagination.value.rowsPerPage = 99999
+    onRequest({
+        pagination: pagination.value,
+        queryParams: queryParams.value
+    })
+})
+
+const dictTree = computed(() => {
+    if (tableData.value.length !== 0) {
+        return ArrayToTree(tableData.value, 'dict_code', 'parent_code')
+    }
+    return []
+})
+
+const showAddParentForm = () => {
+    showAddForm()
+}
+const showAddChildrenForm = (dictCode) => {
+    recordDetailDialog.value.formType = 'add'
+    recordDetailDialog.value.show()
+    recordDetailDialog.value.recordDetail.value.parent_code = dictCode
 }
 </script>
+

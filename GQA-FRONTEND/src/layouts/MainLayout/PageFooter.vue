@@ -1,14 +1,12 @@
 <template>
     <div class="row justify-center items-center ">
-        {{ gqaFrontend.gqaSubTitle }}
+        {{ gqaFrontend.subTitle }}
     </div>
 </template>
 
-<script>
-import { gqaFrontendMixin } from 'src/mixins/gqaFrontendMixin'
-
-export default {
-    name: 'PageFooter',
-    mixins: [gqaFrontendMixin],
-}
+<script setup>
+import { computed } from 'vue';
+import { useStorageStore } from 'src/stores/storage'
+const storageStore = useStorageStore()
+const gqaFrontend = computed(() => storageStore.GetGqaFrontend())
 </script>
