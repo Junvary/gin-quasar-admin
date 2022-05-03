@@ -114,13 +114,23 @@
 
 
 .gqa-form {
-    & .q-field__messages {
-        & div {
-            width        : max-content;
-            border-radius: 5px;
-            background   : $negative;
-            color        : #fff;
-            padding      : 3px;
+    & .q-field {
+        &__bottom--animated {
+            left   : -5px;
+            bottom : 15px !important;
+            z-index: 10;
+
+            & .q-field__messages {
+                & div {
+                    width        : max-content;
+                    border-radius: 5px;
+                    background   : $negative;
+                    color        : #fff;
+                    padding      : 5px;
+                }
+            }
         }
     }
+
+
 }

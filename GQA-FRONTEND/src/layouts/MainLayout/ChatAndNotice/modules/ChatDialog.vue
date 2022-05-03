@@ -22,7 +22,7 @@
             <q-separator />
 
             <q-card-actions>
-                <q-form ref="newMessageForm" style="width: 100%">
+                <q-form ref="newMessageForm" style="width: 100%" class="gqa-form">
                     <q-input v-model="newMessage" outlined type="textarea"
                         :rules="[val => val && val.length > 0 || $t('NeedInput')]">
                         <template v-slot:after>
@@ -60,6 +60,7 @@ const props = defineProps({
 })
 const { oldMessage } = toRefs(props)
 const {
+    gqaFrontend,
     pagination,
     queryParams,
     pageOptions,
@@ -96,8 +97,8 @@ const myAvatar = computed(() => {
     }
 })
 const myName = computed(() => {
-    const nickname = q.cookies.get('gqa-nickname')
-    const realName = q.cookies.get('gqa-realName')
+    const nickname = $q.cookies.get('gqa-nickname')
+    const realName = $q.cookies.get('gqa-realName')
     if (nickname) {
         return nickname
     } else if (realName) {
@@ -112,7 +113,7 @@ watch(oldMessage.value, () => {
     // 只有在Dialog打开的时候滚动到最底部
     if (chatDialogVisible.value) {
         nextTick(() => {
-            messageScroll.setScrollPosition('vertical', oldMessage.value.length * 75, 200)
+            messageScroll.value.setScrollPosition('vertical', oldMessage.value.length * 75, 200)
         })
     }
 })
@@ -123,10 +124,13 @@ const show = () => {
     nextTick(() => {
         // userList不要滚动到最底部了，保持在最上面
         // this.$refs.userScroll.setScrollPosition('vertical', this.tableData.length * 55)
-        messageScroll.setScrollPosition('vertical', oldMessage.value.length * 75)
+        messageScroll.value.setScrollPosition('vertical', oldMessage.value.length * 75)
     })
 }
-const emit = defineEmits(['changeShow', 'changeMessage'])
+defineExpose({
+    show
+})
+const emit = defineEmits(['onSendMessage', 'changeShow', 'changeMessage'])
 const beforeShow = () => {
     emit('changeShow', true)
 }
@@ -137,11 +141,11 @@ const newMessageForm = ref(null)
 const sendMessage = async () => {
     const success = await newMessageForm.value.validate()
     if (success) {
-        emit('sendMessage', {
-            name: myName,
-            avatar: myAvatar,
+        emit('onSendMessage', {
+            name: myName.value,
+            avatar: myAvatar.value,
             text: newMessage.value,
-            messageType: 'chat',
+            message_type: 'chat',
         })
         newMessage.value = ''
         newMessageForm.value.reset()

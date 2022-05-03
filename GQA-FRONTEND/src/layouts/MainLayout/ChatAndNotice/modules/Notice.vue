@@ -101,7 +101,7 @@ onMounted(() => {
         getTableData()
         getNoteTodoData({ pagination: pagination.value })
     })
-    queryParams.value.noticeToUser = String(username.value)
+    queryParams.value.notice_to_user = String(username.value)
     onRequest({
         pagination: pagination.value,
         queryParams: queryParams.value

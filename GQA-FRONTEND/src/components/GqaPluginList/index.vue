@@ -38,9 +38,6 @@
             </template>
         </q-table>
     </q-expansion-item>
-    <span v-else>
-        <br />暂无已装插件
-    </span>
 </template>
 
 <script setup>

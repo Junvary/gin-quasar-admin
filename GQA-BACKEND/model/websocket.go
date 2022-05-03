@@ -9,7 +9,7 @@ type WsMessage struct {
 	Stamp             string   `json:"stamp"`
 	MessageType       string   `json:"message_type"`
 	MessageToUserType string   `json:"message_to_user_type"`
-	ToUser            []string `json:"toUser"`
+	ToUser            []string `json:"to_user"`
 }
 
 var (

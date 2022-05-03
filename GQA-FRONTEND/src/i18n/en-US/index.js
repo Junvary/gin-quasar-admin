@@ -1,6 +1,6 @@
 export default {
     // Help
-    InitDbHelp: "Make sure that MySQL has been installed and started. We will create a database for you according to the configuration below and import the initial data",
+    InitDbHelp: "Make sure that MySQL has been installed and started,We will create the database and import the initial data for you according to the configuration below!",
     NicknameMessage: 'The nickname will overwrite the real name in the system',
     SortRule: 'Sort must be greater than 0',
     NeedInput: 'Please type something',

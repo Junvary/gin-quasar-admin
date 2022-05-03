@@ -5,7 +5,7 @@
                 {{ badgeCount }}
             </q-badge>
         </q-btn>
-        <ChatDialog ref="chatDialog" :oldMessage="oldMessage" @sendMessage="sendMessage" @changeShow="changeShow" />
+        <ChatDialog ref="chatDialog" :oldMessage="oldMessage" @onSendMessage="onSendMessage" @changeShow="changeShow" />
     </div>
 </template>
 
@@ -24,14 +24,14 @@ const { oldMessage } = toRefs(props)
 const badgeCount = ref(0)
 const chatDialog = ref(null)
 const showChat = () => {
-    chatDialog.show()
+    chatDialog.value.show()
     badgeCount.value = 0
 }
-const emit = defineEmits(['sendMessage'])
+const emit = defineEmits(['sendMessage', 'changeChatDialogShow'])
 const changeShow = (event) => {
     emit('changeChatDialogShow', event)
 }
-const sendMessage = (event) => {
+const onSendMessage = (event) => {
     emit('sendMessage', event)
 }
 const receiveMessage = (count) => {

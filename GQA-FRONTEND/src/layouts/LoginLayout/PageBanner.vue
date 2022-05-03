@@ -129,7 +129,7 @@ const openLink = (url) => {
             line-height: 70px;
             text-align: center;
             margin-bottom: 30px;
-            letter-spacing: 20px;
+            letter-spacing: 15px;
             user-select: none;
         }
 

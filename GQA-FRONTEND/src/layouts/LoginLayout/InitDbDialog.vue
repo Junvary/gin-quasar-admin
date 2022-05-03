@@ -24,8 +24,7 @@
                     </q-btn>
 
                     <q-btn dense push rounded glossy color="primary">
-                        {{ $t('Version') }}
-                        {{ $t('Info') }}
+                        {{ $t('Version') }}{{ $t('Info') }}
                         <GqaVersion />
                     </q-btn>
                 </q-toolbar-title>
@@ -43,34 +42,34 @@
                         <div class="row q-gutter-md">
                             <q-input class="col" outlined bottom-slots v-model.trim="form.db_type"
                                 :label="$t('Database') + $t('Type')" disable
-                                :rules="[(val) => (val && val.length > 0) || $t('FixForm')]">
+                                :rules="[(val) => (val && val.length > 0) || $t('NeedInput')]">
                             </q-input>
                             <q-input class="col" outlined v-model.trim="form.db_host"
                                 :label="$t('Database') + $t('Address')"
-                                :rules="[(val) => (val && val.length > 0) || $t('FixForm')]">
+                                :rules="[(val) => (val && val.length > 0) || $t('NeedInput')]">
                             </q-input>
                             <q-input class="col" outlined v-model.trim="form.db_port"
                                 :label="$t('Database') + $t('Port')"
-                                :rules="[(val) => (val && val.length > 0) || $t('FixForm')]">
+                                :rules="[(val) => (val && val.length > 0) || $t('NeedInput')]">
                             </q-input>
                         </div>
 
                         <div class="row q-gutter-md">
                             <q-input class="col" outlined v-model.trim="form.db_schema"
                                 :label="$t('Database') + $t('Name')"
-                                :rules="[(val) => (val && val.length > 0) || $t('FixForm')]">
+                                :rules="[(val) => (val && val.length > 0) || $t('NeedInput')]">
                             </q-input>
                             <q-input class="col" outlined v-model.trim="form.db_user"
                                 :label="$t('Database') + $t('Username')"
-                                :rules="[(val) => (val && val.length > 0) || $t('FixForm')]">
+                                :rules="[(val) => (val && val.length > 0) || $t('NeedInput')]">
                             </q-input>
                             <q-input class="col" outlined v-model.trim="form.db_password" autofocus
                                 :label="$t('Database') + $t('Password')"
-                                :rules="[(val) => (val && val.length > 0) || $t('FixForm')]">
+                                :rules="[(val) => (val && val.length > 0) || $t('NeedInput')]">
                             </q-input>
                         </div>
                     </div>
-                    <q-btn type="submit" color="primary" :label="$t('Start') + $t('Init')" />
+                    <q-btn type="submit" color="primary" :label="$t('Init')" />
                     <q-inner-loading :showing="initLoading">
                         <q-spinner-gears size="50px" color="primary" />
                     </q-inner-loading>

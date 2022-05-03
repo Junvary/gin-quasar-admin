@@ -61,20 +61,19 @@ const websocketOnerror = () => {
 const moduleChat = ref(null)
 const moduleNotice = ref(null)
 const websocketOnmessage = (e) => {
-    // console.log(e)
     let newData = JSON.parse(e.data)
     // console.log('Gin-Quasar-Admin: 收到新消息', e.data)
-    if (newData.messageType === 'chat') {
+    if (newData.message_type === 'chat') {
         // 聊天信息
         newData.text = [newData.text]
-        if (newData.name === myName) {
+        if (newData.name === myName.value) {
             newData.sent = true
         } else {
             newData.sent = false
         }
         chatOldMessage.value.push(newData)
         if (!chatDialogShow.value) {
-            moduleChat.receiveMessage(1)
+            moduleChat.value.receiveMessage(1)
         }
     } else {
         moduleNotice.value.getTableData()

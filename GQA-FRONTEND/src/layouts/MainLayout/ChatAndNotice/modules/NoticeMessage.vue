@@ -13,7 +13,7 @@
         </q-list>
         <q-item clickable class="text-center" @click="toUserProfile">
             <q-item-section>
-                {{ $t('CheckAll') }}
+                {{ $t('ViewAll') }}
             </q-item-section>
         </q-item>
 

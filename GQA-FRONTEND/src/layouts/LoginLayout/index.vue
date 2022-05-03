@@ -93,7 +93,7 @@ const checkDb = async () => {
         if (res.data.needInit === true) {
             $q.notify({
                 type: 'warning',
-                message: t('DbNeedInit'),
+                message: t('Database') + t('Need') + t('Init'),
             })
             initDbDialog.value.initDbVisible = true
         }

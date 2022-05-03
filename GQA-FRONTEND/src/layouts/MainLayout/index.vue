@@ -5,7 +5,7 @@
                 <q-btn dense round glossy push icon="sync_alt" aria-label="Menu"
                     @click="toggleLeftDrawer = !toggleLeftDrawer" />
 
-                <GqaAvatar class="gin-quasar-admin-logo" :src="gqaFrontend.gqaWebLogo" />
+                <GqaAvatar class="gin-quasar-admin-logo" :src="gqaFrontend.logo" />
 
                 <q-toolbar-title shrink class="text-bold text-italic">
                     {{ gqaFrontend.subTitle }}

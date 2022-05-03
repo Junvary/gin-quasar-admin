@@ -37,10 +37,10 @@ var sysConfigFrontendData = []model.SysConfigFrontend{
 	}}, ConfigItem: "bannerImage", ItemDefault: ""},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
 		Sort: 10002, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "网站主标题",
-	}}, ConfigItem: "mainTitle", ItemDefault: "Gin-Quasar-Admin"},
+	}}, ConfigItem: "mainTitle", ItemDefault: "Gin-Quasar-Admin(v2)"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
 		Sort: 10003, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "网站副标题",
-	}}, ConfigItem: "subTitle", ItemDefault: "Gin-Quasar-Admin"},
+	}}, ConfigItem: "subTitle", ItemDefault: "Gin-Quasar-Admin(v2)"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
 		Sort: 10004, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "网站描述",
 	}}, ConfigItem: "webDescribe", ItemDefault: "Lorem ipsum dolor sit amet consectetur adipisicing elit"},

@@ -11,7 +11,7 @@
                         {{ gqaFrontend.subTitle }}
                     </div>
                     <div class="text-h7 text-center text-primary q-mt-md q-mb-xs">
-                        {{ $t('LoginTitle') }}
+                        {{ $t('WelcomeBack') }}
                     </div>
                     <q-form @submit="onSubmit" class="q-mt-lg gqa-form">
                         <q-input :disable="loading" outlined dense no-error-icon v-model.trim="form.username"
@@ -35,7 +35,7 @@
                             </template>
                         </q-input>
                         <div class="column q-gutter-y-md q-mt-none">
-                            <q-checkbox :disable="loading" v-model="rememberMe" :label="$t('LoginRememberMe')" dense
+                            <q-checkbox :disable="loading" v-model="rememberMe" :label="$t('RememberMe')" dense
                                 @update:model-value="changeRememberMe" />
                         </div>
                         <div class="items-center justify-around q-mt-md row">

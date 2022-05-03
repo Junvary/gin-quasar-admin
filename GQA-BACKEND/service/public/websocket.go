@@ -26,11 +26,6 @@ func (s *ServiceWebSocket) Broadcast() {
 					}
 					return true
 				})
-				//for id, client := range system.Clients {
-				//	if err := client.WriteMessage(websocket.TextMessage, v); err != nil {
-				//		delete(system.Clients, id)
-				//	}
-				//}
 			} else if wsMsg.MessageType == "notice" {
 				if wsMsg.MessageToUserType == "all" {
 					//非聊天信息，MessageToUserType是all，那么也是群发
