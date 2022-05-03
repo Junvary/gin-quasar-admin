@@ -271,7 +271,7 @@ const handleUploadFavicon = (scope) => {
             faviconFile.value = null
             $q.notify({
                 type: 'positive',
-                message: '标签页Logo上传成功！',
+                message: '网站Favicon上传成功！',
             })
             scope.set()
         }

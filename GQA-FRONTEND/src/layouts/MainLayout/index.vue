@@ -81,8 +81,10 @@ import PageFooter from './PageFooter.vue'
 import GqaAvatar from 'src/components/GqaAvatar/index.vue'
 import UserProfile from './UserProfile/index.vue'
 import AddNoteTodo from './AddNoteTodo.vue';
-
 import { useRoute, useRouter } from 'vue-router';
+import useDocument from 'src/composables/useDocument'
+// 动态更改网站标题和favicon
+useDocument()
 
 const route = useRoute();
 const router = useRouter();
@@ -94,18 +96,19 @@ const currentItemMenu = ref('dashboard');
 const fabPos = ref([3, 80]);
 const userProfile = ref(null);
 
-onMounted(() => {
-    topMenuItem.value = findTopItemMenu.value
-})
-watch(
-    route,
-    () => {
-        topMenuItem.value = findTopItemMenu.value
-    }
-)
 const gqaFrontend = computed(() => {
     return storageStore.GetGqaFrontend()
 })
+
+
+onMounted(() => {
+    topMenuItem.value = findTopItemMenu.value
+})
+watch(route, () => {
+    topMenuItem.value = findTopItemMenu.value
+}
+)
+
 const topMenu = computed(() => {
     return permissionStore.topMenu
 })

@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, markRaw, defineAsyncComponent, onBeforeMount } from 'vue';
+import { ref, onUnmounted, markRaw, defineAsyncComponent, onBeforeMount } from 'vue';
 import { postAction } from 'src/api/manage'
 import PageBanner from './PageBanner.vue'
 import PageFooter from './PageFooter.vue'
@@ -38,6 +38,9 @@ const { t } = useI18n();
 onBeforeMount(() => {
     checkDb()
     window.addEventListener('scroll', documentTop())
+    console.info('欢迎使用Gin-Quasar-Admin!')
+    console.info('项目地址: https://github.com/Junvary/gin-quasar-admin ')
+    console.info('欢迎交流, 感谢Star!')
 })
 onUnmounted(() => {
     window.removeEventListener('scroll', documentTop())
