@@ -7,7 +7,7 @@ import { postAction } from 'src/api/manage'
 import { useStorageStore } from 'src/stores/storage'
 import { DictOptions } from 'src/utils/dict'
 
-export default function useRecordDetail(url) {
+export default function useTableData(url) {
     const { t } = useI18n()
     const $q = useQuasar()
     const storageStore = useStorageStore()

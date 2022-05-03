@@ -52,10 +52,8 @@
 <script setup>
 import useTableData from 'src/composables/useTableData'
 import { useQuasar } from 'quasar'
-import { postAction } from 'src/api/manage'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { DictOptions } from 'src/utils/dict'
 import { FormatDateTime } from 'src/utils/date'
 
 const $q = useQuasar()
@@ -78,6 +76,7 @@ const columns = computed(() => {
     ]
 })
 const {
+    dictOptions,
     pagination,
     queryParams,
     pageOptions,
@@ -95,9 +94,7 @@ const {
     handleDelete,
 } = useTableData(url)
 
-const dictOptions = ref({})
 onMounted(async () => {
-    dictOptions.value = await DictOptions()
     pagination.value.sortBy = 'created_at'
     onRequest({
         pagination: pagination.value,

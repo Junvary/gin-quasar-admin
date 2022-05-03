@@ -74,6 +74,7 @@ const columns = computed(() => {
     ]
 })
 const {
+    dictOptions,
     pagination,
     queryParams,
     pageOptions,
@@ -91,9 +92,7 @@ const {
     handleDelete,
 } = useTableData(url)
 
-const dictOptions = ref({})
 onMounted(async () => {
-    dictOptions.value = await DictOptions()
     pagination.value.sortBy = 'created_at'
     onRequest({
         pagination: pagination.value,

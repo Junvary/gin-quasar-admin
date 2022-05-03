@@ -2,7 +2,7 @@
     <q-page padding>
         <div class="items-center row q-gutter-md" style="margin-bottom: 10px">
             <q-input style="width: 20%" v-model="queryParams.username" :label="$t('Username')" />
-            <q-input style="width: 20%" v-model="queryParams.realName" :label="$t('RealName')" />
+            <q-input style="width: 20%" v-model="queryParams.real_name" :label="$t('RealName')" />
             <q-btn color="primary" @click="handleSearch" :label="$t('Search')" />
             <q-btn color="primary" @click="resetSearch" :label="$t('Reset')" />
         </div>
@@ -125,7 +125,7 @@ const {
 onMounted(() => {
     pagination.value.sortBy = 'username'
     queryParams.value = {
-        withAdmin: true,
+        with_admin: true,
     }
     onRequest({
         pagination: pagination.value,
