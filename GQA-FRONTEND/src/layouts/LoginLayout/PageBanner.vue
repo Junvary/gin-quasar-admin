@@ -45,8 +45,8 @@
                             Gitee
                         </q-btn>
 
-                        <q-btn push color="primary" @click="showLoginForm" :disable="checkDbStatus">
-                            {{ checkDbStatus ? $t('Need') + $t('Init') : $t('Login') }}
+                        <q-btn push color="primary" @click="showLoginForm">
+                            {{ $t('Login') }}
                         </q-btn>
 
                         <q-btn push color="primary" @click="openLink('https://github.com/Junvary/gin-quasar-admin')"
@@ -74,13 +74,7 @@ import LoginDialog from './LoginDialog.vue'
 import { useStorageStore } from 'src/stores/storage'
 
 const loginDialog = ref(null);
-const props = defineProps({
-    checkDbStatus: {
-        type: Boolean,
-        required: true,
-    },
-})
-const { checkDbStatus } = toRefs(props);
+
 const gqaFrontend = computed(() => {
     const storageStore = useStorageStore()
     return storageStore.GetGqaFrontend()

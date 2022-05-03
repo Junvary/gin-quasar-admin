@@ -6,6 +6,11 @@ const PublicRoutes = [
         component: () => import('layouts/LoginLayout/index.vue'),
         children: []
     },
+    {
+        path: '/init-db',
+        name: 'init-db',
+        component: () => import('layouts/LoginLayout/initDb.vue'),
+    },
 
     // // Always leave this as last one,
     // // but you can also remove it

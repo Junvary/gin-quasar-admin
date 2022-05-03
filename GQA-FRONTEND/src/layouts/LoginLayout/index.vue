@@ -1,7 +1,7 @@
 <template>
     <q-layout style="overflow-x: hidden">
         <q-page-container>
-            <page-banner :checkDbStatus="!dbOkStatus" ref="pageBanner" />
+            <page-banner />
             <!-- <GqaScrollDown id="login-layout-scroll-down" class="login-layout-scroll-down"
                 v-if="pluginCurrent && pluginComponent && showScrollDown" @click="scrollDown" /> -->
             <component v-if="pluginCurrent && pluginComponent" :key="pluginCurrent" :is="pluginComponent" />
@@ -13,32 +13,29 @@
                 <q-btn dense fab push icon="keyboard_arrow_up" color="primary" />
             </q-page-scroller>
         </q-page-container>
-        <InitDbDialog ref="initDbDialog" @dbOk="dbOk" />
     </q-layout>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, markRaw, defineAsyncComponent } from 'vue';
+import { ref, onMounted, onUnmounted, markRaw, defineAsyncComponent, onBeforeMount } from 'vue';
 import { postAction } from 'src/api/manage'
 import PageBanner from './PageBanner.vue'
 import PageFooter from './PageFooter.vue'
-import InitDbDialog from './InitDbDialog.vue'
 import GqaScrollDown from 'src/components/GqaScrollDown/index.vue'
 import { useStorageStore } from 'src/stores/storage'
 import { useQuasar } from 'quasar';
 import { useI18n } from 'vue-i18n';
+import { useRouter } from 'vue-router';
 
 const $q = useQuasar();
-const dbOkStatus = ref(false);
+const router = useRouter();
 const pluginCurrent = ref(null);
 const pluginComponent = ref(null);
 const showScrollDown = ref(true)
 const storageStore = useStorageStore()
 const { t } = useI18n();
-const initDbDialog = ref(null);
-const pageBanner = ref(null);
 
-onMounted(() => {
+onBeforeMount(() => {
     checkDb()
     window.addEventListener('scroll', documentTop())
 })
@@ -52,11 +49,6 @@ const scrollDown = () => {
     })
 }
 
-const dbOk = (params) => {
-    dbOkStatus.value = params
-    pageBanner.value.showLoginForm()
-}
-
 const documentTop = () => {
     let top = document.documentElement.scrollTop
     if (top > 200) {
@@ -67,7 +59,6 @@ const documentTop = () => {
 }
 
 const checkDb = async () => {
-    dbOkStatus.value = false
     const res = await postAction('public/check-db')
     if (res.code === 1) {
         storageStore.SetGqaGoVersion(res.data.goVersion)
@@ -77,7 +68,6 @@ const checkDb = async () => {
             await storageStore.SetGqaDict()
             await storageStore.SetGqaFrontend()
             await storageStore.SetGqaBackend()
-            dbOkStatus.value = true
             pluginCurrent.value = res.data.pluginLoginLayout
             if (pluginCurrent.value) {
                 try {
@@ -95,7 +85,7 @@ const checkDb = async () => {
                 type: 'warning',
                 message: t('Database') + t('Need') + t('Init'),
             })
-            initDbDialog.value.initDbVisible = true
+            router.push({ path: '/init-db' })
         }
     }
 }

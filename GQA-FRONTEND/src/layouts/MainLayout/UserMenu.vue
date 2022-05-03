@@ -68,8 +68,8 @@ const router = useRouter()
 
 const logout = () => {
     $q.dialog({
-        title: t('LogoutTitle'),
-        message: t('LogoutMessage'),
+        title: t('Logout'),
+        message: t('Confirm') + t('Logout') + '?',
         cancel: true,
         persistent: true,
     }).onOk(() => {

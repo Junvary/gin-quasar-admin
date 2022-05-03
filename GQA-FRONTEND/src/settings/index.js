@@ -1,5 +1,5 @@
 // 首页等允许无token的白名单
-export const Allowlist = ['/login']
+export const Allowlist = ['/login', '/init-db']
 
 // 没有用户名的时候使用这个名字
 export const GqaDefaultUsername = function () { return this.$t('GqaDefaultUsername') }

@@ -1,6 +1,7 @@
 export default {
     // 帮助
-    InitDbHelp: '确保已经安装并启动了Mysql,我们会根据下方配置为你自动创建数据库并导入初始数据！',
+    InitDbHelp1: '确保已经安装并启动了Mysql',
+    InitDbHelp2: '我们会根据右侧配置为你自动创建数据库并导入初始数据',
     NicknameMessage: '昵称会代替真实姓名显示于系统中',
     SortRule: '排序必须大于0',
     NeedInput: '必须输入此项',
