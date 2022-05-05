@@ -26,6 +26,7 @@
     },
     "devDependencies": {
         "@quasar/app-webpack": "^3.0.0",
+        "@quasar/quasar-app-extension-qiconpicker": "^2.0.6",
         "quasar-app-extension-qhierarchy": "^1.0.0"
     },
     "browserslist": [

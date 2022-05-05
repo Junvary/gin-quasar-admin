@@ -2,7 +2,7 @@
     <div>
         <q-field label-slot stack-label>
             <template v-slot:label>
-                <span>{{ $t('ComponentThemeColor') }} primary:{{ primary }}</span>
+                <span>{{ $t('Theme') + $t('Color') }} primary:{{ primary }}</span>
                 <q-avatar round size="xs" color="primary" style="border: 1px solid grey; margin-left: 5px" />
             </template>
             <template v-slot:control>
@@ -39,7 +39,7 @@
         </q-field>
         <q-field label-slot stack-label>
             <template v-slot:label>
-                <span>{{ $t('ComponentThemeColor') }} secondary:{{ secondary }}</span>
+                <span>{{ $t('Theme') + $t('Color') }} secondary:{{ secondary }}</span>
                 <q-avatar round size="xs" color="secondary" style="border: 1px solid grey; margin-left: 5px" />
             </template>
             <template v-slot:control>
@@ -76,7 +76,7 @@
         </q-field>
         <q-field label-slot stack-label>
             <template v-slot:label>
-                <span>{{ $t('ComponentThemeColor') }} accent:{{ accent }}</span>
+                <span>{{ $t('Theme') + $t('Color') }} accent:{{ accent }}</span>
                 <q-avatar round size="xs" color="accent" style="border: 1px solid grey; margin-left: 5px" />
             </template>
             <template v-slot:control>
@@ -113,7 +113,7 @@
         </q-field>
         <q-field label-slot stack-label>
             <template v-slot:label>
-                <span>{{ $t('ComponentThemeColor') }} positive:{{ positive }}</span>
+                <span>{{ $t('Theme') + $t('Color') }} positive:{{ positive }}</span>
                 <q-avatar round size="xs" color="positive" style="border: 1px solid grey; margin-left: 5px" />
             </template>
             <template v-slot:control>
@@ -150,7 +150,7 @@
         </q-field>
         <q-field label-slot stack-label>
             <template v-slot:label>
-                <span>{{ $t('ComponentThemeColor') }} negative:{{ negative }}</span>
+                <span>{{ $t('Theme') + $t('Color') }} negative:{{ negative }}</span>
                 <q-avatar round size="xs" color="negative" style="border: 1px solid grey; margin-left: 5px" />
             </template>
             <template v-slot:control>
@@ -187,7 +187,7 @@
         </q-field>
         <q-field label-slot stack-label>
             <template v-slot:label>
-                <span>{{ $t('ComponentThemeColor') }} info:{{ info }}</span>
+                <span>{{ $t('Theme') + $t('Color') }} info:{{ info }}</span>
                 <q-avatar round size="xs" color="info" style="border: 1px solid grey; margin-left: 5px" />
             </template>
             <template v-slot:control>
@@ -224,7 +224,7 @@
         </q-field>
         <q-field label-slot stack-label>
             <template v-slot:label>
-                <span>{{ $t('ComponentThemeColor') }} warning:{{ warning }}</span>
+                <span>{{ $t('Theme') + $t('Color') }} warning:{{ warning }}</span>
                 <q-avatar round size="xs" color="warning" style="border: 1px solid grey; margin-left: 5px" />
             </template>
             <template v-slot:control>
@@ -261,7 +261,7 @@
         </q-field>
         <q-field label-slot stack-label>
             <template v-slot:label>
-                <span>{{ $t('ComponentThemeColor') }} light:{{ light }}</span>
+                <span>{{ $t('Theme') + $t('Color') }} light:{{ light }}</span>
                 <q-avatar round size="xs" color="light" style="border: 1px solid grey; margin-left: 5px" />
             </template>
             <template v-slot:control>
@@ -298,7 +298,7 @@
         </q-field>
         <q-field label-slot stack-label>
             <template v-slot:label>
-                <span>{{ $t('ComponentThemeColor') }} dark:{{ dark }}</span>
+                <span>{{ $t('Theme') + $t('Color') }} dark:{{ dark }}</span>
                 <q-avatar round size="xs" color="dark" style="border: 1px solid grey; margin-left: 5px" />
             </template>
             <template v-slot:control>

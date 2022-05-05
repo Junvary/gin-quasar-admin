@@ -106,8 +106,7 @@ onMounted(() => {
 })
 watch(route, () => {
     topMenuItem.value = findTopItemMenu.value
-}
-)
+})
 
 const topMenu = computed(() => {
     return permissionStore.topMenu

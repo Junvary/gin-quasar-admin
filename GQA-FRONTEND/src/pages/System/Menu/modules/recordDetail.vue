@@ -13,12 +13,23 @@
             <q-separator />
 
             <q-card-section>
-                <q-form ref="addOrEditForm">
+                <q-form ref="recordDetailForm">
                     <gqa-form-top :recordDetail="recordDetail"></gqa-form-top>
                     <div class="row">
-                        <q-input class="col" :label="$t('Icon')" v-model="recordDetail.value.icon">
+                        <q-input class="col" :label="$t('Icon')" v-model="recordDetail.value.icon" clearable>
                             <template v-slot:before>
                                 <q-icon :name="recordDetail.value.icon" size="35px" class="q-mr-sm" />
+                            </template>
+                            <template v-slot:prepend>
+                                <q-icon name="insert_emoticon" class="cursor-pointer">
+                                    <q-popup-proxy v-model="iconData.showIconPicker">
+                                        <q-input v-model="iconData.filter" label="Filter" outlined clearable dense
+                                            class="q-ma-md" />
+                                        <q-icon-picker v-model="recordDetail.value.icon" icon-set="material-icons"
+                                            :filter="iconData.filter" v-model:model-pagination="iconData.pagination"
+                                            tooltips style="height: 300px; width: 300px; background-color: white;" />
+                                    </q-popup-proxy>
+                                </q-icon>
                             </template>
                         </q-input>
                         <q-input class="col" v-model.number="recordDetail.value.sort" type="number"
@@ -93,7 +104,7 @@ import GqaAvatar from 'src/components/GqaAvatar'
 import GqaShowName from 'src/components/GqaShowName'
 import { postAction } from 'src/api/manage'
 import { useStorageStore } from 'src/stores/storage'
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useQuasar } from 'quasar'
 import { useI18n } from 'vue-i18n'
 import GqaSeleteUser from 'src/components/GqaSeleteUser'
@@ -124,5 +135,17 @@ defineExpose({
     show,
     formType,
     recordDetail
+})
+const iconData = ref({
+    filter: '',
+    showIconPicker: false,
+    pagination: {
+        itemsPerPage: 35,
+        page: 0
+    }
+})
+
+watch(recordDetail, () => {
+    iconData.value.showIconPicker = false
 })
 </script>

@@ -11,25 +11,19 @@
         <q-tab-panels v-model="tab" animated>
             <q-tab-panel name="materia">
                 <div class="row" style="width: 95%">
-                    <div class="items-center col-2 column icon-box" v-for="(item, index) in materialIcons_key"
-                        :key="index" @click="copy(item)">
-                        <q-icon :name="item" size="xl" />
-                        <span>
-                            {{ item }}
-                        </span>
-                    </div>
+                    <q-input v-model="materiaData.filter" label="Filter" outlined clearable style="width: 100%" />
+                    <q-icon-picker v-model="materiaData.value" v-model:model-pagination="materiaData.pagination"
+                        icon-set="material-icons" :filter="materiaData.filter" style="height: 60vh" size="30px"
+                        tooltips />
                 </div>
             </q-tab-panel>
 
             <q-tab-panel name="fontawesome">
                 <div class="row" style="width: 95%">
-                    <div class="items-center col-2 column icon-box" v-for="(item, index) in fontawesome_key"
-                        :key="index" @click="copy(item)">
-                        <q-icon :name="item" size="xl" />
-                        <span>
-                            {{ item }}
-                        </span>
-                    </div>
+                    <q-input v-model="fontawesomeData.filter" label="Filter" outlined clearable style="width: 100%" />
+                    <q-icon-picker v-model="fontawesomeData.value" v-model:model-pagination="fontawesomeData.pagination"
+                        icon-set="fontawesome-v5" :filter="fontawesomeData.filter" style="height: 60vh" size="30px"
+                        tooltips />
                 </div>
             </q-tab-panel>
         </q-tab-panels>
@@ -38,102 +32,26 @@
 </template>
 
 <script setup>
-import { useQuasar } from 'quasar'
-import { useI18n } from 'vue-i18n'
-import * as materialIconsSet from '@quasar/extras/material-icons'
-import * as fontawesomeSet from '@quasar/extras/fontawesome-v6'
-import { copyToClipboard } from 'quasar'
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 
-const $q = useQuasar()
-const { t } = useI18n()
-const tab = ref('materia')
-const materialIcons_key = ref([])
-const fontawesome_key = ref([])
-
-onMounted(() => {
-    initMaterial()
-    initFontawesome()
-})
-const initMaterial = () => {
-    // 获取图标 materialIcons 下划线格式命名集合
-    for (const i in materialIconsSet) {
-        materialIcons_key.value.push(toLowerLine(i))
+const tab = ref('materia');
+const materiaData = ref({
+    value: '',
+    filter: '',
+    pagination: {
+        itemsPerPage: 100,
+        page: 0
     }
-}
-const initFontawesome = () => {
-    // 获取图标 fontawesomeSet 下划线格式命名集合
-    for (const i in fontawesomeSet) {
-        fontawesome_key.value.push(toLowerLine(i))
+});
+const fontawesomeData = ref({
+    value: '',
+    filter: '',
+    pagination: {
+        itemsPerPage: 100,
+        page: 0
     }
-}
-const toLowerLine = (str) => {
-    if (str.substr(0, 3) === 'mat') {
-        let t = str.replace(/([A-Z]|\d+)/g, (a, l) => `_${l.toLowerCase()}`).substring(4)
-        switch (t) {
-            case 'crop_32':
-                t = 'crop_3_2'
-                break
-            case 'crop_169':
-                t = 'crop_16_9'
-                break
-            case 'crop_54':
-                t = 'crop_5_4'
-                break
-            case 'crop_75':
-                t = 'crop_7_5'
-                break
-            default:
-                break
-        }
-        return t
-    }
-    if (str.substr(0, 2) === 'fa') {
-        let t = str.replace(/([A-Z])/g, (a, l) => `-${l.toLowerCase()}`).replace(/-/, ' fa-')
-        switch (t) {
-            case 'fab500px':
-                t = 'fab fa-500px'
-                break
-            case 'fas fa-stopwatch20':
-                t = 'fas fa-stopwatch-20'
-                break
-            case 'fab fa-font-awesome-logo-full':
-                t = 'fas fa-stopwatch-20'
-                break
-            case 'far fa-font-awesome-logo-full':
-                t = 'fas fa-stopwatch-20'
-                break
-            default:
-                break
-        }
-        return t
-    }
-}
-const copy = (e) => {
-    copyToClipboard(e).then(() => {
-        $q.notify({
-            message: t('ClipboardSuccess'),
-            color: 'green',
-        })
-    }).catch(() => {
-        // 不支持复制
-        $q.notify({
-            message: t('ClipboardFail'),
-            color: 'warming',
-        })
-    })
-}
+});
 </script>
 
 <style lang="scss" scoped>
-.icon-box {
-    margin-bottom: 10px;
-    color: #363f45;
-    cursor: pointer;
-
-    &:hover {
-        background: #edecec;
-        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-    }
-}
 </style>

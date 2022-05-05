@@ -1,9 +1,6 @@
 import { boot } from 'quasar/wrappers'
 import axios from 'axios'
 import { Notify, Dialog } from 'quasar'
-import { createI18n } from 'vue-i18n'
-import messages from 'src/i18n'
-
 import { userStore, i18n } from './i18n'
 
 // Be careful when using SSR for cross-request state pollution
