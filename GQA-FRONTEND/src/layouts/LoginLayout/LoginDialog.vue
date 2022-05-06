@@ -1,5 +1,5 @@
 <template>
-    <q-dialog v-model="loginVisible" transition-hide="slide-down">
+    <q-dialog v-model="loginVisible">
         <q-card bordered style="width: 800px; max-width: 50vw;">
             <q-card-section horizontal>
                 <q-img class="col-6" :src="bannerImage" fit="cover" />

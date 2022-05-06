@@ -8,7 +8,7 @@
 
 <script setup>
 import useFrontendBackend from 'src/composables/useFrontendBackend'
-import { computed, onBeforeMount, ref, markRaw, defineAsyncComponent } from 'vue';
+import { computed, onBeforeMount, ref, markRaw, defineAsyncComponent, getCurrentInstance } from 'vue';
 import indexSimple from './indexSimple.vue';
 import indexComplex from './indexComplex.vue';
 import { postAction } from 'src/api/manage'

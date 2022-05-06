@@ -29,7 +29,6 @@ module.exports = configure(function (ctx) {
             'i18n',
             'axios',
             'permission',
-            'echarts',
             'bus',
             'print',
             'components',
