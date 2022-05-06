@@ -45,15 +45,18 @@ var sysConfigFrontendData = []model.SysConfigFrontend{
 		Sort: 10004, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "网站描述",
 	}}, ConfigItem: "webDescribe", ItemDefault: "Lorem ipsum dolor sit amet consectetur adipisicing elit"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 10005, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "登录页插件",
+		Sort: 10005, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "登录页风格",
+	}}, ConfigItem: "loginLayoutStyle", ItemDefault: "simple"},
+	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
+		Sort: 10006, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "登录页插件",
 	}}, ConfigItem: "pluginLoginLayout", ItemDefault: ""},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 10006, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "网站Logo",
+		Sort: 10007, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "网站Logo",
 	}}, ConfigItem: "logo", ItemDefault: ""},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 10007, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "网站favicon",
+		Sort: 10008, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "网站favicon",
 	}}, ConfigItem: "favicon", ItemDefault: ""},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 10008, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "显示仓库入口",
+		Sort: 10009, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "显示仓库入口",
 	}}, ConfigItem: "showGit", ItemDefault: "yes"},
 }

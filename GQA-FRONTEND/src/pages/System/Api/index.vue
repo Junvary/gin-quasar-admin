@@ -65,6 +65,7 @@ const columns = computed(() => {
         { name: 'api_group', align: 'center', label: t('Api') + t('Group'), field: 'api_group' },
         { name: 'api_method', align: 'center', label: t('Api') + t('Method'), field: 'api_method' },
         { name: 'api_path', align: 'center', label: t('Api') + t('Path'), field: 'api_path' },
+        { name: 'memo', align: 'center', label: t('Memo'), field: 'memo' },
         { name: 'status', align: 'center', label: t('Status'), field: 'status' },
         { name: 'stable', align: 'center', label: t('Stable'), field: 'stable' },
         { name: 'actions', align: 'center', label: t('Actions'), field: 'actions' },

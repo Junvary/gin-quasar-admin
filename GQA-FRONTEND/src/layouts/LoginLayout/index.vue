@@ -1,65 +1,46 @@
 <template>
     <q-layout style="overflow-x: hidden">
         <q-page-container>
-            <page-banner />
-            <!-- <GqaScrollDown id="login-layout-scroll-down" class="login-layout-scroll-down"
-                v-if="pluginCurrent && pluginComponent && showScrollDown" @click="scrollDown" /> -->
-            <component v-if="pluginCurrent && pluginComponent" :key="pluginCurrent" :is="pluginComponent" />
-            <q-card v-else class="row items-center justify-center" style="padding: 20px 0;">
-                <q-btn color="primary" :label="$t('LoginLayoutWithoutPlugin')"></q-btn>
-            </q-card>
-            <page-footer />
-            <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[3, 18]">
-                <q-btn dense fab push icon="keyboard_arrow_up" color="primary" />
-            </q-page-scroller>
+            <component :is="loginLayout" :pluginComponent="pluginComponent" :pluginCurrent="pluginCurrent" />
         </q-page-container>
     </q-layout>
 </template>
 
 <script setup>
-import { ref, onUnmounted, markRaw, defineAsyncComponent, onBeforeMount } from 'vue';
+import useFrontendBackend from 'src/composables/useFrontendBackend'
+import { computed, onBeforeMount, ref, markRaw, defineAsyncComponent } from 'vue';
+import indexSimple from './indexSimple.vue';
+import indexComplex from './indexComplex.vue';
 import { postAction } from 'src/api/manage'
-import PageBanner from './PageBanner.vue'
-import PageFooter from './PageFooter.vue'
-import GqaScrollDown from 'src/components/GqaScrollDown/index.vue'
 import { useStorageStore } from 'src/stores/storage'
+import { useRouter } from 'vue-router';
 import { useQuasar } from 'quasar';
 import { useI18n } from 'vue-i18n';
-import { useRouter } from 'vue-router';
 
 const $q = useQuasar();
 const router = useRouter();
+const { t } = useI18n();
+const { gqaFrontend } = useFrontendBackend()
+const storageStore = useStorageStore()
 const pluginCurrent = ref(null);
 const pluginComponent = ref(null);
-const showScrollDown = ref(true)
-const storageStore = useStorageStore()
-const { t } = useI18n();
+
+const loginLayout = computed(() => {
+    if (gqaFrontend.value.loginLayoutStyle && gqaFrontend.value.loginLayoutStyle === 'simple') {
+        return indexSimple
+    } else if (gqaFrontend.value.loginLayoutStyle && gqaFrontend.value.loginLayoutStyle === 'complex') {
+        return indexComplex
+    } else {
+        return indexSimple
+    }
+})
 
 onBeforeMount(() => {
     checkDb()
-    window.addEventListener('scroll', documentTop())
     console.info('欢迎使用Gin-Quasar-Admin!')
     console.info('项目地址: https://github.com/Junvary/gin-quasar-admin ')
     console.info('欢迎交流, 感谢Star!')
 })
-onUnmounted(() => {
-    window.removeEventListener('scroll', documentTop())
-})
-
-const scrollDown = () => {
-    document.getElementById('login-layout-scroll-down').nextElementSibling.scrollIntoView({
-        behavior: 'smooth',
-    })
-}
-
-const documentTop = () => {
-    let top = document.documentElement.scrollTop
-    if (top > 200) {
-        showScrollDown.value = false
-    } else {
-        showScrollDown.value = true
-    }
-}
 
 const checkDb = async () => {
     const res = await postAction('public/check-db')
@@ -96,12 +77,4 @@ const checkDb = async () => {
 </script>
 
 <style lang="scss" scoped>
-.login-layout-scroll-down {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: -60px;
-    z-index: 100;
-}
 </style>

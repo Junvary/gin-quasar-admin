@@ -87,7 +87,7 @@ const bannerImage = computed(() => {
 <style lang="scss" scoped>
 footer {
     position: relative;
-    z-index: 1;
+    z-index: 0;
     overflow: hidden;
     color: #ffffff;
 }

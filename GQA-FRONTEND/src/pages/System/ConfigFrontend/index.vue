@@ -2,7 +2,7 @@
     <q-page padding>
         <div class="items-center row q-gutter-md" style="margin-bottom: 10px">
             <q-input style="width: 20%" v-model="queryParams.config_item" :label="$t('Config') + $t('Name')" />
-            <q-input style="width: 20%" v-model="queryParams.memo" :label="$t('Config') + $t('Remark')" />
+            <q-input style="width: 20%" v-model="queryParams.memo" :label="$t('Config') + $t('Memo')" />
             <q-btn color="primary" @click="handleSearch" :label="$t('Search')" />
             <q-btn color="primary" @click="resetSearch" :label="$t('Reset')" />
         </div>
@@ -28,6 +28,12 @@
                     <template v-else-if="props.row.config_item === 'bannerImage'">
                         默认效果
                     </template>
+                    <template v-else-if="props.row.config_item === 'loginLayoutStyle'">
+                        <GqaDictShow dictName="displayStyle" :dictCode="props.row.item_default" />
+                    </template>
+                    <template v-else-if="props.row.config_item === 'showGit'">
+                        <GqaDictShow dictName="statusYesNo" :dictCode="props.row.item_default" />
+                    </template>
                     <template v-else>
                         {{ props.row.item_default }}
                     </template>
@@ -45,6 +51,14 @@
                     <template v-else-if="props.row.config_item === 'favicon'">
                         <GqaAvatar :src="props.row.item_custom || 'favicon.ico'" />
                     </template>
+                    <template v-else-if="props.row.config_item === 'loginLayoutStyle'">
+                        <GqaDictShow dictName="displayStyle" :dictCode="props.row.item_custom"
+                            v-if="props.row.item_custom !== ''" />
+                    </template>
+                    <template v-else-if="props.row.config_item === 'showGit'">
+                        <GqaDictShow dictName="statusYesNo" :dictCode="props.row.item_custom"
+                            v-if="props.row.item_custom !== ''" />
+                    </template>
                     <template v-else>
                         {{ props.row.item_custom }}
                     </template>
@@ -52,9 +66,13 @@
                     <q-popup-edit v-model="props.row.item_custom" class="bg-green-13">
                         <template v-slot="scope">
                             {{ $t('Custom') + ' ' + props.row.config_item }}
-                            <q-option-group v-if="props.row.config_item === 'showGit'" v-model="props.row.item_custom"
-                                :options="dictOptions.statusYesNo" color="primary" inline
-                                @update:model-value="scope.set">
+                            <q-option-group v-if="props.row.config_item === 'loginLayoutStyle'"
+                                v-model="props.row.item_custom" :options="dictOptions.displayStyle" color="primary"
+                                inline @update:model-value="scope.set">
+                            </q-option-group>
+                            <q-option-group v-else-if="props.row.config_item === 'showGit'"
+                                v-model="props.row.item_custom" :options="dictOptions.statusYesNo" color="primary"
+                                inline @update:model-value="scope.set">
                             </q-option-group>
                             <GqaPluginList v-else-if="props.row.config_item === 'pluginLoginLayout'" showChoose
                                 @changeSuccess="handleSetLoginLayout($event, scope)"

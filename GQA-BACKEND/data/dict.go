@@ -93,4 +93,14 @@ var sysDictData = []model.SysDict{
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
 		Sort: 2, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "消息提示",
 	}}, DictCode: "message", DictLabel: "消息提示", ParentCode: "noticeType"},
+
+	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
+		Sort: 10005, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "显示风格",
+	}}, DictCode: "displayStyle", DictLabel: "显示风格"},
+	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
+		Sort: 1, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "简约类型",
+	}}, DictCode: "simple", DictLabel: "简约风格", ParentCode: "displayStyle"},
+	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
+		Sort: 2, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "复杂",
+	}}, DictCode: "complex", DictLabel: "复杂风格", ParentCode: "displayStyle"},
 }
