@@ -59,7 +59,7 @@ export default function useTableData(url) {
         params.desc = props.pagination.descending
         params.page = props.pagination.page
         params.page_size = props.pagination.rowsPerPage
-        const allParams = Object.assign({}, params, props.queryParams)
+        const allParams = Object.assign({}, params, queryParams.value)
         // 带参数请求数据
         await postAction(url.list, allParams).then(res => {
             if (res.code === 1) {
