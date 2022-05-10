@@ -67,7 +67,7 @@ const handleChangeNickname = async () => {
     } else {
         $q.notify({
             type: 'negative',
-            message: this.$t('FixForm'),
+            message: t('FixForm'),
         })
     }
 }

@@ -15,38 +15,33 @@ type ApiDb struct{}
 func (a *ApiDb) CheckDb(c *gin.Context) {
 	goVersion := runtime.Version()
 	ginVersion := gin.Version
-	type plugin struct {
-		PluginName    string
-		PluginCode    string
-		PluginVersion string
-		PluginRemark  string
-	}
-	var pluginList []plugin
+
+	var pluginList []model.Plugin
 	for _, v := range gqaplugin.PluginList {
-		pluginList = append(pluginList, plugin{
+		pluginList = append(pluginList, model.Plugin{
 			PluginName:    v.PluginName(),
 			PluginCode:    v.PluginCode(),
 			PluginVersion: v.PluginVersion(),
-			PluginRemark:  v.PluginRemark(),
+			PluginMemo:    v.PluginMemo(),
 		})
 	}
 	if global.GqaDb != nil {
 		pluginLoginLayout := utils.GetConfigFrontend("gqaPluginLoginLayout")
 		global.GqaLogger.Info("数据库无需初始化")
 		model.ResponseSuccessMessageData(gin.H{
-			"needInit":          false,
-			"goVersion":         goVersion,
-			"ginVersion":        ginVersion,
-			"pluginList":        pluginList,
-			"pluginLoginLayout": pluginLoginLayout}, "数据库无需初始化", c)
+			"need_init":           false,
+			"go_version":          goVersion,
+			"gin_version":         ginVersion,
+			"plugin_list":         pluginList,
+			"plugin_login_layout": pluginLoginLayout}, "数据库无需初始化", c)
 		return
 	} else {
 		global.GqaLogger.Info("数据库需要初始化")
 		model.ResponseSuccessMessageData(gin.H{
-			"needInit":   true,
-			"goVersion":  goVersion,
-			"ginVersion": ginVersion,
-			"pluginList": pluginList}, "数据库需要初始化", c)
+			"need_init":   true,
+			"go_version":  goVersion,
+			"gin_version": ginVersion,
+			"plugin_list": pluginList}, "数据库需要初始化", c)
 		return
 	}
 }

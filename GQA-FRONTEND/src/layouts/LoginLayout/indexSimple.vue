@@ -31,10 +31,10 @@
 </template>
 
 <script setup>
-import useFrontendBackend from 'src/composables/useFrontendBackend'
+import useCommon from 'src/composables/useCommon'
 import GqaVersion from 'src/components/GqaVersion/index.vue';
 import GqaAvatar from 'src/components/GqaAvatar/index.vue';
 import LoginForm from './LoginForm.vue';
 
-const { gqaFrontend, openLink } = useFrontendBackend()
+const { gqaFrontend, openLink } = useCommon()
 </script>

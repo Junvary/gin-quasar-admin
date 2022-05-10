@@ -11,10 +11,10 @@
 
 <script setup>
 import LoginForm from './LoginForm.vue';
-import useFrontendBackend from 'src/composables/useFrontendBackend'
+import useCommon from 'src/composables/useCommon'
 import { ref, computed } from 'vue';
 
-const { gqaFrontend } = useFrontendBackend()
+const { gqaFrontend } = useCommon()
 const loginVisible = ref(false);
 const randomImg = 'https://api.ixiaowai.cn/api/api.php'
 const bannerImage = computed(() => {

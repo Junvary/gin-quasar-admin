@@ -1,21 +1,22 @@
 package gqaplugin
 
+/*
+    // =============================== 引入方式 ===============================
+	// 1. 本地引入方式：（可以git忽略掉，只共本地开发使用，不在主仓库中追踪）
+	// 如："github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/xk"
+    // 2. github引入方式：（本地开发完善后，可单独提取成仓库，推荐）
+	// 如："github.com/Junvary/gqa-plugin-xk/gqaplugin/xk"
+    // ========================== 开发插件、接入插件 ============================
+    // 开发插件需实现 GqaPlugin 接口，完成后填入 PluginList 切片中即可
+	// ========================================================================
+*/
+
 import (
-	//本地引入方式：
-	//"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/example"
-	//github引入方式：
-	//"github.com/Junvary/gqa-plugin-example/gqaplugin/example"
 	"github.com/gin-gonic/gin"
 )
 
-/*
-	1.import插件(github引入方式、本地引入方式)
-	2.插件填入下面的插件列表：如：example.PluginExample,
-	3.插件开发完毕，可提交单独仓库，参考各插件仓库说明。
-*/
-
-var PluginList = []GqaPlugin{ //插件加入此切片即可，如：example.PluginExample,
-	//example.PluginExample,
+var PluginList = []GqaPlugin{ //插件加入此切片即可
+	//xk.PluginXk,
 }
 
 /*
@@ -26,7 +27,7 @@ type GqaPlugin interface { //插件需实现的接口
 	PluginCode() string                                //插件编码，用于路由分组名
 	PluginName() string                                //插件名称
 	PluginVersion() string                             //插件版本
-	PluginRemark() string                              //插件描述
+	PluginMemo() string                                //插件描述
 	PluginRouterPublic(publicGroup *gin.RouterGroup)   //公开路由
 	PluginRouterPrivate(privateGroup *gin.RouterGroup) //鉴权路由
 	PluginMigrate() []interface{}                      //迁移数据库模型

@@ -1,13 +1,14 @@
 <template>
     <q-layout style="overflow-x: hidden">
         <q-page-container>
-            <component :is="loginLayout" :pluginComponent="pluginComponent" :pluginCurrent="pluginCurrent" />
+            <component v-if="loginLayoutReady" :is="loginLayout" :pluginComponent="pluginComponent"
+                :pluginCurrent="pluginCurrent" />
         </q-page-container>
     </q-layout>
 </template>
 
 <script setup>
-import useFrontendBackend from 'src/composables/useFrontendBackend'
+import useCommon from 'src/composables/useCommon'
 import { computed, onBeforeMount, ref, markRaw, defineAsyncComponent, getCurrentInstance } from 'vue';
 import indexSimple from './indexSimple.vue';
 import indexComplex from './indexComplex.vue';
@@ -20,7 +21,7 @@ import { useI18n } from 'vue-i18n';
 const $q = useQuasar();
 const router = useRouter();
 const { t } = useI18n();
-const { gqaFrontend } = useFrontendBackend()
+const { gqaFrontend } = useCommon()
 const storageStore = useStorageStore()
 const pluginCurrent = ref(null);
 const pluginComponent = ref(null);
@@ -35,6 +36,8 @@ const loginLayout = computed(() => {
     }
 })
 
+const loginLayoutReady = ref(false);
+
 onBeforeMount(() => {
     checkDb()
     console.info('欢迎使用Gin-Quasar-Admin!')
@@ -45,10 +48,11 @@ onBeforeMount(() => {
 const checkDb = async () => {
     const res = await postAction('public/check-db')
     if (res.code === 1) {
-        storageStore.SetGqaGoVersion(res.data.goVersion)
-        storageStore.SetGqaGinVersion(res.data.ginVersion)
-        storageStore.SetGqaPluginList(res.data.pluginList)
-        if (res.data.needInit === false) {
+        storageStore.SetGqaGoVersion(res.data.go_version)
+        storageStore.SetGqaGinVersion(res.data.gin_version)
+        storageStore.SetGqaPluginList(res.data.plugin_list)
+        if (res.data.need_init === false) {
+            loginLayoutReady.value = true
             await storageStore.SetGqaDict()
             await storageStore.SetGqaFrontend()
             await storageStore.SetGqaBackend()
@@ -64,7 +68,8 @@ const checkDb = async () => {
                 }
             }
         }
-        if (res.data.needInit === true) {
+        if (res.data.need_init === true) {
+            loginLayoutReady.value = false
             $q.notify({
                 type: 'warning',
                 message: t('Database') + t('Need') + t('Init'),

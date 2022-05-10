@@ -6,9 +6,11 @@
 
 <script setup>
 import { computed, toRefs } from 'vue';
-import { GqaDefaultAvatar } from 'src/settings'
+// import { GqaDefaultAvatar } from 'src/settings'
 import { useQuasar } from 'quasar';
+import useCommon from 'src/composables/useCommon';
 
+const { GqaDefaultAvatar } = useCommon()
 const $q = useQuasar();
 const props = defineProps({
     loginUser: {

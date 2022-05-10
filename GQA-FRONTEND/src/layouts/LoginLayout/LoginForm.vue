@@ -51,7 +51,7 @@
 </template>
 
 <script setup>
-import useFrontendBackend from 'src/composables/useFrontendBackend'
+import useCommon from 'src/composables/useCommon'
 import { ref, onMounted } from 'vue';
 import { postAction } from 'src/api/manage'
 import GqaLanguage from 'src/components/GqaLanguage/index.vue'
@@ -59,7 +59,7 @@ import GqaAvatar from 'src/components/GqaAvatar/index.vue'
 import { useUserStore } from 'src/stores/user'
 import { useRouter, useRoute } from 'vue-router';
 
-const { gqaFrontend } = useFrontendBackend()
+const { gqaFrontend } = useCommon()
 
 const isPwd = ref(true)
 const form = ref({

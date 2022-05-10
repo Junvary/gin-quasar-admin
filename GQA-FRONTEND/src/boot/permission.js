@@ -1,10 +1,10 @@
 import { boot } from 'quasar/wrappers'
 import { LoadingBar, Loading, QSpinnerGears } from 'quasar'
-import { Allowlist } from 'src/settings'
+// import { Allowlist } from 'src/settings'
 // import { GetToken } from 'src/utils/cookies'
 import { useUserStore } from 'src/stores/user'
 import { usePermissionStore } from 'src/stores/permission'
-import { computed } from 'vue'
+import useCommon from 'src/composables/useCommon'
 
 LoadingBar.setDefaults({
     color: 'red',
@@ -33,8 +33,9 @@ export default boot(({ router, store }) => {
         const permissionStore = usePermissionStore()
         startLoading()
         const token = userStore.GetToken()
+        const { AllowList } = useCommon()
         if (token) {
-            if (Allowlist.indexOf(to.path) !== -1) {
+            if (AllowList.indexOf(to.path) !== -1) {
                 next({ path: '/' })
                 stopLoading()
             } else {
@@ -58,7 +59,7 @@ export default boot(({ router, store }) => {
                 stopLoading()
             }
         } else {
-            if (Allowlist.indexOf(to.path) !== -1) {
+            if (AllowList.indexOf(to.path) !== -1) {
                 next()
                 stopLoading()
             } else {

@@ -6,9 +6,11 @@
 
 <script setup>
 import { useQuasar } from 'quasar';
-import { GqaDefaultUsername } from 'src/settings'
+// import { GqaDefaultUsername } from 'src/settings'
 import { computed, toRefs } from 'vue';
+import useCommon from 'src/composables/useCommon';
 
+const { GqaDefaultUsername } = useCommon()
 const $q = useQuasar()
 const props = defineProps({
     customNameString: {

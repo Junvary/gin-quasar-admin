@@ -6,7 +6,7 @@
                 <q-avatar size="md" icon="install_desktop" color="white" text-color="accent" />
             </q-item-section>
             <q-item-section>
-                <q-btn dense flat :label="$t('InstalledPlugins') + '（' + rows.length + '）'" />
+                <q-btn dense flat :label="$t('Installed') + $t('Plugin') + '（' + rows.length + '）'" />
             </q-item-section>
         </template>
         <q-table dense hide-bottom separator="cell" :rows="rows" :columns="columns" row-key="name">
@@ -14,17 +14,17 @@
             <template v-slot:body-cell-first="props">
                 <q-td :props="props">
                     <q-chip dense color="accent" text-color="white">
-                        {{ $t('InstalledPlugins') }}
+                        {{ $t('Installed') + $t('Plugin') }}
                     </q-chip>
                 </q-td>
             </template>
 
-            <template v-slot:body-cell-remark="props">
+            <template v-slot:body-cell-memo="props">
                 <q-td :props="props">
                     <q-chip dense color="accent" text-color="white">
-                        {{ $t('PluginDescription') }}
+                        {{ $t('Plugin') + $t('Describe') }}
                         <q-tooltip>
-                            {{ props.row.PluginRemark }}
+                            {{ props.row.plugin_memo }}
                         </q-tooltip>
                     </q-chip>
                 </q-td>
@@ -32,8 +32,8 @@
 
             <template v-slot:body-cell-actions="props" v-if="showChoose.value">
                 <q-td :props="props">
-                    <q-radio dense name="plugin-login-layout" v-model="choosePlugin.value" :val="props.row.PluginCode"
-                        @update:model-value="choosePluginLoginLayout(props.row.PluginCode)" />
+                    <q-radio dense name="plugin-login-layout" v-model="choosePlugin.value" :val="props.row.plugin_code"
+                        @update:model-value="choosePluginLoginLayout(props.row.plugin_code)" />
                 </q-td>
             </template>
         </q-table>
@@ -43,6 +43,9 @@
 <script setup>
 import { computed, toRefs } from 'vue';
 import { useQuasar } from 'quasar';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n()
 
 const $q = useQuasar()
 const props = defineProps({
@@ -67,20 +70,20 @@ const rows = computed(() => {
 const columns = computed(() => {
     if (showChoose.value) {
         return [
-            { name: 'first', align: 'center', label: this.$t('InstalledPlugins'), field: 'first' },
-            { name: 'PluginName', align: 'center', label: this.$t('PluginName'), field: 'PluginName' },
-            { name: 'PluginCode', align: 'center', label: this.$t('PluginCode'), field: 'PluginCode' },
-            { name: 'PluginVersion', align: 'center', label: this.$t('PluginVersion'), field: 'PluginVersion' },
-            { name: 'remark', align: 'center', label: this.$t('PluginDescription'), field: 'remark' },
-            { name: 'actions', align: 'center', label: this.$t('PluginChoose'), field: 'actions' },
+            { name: 'first', align: 'center', label: t('Installed') + t('Plugin'), field: 'first' },
+            { name: 'plugin_name', align: 'center', label: t('Plugin') + t('Name'), field: 'plugin_name' },
+            { name: 'plugin_code', align: 'center', label: t('Plugin') + t('Code'), field: 'plugin_code' },
+            { name: 'plugin_version', align: 'center', label: t('Plugin') + t('Version'), field: 'plugin_version' },
+            { name: 'memo', align: 'center', label: t('Plugin') + t('Describe'), field: 'memo' },
+            { name: 'actions', align: 'center', label: t('Choose') + t('Plugin'), field: 'actions' },
         ]
     } else {
         return [
-            { name: 'first', align: 'center', label: this.$t('InstalledPlugins'), field: 'first' },
-            { name: 'PluginName', align: 'center', label: this.$t('PluginName'), field: 'PluginName' },
-            { name: 'PluginCode', align: 'center', label: this.$t('PluginCode'), field: 'PluginCode' },
-            { name: 'PluginVersion', align: 'center', label: this.$t('PluginVersion'), field: 'PluginVersion' },
-            { name: 'remark', align: 'center', label: this.$t('PluginDescription'), field: 'remark' },
+            { name: 'first', align: 'center', label: t('Installed') + t('Plugin'), field: 'first' },
+            { name: 'plugin_name', align: 'center', label: t('Plugin') + t('Name'), field: 'plugin_name' },
+            { name: 'plugin_code', align: 'center', label: t('Plugin') + t('Code'), field: 'plugin_code' },
+            { name: 'plugin_version', align: 'center', label: t('Plugin') + t('Version'), field: 'plugin_version' },
+            { name: 'memo', align: 'center', label: t('Plugin') + t('Describe'), field: 'memo' },
         ]
     }
 })

@@ -1,25 +1,36 @@
 <template>
-    <q-editor :toolbar="toolbar" style="width: 100%" v-model="content" />
+    <q-editor :toolbar="toolbar" style="width: 100%" v-model="editorContent" @update:model-value="contentChange" />
 </template>
 
 <script setup>
-import { toRefs } from 'vue';
+import { ref, watch } from 'vue';
+import { useQuasar } from 'quasar';
+
+const $q = useQuasar();
 
 const props = defineProps({
-    content: {
+    modelValue: {
         type: String,
         required: false,
-        default: '',
+        default: "",
     },
 })
-const { content } = toRefs(props)
+const editorContent = ref(props.modelValue)
+watch(props, () => {
+    editorContent.value = props.modelValue
+})
+
+const emit = defineEmits(['update:modelValue'])
+const contentChange = (vlaue) => {
+    emit('update:modelValue', vlaue)
+}
 const toolbar = [
     ['unordered', 'ordered'],
     ['outdent', 'indent'],
     [
         {
-            label: this.$q.lang.editor.align,
-            icon: this.$q.iconSet.editor.align,
+            label: $q.lang.editor.align,
+            icon: $q.iconSet.editor.align,
             fixedLabel: true,
             options: ['left', 'center', 'right', 'justify'],
         },
@@ -27,16 +38,16 @@ const toolbar = [
     ['bold', 'italic', 'strike', 'underline', 'subscript', 'superscript', 'hr'],
     [
         {
-            label: this.$q.lang.editor.formatting,
-            icon: this.$q.iconSet.editor.formatting,
+            label: $q.lang.editor.formatting,
+            icon: $q.iconSet.editor.formatting,
             list: 'icons',
             options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'code'],
         },
     ],
     [
         {
-            label: this.$q.lang.editor.fontSize,
-            icon: this.$q.iconSet.editor.fontSize,
+            label: $q.lang.editor.fontSize,
+            icon: $q.iconSet.editor.fontSize,
             list: 'no-icons',
             options: ['size-1', 'size-2', 'size-3', 'size-4', 'size-5', 'size-6', 'size-7'],
         },

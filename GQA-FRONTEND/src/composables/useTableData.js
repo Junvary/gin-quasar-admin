@@ -6,6 +6,7 @@ import { useI18n } from 'vue-i18n'
 import { postAction } from 'src/api/manage'
 import { useStorageStore } from 'src/stores/storage'
 import { DictOptions } from 'src/utils/dict'
+import { FormatDateTime } from 'src/utils/date'
 
 export default function useTableData(url) {
     const { t } = useI18n()
@@ -16,6 +17,11 @@ export default function useTableData(url) {
     const dictOptions = ref({})
     onMounted(async () => {
         dictOptions.value = await DictOptions()
+    })
+    const showDateTime = computed(() => {
+        return (datetime) => {
+            return FormatDateTime(datetime)
+        }
     })
     const loading = ref(false)
     const tableData = ref([])
@@ -105,6 +111,7 @@ export default function useTableData(url) {
         })
     }
     return {
+        showDateTime,
         gqaBackend,
         gqaFrontend,
         dictOptions,

@@ -21,7 +21,7 @@ export const useUserStore = defineStore('user', {
                 const token = res.data.token
                 const username = res.data.username
                 const nickname = res.data.nickname
-                const realName = res.data.realName
+                const realName = res.data.real_name
                 const avatar = res.data.avatar
                 this.SetToken(token)
                 this.username = username

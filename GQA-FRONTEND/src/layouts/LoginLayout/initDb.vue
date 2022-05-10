@@ -139,7 +139,7 @@ onMounted(() => {
 const checkDb = async () => {
     const res = await postAction('public/check-db')
     if (res.code === 1) {
-        if (res.data.needInit === false) {
+        if (res.data.need_init === false) {
             router.push({ path: '/' })
         }
     }

@@ -75,7 +75,7 @@ func (s *ServiceGenPlugin) PrepareData(genPluginStruct *model.SysGenPlugin) (dat
 	//basePath: gqaplugin/template
 	//locationPath: 如 gqaplugin/template/gqaplugin/main.go.tpl
 	for index, value := range dataList {
-		// tplInTemplatePath 类似 gqaplugin/api/private_api/private_api.go.tpl
+		// tplInTemplatePath 类似 gqaplugin/api/privateapi/privateapi.go.tpl
 		// tplInTemplatePath 类似 gqaplugin/main.go.tpl
 		// tplInTemplatePath 类似 help.txt.tpl
 		tplInTemplatePath := strings.TrimPrefix(value.locationPath, basePath+"/")
@@ -91,7 +91,7 @@ func (s *ServiceGenPlugin) PrepareData(genPluginStruct *model.SysGenPlugin) (dat
 			tplInTemplatePath[strings.Index(tplInTemplatePath, "/"):]
 
 		if lastSeparator := strings.LastIndex(tplInTemplatePath, "/"); lastSeparator != -1 {
-			// trueFileName 类似 private_api.go
+			// trueFileName 类似 privateapi.go
 			// trueFileName 类似 main.go
 			trueFileName := strings.TrimSuffix(tplInTemplatePath[lastSeparator+1:], ".tpl")
 			firstDotIndex := strings.Index(trueFileName, ".")

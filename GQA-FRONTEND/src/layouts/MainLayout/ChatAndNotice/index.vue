@@ -9,11 +9,13 @@
 <script setup>
 import Chat from './modules/Chat.vue'
 import Notice from './modules/Notice.vue'
-import { GqaDefaultUsername } from 'src/settings'
+// import { GqaDefaultUsername } from 'src/settings'
 import { useUserStore } from 'src/stores/user'
 import { computed, onMounted, ref, onUnmounted } from 'vue';
 import { useQuasar } from 'quasar';
+import useCommon from 'src/composables/useCommon';
 
+const { GqaDefaultUsername } = useCommon()
 const $q = useQuasar()
 const userStore = useUserStore()
 const username = computed(() => userStore.GetUsername())

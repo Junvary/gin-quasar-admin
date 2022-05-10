@@ -44,8 +44,10 @@ import { useI18n } from 'vue-i18n'
 import { DictOptions } from 'src/utils/dict'
 import { FormatDateTime } from 'src/utils/date'
 import GqaShowName from 'src/components/GqaShowName'
-import { GqaDefaultAvatar, GqaDefaultUsername } from 'src/settings'
+// import { GqaDefaultAvatar, GqaDefaultUsername } from 'src/settings'
+import useCommon from 'src/composables/useCommon';
 
+const { GqaDefaultUsername, GqaDefaultAvatar } = useCommon()
 const $q = useQuasar()
 const { t } = useI18n()
 const url = {
