@@ -1,29 +1,28 @@
 <template>
     <div class="row">
-        <q-input dense class="col" label="ID" v-model="recordDetail.value.id" stack-label disable />
-        <q-field dense class="col" :label="$t('CreatedAt')" stack-label disable>
+        <q-input dense class="col" label="ID" v-model="recordDetail.value.id" stack-label readonly />
+        <q-field dense class="col" :label="$t('CreatedAt')" stack-label readonly>
             <template v-slot:control>
                 {{ showDateTime(recordDetail.value.created_at) }}
             </template>
         </q-field>
-        <q-field dense class="col" :label="$t('CreatedBy')" stack-label disable>
+        <q-field dense class="col" :label="$t('CreatedBy')" stack-label readonly>
             <template v-slot:control>
                 <GqaShowName v-if="recordDetail.value.created_by_user"
                     :customNameObject="recordDetail.value.created_by_user" />
             </template>
         </q-field>
-        <q-field dense class="col" :label="$t('UpdatedAt')" stack-label disable>
+        <q-field dense class="col" :label="$t('UpdatedAt')" stack-label readonly>
             <template v-slot:control>
                 {{ showDateTime(recordDetail.value.updated_at) }}
             </template>
         </q-field>
-        <q-field dense class="col" :label="$t('UpdatedBy')" stack-label disable>
+        <q-field dense class="col" :label="$t('UpdatedBy')" stack-label readonly>
             <template v-slot:control>
                 <GqaShowName v-if="recordDetail.value.updated_by_user"
                     :customNameObject="recordDetail.value.updated_by_user" />
             </template>
         </q-field>
-
     </div>
 </template>
 

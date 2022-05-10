@@ -3,7 +3,6 @@ module github.com/Junvary/gin-quasar-admin/GQA-BACKEND
 go 1.17
 
 require (
-	github.com/casbin/gorm-adapter/v3 v3.5.0
 	github.com/fsnotify/fsnotify v1.5.1
 	github.com/gin-gonic/gin v1.7.7
 	github.com/golang-jwt/jwt v3.2.2+incompatible
@@ -16,6 +15,7 @@ require (
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
 	gorm.io/driver/mysql v1.3.2
 	gorm.io/gorm v1.23.1
+
 )
 
 require (
