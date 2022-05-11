@@ -30,7 +30,18 @@ github：https://github.com/Junvary/gin-quasar-admin
 
 gitee：https://gitee.com/junvary/gin-quasar-admin
 
-***
+### 插件列表
+
+| 序号 |      插件名      |                       仓库                       |               描述/特点                |
+| :--: | :--------------: | :----------------------------------------------: | :------------------------------------: |
+|  1   |    系统开发科    |   https://github.com/Junvary/gqa-plugin-xtkfk    | 包含了常见增删改查的比较完善的插件样例 |
+|  2   |     考勤统计     | https://github.com/Junvary/gqa-plugin-attendance |      在插件中连接并查询其他数据库      |
+|  3   | 工会固定资产折旧 |  https://github.com/Junvary/gqa-plugin-AssetGh   |           打印功能、导出功能           |
+
+### 插件开发与接入方式
+
+1. 开发：后端gqaplugin目录、前端plugins目录建立对应文件，开发完成可提取成单独仓库。
+2. 接入：clone或下载插件仓库代码，gqaplugin目录中文件夹放入GQA-BACKEND/gqaplugin目录（后端），plugins目录中文件夹放入GQA-FRONTEND/src/pugins目录即可。注：后端可通过github直接导入。
 
 ### 项目运行：
 
@@ -45,8 +56,6 @@ gitee：https://gitee.com/junvary/gin-quasar-admin
 > yarn run build
 > ```
 
-
-
 > 后端：
 >
 > ```go
@@ -59,11 +68,14 @@ gitee：https://gitee.com/junvary/gin-quasar-admin
 > go build main.go
 > ```
 >
-> 
 
 ### 项目截图（Todo）：
 
+我是一个占位符
 
+### 交流群
+
+QQ群号：342045316
 
 ### 鸣谢
 
