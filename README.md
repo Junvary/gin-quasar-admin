@@ -32,11 +32,11 @@ gitee：https://gitee.com/junvary/gin-quasar-admin
 
 ### 插件列表
 
-| 序号 |      插件名      |                       仓库                       |               描述/特点                |
-| :--: | :--------------: | :----------------------------------------------: | :------------------------------------: |
-|  1   |    系统开发科    |   https://github.com/Junvary/gqa-plugin-xtkfk    | 包含了常见增删改查的比较完善的插件样例 |
-|  2   |     考勤统计     | https://github.com/Junvary/gqa-plugin-attendance |      在插件中连接并查询其他数据库      |
-|  3   | 工会固定资产折旧 |  https://github.com/Junvary/gqa-plugin-AssetGh   |           打印功能、导出功能           |
+| 序号 |      插件名      |                       仓库                       |                    描述/特点                     |
+| :--: | :--------------: | :----------------------------------------------: | :----------------------------------------------: |
+|  1   |    系统开发科    |   https://github.com/Junvary/gqa-plugin-xtkfk    | 包含登录页插件和常见增删改查的比较完善的插件样例 |
+|  2   |     考勤统计     | https://github.com/Junvary/gqa-plugin-attendance |           在插件中连接并查询其他数据库           |
+|  3   | 工会固定资产折旧 |  https://github.com/Junvary/gqa-plugin-AssetGh   |                打印功能、导出功能                |
 
 ### 插件开发与接入方式
 
