@@ -26,7 +26,7 @@ func (a *ApiDb) CheckDb(c *gin.Context) {
 		})
 	}
 	if global.GqaDb != nil {
-		pluginLoginLayout := utils.GetConfigFrontend("gqaPluginLoginLayout")
+		pluginLoginLayout := utils.GetConfigFrontend("pluginLoginLayout")
 		global.GqaLogger.Info("数据库无需初始化")
 		model.ResponseSuccessMessageData(gin.H{
 			"need_init":           false,

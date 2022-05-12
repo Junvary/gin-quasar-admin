@@ -302,7 +302,8 @@ const rejected = (rejectedEntries) => {
     })
 }
 const handleSetLoginLayout = (event, scope) => {
-    const pluginLoginLayout = tableData.filter((item) => {
+    console.log(event)
+    const pluginLoginLayout = tableData.value.filter((item) => {
         return item.config_item === 'pluginLoginLayout'
     })
     pluginLoginLayout[0].item_custom = event

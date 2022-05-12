@@ -56,14 +56,15 @@ const checkDb = async () => {
             await storageStore.SetGqaDict()
             await storageStore.SetGqaFrontend()
             await storageStore.SetGqaBackend()
-            pluginCurrent.value = res.data.pluginLoginLayout
+            pluginCurrent.value = res.data.plugin_login_layout
             if (pluginCurrent.value) {
                 try {
-                    pluginComponent.value = markRaw(defineAsyncComponent(() => import(`src/layouts/LoginLayout/${this.pluginCurrent}/index.vue`)))
+                    const pluginCode = pluginCurrent.value.slice(7)
+                    pluginComponent.value = markRaw(defineAsyncComponent(() => import(`src/plugins/${pluginCode}/LoginLayout/index.vue`)))
                 } catch (error) {
                     $q.notify({
                         type: 'negative',
-                        message: t('LoginLayoutWizardInitDBAfterText2'),
+                        message: t('LoginLayoutNotSupport'),
                     })
                 }
             }

@@ -30,9 +30,9 @@
                 </q-td>
             </template>
 
-            <template v-slot:body-cell-actions="props" v-if="showChoose.value">
+            <template v-slot:body-cell-actions="props" v-if="showChoose">
                 <q-td :props="props">
-                    <q-radio dense name="plugin-login-layout" v-model="choosePlugin.value" :val="props.row.plugin_code"
+                    <q-radio dense name="plugin-login-layout" v-model="choosePlugin" :val="props.row.plugin_code"
                         @update:model-value="choosePluginLoginLayout(props.row.plugin_code)" />
                 </q-td>
             </template>
@@ -88,9 +88,10 @@ const columns = computed(() => {
     }
 })
 const emit = defineEmits(['changeSuccess'])
-const choosePluginLoginLayout = () => {
+const choosePluginLoginLayout = (code) => {
+    const pluginCode = code.slice(7)
     const tryImport = new Promise((resolve, reject) => {
-        require(`src/layouts/LoginLayout/${code}/index.vue`).default
+        require(`src/plugins/${pluginCode}/LoginLayout/index.vue`).default
         resolve()
     })
     tryImport.then(() => {

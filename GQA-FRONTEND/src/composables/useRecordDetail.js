@@ -1,11 +1,9 @@
 import { DictOptions } from 'src/utils/dict'
 import { onMounted, ref, computed, reactive } from 'vue'
-import { FormatDateTime } from 'src/utils/date'
 import { postAction } from 'src/api/manage'
 import { useQuasar } from 'quasar'
 import { useI18n } from 'vue-i18n'
-
-
+import useCommon from './useCommon'
 
 export default function useRecordDetail(url, emit) {
     const { t } = useI18n()
@@ -13,11 +11,6 @@ export default function useRecordDetail(url, emit) {
     const dictOptions = ref({})
     onMounted(async () => {
         dictOptions.value = await DictOptions()
-    })
-    const showDateTime = computed(() => {
-        return (datetime) => {
-            return FormatDateTime(datetime)
-        }
     })
     const formType = ref('')
     const formTypeName = computed(() => {
@@ -107,7 +100,14 @@ export default function useRecordDetail(url, emit) {
             })
         }
     }
+    // 引入useCommon中的方法
+    const { showDateTime, gqaFrontend, gqaBackend, GqaDictShow, GqaShowName, GqaAvatar, } = useCommon()
     return {
+        GqaAvatar,
+        GqaShowName,
+        GqaDictShow,
+        gqaFrontend,
+        gqaBackend,
         dictOptions,
         showDateTime,
         formType,

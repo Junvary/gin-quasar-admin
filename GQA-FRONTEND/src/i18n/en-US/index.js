@@ -8,6 +8,7 @@ export default {
     UrlNotConfig: 'No URL configured',
     CanNotAddOrEdit: 'Cannot add or edit',
     LoginLayoutWithoutPlugin: 'Login page plugin undetected',
+    LoginLayoutNotSupport: 'Unsupported login page plugin',
     SizeOrExtError: 'Size or ext not allowed',
     GqaSelectUserHelp: 'Only for add users,delete them from the outside',
     CanNotDeleteThis: 'Sorry!You can not delete this',

@@ -1,14 +1,17 @@
 import { useStorageStore } from 'src/stores/storage';
-import { computed } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { FormatDateTime } from 'src/utils/date'
 import { useI18n } from 'vue-i18n';
-
+import GqaDictShow from 'src/components/GqaDictShow'
+import GqaShowName from 'src/components/GqaShowName'
+import GqaAvatar from 'src/components/GqaAvatar'
 
 export default function useCommon() {
     const { t } = useI18n
     const storageStore = useStorageStore();
     const gqaFrontend = computed(() => storageStore.GetGqaFrontend());
     const gqaBackend = computed(() => storageStore.GetGqaBackend());
+
     const openLink = (url) => {
         window.open(url)
     }
@@ -33,6 +36,9 @@ export default function useCommon() {
     // 没有网站后台配置的时候用这个配置
     const GqaBackendDefault = {}
     return {
+        GqaDictShow,
+        GqaShowName,
+        GqaAvatar,
         showDateTime,
         gqaFrontend,
         gqaBackend,

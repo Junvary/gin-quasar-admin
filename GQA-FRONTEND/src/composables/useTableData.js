@@ -1,27 +1,16 @@
-import GqaDictShow from 'src/components/GqaDictShow'
-import GqaAvatar from 'src/components/GqaAvatar'
-import { ref, computed, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useQuasar } from 'quasar'
 import { useI18n } from 'vue-i18n'
 import { postAction } from 'src/api/manage'
-import { useStorageStore } from 'src/stores/storage'
 import { DictOptions } from 'src/utils/dict'
-import { FormatDateTime } from 'src/utils/date'
+import useCommon from './useCommon'
 
 export default function useTableData(url) {
     const { t } = useI18n()
     const $q = useQuasar()
-    const storageStore = useStorageStore()
-    const gqaBackend = computed(() => storageStore.GetGqaBackend())
-    const gqaFrontend = computed(() => storageStore.GetGqaFrontend())
     const dictOptions = ref({})
     onMounted(async () => {
         dictOptions.value = await DictOptions()
-    })
-    const showDateTime = computed(() => {
-        return (datetime) => {
-            return FormatDateTime(datetime)
-        }
     })
     const loading = ref(false)
     const tableData = ref([])
@@ -110,6 +99,8 @@ export default function useTableData(url) {
             getTableData()
         })
     }
+    // 引入useCommon中的方法
+    const { showDateTime, gqaFrontend, gqaBackend, GqaDictShow, GqaShowName, GqaAvatar, } = useCommon()
     return {
         showDateTime,
         gqaBackend,
@@ -119,6 +110,7 @@ export default function useTableData(url) {
         queryParams,
         pageOptions,
         GqaDictShow,
+        GqaShowName,
         GqaAvatar,
         loading,
         tableData,

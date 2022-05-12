@@ -18,8 +18,8 @@ const { gqaFrontend } = useCommon()
 const loginVisible = ref(false);
 const randomImg = 'https://api.ixiaowai.cn/api/api.php'
 const bannerImage = computed(() => {
-    if (gqaFrontend.bannerImage && gqaFrontend.bannerImage.substring(0, 11) === 'gqa-upload:') {
-        return process.env.API + gqaFrontend.bannerImage.substring(11)
+    if (gqaFrontend.value.bannerImage && gqaFrontend.value.bannerImage.substring(0, 11) === 'gqa-upload:') {
+        return process.env.API + gqaFrontend.value.bannerImage.substring(11)
     }
     return randomImg
 })
@@ -31,9 +31,7 @@ const show = () => {
 defineExpose({
     show
 })
-
 </script>
-
 
 <style lang="scss" scoped>
 </style>

@@ -24,8 +24,8 @@ import GqaScrollDown from 'src/components/GqaScrollDown/index.vue'
 
 const props = defineProps({
     pluginComponent: {
-        type: String,
-        default: '',
+        type: Object,
+        default: () => { },
     },
     pluginCurrent: {
         type: String,

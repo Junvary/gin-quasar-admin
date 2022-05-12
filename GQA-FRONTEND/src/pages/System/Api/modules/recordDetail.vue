@@ -53,8 +53,6 @@
 
 <script setup>
 import useRecordDetail from 'src/composables/useRecordDetail'
-import GqaAvatar from 'src/components/GqaAvatar'
-import GqaShowName from 'src/components/GqaShowName'
 import { postAction } from 'src/api/manage'
 import { useStorageStore } from 'src/stores/storage'
 import { ref, computed } from 'vue'

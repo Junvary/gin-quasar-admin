@@ -38,13 +38,8 @@
 <script setup>
 import useTableData from 'src/composables/useTableData'
 import { useQuasar } from 'quasar'
-import { postAction } from 'src/api/manage'
 import { computed, onMounted, ref, watch, nextTick, toRefs } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { DictOptions } from 'src/utils/dict'
-import { FormatDateTime } from 'src/utils/date'
-import GqaShowName from 'src/components/GqaShowName'
-// import { GqaDefaultAvatar, GqaDefaultUsername } from 'src/settings'
 import useCommon from 'src/composables/useCommon';
 
 const { GqaDefaultUsername, GqaDefaultAvatar } = useCommon()

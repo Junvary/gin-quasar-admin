@@ -8,6 +8,7 @@ export default {
     UrlNotConfig: '没有配置URL',
     CanNotAddOrEdit: '无法新增或编辑',
     LoginLayoutWithoutPlugin: '未安装任何登录页插件',
+    LoginLayoutNotSupport: '不支持的登录页插件',
     SizeOrExtError: '文件重复或大小/类型不被允许',
     GqaSelectUserHelp: '只供添加用户使用，取消选择需从外部删除',
     CanNotDeleteThis: '抱歉!你不能删除此项',
