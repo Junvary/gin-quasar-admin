@@ -1,5 +1,5 @@
 // 公共路由，无须鉴权
-const PublicRoutes = [
+export const PublicRoutes = [
     {
         path: '/login',
         name: 'login',
@@ -11,6 +11,11 @@ const PublicRoutes = [
         name: 'init-db',
         component: () => import('layouts/LoginLayout/initDb.vue'),
     },
+    {
+        path: '/new-tab',
+        component: () => import('layouts/NewTabLayout/index.vue'),
+        children: []
+    }
 
     // // Always leave this as last one,
     // // but you can also remove it
