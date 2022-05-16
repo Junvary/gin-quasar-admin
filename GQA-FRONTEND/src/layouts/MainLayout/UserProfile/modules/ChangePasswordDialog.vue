@@ -9,7 +9,7 @@
 
             <q-card-section class="q-pt-none">
                 <q-form class="q-gutter-md" ref="passwordFormRef">
-                    <q-input filled v-model.trim="passwordForm.oldPassword" autocomplete="off"
+                    <q-input filled v-model.trim="passwordForm.old_password" autocomplete="off"
                         :label="$t('Old') + ' ' + $t('Password')" :type="isPwd ? 'password' : 'text'"
                         :rules="[val => val && val.length > 0 || $t('NeedInput')]">
                         <template v-slot:append>
@@ -18,7 +18,7 @@
                         </template>
                     </q-input>
 
-                    <q-input filled v-model.trim="passwordForm.newPassword1" autocomplete="off"
+                    <q-input filled v-model.trim="passwordForm.new_password_1" autocomplete="off"
                         :label="$t('New') + ' ' + $t('Password')" :type="isPwd ? 'password' : 'text'"
                         :rules="[val => val && val.length > 0 || $t('NeedInput')]">
                         <template v-slot:append>
@@ -27,7 +27,7 @@
                         </template>
                     </q-input>
 
-                    <q-input filled v-model.trim="passwordForm.newPassword2" autocomplete="off"
+                    <q-input filled v-model.trim="passwordForm.new_password_2" autocomplete="off"
                         :label="$t('New') + ' ' + $t('Password')" :type="isPwd ? 'password' : 'text'"
                         :rules="[val => val && val.length > 0 || $t('NeedInput')]">
                         <template v-slot:append>
@@ -56,14 +56,14 @@ import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
 const $q = useQuasar()
-const { t } = useI18n
+const { t } = useI18n()
 const userStore = useUserStore()
-const router = useRouter
+const router = useRouter()
 const passwordDialog = ref(false)
 const passwordForm = ref({
-    oldPassword: '',
-    newPassword1: '',
-    newPassword2: '',
+    old_password: '',
+    new_password_1: '',
+    new_password_2: '',
 })
 const isPwd = ref(true)
 const changePasswordUrl = 'user/change-password'
@@ -78,7 +78,7 @@ const passwordFormRef = ref(null)
 const handleChangePasswrod = async () => {
     const success = await passwordFormRef.value.validate()
     if (success) {
-        if (passwordForm.value.newPassword1 !== passwordForm.value.newPassword2) {
+        if (passwordForm.value.new_password_1 !== passwordForm.value.new_password_2) {
             $q.notify({
                 type: 'negative',
                 message: t('TwoPasswordsCheck'),

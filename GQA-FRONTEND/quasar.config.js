@@ -61,7 +61,7 @@ module.exports = configure(function (ctx) {
                     // 测试代理地址
                     ? "http://127.0.0.1:8888/"
                     // 正式代理地址
-                    : "http://127.0.0.1:8888/"
+                    : "http://192.168.44.107:8888/"
             },
             // transpile: false,
             // publicPath: '/',

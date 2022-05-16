@@ -45,7 +45,7 @@ const columns = computed(() => {
     return [
         { name: 'username', align: 'center', label: t('Username'), field: 'username' },
         { name: 'nickname', align: 'center', label: t('Nickname'), field: 'nickname' },
-        { name: 'realName', align: 'center', label: t('RealName'), field: 'realName' },
+        { name: 'real_name', align: 'center', label: t('RealName'), field: 'real_name' },
         { name: 'actions', align: 'center', label: t('Actions'), field: 'actions' },
     ]
 })
