@@ -97,6 +97,7 @@ const {
     showAddForm,
     showEditForm,
     onRequest,
+    getTableData,
     handleSearch,
     resetSearch,
     handleFinish,
@@ -104,10 +105,7 @@ const {
 } = useTableData(url)
 
 onMounted(() => {
-    onRequest({
-        pagination: pagination.value,
-        queryParams: queryParams.value
-    })
+    getTableData()
 })
 
 const handleSave = async (row) => {

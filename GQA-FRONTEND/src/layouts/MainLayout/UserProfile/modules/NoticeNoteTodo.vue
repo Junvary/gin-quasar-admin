@@ -59,6 +59,7 @@ const {
     showAddForm,
     showEditForm,
     onRequest,
+    getTableData,
     handleSearch,
     resetSearch,
     handleFinish,
@@ -67,9 +68,6 @@ const {
 
 onMounted(() => {
     pagination.value.sortBy = 'created_at'
-    onRequest({
-        pagination: pagination.value,
-        queryParams: queryParams.value
-    })
+    getTableData()
 })
 </script>

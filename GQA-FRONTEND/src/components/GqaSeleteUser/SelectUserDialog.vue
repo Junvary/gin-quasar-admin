@@ -85,6 +85,7 @@ const {
     showAddForm,
     showEditForm,
     onRequest,
+    getTableData,
     handleSearch,
     resetSearch,
     handleFinish,
@@ -97,10 +98,7 @@ const selected = ref(null)
 const show = (selectUser) => {
     selected.value = []
     selectUserVisible.value = true
-    onRequest({
-        pagination: pagination.value,
-        queryParams: queryParams.value
-    })
+    getTableData()
     if (selection.value === 'multiple') {
         if (ArrayOrObject(selectUser) === 'Array') {
             selected.value = selectUser

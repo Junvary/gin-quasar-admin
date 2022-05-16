@@ -78,6 +78,7 @@ const {
     showAddForm,
     showEditForm,
     onRequest,
+    getTableData,
     handleSearch,
     resetSearch,
     handleFinish,
@@ -102,10 +103,7 @@ onMounted(() => {
         getNoteTodoData({ pagination: pagination.value })
     })
     queryParams.value.notice_to_user = String(username.value)
-    onRequest({
-        pagination: pagination.value,
-        queryParams: queryParams.value
-    })
+    getTableData()
     getNoteTodoData({ pagination: pagination.value })
 })
 
@@ -113,12 +111,6 @@ const todoQueryParams = {
     todoStatus: 'no',
 }
 
-const getTableData = () => {
-    onRequest({
-        pagination: pagination.value,
-        queryParams: queryParams.value
-    })
-}
 defineExpose({
     getTableData
 })

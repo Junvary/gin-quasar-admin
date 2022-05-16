@@ -61,6 +61,7 @@ const {
     showAddForm,
     showEditForm,
     onRequest,
+    getTableData,
     handleSearch,
     resetSearch,
     handleFinish,
@@ -69,10 +70,7 @@ const {
 
 onMounted(() => {
     pagination.value.rowsPerPage = 99999
-    onRequest({
-        pagination: pagination.value,
-        queryParams: queryParams.value
-    })
+    getTableData()
 })
 
 const deptTree = computed(() => {

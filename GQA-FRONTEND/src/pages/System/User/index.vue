@@ -116,6 +116,7 @@ const {
     showAddForm,
     showEditForm,
     onRequest,
+    getTableData,
     handleSearch,
     resetSearch,
     handleFinish,
@@ -127,10 +128,7 @@ onMounted(() => {
     queryParams.value = {
         with_admin: true,
     }
-    onRequest({
-        pagination: pagination.value,
-        queryParams: queryParams.value
-    })
+    getTableData()
 })
 
 const resetPassword = (row) => {
@@ -149,10 +147,7 @@ const resetPassword = (row) => {
                 message: res.message,
             })
         }
-        onRequest({
-            pagination: pagination.value,
-            queryParams: queryParams.value
-        })
+        getTableData()
     })
 }
 

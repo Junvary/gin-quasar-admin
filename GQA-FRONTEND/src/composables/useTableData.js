@@ -118,6 +118,7 @@ export default function useTableData(url) {
         showAddForm,
         showEditForm,
         onRequest,
+        getTableData,
         handleSearch,
         resetSearch,
         handleFinish,

@@ -62,6 +62,7 @@ const {
     showAddForm,
     showEditForm,
     onRequest,
+    getTableData,
     handleSearch,
     resetSearch,
     handleFinish,
@@ -78,10 +79,7 @@ const show = (row) => {
     record.value = row
     queryParams.value.role_code = record.value.role_code
     roleUserVisible.value = true
-    onRequest({
-        pagination: pagination.value,
-        queryParams: queryParams.value
-    })
+    getTableData()
 }
 defineExpose({
     show
@@ -115,10 +113,7 @@ const handleRemove = (row) => {
                 message: res.message,
             })
         }
-        onRequest({
-            pagination: pagination.value,
-            queryParams: queryParams.value
-        })
+        getTableData()
     })
 }
 const handleAddUser = (event) => {
@@ -136,10 +131,7 @@ const handleAddUser = (event) => {
                 message: res.message,
             })
         }
-        onRequest({
-            pagination: pagination.value,
-            queryParams: queryParams.value
-        })
+        getTableData()
     })
 }
 </script>

@@ -72,6 +72,7 @@ const {
     showAddForm,
     showEditForm,
     onRequest,
+    getTableData,
     handleSearch,
     resetSearch,
     handleFinish,
@@ -86,19 +87,13 @@ onMounted(() => {
         notice_to_user: String(username.value),
     }
     pagination.value.sortBy = 'created_at'
-    onRequest({
-        pagination: pagination.value,
-        queryParams: queryParams.value
-    })
+    getTableData()
 })
 const noticeDetail = ref(null)
 const readNotice = (row) => {
     noticeDetail.value.show(row)
 }
 const hide = () => {
-    onRequest({
-        pagination: pagination.value,
-        queryParams: queryParams.value
-    })
+    getTableData()
 }
 </script>

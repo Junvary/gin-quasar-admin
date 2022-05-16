@@ -61,6 +61,7 @@ const {
     showAddForm,
     showEditForm,
     onRequest,
+    getTableData,
     handleSearch,
     resetSearch,
     handleFinish,
@@ -76,10 +77,7 @@ const show = (dc) => {
     deptCode.value = dc
     queryParams.value.dept_code = deptCode.value
     deptUserVisible.value = true
-    onRequest({
-        pagination: pagination.value,
-        queryParams: queryParams.value
-    })
+    getTableData()
 }
 defineExpose({
     show
@@ -105,10 +103,7 @@ const handleRemove = (row) => {
                 message: res.message,
             })
         }
-        onRequest({
-            pagination: pagination.value,
-            queryParams: queryParams.value
-        })
+        getTableData()
     })
 }
 const handleAddUser = (event) => {
@@ -126,10 +121,7 @@ const handleAddUser = (event) => {
                 message: res.message,
             })
         }
-        onRequest({
-            pagination: pagination.value,
-            queryParams: queryParams.value
-        })
+        getTableData()
     })
 }
 </script>

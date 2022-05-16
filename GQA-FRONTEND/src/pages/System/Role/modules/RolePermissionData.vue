@@ -73,6 +73,7 @@ const {
     showAddForm,
     showEditForm,
     onRequest,
+    getTableData,
     handleSearch,
     resetSearch,
     handleFinish,
@@ -95,18 +96,12 @@ onMounted(async () => {
         ticked.value = row.value.dept_data_permission_custom.split(',')
     }
     if (row.value.dept_data_permission_type === 'custom') {
-        onRequest({
-            pagination: pagination.value,
-            queryParams: queryParams.value
-        })
+        getTableData()
     }
 })
 const checkCustom = (value) => {
     if (value === 'custom') {
-        onRequest({
-            pagination: pagination.value,
-            queryParams: queryParams.value
-        })
+        getTableData()
     }
 }
 const handleDataPermission = () => {

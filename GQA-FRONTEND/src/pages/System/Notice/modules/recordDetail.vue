@@ -92,6 +92,7 @@ const {
     showAddForm,
     showEditForm,
     onRequest,
+    getTableData,
     handleSearch,
     resetSearch,
     handleFinish,
@@ -141,10 +142,7 @@ const selectUser = ref([])
 const changenoticeToUserType = (val) => {
     if (val === 'some') {
         selectUser.value = []
-        onRequest({
-            pagination: pagination.value,
-            queryParams: queryParams.value
-        }).then(() => {
+        getTableData().then(() => {
             if (recordDetail.value.notice_to_user_type === 'some') {
                 for (let u of recordDetail.value.notice_to_user) {
                     selectUser.value.push(u.toUser)
