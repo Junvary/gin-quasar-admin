@@ -37,6 +37,7 @@ gitee：https://gitee.com/junvary/gin-quasar-admin
 |  1   |    系统开发科    |   https://github.com/Junvary/gqa-plugin-xtkfk    | 包含登录页插件和常见增删改查的比较完善的插件样例 |
 |  2   |     考勤统计     | https://github.com/Junvary/gqa-plugin-attendance |           在插件中连接并查询其他数据库           |
 |  3   | 工会固定资产折旧 |  https://github.com/Junvary/gqa-plugin-AssetGh   |                打印功能、导出功能                |
+|  4   |     投票插件     |    https://github.com/Junvary/gqa-plugin-vote    |     不使用基础Model的表，较多逻辑，图表展示      |
 
 ### 插件开发与接入方式
 

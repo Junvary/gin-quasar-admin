@@ -32,7 +32,7 @@
                 <q-td :props="props">
                     <div class="column items-center q-gutter-xs">
                         <q-badge class="col" color="primary" v-for="(item, index) in props.row.role" :key="index">
-                            {{ item.roleName }}
+                            {{ item.role_name }}
                         </q-badge>
                     </div>
                 </q-td>
@@ -42,7 +42,7 @@
                 <q-td :props="props">
                     <div class="column items-center q-gutter-xs">
                         <q-badge class="col" color="primary" v-for="(item, index) in props.row.dept" :key="index">
-                            {{ item.deptName }}
+                            {{ item.dept_name }}
                         </q-badge>
                     </div>
                 </q-td>

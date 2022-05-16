@@ -29,7 +29,7 @@
                 <q-btn dense color="primary" @click="handleSearch" :label="$t('Search')" />
                 <q-btn dense color="primary" @click="resetSearch" :label="$t('Reset')" />
             </q-card-section>
-            {{ selected }}
+
             <q-table row-key="username" :rows="tableData" :columns="columns" v-model:pagination="pagination"
                 :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest" :selection="selection"
                 v-model:selected="selected">

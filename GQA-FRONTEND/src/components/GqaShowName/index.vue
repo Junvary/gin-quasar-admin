@@ -41,8 +41,8 @@ const trueName = computed(() => {
         // 其他用户的名字
         if (customNameObject.value.nickname) {
             return customNameObject.value.nickname
-        } else if (customNameObject.value.realName) {
-            return customNameObject.value.realName
+        } else if (customNameObject.value.real_name) {
+            return customNameObject.value.real_name
         } else {
             return customNameObject.value.username
         }

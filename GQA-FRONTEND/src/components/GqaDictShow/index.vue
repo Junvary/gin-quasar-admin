@@ -70,7 +70,7 @@ const dictLabel = computed(() => {
 const dictExt1 = computed(() => {
     if (dictCode.value !== '') {
         const codeList = dictCode.value.split(',')
-        const dict = dictList[dictName.value]
+        const dict = dictList.value[dictName.value]
         let ext1 = ''
         for (let d of codeList) {
             const l = dict.filter((item) => item.dict_code === d)[0].dict_ext_1
