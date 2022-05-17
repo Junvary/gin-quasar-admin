@@ -38,7 +38,7 @@
                     <q-btn :label="$t('Login')" type="submit" color="primary" :loading="loading" style="width: 100%" />
                 </div>
             </q-form>
-            <q-inner-loading :showing="loading">
+            <q-inner-loading :showing="loading" style="background-color: rgba(0, 0, 0, 0);">
                 <q-spinner-hourglass color="primary" size="3em" />
             </q-inner-loading>
         </q-card-section>
