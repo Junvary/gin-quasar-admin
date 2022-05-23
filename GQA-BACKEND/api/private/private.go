@@ -17,6 +17,7 @@ type ApiPrivate struct {
 	ApiRole           ApiRole
 	ApiUpload         ApiUpload
 	ApiUser           ApiUser
+	ApiUserOnline     ApiUserOnline
 }
 
 var servicePrivate = service.GqaService.ServicePrivate

@@ -15,6 +15,7 @@ type RouterPrivate struct {
 	RouterRole           RouterRole
 	RouterUpload         RouterUpload
 	RouterUser           RouterUser
+	RouterUserOnline     RouterUserOnline
 }
 
 var apiPrivate = api.GqaApi.ApiPrivate

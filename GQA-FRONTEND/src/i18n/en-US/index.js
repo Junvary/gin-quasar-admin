@@ -150,6 +150,8 @@ export default {
     ExampleIcon: 'Icons',
     NoticeManage: 'Notice Manage',
     GenPlugin: 'Gen Plugin',
+    UserOnline: 'User Online',
+    KickOut: 'Kick Out',
     CreatedAt: 'Created at',
     CreatedBy: 'Created by',
     UpdatedAt: 'Updated at',

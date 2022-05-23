@@ -2,10 +2,12 @@ package middleware
 
 import (
 	"errors"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt"
+	"gorm.io/gorm"
 	"time"
 )
 
@@ -80,6 +82,16 @@ func JwtHandler() gin.HandlerFunc {
 			return
 		}
 		c.Set("claims", claims)
+
+		//判断用户是否已经被踢出
+		var userOnline model.SysUserOnline
+		err = global.GqaDb.Where("username = ?", utils.GetUsername(c)).First(&userOnline).Error
+		if errors.Is(err, gorm.ErrRecordNotFound) || userOnline.Token != token {
+			model.ResponseErrorMessageData(gin.H{"reload": true}, "当前用户被踢！", c)
+			c.Abort()
+			return
+		}
+
 		c.Next()
 	}
 }

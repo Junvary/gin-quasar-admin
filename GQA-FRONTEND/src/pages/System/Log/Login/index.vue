@@ -2,9 +2,9 @@
     <q-page padding>
 
         <div class="items-center row q-gutter-md" style="margin-bottom: 10px">
-            <q-input style="width: 20%" v-model="queryParams.loginUsername" :label="$t('User')" />
-            <q-select style="width: 20%" v-model="queryParams.loginSuccess" :options="dictOptions.statusYesNo"
-                emit-value map-options :label="$t('LoginSuccess')" />
+            <q-input style="width: 20%" v-model="queryParams.login_username" :label="$t('User')" />
+            <q-select style="width: 20%" v-model="queryParams.login_success" :options="dictOptions.statusYesNo"
+                emit-value map-options :label="$t('Login') + $t('Success')" />
 
             <q-btn color="primary" @click="handleSearch" :label="$t('Search')" />
             <q-btn color="primary" @click="resetSearch" :label="$t('Reset')" />

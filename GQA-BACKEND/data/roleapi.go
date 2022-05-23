@@ -118,4 +118,7 @@ var sysRoleApiData = []model.SysRoleApi{
 	{RoleCode: "super-admin", ApiGroup: "todoNote", ApiMethod: "POST", ApiPath: "/note-todo/query-note-todo-by-id"},
 
 	{RoleCode: "super-admin", ApiGroup: "genPlugin", ApiMethod: "POST", ApiPath: "/gen-plugin/gen-plugin"},
+
+	{RoleCode: "super-admin", ApiGroup: "user-online", ApiMethod: "POST", ApiPath: "/user-online/get-user-online-list"},
+	{RoleCode: "super-admin", ApiGroup: "user-online", ApiMethod: "POST", ApiPath: "/user-online/kick-online-user"},
 }

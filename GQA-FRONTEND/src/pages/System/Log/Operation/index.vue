@@ -2,7 +2,7 @@
     <q-page padding>
 
         <div class="items-center row q-gutter-md" style="margin-bottom: 10px">
-            <q-input style="width: 20%" v-model="queryParams.operationUsername" :label="$t('User')" />
+            <q-input style="width: 20%" v-model="queryParams.operation_username" :label="$t('User')" />
 
             <q-btn color="primary" @click="handleSearch" :label="$t('Search')" />
             <q-btn color="primary" @click="resetSearch" :label="$t('Reset')" />

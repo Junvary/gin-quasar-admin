@@ -15,4 +15,5 @@ type ServicePrivate struct {
 	ServiceRole           ServiceRole
 	ServiceUpload         ServiceUpload
 	ServiceUser           ServiceUser
+	ServiceUserOnline     ServiceUserOnline
 }

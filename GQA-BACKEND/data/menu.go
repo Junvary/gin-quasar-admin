@@ -84,4 +84,7 @@ var sysMenuData = []model.SysMenu{
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
 		Sort: 12, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件生成",
 	}}, Name: "genPlugin", Title: "GenPlugin", Icon: "code", Path: "/gen-plugin", Component: "pages/System/GenPlugin/index", ParentCode: "system"},
+	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
+		Sort: 13, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "在线用户",
+	}}, Name: "user-online", Title: "UserOnline", Icon: "fas fa-users", Path: "/user-online", Component: "pages/System/UserOnline/index", ParentCode: "system"},
 }

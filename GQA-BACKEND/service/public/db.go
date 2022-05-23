@@ -40,6 +40,7 @@ var migrateList = []interface{}{
 	model.SysNotice{},
 	model.SysNoticeToUser{},
 	model.SysNoteTodo{},
+	model.SysUserOnline{},
 }
 
 var dataList = []dataInterface{

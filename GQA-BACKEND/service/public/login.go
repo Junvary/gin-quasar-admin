@@ -33,3 +33,13 @@ func (s *ServiceLogin) LogLogin(username string, c *gin.Context, status string, 
 	err = global.GqaDb.Create(&loginLog).Error
 	return err
 }
+
+func (s *ServiceLogin) SaveOnline(username string, token string) error {
+	var online = model.SysUserOnline{
+		Username: username,
+		Token:    token,
+	}
+	err := global.GqaDb.Where("username = ?", online.Username).Delete(&model.SysUserOnline{}).Error
+	err = global.GqaDb.Create(&online).Error
+	return err
+}

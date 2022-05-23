@@ -151,6 +151,8 @@ export default {
     ExampleIcon: '图标合集',
     NoticeManage: '消息管理',
     GenPlugin: '插件生成',
+    UserOnline: '在线用户',
+    KickOut: '踢出',
     CreatedAt: '创建时间',
     CreatedBy: '创建人',
     UpdatedAt: '更新时间',

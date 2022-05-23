@@ -44,6 +44,9 @@ func (a *ApiLogin) createToken(user model.SysUser, c *gin.Context) {
 	if err := servicePublic.ServiceLogin.LogLogin(user.Username, c, "yes", "登录成功！"); err != nil {
 		global.GqaLogger.Error("登录日志记录错误！", zap.Any("err", err))
 	}
+	if err := servicePublic.ServiceLogin.SaveOnline(user.Username, ss); err != nil {
+		global.GqaLogger.Error("记录在线用户失败！", zap.Any("err", err))
+	}
 	model.ResponseSuccessMessageData(model.ResponseLogin{
 		Avatar:   user.Avatar,
 		Username: user.Username,

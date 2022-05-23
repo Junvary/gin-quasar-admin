@@ -269,4 +269,11 @@ var sysApiData = []model.SysApi{
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
 		Sort: 10075, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件代码生成",
 	}}, ApiGroup: "genPlugin", ApiMethod: "POST", ApiPath: "/gen-plugin/gen-plugin"},
+
+	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
+		Sort: 10076, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "获取在线用户列表",
+	}}, ApiGroup: "user-online", ApiMethod: "POST", ApiPath: "/user-online/get-user-online-list"},
+	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
+		Sort: 10077, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "踢出在线用户",
+	}}, ApiGroup: "user-online", ApiMethod: "POST", ApiPath: "/user-online/kick-online-user"},
 }
