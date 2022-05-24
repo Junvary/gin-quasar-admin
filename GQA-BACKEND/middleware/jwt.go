@@ -87,7 +87,7 @@ func JwtHandler() gin.HandlerFunc {
 		var userOnline model.SysUserOnline
 		err = global.GqaDb.Where("username = ?", utils.GetUsername(c)).First(&userOnline).Error
 		if errors.Is(err, gorm.ErrRecordNotFound) || userOnline.Token != token {
-			model.ResponseErrorMessageData(gin.H{"reload": true}, "当前用户被踢！", c)
+			model.ResponseErrorMessageData(gin.H{"reload": true}, "登录已过期，请重新登录！", c)
 			c.Abort()
 			return
 		}

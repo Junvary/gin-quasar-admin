@@ -95,13 +95,14 @@ const {
 
 onMounted(async () => {
     pagination.value.sortBy = 'created_at'
+    pagination.value.descending = true
     getTableData()
 })
 
 const sendMessage = (row) => {
     $q.dialog({
-        title: t('Confirm') + ' ' + t('Send'),
-        message: t('ConfirmSend'),
+        title: t('Confirm') + t('Send'),
+        message: t('Confirm') + t('Send'),
         cancel: true,
         persistent: true,
     }).onOk(async () => {

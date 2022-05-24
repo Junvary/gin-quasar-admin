@@ -39,7 +39,7 @@ func (s *ServiceUserOnline) CheckUserOnline() error {
 		claims, err := token.ParseToken(v.Token)
 		if err != nil {
 			if err.Error() == "checkRefresh" {
-				if claims.ExpiresAt < time.Now().Unix() && claims.RefreshAt < time.Now().Unix() {
+				if claims.RefreshAt < time.Now().Unix() {
 					_ = s.KickOnlineUserByUsername(v.Username)
 				}
 			}

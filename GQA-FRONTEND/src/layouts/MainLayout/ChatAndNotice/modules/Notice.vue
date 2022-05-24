@@ -3,8 +3,8 @@
         <q-badge color="negative" floating v-if="tableData.length + noteTodoData.length">
             {{ tableData.length + noteTodoData.length }}
         </q-badge>
-        <q-menu>
-            <q-card>
+        <q-menu anchor="bottom start" self="top middle">
+            <q-card style="max-width: 400px">
                 <q-tabs v-model="noticeType" dense class="text-grey" active-color="primary" indicator-color="primary"
                     align="justify" narrow-indicator style="padding: 10px">
                     <q-tab name="system" :label="$t('NoticeSystem')">
@@ -98,6 +98,7 @@ onMounted(() => {
         notice_to_user: String(username.value),
     }
     pagination.value.sortBy = 'created_at'
+    pagination.value.descending = true
     emitter.on('noticeGetTableData', () => {
         getTableData()
         getNoteTodoData({ pagination: pagination.value })
@@ -108,7 +109,7 @@ onMounted(() => {
 })
 
 const todoQueryParams = {
-    todoStatus: 'no',
+    todo_status: 'no',
 }
 
 defineExpose({
@@ -132,7 +133,7 @@ const getNoteTodoData = async (props) => {
     params.desc = props.pagination.descending
     params.page = props.pagination.page
     params.page_size = props.pagination.rowsPerPage
-    const allParams = Object.assign({}, params, todoQueryParams.value)
+    const allParams = Object.assign({}, params, todoQueryParams)
     // 带参数请求数据
     await postAction(url.noteTodoList, allParams).then((res) => {
         if (res.code === 1) {

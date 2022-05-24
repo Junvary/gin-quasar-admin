@@ -5,6 +5,11 @@
             <template v-slot:top>
                 <q-btn color="primary" @click="showAddForm()" :label="$t('Add') + ' ' + $t('NoteTodo')" />
             </template>
+            <template v-slot:body-cell-todo_detail="props">
+                <q-td :props="props" class="ellipsis" style="max-width: 400px;">
+                    {{ props.row.todo_detail }}
+                </q-td>
+            </template>
             <template v-slot:body-cell-todo_status="props">
                 <q-td :props="props">
                     <GqaDictShow dictName="statusYesNo" :dictCode="props.row.todo_status" />
@@ -68,6 +73,7 @@ const {
 
 onMounted(() => {
     pagination.value.sortBy = 'created_at'
+    pagination.value.descending = true
     getTableData()
 })
 </script>

@@ -1,7 +1,7 @@
 <template>
     <q-dialog persistent v-model="chatDialogVisible" transition-hide="scale" @before-show="beforeShow"
         @before-hide="beforeHide">
-        <q-card bordered style="width: 750px; max-width: 45vw;">
+        <q-card bordered style="width: 800px; max-width: 50vw;">
             <q-bar class="bg-primary text-white">
                 {{ gqaFrontend.subTitle }}
                 {{ $t('ChatRoom') }}
@@ -9,6 +9,31 @@
                 <q-btn dense flat icon="close" v-close-popup />
             </q-bar>
             <q-card-section horizontal style="height: 50vh">
+                <q-card-section class="col-4" style="padding: 0">
+                    <q-scroll-area ref="userScroll" visible style="height: 50vh; width: 100%">
+                        <q-list>
+                            <q-item clickable v-for="(item, index) in tableData" :key="index">
+                                <q-item-section avatar>
+                                    <GqaAvatar :src="item.user.avatar" />
+                                </q-item-section>
+                                <q-item-section>
+                                    <q-item-label>
+                                        <GqaShowName :customNameObject="item.user" />
+                                    </q-item-label>
+                                    <!-- <q-item-label caption>
+                                        xxxxxx???
+                                    </q-item-label> -->
+                                </q-item-section>
+                            </q-item>
+                        </q-list>
+                    </q-scroll-area>
+                    <q-inner-loading :showing="loading">
+                        <q-spinner-gears size="50px" color="primary" />
+                    </q-inner-loading>
+                </q-card-section>
+
+                <q-separator vertical inset />
+
                 <q-card-section style="width: 100%; padding: 0">
                     <q-scroll-area ref="messageScroll" visible style="height: 50vh; width: 100%">
                         <div style="margin-right: 15px; margin-left: 5px" v-if="oldMessage.length">
@@ -46,7 +71,7 @@ const { GqaDefaultUsername, GqaDefaultAvatar } = useCommon()
 const $q = useQuasar()
 const { t } = useI18n()
 const url = {
-    list: 'user/get-user-list',
+    list: 'user-online/get-user-online-list',
 }
 const props = defineProps({
     oldMessage: {
@@ -63,17 +88,24 @@ const {
     pageOptions,
     GqaDictShow,
     GqaAvatar,
+    GqaShowName,
     loading,
     tableData,
     recordDetailDialog,
     showAddForm,
     showEditForm,
     onRequest,
+    getTableData,
     handleSearch,
     resetSearch,
     handleFinish,
     handleDelete,
 } = useTableData(url)
+
+onMounted(() => {
+    pagination.value.sortBy = 'username'
+    getTableData()
+})
 
 const myAvatar = computed(() => {
     const cookieAvatar = $q.cookies.get('gqa-avatar')

@@ -9,8 +9,8 @@
                 <q-btn icon="close" flat round dense v-close-popup />
             </q-card-section>
             <q-card-section>
-                <div class="row q-pa-md items-center justify-around">
-                    <div class="q-pa-md col-4 column items-center">
+                <div class="row q-pa-md items-center justify-around" style="max-width: 95vw">
+                    <div class="col-4 column items-center">
                         <GqaAvatar loginUser size="200px" />
 
                         <div class="text-subtitle1 q-mt-md q-mb-md">
