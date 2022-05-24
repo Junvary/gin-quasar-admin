@@ -6,10 +6,18 @@
                 <gqa-tree-td :treeTd="props" firstTd="sort"></gqa-tree-td>
                 <td class="text-center">
                     <q-icon size="md" :name="props.item.icon" />
-
                 </td>
                 <td class="text-center">
                     {{ t(props.item.title) ? t(props.item.title) : props.item.title }}
+                </td>
+                <td class="text-center">
+                    {{ props.item.path }}
+                </td>
+                <td class="text-center">
+                    {{ props.item.redirect }}
+                </td>
+                <td class="text-center">
+                    {{ props.item.component }}
                 </td>
                 <td class="text-center">
                     <GqaDictShow dictName="statusOnOff" :dictCode="props.item.status" />
@@ -51,6 +59,9 @@ const columns = computed(() => {
         { name: 'sort', align: 'center', label: t('Sort'), field: 'sort' },
         { name: 'icon', align: 'center', label: t('Icon'), field: 'icon' },
         { name: 'title', align: 'center', label: t('Name'), field: 'title' },
+        { name: 'path', align: 'center', label: t('Path'), field: 'path' },
+        { name: 'redirect', align: 'center', label: t('Redirect'), field: 'redirect' },
+        { name: 'component', align: 'center', label: t('Component'), field: 'component' },
         { name: 'status', align: 'center', label: t('Status'), field: 'status' },
         { name: 'stable', align: 'center', label: t('Stable'), field: 'stable' },
         { name: 'actions', align: 'center', label: t('Actions'), field: 'actions' },

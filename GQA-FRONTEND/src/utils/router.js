@@ -3,21 +3,22 @@ import { PrivateRoutes } from 'src/router/routes'
 export const HandleRouter = (menuData) => {
     const result = []
     for (let item of menuData) {
-        if (item.path !== '' && item.component) {
+        if (item.path !== '') {
             const obj = {
                 path: item.path,
                 name: item.name,
                 component: pageImporter(item.component),
                 meta: {
                     hidden: item.hidden,
-                    keepAlive: item.keepAlive,
+                    keepAlive: item.keep_alive,
                     title: item.title,
                     icon: item.icon,
-                }
+                },
+                redirect: item.redirect,
             }
             result.push(obj)
         } else {
-            if (item.isLink === "yes") {
+            if (item.is_link === "yes") {
                 delete item.path
             }
         }

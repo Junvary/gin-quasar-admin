@@ -38,7 +38,7 @@
                     <div class="q-gutter-xs">
                         <q-btn color="warning" :label="$t('Detail')">
                             <q-tooltip>
-                                {{ props.row.remark }}
+                                {{ props.row.memo }}
                             </q-tooltip>
                         </q-btn>
                         <q-btn color="negative" @click="handleDelete(props.row)" :label="$t('Delete')" />
@@ -71,7 +71,7 @@ const columns = computed(() => {
         { name: 'login_os', align: 'center', label: t('Os'), field: 'login_os' },
         { name: 'login_platform', align: 'center', label: t('Platform'), field: 'login_platform' },
         { name: 'created_at', align: 'center', label: t('CreatedAt'), field: 'created_at' },
-        { name: 'login_success', align: 'center', label: t('LoginSuccess'), field: 'login_success' },
+        { name: 'login_success', align: 'center', label: t('Login') + t('Success'), field: 'login_success' },
         { name: 'actions', align: 'center', label: t('Actions'), field: 'actions' },
     ]
 })

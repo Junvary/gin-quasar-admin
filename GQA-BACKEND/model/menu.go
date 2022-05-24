@@ -7,6 +7,7 @@ type SysMenu struct {
 	Name       string    `json:"name" gorm:"菜单Name;not null;unique;index;"`
 	Path       string    `json:"path" gorm:"comment:菜单地址;"`
 	Component  string    `json:"component" gorm:"comment:前端组件;"`
+	Redirect   string    `json:"redirect" gorm:"comment:重定向地址;"`
 	Title      string    `json:"title" gorm:"comment:菜单名称;"`
 	Icon       string    `json:"icon" gorm:"comment:菜单图标;"`
 	Hidden     string    `json:"hidden" gorm:"comment:是否在列表隐藏;default:no;"`

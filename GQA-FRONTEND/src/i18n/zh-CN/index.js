@@ -133,6 +133,7 @@ export default {
     Clear: '清除',
     Group: '分组',
     Path: '路径',
+    Redirect: '重定向',
 
     // 词组
     SystemManage: '系统管理',

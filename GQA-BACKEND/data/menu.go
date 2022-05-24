@@ -65,7 +65,7 @@ var sysMenuData = []model.SysMenu{
 	}}, Name: "config-backend", Title: "BackendManage", Icon: "settings", Path: "/config-backend", Component: "pages/System/ConfigBackend/index", ParentCode: "system"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
 		Sort: 9, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "系统日志",
-	}}, Name: "log", Title: "LogManage", Icon: "toc", Path: "/log", Component: "pages/System/Log/index", ParentCode: "system"},
+	}}, Name: "log", Title: "LogManage", Icon: "toc", Path: "/log", Component: "", Redirect: "/log/log-login", ParentCode: "system"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
 		Sort: 1, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "登录日志",
 	}}, Name: "log-login", Title: "LogLogin", Icon: "toc", Path: "/log/log-login", Component: "pages/System/Log/Login/index", ParentCode: "log"},
@@ -74,7 +74,7 @@ var sysMenuData = []model.SysMenu{
 	}}, Name: "log-operation", Title: "LogOperation", Icon: "toc", Path: "/log/log-operation", Component: "pages/System/Log/Operation/index", ParentCode: "log"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
 		Sort: 10, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "系统示例",
-	}}, Name: "example", Title: "SystemExample", Icon: "star", Path: "", Component: "", ParentCode: "system"},
+	}}, Name: "example", Title: "SystemExample", Icon: "star", Path: "/example", Component: "", Redirect: "/example/icon", ParentCode: "system"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
 		Sort: 1, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "图标合集",
 	}}, Name: "example-icon", Title: "ExampleIcon", Icon: "mood", Path: "/example/icon", Component: "pages/System/Example/Icon/index", ParentCode: "example"},

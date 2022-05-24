@@ -132,6 +132,7 @@ export default {
     Clear: 'Clear',
     Group: 'Group',
     Path: 'Path',
+    Redirect: 'Redirect',
 
     // phrase
     SystemManage: 'System Manage',
