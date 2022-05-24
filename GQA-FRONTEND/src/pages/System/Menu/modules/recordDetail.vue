@@ -1,6 +1,6 @@
 <template>
     <q-dialog v-model="recordDetailVisible" position="top">
-        <q-card style="width: 800px; max-width: 80vw;">
+        <q-card style="width: 900px; max-width: 80vw;">
             <div class="row justify-between items-center">
                 <q-card-section>
                     <div class="text-h6">
@@ -45,6 +45,7 @@
                     </div>
                     <div class="row">
                         <q-input class="col" v-model="recordDetail.value.path" label="URL" />
+                        <q-input class="col" v-model="recordDetail.value.redirect" :label="t('Redirect')" />
                         <q-input class="col" v-model="recordDetail.value.component" :label="$t('Component')" />
                     </div>
 
