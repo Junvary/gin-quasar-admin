@@ -12,9 +12,27 @@
                 </q-toolbar-title>
 
                 <q-tabs dense inline-label outside-arrows mobile-arrows shrink stretch v-model="currentItemMenu"
-                    style="max-width: 100%;" class="text-white">
-                    <q-tab v-for="item in topMenu" :key="item.top.name" :name="item.top.name"
-                        :label="$t(item.top.title)" @click="changeTopMenu(item)" />
+                    style="max-width: 60%;" class="text-white flex-wrap">
+                    <q-tab @click="changeTopMenu(item)"
+                        v-for="item in topMenu.filter(tm => tm?.top?.name === 'system' || tm?.top?.name === 'dashboard')"
+                        :key="item.top.name" :name="item.top.name" :label="$t(item.top.title)" />
+                    <q-btn stretch flat @click="changeTopMenu(topMenuItemPlugin)"
+                        :label="topMenuItemPlugin?.top?.title || $t('Installed') + $t('Plugin') + '(' + topMenu.filter(tm => tm?.top?.name !== 'system' && tm?.top?.name !== 'dashboard').length + ')'"
+                        class="gqa-no-split"
+                        v-if="topMenu.filter(tm => tm?.top?.name !== 'system' && tm?.top?.name !== 'dashboard').length">
+                        <q-btn dense stretch flat round color="primary" icon="install_desktop" text-color="white">
+                            <q-menu transition-show="flip-right" transition-hide="flip-left">
+                                <q-list>
+                                    <q-item clickable v-close-popup @click="changeTopMenuPlugin(item)"
+                                        v-for="item in topMenu.filter(tm => tm?.top?.name !== 'system' && tm?.top?.name !== 'dashboard')">
+                                        <q-item-section>
+                                            {{ $t(item.top.title) }}
+                                        </q-item-section>
+                                    </q-item>
+                                </q-list>
+                            </q-menu>
+                        </q-btn>
+                    </q-btn>
                 </q-tabs>
 
                 <q-space />
@@ -98,9 +116,15 @@ const gqaFrontend = computed(() => {
 })
 
 onMounted(() => {
+    if (findTopItemMenu.value.top.name !== 'dashboard' && findTopItemMenu.value.top.name !== 'system') {
+        topMenuItemPlugin.value = findTopItemMenu.value
+    }
     topMenuItem.value = findTopItemMenu.value
 })
 watch(route, () => {
+    if (findTopItemMenu.value.top.name !== 'dashboard' && findTopItemMenu.value.top.name !== 'system') {
+        topMenuItemPlugin.value = findTopItemMenu.value
+    }
     topMenuItem.value = findTopItemMenu.value
 })
 
@@ -128,10 +152,20 @@ const findTopItemMenu = computed(() => {
 })
 
 const changeTopMenu = (item) => {
-    if (item.top.name === 'dashboard') {
-        router.push('/dashboard')
+    if (item && item.top) {
+        currentItemMenu.value = item.top ? item.top.name : ''
+        if (item.top.name === 'dashboard') {
+            router.push('/dashboard')
+        }
+        topMenuItem.value = item
     }
-    topMenuItem.value = item
+}
+
+const topMenuItemPlugin = ref({})
+const changeTopMenuPlugin = (item) => {
+    currentItemMenu.value = item.top ? item.top.name : ''
+    topMenuItemPlugin.value = item
+    changeTopMenu(item)
 }
 
 const moveFab = (ev) => {
