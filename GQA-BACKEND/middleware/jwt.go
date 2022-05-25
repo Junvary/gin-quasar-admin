@@ -64,6 +64,7 @@ func JwtHandler() gin.HandlerFunc {
 					//重新生成新的token，并插入Header里
 					refreshToken := utils.CreateToken(claims.Username)
 					if refreshToken != "" {
+						global.GqaDb.Model(&model.SysUserOnline{}).Where("username = ?", claims.Username).Update("token", refreshToken)
 						c.Header("gqa-refresh-token", refreshToken)
 						model.ResponseSuccessMessageData(gin.H{"refresh": true}, "以为你刷新令牌！", c)
 						c.Abort()
@@ -85,7 +86,7 @@ func JwtHandler() gin.HandlerFunc {
 
 		//判断用户是否已经被踢出
 		var userOnline model.SysUserOnline
-		err = global.GqaDb.Where("username = ?", utils.GetUsername(c)).First(&userOnline).Error
+		err = global.GqaDb.Where("username = ?", claims.Username).First(&userOnline).Error
 		if errors.Is(err, gorm.ErrRecordNotFound) || userOnline.Token != token {
 			model.ResponseErrorMessageData(gin.H{"reload": true}, "登录已过期，请重新登录！", c)
 			c.Abort()
