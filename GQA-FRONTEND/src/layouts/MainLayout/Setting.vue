@@ -5,7 +5,7 @@
         <q-dialog v-model="right" position="right">
             <q-card style="height: 100%; width: 400px">
                 <q-card-section>
-                    <div class="text-h6">{{ $t('SystemSetting') }}</div>
+                    <div class="text-h6">{{ $t('System') + $t('Setting') }}</div>
                 </q-card-section>
                 <q-card-section>
                     <GqaLanguage />

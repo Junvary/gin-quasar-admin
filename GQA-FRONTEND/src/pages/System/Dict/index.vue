@@ -11,8 +11,12 @@
                 <td class="text-center">{{ props.item.dict_ext_3 }}</td>
                 <td class="text-center">{{ props.item.dict_ext_4 }}</td>
                 <td class="text-center">{{ props.item.dict_ext_5 }}</td>
-                <td class="text-center">{{ props.item.status }}</td>
-                <td class="text-center">{{ props.item.stable }}</td>
+                <td class="text-center">
+                    <GqaDictShow dictName="statusOnOff" :dictCode="props.item.status" />
+                </td>
+                <td class="text-center">
+                    <GqaDictShow dictName="statusYesNo" :dictCode="props.item.stable" />
+                </td>
                 <td class="text-center">
                     <div class="q-gutter-xs">
                         <q-btn dense color="primary" @click="showEditForm(props.item)" :label="$t('Edit')" />

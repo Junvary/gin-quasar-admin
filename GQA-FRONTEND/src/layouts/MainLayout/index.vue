@@ -5,9 +5,9 @@
                 <q-btn dense round glossy push icon="sync_alt" aria-label="Menu"
                     @click="toggleLeftDrawer = !toggleLeftDrawer" />
 
-                <GqaAvatar class="gin-quasar-admin-logo" :src="gqaFrontend.logo" />
+                <GqaAvatar class="gin-quasar-admin-logo" :src="gqaFrontend.logo" style="margin-left: 5px;" />
 
-                <q-toolbar-title shrink class="text-bold text-italic">
+                <q-toolbar-title shrink class="text-bold text-italic cursor-pointer" style="padding: 0 5px;">
                     {{ gqaFrontend.subTitle }}
                 </q-toolbar-title>
 
@@ -37,7 +37,6 @@
             <div class="row bg-white">
                 <TabMenu v-show="!pageDashboard" />
             </div>
-
         </q-header>
 
         <q-drawer elevated v-if="!pageDashboard" v-model="toggleLeftDrawer" show-if-above bordered
@@ -47,14 +46,12 @@
 
         <q-page-container>
             <router-view />
-
             <q-page-sticky position="bottom-right" :offset="fabPos" class="column">
                 <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[0, -80]">
                     <q-btn push fab glossy rounded icon="keyboard_arrow_up" color="primary"
                         v-touch-pan.prevent.mouse="moveFab" />
                 </q-page-scroller>
             </q-page-sticky>
-
         </q-page-container>
 
         <q-footer reveal elevated>
@@ -99,7 +96,6 @@ const userProfile = ref(null);
 const gqaFrontend = computed(() => {
     return storageStore.GetGqaFrontend()
 })
-
 
 onMounted(() => {
     topMenuItem.value = findTopItemMenu.value
