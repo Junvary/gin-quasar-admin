@@ -52,9 +52,9 @@
 
             <!-- <q-separator /> -->
             <!-- header下面的标签页 -->
-            <div class="row bg-white">
+            <!-- <div class="row bg-white">
                 <TabMenu v-show="!pageDashboard" />
-            </div>
+            </div> -->
         </q-header>
 
         <q-drawer elevated v-if="!pageDashboard" v-model="toggleLeftDrawer" show-if-above bordered
@@ -116,13 +116,13 @@ const gqaFrontend = computed(() => {
 })
 
 onMounted(() => {
-    if (findTopItemMenu.value.top.name !== 'dashboard' && findTopItemMenu.value.top.name !== 'system') {
+    if (findTopItemMenu.value.top?.name !== 'dashboard' && findTopItemMenu.value.top?.name !== 'system') {
         topMenuItemPlugin.value = findTopItemMenu.value
     }
     topMenuItem.value = findTopItemMenu.value
 })
 watch(route, () => {
-    if (findTopItemMenu.value.top.name !== 'dashboard' && findTopItemMenu.value.top.name !== 'system') {
+    if (findTopItemMenu.value.top?.name !== 'dashboard' && findTopItemMenu.value.top?.name !== 'system') {
         topMenuItemPlugin.value = findTopItemMenu.value
     }
     topMenuItem.value = findTopItemMenu.value

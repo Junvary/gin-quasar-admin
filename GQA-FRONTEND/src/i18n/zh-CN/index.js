@@ -170,6 +170,8 @@ export default {
     CloseRight: '关闭右侧',
     CloseLeft: '关闭左侧',
     CloseAll: '关闭所有',
+    CloseAbove: '关闭上侧',
+    CloseBelow: '关闭下侧',
     WelcomeBack: '欢迎回来',
     RememberMe: '记住我',
     SelectUserComponent: '用户选择器 {oneOrMultiple}',
