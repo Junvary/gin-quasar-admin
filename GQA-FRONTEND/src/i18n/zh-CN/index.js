@@ -134,6 +134,7 @@ export default {
     Group: '分组',
     Path: '路径',
     Redirect: '重定向',
+    Leader: '负责人',
 
     // 词组
     SystemManage: '系统管理',

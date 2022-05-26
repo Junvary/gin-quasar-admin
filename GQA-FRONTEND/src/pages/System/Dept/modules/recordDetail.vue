@@ -23,7 +23,7 @@
                     <div class="row">
                         <q-input class="col" :label="$t('Dept') + $t('Name')" v-model="recordDetail.value.dept_name"
                             :rules="[val => val && val.length > 0 || $t('NeedInput')]" />
-                        <GqaSeleteUser class="col" :label="$t('Owner')"
+                        <GqaSeleteUser class="col" :label="$t('Leader')"
                             v-model:selectUser="recordDetail.value.leader_user"
                             v-model:selectUsername="recordDetail.value.leader" selection="single" />
                     </div>

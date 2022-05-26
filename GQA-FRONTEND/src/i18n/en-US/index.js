@@ -133,6 +133,7 @@ export default {
     Group: 'Group',
     Path: 'Path',
     Redirect: 'Redirect',
+    Leader: 'Leader',
 
     // phrase
     SystemManage: 'System Manage',

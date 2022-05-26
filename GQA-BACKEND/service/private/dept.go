@@ -25,7 +25,8 @@ func (s *ServiceDept) GetDeptList(requestDeptList model.RequestGetDeptList) (err
 	if err != nil {
 		return
 	}
-	err = db.Limit(pageSize).Offset(offset).Order(model.OrderByColumn(requestDeptList.SortBy, requestDeptList.Desc)).Find(&deptList).Error
+	err = db.Limit(pageSize).Offset(offset).Order(model.OrderByColumn(requestDeptList.SortBy, requestDeptList.Desc)).
+		Preload("LeaderUser").Find(&deptList).Error
 	return err, deptList, total
 }
 

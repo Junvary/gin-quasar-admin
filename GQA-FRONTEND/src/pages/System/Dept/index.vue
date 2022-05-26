@@ -6,7 +6,12 @@
                 <gqa-tree-td :treeTd="props" firstTd="sort"></gqa-tree-td>
                 <td class="text-center">{{ props.item.dept_name }}</td>
                 <td class="text-center">{{ props.item.dept_code }}</td>
-                <td class="text-center">{{ props.item.leader }}</td>
+                <td class="text-center">
+                    <GqaShowName :customNameObject="props.item.leader_user" />
+                </td>
+                <td class="text-center">
+                    <GqaDictShow dictName="statusOnOff" :dictCode="props.item.status" />
+                </td>
                 <td class="text-center">
                     <div class="q-gutter-xs">
                         <q-btn dense color="primary" @click="showEditForm(props.item)" :label="$t('Edit')" />
@@ -45,7 +50,8 @@ const columns = computed(() => {
         { name: 'sort', align: 'center', label: t('Sort'), field: 'sort' },
         { name: 'dept_name', align: 'center', label: t('Dept') + t('Name'), field: 'dept_name' },
         { name: 'dept_code', align: 'center', label: t('Dept') + t('Code'), field: 'dept_code' },
-        { name: 'leader', align: 'center', label: t('Status'), field: 'leader' },
+        { name: 'leader', align: 'center', label: t('Leader'), field: 'leader' },
+        { name: 'status', align: 'center', label: t('Status'), field: 'status' },
         { name: 'actions', align: 'center', label: t('Actions'), field: 'actions' },
     ]
 })
@@ -54,6 +60,7 @@ const {
     queryParams,
     pageOptions,
     GqaDictShow,
+    GqaShowName,
     GqaAvatar,
     loading,
     tableData,
