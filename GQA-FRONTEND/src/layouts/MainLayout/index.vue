@@ -12,19 +12,18 @@
                 </q-toolbar-title>
 
                 <q-tabs dense inline-label outside-arrows mobile-arrows shrink stretch v-model="currentItemMenu"
-                    style="max-width: 60%;" class="text-white flex-wrap">
+                    class="text-white flex-wrap">
                     <q-tab @click="changeTopMenu(item)"
-                        v-for="item in topMenu.filter(tm => tm?.top?.name === 'system' || tm?.top?.name === 'dashboard')"
-                        :key="item.top.name" :name="item.top.name" :label="$t(item.top.title)" />
+                        v-for="item in topMenu.filter(tm => tm?.top?.is_plugin === 'no')" :key="item.top.name"
+                        :name="item.top.name" :label="$t(item.top.title)" />
                     <q-btn stretch flat @click="changeTopMenu(topMenuItemPlugin)"
-                        :label="topMenuItemPlugin?.top?.title || $t('Installed') + $t('Plugin') + '(' + topMenu.filter(tm => tm?.top?.name !== 'system' && tm?.top?.name !== 'dashboard').length + ')'"
-                        class="gqa-no-split"
-                        v-if="topMenu.filter(tm => tm?.top?.name !== 'system' && tm?.top?.name !== 'dashboard').length">
+                        :label="topMenuItemPlugin?.top?.title ? $t(topMenuItemPlugin?.top?.title) : $t('Installed') + $t('Plugin') + '(' + topMenu.filter(tm => tm?.top?.is_plugin === 'yes').length + ')'"
+                        class="gqa-no-split" v-if="topMenu.filter(tm => tm?.top?.is_plugin !== 'yes').length">
                         <q-btn dense stretch flat round color="primary" icon="install_desktop" text-color="white">
                             <q-menu transition-show="flip-right" transition-hide="flip-left">
                                 <q-list>
                                     <q-item clickable v-close-popup @click="changeTopMenuPlugin(item)"
-                                        v-for="item in topMenu.filter(tm => tm?.top?.name !== 'system' && tm?.top?.name !== 'dashboard')">
+                                        v-for="item in topMenu.filter(tm => tm?.top?.is_plugin === 'yes')">
                                         <q-item-section>
                                             {{ $t(item.top.title) }}
                                         </q-item-section>
@@ -116,13 +115,13 @@ const gqaFrontend = computed(() => {
 })
 
 onMounted(() => {
-    if (findTopItemMenu.value.top?.name !== 'dashboard' && findTopItemMenu.value.top?.name !== 'system') {
+    if (findTopItemMenu.value.top?.is_plugin === 'yes') {
         topMenuItemPlugin.value = findTopItemMenu.value
     }
     topMenuItem.value = findTopItemMenu.value
 })
 watch(route, () => {
-    if (findTopItemMenu.value.top?.name !== 'dashboard' && findTopItemMenu.value.top?.name !== 'system') {
+    if (findTopItemMenu.value.top?.is_plugin === 'yes') {
         topMenuItemPlugin.value = findTopItemMenu.value
     }
     topMenuItem.value = findTopItemMenu.value

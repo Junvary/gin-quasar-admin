@@ -57,6 +57,13 @@
                                 </q-option-group>
                             </template>
                         </q-field>
+                        <q-field class="col" :label="$t('Plugin') + $t('Menu')" stack-label>
+                            <template v-slot:control>
+                                <q-option-group v-model="recordDetail.value.is_plugin"
+                                    :options="dictOptions.statusYesNo" color="primary" inline>
+                                </q-option-group>
+                            </template>
+                        </q-field>
                         <q-field class="col" :label="$t('KeepAlive')" stack-label>
                             <template v-slot:control>
                                 <q-option-group v-model="recordDetail.value.keep_alive"
