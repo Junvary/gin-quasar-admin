@@ -1,11 +1,11 @@
 <template>
     <div class="items-center column">
         <div class="justify-between row" style="width: 100%">
-            <q-btn color="negative" :disable="row.rolecode === 'super-admin'" @click="handleClear">
+            <q-btn color="negative" @click="handleClear">
                 {{ $t('Clear') + $t('All') }}</q-btn>
-            <q-btn color="negative" :disable="row.rolecode === 'super-admin'" @click="handleAll">
+            <q-btn color="negative" @click="handleAll">
                 {{ $t('Select') + $t('All') }}</q-btn>
-            <q-btn color="primary" :disable="row.rolecode === 'super-admin'" @click="handleRoleApi">
+            <q-btn color="primary" @click="handleRoleApi">
                 {{ $t('Save') }}
             </q-btn>
         </div>

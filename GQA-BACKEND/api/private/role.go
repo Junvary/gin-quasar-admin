@@ -114,10 +114,10 @@ func (a *ApiRole) EditRoleMenu(c *gin.Context) {
 	if err := model.RequestShouldBindJSON(c, &roleMenu); err != nil {
 		return
 	}
-	if roleMenu.RoleCode == "super-admin" {
-		model.ResponseErrorMessage("超级管理员角色不允许编辑！", c)
-		return
-	}
+	//if roleMenu.RoleCode == "super-admin" {
+	//	model.ResponseErrorMessage("超级管理员角色不允许编辑！", c)
+	//	return
+	//}
 	if err := servicePrivate.ServiceRole.EditRoleMenu(&roleMenu); err != nil {
 		global.GqaLogger.Error("编辑角色菜单失败！", zap.Any("err", err))
 		model.ResponseErrorMessage("编辑角色菜单失败，"+err.Error(), c)
@@ -145,10 +145,10 @@ func (a *ApiRole) EditRoleApi(c *gin.Context) {
 	if err := model.RequestShouldBindJSON(c, &roleApi); err != nil {
 		return
 	}
-	if roleApi.RoleCode == "super-admin" {
-		model.ResponseErrorMessage("超级管理员角色不允许编辑！", c)
-		return
-	}
+	//if roleApi.RoleCode == "super-admin" {
+	//	model.ResponseErrorMessage("超级管理员角色不允许编辑！", c)
+	//	return
+	//}
 	if err := servicePrivate.ServiceRole.EditRoleApi(&roleApi); err != nil {
 		global.GqaLogger.Error("编辑角色API失败！", zap.Any("err", err))
 		model.ResponseErrorMessage("编辑角色API失败，"+err.Error(), c)

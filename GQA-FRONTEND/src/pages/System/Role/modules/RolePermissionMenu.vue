@@ -1,13 +1,13 @@
 <template>
     <div class="items-center column">
         <div class="justify-between row" style="width: 100%">
-            <q-btn color="negative" :disable="row.role_code === 'super-admin'" @click="handleClear">
+            <q-btn color="negative" @click="handleClear">
                 {{ $t('Clear') + $t('All') }}
             </q-btn>
-            <q-btn color="negative" :disable="row.role_code === 'super-admin'" @click="handleAll">
+            <q-btn color="negative" @click="handleAll">
                 {{ $t('Select') + $t('All') }}
             </q-btn>
-            <q-btn color="primary" :disable="row.role_code === 'super-admin'" @click="handleRoleMenu">
+            <q-btn color="primary" @click="handleRoleMenu">
                 {{ $t('Save') }}
             </q-btn>
         </div>
@@ -46,19 +46,7 @@ const url = {
     roleMenuList: 'role/get-role-menu-list',
     roleMenuEdit: 'role/edit-role-menu',
 }
-const columns = computed(() => {
-    return [
-        { name: 'id', align: 'center', label: 'ID', field: 'id' },
-        { name: 'login_username', align: 'center', label: t('User'), field: 'login_username' },
-        { name: 'login_ip', align: 'center', label: 'IP', field: 'login_ip' },
-        { name: 'login_browser', align: 'center', label: t('Browser'), field: 'login_browser' },
-        { name: 'login_os', align: 'center', label: t('Os'), field: 'login_os' },
-        { name: 'login_platform', align: 'center', label: t('Platform'), field: 'login_platform' },
-        { name: 'created_at', align: 'center', label: t('CreatedAt'), field: 'created_at' },
-        { name: 'login_success', align: 'center', label: t('LoginSuccess'), field: 'login_success' },
-        { name: 'actions', align: 'center', label: t('Actions'), field: 'actions' },
-    ]
-})
+
 const props = defineProps({
     row: {
         type: Object,
@@ -66,6 +54,7 @@ const props = defineProps({
     }
 })
 const { row } = toRefs(props)
+
 const {
     pagination,
     queryParams,
@@ -86,6 +75,11 @@ const {
 } = useTableData(url)
 
 const menuTree = computed(() => {
+    for (let m of tableData.value) {
+        if (row.value.role_code === 'super-admin' && m.name === 'role') {
+            m.disabled = true
+        }
+    }
     if (tableData.value.length !== 0) {
         return ArrayToTree(tableData.value, 'name', 'parent_code')
     }

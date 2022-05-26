@@ -71,13 +71,13 @@
                                 </q-option-group>
                             </template>
                         </q-field>
-                        <q-field class="col" :label="$t('Status')" stack-label>
+                        <!-- <q-field class="col" :label="$t('Status')" stack-label>
                             <template v-slot:control>
                                 <q-option-group v-model="recordDetail.value.status" :options="dictOptions.statusOnOff"
                                     color="primary" inline>
                                 </q-option-group>
                             </template>
-                        </q-field>
+                        </q-field> -->
                     </div>
                     <q-input v-model="recordDetail.value.memo" type="textarea" :label="$t('Memo')" />
                 </q-form>

@@ -14,12 +14,14 @@
                 <q-form ref="recordDetailForm">
                     <gqa-form-top :recordDetail="recordDetail"></gqa-form-top>
                     <div class="row">
+                        <q-input class="col" v-model.number="recordDetail.value.sort" type="number"
+                            :rules="[val => val >= 1 || '排序必须大于0']" label="排序" />
                         <q-input class="col" v-model="recordDetail.value.role_code" label="角色编码(英文)"
                             :rules="[val => val && val.length > 0 || '必须输入角色编码']" />
                         <q-input class="col" v-model="recordDetail.value.role_name" label="角色名(中文)"
                             :rules="[val => val && val.length > 0 || '必须输入角色名']" />
                     </div>
-                    <div class="row">
+                    <!-- <div class="row">
                         <q-input class="col" v-model.number="recordDetail.value.sort" type="number"
                             :rules="[val => val >= 1 || '排序必须大于0']" label="排序" />
                         <q-field class="col" dense label="是否启用" stack-label>
@@ -29,7 +31,7 @@
                                 </q-option-group>
                             </template>
                         </q-field>
-                    </div>
+                    </div> -->
                     <q-input v-model="recordDetail.value.memo" type="textarea" :label="$t('Memo')" />
                 </q-form>
             </q-card-section>

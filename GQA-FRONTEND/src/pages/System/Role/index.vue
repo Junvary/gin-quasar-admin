@@ -15,11 +15,11 @@
                 <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
                     @click="props.toggleFullscreen" class="q-ml-md" />
             </template>
-            <template v-slot:body-cell-status="props">
+            <!-- <template v-slot:body-cell-status="props">
                 <q-td :props="props">
                     <GqaDictShow dictName="statusOnOff" :dictCode="props.row.status" />
                 </q-td>
-            </template>
+            </template> -->
             <template v-slot:body-cell-stable="props">
                 <q-td :props="props">
                     <GqaDictShow dictName="statusYesNo" :dictCode="props.row.stable" />
@@ -64,7 +64,7 @@ const columns = computed(() => {
         { name: 'sort', align: 'center', label: t('Sort'), field: 'sort' },
         { name: 'role_code', align: 'center', label: t('Role') + t('Code'), field: 'role_code' },
         { name: 'role_name', align: 'center', label: t('Role') + t('Name'), field: 'role_name' },
-        { name: 'status', align: 'center', label: t('Status'), field: 'status' },
+        // { name: 'status', align: 'center', label: t('Status'), field: 'status' },
         { name: 'stable', align: 'center', label: t('Stable'), field: 'stable' },
         { name: 'actions', align: 'center', label: t('Actions'), field: 'actions' },
     ]
