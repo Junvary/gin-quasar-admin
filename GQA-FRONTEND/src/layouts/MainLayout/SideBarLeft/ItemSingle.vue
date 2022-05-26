@@ -1,5 +1,5 @@
 <template>
-    <q-item clickable exact :to="{ path: addRoutesItem.path }" :inset-level="initLevel"
+    <q-item clickable exact @click="toPath(addRoutesItem)" :inset-level="initLevel"
         active-class="bg-primary text-white text-bold text-italic">
         <q-item-section avatar>
             <q-icon :name="addRoutesItem.icon" />
@@ -10,7 +10,9 @@
 
 <script setup>
 import { toRefs } from 'vue';
+import { useRouter } from 'vue-router';
 
+const router = useRouter()
 const props = defineProps({
     addRoutesItem: {
         default: function () {
@@ -24,6 +26,14 @@ const props = defineProps({
     },
 })
 const { addRoutesItem, initLevel } = toRefs(props)
+
+const toPath = (addRoutesItem) => {
+    if (addRoutesItem.is_link === 'yes') {
+        window.open(addRoutesItem.path)
+    } else {
+        router.push(addRoutesItem.path)
+    }
+}
 </script>
 
 <style lang="scss" scoped>

@@ -24,13 +24,13 @@ type RequestGetMenuList struct {
 
 type RequestAddMenu struct {
 	RequestAdd
-	ParentCode string `json:"parentCode"`
+	ParentCode string `json:"parent_code"`
 	Name       string `json:"name"`
 	Path       string `json:"path"`
 	Component  string `json:"component"`
 	Title      string `json:"title"`
 	Icon       string `json:"icon"`
 	Hidden     string `json:"hidden"`
-	KeepAlive  string `json:"keepAlive"`
-	IsLink     string `json:"isLink"`
+	KeepAlive  string `json:"keep_alive"`
+	IsLink     string `json:"is_link"`
 }

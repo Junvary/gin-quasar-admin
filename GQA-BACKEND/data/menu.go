@@ -87,4 +87,7 @@ var sysMenuData = []model.SysMenu{
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
 		Sort: 13, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "在线用户",
 	}}, Name: "user-online", Title: "UserOnline", Icon: "fas fa-users", Path: "/user-online", Component: "pages/System/UserOnline/index", ParentCode: "system"},
+	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
+		Sort: 14, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "Github",
+	}}, Name: "github", Title: "Github", Icon: "fab fa-github", IsLink: "yes", Path: "https://github.com/Junvary/gin-quasar-admin", Component: "", ParentCode: "system"},
 }
