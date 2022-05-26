@@ -12,18 +12,11 @@ package gqaplugin
 */
 
 import (
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/assetgh"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/attendance"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/vote"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/xtkfk"
 	"github.com/gin-gonic/gin"
 )
 
 var PluginList = []GqaPlugin{ //插件加入此切片即可
-	xtkfk.PluginXtkfk,
-	attendance.PluginAttendance,
-	assetgh.PluginAssetGh,
-	vote.PluginVote,
+	//xtkfk.PluginXtkfk,
 }
 
 /*
