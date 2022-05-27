@@ -1,8 +1,8 @@
 <template>
     <div class="row">
-        <Chat style="margin: 0 5px" ref="moduleChat" :oldMessage="chatOldMessage"
-            @changeChatDialogShow="changeChatDialogShow" @sendMessage="sendMessage" />
-        <Notice style="margin: 0 5px" ref="moduleNotice" />
+        <Chat ref="moduleChat" :oldMessage="chatOldMessage" @changeChatDialogShow="changeChatDialogShow"
+            @sendMessage="sendMessage" />
+        <Notice ref="moduleNotice" />
     </div>
 </template>
 

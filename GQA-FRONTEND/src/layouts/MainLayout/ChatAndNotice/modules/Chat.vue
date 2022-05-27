@@ -1,6 +1,6 @@
 <template>
     <div>
-        <q-btn dense round glossy push color="primary" icon="groups" @click="showChat">
+        <q-btn dense round flat icon="groups" @click="showChat">
             <q-badge color="negative" floating v-if="badgeCount">
                 {{ badgeCount }}
             </q-badge>

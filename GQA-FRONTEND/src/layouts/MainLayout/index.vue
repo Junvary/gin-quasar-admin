@@ -1,9 +1,8 @@
 <template>
-    <q-layout view="hHh LpR lFr">
-        <q-header reveal elevated>
-            <q-toolbar class="bg-primary glossy ">
-                <q-btn dense round glossy push icon="sync_alt" aria-label="Menu"
-                    @click="toggleLeftDrawer = !toggleLeftDrawer" />
+    <q-layout view="lHh LpR lFr">
+        <q-header reveal elevated :class="darkTheme">
+            <q-toolbar>
+                <q-btn dense round flat icon="menu" aria-label="Menu" @click="toggleLeftDrawer = !toggleLeftDrawer" />
 
                 <GqaAvatar class="gin-quasar-admin-logo" :src="gqaFrontend.logo" style="margin-left: 5px;" />
 
@@ -12,14 +11,14 @@
                 </q-toolbar-title>
 
                 <q-tabs dense inline-label outside-arrows mobile-arrows shrink stretch v-model="currentItemMenu"
-                    class="text-white flex-wrap">
-                    <q-tab @click="changeTopMenu(item)"
-                        v-for="item in topMenu.filter(tm => tm?.top?.is_plugin === 'no')" :key="item.top.name"
-                        :name="item.top.name" :label="$t(item.top.title)" />
-                    <q-btn stretch flat @click="changeTopMenu(topMenuItemPlugin)"
-                        :label="topMenuItemPlugin?.top?.title ? $t(topMenuItemPlugin?.top?.title) : $t('Installed') + $t('Plugin') + '(' + topMenu.filter(tm => tm?.top?.is_plugin === 'yes').length + ')'"
-                        class="gqa-no-split" v-if="topMenu.filter(tm => tm?.top?.is_plugin !== 'yes').length">
-                        <q-btn dense stretch flat round color="primary" icon="install_desktop" text-color="white">
+                    class="flex-wrap" :class="darkTheme">
+                    <q-tab @click="changeTopMenu(item)" :name="item.top.name" :label="$t(item.top.title)"
+                        v-for="item in topMenu.filter(tm => tm?.top?.is_plugin === 'no')" :key="item.top.name" />
+                    <q-btn stretch flat class="text-grey-8" style="width: 100%;"
+                        @click="changeTopMenu(topMenuItemPlugin)"
+                        v-if="pageDashboard && topMenu.filter(tm => tm?.top?.is_plugin !== 'yes').length"
+                        :label="topMenuItemPlugin?.top?.title ? $t(topMenuItemPlugin?.top?.title) : $t('Installed') + $t('Plugin') + '(' + topMenu.filter(tm => tm?.top?.is_plugin === 'yes').length + ')'">
+                        <q-btn dense stretch flat round icon="install_desktop" text-color="text-grey-8">
                             <q-menu transition-show="flip-right" transition-hide="flip-left">
                                 <q-list>
                                     <q-item clickable v-close-popup @click="changeTopMenuPlugin(item)"
@@ -36,29 +35,27 @@
 
                 <q-space />
 
-                <Fullscreen style="margin: 0 5px" />
-
-                <ChatAndNotice />
-
-                <AddNoteTodo />
-
-                <UserMenu style="margin: 0 5px" @showProfile="$refs.userProfile.show()" />
-                <!-- <q-language-switcher/> -->
-                <Setting style="margin: 0 5px" />
-                <GitLink style="margin: 0 5px" v-if="gqaFrontend.showGit === 'yes'" />
-
+                <div class="q-gutter-sm row items-center no-wrap">
+                    <Fullscreen />
+                    <ChatAndNotice />
+                    <AddNoteTodo />
+                    <Setting />
+                    <GitLink v-if="gqaFrontend.showGit === 'yes'" />
+                    <UserMenu @showProfile="$refs.userProfile.show()" />
+                </div>
             </q-toolbar>
 
             <!-- <q-separator /> -->
             <!-- header下面的标签页 -->
-            <!-- <div class="row bg-white">
+            <div class="row bg-white">
                 <TabMenu v-show="!pageDashboard" />
-            </div> -->
+            </div>
         </q-header>
 
         <q-drawer elevated v-if="!pageDashboard" v-model="toggleLeftDrawer" show-if-above bordered
             content-class="bg-grey-1">
-            <SideBarLeft :topMenuItem="topMenuItem" />
+            <SideBarLeft :topMenuItem="topMenuItem" :topMenu="topMenu" :topMenuItemPlugin="topMenuItemPlugin"
+                @changeTopMenu="changeTopMenu" @changeTopMenuPlugin="changeTopMenuPlugin" />
         </q-drawer>
 
         <q-page-container>
@@ -84,6 +81,7 @@
 import { ref, computed, watch, onMounted } from 'vue';
 import { usePermissionStore } from 'src/stores/permission';
 import { useStorageStore } from 'src/stores/storage';
+import useDarkTheme from 'src/composables/useDarkTheme';
 import SideBarLeft from './SideBarLeft/index.vue'
 import TabMenu from './TabMenu.vue'
 import Fullscreen from './Fullscreen.vue'
@@ -97,9 +95,12 @@ import UserProfile from './UserProfile/index.vue'
 import AddNoteTodo from './AddNoteTodo.vue';
 import { useRoute, useRouter } from 'vue-router';
 import useDocument from 'src/composables/useDocument'
+import { useQuasar, LocalStorage } from 'quasar';
 // 动态更改网站标题和favicon
 useDocument()
 
+const $q = useQuasar();
+const { darkTheme } = useDarkTheme()
 const route = useRoute();
 const router = useRouter();
 const storageStore = useStorageStore();
@@ -115,6 +116,9 @@ const gqaFrontend = computed(() => {
 })
 
 onMounted(() => {
+    const localDark = LocalStorage.getItem('gqa-dark-theme') || false
+    $q.dark.set(localDark)
+
     if (findTopItemMenu.value.top?.is_plugin === 'yes') {
         topMenuItemPlugin.value = findTopItemMenu.value
     }

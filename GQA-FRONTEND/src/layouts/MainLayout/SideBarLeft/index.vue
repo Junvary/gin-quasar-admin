@@ -1,15 +1,24 @@
 <template>
-    <div class="q-mini-drawer-hide absolute" style="top: 0px; left: 0px">
-        <TabMenu />
-    </div>
-    <q-card clickable class="absolute-top text-primary text-bold text-center text-h6 cursor-pointer"
-        style="height: 60px; width: calc(100% - 48px); margin-left: 48px;">
-        <q-item-section class="row items-center justify-center absolute-bottom">
-            <q-icon :name="topMenuItem.top?.icon" size="sm" v-if="topMenuItem.top?.icon" />
-            {{ topMenuItem.top ? $t(topMenuItem.top.title) : "" }}
-        </q-item-section>
+    <q-card class="absolute-top text-primary text-bold text-center text-h6 cursor-pointer row items-center"
+        style="height: 50px;">
+        <q-btn stretch flat @click="changeTopMenu(topMenuItemPlugin)" style="width: 100%;"
+            :label="topMenuItemPlugin?.top?.title ? $t(topMenuItemPlugin?.top?.title) : $t('Installed') + $t('Plugin') + '(' + topMenu.filter(tm => tm?.top?.is_plugin === 'yes').length + ')'"
+            :class="darkTheme" v-if="topMenu.filter(tm => tm?.top?.is_plugin !== 'yes').length">
+            <q-btn dense stretch flat round icon="install_desktop" text-color="text-grey-8">
+                <q-menu transition-show="flip-right" transition-hide="flip-left">
+                    <q-list>
+                        <q-item clickable v-close-popup @click="changeTopMenuPlugin(item)"
+                            v-for="item in topMenu.filter(tm => tm?.top?.is_plugin === 'yes')">
+                            <q-item-section>
+                                {{ $t(item.top.title) }}
+                            </q-item-section>
+                        </q-item>
+                    </q-list>
+                </q-menu>
+            </q-btn>
+        </q-btn>
     </q-card>
-    <q-scroll-area style="height: calc(100% - 60px); margin-top: 60px; margin-left: 48px;">
+    <q-scroll-area style="height: calc(100% - 50px); margin-top: 50px;">
         <q-list>
             <template v-for="(item, index) in topMenuItem.treeChildren ? topMenuItem.treeChildren : []" :key="index">
                 <SideBarLeftItem :addRoutesItem="item" :initLevel="0" />
@@ -19,9 +28,11 @@
 </template>
 
 <script setup>
-import TabMenu from '../TabMenu.vue'
 import { toRefs } from 'vue';
 import SideBarLeftItem from './SideBarLeftItem'
+import useDarkTheme from 'src/composables/useDarkTheme';
+
+const { darkTheme } = useDarkTheme()
 const props = defineProps({
     topMenuItem: {
         type: Object,
@@ -30,6 +41,26 @@ const props = defineProps({
             return {}
         },
     },
+    topMenu: {
+        type: Object,
+        required: true,
+
+    },
+    topMenuItemPlugin: {
+        type: Object,
+        required: false,
+        default: () => {
+            return {}
+        },
+    },
 })
-const { topMenuItem } = toRefs(props)
+const { topMenuItem, topMenu } = toRefs(props)
+
+const emit = defineEmits(['changeTopMenu', 'changeTopMenuPlugin'])
+const changeTopMenu = (topMenuItemPlugin) => {
+    emit('changeTopMenu', topMenuItemPlugin)
+}
+const changeTopMenuPlugin = (item) => {
+    emit('changeTopMenuPlugin', item)
+}
 </script>

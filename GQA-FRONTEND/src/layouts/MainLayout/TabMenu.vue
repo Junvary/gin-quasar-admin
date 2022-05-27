@@ -1,57 +1,49 @@
 <template>
-    <q-tabs vertical dense inline-label outside-arrows mobile-arrows class="text-grey-5 bg-primary shadow-5"
-        v-if="!loginPage" style="height: 95vh;" indicator-color="transparent" active-color="white"
-        active-class="tab-active-class">
+    <q-tabs dense inline-label outside-arrows mobile-arrows class="shadow-2" :class="darkTheme" style="width: 100%;"
+        v-if="!loginPage" align="left">
         <q-route-tab exact replace v-for="tab in tabMenus" :to="tab.path" :key="tab.path" :name="tab.path"
-            :ripple="{ color: 'white' }">
+            :ripple="{ color: 'primary' }">
             <template v-slot>
-                <div class="column items-center justify-center" style="border-bottom: 1px solid #add;">
-                    <q-icon size="1.3rem" v-if="tab.meta.icon" :name="tab.meta.icon" />
-                    <span class="tab-label">
-                        {{ $t(tab.meta.title) || $t('Unknown') }}
-                    </span>
-                    <q-icon v-if="tab.path !== '/dashboard'" class="tab-close" name="close"
-                        @click.prevent.stop="removeTab(tab)" />
-                    <q-separator inset dark />
-                    <q-menu touch-position context-menu>
-                        <q-list dense bordered separator class="text-primary">
-                            <q-item clickable v-close-popup>
-                                <q-item-section avatar style="min-width: 0px">
-                                    <q-icon name="code" />
-                                </q-item-section>
-                                <q-item-section @click="removeOtherTab(tab)">
-                                    {{ $t('CloseOther') }}
-                                </q-item-section>
-                            </q-item>
-                            <q-item clickable v-close-popup>
-                                <q-item-section avatar style="min-width: 0px">
-                                    <q-icon name="keyboard_arrow_left" />
-                                </q-item-section>
-                                <q-item-section @click="removeLeftTab(tab)">
-                                    {{ $t('CloseAbove') }}
-                                    <!-- {{ $t('CloseLeft') }} -->
-                                </q-item-section>
-                            </q-item>
-                            <q-item clickable v-close-popup>
-                                <q-item-section avatar style="min-width: 0px">
-                                    <q-icon name="keyboard_arrow_right" />
-                                </q-item-section>
-                                <q-item-section @click="removeRightTab(tab)">
-                                    {{ $t('CloseBelow') }}
-                                    <!-- {{ $t('CloseRight') }} -->
-                                </q-item-section>
-                            </q-item>
-                            <q-item clickable v-close-popup>
-                                <q-item-section avatar style="min-width: 0px">
-                                    <q-icon name="close" />
-                                </q-item-section>
-                                <q-item-section @click="removeAllTab">
-                                    {{ $t('CloseAll') }}
-                                </q-item-section>
-                            </q-item>
-                        </q-list>
-                    </q-menu>
-                </div>
+                <q-icon size="1.3rem" v-if="tab.meta.icon" :name="tab.meta.icon" />
+                <span class="tab-label">{{ $t(tab.meta.title) || $t('Unknown') }}</span>
+                <q-icon v-if="tab.path !== '/dashboard'" class="tab-close" name="close"
+                    @click.prevent.stop="removeTab(tab)" />
+                <q-menu touch-position context-menu>
+                    <q-list dense bordered separator class="bg-white text-grey-8">
+                        <q-item clickable v-close-popup>
+                            <q-item-section avatar style="min-width: 0px">
+                                <q-icon name="code" />
+                            </q-item-section>
+                            <q-item-section @click="removeOtherTab(tab)">
+                                {{ $t('CloseOther') }}
+                            </q-item-section>
+                        </q-item>
+                        <q-item clickable v-close-popup>
+                            <q-item-section avatar style="min-width: 0px">
+                                <q-icon name="keyboard_arrow_right" />
+                            </q-item-section>
+                            <q-item-section @click="removeRightTab(tab)">
+                                {{ $t('CloseRight') }}
+                            </q-item-section>
+                        </q-item>
+                        <q-item clickable v-close-popup>
+                            <q-item-section avatar style="min-width: 0px">
+                                <q-icon name="keyboard_arrow_left" />
+                            </q-item-section>
+                            <q-item-section @click="removeLeftTab(tab)">
+                                {{ $t('CloseLeft') }}
+                            </q-item-section>
+                        </q-item>
+                        <q-item clickable v-close-popup>
+                            <q-item-section avatar style="min-width: 0px">
+                                <q-icon name="close" />
+                            </q-item-section>
+                            <q-item-section @click="removeAllTab">
+                                {{ $t('CloseAll') }}
+                            </q-item-section>
+                        </q-item>
+                    </q-list>
+                </q-menu>
             </template>
         </q-route-tab>
     </q-tabs>
@@ -61,8 +53,10 @@
 import { computed, ref, watch, onMounted, onUnmounted, nextTick } from 'vue';
 import { useTabMenuStore } from 'src/stores/tabMenu'
 import { useRoute, useRouter } from 'vue-router';
-const tabMenuStore = useTabMenuStore()
+import useDarkTheme from 'src/composables/useDarkTheme';
 
+const tabMenuStore = useTabMenuStore()
+const { darkTheme } = useDarkTheme()
 const router = useRouter()
 const route = useRoute()
 const tabMenus = computed(() => tabMenuStore.tabMenus)
@@ -74,9 +68,7 @@ onMounted(() => {
     tabMenuStore.AddTabMenu(Object.assign({}, route))
 })
 onUnmounted(() => {
-    if (route.path !== '/dashboard') {
-        tabMenuStore.DestroyTabMenu()
-    }
+    tabMenuStore.DestroyTabMenu()
 })
 const loginPage = ref(false)
 
@@ -125,12 +117,11 @@ const removeAllTab = () => {
 
 <style lang="scss" scoped>
 .tab-label {
-    margin: 2px 3px 2px 0;
+    margin: 0 7px;
     white-space: nowrap;
-    letter-spacing: 1px;
+    max-width: 150px;
     overflow: hidden;
     text-overflow: ellipsis;
-    writing-mode: vertical-lr;
 }
 
 .tab-close {
@@ -143,10 +134,5 @@ const removeAllTab = () => {
     &:hover {
         opacity: 1;
     }
-}
-
-.tab-active-class {
-    font-weight: bold;
-    font-size: 14px;
 }
 </style>

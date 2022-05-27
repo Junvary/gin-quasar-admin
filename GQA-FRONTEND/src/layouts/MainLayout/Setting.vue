@@ -1,14 +1,15 @@
 <template>
     <div>
-        <q-btn dense round glossy push color="primary" :icon="`${!right ? 'settings' : 'close'}`"
-            @click="right = !right" />
+        <q-btn dense round flat :icon="`${!right ? 'settings' : 'close'}`" @click="right = !right" />
         <q-dialog v-model="right" position="right">
-            <q-card style="height: 100%; width: 400px">
+            <q-card style="height: 100%; width: 400px" class="text-center">
                 <q-card-section>
                     <div class="text-h6">{{ $t('System') + $t('Setting') }}</div>
                 </q-card-section>
                 <q-card-section>
+                    <DarkTheme />
                     <GqaLanguage />
+
                     <q-separator />
                     <GqaTheme />
                 </q-card-section>
@@ -21,6 +22,8 @@
 <script setup>
 import GqaLanguage from 'src/components/GqaLanguage'
 import GqaTheme from 'src/components/GqaTheme'
+import DarkTheme from 'src/components/GqaTheme/DarkTheme.vue';
 import { ref } from 'vue';
+
 const right = ref(false)
 </script>

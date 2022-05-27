@@ -1,5 +1,5 @@
 <template>
-    <q-btn dense round glossy push color="primary" icon="edit_note" @click="addNoteTodo">
+    <q-btn dense round flat icon="edit_note" @click="addNoteTodo">
         <q-tooltip>
             {{ $t('Add') + ' ' + $t('NoteTodo') }}
         </q-tooltip>

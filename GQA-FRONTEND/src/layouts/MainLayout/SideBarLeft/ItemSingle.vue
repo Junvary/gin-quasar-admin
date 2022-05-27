@@ -1,6 +1,6 @@
 <template>
     <q-item clickable exact @click="toPath(addRoutesItem)" :inset-level="initLevel" :active="checkActive"
-        active-class="bg-primary text-white text-bold text-italic">
+        :active-class="darkThemeSelect">
         <q-item-section avatar>
             <q-icon :name="addRoutesItem.icon" />
         </q-item-section>
@@ -11,7 +11,9 @@
 <script setup>
 import { computed, toRefs } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
+import useDarkTheme from 'src/composables/useDarkTheme';
 
+const { darkThemeSelect } = useDarkTheme()
 const router = useRouter()
 const route = useRoute()
 const props = defineProps({

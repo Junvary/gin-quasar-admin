@@ -1,14 +1,7 @@
 <template>
-    <q-btn-dropdown dense glossy push color="primary">
-        <template v-slot:label>
-            <GqaAvatar loginUser size="26px" />
-            <span style="margin-left:5px">
-                {{ $t('Welcome') }}
-                &nbsp;
-                <GqaShowName showMyName />
-            </span>
-        </template>
-        <div class="row items-center justify-around q-pa-md">
+    <q-btn dense round flat>
+        <GqaAvatar loginUser size="26px" />
+        <q-menu class="row items-center justify-around q-pa-md">
             <div class="column">
                 <div class="text-h6">摘要</div>
                 <q-list>
@@ -49,8 +42,8 @@
                         @click="logout" />
                 </div>
             </div>
-        </div>
-    </q-btn-dropdown>
+        </q-menu>
+    </q-btn>
 </template>
 
 <script setup>

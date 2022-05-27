@@ -40,8 +40,15 @@
                 </q-td>
             </template>
 
+            <template v-slot:header-cell-item_custom="props">
+                <q-th :props="props">
+                    {{ props.col.label }}
+                    <q-icon name="edit" size="1.3em" />
+                </q-th>
+            </template>
+
             <template v-slot:body-cell-item_custom="props">
-                <q-td :props="props" class="bg-green-1">
+                <q-td :props="props">
                     <template v-if="props.row.config_item === 'bannerImage'">
                         <GqaAvatar :src="props.row.item_custom" v-if="props.row.item_custom !== ''" />
                     </template>
@@ -63,7 +70,7 @@
                         {{ props.row.item_custom }}
                     </template>
 
-                    <q-popup-edit v-model="props.row.item_custom" class="bg-green-13">
+                    <q-popup-edit v-model="props.row.item_custom" class="bg-grey-4">
                         <template v-slot="scope">
                             {{ $t('Custom') + ' ' + props.row.config_item }}
                             <q-option-group v-if="props.row.config_item === 'loginLayoutStyle'"

@@ -2,7 +2,7 @@
     <q-dialog persistent v-model="chatDialogVisible" transition-hide="scale" @before-show="beforeShow"
         @before-hide="beforeHide">
         <q-card bordered style="width: 800px; max-width: 50vw;">
-            <q-bar class="bg-primary text-white">
+            <q-bar :class="darkTheme">
                 {{ gqaFrontend.subTitle }}
                 {{ $t('ChatRoom') }}
                 <q-space />
@@ -66,7 +66,9 @@ import { useQuasar } from 'quasar'
 import { computed, onMounted, ref, watch, nextTick, toRefs } from 'vue'
 import { useI18n } from 'vue-i18n'
 import useCommon from 'src/composables/useCommon';
+import useDarkTheme from 'src/composables/useDarkTheme';
 
+const { darkTheme } = useDarkTheme()
 const { GqaDefaultUsername, GqaDefaultAvatar } = useCommon()
 const $q = useQuasar()
 const { t } = useI18n()
