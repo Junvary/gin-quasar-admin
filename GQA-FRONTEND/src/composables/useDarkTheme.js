@@ -18,8 +18,16 @@ export default function useDarkTheme() {
             return 'bg-grey-4 text-dark'
         }
     });
+    const darkThemeChart = computed(() => {
+        if ($q.dark.isActive) {
+            return 'dark'
+        } else {
+            return ''
+        }
+    });
     return {
         darkTheme,
-        darkThemeSelect
+        darkThemeSelect,
+        darkThemeChart
     }
 }

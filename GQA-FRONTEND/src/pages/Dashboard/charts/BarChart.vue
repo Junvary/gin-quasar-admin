@@ -6,7 +6,10 @@
 </template>
 
 <script setup>
-import { markRaw, onMounted, ref } from 'vue';
+import { markRaw, onMounted, ref, watch } from 'vue';
+import useDarkTheme from 'src/composables/useDarkTheme'
+
+const { darkThemeChart } = useDarkTheme()
 const echarts = require('echarts')
 const chart = ref(null)
 const barchart = ref(null)
@@ -14,10 +17,13 @@ const barchart = ref(null)
 onMounted(() => {
     init()
 })
+watch(() => darkThemeChart.value, () => {
+    init()
+})
 const init = () => {
     let ct = barchart.value;
     echarts.dispose(ct);
-    chart.value = markRaw(echarts.init(ct));
+    chart.value = markRaw(echarts.init(ct, darkThemeChart.value));
     chart.value.setOption(options.value);
 }
 const onResize = () => {
