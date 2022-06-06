@@ -16,8 +16,8 @@
                         v-for="item in topMenu.filter(tm => tm?.top?.is_plugin === 'no')" :key="item.top.name" />
                     <q-btn stretch flat class="text-grey-8" style="width: 100%;"
                         @click="changeTopMenu(topMenuItemPlugin)"
-                        v-if="pageDashboard && topMenu.filter(tm => tm?.top?.is_plugin !== 'yes').length"
-                        :label="topMenuItemPlugin?.top?.title ? $t(topMenuItemPlugin?.top?.title) : $t('Installed') + $t('Plugin') + '(' + topMenu.filter(tm => tm?.top?.is_plugin === 'yes').length + ')'">
+                        v-if="pageDashboard && topMenu.filter(tm => tm?.top?.is_plugin === 'yes').length"
+                        :label="topMenuItemPlugin?.top?.title ? $t(topMenuItemPlugin?.top?.title) : $t('Plugin') + $t('Menu') + '(' + topMenu.filter(tm => tm?.top?.is_plugin === 'yes').length + ')'">
                         <q-btn dense stretch flat round icon="install_desktop" text-color="text-grey-8">
                             <q-menu transition-show="flip-right" transition-hide="flip-left">
                                 <q-list>

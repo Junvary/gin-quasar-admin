@@ -134,6 +134,7 @@ export default {
     Path: 'Path',
     Redirect: 'Redirect',
     Leader: 'Leader',
+    Loading: 'Loading',
 
     // phrase
     SystemManage: 'System Manage',

@@ -5,6 +5,7 @@ import { LoadingBar, Loading, QSpinnerGears } from 'quasar'
 import { useUserStore } from 'src/stores/user'
 import { usePermissionStore } from 'src/stores/permission'
 import useCommon from 'src/composables/useCommon'
+import { i18n } from './i18n'
 
 LoadingBar.setDefaults({
     color: 'red',
@@ -15,9 +16,7 @@ LoadingBar.setDefaults({
 function startLoading() {
     Loading.show({
         // spinner: QSpinnerGears,
-        message: function () {
-            return this.$t('SystemLoading')
-        }
+        message: i18n.global.t('System') + i18n.global.t('Loading')
     })
     LoadingBar.start()
 }

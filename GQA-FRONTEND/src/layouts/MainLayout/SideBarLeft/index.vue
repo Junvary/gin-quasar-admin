@@ -2,8 +2,8 @@
     <q-card class="absolute-top text-primary text-bold text-center text-h6 cursor-pointer row items-center"
         style="height: 50px;">
         <q-btn stretch flat @click="changeTopMenu(topMenuItemPlugin)" style="width: 100%;"
-            :label="topMenuItemPlugin?.top?.title ? $t(topMenuItemPlugin?.top?.title) : $t('Installed') + $t('Plugin') + '(' + topMenu.filter(tm => tm?.top?.is_plugin === 'yes').length + ')'"
-            :class="darkTheme" v-if="topMenu.filter(tm => tm?.top?.is_plugin !== 'yes').length">
+            :label="topMenuItemPlugin?.top?.title ? $t(topMenuItemPlugin?.top?.title) : $t('Plugin') + $t('Menu') + '(' + topMenu.filter(tm => tm?.top?.is_plugin === 'yes').length + ')'"
+            :class="darkTheme" v-if="topMenu.filter(tm => tm?.top?.is_plugin === 'yes').length">
             <q-btn dense stretch flat round icon="install_desktop" text-color="text-grey-8">
                 <q-menu transition-show="flip-right" transition-hide="flip-left">
                     <q-list>
@@ -16,6 +16,9 @@
                     </q-list>
                 </q-menu>
             </q-btn>
+        </q-btn>
+        <q-btn v-else stretch flat style="width: 100%; font-size: 1.1rem; font-weight: bold;" :class="darkTheme">
+            {{ $t(topMenuItem.top.title) }}
         </q-btn>
     </q-card>
     <q-scroll-area style="height: calc(100% - 50px); margin-top: 50px;">

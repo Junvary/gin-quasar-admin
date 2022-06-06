@@ -135,6 +135,7 @@ export default {
     Path: '路径',
     Redirect: '重定向',
     Leader: '负责人',
+    Loading: '加载中',
 
     // 词组
     SystemManage: '系统管理',
