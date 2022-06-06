@@ -39,11 +39,12 @@ gitee：https://gitee.com/junvary/gin-quasar-admin
 |  2   |     考勤统计     | https://github.com/Junvary/gqa-plugin-attendance |           在插件中连接并查询其他数据库           |
 |  3   | 工会固定资产折旧 |  https://github.com/Junvary/gqa-plugin-AssetGh   |                打印功能、导出功能                |
 |  4   |     投票插件     |    https://github.com/Junvary/gqa-plugin-vote    |     不使用基础Model的表，较多逻辑，图表展示      |
+|  5   |     泛微CAS      | https://github.com/Junvary/gqa-plugin-weaverCas  |              对接泛微的CAS认证例子               |
 
 ### 插件开发与接入方式
 
 1. 开发：后端gqaplugin目录、前端plugins目录建立对应文件，开发完成可提取成单独仓库。
-2. 接入：clone或下载插件仓库代码，gqaplugin目录中文件夹放入GQA-BACKEND/gqaplugin目录（后端），plugins目录中文件夹放入GQA-FRONTEND/src/pugins目录即可。注：后端可通过github直接导入。
+2. 接入：clone或下载插件仓库代码，gqaplugin目录中文件夹放入GQA-BACKEND/gqaplugin目录（后端），plugins目录中文件夹放入GQA-FRONTEND/src/pugins目录即可。注：后端可通过github直接导入，部分插件需按插件说明引入。
 
 ### 项目运行：
 
@@ -52,7 +53,7 @@ gitee：https://gitee.com/junvary/gin-quasar-admin
 > ```
 > // 进入前端文件夹：GQA-FRONTEND后安装依赖：
 > yarn
-> // 运行项目：
+> // 运行项目（或者你需要 'yarn global add @quasar/cli' ？）：
 > yarn run dev
 > // 打包：
 > yarn run build
