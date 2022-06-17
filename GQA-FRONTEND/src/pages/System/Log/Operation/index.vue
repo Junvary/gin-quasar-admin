@@ -29,14 +29,10 @@
 
 <script setup>
 import useTableData from 'src/composables/useTableData'
-import { useQuasar } from 'quasar'
-import { postAction } from 'src/api/manage'
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { DictOptions } from 'src/utils/dict'
 import { FormatDateTime } from 'src/utils/date'
 
-const $q = useQuasar()
 const { t } = useI18n()
 const url = {
     list: 'log/get-log-operation-list',
@@ -54,23 +50,15 @@ const columns = computed(() => {
     ]
 })
 const {
-    dictOptions,
     pagination,
     queryParams,
     pageOptions,
-    GqaDictShow,
-    GqaAvatar,
     loading,
     tableData,
-    recordDetailDialog,
-    showAddForm,
-    showEditForm,
     onRequest,
     getTableData,
     handleSearch,
     resetSearch,
-    handleFinish,
-    handleDelete,
 } = useTableData(url)
 
 onMounted(async () => {

@@ -86,22 +86,11 @@ const { oldMessage } = toRefs(props)
 const {
     gqaFrontend,
     pagination,
-    queryParams,
-    pageOptions,
-    GqaDictShow,
     GqaAvatar,
     GqaShowName,
     loading,
     tableData,
-    recordDetailDialog,
-    showAddForm,
-    showEditForm,
-    onRequest,
     getTableData,
-    handleSearch,
-    resetSearch,
-    handleFinish,
-    handleDelete,
 } = useTableData(url)
 
 onMounted(() => {

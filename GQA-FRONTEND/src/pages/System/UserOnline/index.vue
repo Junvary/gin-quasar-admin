@@ -75,19 +75,13 @@ const {
     pagination,
     queryParams,
     pageOptions,
-    GqaDictShow,
     GqaAvatar,
     loading,
     tableData,
-    recordDetailDialog,
-    showAddForm,
-    showEditForm,
     onRequest,
     getTableData,
     handleSearch,
     resetSearch,
-    handleFinish,
-    handleDelete,
 } = useTableData(url)
 
 onMounted(() => {

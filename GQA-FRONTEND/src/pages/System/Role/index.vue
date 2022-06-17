@@ -45,15 +45,12 @@
 
 <script setup>
 import useTableData from 'src/composables/useTableData'
-import { useQuasar } from 'quasar'
-import { postAction } from 'src/api/manage'
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import recordDetail from './modules/recordDetail'
 import RolePermissionDialog from './modules/RolePermissionDialog'
 import RoleUserDialog from './modules/RoleUserDialog'
 
-const $q = useQuasar()
 const { t } = useI18n()
 const url = {
     list: 'role/get-role-list',
@@ -64,7 +61,6 @@ const columns = computed(() => {
         { name: 'sort', align: 'center', label: t('Sort'), field: 'sort' },
         { name: 'role_code', align: 'center', label: t('Role') + t('Code'), field: 'role_code' },
         { name: 'role_name', align: 'center', label: t('Role') + t('Name'), field: 'role_name' },
-        // { name: 'status', align: 'center', label: t('Status'), field: 'status' },
         { name: 'stable', align: 'center', label: t('Stable'), field: 'stable' },
         { name: 'actions', align: 'center', label: t('Actions'), field: 'actions' },
     ]
@@ -74,7 +70,6 @@ const {
     queryParams,
     pageOptions,
     GqaDictShow,
-    GqaAvatar,
     loading,
     tableData,
     recordDetailDialog,

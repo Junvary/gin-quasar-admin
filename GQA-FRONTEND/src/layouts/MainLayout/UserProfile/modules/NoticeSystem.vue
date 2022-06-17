@@ -35,16 +35,11 @@
 
 <script setup>
 import useTableData from 'src/composables/useTableData'
-import { useQuasar } from 'quasar'
-import { postAction } from 'src/api/manage'
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { DictOptions } from 'src/utils/dict'
-import { FormatDateTime } from 'src/utils/date'
 import NoticeDetail from './NoticeDetail.vue'
 import { useUserStore } from 'src/stores/user'
 
-const $q = useQuasar()
 const { t } = useI18n()
 const userStore = useUserStore()
 const url = {
@@ -65,18 +60,10 @@ const {
     queryParams,
     pageOptions,
     GqaDictShow,
-    GqaAvatar,
     loading,
     tableData,
-    recordDetailDialog,
-    showAddForm,
-    showEditForm,
     onRequest,
     getTableData,
-    handleSearch,
-    resetSearch,
-    handleFinish,
-    handleDelete,
 } = useTableData(url)
 
 const username = computed(() => userStore.GetUsername())

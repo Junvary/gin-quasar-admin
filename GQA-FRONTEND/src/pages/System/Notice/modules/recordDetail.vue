@@ -52,11 +52,9 @@
 import useRecordDetail from 'src/composables/useRecordDetail'
 import useTableData from 'src/composables/useTableData'
 import { postAction } from 'src/api/manage'
-import { useStorageStore } from 'src/stores/storage'
 import { ref, computed } from 'vue'
 import { useQuasar } from 'quasar'
 import { useI18n } from 'vue-i18n'
-import GqaSeleteUser from 'src/components/GqaSeleteUser'
 
 const $q = useQuasar()
 const { t } = useI18n()
@@ -69,34 +67,17 @@ const url = {
 }
 const {
     dictOptions,
-    showDateTime,
     formType,
     formTypeName,
     recordDetail,
     recordDetailVisible,
     loading,
-    // show,
     handleQueryById,
     recordDetailForm,
-    // handleAddOrEidt
 } = useRecordDetail(url, emit)
 const {
-    pagination,
-    queryParams,
-    pageOptions,
-    GqaDictShow,
-    GqaAvatar,
-    // loading,
     tableData,
-    recordDetailDialog,
-    showAddForm,
-    showEditForm,
-    onRequest,
     getTableData,
-    handleSearch,
-    resetSearch,
-    handleFinish,
-    handleDelete,
 } = useTableData(url)
 
 const show = (row) => {

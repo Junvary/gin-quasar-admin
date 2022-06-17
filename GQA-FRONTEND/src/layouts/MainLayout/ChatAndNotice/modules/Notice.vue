@@ -51,8 +51,6 @@ import { useQuasar } from 'quasar'
 import { postAction } from 'src/api/manage'
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { DictOptions } from 'src/utils/dict'
-import { FormatDateTime } from 'src/utils/date'
 import NoticeSystem from './NoticeSystem.vue'
 import NoticeMessage from './NoticeMessage.vue'
 import NoticeNoteTodo from './NoticeNoteTodo.vue'
@@ -69,20 +67,9 @@ const url = {
 const {
     pagination,
     queryParams,
-    pageOptions,
-    GqaDictShow,
-    GqaAvatar,
     loading,
     tableData,
-    recordDetailDialog,
-    showAddForm,
-    showEditForm,
-    onRequest,
     getTableData,
-    handleSearch,
-    resetSearch,
-    handleFinish,
-    handleDelete,
 } = useTableData(url)
 
 const username = computed(() => userStore.GetUsername())

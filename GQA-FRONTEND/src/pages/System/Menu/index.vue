@@ -47,14 +47,11 @@
 
 <script setup>
 import useTableData from 'src/composables/useTableData'
-import { useQuasar } from 'quasar'
-import { postAction } from 'src/api/manage'
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import recordDetail from './modules/recordDetail'
 import { ArrayToTree } from 'src/utils/arrayAndTree'
 
-const $q = useQuasar()
 const { t } = useI18n()
 const url = {
     list: 'menu/get-menu-list',
@@ -77,19 +74,12 @@ const columns = computed(() => {
 })
 const {
     pagination,
-    queryParams,
-    pageOptions,
     GqaDictShow,
-    GqaAvatar,
-    loading,
     tableData,
     recordDetailDialog,
     showAddForm,
     showEditForm,
-    onRequest,
     getTableData,
-    handleSearch,
-    resetSearch,
     handleFinish,
     handleDelete,
 } = useTableData(url)

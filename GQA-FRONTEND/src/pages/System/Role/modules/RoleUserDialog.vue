@@ -28,10 +28,8 @@
 import useTableData from 'src/composables/useTableData'
 import { useQuasar } from 'quasar'
 import { postAction } from 'src/api/manage'
-import { computed, onMounted, ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { DictOptions } from 'src/utils/dict'
-import { FormatDateTime } from 'src/utils/date'
 import SelectUserDialog from 'src/components/GqaSeleteUser/SelectUserDialog'
 
 const $q = useQuasar()
@@ -43,7 +41,6 @@ const url = {
 }
 const columns = computed(() => {
     return [
-        // { name: 'sort', align: 'center', label: t('Sort'), field: 'sort' },
         { name: 'username', align: 'center', label: t('Username'), field: 'username' },
         { name: 'nickname', align: 'center', label: t('Nickname'), field: 'nickname' },
         { name: 'real_name', align: 'center', label: t('RealName'), field: 'real_name' },
@@ -54,19 +51,10 @@ const {
     pagination,
     queryParams,
     pageOptions,
-    GqaDictShow,
-    GqaAvatar,
     loading,
     tableData,
-    recordDetailDialog,
-    showAddForm,
-    showEditForm,
     onRequest,
     getTableData,
-    handleSearch,
-    resetSearch,
-    handleFinish,
-    handleDelete,
 } = useTableData(url)
 
 const roleUserVisible = ref(false)

@@ -52,10 +52,9 @@
 import useTableData from 'src/composables/useTableData'
 import { useQuasar } from 'quasar'
 import { postAction } from 'src/api/manage'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import recordDetail from './modules/recordDetail'
-import { DictOptions } from 'src/utils/dict'
 
 const $q = useQuasar()
 const { t } = useI18n()
@@ -79,7 +78,6 @@ const {
     queryParams,
     pageOptions,
     GqaDictShow,
-    GqaAvatar,
     loading,
     tableData,
     recordDetailDialog,

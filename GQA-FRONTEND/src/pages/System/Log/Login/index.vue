@@ -51,12 +51,10 @@
 
 <script setup>
 import useTableData from 'src/composables/useTableData'
-import { useQuasar } from 'quasar'
 import { computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { FormatDateTime } from 'src/utils/date'
 
-const $q = useQuasar()
 const { t } = useI18n()
 const url = {
     list: 'log/get-log-login-list',
@@ -81,17 +79,12 @@ const {
     queryParams,
     pageOptions,
     GqaDictShow,
-    GqaAvatar,
     loading,
     tableData,
-    recordDetailDialog,
-    showAddForm,
-    showEditForm,
     onRequest,
     getTableData,
     handleSearch,
     resetSearch,
-    handleFinish,
     handleDelete,
 } = useTableData(url)
 

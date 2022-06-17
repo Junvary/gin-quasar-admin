@@ -102,17 +102,18 @@ export default function useTableData(url) {
     // 引入useCommon中的方法
     const { showDateTime, gqaFrontend, gqaBackend, GqaDictShow, GqaShowName, GqaAvatar, } = useCommon()
     return {
-        showDateTime,
-        gqaBackend,
+        GqaAvatar,
+        GqaShowName,
+        GqaDictShow,
         gqaFrontend,
+        gqaBackend,
         dictOptions,
+        showDateTime,
+
+        loading,
         pagination,
         queryParams,
         pageOptions,
-        GqaDictShow,
-        GqaShowName,
-        GqaAvatar,
-        loading,
         tableData,
         recordDetailDialog,
         showAddForm,

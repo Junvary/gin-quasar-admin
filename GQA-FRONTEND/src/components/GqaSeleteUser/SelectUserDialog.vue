@@ -40,15 +40,10 @@
 
 <script setup>
 import useTableData from 'src/composables/useTableData'
-import { useQuasar } from 'quasar'
-import { postAction } from 'src/api/manage'
-import { computed, onMounted, ref, toRefs } from 'vue'
+import { computed, ref, toRefs } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { DictOptions } from 'src/utils/dict'
-import { FormatDateTime } from 'src/utils/date'
 import { ArrayOrObject } from 'src/utils/arrayOrObject'
 
-const $q = useQuasar()
 const { t } = useI18n()
 const props = defineProps({
     // 必须传递单选多选: multiple, single
@@ -77,19 +72,12 @@ const {
     pagination,
     queryParams,
     pageOptions,
-    GqaDictShow,
-    GqaAvatar,
     loading,
     tableData,
-    recordDetailDialog,
-    showAddForm,
-    showEditForm,
     onRequest,
     getTableData,
     handleSearch,
     resetSearch,
-    handleFinish,
-    handleDelete,
 } = useTableData(url)
 
 const selectUserVisible = ref(false)

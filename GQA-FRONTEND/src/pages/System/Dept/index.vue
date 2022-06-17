@@ -31,15 +31,12 @@
 
 <script setup>
 import useTableData from 'src/composables/useTableData'
-import { useQuasar } from 'quasar'
-import { postAction } from 'src/api/manage'
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import recordDetail from './modules/recordDetail'
 import { ArrayToTree } from 'src/utils/arrayAndTree'
 import DeptUser from './modules/DeptUser'
 
-const $q = useQuasar()
 const { t } = useI18n()
 const url = {
     list: 'dept/get-dept-list',
@@ -57,20 +54,13 @@ const columns = computed(() => {
 })
 const {
     pagination,
-    queryParams,
-    pageOptions,
     GqaDictShow,
     GqaShowName,
-    GqaAvatar,
-    loading,
     tableData,
     recordDetailDialog,
     showAddForm,
     showEditForm,
-    onRequest,
     getTableData,
-    handleSearch,
-    resetSearch,
     handleFinish,
     handleDelete,
 } = useTableData(url)

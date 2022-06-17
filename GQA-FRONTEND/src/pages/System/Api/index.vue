@@ -45,16 +45,11 @@
 
 <script setup>
 import useTableData from 'src/composables/useTableData'
-import { useQuasar } from 'quasar'
-import { postAction } from 'src/api/manage'
 import { computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useStorageStore } from 'src/stores/storage'
 import recordDetail from './modules/recordDetail'
 
-const $q = useQuasar()
 const { t } = useI18n()
-const storageStore = useStorageStore()
 const url = {
     list: 'api/get-api-list',
     delete: 'api/delete-api-by-id',
@@ -76,7 +71,6 @@ const {
     queryParams,
     pageOptions,
     GqaDictShow,
-    GqaAvatar,
     loading,
     tableData,
     recordDetailDialog,
