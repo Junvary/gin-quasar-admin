@@ -17,7 +17,8 @@
                 </q-menu>
             </q-btn>
         </q-btn>
-        <q-btn v-else stretch flat style="width: 100%; font-size: 1.1rem; font-weight: bold;" :class="darkTheme">
+        <q-btn v-else-if="topMenuItem?.top?.title" stretch flat
+            style="width: 100%; font-size: 1.1rem; font-weight: bold;" :class="darkTheme">
             {{ $t(topMenuItem.top.title) }}
         </q-btn>
     </q-card>

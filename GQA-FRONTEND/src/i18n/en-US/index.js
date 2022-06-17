@@ -135,6 +135,10 @@ export default {
     Redirect: 'Redirect',
     Leader: 'Leader',
     Loading: 'Loading',
+    Copy: 'Copy',
+    CopyTo: 'Copy To',
+    CopyToClipboard: 'Copy To Clipboard',
+    Clipboard: 'Clipboard',
 
     // phrase
     SystemManage: 'System Manage',

@@ -13,8 +13,8 @@
                 <div class="row" style="width: 95%">
                     <q-input v-model="materiaData.filter" label="Filter" outlined clearable style="width: 100%" />
                     <q-icon-picker v-model="materiaData.value" v-model:model-pagination="materiaData.pagination"
-                        icon-set="material-icons" :filter="materiaData.filter" style="height: 60vh" size="30px"
-                        tooltips />
+                        icon-set="material-icons" :filter="materiaData.filter" style="height: 60vh" size="30px" tooltips
+                        @click="copyIcon(materiaData.value)" />
                 </div>
             </q-tab-panel>
 
@@ -23,7 +23,7 @@
                     <q-input v-model="fontawesomeData.filter" label="Filter" outlined clearable style="width: 100%" />
                     <q-icon-picker v-model="fontawesomeData.value" v-model:model-pagination="fontawesomeData.pagination"
                         icon-set="fontawesome-v5" :filter="fontawesomeData.filter" style="height: 60vh" size="30px"
-                        tooltips />
+                        tooltips @click="copyIcon(fontawesomeData.value)" />
                 </div>
             </q-tab-panel>
         </q-tab-panels>
@@ -33,7 +33,11 @@
 
 <script setup>
 import { ref } from 'vue';
+import { copyToClipboard, useQuasar } from 'quasar'
+import { useI18n } from 'vue-i18n'
 
+const $q = useQuasar();
+const { t } = useI18n();
 const tab = ref('materia');
 const materiaData = ref({
     value: '',
@@ -51,6 +55,19 @@ const fontawesomeData = ref({
         page: 0
     }
 });
+const copyIcon = (item) => {
+    copyToClipboard(item).then(() => {
+        $q.notify({
+            type: 'positive',
+            message: t('CopyToClipboard') + ' ' + t('Success') + ': ' + item,
+        })
+    }).catch(() => {
+        $q.notify({
+            type: 'negative',
+            message: t('CopyToClipboard') + ' ' + t('Failed'),
+        })
+    })
+}
 </script>
 
 <style lang="scss" scoped>

@@ -136,6 +136,10 @@ export default {
     Redirect: '重定向',
     Leader: '负责人',
     Loading: '加载中',
+    Copy: '拷贝',
+    CopyTo: '拷贝到',
+    CopyToClipboard: '拷贝到剪切板',
+    Clipboard: '剪切板',
 
     // 词组
     SystemManage: '系统管理',
