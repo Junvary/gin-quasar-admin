@@ -1,5 +1,5 @@
 <template>
-    <q-item clickable exact @click="toPath(addRoutesItem)" :inset-level="initLevel" :active="checkActive"
+    <q-item clickable v-ripple exact @click="toPath(addRoutesItem)" :inset-level="initLevel" :active="checkActive"
         :active-class="darkThemeSelect">
         <q-item-section avatar>
             <q-icon :name="addRoutesItem.icon" />

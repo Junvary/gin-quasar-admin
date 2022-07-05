@@ -1,7 +1,7 @@
 <template>
     <div>
         <q-list bordered separator style="min-width: 300px">
-            <q-item clickable v-for="(item, index) in noteTodoData.slice(0, 5)" :key="index"
+            <q-item clickable v-ripple v-for="(item, index) in noteTodoData.slice(0, 5)" :key="index"
                 @click="toTodoDetail(item)">
                 <q-item-section avatar>
                     <q-icon color="primary" name="notifications" />
@@ -12,7 +12,7 @@
                 </q-item-section>
             </q-item>
         </q-list>
-        <q-item clickable class="text-center" @click="toUserProfile">
+        <q-item clickable v-ripple class="text-center" @click="toUserProfile">
             <q-item-section>
                 {{ $t('ViewAll') }}
             </q-item-section>

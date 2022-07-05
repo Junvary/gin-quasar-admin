@@ -7,7 +7,7 @@
             <q-btn dense stretch flat round icon="install_desktop" text-color="text-grey-8">
                 <q-menu transition-show="flip-right" transition-hide="flip-left">
                     <q-list>
-                        <q-item clickable v-close-popup @click="changeTopMenuPlugin(item)"
+                        <q-item clickable v-ripple v-close-popup @click="changeTopMenuPlugin(item)"
                             v-for="item in topMenu.filter(tm => tm?.top?.is_plugin === 'yes')">
                             <q-item-section>
                                 {{ $t(item.top.title) }}

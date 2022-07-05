@@ -6,7 +6,7 @@
             @rejected="rejected" :color="color">
             <template v-slot:list="scope">
                 <q-list separator>
-                    <q-item v-for="file in scope.files" :key="file.name">
+                    <q-item v-for="file in scope.files" :key="file.name" v-ripple>
                         <q-item-section>
                             <q-item-label class="full-width ellipsis">
                                 {{ file.name }}
@@ -39,7 +39,7 @@
             </template>
         </q-uploader>
         <q-list bordered separator v-if="fileList.length">
-            <q-item clickable active v-for="(item, index) in fileList" :key="index" @click="handleDownload(item)"
+            <q-item clickable active v-ripple v-for="(item, index) in fileList" :key="index" @click="handleDownload(item)"
                 active-class="text-primary">
                 <q-item-section>
                     {{ item.filename }}

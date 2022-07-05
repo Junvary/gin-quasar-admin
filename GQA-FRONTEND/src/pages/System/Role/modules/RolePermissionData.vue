@@ -8,7 +8,7 @@
         <q-select v-model="deptDataPermissionType" :options="dictOptions.deptDataPermissionType" emit-value map-options
             :label="$t('DeptDataPermissionType')" style="width: 100%" @update:model-value="checkCustom">
             <template v-slot:option="scope">
-                <q-item v-bind="scope.itemProps">
+                <q-item v-ripple v-bind="scope.itemProps">
                     <q-item-section>
                         <q-item-label>
                             {{ scope.opt.label }}

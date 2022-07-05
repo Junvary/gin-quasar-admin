@@ -1,8 +1,7 @@
 <template>
     <q-tabs dense inline-label outside-arrows mobile-arrows class="shadow-2" :class="darkTheme" style="width: 100%;"
         v-if="!loginPage" align="left">
-        <q-route-tab exact replace v-for="tab in tabMenus" :to="tab.path" :key="tab.path" :name="tab.path"
-            :ripple="{ color: 'primary' }">
+        <q-route-tab exact replace v-for="tab in tabMenus" :to="tab.path" :key="tab.path" :name="tab.path">
             <template v-slot>
                 <q-icon size="1.3rem" v-if="tab.meta.icon" :name="tab.meta.icon" />
                 <span class="tab-label">{{ $t(tab.meta.title) || $t('Unknown') }}</span>
@@ -10,7 +9,7 @@
                     @click.prevent.stop="removeTab(tab)" />
                 <q-menu touch-position context-menu>
                     <q-list dense bordered separator class="bg-white text-grey-8">
-                        <q-item clickable v-close-popup>
+                        <q-item clickable v-close-popup v-ripple>
                             <q-item-section avatar style="min-width: 0px">
                                 <q-icon name="code" />
                             </q-item-section>
@@ -18,7 +17,7 @@
                                 {{ $t('CloseOther') }}
                             </q-item-section>
                         </q-item>
-                        <q-item clickable v-close-popup>
+                        <q-item clickable v-close-popup v-ripple>
                             <q-item-section avatar style="min-width: 0px">
                                 <q-icon name="keyboard_arrow_right" />
                             </q-item-section>
@@ -26,7 +25,7 @@
                                 {{ $t('CloseRight') }}
                             </q-item-section>
                         </q-item>
-                        <q-item clickable v-close-popup>
+                        <q-item clickable v-close-popup v-ripple>
                             <q-item-section avatar style="min-width: 0px">
                                 <q-icon name="keyboard_arrow_left" />
                             </q-item-section>
@@ -34,7 +33,7 @@
                                 {{ $t('CloseLeft') }}
                             </q-item-section>
                         </q-item>
-                        <q-item clickable v-close-popup>
+                        <q-item clickable v-close-popup v-ripple>
                             <q-item-section avatar style="min-width: 0px">
                                 <q-icon name="close" />
                             </q-item-section>

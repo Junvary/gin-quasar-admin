@@ -12,7 +12,7 @@
                 <q-card-section class="col-4" style="padding: 0">
                     <q-scroll-area ref="userScroll" visible style="height: 50vh; width: 100%">
                         <q-list>
-                            <q-item clickable v-for="(item, index) in tableData" :key="index">
+                            <q-item clickable v-ripple v-for="(item, index) in tableData" :key="index">
                                 <q-item-section avatar>
                                     <GqaAvatar :src="item.user.avatar" />
                                 </q-item-section>

@@ -1,7 +1,7 @@
 <template>
     <q-page padding style="overflow-x: hidden;">
         <q-card class="my-card" flat bordered>
-            <q-item>
+            <q-item v-ripple>
                 <q-item-section avatar>
                     <GqaAvatar loginUser size="40px" />
                 </q-item-section>
