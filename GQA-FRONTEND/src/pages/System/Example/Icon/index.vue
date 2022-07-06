@@ -56,17 +56,22 @@ const fontawesomeData = ref({
     }
 });
 const copyIcon = (item) => {
-    copyToClipboard(item).then(() => {
-        $q.notify({
-            type: 'positive',
-            message: t('CopyToClipboard') + ' ' + t('Success') + ': ' + item,
+    if (item) {
+        copyToClipboard(item).then(() => {
+            $q.notify({
+                type: 'positive',
+                message: t('CopyToClipboard') + ' ' + t('Success') + ': ' + item,
+            })
+            materiaData.value.value = '';
+            fontawesomeData.value.value = '';
+        }).catch(() => {
+            $q.notify({
+                type: 'negative',
+                message: t('CopyToClipboard') + ' ' + t('Failed'),
+            })
         })
-    }).catch(() => {
-        $q.notify({
-            type: 'negative',
-            message: t('CopyToClipboard') + ' ' + t('Failed'),
-        })
-    })
+    }
+
 }
 </script>
 
