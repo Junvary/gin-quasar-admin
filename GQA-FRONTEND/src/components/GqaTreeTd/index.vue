@@ -1,5 +1,5 @@
 <template>
-    <td data-th="Name" class="text-center">
+    <td data-th="Name" class="text-left">
         <div v-bind:style="treeTd.setPadding(treeTd.item)"
             :class="treeTd.iconName(treeTd.item) != 'done' ? 'q-pl-lg' : ''">
             <q-btn @click="treeTd.toggle(treeTd.item)" v-if="treeTd.iconName(treeTd.item) != 'done'"

@@ -73,21 +73,15 @@ var sysMenuData = []model.SysMenu{
 		Sort: 2, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "操作日志",
 	}}, Name: "log-operation", Title: "LogOperation", Icon: "toc", Path: "/log/log-operation", Component: "pages/System/Log/Operation/index", ParentCode: "log"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 10, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "系统示例",
-	}}, Name: "example", Title: "SystemExample", Icon: "star", Path: "/example", Component: "", Redirect: "/example/icon", ParentCode: "system"},
-	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 1, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "图标合集",
-	}}, Name: "example-icon", Title: "ExampleIcon", Icon: "mood", Path: "/example/icon", Component: "pages/System/Example/Icon/index", ParentCode: "example"},
-	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 11, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "消息管理",
+		Sort: 10, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "消息管理",
 	}}, Name: "notice", Title: "NoticeManage", Icon: "notifications", Path: "/notice", Component: "pages/System/Notice/index", ParentCode: "system"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 12, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件生成",
+		Sort: 11, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件生成",
 	}}, Name: "genPlugin", Title: "GenPlugin", Icon: "code", Path: "/gen-plugin", Component: "pages/System/GenPlugin/index", ParentCode: "system"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 13, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "在线用户",
+		Sort: 12, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "在线用户",
 	}}, Name: "user-online", Title: "UserOnline", Icon: "fas fa-users", Path: "/user-online", Component: "pages/System/UserOnline/index", ParentCode: "system"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 14, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "Github",
+		Sort: 13, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "Github",
 	}}, Name: "github", Title: "Github", Icon: "fab fa-github", IsLink: "yes", Path: "https://github.com/Junvary/gin-quasar-admin", Component: "", ParentCode: "system"},
 }

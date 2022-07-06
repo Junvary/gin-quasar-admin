@@ -3,20 +3,21 @@ package gqaplugin
 /*
     // =============================== 引入方式 ===============================
 	// 1. 本地引入方式：（可以git忽略掉，只共本地开发使用，不在主仓库中追踪）
-	// 如："github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/xtkfk"
+	// 如："github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/example"
     // 2. github引入方式：（本地开发完善后，可单独提取成仓库，推荐）
-	// 如："github.com/Junvary/gqa-plugin-xtkfk/gqaplugin/xtkfk"
+	// 如："github.com/Junvary/gqa-plugin-xtkfk/gqaplugin/example"
     // ========================== 开发插件、接入插件 ============================
     // 开发插件需实现 GqaPlugin 接口，完成后填入 PluginList 切片中即可
 	// ========================================================================
 */
 
 import (
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/example"
 	"github.com/gin-gonic/gin"
 )
 
 var PluginList = []GqaPlugin{ //插件加入此切片即可
-	//xtkfk.PluginXtkfk,
+	example.PluginExample,
 }
 
 /*

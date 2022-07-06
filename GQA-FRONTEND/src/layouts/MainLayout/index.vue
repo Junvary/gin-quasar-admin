@@ -14,23 +14,19 @@
                     class="flex-wrap" :class="darkTheme">
                     <q-tab @click="changeTopMenu(item)" :name="item.top.name" :label="$t(item.top.title)"
                         v-for="item in topMenu.filter(tm => tm?.top?.is_plugin === 'no')" :key="item.top.name" />
-                    <q-btn stretch flat class="text-grey-8" style="width: 100%;"
-                        @click="changeTopMenu(topMenuItemPlugin)"
+
+                    <q-btn-dropdown stretch flat split class="text-grey-8" @click="changeTopMenu(topMenuItemPlugin)"
                         v-if="pageDashboard && topMenu.filter(tm => tm?.top?.is_plugin === 'yes').length"
                         :label="topMenuItemPlugin?.top?.title ? $t(topMenuItemPlugin?.top?.title) : $t('Plugin') + $t('Menu') + '(' + topMenu.filter(tm => tm?.top?.is_plugin === 'yes').length + ')'">
-                        <q-btn dense stretch flat round icon="install_desktop" text-color="text-grey-8">
-                            <q-menu transition-show="flip-right" transition-hide="flip-left">
-                                <q-list>
-                                    <q-item clickable v-ripple v-close-popup @click="changeTopMenuPlugin(item)"
-                                        v-for="item in topMenu.filter(tm => tm?.top?.is_plugin === 'yes')">
-                                        <q-item-section>
-                                            {{ $t(item.top.title) }}
-                                        </q-item-section>
-                                    </q-item>
-                                </q-list>
-                            </q-menu>
-                        </q-btn>
-                    </q-btn>
+                        <q-list>
+                            <q-item clickable v-ripple v-close-popup @click="changeTopMenuPlugin(item)"
+                                v-for="item in topMenu.filter(tm => tm?.top?.is_plugin === 'yes')">
+                                <q-item-section>
+                                    {{ $t(item.top.title) }}
+                                </q-item-section>
+                            </q-item>
+                        </q-list>
+                    </q-btn-dropdown>
                 </q-tabs>
 
                 <q-space />
