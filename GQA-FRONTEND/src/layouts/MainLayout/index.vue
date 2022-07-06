@@ -15,7 +15,7 @@
                     <q-tab @click="changeTopMenu(item)" :name="item.top.name" :label="$t(item.top.title)"
                         v-for="item in topMenu.filter(tm => tm?.top?.is_plugin === 'no')" :key="item.top.name" />
 
-                    <q-btn-dropdown stretch flat split class="text-grey-8" @click="changeTopMenu(topMenuItemPlugin)"
+                    <q-btn-dropdown stretch flat split :class="darkTheme" @click="changeTopMenu(topMenuItemPlugin)"
                         v-if="pageDashboard && topMenu.filter(tm => tm?.top?.is_plugin === 'yes').length"
                         :label="topMenuItemPlugin?.top?.title ? $t(topMenuItemPlugin?.top?.title) : $t('Plugin') + $t('Menu') + '(' + topMenu.filter(tm => tm?.top?.is_plugin === 'yes').length + ')'">
                         <q-list>
