@@ -8,6 +8,7 @@ type RouterPrivate struct {
 	RouterConfigFrontend RouterConfigFrontend
 	RouterDept           RouterDept
 	RouterDict           RouterDict
+	RouterGenPlugin      RouterGenPlugin
 	RouterLog            RouterLog
 	RouterMenu           RouterMenu
 	RouterNoteTodo       RouterNoteTodo

@@ -21,15 +21,15 @@ func (s *sysRoleMenu) LoadData() error {
 		}
 		tx.Model(&gqaModel.SysRoleMenu{}).Where("sys_menu_name in ?", menuName).Count(&count)
 		if count != 0 {
-			fmt.Println("[GQA-Plugin] --> sys_role_menu 表中example插件数已存在，跳过初始化数据！数据量：", count)
-			gqaGlobal.GqaLogger.Warn("[GQA-Plugin] --> sys_role_menu 表中example插件数据已存在，跳过初始化数据！", zap.Any("数据量", count))
+			fmt.Println("[GQA-plugins] --> sys_role_menu 表中example插件数已存在，跳过初始化数据！数据量：", count)
+			gqaGlobal.GqaLogger.Warn("[GQA-plugins] --> sys_role_menu 表中example插件数据已存在，跳过初始化数据！", zap.Any("数据量", count))
 			return nil
 		}
 		if err := tx.Save(&sysRoleMenuData).Error; err != nil { // 遇到错误时回滚事务
 			return err
 		}
-		fmt.Println("[GQA-Plugin] --> example插件初始数据进入 sys_role_menu 表成功！")
-		gqaGlobal.GqaLogger.Info("[GQA-Plugin] --> example插件初始数据进入 sys_role_menu 表成功！")
+		fmt.Println("[GQA-plugins] --> example插件初始数据进入 sys_role_menu 表成功！")
+		gqaGlobal.GqaLogger.Info("[GQA-plugins] --> example插件初始数据进入 sys_role_menu 表成功！")
 		return nil
 	})
 }

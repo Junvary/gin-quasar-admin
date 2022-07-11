@@ -63,31 +63,30 @@ func (s *ServiceGenPlugin) PrepareData(genPluginStruct *model.SysGenPlugin) (dat
 	dataList = make([]tplData, 0, len(tplFileList))
 	fileList = make([]string, 0, len(tplFileList))
 	makeDirList = make([]string, 0, len(tplFileList))
+
 	for _, value := range tplFileList {
-		dataList = append(dataList, tplData{locationPath: value})
-	}
-	for index, value := range dataList {
-		dataList[index].template, err = template.ParseFiles(value.locationPath)
+		temp, err := template.ParseFiles(value)
 		if err != nil {
 			return nil, nil, nil, err
 		}
+		dataList = append(dataList, tplData{locationPath: value, template: temp})
 	}
-	//basePath: gqaplugin/template
-	//locationPath: 如 gqaplugin/template/gqaplugin/main.go.tpl
+	//basePath: template/gqaplugintemplate
+	//locationPath: 如 template/gqaplugintemplate/gqaplugin/main.go.tpl
 	for index, value := range dataList {
 		// tplInTemplatePath 类似 gqaplugin/api/privateapi/privateapi.go.tpl
 		// tplInTemplatePath 类似 gqaplugin/main.go.tpl
-		// tplInTemplatePath 类似 help.txt.tpl
+		// tplInTemplatePath 类似 readme.txt.tpl
 		tplInTemplatePath := strings.TrimPrefix(value.locationPath, basePath+"/")
 
-		if tplInTemplatePath == "help.txt.tpl" {
+		if tplInTemplatePath == "readme.txt.tpl" {
 			//创建到打包文件夹的第一层目录中
-			dataList[index].genGoFilePath = genPath + "help.txt"
+			dataList[index].genGoFilePath = filepath.Join(genPath, "help.txt")
 			continue
 		}
 
 		tplInTemplatePath = tplInTemplatePath[:strings.Index(tplInTemplatePath, "/")] + "/" +
-			genPluginStruct.PluginCode +
+			genPluginStruct.PluginCode + "/" +
 			tplInTemplatePath[strings.Index(tplInTemplatePath, "/"):]
 
 		if lastSeparator := strings.LastIndex(tplInTemplatePath, "/"); lastSeparator != -1 {

@@ -53,6 +53,7 @@ func RouterPrivate(PrivateGroup *gin.RouterGroup) {
 		routerPrivate.RouterConfigFrontend.InitRouterRouterConfigFrontend(PrivateGroup)
 		routerPrivate.RouterDept.InitRouterRouterDept(PrivateGroup)
 		routerPrivate.RouterDict.InitRouterRouterDict(PrivateGroup)
+		routerPrivate.RouterGenPlugin.InitRouterGenPlugin(PrivateGroup)
 		routerPrivate.RouterLog.InitRouterRouterLog(PrivateGroup)
 		routerPrivate.RouterMenu.InitRouterRouterMenu(PrivateGroup)
 		routerPrivate.RouterNoteTodo.InitRouterRouterNoteTodo(PrivateGroup)

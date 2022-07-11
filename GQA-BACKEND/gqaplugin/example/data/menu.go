@@ -18,15 +18,15 @@ func (s *sysMenu) LoadData() error {
 		var count int64
 		tx.Model(&gqaModel.SysMenu{}).Where("parent_code = ?", "GqaPluginExample").Or("name = ?", "GqaPluginExample").Count(&count)
 		if count != 0 {
-			fmt.Println("[GQA-Plugin] --> sys_menu 表中example插件菜单已存在，跳过初始化数据！数据量：", count)
-			gqaGlobal.GqaLogger.Warn("[GQA-Plugin] --> sys_menu 表中example插件菜单已存在，跳过初始化数据！", zap.Any("数据量", count))
+			fmt.Println("[GQA-plugins] --> sys_menu 表中example插件菜单已存在，跳过初始化数据！数据量：", count)
+			gqaGlobal.GqaLogger.Warn("[GQA-plugins] --> sys_menu 表中example插件菜单已存在，跳过初始化数据！", zap.Any("数据量", count))
 			return nil
 		}
 		if err := tx.Create(&sysMenuData).Error; err != nil { // 遇到错误时回滚事务
 			return err
 		}
-		fmt.Println("[GQA-Plugin] --> example插件初始数据进入 sys_menu 表成功！")
-		gqaGlobal.GqaLogger.Info("[GQA-Plugin] --> example插件初始数据进入 sys_menu 表成功！")
+		fmt.Println("[GQA-plugins] --> example插件初始数据进入 sys_menu 表成功！")
+		gqaGlobal.GqaLogger.Info("[GQA-plugins] --> example插件初始数据进入 sys_menu 表成功！")
 		return nil
 	})
 }
