@@ -1,6 +1,8 @@
 package {{.PluginCode}}
 
 import (
+    "github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/{{.PluginCode}}/data"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/{{.PluginCode}}/model"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/{{.PluginCode}}/router/privaterouter"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/{{.PluginCode}}/router/publicrouter"
 	"github.com/gin-gonic/gin"
@@ -35,9 +37,20 @@ func (*{{.PluginCode}}) PluginRouterPrivate(privateGroup *gin.RouterGroup) { //�
 }
 
 func (*{{.PluginCode}}) PluginMigrate() []interface{} { //实现接口方法，迁移插件数据表
-	return nil
+	var ModelList = []interface{}{
+	    {{ range .PluginModel }}
+        model.GqaPlugin{{$.PluginCode}}{{ .ModelName }}{},
+        {{ end }}
+    }
+    return ModelList
 }
 
 func (*{{.PluginCode}}) PluginData() []interface{ LoadData() (err error) } { //实现接口方法，初始化数据
-	return nil
+	var DataList = []interface{ LoadData() (err error) }{
+        data.Plugin{{ .PluginCode }}SysApi,
+        data.Plugin{{ .PluginCode }}SysRoleApi,
+        data.Plugin{{ .PluginCode }}SysMenu,
+        data.Plugin{{ .PluginCode }}SysRoleMenu,
+    }
+    return DataList
 }

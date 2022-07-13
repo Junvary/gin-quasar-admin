@@ -22,13 +22,14 @@ func (a *ApiGenPlugin) GenPlugin(c *gin.Context) {
 	err := servicePrivate.ServiceGenPlugin.GenPlugin(&sysGenPlugin)
 	if err != nil {
 		c.Writer.Header().Add("success", "false")
-		c.Writer.Header().Add("msg", url.QueryEscape(err.Error()))
+		c.Writer.Header().Add("message", url.QueryEscape(err.Error()))
 		_ = os.Remove("./gqa-gen-plugin.zip")
 
 	} else {
 		c.Writer.Header().Add("Content-Disposition", fmt.Sprintf("attachment; filename=%s", "ginvueadmin.zip"))
 		c.Writer.Header().Add("Content-Type", "application/json")
 		c.Writer.Header().Add("success", "true")
+		c.Header("abc", "abc")
 		c.File("./gqa-gen-plugin.zip")
 		_ = os.Remove("./gqa-gen-plugin.zip")
 	}

@@ -5,6 +5,7 @@
 /GQA-BACKEND/gqa-log
 /GQA-BACKEND/upload
 /GQA-BACKEND/go.sum
+/GQA-BACKEND/gqa-gen-plugin
 
 # Quasar core related directories
 .quasar

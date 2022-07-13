@@ -38,7 +38,15 @@
                                     <template v-slot:top class="q-gutter-md">
                                         <q-btn color="primary" @click="addColumn(item)">添加字段</q-btn>
                                         <q-toggle v-model="item.with_gqa_column" label="携带基础字段" />
+                                        <q-icon name="question_mark">
+                                            <q-tooltip>
+                                                包含id,CreateAt,CreateBy,UpdatedAt,UpdatedBy,DeletedAt,Sort,Stable,Status,Memo等一系列基础字段，
+                                                推荐启用，关闭后需手动维护。
+                                            </q-tooltip>
+                                        </q-icon>
                                         <q-toggle v-model="item.with_public_list" label="携带非鉴权List" />
+                                        <q-toggle v-model="item.with_data_permission" label="使用数据权限" />
+                                        <q-toggle v-model="item.with_log_operation" label="使用操作日志" />
                                     </template>
                                     <template v-slot:body-cell-column_name="props">
                                         <q-td :props="props">
@@ -105,7 +113,6 @@ import { postBlobAction } from 'src/api/manage'
 import { computed, ref } from 'vue';
 import { useQuasar } from 'quasar'
 import { useI18n } from 'vue-i18n'
-import { fromByteArray } from 'ipaddr.js';
 
 const $q = useQuasar()
 const { t } = useI18n()
@@ -162,6 +169,8 @@ const handleInputModel = () => {
             column_list: [],
             with_gqa_column: true,
             with_public_list: false,
+            with_data_permission: false,
+            with_log_operation: false,
         })
         inputModel.value = ''
         modelStruct.value = model
@@ -172,16 +181,11 @@ const genPluginForm = ref(null)
 const handleGen = async () => {
     const success = await genPluginForm.value.validate()
     if (success) {
-        console.log(form.value)
         const data = await postBlobAction(url, form.value)
-        if (data.headers?.success === 'false') {
-            return
-        } else {
-            $q.notify({
-                type: 'positive',
-                message: '插件生成成功，开始下载！',
-            })
-        }
+        $q.notify({
+            type: 'positive',
+            message: '插件生成成功，开始下载！',
+        })
         const blob = new Blob([data])
         const fileName = 'gqa-gen-plugin.zip'
         if ('download' in document.createElement('a')) {

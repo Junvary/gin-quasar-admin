@@ -24,50 +24,42 @@ type tplData struct {
 }
 
 func (s *ServiceGenPlugin) GenPlugin(genPluginStruct *model.SysGenPlugin) (err error) {
-	dataList, fileList, makeDirList, err := s.PrepareData(genPluginStruct)
+	// 按模板准备tpl文件
+	dataList, err := s.ChangeToTplData(genPluginStruct)
 	if err != nil {
 		return err
 	}
-	if err = utils.CheckAndCreatePath(makeDirList...); err != nil {
+	// 转换前后台文件，创建目录
+	dataListNew, fileListNew, makeDirListNew := s.GenDataNew(genPluginStruct, dataList)
+	if err = utils.CheckAndCreatePath(makeDirListNew...); err != nil {
 		return err
 	}
-	// 生成文件
-	for _, value := range dataList {
-		f, err := os.OpenFile(value.genGoFilePath, os.O_CREATE|os.O_WRONLY, 0o755)
-		if err != nil {
-			return err
-		}
-		if err = value.template.Execute(f, genPluginStruct); err != nil {
-			return err
-		}
-		_ = f.Close()
+	// 生成前后端文件
+	if err = s.GenFrontendAndBackendFile(genPluginStruct, dataListNew); err != nil {
+		return err
 	}
-
 	defer func() { // 移除中间文件
 		if err := os.RemoveAll(genPath); err != nil {
 			return
 		}
 	}()
-	if err = utils.ZipFiles("./gqa-gen-plugin.zip", fileList, ".", "."); err != nil {
+	if err = utils.ZipFiles("./gqa-gen-plugin.zip", fileListNew, ".", "."); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *ServiceGenPlugin) PrepareData(genPluginStruct *model.SysGenPlugin) (dataList []tplData, fileList []string, makeDirList []string, err error) {
+func (s *ServiceGenPlugin) ChangeToTplData(genPluginStruct *model.SysGenPlugin) (dataList []tplData, err error) {
 	var basePath = global.GqaConfig.System.GenPluginPath
 	tplFileList, err := s.GetAllTplFile(basePath, nil)
 	if err != nil {
-		return nil, nil, nil, err
+		return nil, err
 	}
 	dataList = make([]tplData, 0, len(tplFileList))
-	fileList = make([]string, 0, len(tplFileList))
-	makeDirList = make([]string, 0, len(tplFileList))
-
 	for _, value := range tplFileList {
 		temp, err := template.ParseFiles(value)
 		if err != nil {
-			return nil, nil, nil, err
+			return nil, err
 		}
 		dataList = append(dataList, tplData{locationPath: value, template: temp})
 	}
@@ -81,7 +73,7 @@ func (s *ServiceGenPlugin) PrepareData(genPluginStruct *model.SysGenPlugin) (dat
 
 		if tplInTemplatePath == "readme.txt.tpl" {
 			//创建到打包文件夹的第一层目录中
-			dataList[index].genGoFilePath = filepath.Join(genPath, "help.txt")
+			dataList[index].genGoFilePath = filepath.Join(genPath, "readme.txt")
 			continue
 		}
 
@@ -98,15 +90,8 @@ func (s *ServiceGenPlugin) PrepareData(genPluginStruct *model.SysGenPlugin) (dat
 				dataList[index].genGoFilePath = filepath.Join(genPath, tplInTemplatePath[:lastSeparator], trueFileName)
 			}
 		}
-
-		if lastSeparator := strings.LastIndex(dataList[index].genGoFilePath, string(os.PathSeparator)); lastSeparator != -1 {
-			makeDirList = append(makeDirList, dataList[index].genGoFilePath[:lastSeparator])
-		}
 	}
-	for _, value := range dataList {
-		fileList = append(fileList, value.genGoFilePath)
-	}
-	return dataList, fileList, makeDirList, err
+	return dataList, err
 }
 
 func (s *ServiceGenPlugin) GetAllTplFile(basePath string, fileList []string) ([]string, error) {
@@ -124,4 +109,87 @@ func (s *ServiceGenPlugin) GetAllTplFile(basePath string, fileList []string) ([]
 		}
 	}
 	return fileList, err
+}
+
+func (s *ServiceGenPlugin) GenDataNew(genPluginStruct *model.SysGenPlugin, dataList []tplData) (dataListNew []tplData, fileListNew []string, makeDirListNew []string) {
+	for _, value := range dataList {
+		if value.locationPath == "template/gqaplugintemplate/plugins/index.vue.tpl" {
+			for _, mo := range genPluginStruct.PluginModel {
+				var ggfp = "gqa-gen-plugin\\plugins\\" + genPluginStruct.PluginCode + "\\" + mo.ModelName
+				dataListNew = append(dataListNew, tplData{
+					template:      value.template,
+					locationPath:  "template/gqaplugintemplate/plugins/index.vue.tpl",
+					genGoFilePath: ggfp + "\\index.vue",
+				})
+				fileListNew = append(fileListNew, ggfp+"\\index.vue")
+				makeDirListNew = append(makeDirListNew, ggfp)
+			}
+		} else if value.locationPath == "template/gqaplugintemplate/plugins/modules/recordDetail.vue.tpl" {
+			for _, mo := range genPluginStruct.PluginModel {
+				var ggfp = "gqa-gen-plugin\\plugins\\" + genPluginStruct.PluginCode + "\\" + mo.ModelName
+				dataListNew = append(dataListNew, tplData{
+					template:      value.template,
+					locationPath:  "template/gqaplugintemplate/plugins/modules/recordDetail.vue.tpl",
+					genGoFilePath: ggfp + "\\modules\\recordDetail.vue",
+				})
+				fileListNew = append(fileListNew, ggfp+"\\modules\\recordDetail.vue")
+				makeDirListNew = append(makeDirListNew, ggfp+"\\modules")
+			}
+		} else {
+			dataListNew = append(dataListNew, value)
+			fileListNew = append(fileListNew, value.genGoFilePath)
+			if value.locationPath != "template/gqaplugintemplate/readme.txt.tpl" {
+				if lastSeparator := strings.LastIndex(value.genGoFilePath, string(os.PathSeparator)); lastSeparator != -1 {
+					makeDirListNew = append(makeDirListNew, value.genGoFilePath[:lastSeparator])
+				}
+			}
+		}
+	}
+	return dataListNew, fileListNew, makeDirListNew
+}
+
+func (s *ServiceGenPlugin) GenFrontendAndBackendFile(genPluginStruct *model.SysGenPlugin, dataListNew []tplData) (err error) {
+	var dataListNewFrontend []tplData
+	var dataListNewBackend []tplData
+	for _, value := range dataListNew {
+		if strings.HasPrefix(value.locationPath, "template/gqaplugintemplate/plugins/") {
+			dataListNewFrontend = append(dataListNewFrontend, value)
+		} else {
+			dataListNewBackend = append(dataListNewBackend, value)
+		}
+	}
+	for _, value := range dataListNewBackend {
+		f, err := os.OpenFile(value.genGoFilePath, os.O_CREATE|os.O_WRONLY, 0o755)
+		if err != nil {
+			_ = f.Close()
+			return err
+		}
+		if err = value.template.Execute(f, genPluginStruct); err != nil {
+			_ = f.Close()
+			return err
+		}
+		_ = f.Close()
+	}
+
+	for i, value := range dataListNewFrontend {
+		f, err := os.OpenFile(value.genGoFilePath, os.O_CREATE|os.O_WRONLY, 0o755)
+		if err != nil {
+			_ = f.Close()
+			return err
+		}
+		type dataStruct struct {
+			PluginCode  string
+			PluginModel interface{}
+		}
+		var ds = dataStruct{
+			PluginCode:  genPluginStruct.PluginCode,
+			PluginModel: genPluginStruct.PluginModel[i/2],
+		}
+		if err = value.template.Execute(f, ds); err != nil {
+			_ = f.Close()
+			return err
+		}
+		_ = f.Close()
+	}
+	return err
 }

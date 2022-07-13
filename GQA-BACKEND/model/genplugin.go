@@ -8,10 +8,12 @@ type SysGenPlugin struct {
 }
 
 type PluginModel struct {
-	ModelName      string       `json:"model_name"`
-	WithGqaColumn  bool         `json:"with_gqa_column"`
-	WithPublicList bool         `json:"with_public_list"`
-	ColumnList     []ColumnList `json:"column_list"`
+	ModelName          string       `json:"model_name"`
+	WithGqaColumn      bool         `json:"with_gqa_column"`
+	WithPublicList     bool         `json:"with_public_list"`
+	WithDataPermission bool         `json:"with_data_permission"`
+	WithLogOperation   bool         `json:"with_log_operation"`
+	ColumnList         []ColumnList `json:"column_list"`
 }
 
 type ColumnList struct {

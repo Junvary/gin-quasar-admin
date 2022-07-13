@@ -15,9 +15,11 @@ func Get{{.ModelName}}List(get{{.ModelName}}List model.RequestGet{{.ModelName}}L
 	offset := get{{.ModelName}}List.PageSize * (get{{.ModelName}}List.Page - 1)
 	var recordList []model.GqaPlugin{{$.PluginCode}}{{.ModelName}}
 	var db *gorm.DB
+	{{ if .WithDataPermission}}
 	if err, db = gqaServicePrivate.DeptDataPermission(username, gqaGlobal.GqaDb.Model(&model.GqaPlugin{{$.PluginCode}}{{.ModelName}}{})); err != nil {
 		return err, recordList, 0
 	}
+	{{ end }}
 	//配置搜索
 
 	err = db.Count(&total).Error
