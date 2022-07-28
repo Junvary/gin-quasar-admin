@@ -9,7 +9,7 @@
 
 <script setup>
 import useCommon from 'src/composables/useCommon'
-import { computed, onBeforeMount, ref, markRaw, defineAsyncComponent, getCurrentInstance } from 'vue';
+import { computed, onBeforeMount, ref, markRaw, defineAsyncComponent } from 'vue';
 import indexSimple from './indexSimple.vue';
 import indexComplex from './indexComplex.vue';
 import { postAction } from 'src/api/manage'
@@ -17,7 +17,9 @@ import { useStorageStore } from 'src/stores/storage'
 import { useRouter } from 'vue-router';
 import { useQuasar } from 'quasar';
 import { useI18n } from 'vue-i18n';
+import useDocument from 'src/composables/useDocument'
 
+useDocument();
 const $q = useQuasar();
 const router = useRouter();
 const { t } = useI18n();

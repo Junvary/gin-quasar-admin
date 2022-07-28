@@ -5,13 +5,10 @@
 <h1>Gin-Quasar-Admin<sup>v2</sup></h1>
 <img src="https://img.shields.io/badge/Vue-3.2.33-brightgreen"/> 
 <img src="https://img.shields.io/badge/Quasar-2.7.5-brightgreen"/>                          
-<img src="https://img.shields.io/badge/Go-1.18.3-brightgreen"/>                          
+<img src="https://img.shields.io/badge/Go-1.18.4-brightgreen"/>                          
 <img src="https://img.shields.io/badge/Gin-1.8.1-brightgreen"/>                              
 <img src="https://img.shields.io/badge/Gorm-1.23.6-brightgreen"/>                  
-<img src="https://img.shields.io/badge/License-MIT-brightgreen"/>                                                                 </div>                   
-
-
-
+<img src="https://img.shields.io/badge/License-MIT-brightgreen"/>                                                                 </div>
 
 #### 项目使用 Go语言、Gin框架、Vue3(script-setup语法糖)、Quasar2搭建，通过插件形式进行个性化逻辑开发，通过网页端快速配置出个性化网站。V2版本是v1版本的完全重写升级版本，代码更加精简，逻辑更加清晰，欢迎使用！
 
@@ -42,13 +39,13 @@ gitee：https://gitee.com/junvary/gin-quasar-admin
 
 ### 插件列表
 
-| 序号 |      插件名      |                       仓库                       |                    描述/特点                     |
-| :--: | :--------------: | :----------------------------------------------: | :----------------------------------------------: |
-|  1   |    系统开发科    |   https://github.com/Junvary/gqa-plugin-xtkfk    | 包含登录页插件和常见增删改查的比较完善的插件样例 |
-|  2   |     考勤统计     | https://github.com/Junvary/gqa-plugin-attendance |           在插件中连接并查询其他数据库           |
-|  3   | 工会固定资产折旧 |  https://github.com/Junvary/gqa-plugin-AssetGh   |                打印功能、导出功能                |
-|  4   |     投票插件     |    https://github.com/Junvary/gqa-plugin-vote    |     不使用基础Model的表，较多逻辑，图表展示      |
-|  5   |     泛微CAS      | https://github.com/Junvary/gqa-plugin-weaverCas  |              对接泛微的CAS认证例子               |
+| 序号  | 插件名      | 仓库                                               | 描述/特点                    |
+|:---:|:--------:|:------------------------------------------------:|:------------------------:|
+| 1   | 系统开发科    | https://github.com/Junvary/gqa-plugin-xtkfk      | 包含登录页插件和常见增删改查的比较完善的插件样例 |
+| 2   | 考勤统计     | https://github.com/Junvary/gqa-plugin-attendance | 在插件中连接并查询其他数据库           |
+| 3   | 工会固定资产折旧 | https://github.com/Junvary/gqa-plugin-AssetGh    | 打印功能、导出功能                |
+| 4   | 投票插件     | https://github.com/Junvary/gqa-plugin-vote       | 不使用基础Model的表，较多逻辑，图表展示   |
+| 5   | 泛微CAS    | https://github.com/Junvary/gqa-plugin-weaverCas  | 对接泛微的CAS认证例子             |
 
 ### 插件开发与接入方式
 
@@ -58,7 +55,7 @@ gitee：https://gitee.com/junvary/gin-quasar-admin
 ### 项目运行：
 
 > 前端：
->
+> 
 > ```
 > // 进入前端文件夹：GQA-FRONTEND后安装依赖：
 > yarn
@@ -69,7 +66,7 @@ gitee：https://gitee.com/junvary/gin-quasar-admin
 > ```
 
 > 后端：
->
+> 
 > ```go
 > # 安装好Go语言环境，后进入GQA-BACKEND文件夹：
 > go run main.go
@@ -79,7 +76,6 @@ gitee：https://gitee.com/junvary/gin-quasar-admin
 > set GOOS=linux
 > go build main.go
 > ```
->
 
 ### 项目截图（Todo）：
 
@@ -92,8 +88,6 @@ QQ群号：342045316
 ### 鸣谢
 
 <a href="https://www.jetbrains.com/?from=gin-quasar-admin"><img src="https://goframe.org/download/thumbnails/1114119/jetbrains.png" height="120" alt="JetBrains"/></a>
-
- 
 
 ### License
 

@@ -1170,10 +1170,10 @@
     core-js "^3.6.5"
     core-js-compat "^3.6.5"
 
-"@quasar/extras@^1.14.2":
-  version "1.14.2"
-  resolved "https://registry.npmmirror.com/@quasar/extras/-/extras-1.14.2.tgz#a5382ec83ddf967f8bc17d0dbe6ef88ddb31b796"
-  integrity sha512-F9T1aIhRIiuJeuxPCu2CBlPj5js6mBZWQOAHHyVlreNa5qhVEHhr/9GfljG6RTnjvTNOjJraTl0hi8g0IuUfLw==
+"@quasar/extras@^1.15.0":
+  version "1.15.0"
+  resolved "https://registry.npmmirror.com/@quasar/extras/-/extras-1.15.0.tgz#ed397abdc8372b2b1de525dd93c7ec6bc061db8f"
+  integrity sha512-e5IHHqo3i/u7yWdcdspBbthnrDDZ3VRXaQoyhEEy526lzITFAw3hnlt4h7YnZ6Ck6gVIM0YbCaZbKaQYfKPOzQ==
 
 "@quasar/fastclick@1.1.5":
   version "1.1.5"
@@ -4724,10 +4724,10 @@ qs@6.9.7:
   resolved "https://registry.npmmirror.com/qs/-/qs-6.9.7.tgz#4610846871485e1e048f44ae3b94033f0e675afe"
   integrity sha512-IhMFgUmuNpyRfxA90umL7ByLlgRXu6tIfKPpF5TmcfRLlLCckfP/g3IQmju6jjpu+Hh8rA+2p6A27ZSPOOHdKw==
 
-quasar-app-extension-qhierarchy@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmmirror.com/quasar-app-extension-qhierarchy/-/quasar-app-extension-qhierarchy-1.0.0.tgz#15b4285c436efd5b7c6aec320b9ad79af511ea3e"
-  integrity sha512-GzJ7SEQ/ju2l2ydTy/W5Xpy2BhLxKUbhxohJ4sIZW8l5b4olsyqC2HxU4j5hhoQ1x4k/eQVqLsKUmqjnrWtiAw==
+quasar-app-extension-qhierarchy@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.npmmirror.com/quasar-app-extension-qhierarchy/-/quasar-app-extension-qhierarchy-1.0.2.tgz#0a14e9301eb9b71db1726213b11c9a6c621e81fc"
+  integrity sha512-yB5Yori/x5Clt0JUNuIWo7PDfVL+usTiJtVycJOjLXWIxWQc31JaG9OAM8otyBWknFQzHeArI3xQD3eSiXnshw==
   dependencies:
     quasar-ui-qhierarchy latest
 

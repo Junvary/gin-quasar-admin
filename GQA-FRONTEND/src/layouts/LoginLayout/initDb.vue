@@ -117,7 +117,9 @@ import { useStorageStore } from 'src/stores/storage'
 import { postAction } from 'src/api/manage';
 import { useRouter } from 'vue-router';
 import useVideoContainer from 'src/composables/useVideoContainer'
+import useDocument from 'src/composables/useDocument'
 
+useDocument();
 const $q = useQuasar();
 const { t } = useI18n();
 const router = useRouter();
