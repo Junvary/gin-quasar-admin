@@ -1,0 +1,38 @@
+{
+    "name": "Gin-Quasar-Admin",
+    "version": "0.0.1",
+    "description": "Gin-Quasar-Admin",
+    "productName": "Gin-Quasar-Admin",
+    "author": "junvary <junvary@foxmail.com>",
+    "private": true,
+    "scripts": {
+        "dev": "quasar dev",
+        "build": "quasar build",
+        "test": "echo \"No test specified\" && exit 0"
+    },
+    "dependencies": {
+        "@quasar/extras": "^1.0.0",
+        "axios": "^0.21.1",
+        "echarts": "^5.3.3",
+        "mitt": "^3.0.0",
+        "pinia": "^2.0.11",
+        "quasar": "^2.6.0",
+        "vue": "^3.0.0",
+        "vue-i18n": "^9.0.0",
+        "vue-router": "^4.0.0",
+        "vue3-print-nb": "^0.1.4",
+        "xe-utils": "^3.5.6"
+    },
+    "devDependencies": {
+        "@intlify/vite-plugin-vue-i18n": "^3.3.1",
+        "@quasar/app-vite": "^1.0.0",
+        "@quasar/quasar-app-extension-qiconpicker": "^2.0.6",
+        "autoprefixer": "^10.4.2",
+        "quasar-app-extension-qhierarchy": "^1.0.2"
+    },
+    "engines": {
+        "node": "^18 || ^16 || ^14.19",
+        "npm": ">= 6.13.4",
+        "yarn": ">= 1.21.1"
+    }
+}
