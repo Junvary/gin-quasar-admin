@@ -15,23 +15,12 @@
     }
 }
 
-.gin-quasar-admin-init-db-video-container {
-    position: relative;
-    height  : 100vh;
-    overflow: hidden;
-
-    .filter {
-        z-index      : 1;
-        position     : absolute;
-        background   : rgba(0, 0, 0, 0.3);
-        // width     : 100%;
-    }
-}
-
-.gin-quasar-admin-init-db-page {
-    height    : 100vh;
-    background: linear-gradient(60deg, $primary 0%, $positive 100%);
-    overflow  : hidden;
+.gqa-login-layout-img-container {
+    background         : url("/img/sky.jpg") no-repeat;
+    background-position: center;
+    background-size    : cover;
+    overflow           : hidden;
+    height             : 100vh;
 }
 
 .gin-quasar-admin-banner {

@@ -7,11 +7,6 @@ export const PublicRoutes = [
         children: []
     },
     {
-        path: '/init-db',
-        name: 'init-db',
-        component: () => import('layouts/LoginLayout/initDb.vue'),
-    },
-    {
         path: '/new-tab',
         component: () => import('layouts/NewTabLayout/index.vue'),
         children: []
@@ -20,7 +15,7 @@ export const PublicRoutes = [
     // // Always leave this as last one,
     // // but you can also remove it
 
-    // 以下内容在动态路由中添加，解决刷新404的问题:store-permission-actions
+    // 以下内容在动态路由中添加，这里注释掉，解决刷新404的问题:store-permission-actions
     // {
     //     path: '/:catchAll(.*)*',
     //     name: 'notFound',

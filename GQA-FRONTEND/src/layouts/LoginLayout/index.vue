@@ -1,32 +1,31 @@
 <template>
     <q-layout style="overflow-x: hidden">
         <q-page-container>
-            <component v-if="loginLayoutReady" :is="loginLayout" :pluginComponent="pluginComponent"
-                :pluginCurrent="pluginCurrent" />
+            <component :is="loginLayout" :pluginComponent="pluginComponent" :pluginCurrent="pluginCurrent"
+                :dbNeedInit="dbNeedInit" @initDbSuccess="checkDb" />
         </q-page-container>
     </q-layout>
 </template>
 
 <script setup>
 import useCommon from 'src/composables/useCommon'
-import { computed, onBeforeMount, ref, markRaw, defineAsyncComponent } from 'vue';
-import indexSimple from './indexSimple.vue';
-import indexComplex from './indexComplex.vue';
+import { computed, onBeforeMount, ref, markRaw, defineAsyncComponent } from 'vue'
+import indexSimple from './indexSimple.vue'
+import indexComplex from './indexComplex.vue'
 import { postAction } from 'src/api/manage'
 import { useStorageStore } from 'src/stores/storage'
-import { useRouter } from 'vue-router';
-import { useQuasar } from 'quasar';
-import { useI18n } from 'vue-i18n';
+import { useQuasar } from 'quasar'
+import { useI18n } from 'vue-i18n'
 import useDocument from 'src/composables/useDocument'
 
-useDocument();
-const $q = useQuasar();
-const router = useRouter();
-const { t } = useI18n();
-const { gqaFrontend } = useCommon()
+useDocument()
+const $q = useQuasar()
+const { t } = useI18n()
+const { gqaFrontend, gqaLogo } = useCommon()
 const storageStore = useStorageStore()
-const pluginCurrent = ref(null);
-const pluginComponent = ref(null);
+const pluginCurrent = ref(null)
+const pluginComponent = ref(null)
+const dbNeedInit = ref(true)
 
 const loginLayout = computed(() => {
     if (gqaFrontend.value.loginLayoutStyle && gqaFrontend.value.loginLayoutStyle === 'simple') {
@@ -38,23 +37,20 @@ const loginLayout = computed(() => {
     }
 })
 
-const loginLayoutReady = ref(false);
-
 onBeforeMount(() => {
     checkDb()
-    console.info('欢迎使用Gin-Quasar-Admin!')
-    console.info('项目地址: https://github.com/Junvary/gin-quasar-admin ')
-    console.info('欢迎交流, 感谢Star!')
+    gqaLogo()
 })
 
 const checkDb = async () => {
+    dbNeedInit.value = true
     const res = await postAction('public/check-db')
     if (res.code === 1) {
         storageStore.SetGqaGoVersion(res.data.go_version)
         storageStore.SetGqaGinVersion(res.data.gin_version)
         storageStore.SetGqaPluginList(res.data.plugin_list)
         if (res.data.need_init === false) {
-            loginLayoutReady.value = true
+            dbNeedInit.value = false
             await storageStore.SetGqaDict()
             await storageStore.SetGqaFrontend()
             await storageStore.SetGqaBackend()
@@ -72,17 +68,12 @@ const checkDb = async () => {
             }
         }
         if (res.data.need_init === true) {
-            loginLayoutReady.value = false
+            dbNeedInit.value = true
             $q.notify({
                 type: 'warning',
                 message: t('Database') + t('Need') + t('Init'),
             })
-            router.push({ path: '/init-db' })
         }
     }
 }
-
 </script>
-
-<style lang="scss" scoped>
-</style>

@@ -7,6 +7,11 @@ import GqaShowName from 'src/components/GqaShowName'
 import GqaAvatar from 'src/components/GqaAvatar'
 
 export default function useCommon() {
+    const gqaLogo = () => {
+        console.info('欢迎使用Gin-Quasar-Admin!')
+        console.info('项目地址: https://github.com/Junvary/gin-quasar-admin ')
+        console.info('欢迎交流, 感谢Star!')
+    }
     const { t } = useI18n
     const storageStore = useStorageStore();
     const gqaFrontend = computed(() => storageStore.GetGqaFrontend());
@@ -21,7 +26,7 @@ export default function useCommon() {
         }
     })
     // 首页等允许无token的白名单
-    const AllowList = ['/login', '/init-db']
+    const AllowList = ['/login',]
     // 没有用户名的时候使用这个名字
     const GqaDefaultUsername = () => t('GqaDefaultUsername')
     // 没有头像配置的时候使用这个头像
@@ -36,6 +41,7 @@ export default function useCommon() {
     // 没有网站后台配置的时候用这个配置
     const GqaBackendDefault = {}
     return {
+        gqaLogo,
         GqaDictShow,
         GqaShowName,
         GqaAvatar,

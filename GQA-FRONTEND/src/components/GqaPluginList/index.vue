@@ -1,9 +1,9 @@
 <template>
-    <q-expansion-item dense expand-separator class="bg-accent text-white" expand-icon-class="text-white"
+    <q-expansion-item dense expand-separator class="bg-primary text-white" expand-icon-class="text-white"
         v-if="rows && rows.length">
         <template v-slot:header>
             <q-item-section avatar>
-                <q-avatar size="md" icon="install_desktop" color="white" text-color="accent" />
+                <q-avatar size="md" icon="install_desktop" color="white" text-color="primary" />
             </q-item-section>
             <q-item-section>
                 <q-btn dense flat :label="$t('Installed') + $t('Plugin') + '（' + rows.length + '）'" />
@@ -13,18 +13,18 @@
 
             <template v-slot:body-cell-first="props">
                 <q-td :props="props">
-                    <q-chip dense color="accent" text-color="white">
-                        {{ $t('Installed') + $t('Plugin') }}
+                    <q-chip dense color="primary" text-color="white">
+                        {{  $t('Installed') + $t('Plugin')  }}
                     </q-chip>
                 </q-td>
             </template>
 
             <template v-slot:body-cell-memo="props">
                 <q-td :props="props">
-                    <q-chip dense color="accent" text-color="white">
-                        {{ $t('Plugin') + $t('Describe') }}
+                    <q-chip dense color="primary" text-color="white">
+                        {{  $t('Plugin') + $t('Describe')  }}
                         <q-tooltip>
-                            {{ props.row.plugin_memo }}
+                            {{  props.row.plugin_memo  }}
                         </q-tooltip>
                     </q-chip>
                 </q-td>

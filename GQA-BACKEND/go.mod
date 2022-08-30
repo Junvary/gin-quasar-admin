@@ -1,6 +1,6 @@
 module github.com/Junvary/gin-quasar-admin/GQA-BACKEND
 
-go 1.17
+go 1.19
 
 require (
 	github.com/fsnotify/fsnotify v1.5.4
@@ -10,7 +10,6 @@ require (
 	github.com/gorilla/websocket v1.5.0
 	github.com/mojocn/base64Captcha v1.3.5
 	github.com/mssola/user_agent v0.5.3
-	github.com/shopspring/decimal v1.3.1
 	github.com/spf13/viper v1.12.0
 	go.uber.org/zap v1.21.0
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
