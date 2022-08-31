@@ -1,8 +1,7 @@
 <template>
-    <component :is="chooseComponent" :addRoutesItem="addRoutesItem" :initLevel="initLevel">
-        <template v-if="addRoutesItem.children && addRoutesItem.children.length">
-            <SideBarLeftItem :key="item.id" :addRoutesItem="item" v-for="item in addRoutesItem.children"
-                :initLevel="initLevel + 0.3" />
+    <component :is="chooseComponent" :trueItem="childrenItem" :initLevel="initLevel">
+        <template v-if="childrenItem.children && childrenItem.children.length !== 0">
+            <SideBarLeftItem v-for="item in childrenItem.children" :childrenItem="item" :initLevel="initLevel + 0.3" />
         </template>
     </component>
 </template>
@@ -13,9 +12,9 @@ import ItemMultiple from './ItemMultiple'
 import { computed, toRefs } from 'vue';
 
 const props = defineProps({
-    addRoutesItem: {
+    childrenItem: {
         default: function () {
-            return null
+            return {}
         },
         type: Object,
     },
@@ -24,9 +23,10 @@ const props = defineProps({
         default: 0,
     },
 })
-const { addRoutesItem, initLevel } = toRefs(props)
+const { childrenItem, initLevel } = toRefs(props)
+
 const chooseComponent = computed(() => {
-    if (addRoutesItem.value?.children?.length) {
+    if (childrenItem.value.children && childrenItem.value.children.length !== 0) {
         return ItemMultiple
     } else {
         return ItemSingle

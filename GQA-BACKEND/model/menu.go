@@ -15,6 +15,7 @@ type SysMenu struct {
 	IsLink     string    `json:"is_link" gorm:"comment:是否外链;default:no;"`
 	IsPlugin   string    `json:"is_plugin" gorm:"comment:是否插件菜单;default:no;"`
 	Role       []SysRole `json:"role" gorm:"many2many:sys_role_menu;"`
+	Children   []SysMenu `json:"children" gorm:"foreignKey:ParentCode;references:Name"`
 }
 
 type RequestGetMenuList struct {

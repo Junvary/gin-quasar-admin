@@ -9,6 +9,17 @@ import (
 
 type ServiceDept struct{}
 
+func DeptList2DeptTree(deptList []model.SysDept, pCode string) []model.SysDept {
+	var deptTree []model.SysDept
+	for _, v := range deptList {
+		if v.ParentCode == pCode {
+			v.Children = DeptList2DeptTree(deptList, v.DeptCode)
+			deptTree = append(deptTree, v)
+		}
+	}
+	return deptTree
+}
+
 func (s *ServiceDept) GetDeptList(requestDeptList model.RequestGetDeptList) (err error, role interface{}, total int64) {
 	pageSize := requestDeptList.PageSize
 	offset := requestDeptList.PageSize * (requestDeptList.Page - 1)
@@ -27,7 +38,8 @@ func (s *ServiceDept) GetDeptList(requestDeptList model.RequestGetDeptList) (err
 	}
 	err = db.Limit(pageSize).Offset(offset).Order(model.OrderByColumn(requestDeptList.SortBy, requestDeptList.Desc)).
 		Preload("LeaderUser").Find(&deptList).Error
-	return err, deptList, total
+	deptTree := DeptList2DeptTree(deptList, "")
+	return err, deptTree, total
 }
 
 func (s *ServiceDept) EditDept(toEditDept model.SysDept) (err error) {

@@ -1,6 +1,7 @@
 <template>
     <div class="row" style="height: 100vh">
-        <transition appear enter-active-class="animated slideInLeft" leave-active-class="animated slideOutLeft">
+        <transition appear enter-active-class="animated slideInLeft" leave-active-class="animated slideOutLeft"
+            v-if="$q.screen.gt.xs">
             <div class="col column justify-center items-center text-center" style="margin-bottom: 100px;"
                 transition-show="jump-down" transition-hide="jump-up">
                 <q-avatar class="gin-quasar-admin-logo" size="100px">
@@ -30,7 +31,8 @@
                 </span>
             </div>
         </transition>
-        <transition appear enter-active-class="animated slideInRight" leave-active-class="animated slideOutRight">
+        <transition appear enter-active-class="animated slideInRight" leave-active-class="animated slideOutRight"
+            :class="`${$q.screen.gt.xs ? 'col-6' : 'col'}`">
             <div class="col row column justify-center items-center" style="margin-bottom: 80px;">
                 <q-card style="width: 80%; background: rgba(255, 255, 255, 0.5);">
                     <q-toolbar>

@@ -33,7 +33,7 @@ func (s *sysDict) LoadData() error {
 
 var sysDictData = []model.SysDict{
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 10001, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "性别字典",
+		Sort: 1, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "性别字典",
 	}}, DictCode: "gender", DictLabel: "性别"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
 		Sort: 1, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "男",
@@ -46,7 +46,7 @@ var sysDictData = []model.SysDict{
 	}}, DictCode: "u", DictLabel: "保密", ParentCode: "gender"},
 
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 10002, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "启用状态",
+		Sort: 2, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "启用状态",
 	}}, DictCode: "statusOnOff", DictLabel: "启用状态"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
 		Sort: 1, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "启用",
@@ -56,7 +56,7 @@ var sysDictData = []model.SysDict{
 	}}, DictCode: "off", DictLabel: "禁用", ParentCode: "statusOnOff"},
 
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 10003, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "是否状态",
+		Sort: 3, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "是否状态",
 	}}, DictCode: "statusYesNo", DictLabel: "是否状态"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
 		Sort: 1, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "是",
@@ -66,7 +66,7 @@ var sysDictData = []model.SysDict{
 	}}, DictCode: "no", DictLabel: "否", ParentCode: "statusYesNo"},
 
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 10003, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "部门数据权限",
+		Sort: 3, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "部门数据权限",
 	}}, DictCode: "deptDataPermissionType", DictLabel: "部门数据权限"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
 		Sort: 1, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "全部部门数据权限",
@@ -85,7 +85,7 @@ var sysDictData = []model.SysDict{
 	}}, DictCode: "custom", DictLabel: "自定义部门数据权限", ParentCode: "deptDataPermissionType"},
 
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 10004, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "消息类型",
+		Sort: 4, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "消息类型",
 	}}, DictCode: "noticeType", DictLabel: "消息类型"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
 		Sort: 1, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "系统消息",
@@ -95,7 +95,7 @@ var sysDictData = []model.SysDict{
 	}}, DictCode: "message", DictLabel: "消息提示", ParentCode: "noticeType"},
 
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 10005, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "显示风格",
+		Sort: 5, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "显示风格",
 	}}, DictCode: "displayStyle", DictLabel: "显示风格"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
 		Sort: 1, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "简约类型",

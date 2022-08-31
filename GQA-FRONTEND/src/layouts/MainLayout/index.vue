@@ -1,5 +1,5 @@
 <template>
-    <q-layout view="lHh LpR lFr">
+    <q-layout view="hHh LpR lFr">
         <q-header reveal elevated :class="darkTheme">
             <q-toolbar>
                 <q-btn dense round flat icon="menu" aria-label="Menu" @click="toggleLeftDrawer = !toggleLeftDrawer" />
@@ -10,24 +10,8 @@
                     {{ gqaFrontend.subTitle }}
                 </q-toolbar-title>
 
-                <q-tabs dense inline-label outside-arrows mobile-arrows shrink stretch v-model="currentItemMenu"
-                    class="flex-wrap" :class="darkTheme">
-                    <q-tab @click="changeTopMenu(item)" :name="item.top.name" :label="$t(item.top.title)"
-                        v-for="item in topMenu.filter(tm => tm?.top?.is_plugin === 'no')" :key="item.top.name" />
-
-                    <q-btn-dropdown stretch flat split :class="darkTheme" @click="changeTopMenu(topMenuItemPlugin)"
-                        v-if="pageDashboard && topMenu.filter(tm => tm?.top?.is_plugin === 'yes').length"
-                        :label="topMenuItemPlugin?.top?.title ? $t(topMenuItemPlugin?.top?.title) : $t('Plugin') + $t('Menu') + '(' + topMenu.filter(tm => tm?.top?.is_plugin === 'yes').length + ')'">
-                        <q-list>
-                            <q-item clickable v-ripple v-close-popup @click="changeTopMenuPlugin(item)"
-                                v-for="item in topMenu.filter(tm => tm?.top?.is_plugin === 'yes')">
-                                <q-item-section>
-                                    {{ $t(item.top.title) }}
-                                </q-item-section>
-                            </q-item>
-                        </q-list>
-                    </q-btn-dropdown>
-                </q-tabs>
+                <q-select v-model="currentItemMenu" :options="topMenu" map-options option-value="name"
+                    option-label="title" @update:model-value="changeTop" />
 
                 <q-space />
 
@@ -44,14 +28,12 @@
             <!-- <q-separator /> -->
             <!-- header下面的标签页 -->
             <div class="row bg-white">
-                <TabMenu v-show="!pageDashboard" />
+                <TabMenu />
             </div>
         </q-header>
 
-        <q-drawer elevated v-if="!pageDashboard" v-model="toggleLeftDrawer" show-if-above bordered
-            content-class="bg-grey-1">
-            <SideBarLeft :topMenuItem="topMenuItem" :topMenu="topMenu" :topMenuItemPlugin="topMenuItemPlugin"
-                @changeTopMenu="changeTopMenu" @changeTopMenuPlugin="changeTopMenuPlugin" />
+        <q-drawer elevated v-model="toggleLeftDrawer" show-if-above bordered content-class="bg-grey-1">
+            <SideBarLeft :topMenuChildren="topMenuChildren" />
         </q-drawer>
 
         <q-page-container>
@@ -102,8 +84,8 @@ const router = useRouter();
 const storageStore = useStorageStore();
 const permissionStore = usePermissionStore();
 const toggleLeftDrawer = ref(false);
-const topMenuItem = ref({});
-const currentItemMenu = ref('dashboard');
+const topMenuChildren = ref({});
+const currentItemMenu = ref('');
 const fabPos = ref([3, 80]);
 const userProfile = ref(null);
 
@@ -111,42 +93,41 @@ const gqaFrontend = computed(() => {
     return storageStore.GetGqaFrontend()
 })
 
+const changeTop = (childrenMenu) => {
+    topMenuChildren.value = childrenMenu.children
+}
+
 onMounted(() => {
     const localDark = LocalStorage.getItem('gqa-dark-theme') || false
     $q.dark.set(localDark)
 
-    if (findTopItemMenu.value.top?.is_plugin === 'yes') {
-        topMenuItemPlugin.value = findTopItemMenu.value
+    if (findTopItemMenu.value.is_plugin === 'yes') {
+        topMenuChildrenPlugin.value = findTopItemMenu.value
     }
-    topMenuItem.value = findTopItemMenu.value
+    topMenuChildren.value = findTopItemMenu.value
 })
 watch(route, () => {
-    if (findTopItemMenu.value.top?.is_plugin === 'yes') {
-        topMenuItemPlugin.value = findTopItemMenu.value
+    if (findTopItemMenu.value.is_plugin === 'yes') {
+        topMenuChildrenPlugin.value = findTopItemMenu.value
     }
-    topMenuItem.value = findTopItemMenu.value
+    topMenuChildren.value = findTopItemMenu.value
 })
 
 const topMenu = computed(() => {
     return permissionStore.topMenu
 })
-const pageDashboard = computed(() => {
-    const menu = topMenuItem.value?.top?.name === 'dashboard' || JSON.stringify(topMenuItem.value) === '{}'
-    if (route.name === 'dashboard' && menu) {
-        return true
-    }
-    return false
-})
+
 const findTopItemMenu = computed(() => {
     const name = route.name
     let item = {}
     for (let m of topMenu.value) {
-        if (m.top.name === name || (m.arrayChildren && m.arrayChildren.find((item) => item.name === name))) {
+        if (m.name === name || (m.children && m.children.find((item) => item.name === name))) {
             item = m
             break
         }
     }
-    currentItemMenu.value = item.top ? item.top.name : ''
+    currentItemMenu.value = item.name
+    console.log(item)
     return item
 })
 
@@ -156,14 +137,14 @@ const changeTopMenu = (item) => {
         if (item.top.name === 'dashboard') {
             router.push('/dashboard')
         }
-        topMenuItem.value = item
+        topMenuChildren.value = item
     }
 }
 
-const topMenuItemPlugin = ref({})
+const topMenuChildrenPlugin = ref({})
 const changeTopMenuPlugin = (item) => {
     currentItemMenu.value = item.top ? item.top.name : ''
-    topMenuItemPlugin.value = item
+    topMenuChildrenPlugin.value = item
     changeTopMenu(item)
 }
 

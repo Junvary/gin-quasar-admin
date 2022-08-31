@@ -1,10 +1,10 @@
 <template>
-    <q-expansion-item :group="addRoutesItem.name" v-model="itemOpen" :header-inset-level="initLevel">
+    <q-expansion-item v-model="itemOpen" :group="trueItem.name" :header-inset-level="initLevel">
         <template v-slot:header>
             <q-item-section avatar>
-                <q-icon :name="addRoutesItem.icon" />
+                <q-icon :name="trueItem.icon" />
             </q-item-section>
-            <q-item-section>{{ $t(addRoutesItem.title) }}</q-item-section>
+            <q-item-section>{{ $t(trueItem.title) }}</q-item-section>
         </template>
         <slot></slot>
     </q-expansion-item>
@@ -16,7 +16,7 @@ import { useRoute } from 'vue-router';
 
 const route = useRoute()
 const props = defineProps({
-    addRoutesItem: {
+    trueItem: {
         default: function () {
             return null
         },
@@ -27,16 +27,19 @@ const props = defineProps({
         default: 0,
     },
 })
-const { addRoutesItem, initLevel } = toRefs(props)
+const { trueItem, initLevel } = toRefs(props)
+
 watch(route, () => {
     changeOpen()
 })
+
 onMounted(() => {
     changeOpen()
 })
+
 const itemOpen = ref(false)
 const changeOpen = () => {
-    for (let item of addRoutesItem.value.children) {
+    for (let item of trueItem.value.children) {
         if (item.path === route.path || item.parent_code === route.name) {
             itemOpen.value = true
             return

@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { postAction } from 'src/api/manage';
 import { HandleRouter } from 'src/utils/router';
-import { HandleAsideMenu, TreeToArray } from 'src/utils/arrayAndTree';
+import { ArrayToTree, HandleAsideMenu, TreeToArray } from 'src/utils/arrayAndTree';
 
 export const usePermissionStore = defineStore('permission', {
     state: () => ({
@@ -32,23 +32,25 @@ export const usePermissionStore = defineStore('permission', {
                 // 设置搜索菜单
                 this.InitSearchMenu(searchMenu)
 
+                this.InitTopMenu(ArrayToTree(searchMenu, "name", "parent_code"))
+
                 // 重组顶部菜单分组详情
-                const topMenu = []
-                HandleAsideMenu(data, "name", "parent_code").forEach(item => {
-                    if (item.children && item.children.length) {
-                        topMenu.push({
-                            top: item,
-                            treeChildren: item.children.filter(item => item.hidden !== 'yes'),
-                            arrayChildren: TreeToArray(item.children)
-                        })
-                    } else {
-                        topMenu.push({
-                            top: item
-                        })
-                    }
-                })
-                // 设置顶部分组菜单详情
-                this.InitTopMenu(topMenu)
+                // const topMenu = []
+                // HandleAsideMenu(data, "name", "parent_code").forEach(item => {
+                //     if (item.children && item.children.length) {
+                //         topMenu.push({
+                //             top: item,
+                //             treeChildren: item.children.filter(item => item.hidden !== 'yes'),
+                //             arrayChildren: TreeToArray(item.children)
+                //         })
+                //     } else {
+                //         topMenu.push({
+                //             top: item
+                //         })
+                //     }
+                // })
+                // // 设置顶部分组菜单详情
+                // this.InitTopMenu(topMenu)
 
                 // 返回鉴权路由表
                 return userMenu

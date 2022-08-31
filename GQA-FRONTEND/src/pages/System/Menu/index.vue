@@ -50,7 +50,7 @@ import useTableData from 'src/composables/useTableData'
 import { computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import recordDetail from './modules/recordDetail'
-import { ArrayToTree } from 'src/utils/arrayAndTree'
+import { ChangeNullChildren2Array } from 'src/utils/arrayAndTree'
 
 const { t } = useI18n()
 const url = {
@@ -90,11 +90,7 @@ onMounted(() => {
 })
 
 const menuTree = computed(() => {
-    if (tableData.value.length !== 0) {
-        const mt = ArrayToTree(tableData.value, 'name', 'parent_code')
-        return mt
-    }
-    return []
+    return ChangeNullChildren2Array(tableData.value)
 })
 
 const showAddParentForm = () => {

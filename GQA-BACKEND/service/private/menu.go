@@ -8,6 +8,17 @@ import (
 
 type ServiceMenu struct{}
 
+func MenuList2MenuTree(menuList []model.SysMenu, pCode string) []model.SysMenu {
+	var menuTree []model.SysMenu
+	for _, v := range menuList {
+		if v.ParentCode == pCode {
+			v.Children = MenuList2MenuTree(menuList, v.Name)
+			menuTree = append(menuTree, v)
+		}
+	}
+	return menuTree
+}
+
 func (s *ServiceMenu) GetMenuList(requestMenuList model.RequestGetMenuList) (err error, menu interface{}, total int64) {
 	pageSize := requestMenuList.PageSize
 	offset := requestMenuList.PageSize * (requestMenuList.Page - 1)
@@ -25,7 +36,8 @@ func (s *ServiceMenu) GetMenuList(requestMenuList model.RequestGetMenuList) (err
 		return
 	}
 	err = db.Limit(pageSize).Offset(offset).Order(model.OrderByColumn(requestMenuList.SortBy, requestMenuList.Desc)).Find(&menuList).Error
-	return err, menuList, total
+	menuTree := MenuList2MenuTree(menuList, "")
+	return err, menuTree, total
 }
 
 func (s *ServiceMenu) EditMenu(toEditMenu model.SysMenu) (err error) {

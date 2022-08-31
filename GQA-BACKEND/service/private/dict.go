@@ -9,6 +9,17 @@ import (
 
 type ServiceDict struct{}
 
+func DictList2DictTree(dictList []model.SysDict, pCode string) []model.SysDict {
+	var dictTree []model.SysDict
+	for _, v := range dictList {
+		if v.ParentCode == pCode {
+			v.Children = DictList2DictTree(dictList, v.DictCode)
+			dictTree = append(dictTree, v)
+		}
+	}
+	return dictTree
+}
+
 func (s *ServiceDict) GetDictList(requestDictList model.RequestGetDictList) (err error, role interface{}, total int64, parentCode string) {
 	pageSize := requestDictList.PageSize
 	offset := requestDictList.PageSize * (requestDictList.Page - 1)
@@ -31,7 +42,8 @@ func (s *ServiceDict) GetDictList(requestDictList model.RequestGetDictList) (err
 		return
 	}
 	err = db.Limit(pageSize).Offset(offset).Order(model.OrderByColumn(requestDictList.SortBy, requestDictList.Desc)).Find(&dictList).Error
-	return err, dictList, total, requestDictList.ParentCode
+	dictTree := DictList2DictTree(dictList, "")
+	return err, dictTree, total, requestDictList.ParentCode
 }
 
 func (s *ServiceDict) EditDict(toEditDict model.SysDict) (err error) {

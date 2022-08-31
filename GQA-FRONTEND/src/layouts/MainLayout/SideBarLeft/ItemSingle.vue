@@ -1,10 +1,10 @@
 <template>
-    <q-item clickable v-ripple exact @click="toPath(addRoutesItem)" :inset-level="initLevel" :active="checkActive"
+    <q-item clickable v-ripple exact @click="toPath(trueItem)" :inset-level="initLevel" :active="checkActive"
         :active-class="darkThemeSelect">
         <q-item-section avatar>
-            <q-icon :name="addRoutesItem.icon" />
+            <q-icon :name="trueItem.icon" />
         </q-item-section>
-        <q-item-section>{{ $t(addRoutesItem.title) }}</q-item-section>
+        <q-item-section>{{ $t(trueItem.title) }}</q-item-section>
     </q-item>
 </template>
 
@@ -17,9 +17,9 @@ const { darkThemeSelect } = useDarkTheme()
 const router = useRouter()
 const route = useRoute()
 const props = defineProps({
-    addRoutesItem: {
+    trueItem: {
         default: function () {
-            return null
+            return {}
         },
         type: Object,
     },
@@ -28,18 +28,18 @@ const props = defineProps({
         default: 0,
     },
 })
-const { addRoutesItem, initLevel } = toRefs(props)
+const { trueItem, initLevel } = toRefs(props)
 
-const toPath = (addRoutesItem) => {
-    if (addRoutesItem.is_link === 'yes') {
-        window.open(addRoutesItem.path)
+const toPath = (item) => {
+    if (item.is_link === 'yes') {
+        window.open(item.path)
     } else {
-        router.push(addRoutesItem.path)
+        router.push(item.path)
     }
 }
 
 const checkActive = computed(() => {
-    if (route.path === addRoutesItem.value.path) {
+    if (route.path === trueItem.value.path) {
         return true
     } else {
         return false

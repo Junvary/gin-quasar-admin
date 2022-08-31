@@ -34,8 +34,9 @@ import useTableData from 'src/composables/useTableData'
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import recordDetail from './modules/recordDetail'
-import { ArrayToTree } from 'src/utils/arrayAndTree'
+import { ChangeNullChildren2Array } from 'src/utils/arrayAndTree'
 import DeptUser from './modules/DeptUser'
+
 
 const { t } = useI18n()
 const url = {
@@ -71,10 +72,8 @@ onMounted(() => {
 })
 
 const deptTree = computed(() => {
-    if (tableData.value.length !== 0) {
-        return ArrayToTree(tableData.value, 'dept_code', 'parent_code')
-    }
-    return []
+    return ChangeNullChildren2Array(tableData.value)
+
 })
 
 const deptUserDialog = ref(null)

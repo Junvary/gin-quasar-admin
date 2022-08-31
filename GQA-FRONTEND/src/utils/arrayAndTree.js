@@ -29,3 +29,15 @@ export const TreeToArray = (treeData) => {
     const data = XEUtils.toTreeArray(treeData)
     return data
 }
+
+export const ChangeNullChildren2Array = (data) => {
+    const index = data.length
+    for (let i = index - 1; i >= 0; i--) {
+        if (data[i].children === null) {
+            data[i].children = []
+        } else {
+            ChangeNullChildren2Array(data[i].children)
+        }
+    }
+    return data
+}
