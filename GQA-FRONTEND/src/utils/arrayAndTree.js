@@ -17,12 +17,12 @@ function checkPathAndChildren(menu) {
 }
 
 export const ArrayToTree = (arrayData, key, parentKey) => {
-    const data = XEUtils.toArrayTree(arrayData, {
+    const treeData = XEUtils.toArrayTree(arrayData, {
         key: key,
         parentKey: parentKey,
         // strict: true
     })
-    return data
+    return treeData
 }
 
 export const TreeToArray = (treeData) => {

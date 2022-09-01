@@ -10,7 +10,7 @@
                     {{ gqaFrontend.subTitle }}
                 </q-toolbar-title>
 
-                <q-select v-model="currentItemMenu" :options="topMenu" map-options option-value="name"
+                <q-select v-model="currentTopMenu" :options="topMenu" map-options option-value="name"
                     option-label="title" @update:model-value="changeTop" />
 
                 <q-space />
@@ -74,6 +74,7 @@ import AddNoteTodo from './AddNoteTodo.vue';
 import { useRoute, useRouter } from 'vue-router';
 import useDocument from 'src/composables/useDocument'
 import { useQuasar, LocalStorage } from 'quasar';
+import XEUtils from 'xe-utils'
 // 动态更改网站标题和favicon
 useDocument()
 
@@ -85,7 +86,7 @@ const storageStore = useStorageStore();
 const permissionStore = usePermissionStore();
 const toggleLeftDrawer = ref(false);
 const topMenuChildren = ref({});
-const currentItemMenu = ref('');
+const currentTopMenu = ref('');
 const fabPos = ref([3, 80]);
 const userProfile = ref(null);
 
@@ -100,53 +101,23 @@ const changeTop = (childrenMenu) => {
 onMounted(() => {
     const localDark = LocalStorage.getItem('gqa-dark-theme') || false
     $q.dark.set(localDark)
+    currentTopMenu.value = findCurrentTopMenu.value.name
+    topMenuChildren.value = topMenu.value.filter(item => item.name === currentTopMenu.value)[0].children
 
-    if (findTopItemMenu.value.is_plugin === 'yes') {
-        topMenuChildrenPlugin.value = findTopItemMenu.value
-    }
-    topMenuChildren.value = findTopItemMenu.value
 })
 watch(route, () => {
-    if (findTopItemMenu.value.is_plugin === 'yes') {
-        topMenuChildrenPlugin.value = findTopItemMenu.value
-    }
-    topMenuChildren.value = findTopItemMenu.value
+    currentTopMenu.value = findCurrentTopMenu.value.name
+    topMenuChildren.value = topMenu.value.filter(item => item.name === currentTopMenu.value)[0].children
 })
 
 const topMenu = computed(() => {
     return permissionStore.topMenu
 })
 
-const findTopItemMenu = computed(() => {
+const findCurrentTopMenu = computed(() => {
     const name = route.name
-    let item = {}
-    for (let m of topMenu.value) {
-        if (m.name === name || (m.children && m.children.find((item) => item.name === name))) {
-            item = m
-            break
-        }
-    }
-    currentItemMenu.value = item.name
-    console.log(item)
-    return item
+    return XEUtils.searchTree(topMenu.value, item => item.name === name)[0]
 })
-
-const changeTopMenu = (item) => {
-    if (item && item.top) {
-        currentItemMenu.value = item.top ? item.top.name : ''
-        if (item.top.name === 'dashboard') {
-            router.push('/dashboard')
-        }
-        topMenuChildren.value = item
-    }
-}
-
-const topMenuChildrenPlugin = ref({})
-const changeTopMenuPlugin = (item) => {
-    currentItemMenu.value = item.top ? item.top.name : ''
-    topMenuChildrenPlugin.value = item
-    changeTopMenu(item)
-}
 
 const moveFab = (ev) => {
     fabPos.value = [fabPos.value[0] - ev.delta.x, fabPos.value[1] - ev.delta.y]
