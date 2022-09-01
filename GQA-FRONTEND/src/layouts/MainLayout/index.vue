@@ -103,13 +103,13 @@ const changeTop = (childrenMenu) => {
 onMounted(() => {
     const localDark = LocalStorage.getItem('gqa-dark-theme') || false
     $q.dark.set(localDark)
-    currentTopMenu.value = findCurrentTopMenu.value.name
-    topMenuChildren.value = topMenu.value.filter(item => item.name === currentTopMenu.value)[0].children
+    currentTopMenu.value = findCurrentTopMenu.value?.name
+    topMenuChildren.value = topMenu.value.filter(item => item.name === currentTopMenu.value)[0]?.children
 
 })
 watch(route, () => {
-    currentTopMenu.value = findCurrentTopMenu.value.name
-    topMenuChildren.value = topMenu.value.filter(item => item.name === currentTopMenu.value)[0].children
+    currentTopMenu.value = findCurrentTopMenu.value?.name
+    topMenuChildren.value = topMenu.value.filter(item => item.name === currentTopMenu.value)[0]?.children
 })
 
 const topMenu = computed(() => {

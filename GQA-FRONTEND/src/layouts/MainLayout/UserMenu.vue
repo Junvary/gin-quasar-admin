@@ -2,9 +2,9 @@
     <q-btn dense flat>
         {{ t('Welcome') }}
         <GqaShowName showMyName style="margin: 0 5px;" />
-        <GqaAvatar loginUser size="26px" />
-        <q-menu class="row items-center justify-around q-pa-md">
-            <div class="column">
+        <GqaAvatar loginUser size="28px" />
+        <q-menu class="row no-wrap items-center justify-around q-pa-md">
+            <div class="column" style="width: 240px;">
                 <div class="text-h6">摘要</div>
                 <q-list>
                     <q-item clickable v-ripple>
@@ -30,14 +30,14 @@
 
             <q-separator vertical inset class="q-mx-lg" />
 
-            <div class="column items-center">
+            <div class="column items-center" style="width: 240px;">
                 <GqaAvatar loginUser size="88px" />
 
                 <div class="text-subtitle1 q-mt-md q-mb-md">
                     <GqaShowName showMyName />
                 </div>
 
-                <div class="row q-gutter-md">
+                <div class="row no-wrap q-gutter-md">
                     <q-btn icon="person_pin" color="primary" :label="$t('UserProfile')" push size="sm" v-close-popup
                         @click="showProfile" />
                     <q-btn icon="logout" color="primary" :label="$t('Logout')" push size="sm" v-close-popup
