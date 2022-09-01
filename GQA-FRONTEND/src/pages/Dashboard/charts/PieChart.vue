@@ -36,7 +36,7 @@ const options = ref({
     },
     legend: {
         top: '5%',
-        left: 'center'
+        left: 'center',
     },
     series: [
         {

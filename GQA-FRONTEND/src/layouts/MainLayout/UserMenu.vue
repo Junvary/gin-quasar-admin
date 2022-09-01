@@ -1,5 +1,7 @@
 <template>
-    <q-btn dense round flat>
+    <q-btn dense flat>
+        {{ t('Welcome') }}
+        <GqaShowName showMyName style="margin: 0 5px;" />
         <GqaAvatar loginUser size="26px" />
         <q-menu class="row items-center justify-around q-pa-md">
             <div class="column">

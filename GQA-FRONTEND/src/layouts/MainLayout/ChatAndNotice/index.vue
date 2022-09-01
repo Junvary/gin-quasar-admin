@@ -1,5 +1,5 @@
 <template>
-    <div class="row">
+    <div class="row q-gutter-x-sm" style="margin-left: 0;">
         <Chat ref="moduleChat" :oldMessage="chatOldMessage" @changeChatDialogShow="changeChatDialogShow"
             @sendMessage="sendMessage" />
         <Notice ref="moduleNotice" />

@@ -10,8 +10,9 @@
                     {{ gqaFrontend.subTitle }}
                 </q-toolbar-title>
 
-                <q-select v-model="currentTopMenu" :options="topMenu" map-options option-value="name"
-                    option-label="title" @update:model-value="changeTop" />
+                <q-select dense borderless v-model="currentTopMenu" :options="topMenu" map-options option-value="name"
+                    :option-label="opt => Object(opt) === opt && 'title' in opt ? t(opt.title) : opt.title"
+                    @update:model-value="changeTop" style="margin-left: 20px;" />
 
                 <q-space />
 
@@ -25,7 +26,6 @@
                 </div>
             </q-toolbar>
 
-            <!-- <q-separator /> -->
             <!-- header下面的标签页 -->
             <div class="row bg-white">
                 <TabMenu />
@@ -75,10 +75,12 @@ import { useRoute, useRouter } from 'vue-router';
 import useDocument from 'src/composables/useDocument'
 import { useQuasar, LocalStorage } from 'quasar';
 import XEUtils from 'xe-utils'
+import { useI18n } from 'vue-i18n';
 // 动态更改网站标题和favicon
 useDocument()
 
 const $q = useQuasar();
+const { t } = useI18n();
 const { darkTheme } = useDarkTheme()
 const route = useRoute();
 const router = useRouter();

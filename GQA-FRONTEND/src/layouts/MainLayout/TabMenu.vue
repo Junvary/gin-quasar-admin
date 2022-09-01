@@ -10,33 +10,21 @@
                 <q-menu touch-position context-menu>
                     <q-list dense bordered separator class="bg-white text-grey-8">
                         <q-item clickable v-close-popup v-ripple>
-                            <q-item-section avatar style="min-width: 0px">
-                                <q-icon name="code" />
-                            </q-item-section>
                             <q-item-section @click="removeOtherTab(tab)">
                                 {{ $t('CloseOther') }}
                             </q-item-section>
                         </q-item>
                         <q-item clickable v-close-popup v-ripple>
-                            <q-item-section avatar style="min-width: 0px">
-                                <q-icon name="keyboard_arrow_right" />
-                            </q-item-section>
                             <q-item-section @click="removeRightTab(tab)">
                                 {{ $t('CloseRight') }}
                             </q-item-section>
                         </q-item>
                         <q-item clickable v-close-popup v-ripple>
-                            <q-item-section avatar style="min-width: 0px">
-                                <q-icon name="keyboard_arrow_left" />
-                            </q-item-section>
                             <q-item-section @click="removeLeftTab(tab)">
                                 {{ $t('CloseLeft') }}
                             </q-item-section>
                         </q-item>
                         <q-item clickable v-close-popup v-ripple>
-                            <q-item-section avatar style="min-width: 0px">
-                                <q-icon name="close" />
-                            </q-item-section>
                             <q-item-section @click="removeAllTab">
                                 {{ $t('CloseAll') }}
                             </q-item-section>

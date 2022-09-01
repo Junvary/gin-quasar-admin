@@ -1,12 +1,10 @@
 <template>
-    <div>
-        <q-btn dense round flat icon="groups" @click="showChat">
-            <q-badge color="negative" floating v-if="badgeCount">
-                {{ badgeCount }}
-            </q-badge>
-        </q-btn>
-        <ChatDialog ref="chatDialog" :oldMessage="oldMessage" @onSendMessage="onSendMessage" @changeShow="changeShow" />
-    </div>
+    <q-btn dense round flat icon="groups" @click="showChat">
+        <q-badge color="negative" floating v-if="badgeCount">
+            {{ badgeCount }}
+        </q-badge>
+    </q-btn>
+    <ChatDialog ref="chatDialog" :oldMessage="oldMessage" @onSendMessage="onSendMessage" @changeShow="changeShow" />
 </template>
 
 <script setup>
