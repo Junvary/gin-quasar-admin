@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import { defineProps, toRefs, defineEmits } from 'vue'
+import { toRefs } from 'vue'
 import LoginForm from './LoginForm.vue'
 import InitDbForm from './InitDbForm.vue'
 

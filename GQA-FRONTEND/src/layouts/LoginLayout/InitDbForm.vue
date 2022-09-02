@@ -8,21 +8,21 @@
                     <img src="gqa128.png" />
                 </q-avatar><br />
                 <span class="text-weight-bold text-h3 text-white">
-                    {{  $t('WelcomeTo')  }}<br />
+                    {{ $t('WelcomeTo') }}<br />
                     Gin-Quasar-Admin<sup>v2</sup>
                 </span>
                 <span class="text-white text-subtitle1" style="margin-top: 20px">
-                    {{  t('InitDbHelp1')  }}
+                    {{ t('InitDbHelp1') }}
                 </span>
                 <span class="text-white text-subtitle1" style="margin-bottom: 20px">
-                    {{  t('InitDbHelp2')  }}
+                    {{ t('InitDbHelp2') }}
                 </span>
                 <span class="q-gutter-md">
                     <q-btn push glossy color="primary" @click="openLink('https://github.com/Junvary/gin-quasar-admin')">
                         Github
                     </q-btn>
                     <q-btn push glossy color="primary">
-                        {{  $t('Version')  }}{{  $t('Info')  }}
+                        {{ $t('Version') }}{{ $t('Info') }}
                         <GqaVersion />
                     </q-btn>
                     <q-btn push glossy color="primary" @click="openLink('https://gitee.com/junvary/gin-quasar-admin')">
@@ -42,8 +42,8 @@
 
                         <q-toolbar-title class="row items-center">
                             <span class="text-weight-bold">
-                                {{  $t('Init')  }}
-                                {{  $t('Database')  }}
+                                {{ $t('Init') }}
+                                {{ $t('Database') }}
                             </span>
                             <q-space />
                             <GqaLanguage style="width: 20%" />
@@ -94,7 +94,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref, defineEmits } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useQuasar } from 'quasar'
 import { useI18n } from 'vue-i18n'
 import GqaLanguage from 'src/components/GqaLanguage/index.vue'

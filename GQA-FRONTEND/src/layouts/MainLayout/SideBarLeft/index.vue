@@ -14,10 +14,10 @@ import SideBarLeftItem from './SideBarLeftItem'
 
 const props = defineProps({
     topMenuChildren: {
-        type: Array,
+        type: Object || Array,
         required: false,
         default: () => {
-            return []
+            return null
         },
     },
 })

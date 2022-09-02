@@ -10,9 +10,9 @@
                     {{ gqaFrontend.subTitle }}
                 </q-toolbar-title>
 
-                <q-select dense borderless v-model="currentTopMenu" :options="topMenu" map-options option-value="name"
-                    :option-label="opt => Object(opt) === opt && 'title' in opt ? t(opt.title) : opt.title"
-                    @update:model-value="changeTop" style="margin-left: 20px;" />
+                <q-select id="menuSelect" dense borderless v-model="currentTopMenu" :options="topMenu" map-options
+                    option-value="name" @update:model-value="changeTop" style="margin-left: 20px;"
+                    :option-label="opt => Object(opt) === opt && 'title' in opt ? t(opt.title) : opt.title" />
 
                 <q-space />
 
@@ -36,8 +36,13 @@
             <SideBarLeft :topMenuChildren="topMenuChildren" />
         </q-drawer>
 
-        <q-page-container>
-            <router-view />
+        <q-page-container style="overflow-x: hidden;">
+            <router-view v-slot="{ Component }">
+                <transition appear enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+                    <component :is="Component" />
+                </transition>
+            </router-view>
+
             <q-page-sticky position="bottom-right" :offset="fabPos" class="column">
                 <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[0, -80]">
                     <q-btn push fab glossy rounded icon="keyboard_arrow_up" color="primary"
@@ -112,6 +117,21 @@ watch(route, () => {
     topMenuChildren.value = topMenu.value.filter(item => item.name === currentTopMenu.value)[0]?.children
 })
 
+watch(currentTopMenu, () => {
+    if (currentTopMenu !== "") {
+        let menuSelect = document.getElementById("menuSelect")
+        let menuSpan = menuSelect.querySelector("span")
+        menuSpan.style.fontWeight = "bold"
+        menuSpan.style.animation = 'heartBeat'
+        menuSpan.style.animationDuration = "2s"
+        setTimeout(() => {
+            menuSpan.style.fontWeight = ""
+            menuSpan.style.animation = ""
+            menuSpan.style.animationDuration = ""
+        }, 2000)
+    }
+})
+
 const topMenu = computed(() => {
     return permissionStore.topMenu
 })
@@ -127,4 +147,7 @@ const moveFab = (ev) => {
 </script>
 
 <style lang="scss" scoped>
+.hhhh {
+    color: red !important;
+}
 </style>
