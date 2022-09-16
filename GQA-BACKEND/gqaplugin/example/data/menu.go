@@ -34,14 +34,14 @@ func (s *sysMenu) LoadData() error {
 var sysMenuData = []gqaModel.SysMenu{
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
 		Sort: 1101, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是示例插件",
-	}}, IsPlugin: "yes", Name: "GqaPluginExample", Title: "示例插件", Icon: "install_desktop", Path: "", Component: ""},
+	}}, Name: "GqaPluginExample", Title: "示例插件", Icon: "install_desktop", Path: "", Component: ""},
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
 		Sort: 1, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是图标合集",
-	}}, IsPlugin: "yes", Name: "plugin-example-icons", Title: "图标合集", Icon: "insert_emoticon", Path: "/plugin-example/example/icons", Component: "plugins/Example/Icons/index", ParentCode: "GqaPluginExample"},
+	}}, Name: "plugin-example-icons", Title: "图标合集", Icon: "insert_emoticon", Path: "/plugin-example/example/icons", Component: "plugins/Example/Icons/index", ParentCode: "GqaPluginExample"},
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
 		Sort: 2, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是编辑器",
-	}}, IsPlugin: "yes", Name: "plugin-example-editor", Title: "编辑器", Icon: "edit", Path: "/plugin-example/example/editor", Component: "plugins/Example/Editor/index", ParentCode: "GqaPluginExample"},
+	}}, Name: "plugin-example-editor", Title: "编辑器", Icon: "edit", Path: "/plugin-example/example/editor", Component: "plugins/Example/Editor/index", ParentCode: "GqaPluginExample"},
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
 		Sort: 3, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是树形表格",
-	}}, IsPlugin: "yes", Name: "plugin-example-tree-table", Title: "树形表格", Icon: "list_alt", Path: "/plugin-example/example/tree-table", Component: "plugins/Example/TreeTable/index", ParentCode: "GqaPluginExample"},
+	}}, Name: "plugin-example-tree-table", Title: "树形表格", Icon: "list_alt", Path: "/plugin-example/example/tree-table", Component: "plugins/Example/TreeTable/index", ParentCode: "GqaPluginExample"},
 }

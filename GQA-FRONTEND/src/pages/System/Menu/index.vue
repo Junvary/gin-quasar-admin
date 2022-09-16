@@ -23,9 +23,6 @@
                     <GqaDictShow dictName="statusYesNo" :dictCode="props.item.is_link" />
                 </td>
                 <td class="text-center">
-                    <GqaDictShow dictName="statusYesNo" :dictCode="props.item.is_plugin" />
-                </td>
-                <td class="text-center">
                     <GqaDictShow dictName="statusYesNo" :dictCode="props.item.hidden" />
                 </td>
                 <td class="text-center">
@@ -66,7 +63,6 @@ const columns = computed(() => {
         { name: 'redirect', align: 'center', label: t('Redirect'), field: 'redirect' },
         { name: 'component', align: 'center', label: t('Component'), field: 'component' },
         { name: 'is_link', align: 'center', label: t('IsLink'), field: 'is_link' },
-        { name: 'is_plugin', align: 'center', label: t('Plugin') + t('Menu'), field: 'is_plugin' },
         { name: 'hidden', align: 'center', label: t('Hidden'), field: 'hidden' },
         { name: 'stable', align: 'center', label: t('Stable'), field: 'stable' },
         { name: 'actions', align: 'center', label: t('Actions'), field: 'actions' },

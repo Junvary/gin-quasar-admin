@@ -34,10 +34,10 @@ func (s *sysMenu) LoadData() error {
 var sysMenuData = []gqaModel.SysMenu{
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
 		Sort: 70001, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是{{ .PluginName }}插件",
-	}}, IsPlugin: "yes", Name: "GqaPlugin{{.PluginCode}}", Title: "{{ .PluginName }}", Icon: "home", Path: "", Component: ""},
+	}}, Name: "GqaPlugin{{.PluginCode}}", Title: "{{ .PluginName }}", Icon: "home", Path: "", Component: ""},
 	{{ range .PluginModel }}
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
 		Sort: 1, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是{{ .ModelName }}",
-	}}, IsPlugin: "yes", Name: "plugin-{{$.PluginCode}}-{{ .ModelName }}", Title: "{{ .ModelName }}", Icon: "home", Path: "/plugin-{{$.PluginCode}}/{{$.PluginCode}}/{{ .ModelName }}", Component: "plugins/{{$.PluginCode}}/{{ .ModelName }}/index", ParentCode: "GqaPlugin{{$.PluginCode}}"},
+	}}, Name: "plugin-{{$.PluginCode}}-{{ .ModelName }}", Title: "{{ .ModelName }}", Icon: "home", Path: "/plugin-{{$.PluginCode}}/{{$.PluginCode}}/{{ .ModelName }}", Component: "plugins/{{$.PluginCode}}/{{ .ModelName }}/index", ParentCode: "GqaPlugin{{$.PluginCode}}"},
     {{ end }}
 }

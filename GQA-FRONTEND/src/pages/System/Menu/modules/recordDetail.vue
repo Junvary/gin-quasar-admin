@@ -57,13 +57,6 @@
                                 </q-option-group>
                             </template>
                         </q-field>
-                        <q-field class="col" :label="$t('Plugin') + $t('Menu')" stack-label>
-                            <template v-slot:control>
-                                <q-option-group v-model="recordDetail.value.is_plugin"
-                                    :options="dictOptions.statusYesNo" color="primary" inline>
-                                </q-option-group>
-                            </template>
-                        </q-field>
                         <q-field class="col" :label="$t('KeepAlive')" stack-label>
                             <template v-slot:control>
                                 <q-option-group v-model="recordDetail.value.keep_alive"
@@ -78,13 +71,6 @@
                                 </q-option-group>
                             </template>
                         </q-field>
-                        <!-- <q-field class="col" :label="$t('Status')" stack-label>
-                            <template v-slot:control>
-                                <q-option-group v-model="recordDetail.value.status" :options="dictOptions.statusOnOff"
-                                    color="primary" inline>
-                                </q-option-group>
-                            </template>
-                        </q-field> -->
                     </div>
                     <q-input v-model="recordDetail.value.memo" type="textarea" :label="$t('Memo')" />
                 </q-form>
@@ -108,14 +94,9 @@
 
 <script setup>
 import useRecordDetail from 'src/composables/useRecordDetail'
-import { postAction } from 'src/api/manage'
-import { useStorageStore } from 'src/stores/storage'
-import { ref, computed, watch } from 'vue'
-import { useQuasar } from 'quasar'
+import { ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import GqaSeleteUser from 'src/components/GqaSeleteUser'
 
-const $q = useQuasar()
 const { t } = useI18n()
 const emit = defineEmits(['handleFinish'])
 const url = {
@@ -126,7 +107,6 @@ const url = {
 }
 const {
     dictOptions,
-    showDateTime,
     formType,
     formTypeName,
     recordDetail,

@@ -1074,10 +1074,10 @@
   resolved "https://registry.npmmirror.com/@positron/stack-trace/-/stack-trace-1.0.0.tgz#14fcc712a530038ef9be1ce6952315a839f466a8"
   integrity sha512-nWlGg+aMfQDhGYa5FtBhZwldeo2MtdjHdxmEQvhBXEnxgD5IhIYl0PHvex8SdwyN7qcSoMykMWdjyAX7ZxkpMw==
 
-"@quasar/app-webpack@^3.5.9":
-  version "3.5.9"
-  resolved "https://registry.npmmirror.com/@quasar/app-webpack/-/app-webpack-3.5.9.tgz#eda2541f82e7f01a6d5a64472d26647e0972cfd7"
-  integrity sha512-ugbvBJLLSRHRCvXdh6LYFtNIAnUjcVwqot62TCJ1Xl809cJWbntzpA17w9ljBYBFZTnZmCSLQuhsQT4hAbhcMA==
+"@quasar/app-webpack@^3.6.0":
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/@quasar/app-webpack/-/app-webpack-3.6.0.tgz#d19d4865f8dc3efb067875775ab4a09280daf6de"
+  integrity sha512-4vDuMmLBXmEIhF5hwu0UYq+RkIb+BNIVBD5D/5YZ9x4Cg55VAbMSnYOj4q7s7P98+mhExmvMJ09WSx12VdNqXg==
   dependencies:
     "@quasar/babel-preset-app" "2.0.1"
     "@quasar/fastclick" "1.1.5"
@@ -1170,10 +1170,10 @@
     core-js "^3.6.5"
     core-js-compat "^3.6.5"
 
-"@quasar/extras@^1.15.2":
-  version "1.15.2"
-  resolved "https://registry.yarnpkg.com/@quasar/extras/-/extras-1.15.2.tgz#1e914ddfebbb9ed474baba37e2c6e6c51cf0294e"
-  integrity sha512-2tlj2nrVzKm4HX8nfdLOh7Y3Lb0SSZ0+5ylqHuWpcckr4myixZwE4l5WeWfx3kmAkKOnSETHHmwLxAajCgA0Ww==
+"@quasar/extras@^1.15.3":
+  version "1.15.3"
+  resolved "https://registry.yarnpkg.com/@quasar/extras/-/extras-1.15.3.tgz#3fa4cab6df9b6d2001e6e8192a005ca71b1b0719"
+  integrity sha512-kc2h+zTOBRx8eR3TYUjB3ZmALYoH3LBSaOFuha11Ncixk8NTwm9GNCQL6kxmC/CQiaP9Q78KFFgrv3AXGnCvLw==
 
 "@quasar/fastclick@1.1.5":
   version "1.1.5"
@@ -4724,10 +4724,10 @@ qs@6.9.7:
   resolved "https://registry.npmmirror.com/qs/-/qs-6.9.7.tgz#4610846871485e1e048f44ae3b94033f0e675afe"
   integrity sha512-IhMFgUmuNpyRfxA90umL7ByLlgRXu6tIfKPpF5TmcfRLlLCckfP/g3IQmju6jjpu+Hh8rA+2p6A27ZSPOOHdKw==
 
-quasar-app-extension-qhierarchy@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.npmmirror.com/quasar-app-extension-qhierarchy/-/quasar-app-extension-qhierarchy-1.0.2.tgz#0a14e9301eb9b71db1726213b11c9a6c621e81fc"
-  integrity sha512-yB5Yori/x5Clt0JUNuIWo7PDfVL+usTiJtVycJOjLXWIxWQc31JaG9OAM8otyBWknFQzHeArI3xQD3eSiXnshw==
+quasar-app-extension-qhierarchy@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/quasar-app-extension-qhierarchy/-/quasar-app-extension-qhierarchy-1.0.9.tgz#c31955e7c575e65d52e41a662389ddc05f087002"
+  integrity sha512-HjoC8n9nWxiWJoIlXeVmXHwVv82wz91e2qNGsC3jW2tJGWK5lV77OG6OWUoahGYHSs1QYl3/IadFupf6bHWaiA==
   dependencies:
     quasar-ui-qhierarchy latest
 
@@ -4736,10 +4736,10 @@ quasar-ui-qhierarchy@latest:
   resolved "https://registry.npmmirror.com/quasar-ui-qhierarchy/-/quasar-ui-qhierarchy-1.0.0.tgz#787245804ee15f955f4db22a650ee442e6708344"
   integrity sha512-cLgHKRFY9hbXJBq/7ywFNB8xaDzSip/92CFnXRgIEUip45J5fbC+fvifPnB/UrcRibq2hf3ZAwTRTyMEpUIb8Q==
 
-quasar@^2.7.7:
-  version "2.7.7"
-  resolved "https://registry.npmmirror.com/quasar/-/quasar-2.7.7.tgz#04d08c74005293334edbe9443d0f8579168cd8c2"
-  integrity sha512-tegG6EmEmv5i24MoNopRkhZOdT5kdLSAxQMA0V/fG04oco52hk2xwvB0EVS8WzT0bZZbc/9iXlAm1c29rZ3yVA==
+quasar@^2.8.2:
+  version "2.8.2"
+  resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.8.2.tgz#fbfd91811a0bafda71d191a144980cfd76d8647e"
+  integrity sha512-sHnW1SI0q5ZxFPGqRixC5i4FyiHK2xpgSHrSuS4nRQIXHiqsvrqafqOxfAAGhnBR+1fWJrHk8+8vDmBMhxzy1Q==
 
 queue-microtask@^1.2.2:
   version "1.2.3"

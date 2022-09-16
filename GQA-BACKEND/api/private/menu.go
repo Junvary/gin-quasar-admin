@@ -67,7 +67,6 @@ func (a *ApiMenu) AddMenu(c *gin.Context) {
 		Title:                             toAddMenu.Title,
 		Icon:                              toAddMenu.Icon,
 		IsLink:                            toAddMenu.IsLink,
-		IsPlugin:                          toAddMenu.IsPlugin,
 	}
 	if err := servicePrivate.ServiceMenu.AddMenu(*addMenu); err != nil {
 		global.GqaLogger.Error("添加菜单失败！", zap.Any("err", err))

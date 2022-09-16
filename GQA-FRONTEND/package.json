@@ -11,13 +11,13 @@
         "test": "echo \"No test specified\" && exit 0"
     },
     "dependencies": {
-        "@quasar/extras": "^1.15.2",
+        "@quasar/extras": "^1.15.3",
         "axios": "^0.21.1",
         "core-js": "^3.6.5",
         "echarts": "^5.3.2",
         "mitt": "^3.0.0",
         "pinia": "^2.0.11",
-        "quasar": "^2.7.7",
+        "quasar": "^2.8.2",
         "vue": "^3.0.0",
         "vue-i18n": "^9.0.0",
         "vue-router": "^4.0.0",
@@ -25,9 +25,9 @@
         "xe-utils": "^3.5.4"
     },
     "devDependencies": {
-        "@quasar/app-webpack": "^3.5.9",
+        "@quasar/app-webpack": "^3.6.0",
         "@quasar/quasar-app-extension-qiconpicker": "^2.0.6",
-        "quasar-app-extension-qhierarchy": "^1.0.2"
+        "quasar-app-extension-qhierarchy": "^1.0.9"
     },
     "browserslist": [
         "last 10 Chrome versions",
