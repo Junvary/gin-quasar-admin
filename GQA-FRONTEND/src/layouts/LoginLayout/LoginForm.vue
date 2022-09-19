@@ -6,17 +6,31 @@
                 <GqaAvatar class="gin-quasar-admin-logo" :src="gqaFrontend.logo" size="100px" />
                 <br />
                 <span class="text-weight-bold text-h3 text-white">
-                    {{  gqaFrontend.subTitle  }}
+                    {{ gqaFrontend.subTitle }}
                 </span>
+
+                <q-row style="width: 70%;">
+                    <q-chip v-for="(item, index) in pluginList" class="glossy" color="primary" text-color="white"
+                        style="cursor: pointer;">
+                        {{item.plugin_name}}
+                        <q-tooltip>
+                            <q-badge>
+                                {{item.plugin_version}}
+                            </q-badge>
+                            {{item.plugin_memo}}
+                        </q-tooltip>
+                    </q-chip>
+                </q-row>
+
                 <span class="text-white text-subtitle1" style="margin-top: 20px">
-                    {{  gqaFrontend.webDescribe  }}
+                    {{ gqaFrontend.webDescribe }}
                 </span>
                 <span class="q-gutter-md">
                     <q-btn push glossy color="primary" @click="openLink('https://github.com/Junvary/gin-quasar-admin')">
                         Github
                     </q-btn>
                     <q-btn push glossy color="primary">
-                        {{  $t('Version')  }}{{  $t('Info')  }}
+                        {{ $t('Version') }}{{ $t('Info') }}
                         <GqaVersion />
                     </q-btn>
                     <q-btn push glossy color="primary" @click="openLink('https://gitee.com/junvary/gin-quasar-admin')">
@@ -35,10 +49,10 @@
                                 <GqaAvatar size="xl" :src="gqaFrontend.logo" />
                             </div>
                             <div class="text-h4 text-center text-primary text-bold">
-                                {{  gqaFrontend.subTitle  }}
+                                {{ gqaFrontend.subTitle }}
                             </div>
                             <div class="text-h6 text-center text-primary q-mt-md q-mb-xs">
-                                {{  $t('WelcomeBack')  }}
+                                {{ $t('WelcomeBack') }}
                             </div>
                             <q-form @submit="onSubmit" class="q-mt-lg gqa-form">
                                 <q-input :disable="loading" outlined dense no-error-icon v-model.trim="form.username"
@@ -91,13 +105,14 @@
 
 <script setup>
 import useCommon from 'src/composables/useCommon'
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { postAction } from 'src/api/manage'
 import GqaLanguage from 'src/components/GqaLanguage/index.vue'
 import GqaAvatar from 'src/components/GqaAvatar/index.vue'
 import GqaVersion from 'src/components/GqaVersion/index.vue'
 import { useUserStore } from 'src/stores/user'
 import { useRouter, useRoute } from 'vue-router';
+import { useStorageStore } from 'src/stores/storage'
 
 const { gqaFrontend, openLink } = useCommon()
 
@@ -111,6 +126,7 @@ const form = ref({
 const router = useRouter()
 const route = useRoute()
 const userStore = useUserStore()
+const storageStore = useStorageStore()
 const rememberMe = ref(true)
 const captchaImage = ref('')
 const loading = ref(false)
@@ -126,6 +142,10 @@ const changeRememberMe = (value) => {
 
 onMounted(() => {
     getCaptcha()
+})
+
+const pluginList = computed(() => {
+    return storageStore.GetGqaPluginList()
 })
 
 const onSubmit = async () => {

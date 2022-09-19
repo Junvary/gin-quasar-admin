@@ -11,12 +11,27 @@
                     {{ $t('WelcomeTo') }}<br />
                     Gin-Quasar-Admin<sup>v2</sup>
                 </span>
+
+                <q-row style="width: 70%;">
+                    <q-chip v-for="(item, index) in pluginList" class="glossy" color="primary" text-color="white"
+                        style="cursor: pointer;">
+                        {{item.plugin_name}}
+                        <q-tooltip>
+                            <q-badge>
+                                {{item.plugin_version}}
+                            </q-badge>
+                            {{item.plugin_memo}}
+                        </q-tooltip>
+                    </q-chip>
+                </q-row>
+
                 <span class="text-white text-subtitle1" style="margin-top: 20px">
                     {{ t('InitDbHelp1') }}
                 </span>
                 <span class="text-white text-subtitle1" style="margin-bottom: 20px">
                     {{ t('InitDbHelp2') }}
                 </span>
+
                 <span class="q-gutter-md">
                     <q-btn push glossy color="primary" @click="openLink('https://github.com/Junvary/gin-quasar-admin')">
                         Github
@@ -49,7 +64,7 @@
                             <GqaLanguage style="width: 20%" />
                         </q-toolbar-title>
                     </q-toolbar>
-                    <GqaPluginList />
+
                     <q-card-section>
                         <q-form class="text-center gqa-form" @submit="onInitDb">
                             <div class="q-gutter-y-md column">
@@ -94,12 +109,11 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, computed } from 'vue'
 import { useQuasar } from 'quasar'
 import { useI18n } from 'vue-i18n'
 import GqaLanguage from 'src/components/GqaLanguage/index.vue'
 import GqaVersion from 'src/components/GqaVersion/index.vue'
-import GqaPluginList from 'src/components/GqaPluginList/index.vue'
 import { useStorageStore } from 'src/stores/storage'
 import { postAction } from 'src/api/manage'
 import { useRouter } from 'vue-router'
@@ -147,6 +161,10 @@ const openLink = (url) => {
 
 onMounted(() => {
     checkDb()
+})
+
+const pluginList = computed(() => {
+    return storageStore.GetGqaPluginList()
 })
 
 const checkDb = async () => {
