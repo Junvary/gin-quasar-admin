@@ -4,11 +4,12 @@
 <img src="https://i.loli.net/2020/12/14/cnJoF9r1BXY7Da5.png" width=150" height="150" />
 <h1>Gin-Quasar-Admin<sup>v2</sup></h1>
 <img src="https://img.shields.io/badge/Vue-3.2.33-brightgreen"/> 
-<img src="https://img.shields.io/badge/Quasar-2.8.2-brightgreen"/>                          
+<img src="https://img.shields.io/badge/Quasar-2.8.3-brightgreen"/>                          
 <img src="https://img.shields.io/badge/Go-1.19-brightgreen"/>                          
 <img src="https://img.shields.io/badge/Gin-1.8.1-brightgreen"/>                              
 <img src="https://img.shields.io/badge/Gorm-1.23.6-brightgreen"/>                  
 <img src="https://img.shields.io/badge/License-MIT-brightgreen"/>                                                                 </div>
+
 
 
 #### 项目使用 Go语言、Gin框架、Vue3(script-setup语法糖)、Quasar2搭建，通过插件形式进行个性化逻辑开发，通过网页端快速配置出个性化网站。V2版本是v1版本的完全重写升级版本，代码更加精简，逻辑更加清晰，欢迎使用！

@@ -2,13 +2,15 @@
     <q-dialog persistent v-model="chatDialogVisible" transition-hide="scale" @before-show="beforeShow"
         @before-hide="beforeHide">
         <q-card bordered style="width: 800px; max-width: 50vw;">
-            <q-bar :class="darkTheme">
-                {{ gqaFrontend.subTitle }}
-                {{ $t('ChatRoom') }}
-                <q-space />
+            <q-toolbar>
+                <q-toolbar-title>
+                    {{ gqaFrontend.subTitle }}
+                    {{ $t('ChatRoom') }}
+                </q-toolbar-title>
                 <q-btn dense flat icon="close" v-close-popup />
-            </q-bar>
-            <q-card-section horizontal style="height: 50vh">
+            </q-toolbar>
+            <q-separator />
+            <q-card-section horizontal>
                 <q-card-section class="col-4" style="padding: 0">
                     <q-scroll-area ref="userScroll" visible style="height: 50vh; width: 100%">
                         <q-list>
@@ -20,9 +22,6 @@
                                     <q-item-label>
                                         <GqaShowName :customNameObject="item.user" />
                                     </q-item-label>
-                                    <!-- <q-item-label caption>
-                                        xxxxxx???
-                                    </q-item-label> -->
                                 </q-item-section>
                             </q-item>
                         </q-list>
@@ -41,21 +40,15 @@
                                 :avatar="item.avatar" :text="item.text" :sent="item.sent" :stamp="item.stamp" />
                         </div>
                     </q-scroll-area>
+                    <q-toolbar>
+                        <q-form ref="newMessageForm" class="gqa-form" style="width: 100%">
+                            <q-input dense v-model="newMessage" rounded outlined @keyup.enter.stop="sendMessage"
+                                :rules="[val => val && val.length > 0 || $t('NeedInput')]" :label="$t('Content')">
+                            </q-input>
+                        </q-form>
+                    </q-toolbar>
                 </q-card-section>
             </q-card-section>
-
-            <q-separator />
-
-            <q-card-actions>
-                <q-form ref="newMessageForm" style="width: 100%" class="gqa-form">
-                    <q-input v-model="newMessage" outlined type="textarea"
-                        :rules="[val => val && val.length > 0 || $t('NeedInput')]">
-                        <template v-slot:after>
-                            <q-btn color="primary" round dense flat icon="send" @click="sendMessage" />
-                        </template>
-                    </q-input>
-                </q-form>
-            </q-card-actions>
         </q-card>
     </q-dialog>
 </template>
@@ -66,9 +59,7 @@ import { useQuasar } from 'quasar'
 import { computed, onMounted, ref, watch, nextTick, toRefs } from 'vue'
 import { useI18n } from 'vue-i18n'
 import useCommon from 'src/composables/useCommon';
-import useDarkTheme from 'src/composables/useDarkTheme';
 
-const { darkTheme } = useDarkTheme()
 const { GqaDefaultUsername, GqaDefaultAvatar } = useCommon()
 const $q = useQuasar()
 const { t } = useI18n()
