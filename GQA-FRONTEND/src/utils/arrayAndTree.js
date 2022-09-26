@@ -31,7 +31,7 @@ export const TreeToArray = (treeData) => {
 }
 
 export const ChangeNullChildren2Array = (data) => {
-    const index = data.length
+    const index = data?.length
     for (let i = index - 1; i >= 0; i--) {
         if (data[i].children === null) {
             data[i].children = []

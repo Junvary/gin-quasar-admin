@@ -4,7 +4,7 @@
             :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
 
             <template v-slot:top="props">
-                <q-btn color="primary" @click="showAddForm()" label="新增{{ .PluginModel.ModelName }}" />
+                <q-btn color="primary" @click="showAddForm()" label="新增Category" />
                 <q-space />
                 <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
                     @click="props.toggleFullscreen" class="q-ml-md" />
@@ -26,33 +26,28 @@
 <script setup>
 import useTableData from 'src/composables/useTableData'
 import { useQuasar } from 'quasar'
-import { postAction } from 'src/api/manage'
 import { computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import recordDetail from './modules/recordDetail'
-import GqaShowName from 'src/components/GqaShowName'
 
 const $q = useQuasar()
 const { t } = useI18n()
 const url = {
-    list: 'plugin-{{ .PluginCode }}/get-{{ .PluginModel.ModelName }}-list',
-    delete: 'plugin-{{ .PluginCode }}/delete-{{ .PluginModel.ModelName }}-by-id',
+    list: 'plugin-achievement/get-category-list',
+    delete: 'plugin-achievement/delete-category-by-id',
 }
 const columns = computed(() => {
     return [
-        {{ range .PluginModel.ColumnList }}
-        { name: '{{ .ColumnName }}', align: 'center', label: '{{ .ColumnName }}', field: '{{ .ColumnName }}' },
-        {{ end }}
+        { name: 'category', align: 'center', label: '分类', field: 'category' },
+        { name: 'code', align: 'center', label: '成就代码', field: 'code' },
+        { name: 'name', align: 'center', label: '成就名', field: 'name' },
+        { name: 'memo', align: 'center', label: '成就描述', field: 'memo' },
         { name: 'actions', align: 'center', label: '操作', field: 'actions' },
     ]
 })
 const {
-    showDateTime,
     pagination,
-    queryParams,
     pageOptions,
-    GqaDictShow,
-    GqaAvatar,
     loading,
     tableData,
     recordDetailDialog,
@@ -60,8 +55,6 @@ const {
     showEditForm,
     onRequest,
     getTableData,
-    handleSearch,
-    resetSearch,
     handleFinish,
     handleDelete,
 } = useTableData(url)

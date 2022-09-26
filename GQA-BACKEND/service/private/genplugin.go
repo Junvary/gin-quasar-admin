@@ -4,7 +4,6 @@ import (
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
@@ -95,7 +94,7 @@ func (s *ServiceGenPlugin) ChangeToTplData(genPluginStruct *model.SysGenPlugin) 
 }
 
 func (s *ServiceGenPlugin) GetAllTplFile(basePath string, fileList []string) ([]string, error) {
-	files, err := ioutil.ReadDir(basePath)
+	files, err := os.ReadDir(basePath)
 	for _, file := range files {
 		if file.IsDir() {
 			fileList, err = s.GetAllTplFile(basePath+"/"+file.Name(), fileList)

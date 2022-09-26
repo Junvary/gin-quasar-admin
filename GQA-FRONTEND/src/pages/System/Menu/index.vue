@@ -86,7 +86,7 @@ onMounted(() => {
 })
 
 const menuTree = computed(() => {
-    return ChangeNullChildren2Array(tableData.value)
+    return ChangeNullChildren2Array(tableData.value) || []
 })
 
 const showAddParentForm = () => {

@@ -3,10 +3,10 @@
         <q-form ref="genPluginForm">
             <div class="q-gutter-x-md">
                 <div class="row q-gutter-md">
-                    <q-input class="col" v-model="form.plugin_code"
+                    <q-input class="col" v-model.trim="form.plugin_code" prefix="plugin-"
                         :label="$t('Plugin') + $t('Name') + '(' + $t('English') + ')'" lazy-rules
                         :rules="[val => val && val.length > 0 || $t('NeedInput')]" />
-                    <q-input class="col" v-model="form.plugin_name" :label="$t('Plugin') + $t('Name')" lazy-rules
+                    <q-input class="col" v-model.trim="form.plugin_name" :label="$t('Plugin') + $t('Name')" lazy-rules
                         :rules="[val => val && val.length > 0 || $t('NeedInput')]" />
                     <q-toggle class="col-2" v-model="form.with_model" label="生成Model" />
                     <div class="col">
@@ -49,7 +49,7 @@
                                         <q-toggle v-model="item.with_log_operation" label="使用操作日志" />
                                     </template>
                                     <template v-slot:body-cell-column_name="props">
-                                        <q-td :props="props">
+                                        <q-td :props="props" :style="{background: props.row.column_name? '': 'grey'}">
                                             {{ props.row.column_name }}
                                             <q-popup-edit v-model="props.row.column_name" v-slot="scope">
                                                 <q-input v-model="scope.value" dense autofocus
@@ -58,7 +58,7 @@
                                         </q-td>
                                     </template>
                                     <template v-slot:body-cell-column_type="props">
-                                        <q-td :props="props">
+                                        <q-td :props="props" :style="{background: props.row.column_type? '': 'grey'}">
                                             {{ props.row.column_type }}
                                             <q-popup-edit v-model="props.row.column_type" v-slot="scope">
                                                 <q-select v-model="scope.value" :options="column_typeOptions"
@@ -67,7 +67,8 @@
                                         </q-td>
                                     </template>
                                     <template v-slot:body-cell-column_comment="props">
-                                        <q-td :props="props">
+                                        <q-td :props="props"
+                                            :style="{background: props.row.column_comment? '': 'grey'}">
                                             {{ props.row.column_comment }}
                                             <q-popup-edit v-model="props.row.column_comment" v-slot="scope">
                                                 <q-input v-model="scope.value" dense autofocus
@@ -76,7 +77,8 @@
                                         </q-td>
                                     </template>
                                     <template v-slot:body-cell-column_default="props">
-                                        <q-td :props="props">
+                                        <q-td :props="props"
+                                            :style="{background: props.row.column_default? '': 'grey'}">
                                             {{ props.row.column_default }}
                                             <q-popup-edit v-model="props.row.column_default" v-slot="scope">
                                                 <q-input v-model="scope.value" dense autofocus

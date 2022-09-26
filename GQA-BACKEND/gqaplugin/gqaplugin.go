@@ -12,12 +12,14 @@ package gqaplugin
 */
 
 import (
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/achievement"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/example"
 	"github.com/gin-gonic/gin"
 )
 
 var PluginList = []GqaPlugin{ //插件加入此切片即可
 	example.PluginExample,
+	achievement.PluginAchievement,
 }
 
 /*

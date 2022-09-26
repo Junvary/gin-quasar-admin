@@ -4,7 +4,8 @@
             <q-toolbar>
                 <q-btn dense round flat icon="menu" aria-label="Menu" @click="toggleLeftDrawer = !toggleLeftDrawer" />
 
-                <GqaAvatar class="gin-quasar-admin-logo" :src="gqaFrontend.logo" style="margin-left: 5px;" />
+                <GqaAvatar class="gin-quasar-admin-logo" :src="gqaFrontend.logo" style="margin-left: 5px;"
+                    @mouseenter="startCheck" @mouseleave="stopCheck" />
 
                 <q-toolbar-title shrink class="text-bold text-italic cursor-pointer" style="padding: 0 5px;">
                     {{ gqaFrontend.subTitle }}
@@ -56,12 +57,13 @@
         </q-footer>
 
         <UserProfile ref="userProfile" />
-
+        <AchievementDialog ref="achievementDialog" />
     </q-layout>
 </template>
 
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue';
+import { useUserStore } from 'src/stores/user';
 import { usePermissionStore } from 'src/stores/permission';
 import { useStorageStore } from 'src/stores/storage';
 import useDarkTheme from 'src/composables/useDarkTheme';
@@ -76,11 +78,13 @@ import PageFooter from './PageFooter.vue'
 import GqaAvatar from 'src/components/GqaAvatar/index.vue'
 import UserProfile from './UserProfile/index.vue'
 import AddNoteTodo from './AddNoteTodo.vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 import useDocument from 'src/composables/useDocument'
 import { useQuasar, LocalStorage } from 'quasar';
 import XEUtils from 'xe-utils'
 import { useI18n } from 'vue-i18n';
+import { postAction } from 'src/api/manage';
+import AchievementDialog from 'src/plugins/Achievement/AchievementDialog.vue';
 // 动态更改网站标题和favicon
 useDocument()
 
@@ -88,7 +92,7 @@ const $q = useQuasar();
 const { t } = useI18n();
 const { darkTheme } = useDarkTheme()
 const route = useRoute();
-const router = useRouter();
+const userStore = useUserStore();
 const storageStore = useStorageStore();
 const permissionStore = usePermissionStore();
 const toggleLeftDrawer = ref(false);
@@ -143,6 +147,28 @@ const findCurrentTopMenu = computed(() => {
 
 const moveFab = (ev) => {
     fabPos.value = [fabPos.value[0] - ev.delta.x, fabPos.value[1] - ev.delta.y]
+}
+
+const timer = ref(null)
+
+const achievementDialog = ref(null)
+const startCheck = () => {
+    timer.value = setTimeout(() => {
+        postAction('/plugin-achievement/obtain-find', {
+            category_code: 'QiYu-Roll-Code',
+            username: userStore.GetUsername()
+        }).then(res => {
+            if (res.code === 1 /* 为了演示效果注释掉了后面 && res.data?.get */) {
+                achievementDialog.value.show({
+                    category: "奇遇",
+                    name: "摇滚吧，少年！"
+                })
+            }
+        })
+    }, 1000)
+}
+const stopCheck = () => {
+    clearTimeout(timer.value)
 }
 </script>
 

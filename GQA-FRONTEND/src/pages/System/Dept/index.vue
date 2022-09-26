@@ -72,7 +72,7 @@ onMounted(() => {
 })
 
 const deptTree = computed(() => {
-    return ChangeNullChildren2Array(tableData.value)
+    return ChangeNullChildren2Array(tableData.value) || []
 
 })
 

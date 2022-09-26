@@ -11,10 +11,32 @@
 
             <q-btn class="q-mt-xl" color="white" text-color="blue" unelevated to="/" :label="$t('PageError404Home')"
                 no-caps />
-
         </div>
+        <AchievementDialog ref="achievementDialog" />
     </div>
 </template>
 
-<script setup></script>
+<script setup>
+import AchievementDialog from 'src/plugins/Achievement/AchievementDialog.vue';
+import { onMounted, ref } from 'vue';
+import { postAction } from 'src/api/manage';
+import { useUserStore } from 'src/stores/user';
+
+const userStore = useUserStore();
+const achievementDialog = ref(null)
+
+onMounted(() => {
+    postAction('/plugin-achievement/obtain-find', {
+        category_code: 'QiYu-Find-404',
+        username: userStore.GetUsername()
+    }).then(res => {
+        if (res.code === 1 /* 为了演示效果注释掉了后面 && res.data?.get */) {
+            achievementDialog.value.show({
+                category: "奇遇",
+                name: "未知领域！"
+            })
+        }
+    })
+})
+</script>
 
