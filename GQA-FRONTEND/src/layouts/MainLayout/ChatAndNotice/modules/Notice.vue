@@ -49,14 +49,14 @@
 import useTableData from 'src/composables/useTableData'
 import { useQuasar } from 'quasar'
 import { postAction } from 'src/api/manage'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, inject } from 'vue'
 import { useI18n } from 'vue-i18n'
 import NoticeSystem from './NoticeSystem.vue'
 import NoticeMessage from './NoticeMessage.vue'
 import NoticeNoteTodo from './NoticeNoteTodo.vue'
 import { useUserStore } from 'src/stores/user'
-import { emitter } from 'src/boot/bus'
 
+const bus = inject('bus')
 const $q = useQuasar()
 const { t } = useI18n()
 const userStore = useUserStore()
@@ -86,7 +86,7 @@ onMounted(() => {
     }
     pagination.value.sortBy = 'created_at'
     pagination.value.descending = true
-    emitter.on('noticeGetTableData', () => {
+    bus.on('noticeGetTableData', () => {
         getTableData()
         getNoteTodoData({ pagination: pagination.value })
     })

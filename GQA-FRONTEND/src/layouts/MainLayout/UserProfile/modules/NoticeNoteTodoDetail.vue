@@ -42,18 +42,9 @@
 
 <script setup>
 import useRecordDetail from 'src/composables/useRecordDetail'
-import GqaAvatar from 'src/components/GqaAvatar'
-import GqaShowName from 'src/components/GqaShowName'
-import { postAction } from 'src/api/manage'
-import { useStorageStore } from 'src/stores/storage'
-import { ref, computed } from 'vue'
-import { useQuasar } from 'quasar'
-import { useI18n } from 'vue-i18n'
-import GqaSeleteUser from 'src/components/GqaSeleteUser'
-import { emitter } from 'src/boot/bus'
+import { inject } from 'vue'
 
-const $q = useQuasar()
-const { t } = useI18n()
+const bus = inject('bus')
 const emit = defineEmits(['handleFinish'])
 const url = {
     add: 'note-todo/add-note-todo',
@@ -62,7 +53,6 @@ const url = {
 }
 const {
     dictOptions,
-    showDateTime,
     formType,
     formTypeName,
     recordDetail,
@@ -79,6 +69,6 @@ defineExpose({
     recordDetail
 })
 const hide = () => {
-    emitter.emit('noticeGetTableData')
+    bus.emit('noticeGetTableData')
 }
 </script>

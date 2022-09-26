@@ -1,10 +1,7 @@
 import { boot } from 'quasar/wrappers'
-import mitt from 'mitt'
-
-export const emitter = mitt()
-
-
+import { EventBus } from 'quasar'
 
 export default boot(({ app }) => {
-    app.config.globalProperties.$bus = new mitt()
+    const bus = new EventBus()
+    app.provide('bus', bus)
 })

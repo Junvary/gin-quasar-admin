@@ -27,9 +27,12 @@
                                 @update:model-value="changenoticeToUserType" />
                         </template>
                     </q-field>
-                    <q-select v-if="recordDetail.value.notice_to_user_type === 'some' && changeTableData.value.length"
-                        v-model="selectUser" :options="changeTableData.value" multiple clearable emit-value map-options
+                    <q-select v-if="recordDetail.value.notice_to_user_type === 'some' && changeTableData.length"
+                        v-model="selectUser" :options="changeTableData" multiple clearable emit-value map-options
                         :rules="[val => val && val.length > 0 || $t('NeedInput')]" :label="$t('User')" />
+                    <span v-if="recordDetail.value.notice_to_user_type === 'some' && !changeTableData.length">
+                        系统还没有非管理员账户！
+                    </span>
                 </q-form>
             </q-card-section>
 
@@ -125,7 +128,7 @@ const changenoticeToUserType = (val) => {
         selectUser.value = []
         getTableData().then(() => {
             if (recordDetail.value.notice_to_user_type === 'some') {
-                for (let u of recordDetail.value.notice_to_user) {
+                for (let u of recordDetail.value.notice_to_user ? recordDetail.value.notice_to_user : []) {
                     selectUser.value.push(u.toUser)
                 }
             }
