@@ -9,7 +9,7 @@
                     {{ gqaFrontend.subTitle }}
                 </span>
 
-                <q-row style="width: 70%;">
+                <div class="row justify-center" style="width: 70%;">
                     <q-chip v-for="(item, index) in pluginList" class="glossy" color="primary" text-color="white"
                         style="cursor: pointer;">
                         {{item.plugin_name}}
@@ -20,7 +20,7 @@
                             {{item.plugin_memo}}
                         </q-tooltip>
                     </q-chip>
-                </q-row>
+                </div>
 
                 <span class="text-white text-subtitle1" style="margin-top: 20px">
                     {{ gqaFrontend.webDescribe }}
