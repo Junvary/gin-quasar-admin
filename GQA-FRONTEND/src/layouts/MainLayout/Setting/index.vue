@@ -17,13 +17,9 @@
 
                     <q-tab-panels v-model="tab" animated>
                         <q-tab-panel name="settings1" class="text-left">
-                            <DarkTheme />
                             <GqaLanguage />
-                            <q-field :label="$t('SideDrawer') + $t('Width') + ' ' + drawerWidth" stack-label>
-                                <template v-slot:control>
-                                    <q-slider v-model="drawerWidth" :min="200" :max="300" @change="setDrawerWidth" />
-                                </template>
-                            </q-field>
+                            <DarkTheme />
+                            <SideDrawer />
                         </q-tab-panel>
 
                         <q-tab-panel name="settings2">
@@ -40,14 +36,9 @@
 import GqaLanguage from 'src/components/GqaLanguage'
 import GqaTheme from 'src/components/GqaTheme'
 import DarkTheme from 'src/components/GqaTheme/DarkTheme.vue';
+import SideDrawer from './SideDrawer.vue'
 import { ref } from 'vue';
-import { useUserStore } from 'src/stores/user';
 
 const right = ref(false)
 const tab = ref('settings1')
-const drawerWidth = ref(220)
-const userStore = useUserStore()
-const setDrawerWidth = () => {
-    userStore.SetSideDrawerWidth(drawerWidth.value)
-}
 </script>

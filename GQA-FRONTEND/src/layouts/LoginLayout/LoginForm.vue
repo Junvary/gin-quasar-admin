@@ -156,7 +156,6 @@ const onSubmit = async () => {
         captcha: form.value.captcha,
         captcha_id: form.value.captcha_id
     })
-    getCaptcha()
     if (res) {
         loading.value = false
         router.push(route.query.redirect || '/')
@@ -165,6 +164,7 @@ const onSubmit = async () => {
     } else {
         form.value.captcha = ''
         loading.value = false
+        getCaptcha()
     }
 }
 </script>

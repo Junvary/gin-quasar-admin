@@ -19,6 +19,8 @@ export default {
     // 单词
     SideDrawer: '侧边栏',
     Width: '宽度',
+    Top: '顶部',
+    Bottom: '底部',
     Welcome: '欢迎',
     WelcomeTo: '欢迎使用',
     Version: '版本',

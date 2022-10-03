@@ -1,5 +1,5 @@
 <template>
-    <q-layout view="hHh LpR lFr" :style="{backgroundColor: $q.dark.isActive? '#1d1d1d' : '#fafafa'}"
+    <q-layout :view="layoutView" :style="{backgroundColor: $q.dark.isActive? '#1d1d1d' : '#fafafa'}"
         style="overflow-x: hidden;">
         <q-header reveal elevated :class="darkTheme">
             <q-toolbar>
@@ -16,8 +16,8 @@
                     option-value="name" @update:model-value="changeTop" style="margin: 0 20px;"
                     :option-label="opt => Object(opt) === opt && 'title' in opt ? t(opt.title) : opt.title" />
 
-                <q-breadcrumbs>
-                    <q-breadcrumbs-el :label="$t(findCurrentTopMenu.title)" :icon="findCurrentTopMenu.icon"
+                <q-breadcrumbs v-if="findCurrentTopMenu">
+                    <q-breadcrumbs-el :label="$t(findCurrentTopMenu?.title)" :icon="findCurrentTopMenu?.icon"
                         :class="darkTheme" />
                     <q-breadcrumbs-el :label="$t(route.meta.title)" :icon="route.meta.icon" />
                 </q-breadcrumbs>
@@ -74,6 +74,7 @@ import { ref, computed, watch, onMounted } from 'vue';
 import { useUserStore } from 'src/stores/user';
 import { usePermissionStore } from 'src/stores/permission';
 import { useStorageStore } from 'src/stores/storage';
+import { useSettingStore } from 'src/stores/setting'
 import useDarkTheme from 'src/composables/useDarkTheme';
 import SideBarLeft from './SideBarLeft/index.vue'
 import TabMenu from './TabMenu.vue'
@@ -81,14 +82,14 @@ import Fullscreen from './Fullscreen.vue'
 import ChatAndNotice from './ChatAndNotice/index.vue'
 import GitLink from './GitLink.vue'
 import UserMenu from './UserMenu.vue'
-import Setting from './Setting.vue'
+import Setting from './Setting/index.vue'
 import PageFooter from './PageFooter.vue'
 import GqaAvatar from 'src/components/GqaAvatar/index.vue'
 import UserProfile from './UserProfile/index.vue'
 import AddNoteTodo from './AddNoteTodo.vue';
 import { useRoute } from 'vue-router';
 import useDocument from 'src/composables/useDocument'
-import { useQuasar, LocalStorage } from 'quasar';
+import { useQuasar } from 'quasar';
 import XEUtils from 'xe-utils'
 import { useI18n } from 'vue-i18n';
 import { postAction } from 'src/api/manage';
@@ -103,6 +104,7 @@ const route = useRoute();
 const userStore = useUserStore();
 const storageStore = useStorageStore();
 const permissionStore = usePermissionStore();
+const settingStore = useSettingStore();
 const toggleLeftDrawer = ref(false);
 const topMenuChildren = ref({});
 const currentTopMenu = ref('');
@@ -113,7 +115,10 @@ const gqaFrontend = computed(() => {
     return storageStore.GetGqaFrontend()
 })
 const drawerWidth = computed(() => {
-    return userStore.GetSideDrawerWidth()
+    return settingStore.GetSideDrawerWidth()
+})
+const layoutView = computed(() => {
+    return settingStore.GetLayoutView()
 })
 
 const changeTop = (childrenMenu) => {
@@ -121,8 +126,7 @@ const changeTop = (childrenMenu) => {
 }
 
 onMounted(() => {
-    const localDark = LocalStorage.getItem('gqa-dark-theme') || false
-    $q.dark.set(localDark)
+    $q.dark.set(settingStore.GetDarkTheme())
     currentTopMenu.value = findCurrentTopMenu.value?.name
     topMenuChildren.value = topMenu.value.filter(item => item.name === currentTopMenu.value)[0]?.children
 

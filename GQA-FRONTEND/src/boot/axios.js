@@ -1,7 +1,8 @@
 import { boot } from 'quasar/wrappers'
 import axios from 'axios'
 import { Notify, Dialog } from 'quasar'
-import { userStore, i18n } from './i18n'
+import { i18n } from './i18n'
+import { useUserStore } from 'src/stores/user'
 
 // Be careful when using SSR for cross-request state pollution
 // due to creating a Singleton instance here;
@@ -18,13 +19,7 @@ const api = axios.create({
 
 
 export default boot(({ app, router, store }) => {
-    // const i18n = createI18n({
-    //     locale: store.getters['user/language'],
-    //     fallbackLocale: 'zh-CN',
-    //     messages,
-    //     silentTranslationWarn: true,
-    //     silentFallbackWarn: true
-    // })
+    const userStore = useUserStore()
     // 请求拦截
     api.interceptors.request.use(request => {
         const token = userStore.GetToken()

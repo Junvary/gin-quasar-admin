@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia';
 import { LocalStorage } from 'quasar';
-// import { GqaFrontendDefault, GqaBackendDefault } from 'src/settings';
 import { postAction } from 'src/api/manage';
 import { ArrayToTree } from 'src/utils/arrayAndTree'
 import useCommon from 'src/composables/useCommon';

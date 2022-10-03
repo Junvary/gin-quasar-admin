@@ -21,18 +21,19 @@
 </template>
 
 <script setup>
-import { LocalStorage, useQuasar } from 'quasar'
+import { useQuasar } from 'quasar'
 import { onMounted, ref, watch } from 'vue';
+import { useSettingStore } from 'src/stores/setting';
 
 const darkTheme = ref(false)
 const $q = useQuasar()
+const settingStore = useSettingStore()
 
 onMounted(() => {
-    const localDark = LocalStorage.getItem('gqa-dark-theme')
-    darkTheme.value = localDark
+    darkTheme.value = settingStore.GetDarkTheme()
 })
 watch(darkTheme, (val) => {
-    LocalStorage.set('gqa-dark-theme', val)
+    settingStore.SetDarkTheme(val)
     $q.dark.set(darkTheme.value)
 })
 </script>

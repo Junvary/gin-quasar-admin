@@ -1,6 +1,6 @@
 <template>
-    <q-select v-model="lang" :options="langOptions" :label="$t('Switch') + $t('Language')" dense borderless emit-value
-        map-options options-dense @update:model-value="changeLang" style="width: 100%" />
+    <q-select v-model="lang" :options="langOptions" :label="$t('Switch') + $t('Language')" dense emit-value map-options
+        options-dense @update:model-value="changeLang" style="width: 100%" />
 </template>
 
 <script setup>
@@ -8,9 +8,9 @@ import { useQuasar } from 'quasar'
 import languages from 'quasar/lang/index.json'
 import { ref, watch, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useUserStore } from 'src/stores/user'
+import { useSettingStore } from 'src/stores/setting'
 
-const userStore = useUserStore()
+const settingStore = useSettingStore()
 const appLanguages = languages.filter((lang) => ['zh-CN', 'en-US'].includes(lang.isoName))
 
 const langOptions = appLanguages.map((lang) => ({
@@ -22,7 +22,7 @@ const lang = ref($q.lang.isoName)
 const { locale } = useI18n({ useScope: 'global' })
 
 onMounted(() => {
-    lang.value = userStore.GetLanguage()
+    lang.value = settingStore.GetLanguage()
 })
 watch(lang, (val) => {
     // dynamic import, so loading on demand only
@@ -32,7 +32,7 @@ watch(lang, (val) => {
     ).then((lang) => {
         $q.lang.set(lang.default)
         locale.value = val
-        userStore.ChangeLanguage(val)
+        settingStore.ChangeLanguage(val)
     })
 })
 const changeLang = () => { }

@@ -19,6 +19,8 @@ export default {
     // word
     SideDrawer: 'SideDrawer',
     Width: 'Width',
+    Top: 'Top',
+    Bottom: 'Bottom',
     Welcome: 'Welcome',
     WelcomeTo: 'Welcome to',
     Version: 'Version',

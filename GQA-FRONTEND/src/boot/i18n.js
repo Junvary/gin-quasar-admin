@@ -1,11 +1,11 @@
 import { createI18n } from 'vue-i18n'
 import messages from 'src/i18n'
-import { useUserStore } from 'src/stores/user'
+import { useSettingStore } from 'src/stores/setting'
 
-export const userStore = useUserStore()
+export const settingStore = useSettingStore()
 
 export const i18n = createI18n({
-    locale: userStore.GetLanguage(),
+    locale: settingStore.GetLanguage(),
     fallbackLocale: 'zh-CN',
     messages,
     silentTranslationWarn: true,

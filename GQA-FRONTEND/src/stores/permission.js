@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { postAction } from 'src/api/manage';
 import { HandleRouter } from 'src/utils/router';
-import { ArrayToTree, HandleAsideMenu, TreeToArray } from 'src/utils/arrayAndTree';
+import { ArrayToTree } from 'src/utils/arrayAndTree';
 
 export const usePermissionStore = defineStore('permission', {
     state: () => ({

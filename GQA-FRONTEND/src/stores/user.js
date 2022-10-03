@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { Cookies, LocalStorage, SessionStorage } from 'quasar';
+import { Cookies, SessionStorage } from 'quasar';
 import { usePermissionStore } from './permission';
 import { postAction } from 'src/api/manage';
 
@@ -11,8 +11,6 @@ export const useUserStore = defineStore('user', {
         realName: undefined,
         avatar: undefined,
         rememberMe: true,
-        language: undefined,
-        sideDrawerWidth: 220,
     }),
     getters: {},
     actions: {
@@ -66,10 +64,6 @@ export const useUserStore = defineStore('user', {
             this.realName = undefined
             this.avatar = undefined
         },
-        ChangeLanguage(lang) {
-            this.language = lang
-            Cookies.set('gqa-language', lang)
-        },
         GetToken() {
             if (SessionStorage.getItem('gqa-token')) {
                 return SessionStorage.getItem('gqa-token')
@@ -115,27 +109,5 @@ export const useUserStore = defineStore('user', {
                 return ""
             }
         },
-        GetLanguage() {
-            if (this.language) {
-                return this.language
-            } else if (Cookies.get('gqa-language')) {
-                return Cookies.get('gqa-language')
-            } else {
-                return 'zh-CN'
-            }
-        },
-        SetSideDrawerWidth(width) {
-            this.sideDrawerWidth = width
-            LocalStorage.set('gqa-side-drawer-width', width)
-        },
-        GetSideDrawerWidth() {
-            if (this.sideDrawerWidth) {
-                return this.sideDrawerWidth
-            } else if (LocalStorage.getItem('gqa-side-drawer-width')) {
-                return LocalStorage.getItem('gqa-side-drawer-width')
-            } else {
-                return 220
-            }
-        }
     },
 });
