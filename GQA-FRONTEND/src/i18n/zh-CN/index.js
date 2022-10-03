@@ -17,6 +17,8 @@ export default {
     ClipboardFailed: '复制到剪切板失败',
     FileRejected: '文件重复或大小/类型不被允许',
     // 单词
+    SideDrawer: '侧边栏',
+    Width: '宽度',
     Welcome: '欢迎',
     WelcomeTo: '欢迎使用',
     Version: '版本',
@@ -124,6 +126,7 @@ export default {
     Choose: '选择',
     Theme: '主题',
     Color: '颜色',
+    Basic: '基础',
     Setting: '设置',
     Notice: '消息',
     Done: '已完成',

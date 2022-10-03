@@ -1,5 +1,6 @@
 <template>
-    <q-layout view="hHh LpR lFr">
+    <q-layout view="hHh LpR lFr" :style="{backgroundColor: $q.dark.isActive? '#1d1d1d' : '#fafafa'}"
+        style="overflow-x: hidden;">
         <q-header reveal elevated :class="darkTheme">
             <q-toolbar>
                 <q-btn dense round flat icon="menu" aria-label="Menu" @click="toggleLeftDrawer = !toggleLeftDrawer" />
@@ -12,8 +13,14 @@
                 </q-toolbar-title>
 
                 <q-select id="menuSelect" dense borderless v-model="currentTopMenu" :options="topMenu" map-options
-                    option-value="name" @update:model-value="changeTop" style="margin-left: 20px;"
+                    option-value="name" @update:model-value="changeTop" style="margin: 0 20px;"
                     :option-label="opt => Object(opt) === opt && 'title' in opt ? t(opt.title) : opt.title" />
+
+                <q-breadcrumbs>
+                    <q-breadcrumbs-el :label="$t(findCurrentTopMenu.title)" :icon="findCurrentTopMenu.icon"
+                        :class="darkTheme" />
+                    <q-breadcrumbs-el :label="$t(route.meta.title)" :icon="route.meta.icon" />
+                </q-breadcrumbs>
 
                 <q-space />
 
@@ -33,7 +40,8 @@
             </div>
         </q-header>
 
-        <q-drawer elevated v-model="toggleLeftDrawer" show-if-above bordered content-class="bg-grey-1">
+        <q-drawer elevated v-model="toggleLeftDrawer" show-if-above bordered content-class="bg-grey-1"
+            :width="drawerWidth">
             <SideBarLeft :topMenuChildren="topMenuChildren" />
         </q-drawer>
 
@@ -104,6 +112,9 @@ const userProfile = ref(null);
 const gqaFrontend = computed(() => {
     return storageStore.GetGqaFrontend()
 })
+const drawerWidth = computed(() => {
+    return userStore.GetSideDrawerWidth()
+})
 
 const changeTop = (childrenMenu) => {
     topMenuChildren.value = childrenMenu.children
@@ -125,8 +136,8 @@ watch(currentTopMenu, () => {
     if (currentTopMenu !== "") {
         let menuSelect = document.getElementById("menuSelect")
         let menuSpan = menuSelect.querySelector("span")
-        menuSpan.style.fontWeight = "bold"
-        menuSpan.style.animation = 'heartBeat'
+        // menuSpan.style.fontWeight = "bold"
+        menuSpan.style.animation = 'headShake'
         menuSpan.style.animationDuration = "2s"
         setTimeout(() => {
             menuSpan.style.fontWeight = ""

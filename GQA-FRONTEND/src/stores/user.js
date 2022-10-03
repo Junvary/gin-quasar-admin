@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { Cookies, SessionStorage } from 'quasar';
+import { Cookies, LocalStorage, SessionStorage } from 'quasar';
 import { usePermissionStore } from './permission';
 import { postAction } from 'src/api/manage';
 
@@ -12,6 +12,7 @@ export const useUserStore = defineStore('user', {
         avatar: undefined,
         rememberMe: true,
         language: undefined,
+        sideDrawerWidth: 220,
     }),
     getters: {},
     actions: {
@@ -123,5 +124,18 @@ export const useUserStore = defineStore('user', {
                 return 'zh-CN'
             }
         },
+        SetSideDrawerWidth(width) {
+            this.sideDrawerWidth = width
+            LocalStorage.set('gqa-side-drawer-width', width)
+        },
+        GetSideDrawerWidth() {
+            if (this.sideDrawerWidth) {
+                return this.sideDrawerWidth
+            } else if (LocalStorage.getItem('gqa-side-drawer-width')) {
+                return LocalStorage.getItem('gqa-side-drawer-width')
+            } else {
+                return 220
+            }
+        }
     },
 });

@@ -17,6 +17,8 @@ export default {
     ClipboardFailed: 'Error on copy to clipboard',
     FileRejected: 'Duplicate file or size / type not allowed',
     // word
+    SideDrawer: 'SideDrawer',
+    Width: 'Width',
     Welcome: 'Welcome',
     WelcomeTo: 'Welcome to',
     Version: 'Version',
@@ -123,6 +125,7 @@ export default {
     Choose: 'Choose',
     Theme: 'Theme',
     Color: 'Color',
+    Basic: 'Basic',
     Setting: 'Setting',
     Notice: 'Notice',
     Done: 'Done',
