@@ -9,15 +9,33 @@
 <img src="https://img.shields.io/badge/Gin-1.8.1-brightgreen"/>                              
 <img src="https://img.shields.io/badge/Gorm-1.23.6-brightgreen"/>                  
 <img src="https://img.shields.io/badge/License-MIT-brightgreen"/>                                                                 </div>
-
-
-
-
 #### 项目使用 Go语言、Gin框架、Vue3(script-setup语法糖)、Quasar2搭建，通过插件形式进行个性化逻辑开发，通过网页端快速配置出个性化网站。V2版本是v1版本的完全重写升级版本，代码更加精简，逻辑更加清晰，欢迎使用！
 
 <div align=center>项目在不断完善中，欢迎Clone、Fork、Issue、PR。如果你感觉不错，麻烦给个小小的 Star 鼓励一下！</div>
 
 ***
+
+### 项目截图：
+
+![login.png](https://s2.loli.net/2022/10/03/Yjw4zf5NkemI3Vy.png)
+
+
+
+![light.png](https://s2.loli.net/2022/10/03/Oe2LasKRfV9gJyC.png)
+
+
+
+![dark.png](https://s2.loli.net/2022/10/03/YB8eZkGusUpCjtS.png)
+
+### 交流群
+
+QQ群号：342045316
+
+### 在线体验
+
+1. 地址：http://81.68.159.232/
+2. 用户名：admin
+3. 密码：123456
 
 ### 主要功能：
 
@@ -27,12 +45,6 @@
 4. 角色：菜单权限、Api授权、部门数据权限。
 5. 部门管理、菜单管理、字典管理、Api管理、角色管理、用户管理、前后台配置管理、日志管理、消息管理、插件生成、在线用户。
 6. i18n、聊天室、打印功能、踢出用户。
-
-### 在线体验
-
-1. 地址：http://81.68.159.232/
-2. 用户名：admin
-3. 密码：123456
 
 ### 仓库位置
 
@@ -79,14 +91,6 @@ gitee：https://gitee.com/junvary/gin-quasar-admin
 > set GOOS=linux
 > go build main.go
 > ```
-
-### 项目截图（Todo）：
-
-我是一个占位符
-
-### 交流群
-
-QQ群号：342045316
 
 ### 鸣谢
 
