@@ -1,5 +1,5 @@
 <template>
-    <q-page padding style="overflow-x: hidden;" class="q-gutter-y-sm">
+    <q-page padding style="overflow-x: hidden;" class="q-gutter-y-md">
         <q-card bordered class="dashboard-card">
             <q-card-section>
                 <div class="row items-center no-wrap">
@@ -29,7 +29,7 @@
             </q-card-section>
         </q-card>
 
-        <div class="row q-gutter-x-sm">
+        <div class="row q-gutter-x-md">
             <GqaCard bordered class="col" startColor="#ec4786" endColor="#b955a4">
                 <q-card-section>
                     <span class="text-h6">
@@ -38,7 +38,12 @@
                     <div class="row items-center">
                         <q-icon name="fab fa-github" size="32px" dark />
                         <q-space></q-space>
-                        <span>MIT</span>
+                        <span>
+                            {{license}}
+                        </span>
+                        <q-inner-loading :showing="loading">
+                            <q-spinner-gears size="50px" color="primary" />
+                        </q-inner-loading>
                     </div>
                 </q-card-section>
             </GqaCard>
@@ -83,21 +88,22 @@
             </GqaCard>
         </div>
 
-        <div class="row q-gutter-x-sm">
+        <div class="row q-gutter-x-md">
             <GqaCard bordered class="col">
-                <PieChart />
+                <Parallax />
+
             </GqaCard>
             <GqaCard bordered class="col">
-                <BarChart />
+                <TimeLine />
             </GqaCard>
         </div>
 
-        <div class="row q-gutter-x-sm">
-            <GqaCard bordered class="col">
-                <LineChart />
-            </GqaCard>
+        <div class="row q-gutter-x-md">
             <GqaCard bordered class="col">
                 <PieChart2 />
+            </GqaCard>
+            <GqaCard bordered class="col">
+                <BarChart />
             </GqaCard>
         </div>
 
@@ -108,11 +114,29 @@
 import GqaAvatar from 'src/components/GqaAvatar/index.vue'
 import GqaShowName from 'src/components/GqaShowName/index.vue'
 import BarChart from "./charts/BarChart";
-import PieChart from "./charts/PieChart.vue";
 import PieChart2 from "./charts/PieChart2.vue";
-import LineChart from "./charts/LineChart.vue";
 import { timeWelcome, randomWelcome } from 'src/utils/welcome'
 import GqaCard from 'src/components/GqaCard/index.vue'
+import TimeLine from './charts/TimeLine.vue'
+import Parallax from './charts/Parallax.vue'
+import axios from 'axios'
+import { onMounted, ref } from 'vue';
+import { runSequentialPromises } from 'quasar'
+
+const githubGet = axios.create()
+const loading = ref(false)
+const license = ref('MIT')
+onMounted(() => {
+    loading.value = true
+    runSequentialPromises([
+        () => githubGet.get("https://api.github.com/repos/junvary/gin-quasar-admin/license"),
+        // 更多接口
+    ]).then(resultAggregator => {
+        license.value = resultAggregator[0].value.data.license.name
+    }).finally(() => {
+        loading.value = false
+    })
+})
 </script>
 
 <style lang="scss" scoped>
