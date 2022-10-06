@@ -18,12 +18,10 @@
                         </q-item-section>
                     </q-item>
                     <div class="col-auto">
-                        <div class="column items-center">
-                            <span class="text-h8">项目数量</span>
-                            <span class="text-h5">
-                                21
-                            </span>
-                        </div>
+                        <q-statistic label="项目数量" textAlign="right">
+                            <q-icon name="star" />
+                            123456
+                        </q-statistic>
                     </div>
                 </div>
             </q-card-section>

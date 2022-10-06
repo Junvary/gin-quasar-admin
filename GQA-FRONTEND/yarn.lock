@@ -4726,10 +4726,22 @@ quasar-app-extension-qhierarchy@^1.0.9:
   dependencies:
     quasar-ui-qhierarchy latest
 
+quasar-app-extension-qstatistic@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/quasar-app-extension-qstatistic/-/quasar-app-extension-qstatistic-0.0.1.tgz#7ca9f8a6020913beb2b520a5c024a2f3c1b5e0fb"
+  integrity sha512-IyE/Ev0PyB8SfGsRZVl4J3Em4Kck4EIUbM2eoENVNzA8LGbCg4dF066i1aq53P2o0V5DH5lP0j1aphhWQDje8w==
+  dependencies:
+    quasar-ui-qstatistic latest
+
 quasar-ui-qhierarchy@latest:
   version "1.0.0"
   resolved "https://registry.npmmirror.com/quasar-ui-qhierarchy/-/quasar-ui-qhierarchy-1.0.0.tgz#787245804ee15f955f4db22a650ee442e6708344"
   integrity sha512-cLgHKRFY9hbXJBq/7ywFNB8xaDzSip/92CFnXRgIEUip45J5fbC+fvifPnB/UrcRibq2hf3ZAwTRTyMEpUIb8Q==
+
+quasar-ui-qstatistic@latest:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/quasar-ui-qstatistic/-/quasar-ui-qstatistic-0.0.3.tgz#924051036cd408125695f46e53dc97e6277ded78"
+  integrity sha512-iCaLqJQnhLwxXmtJGc1PmI+BHRjGa2uMPSU5tozTuYYOEqpaHnRwUY9Z6/Mo6q35P8mwniPA+gJR/ZQg5gI2Wg==
 
 quasar@^2.9.1:
   version "2.9.1"
