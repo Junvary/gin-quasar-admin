@@ -26,8 +26,9 @@
     "devDependencies": {
         "@quasar/app-webpack": "^3.6.1",
         "@quasar/quasar-app-extension-qiconpicker": "^2.0.6",
+        "quasar-app-extension-qcascader": "^0.0.3",
         "quasar-app-extension-qhierarchy": "^1.0.9",
-        "quasar-app-extension-qstatistic": "^0.0.1"
+        "quasar-app-extension-qstatistic": "^0.0.3"
     },
     "browserslist": [
         "last 10 Chrome versions",

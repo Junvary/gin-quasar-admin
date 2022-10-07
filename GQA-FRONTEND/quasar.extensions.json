@@ -1,5 +1,6 @@
 {
   "qhierarchy": {},
   "@quasar/qiconpicker": {},
-  "qstatistic": {}
+  "qstatistic": {},
+  "qcascader": {}
 }

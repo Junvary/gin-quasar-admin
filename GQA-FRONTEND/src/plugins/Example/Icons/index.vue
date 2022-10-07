@@ -27,7 +27,6 @@
                 </div>
             </q-tab-panel>
         </q-tab-panels>
-
     </q-page>
 </template>
 
@@ -76,4 +75,5 @@ const copyIcon = (item) => {
 </script>
 
 <style lang="scss" scoped>
+
 </style>

@@ -2,7 +2,6 @@
     <q-page padding>
         <GqaEditor v-model="text" />
     </q-page>
-
 </template>
 
 <script setup>

@@ -44,4 +44,10 @@ var sysMenuData = []gqaModel.SysMenu{
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
 		Sort: 3, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是树形表格",
 	}}, Name: "plugin-example-tree-table", Title: "树形表格", Icon: "list_alt", Path: "/plugin-example/example/tree-table", Component: "plugins/Example/TreeTable/index", ParentCode: "GqaPluginExample"},
+	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
+		Sort: 4, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是统计数据",
+	}}, Name: "plugin-example-statistic", Title: "统计数据", Icon: "filter_9_plus", Path: "/plugin-example/example/statistic", Component: "plugins/Example/Statistic/index", ParentCode: "GqaPluginExample"},
+	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
+		Sort: 5, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是级联选择器",
+	}}, Name: "plugin-example-cascader", Title: "级联选择器", Icon: "call_split", Path: "/plugin-example/example/cascader", Component: "plugins/Example/Cascader/index", ParentCode: "GqaPluginExample"},
 }
