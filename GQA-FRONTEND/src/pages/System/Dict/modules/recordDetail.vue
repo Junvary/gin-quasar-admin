@@ -11,7 +11,7 @@
             <q-separator />
 
             <q-card-section>
-                <q-form ref="addOrEditForm">
+                <q-form ref="recordDetailForm">
                     <gqa-form-top :recordDetail="recordDetail"></gqa-form-top>
                     <div class="row">
                         <q-input class="col" v-model.number="recordDetail.value.sort" type="number"
@@ -59,15 +59,7 @@
 
 <script setup>
 import useRecordDetail from 'src/composables/useRecordDetail'
-import { postAction } from 'src/api/manage'
-import { useStorageStore } from 'src/stores/storage'
-import { ref, computed } from 'vue'
-import { useQuasar } from 'quasar'
-import { useI18n } from 'vue-i18n'
-import GqaSeleteUser from 'src/components/GqaSeleteUser'
 
-const $q = useQuasar()
-const { t } = useI18n()
 const emit = defineEmits(['handleFinish'])
 const url = {
     add: 'dict/add-dict',
@@ -76,7 +68,6 @@ const url = {
 }
 const {
     dictOptions,
-    showDateTime,
     formType,
     formTypeName,
     recordDetail,
