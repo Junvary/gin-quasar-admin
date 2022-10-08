@@ -16,26 +16,29 @@ type ServiceUser struct{}
 func (s *ServiceUser) GetUserList(requestUserList model.RequestGetUserList) (err error, user interface{}, total int64) {
 	pageSize := requestUserList.PageSize
 	offset := requestUserList.PageSize * (requestUserList.Page - 1)
-	db := global.GqaDb.Model(&model.SysUser{})
 	var userList []model.SysUser
+	db := global.GqaDb.Model(&model.SysUser{})
 	//配置搜索
+	if !requestUserList.WithAdmin {
+		db = db.Where("username != ?", "admin")
+	}
 	if requestUserList.Username != "" {
 		db = db.Where("username like ?", "%"+requestUserList.Username+"%")
 	}
 	if requestUserList.RealName != "" {
 		db = db.Where("real_name like ?", "%"+requestUserList.RealName+"%")
 	}
-	err = db.Count(&total).Error
-	if err != nil {
-		return
-	}
-	if requestUserList.WithAdmin {
-		err = db.Limit(pageSize).Offset(offset).Order(model.OrderByColumn(requestUserList.SortBy, requestUserList.Desc)).
-			Preload("Role").Preload("Dept").Find(&userList).Error
+	db = db.Limit(pageSize).Offset(offset).Order(model.OrderByColumn(requestUserList.SortBy, requestUserList.Desc))
+	if requestUserList.DeptCode != "" {
+		dept := model.SysDept{
+			DeptCode: requestUserList.DeptCode,
+		}
+		err = db.Model(&dept).Preload("Role").Preload("Dept").Association("Staff").Find(&userList)
+		err = db.Count(&total).Error
 		return err, userList, total
 	} else {
-		err = db.Where("username != ?", "admin").Limit(pageSize).Offset(offset).
-			Order(model.OrderByColumn(requestUserList.SortBy, requestUserList.Desc)).Preload("Role").Preload("Dept").Find(&userList).Error
+		err = db.Preload("Role").Preload("Dept").Find(&userList).Error
+		err = db.Count(&total).Error
 		return err, userList, total
 	}
 }

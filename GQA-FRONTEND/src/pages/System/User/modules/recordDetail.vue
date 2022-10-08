@@ -5,7 +5,7 @@
                 <div class="text-h6">
                     {{ formTypeName }} {{ $t('User') }}:
                     {{ recordDetail.value.nickname ? recordDetail.value.nickname :
-                            recordDetail.value.real_name ? recordDetail.value.real_name : ""
+                    recordDetail.value.real_name ? recordDetail.value.real_name : ""
                     }}
                 </div>
             </q-card-section>
@@ -32,22 +32,22 @@
                         <q-input class="col" v-model="recordDetail.value.real_name" :label="$t('RealName')" lazy-rules
                             :rules="[val => val && val.length > 0 || $t('NeedInput')]" :disable="formType === 'edit'" />
                     </div>
-                    <div class="row">
+                    <!-- <div class="row">
                         <q-field class="col" :label="$t('Role')">
                             <template v-slot:control>
                                 <span v-for="(item, index) in recordDetail.value.role" :key="index">
-                                    {{ item.roleName }};&nbsp;
+                                    {{ item.role_name }};&nbsp;
                                 </span>
                             </template>
                         </q-field>
                         <q-field class="col" :label="$t('Dept')">
                             <template v-slot:control>
                                 <span v-for="(item, index) in recordDetail.value.dept" :key="index">
-                                    {{ item.deptName }};&nbsp;
+                                    {{ item.dept_name }};&nbsp;
                                 </span>
                             </template>
                         </q-field>
-                    </div>
+                    </div> -->
                     <div class="row">
                         <q-input class="col" v-model="recordDetail.value.mobile" :label="$t('Mobile')" />
                         <q-input class="col" v-model="recordDetail.value.email" :label="$t('Email')" />

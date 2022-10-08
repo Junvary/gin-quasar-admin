@@ -24,6 +24,7 @@ type SysUser struct {
 
 type RequestGetUserList struct {
 	RequestPageAndSort
+	DeptCode  string `json:"dept_code"`
 	Username  string `json:"username"`
 	RealName  string `json:"real_name"`
 	WithAdmin bool   `json:"with_admin"` // 是否显示admin用户
