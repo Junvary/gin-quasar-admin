@@ -9,7 +9,7 @@ import (
 
 type ServiceConfigBackend struct{}
 
-func (s *ServiceConfigBackend) GetConfigBackendList(getConfigBackendList model.RequestGetConfigBackendList) (err error, role interface{}, total int64) {
+func (s *ServiceConfigBackend) GetConfigBackendList(getConfigBackendList model.RequestGetConfigBackendList) (err error, config interface{}, total int64) {
 	pageSize := getConfigBackendList.PageSize
 	offset := getConfigBackendList.PageSize * (getConfigBackendList.Page - 1)
 	db := global.GqaDb.Model(&model.SysConfigBackend{})

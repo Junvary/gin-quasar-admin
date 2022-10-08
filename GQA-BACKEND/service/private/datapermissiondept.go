@@ -13,13 +13,13 @@ func DeptDataPermission(username string, db *gorm.DB) (err error, permissionDb *
 	user := model.SysUser{
 		Username: username,
 	}
-	var roleList []model.SysRole
-	if err = global.GqaDb.Model(&user).Association("Role").Find(&roleList); err != nil {
+	var dataPermissionList []model.SysRole
+	if err = global.GqaDb.Model(&user).Association("Role").Find(&dataPermissionList); err != nil {
 		return err, nil
 	}
 	var permissionTypeList []string
 	var permissionCustomList []string
-	for _, v := range roleList {
+	for _, v := range dataPermissionList {
 		permissionTypeList = append(permissionTypeList, v.DeptDataPermissionType)
 		if v.DeptDataPermissionCustom != "" {
 			ss := strings.Split(v.DeptDataPermissionCustom, ",")

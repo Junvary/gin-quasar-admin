@@ -20,7 +20,7 @@ func DeptList2DeptTree(deptList []model.SysDept, pCode string) []model.SysDept {
 	return deptTree
 }
 
-func (s *ServiceDept) GetDeptList(requestDeptList model.RequestGetDeptList) (err error, role interface{}, total int64) {
+func (s *ServiceDept) GetDeptList(requestDeptList model.RequestGetDeptList) (err error, dept interface{}, total int64) {
 	pageSize := requestDeptList.PageSize
 	offset := requestDeptList.PageSize * (requestDeptList.Page - 1)
 	db := global.GqaDb.Model(&model.SysDept{})

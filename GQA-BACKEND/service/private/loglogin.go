@@ -7,7 +7,7 @@ import (
 
 type ServiceLogLogin struct{}
 
-func (s *ServiceLogLogin) GetLogLoginList(requestLogList model.RequestGetLogLoginList) (err error, role interface{}, total int64) {
+func (s *ServiceLogLogin) GetLogLoginList(requestLogList model.RequestGetLogLoginList) (err error, log interface{}, total int64) {
 	pageSize := requestLogList.PageSize
 	offset := requestLogList.PageSize * (requestLogList.Page - 1)
 	db := global.GqaDb.Model(&model.SysLogLogin{})

@@ -8,7 +8,7 @@ import (
 
 type ServiceApi struct{}
 
-func (s *ServiceApi) GetApiList(getApiList model.RequestGetApiList) (err error, role interface{}, total int64) {
+func (s *ServiceApi) GetApiList(getApiList model.RequestGetApiList) (err error, api interface{}, total int64) {
 	pageSize := getApiList.PageSize
 	offset := getApiList.PageSize * (getApiList.Page - 1)
 	db := global.GqaDb.Model(&model.SysApi{})
@@ -51,8 +51,8 @@ func (s *ServiceApi) DeleteApiById(id uint) (err error) {
 	return err
 }
 
-func (s *ServiceApi) QueryApiById(id uint) (err error, roleInfo model.SysApi) {
-	var role model.SysApi
-	err = global.GqaDb.Preload("CreatedByUser").Preload("UpdatedByUser").First(&role, "id = ?", id).Error
-	return err, role
+func (s *ServiceApi) QueryApiById(id uint) (err error, apiInfo model.SysApi) {
+	var api model.SysApi
+	err = global.GqaDb.Preload("CreatedByUser").Preload("UpdatedByUser").First(&api, "id = ?", id).Error
+	return err, api
 }

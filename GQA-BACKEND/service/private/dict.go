@@ -20,7 +20,7 @@ func DictList2DictTree(dictList []model.SysDict, pCode string) []model.SysDict {
 	return dictTree
 }
 
-func (s *ServiceDict) GetDictList(requestDictList model.RequestGetDictList) (err error, role interface{}, total int64, parentCode string) {
+func (s *ServiceDict) GetDictList(requestDictList model.RequestGetDictList) (err error, dict interface{}, total int64, parentCode string) {
 	pageSize := requestDictList.PageSize
 	offset := requestDictList.PageSize * (requestDictList.Page - 1)
 	var db *gorm.DB

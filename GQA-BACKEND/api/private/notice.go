@@ -76,11 +76,11 @@ func (a *ApiNotice) QueryNoticeById(c *gin.Context) {
 	if err := model.RequestShouldBindJSON(c, &toQueryId); err != nil {
 		return
 	}
-	if err, role := servicePrivate.ServiceNotice.QueryNoticeById(toQueryId.Id); err != nil {
+	if err, notice := servicePrivate.ServiceNotice.QueryNoticeById(toQueryId.Id); err != nil {
 		global.GqaLogger.Error("查找消息失败！", zap.Any("err", err))
 		model.ResponseErrorMessage("查找消息失败，"+err.Error(), c)
 	} else {
-		model.ResponseSuccessMessageData(gin.H{"records": role}, "查找消息成功！", c)
+		model.ResponseSuccessMessageData(gin.H{"records": notice}, "查找消息成功！", c)
 	}
 }
 
@@ -90,11 +90,11 @@ func (a *ApiNotice) QueryNoticeReadById(c *gin.Context) {
 		return
 	}
 	username := utils.GetUsername(c)
-	if err, role := servicePrivate.ServiceNotice.QueryNoticeReadById(toQueryId.Id, username); err != nil {
+	if err, notice := servicePrivate.ServiceNotice.QueryNoticeReadById(toQueryId.Id, username); err != nil {
 		global.GqaLogger.Error("查找消息失败！", zap.Any("err", err))
 		model.ResponseErrorMessage("查找消息失败，"+err.Error(), c)
 	} else {
-		model.ResponseSuccessMessageData(gin.H{"records": role}, "查找消息成功！", c)
+		model.ResponseSuccessMessageData(gin.H{"records": notice}, "查找消息成功！", c)
 	}
 }
 

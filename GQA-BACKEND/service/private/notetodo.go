@@ -7,7 +7,7 @@ import (
 
 type ServiceNoteTodo struct{}
 
-func (s *ServiceNoteTodo) GetNoteTodoList(requestNoteTodoList model.RequestGetNoteTodoList, username string) (err error, role interface{}, total int64) {
+func (s *ServiceNoteTodo) GetNoteTodoList(requestNoteTodoList model.RequestGetNoteTodoList, username string) (err error, todoNote interface{}, total int64) {
 	pageSize := requestNoteTodoList.PageSize
 	offset := requestNoteTodoList.PageSize * (requestNoteTodoList.Page - 1)
 	db := global.GqaDb.Where("created_by = ?", username).Model(&model.SysNoteTodo{})

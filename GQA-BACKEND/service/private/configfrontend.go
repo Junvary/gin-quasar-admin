@@ -9,7 +9,7 @@ import (
 
 type ServiceConfigFrontend struct{}
 
-func (s *ServiceConfigFrontend) GetConfigFrontendList(getConfigFrontendList model.RequestGetConfigFrontendList) (err error, role interface{}, total int64) {
+func (s *ServiceConfigFrontend) GetConfigFrontendList(getConfigFrontendList model.RequestGetConfigFrontendList) (err error, config interface{}, total int64) {
 	pageSize := getConfigFrontendList.PageSize
 	offset := getConfigFrontendList.PageSize * (getConfigFrontendList.Page - 1)
 	db := global.GqaDb.Model(&model.SysConfigFrontend{})
