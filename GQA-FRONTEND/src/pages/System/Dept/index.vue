@@ -15,7 +15,7 @@
                 <td class="text-center">
                     <div class="q-gutter-xs">
                         <q-btn dense color="primary" @click="showEditForm(props.item)" :label="$t('Edit')" />
-                        <q-btn dense color="warning" @click="showDeptUser(props.item.dept_code)"
+                        <q-btn dense color="warning" @click="showDeptUser(props.item)"
                             :label="$t('Dept') + $t('User')" />
                         <q-btn dense color="warning" @click="showAddChildrenForm(props.item.dept_code)"
                             :label="$t('Add') + $t('Children') + $t('Dept')" />
@@ -77,8 +77,8 @@ const deptTree = computed(() => {
 })
 
 const deptUserDialog = ref(null)
-const showDeptUser = (deptCode) => {
-    deptUserDialog.value.show(deptCode)
+const showDeptUser = (dept) => {
+    deptUserDialog.value.show(dept)
 }
 const showAddParentForm = () => {
     showAddForm()

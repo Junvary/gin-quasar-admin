@@ -1,14 +1,16 @@
 <template>
-    <q-dialog v-model="roleUserVisible">
-        <q-card style="min-width: 500px; max-width: 45vw">
+    <q-dialog v-model="roleUserVisible" position="right">
+        <q-card style="min-width: 500px; max-width: 45vw; height: 100%;">
+            <q-card-section>
+                {{record.role_name}}
+            </q-card-section>
             <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
                 :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
-
                 <template v-slot:top="props">
                     <q-btn dense color="primary" @click="showAddUserForm()" :label="$t('Add') + $t('User')" />
                     <q-space />
-                    <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
-                        @click="props.toggleFullscreen" class="q-ml-md" />
+                    <!-- <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
+                        @click="props.toggleFullscreen" class="q-ml-md" /> -->
                 </template>
 
                 <template v-slot:body-cell-actions="props">
