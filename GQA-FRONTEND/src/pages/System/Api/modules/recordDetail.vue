@@ -18,11 +18,12 @@
                             :rules="[val => val >= 1 || $t('SortRule')]" :label="$t('Sort')" />
                         <q-input class="col" v-model="recordDetail.value.api_group" :label="$t('Api') + $t('Group')"
                             :rules="[val => val && val.length > 0 || $t('NeedInput')]" />
-                        <q-input class="col" v-model="recordDetail.value.api_method" :label="$t('Api') + $t('Method')"
+                        <q-select class="col" v-model="recordDetail.value.api_method" :options="methodOptions"
+                            :label="$t('Api') + $t('Method')"
                             :rules="[val => val && val.length > 0 || $t('NeedInput')]" />
                         <q-field class="col" dense :label="$t('Status')" stack-label>
                             <template v-slot:control>
-                                <q-option-group v-model="recordDetail.value.status" :options="dictOptions.statusOnOff"
+                                <q-option-group v-model="recordDetail.value.status" :options="dictOptions.onOff"
                                     color="primary" inline>
                                 </q-option-group>
                             </template>
@@ -53,15 +54,7 @@
 
 <script setup>
 import useRecordDetail from 'src/composables/useRecordDetail'
-import { postAction } from 'src/api/manage'
-import { useStorageStore } from 'src/stores/storage'
-import { ref, computed } from 'vue'
-import { useQuasar } from 'quasar'
-import { useI18n } from 'vue-i18n'
-import GqaSeleteUser from 'src/components/GqaSeleteUser'
 
-const $q = useQuasar()
-const { t } = useI18n()
 const emit = defineEmits(['handleFinish'])
 const url = {
     add: 'api/add-api',
@@ -70,7 +63,6 @@ const url = {
 }
 const {
     dictOptions,
-    showDateTime,
     formType,
     formTypeName,
     recordDetail,
@@ -86,4 +78,6 @@ defineExpose({
     formType,
     recordDetail
 })
+
+const methodOptions = ['POST']
 </script>

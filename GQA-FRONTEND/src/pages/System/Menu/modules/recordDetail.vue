@@ -52,21 +52,21 @@
                     <div class="row">
                         <q-field class="col" :label="$t('IsLink')" stack-label>
                             <template v-slot:control>
-                                <q-option-group v-model="recordDetail.value.is_link" :options="dictOptions.statusYesNo"
+                                <q-option-group v-model="recordDetail.value.is_link" :options="dictOptions.yesNo"
                                     color="primary" inline>
                                 </q-option-group>
                             </template>
                         </q-field>
                         <q-field class="col" :label="$t('KeepAlive')" stack-label>
                             <template v-slot:control>
-                                <q-option-group v-model="recordDetail.value.keep_alive"
-                                    :options="dictOptions.statusYesNo" color="primary" inline>
+                                <q-option-group v-model="recordDetail.value.keep_alive" :options="dictOptions.yesNo"
+                                    color="primary" inline>
                                 </q-option-group>
                             </template>
                         </q-field>
                         <q-field class="col" :label="$t('Hidden')" stack-label>
                             <template v-slot:control>
-                                <q-option-group v-model="recordDetail.value.hidden" :options="dictOptions.statusYesNo"
+                                <q-option-group v-model="recordDetail.value.hidden" :options="dictOptions.yesNo"
                                     color="primary" inline>
                                 </q-option-group>
                             </template>

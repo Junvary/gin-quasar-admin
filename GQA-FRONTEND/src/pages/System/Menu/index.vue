@@ -20,13 +20,13 @@
                     {{ props.item.component }}
                 </td>
                 <td class="text-center">
-                    <GqaDictShow dictName="statusYesNo" :dictCode="props.item.is_link" />
+                    <GqaDictShow :dictCode="props.item.is_link" />
                 </td>
                 <td class="text-center">
-                    <GqaDictShow dictName="statusYesNo" :dictCode="props.item.hidden" />
+                    <GqaDictShow :dictCode="props.item.hidden" />
                 </td>
                 <td class="text-center">
-                    <GqaDictShow dictName="statusYesNo" :dictCode="props.item.stable" />
+                    <GqaDictShow :dictCode="props.item.stable" />
                 </td>
                 <td class="text-center">
                     <div class="q-gutter-xs">

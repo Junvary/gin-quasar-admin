@@ -34,25 +34,25 @@ func (s *sysApi) LoadData() error {
 var sysApiData = []gqaModel.SysApi{
 
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
-		Sort: 70001, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件achievement：获取Category-list",
+		Sort: 70001, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件achievement：获取Category-list",
 	}}, ApiGroup: "plugin-achievement", ApiMethod: "POST", ApiPath: "/plugin-achievement/get-category-list"},
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
-		Sort: 70002, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件Achievement：编辑Category信息",
+		Sort: 70002, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件Achievement：编辑Category信息",
 	}}, ApiGroup: "plugin-achievement", ApiMethod: "POST", ApiPath: "/plugin-achievement/edit-category"},
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
-		Sort: 70003, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件Achievement：新增Category",
+		Sort: 70003, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件Achievement：新增Category",
 	}}, ApiGroup: "plugin-achievement", ApiMethod: "POST", ApiPath: "/plugin-achievement/add-category"},
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
-		Sort: 70004, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件Achievement：删除Category",
+		Sort: 70004, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件Achievement：删除Category",
 	}}, ApiGroup: "plugin-achievement", ApiMethod: "POST", ApiPath: "/plugin-achievement/delete-category-by-id"},
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
-		Sort: 70005, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件Achievement：根据ID查找Category",
+		Sort: 70005, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件Achievement：根据ID查找Category",
 	}}, ApiGroup: "plugin-achievement", ApiMethod: "POST", ApiPath: "/plugin-achievement/query-category-by-id"},
 
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
-		Sort: 70001, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件achievement：获取Obtain-list",
+		Sort: 70001, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件achievement：获取Obtain-list",
 	}}, ApiGroup: "plugin-achievement", ApiMethod: "POST", ApiPath: "/plugin-achievement/get-obtain-list"},
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
-		Sort: 70002, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件Achievement：查找是否获取了成就",
+		Sort: 70002, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件Achievement：查找是否获取了成就",
 	}}, ApiGroup: "plugin-achievement", ApiMethod: "POST", ApiPath: "/plugin-achievement/obtain-find"},
 }

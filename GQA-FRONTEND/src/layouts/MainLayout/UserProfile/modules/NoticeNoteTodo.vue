@@ -12,7 +12,7 @@
             </template>
             <template v-slot:body-cell-todo_status="props">
                 <q-td :props="props">
-                    <GqaDictShow dictName="statusYesNo" :dictCode="props.row.todo_status" />
+                    <GqaDictShow :dictCode="props.row.todo_status" />
                 </q-td>
             </template>
 

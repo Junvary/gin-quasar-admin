@@ -26,7 +26,7 @@ export const usePermissionStore = defineStore('permission', {
                 // 设置所有菜单
                 this.InitUserMenu(userMenu)
                 // 去掉隐藏菜单
-                const searchMenu = data.filter(value => value.hidden === "no")
+                const searchMenu = data.filter(value => value.hidden === "yesNo_no")
                 // 设置搜索菜单
                 this.InitSearchMenu(searchMenu)
                 // 深度拷贝，避免影响其他数据

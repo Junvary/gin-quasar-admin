@@ -4,18 +4,18 @@
         <q-hierarchy separator="cell" dense :columns="columns" :data="dictTree">
             <template v-slot:body="props">
                 <gqa-tree-td :treeTd="props" firstTd="sort"></gqa-tree-td>
-                <td class="text-center">{{ props.item.dict_label }}</td>
                 <td class="text-center">{{ props.item.dict_code }}</td>
+                <td class="text-center">{{ props.item.dict_label }}</td>
                 <td class="text-center">{{ props.item.dict_ext_1 }}</td>
                 <td class="text-center">{{ props.item.dict_ext_2 }}</td>
                 <td class="text-center">{{ props.item.dict_ext_3 }}</td>
                 <td class="text-center">{{ props.item.dict_ext_4 }}</td>
                 <td class="text-center">{{ props.item.dict_ext_5 }}</td>
                 <td class="text-center">
-                    <GqaDictShow dictName="statusOnOff" :dictCode="props.item.status" />
+                    <GqaDictShow :dictCode="props.item.status" />
                 </td>
                 <td class="text-center">
-                    <GqaDictShow dictName="statusYesNo" :dictCode="props.item.stable" />
+                    <GqaDictShow :dictCode="props.item.stable" />
                 </td>
                 <td class="text-center">
                     <div class="q-gutter-xs">

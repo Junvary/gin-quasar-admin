@@ -10,9 +10,9 @@ type SysMenu struct {
 	Redirect   string    `json:"redirect" gorm:"comment:重定向地址;"`
 	Title      string    `json:"title" gorm:"comment:菜单名称;"`
 	Icon       string    `json:"icon" gorm:"comment:菜单图标;"`
-	Hidden     string    `json:"hidden" gorm:"comment:是否在列表隐藏;default:no;"`
-	KeepAlive  string    `json:"keep_alive" gorm:"comment:是否缓存;default:no;"`
-	IsLink     string    `json:"is_link" gorm:"comment:是否外链;default:no;"`
+	Hidden     string    `json:"hidden" gorm:"comment:是否在列表隐藏;default:yesNo_no;"`
+	KeepAlive  string    `json:"keep_alive" gorm:"comment:是否缓存;default:yesNo_no;"`
+	IsLink     string    `json:"is_link" gorm:"comment:是否外链;default:yesNo_no;"`
 	Role       []SysRole `json:"role" gorm:"many2many:sys_role_menu;"`
 	Children   []SysMenu `json:"children" gorm:"foreignKey:ParentCode;references:Name"`
 }

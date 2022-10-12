@@ -15,14 +15,9 @@
                 <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
                     @click="props.toggleFullscreen" class="q-ml-md" />
             </template>
-            <!-- <template v-slot:body-cell-status="props">
-                <q-td :props="props">
-                    <GqaDictShow dictName="statusOnOff" :dictCode="props.row.status" />
-                </q-td>
-            </template> -->
             <template v-slot:body-cell-stable="props">
                 <q-td :props="props">
-                    <GqaDictShow dictName="statusYesNo" :dictCode="props.row.stable" />
+                    <GqaDictShow :dictCode="props.row.stable" />
                 </q-td>
             </template>
             <template v-slot:body-cell-actions="props">

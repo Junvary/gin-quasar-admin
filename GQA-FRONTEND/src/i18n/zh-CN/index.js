@@ -16,6 +16,7 @@ export default {
     ClipboardSuccess: '成功复制到剪切板',
     ClipboardFailed: '复制到剪切板失败',
     FileRejected: '文件重复或大小/类型不被允许',
+    DictHelp: "子级字典编码 必须以 父级字典编码 加 '_' 开头",
     // 单词
     SideDrawer: '侧边栏',
     Width: '宽度',
@@ -145,6 +146,16 @@ export default {
     CopyTo: '拷贝到',
     CopyToClipboard: '拷贝到剪切板',
     Clipboard: '剪切板',
+    On: '启用',
+    Off: '禁用',
+    Yes: '是',
+    No: '否',
+    Male: '男',
+    Female: '女',
+    Unknown: '未知',
+    StartWith: '以 {name} 开头',
+    Without: '不包含',
+    WithoutOther: '不包含其他',
 
     // 词组
     SystemManage: '系统管理',

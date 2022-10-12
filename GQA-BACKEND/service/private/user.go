@@ -45,11 +45,11 @@ func (s *ServiceUser) GetUserList(requestUserList model.RequestGetUserList) (err
 
 func (s *ServiceUser) EditUser(toEditUser model.SysUser) (err error) {
 	var sysUser model.SysUser
+	if sysUser.Stable == "yesNo_yes" {
+		return errors.New("系统内置不允许编辑：" + toEditUser.Username)
+	}
 	if err = global.GqaDb.Where("id = ?", toEditUser.Id).First(&sysUser).Error; err != nil {
 		return err
-	}
-	if sysUser.Stable == "yes" {
-		return errors.New("系统内置不允许编辑：" + toEditUser.Username)
 	}
 	//err = global.GqaDb.Updates(&toEditUser).Error
 	err = global.GqaDb.Save(&toEditUser).Error
@@ -75,11 +75,11 @@ func (s *ServiceUser) AddUser(toAddUser *model.SysUser) (err error) {
 
 func (s *ServiceUser) DeleteUserById(id uint) (err error) {
 	var sysUser model.SysUser
+	if sysUser.Stable == "yesNo_yes" {
+		return errors.New("系统内置不允许删除：" + sysUser.Username)
+	}
 	if err = global.GqaDb.Where("id = ?", id).First(&sysUser).Error; err != nil {
 		return err
-	}
-	if sysUser.Stable == "yes" {
-		return errors.New("系统内置不允许删除：" + sysUser.Username)
 	}
 	if err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&sysUser).Error; err != nil {
 		return err

@@ -27,7 +27,7 @@
                     </div>
                     <q-field :label="$t('Status')" stack-label>
                         <template v-slot:control>
-                            <q-option-group v-model="recordDetail.value.status" :options="dictOptions.statusOnOff"
+                            <q-option-group v-model="recordDetail.value.status" :options="dictOptions.onOff"
                                 color="primary" inline>
                             </q-option-group>
                         </template>

@@ -48,11 +48,11 @@ func (s *ServiceDict) GetDictList(requestDictList model.RequestGetDictList) (err
 
 func (s *ServiceDict) EditDict(toEditDict model.SysDict) (err error) {
 	var sysDict model.SysDict
+	if sysDict.Stable == "yesNo_yes" {
+		return errors.New("系统内置不允许编辑：" + toEditDict.DictCode)
+	}
 	if err = global.GqaDb.Where("id = ?", toEditDict.Id).First(&sysDict).Error; err != nil {
 		return err
-	}
-	if sysDict.Stable == "yes" {
-		return errors.New("系统内置不允许编辑：" + toEditDict.DictCode)
 	}
 	//err = global.GqaDb.Updates(&toEditDict).Error
 	err = global.GqaDb.Save(&toEditDict).Error
@@ -70,11 +70,11 @@ func (s *ServiceDict) AddDict(toAddDict model.SysDict) (err error) {
 
 func (s *ServiceDict) DeleteDictById(id uint) (err error) {
 	var dict model.SysDict
+	if dict.Stable == "yesNo_yes" {
+		return errors.New("系统内置不允许删除：" + dict.DictCode)
+	}
 	if err = global.GqaDb.Where("id = ?", id).First(&dict).Error; err != nil {
 		return err
-	}
-	if dict.Stable == "yes" {
-		return errors.New("系统内置不允许删除：" + dict.DictCode)
 	}
 	err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&dict).Error
 	return err

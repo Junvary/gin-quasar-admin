@@ -4,20 +4,20 @@
             :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
             <template v-slot:body-cell-notice_type="props">
                 <q-td :props="props">
-                    <GqaDictShow dictName="noticeType" :dictCode="props.row.notice_type" />
+                    <GqaDictShow :dictCode="props.row.notice_type" />
                 </q-td>
             </template>
 
             <template v-slot:body-cell-notice_read="props">
                 <q-td :props="props">
-                    <GqaDictShow dictName="statusYesNo"
+                    <GqaDictShow
                         :dictCode="props.row.notice_to_user.filter(item => item.to_user === username)[0].user_read" />
                 </q-td>
             </template>
 
             <template v-slot:body-cell-notice_sent="props">
                 <q-td :props="props">
-                    <GqaDictShow dictName="statusYesNo" :dictCode="props.row.notice_sent" />
+                    <GqaDictShow :dictCode="props.row.notice_sent" />
                 </q-td>
             </template>
 

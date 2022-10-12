@@ -7,7 +7,7 @@
             <q-btn color="negative" @click="handleAll">
                 {{ $t('Select') + $t('All') }}
             </q-btn>
-            <q-btn color="primary" @click="handleRoleMenu">
+            <q-btn color="primary" @click="handleRoleMenu" :disable="row.role_code === 'super-admin'">
                 {{ $t('Save') }}
             </q-btn>
         </div>
@@ -34,7 +34,6 @@ import useTableData from 'src/composables/useTableData'
 import { useQuasar } from 'quasar'
 import { postAction } from 'src/api/manage'
 import { computed, onMounted, ref, toRefs } from 'vue'
-import { ArrayToTree } from 'src/utils/arrayAndTree'
 
 const $q = useQuasar()
 const url = {
@@ -59,15 +58,15 @@ const {
 } = useTableData(url)
 
 const menuTree = computed(() => {
-    for (let m of tableData.value) {
-        if (row.value.role_code === 'super-admin' && m.name === 'role') {
-            m.disabled = true
+    // 如果是super-admin角色，那么禁用角色管理编辑，保证可以访问此界面。
+    if (row.value.role_code === 'super-admin' && tableData.value.length) {
+        for (let m of tableData.value[0].children) {
+            if (m.name === 'role') {
+                m.disabled = true
+            }
         }
     }
-    if (tableData.value.length !== 0) {
-        return ArrayToTree(tableData.value, 'name', 'parent_code')
-    }
-    return []
+    return tableData.value
 })
 onMounted(() => {
     pagination.value.rowsPerPage = 99999

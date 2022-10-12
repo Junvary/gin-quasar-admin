@@ -46,11 +46,11 @@ func (s *ServiceConfigFrontend) AddConfigFrontend(toAddConfigFrontend model.SysC
 
 func (s *ServiceConfigFrontend) DeleteConfigFrontendById(id uint) (err error) {
 	var sysConfigFrontend model.SysConfigFrontend
+	if sysConfigFrontend.Stable == "yesNo_yes" {
+		return errors.New("系统内置不允许删除：" + sysConfigFrontend.ConfigItem)
+	}
 	if err = global.GqaDb.Where("id = ?", id).First(&sysConfigFrontend).Error; err != nil {
 		return err
-	}
-	if sysConfigFrontend.Stable == "yes" {
-		return errors.New("系统内置不允许删除：" + sysConfigFrontend.ConfigItem)
 	}
 	err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&sysConfigFrontend).Error
 	return err

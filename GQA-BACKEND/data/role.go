@@ -33,6 +33,6 @@ func (s *sysRole) LoadData() error {
 
 var sysRoleData = []model.SysRole{
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 1, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是超级管理员组，拥有所有权限，请不要编辑！",
-	}}, RoleCode: "super-admin", RoleName: "超级管理员组", DeptDataPermissionType: "all"},
+		Sort: 1, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是超级管理员组，拥有所有权限，请不要编辑！",
+	}}, RoleCode: "super-admin", RoleName: "超级管理员组", DeptDataPermissionType: "deptDataPermissionType_all"},
 }

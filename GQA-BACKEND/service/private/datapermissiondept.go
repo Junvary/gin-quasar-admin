@@ -33,14 +33,14 @@ func DeptDataPermission(username string, db *gorm.DB) (err error, permissionDb *
 Loop:
 	for _, v := range tList {
 		switch v {
-		case "all":
+		case "deptDataPermissionType_all":
 			//如果权限列表中包含 all，那么直接放弃其他判断，跳出循环
 			permissionDb = db
 			break Loop
-		case "user":
+		case "deptDataPermissionType_user":
 			//用户自己的数据权限，直接查找创建人为自己的数据
 			permissionDb = tempDb.Where("created_by = ?", username)
-		case "dept":
+		case "deptDataPermissionType_dept":
 			//部门数据权限
 			var deptList []model.SysDept
 			if err = global.GqaDb.Model(&user).Association("Dept").Find(&deptList); err != nil {
@@ -57,7 +57,7 @@ Loop:
 			}
 			allUser := utils.RemoveDuplicateElementFromSlice(deptUserList)
 			permissionDb = tempDb.Or(tempDb.Where("created_by in ?", allUser))
-		case "deptAndChildren":
+		case "deptDataPermissionType_deptAndChildren":
 			//包含子部门的部门数据权限
 			var deptList []model.SysDept
 			if err = global.GqaDb.Model(&user).Association("Dept").Find(&deptList); err != nil {
@@ -80,7 +80,7 @@ Loop:
 			}
 			allUser := utils.RemoveDuplicateElementFromSlice(deptUserList)
 			permissionDb = tempDb.Or(tempDb.Where("created_by in ?", allUser))
-		case "custom":
+		case "deptDataPermissionType_custom":
 			//自定义部门数据权限
 			var deptUserList []string
 			for _, dept := range cList {

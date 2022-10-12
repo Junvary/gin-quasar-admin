@@ -29,10 +29,10 @@
                         默认效果
                     </template>
                     <template v-else-if="props.row.config_item === 'loginLayoutStyle'">
-                        <GqaDictShow dictName="displayStyle" :dictCode="props.row.item_default" />
+                        <GqaDictShow :dictCode="props.row.item_default" />
                     </template>
                     <template v-else-if="props.row.config_item === 'showGit'">
-                        <GqaDictShow dictName="statusYesNo" :dictCode="props.row.item_default" />
+                        <GqaDictShow :dictCode="props.row.item_default" />
                     </template>
                     <template v-else>
                         {{ props.row.item_default }}
@@ -59,12 +59,10 @@
                         <GqaAvatar :src="props.row.item_custom || 'favicon.ico'" />
                     </template>
                     <template v-else-if="props.row.config_item === 'loginLayoutStyle'">
-                        <GqaDictShow dictName="displayStyle" :dictCode="props.row.item_custom"
-                            v-if="props.row.item_custom !== ''" />
+                        <GqaDictShow :dictCode="props.row.item_custom" v-if="props.row.item_custom !== ''" />
                     </template>
                     <template v-else-if="props.row.config_item === 'showGit'">
-                        <GqaDictShow dictName="statusYesNo" :dictCode="props.row.item_custom"
-                            v-if="props.row.item_custom !== ''" />
+                        <GqaDictShow :dictCode="props.row.item_custom" v-if="props.row.item_custom !== ''" />
                     </template>
                     <template v-else>
                         {{ props.row.item_custom }}
@@ -78,8 +76,8 @@
                                 inline @update:model-value="scope.set">
                             </q-option-group>
                             <q-option-group v-else-if="props.row.config_item === 'showGit'"
-                                v-model="props.row.item_custom" :options="dictOptions.statusYesNo" color="primary"
-                                inline @update:model-value="scope.set">
+                                v-model="props.row.item_custom" :options="dictOptions.yesNo" color="primary" inline
+                                @update:model-value="scope.set">
                             </q-option-group>
                             <GqaPluginList v-else-if="props.row.config_item === 'pluginLoginLayout'" showChoose
                                 @changeSuccess="handleSetLoginLayout($event, scope)"
@@ -126,13 +124,13 @@
 
             <template v-slot:body-cell-status="props">
                 <q-td :props="props">
-                    <GqaDictShow dictName="statusOnOff" :dictCode="props.row.status" />
+                    <GqaDictShow :dictCode="props.row.status" />
                 </q-td>
             </template>
 
             <template v-slot:body-cell-stable="props">
                 <q-td :props="props">
-                    <GqaDictShow dictName="statusYesNo" :dictCode="props.row.stable" />
+                    <GqaDictShow :dictCode="props.row.stable" />
                 </q-td>
             </template>
 

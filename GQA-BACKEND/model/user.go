@@ -15,7 +15,7 @@ type SysUser struct {
 	RealName string    `json:"real_name" gorm:"comment:真实姓名;"`
 	Password string    `json:"-"  gorm:"comment:用户密码;"`
 	Avatar   string    `json:"avatar" gorm:"comment:头像"`
-	Gender   string    `json:"gender" gorm:"comment:性别;default:u;"`
+	Gender   string    `json:"gender" gorm:"comment:性别;default:gender_unknown;"`
 	Mobile   string    `json:"mobile" gorm:"comment:手机号;"`
 	Email    string    `json:"email" gorm:"comment:邮箱;"`
 	Role     []SysRole `json:"role" gorm:"many2many:sys_user_role;foreignKey:Username;joinForeignKey:SysUserUsername;references:RoleCode;joinReferences:SysRoleRoleCode;"`

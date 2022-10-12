@@ -31,7 +31,7 @@ type GqaModel struct {
 	UpdatedBy string         `json:"updated_by"`
 	DeletedAt gorm.DeletedAt `json:"-" gorm:"index"`
 	Sort      uint           `json:"sort" gorm:"comment:排序;default:1;"`
-	Stable    string         `json:"stable" gorm:"comment:系统内置;default:no;type:varchar(10);"`
-	Status    string         `json:"status" gorm:"comment:状态;default:on;type:varchar(10);"`
+	Stable    string         `json:"stable" gorm:"comment:系统内置;default:yesNo_no;type:varchar(10);"`
+	Status    string         `json:"status" gorm:"comment:状态;default:onOff_on;type:varchar(10);"`
 	Memo      string         `json:"memo" gorm:"comment:备注描述;type:text;"`
 }

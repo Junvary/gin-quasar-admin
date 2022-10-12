@@ -4,7 +4,7 @@ type SysDict struct {
 	GqaModelWithCreatedByAndUpdatedBy
 	//ParentCode 对应 DictCode
 	ParentCode string    `json:"parent_code" gorm:"comment:父字典编码;index"`
-	DictCode   string    `json:"dict_code" gorm:"comment:字典编码;not null;index;"`
+	DictCode   string    `json:"dict_code" gorm:"comment:字典编码;not null;uniqueIndex;"`
 	DictLabel  string    `json:"dict_label" gorm:"comment:字典名称;not null;"`
 	DictExt1   string    `json:"dict_ext_1" gorm:"comment:字典扩展项1;"`
 	DictExt2   string    `json:"dict_ext_2" gorm:"comment:字典扩展项2;"`

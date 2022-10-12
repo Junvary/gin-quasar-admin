@@ -31,11 +31,11 @@ func (s *ServiceRole) GetRoleList(requestRoleList model.RequestGetRoleList) (err
 
 func (s *ServiceRole) EditRole(toEditRole model.SysRole) (err error) {
 	var sysRole model.SysRole
+	if sysRole.Stable == "yesNo_yes" {
+		return errors.New("系统内置不允许编辑：" + toEditRole.RoleCode)
+	}
 	if err = global.GqaDb.Where("id = ?", toEditRole.Id).First(&sysRole).Error; err != nil {
 		return err
-	}
-	if sysRole.Stable == "yes" {
-		return errors.New("系统内置不允许编辑：" + toEditRole.RoleCode)
 	}
 	//err = global.GqaDb.Updates(&toEditRole).Error
 	err = global.GqaDb.Save(&toEditRole).Error
@@ -53,11 +53,11 @@ func (s *ServiceRole) AddRole(toAddRole model.SysRole) (err error) {
 
 func (s *ServiceRole) DeleteRoleById(id uint) (err error) {
 	var sysRole model.SysRole
+	if sysRole.Stable == "yesNo_yes" {
+		return errors.New("系统内置不允许删除：" + sysRole.RoleCode)
+	}
 	if err = global.GqaDb.Where("id = ?", id).First(&sysRole).Error; err != nil {
 		return err
-	}
-	if sysRole.Stable == "yes" {
-		return errors.New("系统内置不允许删除：" + sysRole.RoleCode)
 	}
 	roleCode := sysRole.RoleCode
 	// 删除 sys_role_api 表的权限
@@ -159,7 +159,7 @@ func (s *ServiceRole) EditRoleDeptDataPermission(toEditRoleDeptDataPermission *m
 	if err = global.GqaDb.Where("role_code = ?", toEditRoleDeptDataPermission.RoleCode).First(&sysRole).Error; err != nil {
 		return err
 	}
-	if sysRole.Stable == "yes" {
+	if sysRole.Stable == "yesNo_yes" {
 		return errors.New("系统内置不允许编辑：" + toEditRoleDeptDataPermission.RoleCode)
 	}
 	sysRole.DeptDataPermissionType = toEditRoleDeptDataPermission.DeptDataPermissionType

@@ -42,11 +42,11 @@ func (s *ServiceMenu) GetMenuList(requestMenuList model.RequestGetMenuList) (err
 
 func (s *ServiceMenu) EditMenu(toEditMenu model.SysMenu) (err error) {
 	var sysMenu model.SysMenu
+	if sysMenu.Stable == "yesNo_yes" {
+		return errors.New("系统内置不允许编辑：" + toEditMenu.Title)
+	}
 	if err = global.GqaDb.Where("id = ?", toEditMenu.Id).First(&sysMenu).Error; err != nil {
 		return err
-	}
-	if sysMenu.Stable == "yes" {
-		return errors.New("系统内置不允许编辑：" + toEditMenu.Title)
 	}
 	//err = global.GqaDb.Updates(&toEditMenu).Error
 	err = global.GqaDb.Save(&toEditMenu).Error
@@ -60,11 +60,11 @@ func (s *ServiceMenu) AddMenu(toAddMenu model.SysMenu) (err error) {
 
 func (s *ServiceMenu) DeleteMenuById(id uint) (err error) {
 	var sysMenu model.SysMenu
+	if sysMenu.Stable == "yesNo_yes" {
+		return errors.New("系统内置不允许删除：" + sysMenu.Title)
+	}
 	if err = global.GqaDb.Where("id = ?", id).First(&sysMenu).Error; err != nil {
 		return err
-	}
-	if sysMenu.Stable == "yes" {
-		return errors.New("系统内置不允许删除：" + sysMenu.Title)
 	}
 	err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&sysMenu).Error
 	return err

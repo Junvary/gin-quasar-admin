@@ -33,11 +33,11 @@ func (s *sysMenu) LoadData() error {
 
 var sysMenuData = []gqaModel.SysMenu{
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
-		Sort: 70001, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是{{ .PluginName }}插件",
+		Sort: 70001, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是{{ .PluginName }}插件",
 	}}, Name: "GqaPlugin{{.PluginCode}}", Title: "{{ .PluginName }}", Icon: "home", Path: "", Component: ""},
 	{{ range .PluginModel }}
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
-		Sort: 1, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是{{ .ModelName }}",
+		Sort: 1, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是{{ .ModelName }}",
 	}}, Name: "plugin-{{$.PluginCode}}-{{ .ModelName }}", Title: "{{ .ModelName }}", Icon: "home", Path: "/plugin-{{$.PluginCode}}/{{$.PluginCode}}/{{ .ModelName }}", Component: "plugins/{{$.PluginCode}}/{{ .ModelName }}/index", ParentCode: "GqaPlugin{{$.PluginCode}}"},
     {{ end }}
 }

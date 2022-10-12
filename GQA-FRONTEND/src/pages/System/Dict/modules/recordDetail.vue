@@ -1,10 +1,13 @@
 <template>
     <q-dialog v-model="recordDetailVisible" position="top">
-        <q-card style="width: 800px; max-width: 80vw;">
+        <q-card style="width: 1000px; max-width: 80vw;">
             <q-card-section>
                 <div class="text-h6">
-                    {{ formTypeName }} {{ $t('Dict') }}:
-                    {{ recordDetail.value.dict_name }}
+                    {{ formTypeName }}{{ $t('Dict') }}:
+                    {{ recordDetail.value.dict_label }}
+                    <div class="text-subtitle2 text-deep-orange" v-if="recordDetail.value.parent_code">
+                        {{$t('DictHelp')}} , {{$t('WithoutOther')}} '_'
+                    </div>
                 </div>
             </q-card-section>
 
@@ -16,12 +19,35 @@
                     <div class="row">
                         <q-input class="col" v-model.number="recordDetail.value.sort" type="number"
                             :rules="[val => val >= 1 || $t('SortRule')]" :label="$t('Sort')" />
-                        <q-input class="col" v-model="recordDetail.value.dict_code" :label="$t('Dict') + $t('Code')"
-                            lazy-rules :rules="[val => val && val.length > 0 || $t('NeedInput')]" />
+                        <template v-if="recordDetail.value.parent_code">
+                            <q-input class="col" v-model="recordDetail.value.parent_code"
+                                :label="$t('Parent') + $t('Code')" lazy-rules disable
+                                :rules="[val => val && val.length > 0 || $t('NeedInput')]" />
+                        </template>
+                    </div>
+                    <div class="row">
                         <q-input class="col" v-model="recordDetail.value.dict_label" :label="$t('Dict') + $t('Name')"
                             lazy-rules :rules="[val => val && val.length > 0 || $t('NeedInput')]" />
-                        <q-input class="col" v-model="recordDetail.value.parent_code"
-                            :label="$t('Parent') + $t('Dict') + $t('Code')" />
+                        <template v-if="recordDetail.value.parent_code">
+                            <q-input class="col" v-model="recordDetail.value.dict_code" lazy-rules label-slot :rules="[val => 
+                            val && val.length > 0 
+                            && val.indexOf(recordDetail.value.parent_code +'_') === 0 
+                            && val.slice(recordDetail.value.parent_code.length + 1).indexOf('_') === -1 
+                            || $t('FixForm')]">
+                                <template v-slot:label>
+                                    <span class="text-weight-bold text-deep-orange">
+                                        {{$t('Dict')}}{{$t('Code')}}
+                                        ( {{$t('StartWith', {name: recordDetail.value.parent_code + '_ '})}},
+                                        {{$t('WithoutOther')}} _ )
+                                    </span>
+                                </template>
+                            </q-input>
+                        </template>
+                        <!-- val && val.length > 0 && val.indexOf(recordDetail.value.parent_code) !== 0        || $t('NeedInput')-->
+                        <template v-else>
+                            <q-input class="col" v-model="recordDetail.value.dict_code" :label="$t('Dict') + $t('Code')"
+                                lazy-rules :rules="[val => val && val.length > 0 || $t('NeedInput')]" />
+                        </template>
                     </div>
                     <div class="row">
                         <q-input class="col" v-model="recordDetail.value.dict_ext_1" label="Ext1" lazy-rules />
@@ -33,7 +59,7 @@
                     <div class="row">
                         <q-field class="col" :label="$t('Status')" stack-label>
                             <template v-slot:control>
-                                <q-option-group v-model="recordDetail.value.status" :options="dictOptions.statusOnOff"
+                                <q-option-group v-model="recordDetail.value.status" :options="dictOptions.onOff"
                                     color="primary" inline>
                                 </q-option-group>
                             </template>

@@ -16,6 +16,7 @@ export default {
     ClipboardSuccess: 'Successfully copied to the clipboard',
     ClipboardFailed: 'Error on copy to clipboard',
     FileRejected: 'Duplicate file or size / type not allowed',
+    DictHelp: "Child dict code must start with the parent dict code and '_'",
     // word
     SideDrawer: 'SideDrawer',
     Width: 'Width',
@@ -94,7 +95,7 @@ export default {
     Code: 'Code',
     NoteTodo: 'Todo Note',
     Permission: 'Permission',
-    Dict: 'Dictionary',
+    Dict: 'Dict',
     Detail: 'Detail',
     Browser: 'Browser',
     Os: 'Operation System',
@@ -144,6 +145,16 @@ export default {
     CopyTo: 'Copy To',
     CopyToClipboard: 'Copy To Clipboard',
     Clipboard: 'Clipboard',
+    On: 'On',
+    Off: 'Off',
+    Yes: 'Yes',
+    No: 'No',
+    Male: 'Male',
+    Female: 'Female',
+    Unknown: 'Unknown',
+    StartWith: 'start with {name}',
+    Without: 'with out',
+    WithoutOther: 'with out other',
 
     // phrase
     SystemManage: 'System Manage',

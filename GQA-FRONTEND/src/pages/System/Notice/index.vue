@@ -5,7 +5,7 @@
             <q-input style="width: 20%" v-model="queryParams.notice_title" :label="$t('Title')" />
             <q-select style="width: 20%" v-model="queryParams.notice_type" :options="dictOptions.noticeType" emit-value
                 map-options :label="$t('Notice') + $t('Type')" />
-            <q-select style="width: 20%" v-model="queryParams.notice_sent" :options="dictOptions.statusYesNo" emit-value
+            <q-select style="width: 20%" v-model="queryParams.notice_sent" :options="dictOptions.yesNo" emit-value
                 map-options :label="$t('Sent')" />
             <q-btn color="primary" @click="handleSearch" :label="$t('Search')" />
             <q-btn color="primary" @click="resetSearch" :label="$t('Reset')" />
@@ -23,13 +23,13 @@
 
             <template v-slot:body-cell-notice_type="props">
                 <q-td :props="props">
-                    <GqaDictShow dictName="noticeType" :dictCode="props.row.notice_type" />
+                    <GqaDictShow :dictCode="props.row.notice_type" />
                 </q-td>
             </template>
 
             <template v-slot:body-cell-notice_sent="props">
                 <q-td :props="props">
-                    <GqaDictShow dictName="statusYesNo" :dictCode="props.row.notice_sent" />
+                    <GqaDictShow :dictCode="props.row.notice_sent" />
                 </q-td>
             </template>
 

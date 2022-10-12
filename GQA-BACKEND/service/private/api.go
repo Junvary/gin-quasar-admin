@@ -29,7 +29,9 @@ func (s *ServiceApi) GetApiList(getApiList model.RequestGetApiList) (err error, 
 }
 
 func (s *ServiceApi) EditApi(toEditApi model.SysApi) (err error) {
-	// 因为前台只传 custom 字段，这里允许编辑
+	if toEditApi.Stable == "yesNo_yes" {
+		return errors.New("系统内置不允许删除")
+	}
 	err = global.GqaDb.Save(&toEditApi).Error
 	return err
 }
@@ -41,11 +43,11 @@ func (s *ServiceApi) AddApi(toAddApi model.SysApi) (err error) {
 
 func (s *ServiceApi) DeleteApiById(id uint) (err error) {
 	var sysApi model.SysApi
+	if sysApi.Stable == "yesNo_yes" {
+		return errors.New("系统内置不允许删除")
+	}
 	if err = global.GqaDb.Where("id = ?", id).First(&sysApi).Error; err != nil {
 		return err
-	}
-	if sysApi.Stable == "yes" {
-		return errors.New("系统内置不允许删除")
 	}
 	err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&sysApi).Error
 	return err

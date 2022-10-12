@@ -10,7 +10,7 @@
                     <GqaShowName :customNameObject="props.item.leader_user" />
                 </td>
                 <td class="text-center">
-                    <GqaDictShow dictName="statusOnOff" :dictCode="props.item.status" />
+                    <GqaDictShow :dictCode="props.item.status" />
                 </td>
                 <td class="text-center">
                     <div class="q-gutter-xs">

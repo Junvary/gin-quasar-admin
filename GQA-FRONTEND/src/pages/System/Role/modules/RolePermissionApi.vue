@@ -5,7 +5,7 @@
                 {{ $t('Clear') + $t('All') }}</q-btn>
             <q-btn color="negative" @click="handleAll">
                 {{ $t('Select') + $t('All') }}</q-btn>
-            <q-btn color="primary" @click="handleRoleApi">
+            <q-btn color="primary" @click="handleRoleApi" :disable="row.role_code === 'super-admin'">
                 {{ $t('Save') }}
             </q-btn>
         </div>
@@ -133,7 +133,14 @@ const apiData = computed(() => {
             }
         }
         apiTab.value = apiTree[0].api_group
-        console.log(apiTree)
+        // 如果是super-admin角色，那么禁用所有API编辑，保证API可以拥有全部调用权限。
+        if (row.value.role_code === 'super-admin') {
+            for (let a of apiTree) {
+                for (let i of a.children) {
+                    i.disabled = true
+                }
+            }
+        }
         return apiTree
     }
     return []

@@ -1,7 +1,6 @@
 import { LocalStorage } from "quasar"
 import { useStorageStore } from "src/stores/storage"
 
-
 export async function DictOptions() {
     const detailLocal = LocalStorage.getItem('gqa-dict')
     const storageStore = useStorageStore()
@@ -11,6 +10,5 @@ export async function DictOptions() {
         await storageStore.SetGqaDict().then(() => {
             return LocalStorage.getItem('gqa-dict')
         })
-
     }
 }

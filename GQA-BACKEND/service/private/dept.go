@@ -44,11 +44,11 @@ func (s *ServiceDept) GetDeptList(requestDeptList model.RequestGetDeptList) (err
 
 func (s *ServiceDept) EditDept(toEditDept model.SysDept) (err error) {
 	var sysDept model.SysDept
+	if sysDept.Stable == "yesNo_yes" {
+		return errors.New("系统内置不允许编辑：" + toEditDept.DeptCode)
+	}
 	if err = global.GqaDb.Where("id = ?", toEditDept.Id).First(&sysDept).Error; err != nil {
 		return err
-	}
-	if sysDept.Stable == "yes" {
-		return errors.New("系统内置不允许编辑：" + toEditDept.DeptCode)
 	}
 	//err = global.GqaDb.Updates(&toEditDept).Error
 	err = global.GqaDb.Save(&toEditDept).Error
@@ -66,11 +66,11 @@ func (s *ServiceDept) AddDept(toAddDept model.SysDept) (err error) {
 
 func (s *ServiceDept) DeleteDeptById(id uint) (err error) {
 	var sysDept model.SysDept
+	if sysDept.Stable == "yesNo_yes" {
+		return errors.New("系统内置不允许删除：" + sysDept.DeptCode)
+	}
 	if err = global.GqaDb.Where("id = ?", id).First(&sysDept).Error; err != nil {
 		return err
-	}
-	if sysDept.Stable == "yes" {
-		return errors.New("系统内置不允许删除：" + sysDept.DeptCode)
 	}
 	if err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&sysDept).Error; err != nil {
 		return err

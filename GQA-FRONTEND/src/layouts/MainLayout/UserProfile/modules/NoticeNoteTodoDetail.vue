@@ -17,7 +17,7 @@
 
                     <q-field :label="$t('Done')" stack-label>
                         <template v-slot:control>
-                            <q-option-group v-model="recordDetail.value.todo_status" :options="dictOptions.statusYesNo"
+                            <q-option-group v-model="recordDetail.value.todo_status" :options="dictOptions.yesNo"
                                 color="primary" inline>
                             </q-option-group>
                         </template>

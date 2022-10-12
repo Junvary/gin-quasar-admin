@@ -33,14 +33,14 @@ func (s *sysMenu) LoadData() error {
 
 var sysMenuData = []gqaModel.SysMenu{
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
-		Sort: 70001, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是成就系统插件",
+		Sort: 70001, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是成就系统插件",
 	}}, Name: "GqaPluginAchievement", Title: "成就系统", Icon: "fas fa-award", Path: "", Component: ""},
 
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
-		Sort: 1, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是Category",
+		Sort: 1, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是Category",
 	}}, Name: "plugin-achievement-category", Title: "成就分类", Icon: "fas fa-award", Path: "/plugin-achievement/achievement/category", Component: "plugins/Achievement/Category/index", ParentCode: "GqaPluginAchievement"},
 
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
-		Sort: 2, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是Obtain",
+		Sort: 2, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是Obtain",
 	}}, Name: "plugin-achievement-obtain", Title: "成就获取明细", Icon: "fas fa-award", Path: "/plugin-achievement/achievement/obtain", Component: "plugins/Achievement/Obtain/index", ParentCode: "GqaPluginAchievement"},
 }

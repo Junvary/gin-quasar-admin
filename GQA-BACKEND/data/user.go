@@ -33,6 +33,7 @@ func (s *sysUser) LoadData() error {
 
 var sysUserData = []model.SysUser{
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 1, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "我不会告诉你，其实我是一个管理员",
-	}}, Username: "admin", Nickname: "我是超管", RealName: "超级管理员", Password: "e10adc3949ba59abbe56e057f20f883e", Avatar: "", Gender: "u", Mobile: "1234567890", Email: "11111111111"},
+		Sort: 1, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "我不会告诉你，其实我是一个管理员",
+	}}, Username: "admin", Nickname: "我是超管", RealName: "超级管理员", Password: "e10adc3949ba59abbe56e057f20f883e",
+		Avatar: "", Gender: "gender_unknown", Mobile: "1234567890", Email: "11111111111"},
 }

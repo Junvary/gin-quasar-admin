@@ -26,7 +26,7 @@
                             :rules="[val => val >= 1 || '排序必须大于0']" label="排序" />
                         <q-field class="col" dense label="是否启用" stack-label>
                             <template v-slot:control>
-                                <q-option-group v-model="recordDetail.value.status" :options="dictOptions.statusOnOff"
+                                <q-option-group v-model="recordDetail.value.status" :options="dictOptions.onOff"
                                     color="primary" inline>
                                 </q-option-group>
                             </template>
