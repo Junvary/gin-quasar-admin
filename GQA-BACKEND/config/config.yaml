@@ -1,9 +1,13 @@
+importAndExport:
+    import: ./template/import
+    export: ./template/export
+    template: ./template/template
 mysql:
     host:
-    port:
+    port: 
     user:
     password:
-    database: 
+    database:
     maxIdle: 0
     maxOpen: 0
 system:

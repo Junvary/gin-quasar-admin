@@ -50,4 +50,7 @@ var sysMenuData = []gqaModel.SysMenu{
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
 		Sort: 5, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是级联选择器",
 	}}, Name: "plugin-example-cascader", Title: "级联选择器", Icon: "call_split", Path: "/plugin-example/example/cascader", Component: "plugins/Example/Cascader/index", ParentCode: "GqaPluginExample"},
+	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
+		Sort: 6, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是数据导入导出",
+	}}, Name: "plugin-example-test-data", Title: "数据导入导出", Icon: "import_export", Path: "/plugin-example/example/test-data", Component: "plugins/Example/ExportData/index", ParentCode: "GqaPluginExample"},
 }

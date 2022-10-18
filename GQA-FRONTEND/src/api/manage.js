@@ -42,17 +42,8 @@ export function deleteAction(url, params) {
     })
 }
 
-export function downFile(url, params) {
-    return api({
-        url: url,
-        params: params,
-        method: 'get',
-        responseType: 'blob'
-    })
-}
-
-export async function downloadAction(url, fileName, params) {
-    const data = await downFile(url, params)
+export async function downloadAction(url, params, fileName) {
+    const data = await postBlobAction(url, params)
     if (!data || data.size === 0) {
         Notify.create({
             type: 'negative',
