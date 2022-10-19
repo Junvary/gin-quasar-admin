@@ -104,12 +104,12 @@ func DownloadTemplateTestData(c *gin.Context) {
 	if err := gqaModel.RequestShouldBindJSON(c, &filename); err != nil {
 		return
 	}
-	err := gqaUtils.CheckAndCreatePath(gqaGlobal.GqaConfig.ImportAndExport.Template)
+	err := gqaUtils.CheckAndCreatePath(gqaGlobal.GqaConfig.System.TemplatePath)
 	if err != nil {
 		gqaGlobal.GqaLogger.Error("创建模板文件夹失败！", zap.Any("err", err))
 		gqaModel.ResponseErrorMessage("创建模板文件夹失败，"+err.Error(), c)
 	}
-	templateFile := gqaGlobal.GqaConfig.ImportAndExport.Template + "/" + filename.Filename
+	templateFile := gqaGlobal.GqaConfig.System.TemplatePath + "/" + filename.Filename
 	_, err = os.Stat(templateFile)
 	if err != nil {
 		gqaGlobal.GqaLogger.Error("模板文件不存在！", zap.Any("err", err))
@@ -123,12 +123,12 @@ func ExportTestData(c *gin.Context) {
 	if err := gqaModel.RequestShouldBindJSON(c, &getTestDataList); err != nil {
 		return
 	}
-	err := gqaUtils.CheckAndCreatePath(gqaGlobal.GqaConfig.ImportAndExport.Export)
+	err := gqaUtils.CheckAndCreatePath(gqaGlobal.GqaConfig.System.ExportPath)
 	if err != nil {
 		gqaGlobal.GqaLogger.Error("创建文件夹失败！", zap.Any("err", err))
 		gqaModel.ResponseErrorMessage("创建文件夹失败，"+err.Error(), c)
 	}
-	filePath := gqaGlobal.GqaConfig.ImportAndExport.Export + "/GqaExport-" + time.Now().Format("20060102150405") + ".xlsx"
+	filePath := gqaGlobal.GqaConfig.System.ExportPath + "/GqaExport-" + time.Now().Format("20060102150405") + ".xlsx"
 	if err := privateservice.ExportTestData(getTestDataList, filePath, gqaUtils.GetUsername(c)); err != nil {
 		gqaGlobal.GqaLogger.Error("导出数据失败！", zap.Any("err", err))
 		gqaModel.ResponseErrorMessage("导出数据失败！"+err.Error(), c)
@@ -145,13 +145,13 @@ func ImportTestData(c *gin.Context) {
 		gqaModel.ResponseErrorMessage("解析文件失败，"+err.Error(), c)
 		return
 	}
-	err = gqaUtils.CheckAndCreatePath(gqaGlobal.GqaConfig.ImportAndExport.Import)
+	err = gqaUtils.CheckAndCreatePath(gqaGlobal.GqaConfig.System.ImportPath)
 	if err != nil {
 		gqaGlobal.GqaLogger.Error("创建导入文件夹失败！", zap.Any("err", err))
 		gqaModel.ResponseErrorMessage("创建导入文件夹失败，"+err.Error(), c)
 	}
 	filename := username + "-" + time.Now().Format("20060102150405") + ".xlsx"
-	err = c.SaveUploadedFile(avatarHeader, gqaGlobal.GqaConfig.ImportAndExport.Import+"/"+filename)
+	err = c.SaveUploadedFile(avatarHeader, gqaGlobal.GqaConfig.System.ImportPath+"/"+filename)
 	if err != nil {
 		return
 	}

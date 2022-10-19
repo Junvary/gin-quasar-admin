@@ -1,10 +1,9 @@
 package config
 
 type Config struct {
-	Zap             Zap             `yaml:"zap"`
-	Mysql           Mysql           `yaml:"mysql"`
-	System          System          `yaml:"private"`
-	ImportAndExport ImportAndExport `yaml:"importAndExport"`
+	Zap    Zap    `yaml:"zap"`
+	Mysql  Mysql  `yaml:"mysql"`
+	System System `yaml:"private"`
 }
 
 type Zap struct {
@@ -35,10 +34,7 @@ type System struct {
 	ErrorMessage   string `yaml:"errorMessage"`
 	BindError      string `yaml:"bindError"`
 	GenPluginPath  string `yaml:"genPluginPath"`
-}
-
-type ImportAndExport struct {
-	Import   string `yaml:"import"`
-	Export   string `yaml:"export"`
-	Template string `yaml:"template"`
+	ImportPath     string `yaml:"importPath"`
+	ExportPath     string `yaml:"exportPath"`
+	TemplatePath   string `yaml:"templatePath"`
 }

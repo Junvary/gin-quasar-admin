@@ -1,7 +1,3 @@
-importAndExport:
-    import: ./template/import
-    export: ./template/export
-    template: ./template/template
 mysql:
     host:
     port: 
@@ -18,6 +14,9 @@ system:
     errorMessage: 操作失败！
     bindError: 入参校验失败！
     genPluginPath: template/gqaplugintemplate
+    importPath: ./template/import
+    exportPath: ./template/export
+    templatePath: ./template/template
 zap:
     prefix: '[gin-quasar-admin]'
     level: info

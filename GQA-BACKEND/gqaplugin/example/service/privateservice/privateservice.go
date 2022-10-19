@@ -122,7 +122,7 @@ func ExportTestData(getTestDataList model.RequestGetTestDataList, filePath strin
 func ImportTestData(filename string) error {
 	skipHeader := true
 	excelHeader := []string{"第1列", "第2列", "第3列", "第4列", "第5列"}
-	file, err := excelize.OpenFile(gqaGlobal.GqaConfig.ImportAndExport.Import + "/" + filename)
+	file, err := excelize.OpenFile(gqaGlobal.GqaConfig.System.ImportPath + "/" + filename)
 	if err != nil {
 		return err
 	}
