@@ -28,9 +28,9 @@ const pluginComponent = ref(null)
 const dbNeedInit = ref(true)
 
 const loginLayout = computed(() => {
-    if (gqaFrontend.value.loginLayoutStyle && gqaFrontend.value.loginLayoutStyle === 'simple') {
+    if (gqaFrontend.value.loginLayoutStyle && gqaFrontend.value.loginLayoutStyle === 'displayStyle_simple') {
         return indexSimple
-    } else if (gqaFrontend.value.loginLayoutStyle && gqaFrontend.value.loginLayoutStyle === 'complex') {
+    } else if (gqaFrontend.value.loginLayoutStyle && gqaFrontend.value.loginLayoutStyle === 'displayStyle_complex') {
         return indexComplex
     } else {
         return indexSimple

@@ -12,7 +12,7 @@
                         </p>
                         <div class="buttons">
                             <q-btn push color="primary" @click="openLink('https://gitee.com/junvary/gin-quasar-admin')"
-                                v-if="gqaFrontend.showGit === 'yes'">
+                                v-if="gqaFrontend.showGit === 'yesNo_yes'">
                                 Gitee
                             </q-btn>
 
@@ -21,7 +21,7 @@
                             </q-btn>
 
                             <q-btn push color="primary" @click="openLink('https://github.com/Junvary/gin-quasar-admin')"
-                                v-if="gqaFrontend.showGit === 'yes'">
+                                v-if="gqaFrontend.showGit === 'yesNo_yes'">
                                 Github
                             </q-btn>
                         </div>
@@ -41,7 +41,7 @@
                     </p>
                     <div class="buttons">
                         <q-btn push color="primary" @click="openLink('https://gitee.com/junvary/gin-quasar-admin')"
-                            v-if="gqaFrontend.showGit === 'yes'">
+                            v-if="gqaFrontend.showGit === 'yesNo_yes'">
                             Gitee
                         </q-btn>
 
@@ -50,7 +50,7 @@
                         </q-btn>
 
                         <q-btn push color="primary" @click="openLink('https://github.com/Junvary/gin-quasar-admin')"
-                            v-if="gqaFrontend.showGit === 'yes'">
+                            v-if="gqaFrontend.showGit === 'yesNo_yes'">
                             Github
                         </q-btn>
                     </div>

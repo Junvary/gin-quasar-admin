@@ -46,7 +46,7 @@ var sysConfigFrontendData = []model.SysConfigFrontend{
 	}}, ConfigItem: "webDescribe", ItemDefault: "Lorem ipsum dolor sit amet consectetur adipisicing elit"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
 		Sort: 5, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "登录页风格",
-	}}, ConfigItem: "loginLayoutStyle", ItemDefault: "simple"},
+	}}, ConfigItem: "loginLayoutStyle", ItemDefault: "displayStyle_simple"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
 		Sort: 6, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "登录页插件",
 	}}, ConfigItem: "pluginLoginLayout", ItemDefault: ""},
@@ -58,5 +58,5 @@ var sysConfigFrontendData = []model.SysConfigFrontend{
 	}}, ConfigItem: "favicon", ItemDefault: ""},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
 		Sort: 9, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "显示仓库入口",
-	}}, ConfigItem: "showGit", ItemDefault: "yes"},
+	}}, ConfigItem: "showGit", ItemDefault: "yesNo_yes"},
 }
