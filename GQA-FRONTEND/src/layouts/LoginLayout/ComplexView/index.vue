@@ -2,8 +2,6 @@
     <q-layout style="overflow-x: hidden">
         <q-page-container>
             <page-banner />
-            <!-- <GqaScrollDown id="login-layout-scroll-down" class="login-layout-scroll-down"
-                v-if="pluginCurrent && pluginComponent && showScrollDown" @click="scrollDown" /> -->
             <component v-if="pluginCurrent && pluginComponent" :key="pluginCurrent" :is="pluginComponent" />
             <q-card v-else class="row items-center justify-center" style="padding: 20px 0;">
                 <q-btn color="primary" :label="$t('LoginLayoutWithoutPlugin')"></q-btn>
@@ -20,7 +18,6 @@
 import { ref, onUnmounted, onBeforeMount, toRefs } from 'vue';
 import PageBanner from './PageBanner.vue'
 import PageFooter from './PageFooter.vue'
-import GqaScrollDown from 'src/components/GqaScrollDown/index.vue'
 
 const props = defineProps({
     pluginComponent: {
@@ -42,12 +39,6 @@ onBeforeMount(() => {
 onUnmounted(() => {
     window.removeEventListener('scroll', documentTop())
 })
-
-const scrollDown = () => {
-    document.getElementById('login-layout-scroll-down').nextElementSibling.scrollIntoView({
-        behavior: 'smooth',
-    })
-}
 
 const documentTop = () => {
     let top = document.documentElement.scrollTop

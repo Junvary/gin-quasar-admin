@@ -1,6 +1,6 @@
 <template>
     <div>
-        <section id="gqa-banner" v-if="bannerImage !== ''">
+        <section id="gqa-banner">
             <q-img :src="bannerImage" fit="cover" style="width: 100%; max-height: 95vh">
                 <div class="container-custom">
                     <div class="container-title">
@@ -29,43 +29,13 @@
                 </div>
             </q-img>
         </section>
-
-        <section class="gin-quasar-admin-banner" id="gqa-banner" v-else>
-            <div class="container-default">
-                <div class="container-title">
-                    <h1>
-                        {{ gqaFrontend.subTitle }}
-                    </h1>
-                    <p class="small-title">
-                        {{ gqaFrontend.webDescribe }}
-                    </p>
-                    <div class="buttons">
-                        <q-btn push color="primary" @click="openLink('https://gitee.com/junvary/gin-quasar-admin')"
-                            v-if="gqaFrontend.showGit === 'yesNo_yes'">
-                            Gitee
-                        </q-btn>
-
-                        <q-btn push color="primary" @click="showLoginForm">
-                            {{ $t('Login') }}
-                        </q-btn>
-
-                        <q-btn push color="primary" @click="openLink('https://github.com/Junvary/gin-quasar-admin')"
-                            v-if="gqaFrontend.showGit === 'yesNo_yes'">
-                            Github
-                        </q-btn>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <login-dialog ref="loginDialog" />
-
     </div>
 </template>
 
 <script setup>
-import { ref, computed, toRefs } from 'vue';
-import LoginDialog from './LoginDialog.vue'
+import { ref, computed } from 'vue';
+import LoginDialog from '../LoginDialog.vue'
 import { useStorageStore } from 'src/stores/storage'
 
 const loginDialog = ref(null);
@@ -77,7 +47,7 @@ const bannerImage = computed(() => {
     if (gqaFrontend.value.bannerImage && gqaFrontend.value.bannerImage.substring(0, 11) === 'gqa-upload:') {
         return process.env.API + gqaFrontend.value.bannerImage.substring(11)
     }
-    return ''
+    return "/img/sky.jpg"
 })
 
 const showLoginForm = () => {

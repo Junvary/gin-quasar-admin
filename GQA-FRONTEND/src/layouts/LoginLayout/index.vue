@@ -1,7 +1,10 @@
 <template>
     <q-layout style="overflow-x: hidden">
         <q-page-container>
-            <component :is="loginLayout" :pluginComponent="pluginComponent" :pluginCurrent="pluginCurrent"
+            <div class="gqa-login-layout-img-container" v-if="dbNeedInit">
+                <InitDbView @initDbSuccess="checkDb" />
+            </div>
+            <component v-else :is="loginLayout" :pluginComponent="pluginComponent" :pluginCurrent="pluginCurrent"
                 :dbNeedInit="dbNeedInit" @initDbSuccess="checkDb" />
         </q-page-container>
     </q-layout>
@@ -10,8 +13,9 @@
 <script setup>
 import useCommon from 'src/composables/useCommon'
 import { computed, onBeforeMount, ref, markRaw, defineAsyncComponent } from 'vue'
-import indexSimple from './indexSimple.vue'
-import indexComplex from './indexComplex.vue'
+import SimpleView from './SimpleView/index.vue'
+import ComplexView from './ComplexView/index.vue'
+import InitDbView from './InitDbView/index.vue'
 import { postAction } from 'src/api/manage'
 import { useStorageStore } from 'src/stores/storage'
 import { useQuasar } from 'quasar'
@@ -29,11 +33,11 @@ const dbNeedInit = ref(true)
 
 const loginLayout = computed(() => {
     if (gqaFrontend.value.loginLayoutStyle && gqaFrontend.value.loginLayoutStyle === 'displayStyle_simple') {
-        return indexSimple
+        return SimpleView
     } else if (gqaFrontend.value.loginLayoutStyle && gqaFrontend.value.loginLayoutStyle === 'displayStyle_complex') {
-        return indexComplex
+        return ComplexView
     } else {
-        return indexSimple
+        return SimpleView
     }
 })
 

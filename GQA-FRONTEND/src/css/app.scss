@@ -38,9 +38,10 @@
 .gqa-form {
     & .q-field {
         &__bottom--animated {
-            left   : -5px;
-            bottom : 15px !important;
-            z-index: 10;
+            left          : -5px;
+            bottom        : 15px !important;
+            z-index       : 10;
+            pointer-events: none;
 
             & .q-field__messages {
                 & div {
