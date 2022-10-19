@@ -1,6 +1,7 @@
 package privateservice
 
 import (
+	"errors"
 	"fmt"
 	gqaGlobal "github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/example/model"
@@ -116,4 +117,42 @@ func ExportTestData(getTestDataList model.RequestGetTestDataList, filePath strin
 		err = excel.SaveAs(filePath)
 		return err
 	}
+}
+
+func ImportTestData(filename string) error {
+	skipHeader := true
+	excelHeader := []string{"第1列", "第2列", "第3列", "第4列", "第5列"}
+	file, err := excelize.OpenFile(gqaGlobal.GqaConfig.ImportAndExport.Import + "/" + filename)
+	if err != nil {
+		return err
+	}
+	dataList := make([]model.GqaPluginExampleTestData, 0)
+	rows, err := file.Rows("Sheet1")
+	if err != nil {
+		return err
+	}
+	for rows.Next() {
+		row, err := rows.Columns()
+		if err != nil {
+			return err
+		}
+		if skipHeader {
+			if gqaUtils.CompareStringSlice(row, excelHeader) {
+				skipHeader = false
+				continue
+			} else {
+				return errors.New("导入文件存在错误")
+			}
+		}
+		data := model.GqaPluginExampleTestData{
+			Column1: row[0],
+			Column2: row[1],
+			Column3: row[2],
+			Column4: row[3],
+			Column5: row[4],
+		}
+		dataList = append(dataList, data)
+	}
+	err = gqaGlobal.GqaDb.Create(&dataList).Error
+	return err
 }

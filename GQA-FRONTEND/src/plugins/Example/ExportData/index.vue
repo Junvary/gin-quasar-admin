@@ -11,12 +11,19 @@
             <template v-slot:top="props">
                 <div class="row q-gutter-x-md">
                     <q-btn color="primary" @click="showAddForm()" label="新增测试数据" />
+                    <GqaUploader url="plugin-example/import-test-data" @importFinish="getTableData" />
                     <q-btn color="primary" @click="downloadTemplate()" label="下载模板" />
                     <q-btn color="primary" @click="exportData()" label="导出查询数据" />
                 </div>
                 <q-space />
                 <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
                     @click="props.toggleFullscreen" class="q-ml-md" />
+            </template>
+
+            <template v-slot:body-cell-created_at="props">
+                <q-td :props="props">
+                    {{ showDateTime(props.row.created_at) }}
+                </q-td>
             </template>
 
             <template v-slot:body-cell-actions="props">
@@ -35,10 +42,12 @@
 <script setup>
 import { downloadAction } from 'src/api/manage';
 import useTableData from 'src/composables/useTableData'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import recordDetail from './modules/recordDetail'
 import { FormatDateTimeShort } from 'src/utils/date'
+import GqaUploader from 'src/components/GqaUploader'
+import { FormatDateTime } from 'src/utils/date'
 
 const { t } = useI18n()
 const url = {
@@ -54,6 +63,7 @@ const columns = computed(() => {
         { name: 'column3', align: 'center', label: '第3列', field: 'column_3' },
         { name: 'column4', align: 'center', label: '第4列', field: 'column_4' },
         { name: 'column5', align: 'center', label: '第5列', field: 'column_5' },
+        { name: 'created_at', align: 'center', label: '创建时间', field: 'created_at' },
         { name: 'actions', align: 'center', label: t('Actions'), field: 'actions' },
     ]
 })
@@ -78,6 +88,12 @@ onMounted(() => {
     pagination.value.sortBy = 'created_at'
     pagination.value.descending = true
     getTableData()
+})
+
+const showDateTime = computed(() => {
+    return (datetime) => {
+        return FormatDateTime(datetime)
+    }
 })
 
 const exportData = () => {

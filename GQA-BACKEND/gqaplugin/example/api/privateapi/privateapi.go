@@ -138,5 +138,27 @@ func ExportTestData(c *gin.Context) {
 }
 
 func ImportTestData(c *gin.Context) {
-
+	username := gqaUtils.GetUsername(c)
+	_, avatarHeader, err := c.Request.FormFile("file")
+	if err != nil {
+		gqaGlobal.GqaLogger.Error("解析文件失败！", zap.Any("err", err))
+		gqaModel.ResponseErrorMessage("解析文件失败，"+err.Error(), c)
+		return
+	}
+	err = gqaUtils.CheckAndCreatePath(gqaGlobal.GqaConfig.ImportAndExport.Import)
+	if err != nil {
+		gqaGlobal.GqaLogger.Error("创建导入文件夹失败！", zap.Any("err", err))
+		gqaModel.ResponseErrorMessage("创建导入文件夹失败，"+err.Error(), c)
+	}
+	filename := username + "-" + time.Now().Format("20060102150405") + ".xlsx"
+	err = c.SaveUploadedFile(avatarHeader, gqaGlobal.GqaConfig.ImportAndExport.Import+"/"+filename)
+	if err != nil {
+		return
+	}
+	if err = privateservice.ImportTestData(filename); err != nil {
+		gqaGlobal.GqaLogger.Error("导入数据失败！", zap.Any("err", err))
+		gqaModel.ResponseErrorMessage("导入数据失败，"+err.Error(), c)
+	} else {
+		gqaModel.ResponseSuccessMessage("导入数据成功！", c)
+	}
 }
