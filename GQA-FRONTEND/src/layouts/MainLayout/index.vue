@@ -29,7 +29,7 @@
                     <ChatAndNotice />
                     <AddNoteTodo />
                     <Setting />
-                    <GitLink v-if="gqaFrontend.showGit === 'yes'" />
+                    <GitLink v-if="gqaFrontend.showGit === 'yesNo_yes'" />
                     <UserMenu @showProfile="$refs.userProfile.show()" />
                 </div>
             </q-toolbar>

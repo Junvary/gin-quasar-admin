@@ -39,7 +39,7 @@ export default function useCommon() {
         mainTitle: "Gin-Quasar-Admin",
         subTitle: "Gin-Quasar-Admin",
         webDescribe: "Be the change you want to see in the world.",
-        showGit: "yes"
+        showGit: "yesNo_yes"
     }
     // 没有网站后台配置的时候用这个配置
     const GqaBackendDefault = {}
