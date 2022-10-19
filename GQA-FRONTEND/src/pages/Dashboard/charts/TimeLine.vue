@@ -15,9 +15,11 @@
 </template>
 
 <script setup>
-import { onMounted, ref, computed } from 'vue';
+import { onMounted, ref } from 'vue';
 import axios from 'axios'
-import { FormatDateTime } from 'src/utils/date'
+import useCommon from 'src/composables/useCommon'
+
+const { showDateTime } = useCommon()
 
 const loading = ref(false)
 const githubGet = axios.create()
@@ -30,10 +32,5 @@ onMounted(() => {
     }).finally(() => {
         loading.value = false
     })
-})
-const showDateTime = computed(() => {
-    return (datetime) => {
-        return FormatDateTime(datetime)
-    }
 })
 </script>

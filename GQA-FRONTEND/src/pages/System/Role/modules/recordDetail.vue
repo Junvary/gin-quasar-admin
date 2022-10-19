@@ -53,15 +53,7 @@
 
 <script setup>
 import useRecordDetail from 'src/composables/useRecordDetail'
-import { postAction } from 'src/api/manage'
-import { useStorageStore } from 'src/stores/storage'
-import { ref, computed } from 'vue'
-import { useQuasar } from 'quasar'
-import { useI18n } from 'vue-i18n'
-import GqaSeleteUser from 'src/components/GqaSeleteUser'
 
-const $q = useQuasar()
-const { t } = useI18n()
 const emit = defineEmits(['handleFinish'])
 const url = {
     add: 'role/add-role',
@@ -69,8 +61,6 @@ const url = {
     queryById: 'role/query-role-by-id',
 }
 const {
-    dictOptions,
-    showDateTime,
     formType,
     formTypeName,
     recordDetail,

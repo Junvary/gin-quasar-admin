@@ -53,8 +53,9 @@
 import useTableData from 'src/composables/useTableData'
 import { computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { FormatDateTime } from 'src/utils/date'
+import useCommon from 'src/composables/useCommon'
 
+const { showDateTime } = useCommon()
 const { t } = useI18n()
 const url = {
     list: 'log/get-log-login-list',
@@ -92,11 +93,5 @@ onMounted(async () => {
     pagination.value.sortBy = 'created_at'
     pagination.value.descending = true
     getTableData()
-})
-
-const showDateTime = computed(() => {
-    return (datetime) => {
-        return FormatDateTime(datetime)
-    }
 })
 </script>

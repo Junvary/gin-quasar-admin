@@ -47,8 +47,9 @@ import { useI18n } from 'vue-i18n'
 import recordDetail from './modules/recordDetail'
 import { FormatDateTimeShort } from 'src/utils/date'
 import GqaUploader from 'src/components/GqaUploader'
-import { FormatDateTime } from 'src/utils/date'
+import useCommon from 'src/composables/useCommon'
 
+const { showDateTime } = useCommon()
 const { t } = useI18n()
 const url = {
     list: 'plugin-example/get-test-data-list',
@@ -88,12 +89,6 @@ onMounted(() => {
     pagination.value.sortBy = 'created_at'
     pagination.value.descending = true
     getTableData()
-})
-
-const showDateTime = computed(() => {
-    return (datetime) => {
-        return FormatDateTime(datetime)
-    }
 })
 
 const exportData = () => {

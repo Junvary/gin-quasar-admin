@@ -109,7 +109,6 @@ const url = {
 const {
     GqaAvatar,
     dictOptions,
-    showDateTime,
     formType,
     formTypeName,
     recordDetail,

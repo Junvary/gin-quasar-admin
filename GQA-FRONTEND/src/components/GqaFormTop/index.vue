@@ -27,10 +27,11 @@
 </template>
 
 <script setup>
-import { toRefs, computed } from 'vue';
-import { FormatDateTime } from 'src/utils/date'
+import { toRefs } from 'vue';
 import GqaShowName from 'src/components/GqaShowName'
+import useCommon from 'src/composables/useCommon'
 
+const { showDateTime } = useCommon()
 const props = defineProps({
     recordDetail: {
         type: Object,
@@ -38,9 +39,4 @@ const props = defineProps({
     }
 })
 const { recordDetail } = toRefs(props);
-const showDateTime = computed(() => {
-    return (datetime) => {
-        return FormatDateTime(datetime)
-    }
-})
 </script>
