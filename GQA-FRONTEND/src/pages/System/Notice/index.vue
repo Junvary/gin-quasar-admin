@@ -6,7 +6,8 @@
             <q-select style="width: 20%" v-model="queryParams.notice_type" :options="dictOptions.noticeType" emit-value
                 map-options :label="$t('Notice') + $t('Type')" />
             <q-select style="width: 20%" v-model="queryParams.notice_sent" :options="dictOptions.yesNo" emit-value
-                map-options :label="$t('Sent')" />
+                map-options :label="$t('Sent')"
+                :option-label="opt => Object(opt) === opt && 'label' in opt ? $t(opt.label) : '- Null -'" />
             <q-btn color="primary" @click="handleSearch" :label="$t('Search')" />
             <q-btn color="primary" @click="resetSearch" :label="$t('Reset')" />
         </div>

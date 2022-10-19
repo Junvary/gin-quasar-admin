@@ -32,22 +32,6 @@
                         <q-input class="col" v-model="recordDetail.value.real_name" :label="$t('RealName')" lazy-rules
                             :rules="[val => val && val.length > 0 || $t('NeedInput')]" :disable="formType === 'edit'" />
                     </div>
-                    <!-- <div class="row">
-                        <q-field class="col" :label="$t('Role')">
-                            <template v-slot:control>
-                                <span v-for="(item, index) in recordDetail.value.role" :key="index">
-                                    {{ item.role_name }};&nbsp;
-                                </span>
-                            </template>
-                        </q-field>
-                        <q-field class="col" :label="$t('Dept')">
-                            <template v-slot:control>
-                                <span v-for="(item, index) in recordDetail.value.dept" :key="index">
-                                    {{ item.dept_name }};&nbsp;
-                                </span>
-                            </template>
-                        </q-field>
-                    </div> -->
                     <div class="row">
                         <q-input class="col" v-model="recordDetail.value.mobile" :label="$t('Mobile')" />
                         <q-input class="col" v-model="recordDetail.value.email" :label="$t('Email')" />
@@ -58,6 +42,11 @@
                             <template v-slot:control>
                                 <q-option-group v-model="recordDetail.value.gender" :options="dictOptions.gender"
                                     color="primary" inline>
+                                    <template v-slot:label="opt">
+                                        <div class="row items-center">
+                                            <span>{{ $t(opt.label) }}</span>
+                                        </div>
+                                    </template>
                                 </q-option-group>
                             </template>
                         </q-field>
@@ -65,6 +54,11 @@
                             <template v-slot:control>
                                 <q-option-group v-model="recordDetail.value.status" :options="dictOptions.onOff"
                                     color="primary" inline :disable="recordDetail.value.username === 'admin'">
+                                    <template v-slot:label="opt">
+                                        <div class="row items-center">
+                                            <span>{{ $t(opt.label) }}</span>
+                                        </div>
+                                    </template>
                                 </q-option-group>
                             </template>
                         </q-field>

@@ -4,7 +4,8 @@
         <div class="items-center row q-gutter-md" style="margin-bottom: 10px">
             <q-input style="width: 20%" v-model="queryParams.login_username" :label="$t('User')" />
             <q-select style="width: 20%" v-model="queryParams.login_success" :options="dictOptions.yesNo" emit-value
-                map-options :label="$t('Login') + $t('Success')" />
+                map-options :label="$t('Login') + $t('Success')"
+                :option-label="opt => Object(opt) === opt && 'label' in opt ? $t(opt.label) : '- Null -'" />
 
             <q-btn color="primary" @click="handleSearch" :label="$t('Search')" />
             <q-btn color="primary" @click="resetSearch" :label="$t('Reset')" />

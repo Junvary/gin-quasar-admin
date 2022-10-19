@@ -20,7 +20,7 @@ func (a *ApiLogin) Login(c *gin.Context) {
 		if err, user := servicePublic.ServiceLogin.Login(u); err != nil {
 			global.GqaLogger.Error(l.Username+" 登录失败，用户名或密码错误！", zap.Any("err", err))
 			model.ResponseErrorMessage("用户名或密码错误，"+err.Error(), c)
-			if err = servicePublic.ServiceLogin.LogLogin(l.Username, c, "no", "登录失败，用户名或密码错误！"); err != nil {
+			if err = servicePublic.ServiceLogin.LogLogin(l.Username, c, "yesNo_no", "登录失败，用户名或密码错误！"); err != nil {
 				global.GqaLogger.Error("登录日志记录错误！", zap.Any("err", err))
 			}
 		} else {
@@ -28,7 +28,7 @@ func (a *ApiLogin) Login(c *gin.Context) {
 		}
 	} else {
 		model.ResponseErrorMessage("验证码错误！", c)
-		if err := servicePublic.ServiceLogin.LogLogin(l.Username, c, "no", "验证码错误！"); err != nil {
+		if err := servicePublic.ServiceLogin.LogLogin(l.Username, c, "yesNo_no", "验证码错误！"); err != nil {
 			global.GqaLogger.Error("登录日志记录错误！", zap.Any("err", err))
 		}
 	}
@@ -41,7 +41,7 @@ func (a *ApiLogin) createToken(user model.SysUser, c *gin.Context) {
 		model.ResponseErrorMessage("Jwt配置错误，请重新初始化数据库！", c)
 		return
 	}
-	if err := servicePublic.ServiceLogin.LogLogin(user.Username, c, "yes", "登录成功！"); err != nil {
+	if err := servicePublic.ServiceLogin.LogLogin(user.Username, c, "yesNo_yes", "登录成功！"); err != nil {
 		global.GqaLogger.Error("登录日志记录错误！", zap.Any("err", err))
 	}
 	if err := servicePublic.ServiceLogin.SaveOnline(user.Username, ss); err != nil {

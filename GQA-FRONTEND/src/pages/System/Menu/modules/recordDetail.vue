@@ -54,6 +54,11 @@
                             <template v-slot:control>
                                 <q-option-group v-model="recordDetail.value.is_link" :options="dictOptions.yesNo"
                                     color="primary" inline>
+                                    <template v-slot:label="opt">
+                                        <div class="row items-center">
+                                            <span>{{ $t(opt.label) }}</span>
+                                        </div>
+                                    </template>
                                 </q-option-group>
                             </template>
                         </q-field>
@@ -61,6 +66,11 @@
                             <template v-slot:control>
                                 <q-option-group v-model="recordDetail.value.keep_alive" :options="dictOptions.yesNo"
                                     color="primary" inline>
+                                    <template v-slot:label="opt">
+                                        <div class="row items-center">
+                                            <span>{{ $t(opt.label) }}</span>
+                                        </div>
+                                    </template>
                                 </q-option-group>
                             </template>
                         </q-field>
@@ -68,6 +78,11 @@
                             <template v-slot:control>
                                 <q-option-group v-model="recordDetail.value.hidden" :options="dictOptions.yesNo"
                                     color="primary" inline>
+                                    <template v-slot:label="opt">
+                                        <div class="row items-center">
+                                            <span>{{ $t(opt.label) }}</span>
+                                        </div>
+                                    </template>
                                 </q-option-group>
                             </template>
                         </q-field>
