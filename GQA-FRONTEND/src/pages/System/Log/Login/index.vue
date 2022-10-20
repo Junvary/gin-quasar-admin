@@ -22,7 +22,7 @@
 
             <template v-slot:body-cell-login_success="props">
                 <q-td :props="props">
-                    <q-badge align="middle" :color="props.row.login_success === 'no' ? 'negative' : 'positive'">
+                    <q-badge align="middle" :color="props.row.login_success === 'yesNo_no' ? 'negative' : 'positive'">
                         <GqaDictShow :dictCode="props.row.login_success" />
                     </q-badge>
                 </q-td>

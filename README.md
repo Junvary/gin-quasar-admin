@@ -1,20 +1,30 @@
 <h1>Gin-Quasar-Admin<sup>v2</sup></h1>
 
+[English](README.en.md) | 简体中文
+
 <div align=center>
 <img src="https://i.loli.net/2020/12/14/cnJoF9r1BXY7Da5.png" width=150" height="150" />
 <h1>Gin-Quasar-Admin<sup>v2</sup></h1>
 <img src="https://img.shields.io/badge/Vue-3.2.33-brightgreen"/> 
 <img src="https://img.shields.io/badge/Quasar-2.9.2-brightgreen"/>                          
-<img src="https://img.shields.io/badge/Go-1.19.1-brightgreen"/>                          
+<img src="https://img.shields.io/badge/Go-1.19.2-brightgreen"/>                          
 <img src="https://img.shields.io/badge/Gin-1.8.1-brightgreen"/>                              
 <img src="https://img.shields.io/badge/Gorm-1.23.6-brightgreen"/>                  
 <img src="https://img.shields.io/badge/License-MIT-brightgreen"/>                                                                 </div>
 
-#### 项目使用 Go语言、Gin框架、Vue3(script-setup语法糖)、Quasar2搭建，通过插件形式进行个性化逻辑开发，通过网页端快速配置出个性化网站。V2版本是v1版本的完全重写升级版本，代码更加精简，逻辑更加清晰，欢迎使用！
+#### 基于Quasar2、Vue3、 Go、Gin、Gorm搭建的全功能管理系统。
+
+#### 可通过插件形式进行个性化逻辑开发，通过网页端快速配置出个性化网站。
+
+#### V2版本是v1版本的完全重写升级版本，代码更加精简，逻辑更加清晰，欢迎使用！
 
 <div align=center>项目在不断完善中，欢迎Clone、Fork、Issue、PR。如果你感觉不错，麻烦给个小小的 Star 鼓励一下！</div>
 
 ***
+
+### 交流群
+
+QQ群号：342045316
 
 ### 项目截图：
 
@@ -28,15 +38,12 @@
 
 ![dark.png](https://s2.loli.net/2022/10/03/YB8eZkGusUpCjtS.png)
 
-### 交流群
-
-QQ群号：342045316
-
 ### 在线体验
 
 1. 地址：http://81.68.159.232/
 2. 用户名：admin
 3. 密码：123456
+4. 为了他人方便，请不要修改密码等信息。
 
 ### 主要功能：
 
@@ -53,19 +60,9 @@ github：https://github.com/Junvary/gin-quasar-admin
 
 gitee：https://gitee.com/junvary/gin-quasar-admin
 
-### 插件列表
-
-| 序号  | 插件名      | 仓库                                               | 描述/特点                    |
-|:---:|:--------:|:------------------------------------------------:|:------------------------:|
-| 1   | 系统开发科    | https://github.com/Junvary/gqa-plugin-xtkfk      | 包含登录页插件和常见增删改查的比较完善的插件样例 |
-| 2   | 考勤统计     | https://github.com/Junvary/gqa-plugin-attendance | 在插件中连接并查询其他数据库           |
-| 3   | 工会固定资产折旧 | https://github.com/Junvary/gqa-plugin-AssetGh    | 打印功能、导出功能                |
-| 4   | 投票插件     | https://github.com/Junvary/gqa-plugin-vote       | 不使用基础Model的表，较多逻辑，图表展示   |
-| 5   | 泛微CAS    | https://github.com/Junvary/gqa-plugin-weaverCas  | 对接泛微的CAS认证例子             |
-
 ### 插件开发与接入方式
 
-1. 开发：后端gqaplugin目录、前端plugins目录建立对应文件，开发完成可提取成单独仓库。
+1. 开发：后端gqaplugin目录、前端plugins目录建立对应文件，开发完成可提取成单独仓库（或通过插件生成相关目录手动移入）。
 2. 接入：clone或下载插件仓库代码，gqaplugin目录中文件夹放入GQA-BACKEND/gqaplugin目录（后端），plugins目录中文件夹放入GQA-FRONTEND/src/pugins目录即可。注：后端可通过github直接导入，部分插件需按插件说明引入。
 
 ### 项目运行：
@@ -75,10 +72,10 @@ gitee：https://gitee.com/junvary/gin-quasar-admin
 > ```
 > // 进入前端文件夹：GQA-FRONTEND后安装依赖：
 > yarn
-> // 运行项目（或者你需要 'yarn global add @quasar/cli' ？）：
-> yarn run dev
+> // 运行项目：
+> yarn dev
 > // 打包：
-> yarn run build
+> yarn build
 > ```
 
 > 后端：
