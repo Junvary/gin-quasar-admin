@@ -11,6 +11,8 @@ English | [简体中文](README.md)
 <img src="https://img.shields.io/badge/Gin-1.8.1-brightgreen"/>                              
 <img src="https://img.shields.io/badge/Gorm-1.23.6-brightgreen"/>                  
 <img src="https://img.shields.io/badge/License-MIT-brightgreen"/>                                                                 </div>
+
+
 #### A full-featured management system based on Quasar2/Vue3/Go/Gin/Gorm,it supports i18n.
 
 #### You can develop plugins and configure Gin-Quasar-Admin as your personalized website,it's easy.

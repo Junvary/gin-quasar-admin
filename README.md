@@ -12,6 +12,7 @@
 <img src="https://img.shields.io/badge/Gorm-1.23.6-brightgreen"/>                  
 <img src="https://img.shields.io/badge/License-MIT-brightgreen"/>                                                                 </div>
 
+
 #### 基于Quasar2、Vue3、 Go、Gin、Gorm搭建的全功能管理系统。
 
 #### 可通过插件形式（和主仓隔离）进行个性化逻辑开发，可通过网页快速配置出个性化网站。
