@@ -52,8 +52,8 @@ func (a *ApiUpload) UploadBannerImage(c *gin.Context) {
 	}
 	err, bannerImageUrl := servicePrivate.ServiceUpload.UploadBannerImage(img, bannerImage)
 	if err != nil {
-		global.GqaLogger.Error("上传网站Logo失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("上传网站Logo失败，"+err.Error(), c)
+		global.GqaLogger.Error("上传图片失败！", zap.Any("err", err))
+		model.ResponseErrorMessage("上传图片失败，"+err.Error(), c)
 	} else {
 		model.ResponseSuccessData(gin.H{"records": bannerImageUrl}, c)
 	}
@@ -84,8 +84,8 @@ func (a *ApiUpload) UploadFavicon(c *gin.Context) {
 	}
 	err, icoUrl := servicePrivate.ServiceUpload.UploadFavicon(logo, logoHeader)
 	if err != nil {
-		global.GqaLogger.Error("上传标签页Logo失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("上传标签页Logo失败，"+err.Error(), c)
+		global.GqaLogger.Error("上传Favicon失败！", zap.Any("err", err))
+		model.ResponseErrorMessage("上传Favicon失败，"+err.Error(), c)
 	} else {
 		model.ResponseSuccessData(gin.H{"records": icoUrl}, c)
 	}

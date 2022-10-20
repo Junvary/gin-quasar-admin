@@ -27,7 +27,7 @@ const init = () => {
     chart.value.setOption(options.value);
 }
 const onResize = () => {
-    chart.value.resize()
+    chart.value?.resize()
 }
 const options = ref({
     xAxis: {
