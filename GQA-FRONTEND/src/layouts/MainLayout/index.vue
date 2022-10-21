@@ -3,7 +3,8 @@
         style="overflow-x: hidden;">
         <q-header reveal elevated :class="darkTheme">
             <q-toolbar>
-                <q-btn dense round flat icon="menu" aria-label="Menu" @click="toggleLeftDrawer = !toggleLeftDrawer" />
+                <q-btn dense round flat :icon="toggleLeftDrawer? 'eva-arrowhead-left' : 'eva-arrowhead-right'"
+                    aria-label="Menu" @click="toggleLeftDrawer = !toggleLeftDrawer" />
 
                 <GqaAvatar class="gin-quasar-admin-logo" :src="gqaFrontend.logo" style="margin-left: 5px;"
                     @mouseenter="startCheck" @mouseleave="stopCheck" />
