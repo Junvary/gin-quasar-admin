@@ -33,21 +33,25 @@
                         <q-btn dense color="primary" @click="showEditForm(props.item)" :label="$t('Edit')" />
                         <q-btn dense color="warning" @click="showAddChildrenForm(props.item.name)"
                             :label="$t('Add') + $t('Children') + $t('Menu')" />
+                        <q-btn dense color="warning" @click="showButtonForm(props.item)"
+                            :label="$t('Button') + $t('Register')" />
                         <q-btn dense color="negative" @click="handleDelete(props.item)" :label="$t('Delete')" />
                     </div>
                 </td>
             </template>
         </q-hierarchy>
         <recordDetail ref="recordDetailDialog" @handleFinish="handleFinish" />
+        <buttonDetail ref="buttonDetailDialog" />
     </q-page>
 </template>
 
 <script setup>
 import useTableData from 'src/composables/useTableData'
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import recordDetail from './modules/recordDetail'
 import { ChangeNullChildren2Array } from 'src/utils/arrayAndTree'
+import buttonDetail from './modules/buttonDetail.vue'
 
 const { t } = useI18n()
 const url = {
@@ -96,6 +100,11 @@ const showAddChildrenForm = (name) => {
     recordDetailDialog.value.formType = 'add'
     recordDetailDialog.value.show()
     recordDetailDialog.value.recordDetail.value.parent_code = name
+}
+
+const buttonDetailDialog = ref(null)
+const showButtonForm = (item) => {
+    buttonDetailDialog.value.show(item)
 }
 
 </script>

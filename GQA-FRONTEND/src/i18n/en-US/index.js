@@ -18,6 +18,8 @@ export default {
     FileRejected: 'Duplicate file or size / type not allowed',
     DictHelp: "Child dict code must start with the parent dict code and '_'",
     // word
+    Register: 'Register',
+    Button: 'Button',
     SideDrawer: 'SideDrawer',
     Width: 'Width',
     Top: 'Top',

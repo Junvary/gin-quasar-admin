@@ -18,6 +18,8 @@ export default {
     FileRejected: '文件重复或大小/类型不被允许',
     DictHelp: "子级字典编码 必须以 父级字典编码 加 '_' 开头",
     // 单词
+    Register: '注册',
+    Button: '按钮',
     SideDrawer: '侧边栏',
     Width: '宽度',
     Top: '顶部',

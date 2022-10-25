@@ -5,7 +5,7 @@
                 <q-card-section>
                     <div class="text-h6">
                         {{ formTypeName }} {{ $t('Menu') }}:
-                        {{ recordDetail.value.title }}
+                        {{ recordDetail.value.title ? $t(recordDetail.value.title) : '' }}
                     </div>
                 </q-card-section>
             </div>
