@@ -16,7 +16,8 @@
             :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
 
             <template v-slot:top="props">
-                <q-btn color="primary" @click="showAddForm()" :label="$t('Add') + ' ' + $t('Notice')" />
+                <q-btn color="primary" @click="showAddForm()" :label="$t('Add') + ' ' + $t('Notice')"
+                    v-has="'notice:add'" />
                 <q-space />
                 <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
                     @click="props.toggleFullscreen" class="q-ml-md" />
@@ -37,10 +38,12 @@
             <template v-slot:body-cell-actions="props">
                 <q-td :props="props">
                     <div class="q-gutter-xs">
-                        <q-btn color="warning" @click="sendMessage(props.row)" :label="$t('Send')"
-                            v-if="props.row.notice_sent === 'no'" />
-                        <q-btn color="primary" @click="showEditForm(props.row)" :label="$t('Edit')" />
-                        <q-btn color="negative" @click="handleDelete(props.row)" :label="$t('Delete')" />
+                        <q-btn color="warning" @click="sendMessage(props.row)" :label="$t('Send')" v-has="'notice:send'"
+                            v-if="props.row.notice_sent === 'yesNo_no'" />
+                        <q-btn color="primary" @click="showEditForm(props.row)" :label="$t('Edit')"
+                            v-has="'notice:edit'" />
+                        <q-btn color="negative" @click="handleDelete(props.row)" :label="$t('Delete')"
+                            v-has="'notice:delete'" />
                     </div>
                 </q-td>
             </template>

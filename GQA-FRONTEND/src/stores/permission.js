@@ -7,7 +7,8 @@ export const usePermissionStore = defineStore('permission', {
     state: () => ({
         userMenu: [],
         searchMenu: [],
-        topMenu: []
+        topMenu: [],
+        userButton: [],
     }),
     getters: {},
     actions: {
@@ -15,6 +16,8 @@ export const usePermissionStore = defineStore('permission', {
             const res = await postAction('user/get-user-menu')
             if (res.code === 1) {
                 const data = res.data.records
+                // 获取用户按钮权限
+                this.InitUserButton(res.data.buttons)
                 // 拿到鉴权路由表（用户自己的所有菜单），整理成路由
                 const userMenu = HandleRouter(data)
                 // 加入404界面
@@ -65,6 +68,9 @@ export const usePermissionStore = defineStore('permission', {
             this.userMenu = []
             this.searchMenu = []
             this.topMenu = []
+        },
+        InitUserButton(buttons) {
+            this.userButton = buttons
         }
     },
 });

@@ -11,7 +11,8 @@
             :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
 
             <template v-slot:top="props">
-                <q-btn color="primary" @click="showAddForm()" :label="$t('Add') + ' ' + $t('Config')" />
+                <q-btn color="primary" @click="showAddForm()" :label="$t('Add') + ' ' + $t('Config')"
+                    v-has="'config-frontend:add'" />
                 <q-space />
                 <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
                     @click="props.toggleFullscreen" class="q-ml-md" />
@@ -137,9 +138,12 @@
             <template v-slot:body-cell-actions="props">
                 <q-td :props="props">
                     <div class="q-gutter-xs">
-                        <q-btn color="primary" @click="handleSave(props.row)" :label="$t('Save')" />
-                        <q-btn color="warning" @click="handleReset(props.row)" :label="$t('Reset')" />
-                        <q-btn color="negative" @click="handleDelete(props.row)" :label="$t('Delete')" />
+                        <q-btn color="primary" @click="handleSave(props.row)" :label="$t('Save')"
+                            v-has="'config-frontend:save'" />
+                        <q-btn color="warning" @click="handleReset(props.row)" :label="$t('Reset')"
+                            v-has="'config-frontend:reset'" />
+                        <q-btn color="negative" @click="handleDelete(props.row)" :label="$t('Delete')"
+                            v-has="'config-frontend:delete'" />
                     </div>
                 </q-td>
             </template>

@@ -21,7 +21,8 @@
                     @request="onRequest">
 
                     <template v-slot:top="props">
-                        <q-btn color="primary" @click="showAddForm()" :label="$t('Add') + ' ' + $t('User')" />
+                        <q-btn color="primary" @click="showAddForm()" :label="$t('Add') + ' ' + $t('User')"
+                            v-has="'user:add'" />
                         <q-space />
                         <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
                             @click="props.toggleFullscreen" class="q-ml-md" />
@@ -76,10 +77,12 @@
                     <template v-slot:body-cell-actions="props">
                         <q-td :props="props">
                             <div class="q-gutter-xs">
-                                <q-btn color="warning" @click="resetPassword(props.row)"
+                                <q-btn color="warning" @click="resetPassword(props.row)" v-has="'user:password'"
                                     :label="$t('Reset') + $t('Password')" />
-                                <q-btn color="primary" @click="showEditForm(props.row)" :label="$t('Edit')" />
-                                <q-btn color="negative" @click="handleDelete(props.row)" :label="$t('Delete')" />
+                                <q-btn color="primary" @click="showEditForm(props.row)" :label="$t('Edit')"
+                                    v-has="'user:edit'" />
+                                <q-btn color="negative" @click="handleDelete(props.row)" :label="$t('Delete')"
+                                    v-has="'user:delete'" />
                             </div>
                         </q-td>
                     </template>

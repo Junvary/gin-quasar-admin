@@ -1,7 +1,7 @@
 <template>
     <div class="items-center column">
         <div class="justify-center row" style="width: 100%">
-            <q-btn color="primary" :disable="row.role_code === 'super-admin'" @click="handleDataPermission">
+            <q-btn color="primary" @click="handleDataPermission">
                 {{ $t('Save') }}
             </q-btn>
         </div>

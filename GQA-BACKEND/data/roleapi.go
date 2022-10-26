@@ -54,6 +54,7 @@ var sysRoleApiData = []model.SysRoleApi{
 	{RoleCode: "super-admin", ApiGroup: "role", ApiMethod: "POST", ApiPath: "/role/remove-role-user"},
 	{RoleCode: "super-admin", ApiGroup: "role", ApiMethod: "POST", ApiPath: "/role/add-role-user"},
 	{RoleCode: "super-admin", ApiGroup: "role", ApiMethod: "POST", ApiPath: "/role/edit-role-dept-data-permission"},
+	{RoleCode: "super-admin", ApiGroup: "role", ApiMethod: "POST", ApiPath: "/role/get-role-button-list"},
 
 	{RoleCode: "super-admin", ApiGroup: "menu", ApiMethod: "POST", ApiPath: "/menu/get-menu-list"},
 	{RoleCode: "super-admin", ApiGroup: "menu", ApiMethod: "POST", ApiPath: "/menu/edit-menu"},

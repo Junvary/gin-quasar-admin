@@ -1,6 +1,7 @@
 <template>
     <q-page padding>
-        <q-btn color="primary" @click="showAddParentForm()" :label="$t('Add') + $t('Parent') + $t('Dict')" />
+        <q-btn color="primary" @click="showAddParentForm()" :label="$t('Add') + $t('Parent') + $t('Dict')"
+            v-has="'dict:addParent'" />
         <q-hierarchy separator="cell" dense :columns="columns" :data="dictTree">
             <template v-slot:body="props">
                 <gqa-tree-td :treeTd="props" firstTd="sort"></gqa-tree-td>
@@ -19,10 +20,12 @@
                 </td>
                 <td class="text-center">
                     <div class="q-gutter-xs">
-                        <q-btn dense color="primary" @click="showEditForm(props.item)" :label="$t('Edit')" />
+                        <q-btn dense color="primary" @click="showEditForm(props.item)" :label="$t('Edit')"
+                            v-has="'dict:edit'" />
                         <q-btn dense color="warning" @click="showAddChildrenForm(props.item.dict_code)"
-                            :label="$t('Add') + $t('Children') + $t('Dict')" />
-                        <q-btn dense color="negative" @click="handleDelete(props.item)" :label="$t('Delete')" />
+                            v-has="'dict:addChildren'" :label="$t('Add') + $t('Children') + $t('Dict')" />
+                        <q-btn dense color="negative" @click="handleDelete(props.item)" :label="$t('Delete')"
+                            v-has="'dict:delete'" />
                     </div>
                 </td>
             </template>

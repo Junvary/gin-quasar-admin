@@ -24,6 +24,8 @@ func (r *RouterRole) InitRouterRouterRole(privateGroup *gin.RouterGroup) (R gin.
 		privateGroup.POST("edit-role-api", apiPrivate.ApiRole.EditRoleApi)
 
 		privateGroup.POST("edit-role-dept-data-permission", apiPrivate.ApiRole.EditRoleDeptDataPermission)
+
+		privateGroup.POST("get-role-button-list", apiPrivate.ApiRole.GetRoleButtonList)
 	}
 	return privateGroup
 }

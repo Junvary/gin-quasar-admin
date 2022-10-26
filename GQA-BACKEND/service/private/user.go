@@ -122,23 +122,32 @@ func (s *ServiceUser) ResetPassword(id uint) (err error) {
 	return err
 }
 
-func (s *ServiceUser) GetUserMenu(c *gin.Context) (err error, menu []model.SysMenu) {
+func (s *ServiceUser) GetUserMenu(c *gin.Context) (err error, menu []model.SysMenu, buttons []string) {
 	username := utils.GetUsername(c)
 	var user model.SysUser
 	err = global.GqaDb.Preload("Role").Where("username=?", username).First(&user).Error
 	if err != nil {
-		return err, nil
+		return err, nil, nil
 	}
 	var role []model.SysRole
 	err = global.GqaDb.Model(&user).Association("Role").Find(&role)
 	if err != nil {
-		return err, nil
+		return err, nil, nil
 	}
 	var menus []model.SysMenu
-	err = global.GqaDb.Model(&role).Association("Menu").Find(&menus)
+	err = global.GqaDb.Model(&role).Preload("Button").Association("Menu").Find(&menus)
 	if err != nil {
-		return err, nil
+		return err, nil, nil
 	}
+	//获取所有按钮权限
+	var buttonList []string
+	for _, bl := range menus {
+		for _, b := range bl.Button {
+			buttonList = append(buttonList, b.ButtonCode)
+		}
+	}
+	//按钮权限去重
+	buttons = utils.RemoveDuplicateElementFromSlice(buttonList)
 	//menus切片去重
 	type distinctMenu []model.SysMenu
 	resultMenu := map[string]bool{}
@@ -156,7 +165,7 @@ func (s *ServiceUser) GetUserMenu(c *gin.Context) (err error, menu []model.SysMe
 	sort.Slice(result, func(i, j int) bool {
 		return result[i].Sort < result[j].Sort
 	})
-	return nil, result
+	return nil, result, buttons
 }
 
 func (s *ServiceUser) ChangePassword(username string, toChangePassword model.RequestChangePassword) (err error) {

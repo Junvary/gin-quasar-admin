@@ -143,11 +143,11 @@ func (a *ApiUser) ResetPassword(c *gin.Context) {
 }
 
 func (a *ApiUser) GetUserMenu(c *gin.Context) {
-	err, menu := servicePrivate.ServiceUser.GetUserMenu(c)
+	err, menu, buttons := servicePrivate.ServiceUser.GetUserMenu(c)
 	if err != nil {
 		model.ResponseErrorMessage("获取用户菜单失败，"+err.Error(), c)
 	} else {
-		model.ResponseSuccessMessageData(gin.H{"records": menu}, "获取用户菜单成功！", c)
+		model.ResponseSuccessMessageData(gin.H{"records": menu, "buttons": buttons}, "获取用户菜单成功！", c)
 	}
 }
 

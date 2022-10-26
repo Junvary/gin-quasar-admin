@@ -30,8 +30,19 @@
                     <template v-slot:body-cell-button_name="props">
                         <q-td key="button_name" :props="props">
                             {{ props.row.button_name }}
-                            <q-popup-edit v-model="props.row.button_name" buttons v-slot="scope">
-                                <q-input v-model="scope.value" dense autofocus counter />
+                            <q-popup-edit v-model="props.row.button_name" v-slot="scope"
+                                :validate="val => val && val.length > 0">
+                                <q-input v-model="scope.value" dense autofocus counter no-error-icon
+                                    :rules="[val => scope.validate(val) || $t('NeedInput')]">
+                                    <template v-slot:after>
+                                        <q-btn flat dense color="negative" icon="cancel"
+                                            @click.stop.prevent="scope.cancel" />
+
+                                        <q-btn flat dense color="positive" icon="check_circle"
+                                            @click.stop.prevent="scope.set"
+                                            :disable="scope.validate(scope.value) === false || scope.initialValue === scope.value" />
+                                    </template>
+                                </q-input>
                             </q-popup-edit>
                         </q-td>
                     </template>
@@ -45,13 +56,27 @@
                     <template v-slot:body-cell-button_code="props">
                         <q-td key="button_code" :props="props">
                             {{ props.row.button_code }}
-                            <q-popup-edit v-model="props.row.button_code" buttons v-slot="scope">
+                            <q-popup-edit v-model="props.row.button_code" v-slot="scope" :validate="val =>
+                            val && val.length > 0
+                            && val.indexOf(recordDetail.value.name + ':') === 0
+                            && val.slice(recordDetail.value.name.length + 1).indexOf(':') === -1
+                            && !recordDetail.value.button.some(item => item.button_code === val)">
                                 {{ $t('Button') + $t('Code') + ' ' + $t('StartWith', {
                                         name: recordDetail.value.name +
                                             ':'
                                     })
                                 }}
-                                <q-input v-model="scope.value" dense autofocus counter />
+                                <q-input v-model="scope.value" dense autofocus counter no-error-icon
+                                    :rules="[val => scope.validate(val) || $t('FixForm')]">
+                                    <template v-slot:after>
+                                        <q-btn flat dense color="negative" icon="cancel"
+                                            @click.stop.prevent="scope.cancel" />
+
+                                        <q-btn flat dense color="positive" icon="check_circle"
+                                            @click.stop.prevent="scope.set"
+                                            :disable="scope.validate(scope.value) === false || scope.initialValue === scope.value" />
+                                    </template>
+                                </q-input>
                             </q-popup-edit>
                         </q-td>
                     </template>
@@ -120,6 +145,11 @@ defineExpose({
 })
 
 const editButton = async () => {
+    for (let b of recordDetail.value.button) {
+        if (b.menu_name === '' || b.button_code === '' || b.button_name === '') {
+            return
+        }
+    }
     const res = await postAction(url.edit, recordDetail.value)
     if (res.code === 1) {
         $q.notify({

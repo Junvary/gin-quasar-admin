@@ -7,7 +7,7 @@
             <q-btn color="negative" @click="handleAll">
                 {{ $t('Select') + $t('All') }}
             </q-btn>
-            <q-btn color="primary" @click="handleRoleMenu" :disable="row.role_code === 'super-admin'">
+            <q-btn color="primary" @click="handleRoleMenu">
                 {{ $t('Save') }}
             </q-btn>
         </div>
@@ -18,7 +18,15 @@
                     <div class="items-center row">
                         <q-icon :name="prop.node.icon || 'share'" size="28px" class="q-mr-sm" />
                         <div class="text-weight-bold">{{ $t(prop.node.title) }}</div>
+                        <div class="row q-gutter-x-md" style="margin-left: 10px">
+                            <q-checkbox v-model="buttonCheckMap[item.button_code]" dense :label="item.button_name"
+                                color="primary" v-for="item in prop.node.button" />
+                        </div>
+
                     </div>
+                </template>
+                <template v-slot:default-body="prop">
+                    <q-separator />
                 </template>
             </q-tree>
         </q-card-section>
@@ -34,11 +42,13 @@ import useTableData from 'src/composables/useTableData'
 import { useQuasar } from 'quasar'
 import { postAction } from 'src/api/manage'
 import { computed, onMounted, ref, toRefs } from 'vue'
+import { TreeToArray } from 'src/utils/arrayAndTree';
 
 const $q = useQuasar()
 const url = {
     list: 'menu/get-menu-list',
     roleMenuList: 'role/get-role-menu-list',
+    roleButtonList: 'role/get-role-button-list',
     roleMenuEdit: 'role/edit-role-menu',
 }
 
@@ -58,19 +68,12 @@ const {
 } = useTableData(url)
 
 const menuTree = computed(() => {
-    // 如果是super-admin角色，那么禁用角色管理编辑，保证可以访问此界面。
-    if (row.value.role_code === 'super-admin' && tableData.value.length) {
-        for (let m of tableData.value[0].children) {
-            if (m.name === 'role') {
-                m.disabled = true
-            }
-        }
-    }
     return tableData.value
 })
 onMounted(() => {
     pagination.value.rowsPerPage = 99999
     getTableData()
+    getRoleButtonList()
     getRoleMenuList()
 })
 const ticked = ref([])
@@ -91,19 +94,30 @@ const handleRoleMenu = () => {
     const roleMenu = []
     for (let i of ticked.value) {
         roleMenu.push({
-            role_code: row.value.role_code,
-            menu_name: i,
+            sys_role_role_code: row.value.role_code,
+            sys_menu_name: i,
         })
+    }
+    const roleButton = []
+    for (let bc in buttonCheckMap.value) {
+        if (buttonCheckMap.value[bc]) {
+            roleButton.push({
+                sys_role_role_code: row.value.role_code,
+                sys_button_button_code: bc,
+            })
+        }
     }
     postAction(url.roleMenuEdit, {
         role_code: row.value.role_code,
         role_menu: roleMenu,
+        role_button: roleButton,
     }).then((res) => {
         if (res.code === 1) {
             $q.notify({
                 type: 'positive',
                 message: res.message,
             })
+            getRoleButtonList()
             getRoleMenuList()
         }
     })
@@ -112,8 +126,22 @@ const handleClear = () => {
     ticked.value = []
 }
 const handleAll = () => {
-    tableData.value.forEach((item) => {
+    const arrayMenu = TreeToArray(tableData.value)
+    arrayMenu.forEach((item) => {
         ticked.value.push(item.name)
+    })
+}
+
+const buttonCheckMap = ref({})
+const getRoleButtonList = () => {
+    buttonCheckMap.value = {}
+    postAction(url.roleButtonList, {
+        role_code: row.value.role_code,
+    }).then(res => {
+        res.data.records.forEach(item => {
+            buttonCheckMap.value[item.sys_button_button_code] = true
+        })
+
     })
 }
 </script>

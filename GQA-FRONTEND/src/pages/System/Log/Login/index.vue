@@ -37,12 +37,13 @@
             <template v-slot:body-cell-actions="props">
                 <q-td :props="props">
                     <div class="q-gutter-xs">
-                        <q-btn color="warning" :label="$t('Detail')">
+                        <q-btn color="warning" :label="$t('Detail')" v-has="'log-login:detail'">
                             <q-tooltip>
                                 {{ props.row.memo }}
                             </q-tooltip>
                         </q-btn>
-                        <q-btn color="negative" @click="handleDelete(props.row)" :label="$t('Delete')" />
+                        <q-btn color="negative" @click="handleDelete(props.row)" :label="$t('Delete')"
+                            v-has="'log-login:delete'" />
                     </div>
                 </q-td>
             </template>

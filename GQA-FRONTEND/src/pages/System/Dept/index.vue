@@ -1,6 +1,7 @@
 <template>
     <q-page padding>
-        <q-btn color="primary" @click="showAddParentForm()" :label="$t('Add') + $t('Parent') + $t('Dept')" />
+        <q-btn color="primary" @click="showAddParentForm()" :label="$t('Add') + $t('Parent') + $t('Dept')"
+            v-has="'dept:addParent'" />
         <q-hierarchy separator="cell" dense :columns="columns" :data="deptTree">
             <template v-slot:body="props">
                 <gqa-tree-td :treeTd="props" firstTd="sort"></gqa-tree-td>
@@ -14,12 +15,14 @@
                 </td>
                 <td class="text-center">
                     <div class="q-gutter-xs">
-                        <q-btn dense color="primary" @click="showEditForm(props.item)" :label="$t('Edit')" />
-                        <q-btn dense color="warning" @click="showDeptUser(props.item)"
+                        <q-btn dense color="primary" @click="showEditForm(props.item)" :label="$t('Edit')"
+                            v-has="'dept:edit'" />
+                        <q-btn dense color="warning" @click="showDeptUser(props.item)" v-has="'dept:deptUser'"
                             :label="$t('Dept') + $t('User')" />
                         <q-btn dense color="warning" @click="showAddChildrenForm(props.item.dept_code)"
-                            :label="$t('Add') + $t('Children') + $t('Dept')" />
-                        <q-btn dense color="negative" @click="handleDelete(props.item)" :label="$t('Delete')" />
+                            v-has="'dept:addChildren'" :label="$t('Add') + $t('Children') + $t('Dept')" />
+                        <q-btn dense color="negative" @click="handleDelete(props.item)" :label="$t('Delete')"
+                            v-has="'dept:delete'" />
                     </div>
                 </td>
             </template>

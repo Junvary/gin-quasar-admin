@@ -96,9 +96,21 @@ func (s *ServiceRole) EditRoleMenu(toEditRoleMenu *model.RequestRoleMenuEdit) (e
 	if err != nil {
 		return err
 	}
+	err = global.GqaDb.Where("sys_role_role_code=?", toEditRoleMenu.RoleCode).Delete(&model.SysRoleButton{}).Error
+	if err != nil {
+		return err
+	}
 	if len(toEditRoleMenu.RoleMenu) != 0 {
 		err = global.GqaDb.Model(&model.SysRoleMenu{}).Create(&toEditRoleMenu.RoleMenu).Error
-		return err
+		if err != nil {
+			return err
+		}
+	}
+	if len(toEditRoleMenu.RoleButton) != 0 {
+		err = global.GqaDb.Model(&model.SysRoleButton{}).Create(&toEditRoleMenu.RoleButton).Error
+		if err != nil {
+			return err
+		}
 	}
 	return nil
 }
@@ -166,4 +178,9 @@ func (s *ServiceRole) EditRoleDeptDataPermission(toEditRoleDeptDataPermission *m
 	sysRole.DeptDataPermissionCustom = toEditRoleDeptDataPermission.DeptDataPermissionCustom
 	err = global.GqaDb.Save(&sysRole).Error
 	return err
+}
+
+func (s *ServiceRole) GetRoleButtonList(roleCode *model.RequestRoleCode) (err error, button []model.SysRoleButton) {
+	err = global.GqaDb.Where("sys_role_role_code=?", roleCode.RoleCode).Find(&button).Error
+	return err, button
 }

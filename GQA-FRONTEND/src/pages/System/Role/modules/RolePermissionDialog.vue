@@ -3,13 +3,13 @@
         <q-card style="min-width: 900px; max-width: 50vw">
             <q-card-section>
                 <div class="text-h6">
-                    {{ $t('Permission') }} {{ row.roleName }}
+                    {{ $t('Role') + $t('Permission') }}: {{ row.role_name }}
                 </div>
             </q-card-section>
 
             <q-tabs v-model="tab" dense class="text-grey" active-color="primary" indicator-color="primary"
                 align="justify" narrow-indicator>
-                <q-tab name="menu" :label="$t('Menu') + $t('Permission')" />
+                <q-tab name="menu" :label="$t('Menu') + '/' + $t('Button') + $t('Permission')" />
                 <q-tab name="api" :label="$t('Api') + $t('Permission')" />
                 <q-tab name="data" :label="$t('Data') + $t('Permission')" />
             </q-tabs>

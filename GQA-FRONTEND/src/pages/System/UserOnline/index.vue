@@ -41,7 +41,8 @@
             <template v-slot:body-cell-actions="props">
                 <q-td :props="props">
                     <div class="q-gutter-xs">
-                        <q-btn color="negative" @click="handleKickOut(props.row)" :label="$t('KickOut')" />
+                        <q-btn color="negative" @click="handleKickOut(props.row)" :label="$t('KickOut')"
+                            v-has="'user-online:kick'" />
                     </div>
                 </q-td>
             </template>

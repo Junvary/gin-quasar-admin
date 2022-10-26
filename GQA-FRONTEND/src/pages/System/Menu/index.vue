@@ -1,6 +1,7 @@
 <template>
     <q-page padding>
-        <q-btn color="primary" @click="showAddParentForm()" :label="$t('Add') + $t('Parent') + $t('Menu')" />
+        <q-btn color="primary" @click="showAddParentForm()" :label="$t('Add') + $t('Parent') + $t('Menu')"
+            v-has="'menu:addParent'" />
         <q-hierarchy separator="cell" dense :columns="columns" :data="menuTree">
             <template v-slot:body="props">
                 <gqa-tree-td :treeTd="props" firstTd="sort"></gqa-tree-td>
@@ -30,12 +31,14 @@
                 </td>
                 <td class="text-center">
                     <div class="q-gutter-xs">
-                        <q-btn dense color="primary" @click="showEditForm(props.item)" :label="$t('Edit')" />
+                        <q-btn dense color="primary" @click="showEditForm(props.item)" :label="$t('Edit')"
+                            v-has="'menu:edit'" />
                         <q-btn dense color="warning" @click="showAddChildrenForm(props.item.name)"
-                            :label="$t('Add') + $t('Children') + $t('Menu')" />
-                        <q-btn dense color="warning" @click="showButtonForm(props.item)"
+                            v-has="'menu:addChildren'" :label="$t('Add') + $t('Children') + $t('Menu')" />
+                        <q-btn dense color="warning" @click="showButtonForm(props.item)" v-has="'menu:buttonRegister'"
                             :label="$t('Button') + $t('Register')" />
-                        <q-btn dense color="negative" @click="handleDelete(props.item)" :label="$t('Delete')" />
+                        <q-btn dense color="negative" @click="handleDelete(props.item)" :label="$t('Delete')"
+                            v-has="'menu:delete'" />
                     </div>
                 </td>
             </template>

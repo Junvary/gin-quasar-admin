@@ -5,7 +5,7 @@
                 {{ $t('Clear') + $t('All') }}</q-btn>
             <q-btn color="negative" @click="handleAll">
                 {{ $t('Select') + $t('All') }}</q-btn>
-            <q-btn color="primary" @click="handleRoleApi" :disable="row.role_code === 'super-admin'">
+            <q-btn color="primary" @click="handleRoleApi">
                 {{ $t('Save') }}
             </q-btn>
         </div>

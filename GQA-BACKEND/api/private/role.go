@@ -114,10 +114,6 @@ func (a *ApiRole) EditRoleMenu(c *gin.Context) {
 	if err := model.RequestShouldBindJSON(c, &roleMenu); err != nil {
 		return
 	}
-	//if roleMenu.RoleCode == "super-admin" {
-	//	model.ResponseErrorMessage("超级管理员角色不允许编辑！", c)
-	//	return
-	//}
 	if err := servicePrivate.ServiceRole.EditRoleMenu(&roleMenu); err != nil {
 		global.GqaLogger.Error("编辑角色菜单失败！", zap.Any("err", err))
 		model.ResponseErrorMessage("编辑角色菜单失败，"+err.Error(), c)
@@ -213,5 +209,18 @@ func (a *ApiRole) EditRoleDeptDataPermission(c *gin.Context) {
 	} else {
 		global.GqaLogger.Warn(utils.GetUsername(c) + "编辑角色部门数据权限成功！")
 		model.ResponseSuccessMessage("编辑角色部门数据权限成功！", c)
+	}
+}
+
+func (a *ApiRole) GetRoleButtonList(c *gin.Context) {
+	var roleCode model.RequestRoleCode
+	if err := model.RequestShouldBindJSON(c, &roleCode); err != nil {
+		return
+	}
+	if err, buttonList := servicePrivate.ServiceRole.GetRoleButtonList(&roleCode); err != nil {
+		global.GqaLogger.Error("获取角色按钮列表失败！", zap.Any("err", err))
+		model.ResponseErrorMessage("获取角色按钮列表失败，"+err.Error(), c)
+	} else {
+		model.ResponseSuccessData(gin.H{"records": buttonList}, c)
 	}
 }
