@@ -17,6 +17,37 @@ const api = axios.create({
     withCredentials: false
 })
 
+const forbiddenUrl = [
+    'user/edit-user',
+    'user/delete-user-by-id',
+    'user/reset-password',
+    'user/change-password',
+    'role/edit-role',
+    'role/delete-role-by-id',
+    'role/edit-role-menu',
+    'role/edit-role-api',
+    'role/remove-role-user',
+    'role/edit-role-dept-data-permission',
+    'menu/edit-menu',
+    'menu/delete-menu-by-id',
+    'dept/edit-dept',
+    'dept/delete-dept-by-id',
+    'dept/remove-dept-user',
+    'dict/edit-dict',
+    'dict/delete-dict-by-id',
+    'api/edit-api',
+    'api/delete-api-by-id',
+    'config-backend/edit-config-backend',
+    'config-backend/delete-config-backend-by-id',
+    'config-frontend/edit-config-frontend',
+    'config-frontend/delete-config-frontend-by-id',
+    'log/delete-log-login-by-id',
+    'log/delete-log-operation-by-id',
+    'notice/delete-notice-by-id',
+    'note-todo/edit-note-todo',
+    'note-todo/delete-note-todo-by-id',
+    'user-online/kick-online-user'
+]
 
 export default boot(({ app, router, store }) => {
     const userStore = useUserStore()
@@ -26,6 +57,14 @@ export default boot(({ app, router, store }) => {
         request.headers = {
             'Content-Type': 'application/json;charset=utf-8',
             'Gqa-Token': token,
+        }
+        // 演示模式禁止URL
+        if (forbiddenUrl.some(item => item === request.url)) {
+            Notify.create({
+                type: 'negative',
+                message: '演示模式不允许此操作'
+            })
+            return
         }
         return request
     }, error => {

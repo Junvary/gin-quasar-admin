@@ -225,7 +225,7 @@ var sysApiData = []model.SysApi{
 		Sort: 61, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "获取操作日志列表",
 	}}, ApiGroup: "log", ApiMethod: "POST", ApiPath: "/log/get-log-operation-list"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 62, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "删除登录日志",
+		Sort: 62, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "删除操作日志",
 	}}, ApiGroup: "log", ApiMethod: "POST", ApiPath: "/log/delete-log-operation-by-id"},
 
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
