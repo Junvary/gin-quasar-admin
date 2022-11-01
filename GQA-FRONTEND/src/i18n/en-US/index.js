@@ -202,7 +202,6 @@ export default {
     NoticeSystem: 'System Notice',
     NoticeMessage: 'Message Notice',
     ViewAll: 'View all',
-    SystemLoading: 'System loading...',
     GqaDefaultUsername: 'GQA User',
     PageError404Title: 'Oops. Nothing here...',
     PageError404Home: 'Take Me Home',

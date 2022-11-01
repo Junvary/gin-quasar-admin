@@ -13,7 +13,7 @@ LoadingBar.setDefaults({
 
 function startLoading() {
     Loading.show({
-        // spinner: QSpinnerGears,
+        spinner: QSpinnerGears,
         message: i18n.global.t('System') + i18n.global.t('Loading')
     })
     LoadingBar.start()

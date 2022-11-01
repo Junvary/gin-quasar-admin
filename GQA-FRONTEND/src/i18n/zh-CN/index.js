@@ -203,7 +203,6 @@ export default {
     NoticeSystem: '系统消息',
     NoticeMessage: '消息提示',
     ViewAll: '查看全部',
-    SystemLoading: '系统努力加载中...',
     GqaDefaultUsername: 'GQA用户',
     PageError404Title: '你发现了一个没人来过的页面',
     PageError404Home: '带我回去',
