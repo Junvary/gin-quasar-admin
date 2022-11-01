@@ -122,22 +122,27 @@ func (s *ServiceUser) ResetPassword(id uint) (err error) {
 	return err
 }
 
-func (s *ServiceUser) GetUserMenu(c *gin.Context) (err error, menu []model.SysMenu, buttons []string) {
+func (s *ServiceUser) GetUserMenu(c *gin.Context) (err error, defaultPageList []string, menu []model.SysMenu, buttons []string) {
 	username := utils.GetUsername(c)
 	var user model.SysUser
 	err = global.GqaDb.Preload("Role").Where("username=?", username).First(&user).Error
 	if err != nil {
-		return err, nil, nil
+		return err, nil, nil, nil
 	}
 	var role []model.SysRole
 	err = global.GqaDb.Model(&user).Association("Role").Find(&role)
 	if err != nil {
-		return err, nil, nil
+		return err, nil, nil, nil
 	}
+	//获取角色默认页面列表
+	for _, v := range role {
+		defaultPageList = append(defaultPageList, v.DefaultPage)
+	}
+
 	var menus []model.SysMenu
 	err = global.GqaDb.Model(&role).Preload("Button").Association("Menu").Find(&menus)
 	if err != nil {
-		return err, nil, nil
+		return err, nil, nil, nil
 	}
 	//获取所有按钮权限
 	var buttonList []string
@@ -165,7 +170,7 @@ func (s *ServiceUser) GetUserMenu(c *gin.Context) (err error, menu []model.SysMe
 	sort.Slice(result, func(i, j int) bool {
 		return result[i].Sort < result[j].Sort
 	})
-	return nil, result, buttons
+	return nil, defaultPageList, result, buttons
 }
 
 func (s *ServiceUser) ChangePassword(username string, toChangePassword model.RequestChangePassword) (err error) {

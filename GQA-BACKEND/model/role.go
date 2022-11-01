@@ -9,6 +9,8 @@ type SysRole struct {
 	User                     []SysUser   `json:"user" gorm:"many2many:sys_user_role;foreignKey:RoleCode;jointForeignKey:SysRoleRoleCode;references:Username;joinReferences:SysUserUsername;"`
 	Menu                     []SysMenu   `json:"menu" gorm:"many2many:sys_role_menu;foreignKey:RoleCode;jointForeignKey:SysRoleRoleCode;references:Name;joinReferences:SysMenuName;"`
 	Button                   []SysButton `json:"button" gorm:"many2many:sys_role_button;foreignKey:RoleCode;jointForeignKey:SysRoleRoleCode;references:ButtonCode;joinReferences:SysButtonButtonCode;"`
+	DefaultPage              string      `json:"default_page" gorm:"comment:默认首页;default:dashboard"`
+	DefaultPageMenu          SysMenu     `json:"default_page_menu" gorm:"foreignKey:DefaultPage;references:Name"`
 }
 
 type RequestGetRoleList struct {
@@ -38,9 +40,10 @@ type RequestRoleUserAdd struct {
 }
 
 type RequestRoleMenuEdit struct {
-	RoleCode   string              `json:"role_code"`
-	RoleMenu   []RequestRoleMenu   `json:"role_menu"`
-	RoleButton []RequestRoleButton `json:"role_button"`
+	RoleCode    string              `json:"role_code"`
+	RoleMenu    []RequestRoleMenu   `json:"role_menu"`
+	RoleButton  []RequestRoleButton `json:"role_button"`
+	DefaultPage string              `json:"default_page"`
 }
 
 type RequestRoleMenu struct {

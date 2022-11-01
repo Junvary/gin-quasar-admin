@@ -16,6 +16,11 @@
                 <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
                     @click="props.toggleFullscreen" class="q-ml-md" />
             </template>
+            <template v-slot:body-cell-default_page="props">
+                <q-td :props="props">
+                    {{ $t(props.row.default_page_menu.title) }}
+                </q-td>
+            </template>
             <template v-slot:body-cell-stable="props">
                 <q-td :props="props">
                     <GqaDictShow :dictCode="props.row.stable" />
@@ -60,6 +65,7 @@ const columns = computed(() => {
         { name: 'sort', align: 'center', label: t('Sort'), field: 'sort' },
         { name: 'role_code', align: 'center', label: t('Role') + t('Code'), field: 'role_code' },
         { name: 'role_name', align: 'center', label: t('Role') + t('Name'), field: 'role_name' },
+        { name: 'default_page', align: 'center', label: t('Default') + t('Page'), field: 'default_page' },
         { name: 'stable', align: 'center', label: t('Stable'), field: 'stable' },
         { name: 'actions', align: 'center', label: t('Actions'), field: 'actions' },
     ]

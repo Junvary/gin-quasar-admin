@@ -9,6 +9,7 @@ export const usePermissionStore = defineStore('permission', {
         searchMenu: [],
         topMenu: [],
         userButton: [],
+        defaultPage: [],
     }),
     getters: {},
     actions: {
@@ -16,6 +17,8 @@ export const usePermissionStore = defineStore('permission', {
             const res = await postAction('user/get-user-menu')
             if (res.code === 1) {
                 const data = res.data.records
+                // 角色默认页面
+                this.InitUserDefautlPage(res.data.default_page_list)
                 // 获取用户按钮权限
                 this.InitUserButton(res.data.buttons)
                 // 拿到鉴权路由表（用户自己的所有菜单），整理成路由
@@ -40,7 +43,7 @@ export const usePermissionStore = defineStore('permission', {
                 // 返回鉴权路由表
                 return userMenu
             } else {
-                return
+                return []
             }
         },
         InitUserMenu(routes) {
@@ -68,9 +71,14 @@ export const usePermissionStore = defineStore('permission', {
             this.userMenu = []
             this.searchMenu = []
             this.topMenu = []
+            this.userButton = []
+            this.defaultPage = []
         },
         InitUserButton(buttons) {
             this.userButton = buttons
+        },
+        InitUserDefautlPage(defaultPageList) {
+            this.defaultPage = defaultPageList
         }
     },
 });

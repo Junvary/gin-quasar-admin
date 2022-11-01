@@ -1,7 +1,5 @@
 import { boot } from 'quasar/wrappers'
 import { LoadingBar, Loading, QSpinnerGears } from 'quasar'
-// import { Allowlist } from 'src/settings'
-// import { GetToken } from 'src/utils/cookies'
 import { useUserStore } from 'src/stores/user'
 import { usePermissionStore } from 'src/stores/permission'
 import useCommon from 'src/composables/useCommon'
@@ -27,7 +25,7 @@ function stopLoading() {
 }
 
 export default boot(({ router, store }) => {
-    router.beforeEach((to, from, next) => {
+    router.beforeEach(async (to, from, next) => {
         const userStore = useUserStore()
         const permissionStore = usePermissionStore()
         startLoading()
@@ -39,19 +37,17 @@ export default boot(({ router, store }) => {
                 stopLoading()
             } else {
                 if (!permissionStore.userMenu.length) {
-                    permissionStore.GetUserMenu().then(res => {
-                        // 在vue-router4中，addRoutes被废弃，改为了addRoute，循环调用
+                    const res = await permissionStore.GetUserMenu()
+                    if (res.length) {
                         // 动态添加鉴权路由表
-                        if (res) {
-                            res.forEach(item => {
-                                router.addRoute(item)
-                            })
-                            next({ ...to, replace: true })
-                        } else {
-                            store.dispatch('user/HandleLogout')
-                            next({ path: '/', replace: true })
-                        }
-                    })
+                        res.forEach(item => {
+                            router.addRoute(item)
+                        })
+                        next({ ...to, replace: true })
+                    } else {
+                        store.dispatch('user/HandleLogout')
+                        next({ path: '/', replace: true })
+                    }
                 } else {
                     next()
                 }
