@@ -38,13 +38,14 @@ export default boot(({ router, store }) => {
             } else {
                 if (!permissionStore.userMenu.length) {
                     const res = await permissionStore.GetUserMenu()
-                    if (res.length) {
+                    if (res && res.length) {
                         // 动态添加鉴权路由表
                         res.forEach(item => {
                             router.addRoute(item)
                         })
                         next({ ...to, replace: true })
                     } else {
+                        stopLoading()
                         store.dispatch('user/HandleLogout')
                         next({ path: '/', replace: true })
                     }
