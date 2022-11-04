@@ -12,6 +12,7 @@
 
 <script setup>
 import useCommon from 'src/composables/useCommon'
+import useConfig from 'src/composables/useConfig'
 import { computed, onBeforeMount, ref, markRaw, defineAsyncComponent } from 'vue'
 import SimpleView from './SimpleView/index.vue'
 import ComplexView from './ComplexView/index.vue'
@@ -25,7 +26,8 @@ import useDocument from 'src/composables/useDocument'
 useDocument()
 const $q = useQuasar()
 const { t } = useI18n()
-const { gqaFrontend, gqaLogo } = useCommon()
+const { gqaFrontend } = useCommon()
+const { GqaConsoleLogo } = useConfig()
 const storageStore = useStorageStore()
 const pluginCurrent = ref(null)
 const pluginComponent = ref(null)
@@ -43,7 +45,7 @@ const loginLayout = computed(() => {
 
 onBeforeMount(() => {
     checkDb()
-    gqaLogo()
+    GqaConsoleLogo()
 })
 
 const checkDb = async () => {

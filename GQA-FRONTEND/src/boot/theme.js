@@ -1,16 +1,19 @@
 import { boot } from 'quasar/wrappers'
 import { Cookies, setCssVar, getCssVar } from 'quasar'
+import useConfig from 'src/composables/useConfig'
+
+const { ThemeStyleQuasar } = useConfig()
 
 export default boot(({ app }) => {
-    const primary = Cookies.get('gqa-theme-primary') || getCssVar('primary') || '#1976D2'
-    const secondary = Cookies.get('gqa-theme-secondary') || getCssVar('secondary') || '#26A69A'
-    const accent = Cookies.get('gqa-theme-accent') || getCssVar('accent') || '#9C27B0'
-    const positive = Cookies.get('gqa-theme-positive') || getCssVar('positive') || '#21BA45'
-    const negative = Cookies.get('gqa-theme-negative') || getCssVar('negative') || '#C10015'
-    const info = Cookies.get('gqa-theme-info') || getCssVar('info') || '#31CCEC'
-    const warning = Cookies.get('gqa-theme-warning') || getCssVar('warning') || '#F2C037'
-    const light = Cookies.get('gqa-theme-light') || getCssVar('light') || '#FFFFFF'
-    const dark = Cookies.get('gqa-theme-dark') || getCssVar('dark') || '#1D1D1D'
+    const primary = Cookies.get('gqa-theme-primary') || getCssVar('primary') || ThemeStyleQuasar.primary
+    const secondary = Cookies.get('gqa-theme-secondary') || getCssVar('secondary') || ThemeStyleQuasar.secondary
+    const accent = Cookies.get('gqa-theme-accent') || getCssVar('accent') || ThemeStyleQuasar.accent
+    const positive = Cookies.get('gqa-theme-positive') || getCssVar('positive') || ThemeStyleQuasar.positive
+    const negative = Cookies.get('gqa-theme-negative') || getCssVar('negative') || ThemeStyleQuasar.negative
+    const info = Cookies.get('gqa-theme-info') || getCssVar('info') || ThemeStyleQuasar.info
+    const warning = Cookies.get('gqa-theme-warning') || getCssVar('warning') || ThemeStyleQuasar.warning
+    const light = Cookies.get('gqa-theme-light') || getCssVar('light') || ThemeStyleQuasar.light
+    const dark = Cookies.get('gqa-theme-dark') || getCssVar('dark') || ThemeStyleQuasar.dark
 
     setCssVar("primary", primary)
     setCssVar("secondary", secondary)

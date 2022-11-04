@@ -4,13 +4,27 @@ import { Cookies, LocalStorage } from 'quasar';
 export const useSettingStore = defineStore('setting', {
     state: () => ({
         language: undefined,
-        sideDrawerWidth: 220,
-        darkTheme: false,
-        sideDrawerTop: 'h',
-        sideDrawerBottom: 'l'
+        sideDrawerWidth: undefined,
+        darkTheme: undefined,
+        sideDrawerTop: '',
+        sideDrawerBottom: '',
+        themeStyle: ''
     }),
     getters: {},
     actions: {
+        SetThemeStyle(style) {
+            this.themeStyle = style
+            LocalStorage.set('gqa-theme-style', style)
+        },
+        GetThemeStyle() {
+            if (this.themeStyle) {
+                return this.themeStyle
+            } else if (LocalStorage.getItem('gqa-theme-style')) {
+                return LocalStorage.getItem('gqa-theme-style')
+            } else {
+                return 'Gin-Quasar-Admin'
+            }
+        },
         SetDarkTheme(val) {
             this.darkTheme = val
             LocalStorage.set('gqa-dark-theme', val)

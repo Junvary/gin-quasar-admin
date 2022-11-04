@@ -31,7 +31,7 @@
                     {{ props.row.item_custom }}
                     <q-popup-edit v-model="props.row.item_custom" :class="darkThemeSelect">
                         <template v-slot="scope">
-                            {{ $t('Custom') + ' ' + props.row.config_item }}
+                            {{ $t('Customize') + ' ' + props.row.config_item }}
                             <q-input v-model="props.row.item_custom" dense autofocus clearable
                                 @keyup.enter="scope.set" />
                         </template>
@@ -76,12 +76,12 @@ import { computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useStorageStore } from 'src/stores/storage'
 import recordDetail from './modules/recordDetail'
-import useDarkTheme from 'src/composables/useDarkTheme';
+import useTheme from 'src/composables/useTheme';
 
 const $q = useQuasar()
 const { t } = useI18n()
 const storageStore = useStorageStore()
-const { darkThemeSelect } = useDarkTheme()
+const { darkThemeSelect } = useTheme()
 const url = {
     list: 'config-backend/get-config-backend-list',
     edit: 'config-backend/edit-config-backend',

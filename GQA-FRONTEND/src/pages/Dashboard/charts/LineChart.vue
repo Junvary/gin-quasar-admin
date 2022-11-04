@@ -7,9 +7,9 @@
 
 <script setup>
 import { markRaw, onMounted, ref, watch } from 'vue';
-import useDarkTheme from 'src/composables/useDarkTheme'
+import useTheme from 'src/composables/useTheme'
 
-const { darkThemeChart } = useDarkTheme()
+const { darkThemeChart } = useTheme()
 const echarts = require('echarts')
 const chart = ref(null)
 const linechart = ref(null)

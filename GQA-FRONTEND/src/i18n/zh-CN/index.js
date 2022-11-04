@@ -60,6 +60,7 @@ export default {
     Memo: '备注',
     Default: '默认',
     Custom: '自定义',
+    Customize: '自定义',
     Status: '状态',
     Stable: '内置',
     Actions: '操作',
@@ -131,6 +132,8 @@ export default {
     Describe: '描述',
     Choose: '选择',
     Theme: '主题',
+    Display: '显示',
+    Style: '风格',
     Color: '颜色',
     Basic: '基础',
     Setting: '设置',
@@ -159,6 +162,7 @@ export default {
     StartWith: '以 {name} 开头',
     Without: '不包含',
     WithoutOther: '不包含其他',
+    Your: '你的',
 
     // 词组
     SystemManage: '系统管理',

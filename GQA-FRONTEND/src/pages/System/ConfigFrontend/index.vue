@@ -71,7 +71,7 @@
 
                     <q-popup-edit v-model="props.row.item_custom" :class="darkThemeSelect">
                         <template v-slot="scope">
-                            {{ $t('Custom') + ' ' + props.row.config_item }}
+                            {{ $t('Customize') + ' ' + props.row.config_item }}
                             <q-option-group v-if="props.row.config_item === 'loginLayoutStyle'"
                                 v-model="props.row.item_custom" :options="dictOptions.displayStyle" color="primary"
                                 inline @update:model-value="scope.set">
@@ -161,12 +161,12 @@ import { useI18n } from 'vue-i18n'
 import GqaPluginList from 'src/components/GqaPluginList/index.vue'
 import { useStorageStore } from 'src/stores/storage'
 import recordDetail from './modules/recordDetail'
-import useDarkTheme from 'src/composables/useDarkTheme';
+import useTheme from 'src/composables/useTheme';
 
 const $q = useQuasar()
 const { t } = useI18n()
 const storageStore = useStorageStore()
-const { darkThemeSelect } = useDarkTheme()
+const { darkThemeSelect } = useTheme()
 const url = {
     list: 'config-frontend/get-config-frontend-list',
     edit: 'config-frontend/edit-config-frontend',

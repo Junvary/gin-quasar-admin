@@ -7,9 +7,9 @@
 <script setup>
 import { computed } from 'vue';
 import { useStorageStore } from 'src/stores/storage'
-import useDarkTheme from 'src/composables/useDarkTheme';
+import useTheme from 'src/composables/useTheme';
 
-const { darkTheme } = useDarkTheme()
+const { darkTheme } = useTheme()
 const storageStore = useStorageStore()
 const gqaFrontend = computed(() => storageStore.GetGqaFrontend())
 </script>

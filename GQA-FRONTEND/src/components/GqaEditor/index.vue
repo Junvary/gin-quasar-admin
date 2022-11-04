@@ -30,12 +30,12 @@
 </template>
 
 <script setup>
-import useDarkTheme from 'src/composables/useDarkTheme';
+import useTheme from 'src/composables/useTheme';
 import { ref, watch } from 'vue';
 import { useQuasar } from 'quasar';
 
 const $q = useQuasar();
-const { darkTheme } = useDarkTheme()
+const { darkTheme } = useTheme()
 
 const foreColor = ref('#000000');
 const backColor = ref('#ffffff');

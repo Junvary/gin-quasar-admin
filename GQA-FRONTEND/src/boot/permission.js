@@ -2,7 +2,8 @@ import { boot } from 'quasar/wrappers'
 import { LoadingBar, Loading, QSpinnerGears } from 'quasar'
 import { useUserStore } from 'src/stores/user'
 import { usePermissionStore } from 'src/stores/permission'
-import useCommon from 'src/composables/useCommon'
+import useConfig from 'src/composables/useConfig'
+
 import { i18n } from './i18n'
 
 LoadingBar.setDefaults({
@@ -30,7 +31,7 @@ export default boot(({ router, store }) => {
         const permissionStore = usePermissionStore()
         startLoading()
         const token = userStore.GetToken()
-        const { AllowList } = useCommon()
+        const { AllowList } = useConfig()
         if (token) {
             if (AllowList.indexOf(to.path) !== -1) {
                 next({ path: '/' })

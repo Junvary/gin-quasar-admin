@@ -20,7 +20,7 @@
 
 <script setup>
 import { useSettingStore } from 'src/stores/setting';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 
 const settingStore = useSettingStore()
 
@@ -46,4 +46,10 @@ const bottomOption = [
 const setDrawerBottom = () => {
     settingStore.SetSideDrawerBottom(drawerBottom.value)
 }
+
+onMounted(() => {
+    drawerWidth.value = settingStore.GetSideDrawerWidth()
+    drawerTop.value = settingStore.GetSideDrawerTop()
+    drawerBottom.value = settingStore.GetSideDrawerBottom()
+})
 </script>

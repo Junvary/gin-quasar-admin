@@ -60,6 +60,7 @@ export default {
     Memo: 'Memo',
     Default: 'Default',
     Custom: 'Custom',
+    Customize: 'Customize',
     Status: 'Status',
     Stable: 'Stable',
     Actions: 'Actions',
@@ -130,6 +131,8 @@ export default {
     Describe: 'Describe',
     Choose: 'Choose',
     Theme: 'Theme',
+    Display: 'Display',
+    Style: 'Style',
     Color: 'Color',
     Basic: 'Basic',
     Setting: 'Setting',
@@ -158,6 +161,7 @@ export default {
     StartWith: 'start with {name}',
     Without: 'with out',
     WithoutOther: 'with out other',
+    Your: 'Your',
 
     // phrase
     SystemManage: 'System Manage',
