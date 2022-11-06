@@ -4850,10 +4850,10 @@ quasar-ui-qstatistic@latest:
   resolved "https://registry.yarnpkg.com/quasar-ui-qstatistic/-/quasar-ui-qstatistic-0.0.5.tgz#c55288a79e3965b1549c598d5f869c2ef9b51a67"
   integrity sha512-F/tut3MvZWubSmekLJGfXR1GThK+eGk0Mv0eVZLdspWfO6kkPa7yHKa53jYjeffccX97zMMtVHDxsAy0WFLx3A==
 
-quasar@^2.10.0:
-  version "2.10.0"
-  resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.10.0.tgz#c9af5adad0d7ebe8f14c61c5403c943e7c935453"
-  integrity sha512-PHGcrzPQfFa4tv9a5Z/3D2uat48D4WC9Ad/imzHk/k3G41t0eFMH6glCjAvpCWF2q8dBYIg4nEchiPhlujbKsw==
+quasar@^2.10.1:
+  version "2.10.1"
+  resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.10.1.tgz#843888c73d997a53b3808d7f4f358b1aee3a91f2"
+  integrity sha512-W0SEbTdfFS4xvO5OyTyuJent+11MpjBJUYLga69ZFigRh7SV6wFpGNfCuxAifM0L83bp4rWrL2KGoIjEoDsjOw==
 
 queue-microtask@^1.2.2:
   version "1.2.3"
