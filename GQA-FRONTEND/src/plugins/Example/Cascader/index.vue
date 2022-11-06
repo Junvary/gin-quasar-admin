@@ -1,10 +1,16 @@
 <template>
     <q-page padding>
-        <QCascader :options="options" label="请选择" />
+        <q-chip color="primary" text-color="white">
+            Model: {{ model }}
+        </q-chip>
+        <QCascader :options="options" label="请选择" v-model="model" />
     </q-page>
 </template>
 
 <script setup>
+import { ref } from 'vue';
+
+const model = ref(['zhinan', 'shejiyuanze', 'yizhi'])
 const options = [
     {
         value: 'zhinan',
