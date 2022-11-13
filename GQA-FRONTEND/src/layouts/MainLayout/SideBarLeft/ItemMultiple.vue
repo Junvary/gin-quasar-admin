@@ -4,7 +4,9 @@
             <q-item-section avatar>
                 <q-icon :name="trueItem.icon" />
             </q-item-section>
-            <q-item-section>{{ $t(trueItem.title) }}</q-item-section>
+            <q-item-section>
+                {{ $t(trueItem.title) }}
+            </q-item-section>
         </template>
         <slot></slot>
     </q-expansion-item>

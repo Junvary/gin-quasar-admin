@@ -4,7 +4,9 @@
         <q-item-section avatar>
             <q-icon :name="trueItem.icon" />
         </q-item-section>
-        <q-item-section>{{ $t(trueItem.title) }}</q-item-section>
+        <q-item-section>
+            {{ $t(trueItem.title) }}
+        </q-item-section>
     </q-item>
 </template>
 
@@ -51,7 +53,5 @@ const checkActive = computed(() => {
 .item-active-class {
     color: $primary;
     background: $primary;
-    // background: lighten($color: $primary, $amount: 30%);
-    // background: scale-color($primary, $lightness: 5%);
 }
 </style>

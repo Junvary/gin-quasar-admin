@@ -19,6 +19,11 @@
                         <template v-slot:control>
                             <q-option-group v-model="recordDetail.value.todo_status" :options="dictOptions.yesNo"
                                 color="primary" inline>
+                                <template v-slot:label="opt">
+                                    <div class="row items-center">
+                                        <span>{{ $t(opt.label) }}</span>
+                                    </div>
+                                </template>
                             </q-option-group>
                         </template>
                     </q-field>

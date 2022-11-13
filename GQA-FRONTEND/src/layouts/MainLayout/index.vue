@@ -3,8 +3,10 @@
         style="overflow-x: hidden;">
         <q-header reveal elevated :class="darkTheme">
             <q-toolbar>
-                <q-btn dense round flat :icon="toggleLeftDrawer ? 'eva-arrowhead-left' : 'eva-arrowhead-right'"
-                    aria-label="Menu" @click="toggleLeftDrawer = !toggleLeftDrawer" />
+                <q-btn dense round flat icon="ion-md-menu" @click="toggleLeftDrawer = !toggleLeftDrawer" />
+
+                <q-btn dense round flat :icon="miniStateOut ? 'eva-arrowhead-right' : 'eva-arrowhead-left'"
+                    @click="miniStateOut = !miniStateOut" />
 
                 <GqaAvatar class="gin-quasar-admin-logo" :src="gqaFrontend.logo" style="margin-left: 5px;"
                     @mouseenter="startCheck" @mouseleave="stopCheck" />
@@ -43,7 +45,8 @@
         </q-header>
 
         <q-drawer elevated v-model="toggleLeftDrawer" show-if-above bordered content-class="bg-grey-1"
-            :width="drawerWidth">
+            :width="drawerWidth" :mini="miniState" :mini-to-overlay="miniStateOut ? true : false"
+            @mouseover="miniStateMouseover" @mouseout="miniStateMouseout">
             <SideBarLeft :topMenuChildren="topMenuChildren" />
         </q-drawer>
 
@@ -112,6 +115,26 @@ const topMenuChildren = ref({});
 const currentTopMenu = ref('');
 const fabPos = ref([3, 80]);
 const userProfile = ref(null);
+// 顶部导航栏总体控制是否mini模式
+const miniStateOut = ref(false)
+// 控制mini模式
+const miniState = ref(false)
+// 监听总体变换mini模式
+watch(miniStateOut, (newVlaue) => {
+    miniState.value = newVlaue
+})
+// 如果总体是mini模式，进行鼠标进入转换
+const miniStateMouseover = () => {
+    if (miniStateOut.value === true) {
+        miniState.value = false
+    }
+}
+// 如果总体是mini模式，进行鼠标移出转换
+const miniStateMouseout = () => {
+    if (miniStateOut.value === true) {
+        miniState.value = true
+    }
+}
 
 const gqaFrontend = computed(() => storageStore.GetGqaFrontend())
 const drawerWidth = computed(() => settingStore.GetSideDrawerWidth())

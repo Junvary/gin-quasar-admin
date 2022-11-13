@@ -3,7 +3,7 @@
         :style="darkThemeSideBar[0] === 'style' ? darkThemeSideBar[1] : {}">
         <q-list>
             <template v-for="(childrenItem, index) in topMenuChildren" :key="index">
-                <SideBarLeftItem :childrenItem="childrenItem" :initLevel="0" />
+                <SideBarLeftItem :childrenItem="childrenItem" :initLevel="0" style="padding-left: ;" />
             </template>
         </q-list>
     </q-scroll-area>

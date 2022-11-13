@@ -80,8 +80,8 @@ const noticeType = ref('system')
 
 onMounted(() => {
     queryParams.value = {
-        notice_read: 'no',
-        notice_sent: 'yes',
+        notice_read: 'yesNo_no',
+        notice_sent: 'yesNo_yes',
         notice_to_user: String(username.value),
     }
     pagination.value.sortBy = 'created_at'
@@ -96,7 +96,7 @@ onMounted(() => {
 })
 
 const todoQueryParams = {
-    todo_status: 'no',
+    todo_status: 'yesNo_no',
 }
 
 defineExpose({
