@@ -28,7 +28,7 @@ const { topMenuChildren } = toRefs(props)
 </script>
 
 <style lang="scss" scoped>
-.menu-list ::v-deep .q-item {
+.menu-list :v-deep(.q-item) {
     border-radius: 0 32px 32px 0
 }
 </style>

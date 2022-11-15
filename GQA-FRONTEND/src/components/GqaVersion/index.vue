@@ -3,6 +3,13 @@
         <q-list dense bordered separator>
             <q-item clickable v-close-popup v-ripple>
                 <q-item-section>
+                    <q-chip icon="img:icons/gqa32.png">
+                        GQA: {{ gqaVersion }}
+                    </q-chip>
+                </q-item-section>
+            </q-item>
+            <q-item clickable v-close-popup v-ripple>
+                <q-item-section>
                     <q-chip icon="img:icon/vue.svg">
                         Vue: {{ $vueVersion }}
                     </q-chip>
@@ -36,9 +43,11 @@
 <script setup>
 import { computed, ref } from 'vue';
 import { useStorageStore } from 'src/stores/storage'
+import config from '../../../package.json'
 
 const storageStore = useStorageStore()
 const showVersion = ref(false)
 const goVersion = computed(() => storageStore.GetGqaGoVersion())
 const ginVersion = computed(() => storageStore.GetGqaGinVersion())
+const gqaVersion = config.version
 </script>

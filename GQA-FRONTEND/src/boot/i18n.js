@@ -5,6 +5,7 @@ import { useSettingStore } from 'src/stores/setting'
 export const settingStore = useSettingStore()
 
 export const i18n = createI18n({
+    legacy: false,
     locale: settingStore.GetLanguage(),
     fallbackLocale: 'zh-CN',
     messages,

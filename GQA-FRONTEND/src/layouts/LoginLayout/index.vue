@@ -31,7 +31,7 @@ const { GqaConsoleLogo } = useConfig()
 const storageStore = useStorageStore()
 const pluginCurrent = ref(null)
 const pluginComponent = ref(null)
-const dbNeedInit = ref(true)
+const dbNeedInit = ref(false)
 
 const loginLayout = computed(() => {
     if (gqaFrontend.value.loginLayoutStyle && gqaFrontend.value.loginLayoutStyle === 'displayStyle_simple') {
@@ -49,7 +49,7 @@ onBeforeMount(() => {
 })
 
 const checkDb = async () => {
-    dbNeedInit.value = true
+    // dbNeedInit.value = true
     const res = await postAction('public/check-db')
     if (res.code === 1) {
         storageStore.SetGqaGoVersion(res.data.go_version)
