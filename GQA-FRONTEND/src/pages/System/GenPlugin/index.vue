@@ -34,7 +34,8 @@
                             <q-tab-panel v-for="(item, index) in form.plugin_model" :name="item.model_name"
                                 style="padding: 0;">
                                 <q-table :rows="item.column_list" :columns="columns" row-key="column_name"
-                                    hide-pagination>
+                                    :pagination="pagination"
+                                    :rows-per-page-options="[0]">
                                     <template v-slot:top class="q-gutter-md">
                                         <q-btn color="primary" @click="addColumn(item)">添加字段</q-btn>
                                         <q-toggle v-model="item.with_gqa_column" label="携带基础字段" />
@@ -119,6 +120,10 @@ import { useI18n } from 'vue-i18n'
 const $q = useQuasar()
 const { t } = useI18n()
 const url = 'gen-plugin/gen-plugin'
+
+const pagination = ref({
+    rowsPerPage: 0
+})
 
 const inputModel = ref('')
 const modelStruct = ref('')
