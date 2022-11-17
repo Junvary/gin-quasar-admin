@@ -1,7 +1,7 @@
 export default {
     // 帮助
     InitDbHelp1: '确保已经安装并启动了Mysql',
-    InitDbHelp2: '我们会根据右侧配置为你自动创建数据库并导入初始数据',
+    InitDbHelp2: '我们会根据左侧配置为你自动创建数据库并导入初始数据',
     NicknameMessage: '昵称会代替真实姓名显示于系统中',
     SortRule: '排序必须大于0',
     NeedInput: '必须输入此项',
@@ -18,6 +18,7 @@ export default {
     FileRejected: '文件重复或大小/类型不被允许',
     DictHelp: "子级字典编码 必须以 父级字典编码 加 '_' 开头",
     // 单词
+    Github: 'Github',
     Page: '页面',
     Register: '注册',
     Button: '按钮',

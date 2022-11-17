@@ -16,11 +16,110 @@
 }
 
 .gqa-login-layout-img-container {
-    background         : url("/img/sky.jpg") no-repeat;
-    background-position: center;
-    background-size    : cover;
-    overflow           : hidden;
-    height             : 100vh;
+    overflow       : hidden;
+    height         : 100vh;
+    display        : flex;
+    justify-content: center;
+    align-items    : center;
+    position       : relative;
+
+    .primary-ball {
+        position     : absolute;
+        height       : 500px;
+        width        : 500px;
+        background   : $primary;
+        border-radius: 50%;
+        top          : -200px;
+        right        : -200px;
+        background   : -webkit-radial-gradient(circle at top right, #fff, $primary);
+        background   : -moz-radial-gradient(circle at top right, #fff, $primary);
+        background   : radial-gradient(circle at top right, #fff, $primary);
+    }
+
+    .positive-ball {
+        position     : absolute;
+        height       : 300px;
+        width        : 300px;
+        background   : $positive;
+        border-radius: 50%;
+        bottom       : 100px;
+        right        : -100px;
+        background   : -webkit-radial-gradient(circle at center right, $secondary, $positive);
+        background   : -moz-radial-gradient(circle at center right, $secondary, $positive);
+        background   : radial-gradient(circle at center right, $secondary, $positive);
+    }
+
+    .warning-ball {
+        position     : absolute;
+        height       : 600px;
+        width        : 600px;
+        background   : $warning;
+        border-radius: 50%;
+        bottom       : -200px;
+        left         : -200px;
+        background   : -webkit-radial-gradient(circle at bottom left, #cf9900, $warning);
+        background   : -moz-radial-gradient(circle at bottom left, #cf9900, $warning);
+        background   : radial-gradient(circle at bottom left, #ffbb00, $warning);
+    }
+
+    .negative-ball {
+        position     : absolute;
+        height       : 300px;
+        width        : 300px;
+        background   : $negative;
+        border-radius: 50%;
+        bottom       : -150px;
+        left         : 200px;
+        background   : -webkit-radial-gradient(circle at center bottom, #fff, $negative);
+        background   : -moz-radial-gradient(circle at center bottom, #fff, $negative);
+        background   : radial-gradient(circle at center bottom, #e05969, $negative);
+    }
+}
+
+.main-title-logo {
+    position: absolute;
+    top     : 2vh;
+    left    : 2vw;
+}
+
+
+.init-login-card {
+    position       : absolute;
+    width          : 65vw;
+    height         : 70vh;
+    display        : flex;
+    justify-content: center;
+    align-items    : center;
+}
+
+.power-show {
+    position   : absolute;
+    width      : 100%;
+    text-align : center;
+    bottom     : 0;
+    font-weight: bold;
+    font-size  : 10px;
+}
+
+.version-git-show {
+    position: absolute;
+    bottom  : 0;
+    right   : 0;
+}
+
+.language-show {
+    width      : 7%;
+    position   : absolute;
+    bottom     : 5px;
+    left       : 10px;
+    display    : flex;
+    align-items: center;
+}
+
+.dark-theme-show {
+    position: absolute;
+    top     : 0;
+    right   : 10px;
 }
 
 .gin-quasar-admin-banner {
@@ -33,7 +132,6 @@
 .q-btn {
     text-transform: none;
 }
-
 
 .gqa-form {
     & .q-field {

@@ -1,7 +1,5 @@
 import { useI18n } from 'vue-i18n';
 
-
-
 export default function useConfig() {
     const { t } = useI18n
     // 浏览器console打印内容

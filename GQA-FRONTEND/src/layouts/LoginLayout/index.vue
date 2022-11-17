@@ -1,11 +1,43 @@
 <template>
-    <q-layout style="overflow-x: hidden">
+    <q-layout style="overflow: hidden">
         <q-page-container>
-            <div class="gqa-login-layout-img-container" v-if="dbNeedInit">
-                <InitDbView @initDbSuccess="checkDb" />
+            <ComplexView v-if="loginLayout === ComplexView && !dbNeedInit" :pluginComponent="pluginComponent"
+                :pluginCurrent="pluginCurrent" />
+            <div v-else :class="changeContainerImg === '' ? 'gqa-login-layout-img-container' : ''"
+                :style="changeContainerImg === '' ? { background: $q.dark.isActive ? 'black' : '#e3f4fa' } : changeContainerImg">
+                <div class="main-title-logo row justify-center items-center">
+                    <GqaAvatar class="gin-quasar-admin-logo" :src="gqaFrontend.logo" size="45px" />
+                    <span class="text-weight-bold text-h4" style="margin-left:8px">
+                        {{ gqaFrontend.mainTitle }}
+                    </span>
+                </div>
+                <figure class="primary-ball" />
+                <figure class="positive-ball" />
+                <figure class="warning-ball" />
+                <figure class="negative-ball" />
+                <q-card bordered class="init-login-card shadow-15" style="border-radius: 20px;" :class="darkTheme">
+                    <InitDbView @initDbSuccess="checkDb" v-if="dbNeedInit" />
+                    <SimpleView v-else />
+                </q-card>
+                <div class="power-show">
+                    Powered by Gin-Quasar-Admin
+                    {{ gqaVersion }}
+                </div>
+                <div class="version-git-show">
+                    <q-btn flat>
+                        {{ $t('Version') }}{{ $t('Info') }}
+                        <GqaVersion />
+                    </q-btn>
+                    <q-btn flat label="Github" @click="openLink('https://github.com/Junvary/gin-quasar-admin')" />
+                    <q-btn flat label="Gitee" @click="openLink('https://gitee.com/junvary/gin-quasar-admin')" />
+                </div>
+                <div class="language-show">
+                    <GqaLanguage style="width: 100%;" />
+                </div>
+                <div class="dark-theme-show">
+                    <DarkTheme />
+                </div>
             </div>
-            <component v-else :is="loginLayout" :pluginComponent="pluginComponent" :pluginCurrent="pluginCurrent"
-                :dbNeedInit="dbNeedInit" @initDbSuccess="checkDb" />
         </q-page-container>
     </q-layout>
 </template>
@@ -22,7 +54,15 @@ import { useStorageStore } from 'src/stores/storage'
 import { useQuasar } from 'quasar'
 import { useI18n } from 'vue-i18n'
 import useDocument from 'src/composables/useDocument'
+import GqaVersion from 'src/components/GqaVersion/index.vue'
+import GqaLanguage from 'src/components/GqaLanguage/index.vue'
+import GqaAvatar from 'src/components/GqaAvatar/index.vue'
+import config from '../../../package.json'
+import DarkTheme from 'src/components/GqaTheme/DarkTheme.vue';
+import useTheme from 'src/composables/useTheme';
 
+const { darkTheme } = useTheme()
+const gqaVersion = config.version
 useDocument()
 const $q = useQuasar()
 const { t } = useI18n()
@@ -49,7 +89,6 @@ onBeforeMount(() => {
 })
 
 const checkDb = async () => {
-    // dbNeedInit.value = true
     const res = await postAction('public/check-db')
     if (res.code === 1) {
         storageStore.SetGqaGoVersion(res.data.go_version)
@@ -82,4 +121,31 @@ const checkDb = async () => {
         }
     }
 }
+const openLink = (url) => {
+    window.open(url)
+}
+const changeContainerImg = computed(() => {
+    if (bannerImage.value === '') {
+        return ''
+    } else {
+        return {
+            background: 'url(' + bannerImage.value + ')',
+            backgroundRepeat: "no",
+            backgroundPosition: 'center',
+            backgroundSize: "cover",
+            overflow: 'hidden',
+            height: '100vh',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+        }
+    }
+
+})
+const bannerImage = computed(() => {
+    if (gqaFrontend.value.bannerImage && gqaFrontend.value.bannerImage.substring(0, 11) === 'gqa-upload:') {
+        return process.env.API + gqaFrontend.value.bannerImage.substring(11)
+    }
+    return ''
+})
 </script>

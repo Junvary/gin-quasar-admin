@@ -1,23 +1,6 @@
 <template>
-    <q-field :label="$t('Theme')" stack-label>
-        <template v-slot:control>
-            <q-btn-toggle v-model="darkTheme" toggle-color="primary" :options="[
-                { slot: 'sun', value: false },
-                { slot: 'moon', value: true },
-            ]">
-                <template v-slot:sun>
-                    <div class="row items-center no-wrap">
-                        <q-icon name="fas fa-sun" />
-                    </div>
-                </template>
-                <template v-slot:moon>
-                    <div class="row items-center no-wrap">
-                        <q-icon name="fas fa-moon" />
-                    </div>
-                </template>
-            </q-btn-toggle>
-        </template>
-    </q-field>
+    <q-toggle v-model="darkTheme" icon="eva-moon-outline" unchecked-icon="eva-sun-outline"
+        :color="darkTheme ? 'black' : ''" />
 </template>
 
 <script setup>

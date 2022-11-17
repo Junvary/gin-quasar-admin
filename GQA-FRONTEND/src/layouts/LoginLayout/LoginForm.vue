@@ -4,10 +4,10 @@
             <div class="text-center">
                 <GqaAvatar size="xl" :src="gqaFrontend.logo" />
             </div>
-            <div class="text-h4 text-center text-primary text-bold">
+            <div class="text-h4 text-center text-bold">
                 {{ gqaFrontend.subTitle }}
             </div>
-            <div class="text-h6 text-center text-primary q-mt-md q-mb-xs">
+            <div class="text-h6 text-center q-mt-md q-mb-xs">
                 {{ $t('WelcomeBack') }}
             </div>
             <q-form @submit="onSubmit" class="q-mt-lg gqa-form">
@@ -41,11 +41,6 @@
                 <q-spinner-hourglass color="primary" size="3em" />
             </q-inner-loading>
         </q-card-section>
-        <q-separator />
-
-        <q-card-actions v-if="$q.screen.gt.sm">
-            <GqaLanguage />
-        </q-card-actions>
     </q-card-section>
 </template>
 
@@ -53,7 +48,6 @@
 import useCommon from 'src/composables/useCommon'
 import { ref, onMounted } from 'vue';
 import { postAction } from 'src/api/manage'
-import GqaLanguage from 'src/components/GqaLanguage/index.vue'
 import GqaAvatar from 'src/components/GqaAvatar/index.vue'
 import { useUserStore } from 'src/stores/user'
 import { usePermissionStore } from 'src/stores/permission';

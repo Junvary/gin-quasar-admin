@@ -1,7 +1,7 @@
 export default {
     // Help
     InitDbHelp1: 'Make sure MySQL is installed and started',
-    InitDbHelp2: 'We will create the database and import the initial data for you according to the configuration on the right',
+    InitDbHelp2: 'We will create the database and import the initial data for you according to the configuration on the left',
     NicknameMessage: 'The nickname will overwrite the real name in the system',
     SortRule: 'Sort must be greater than 0',
     NeedInput: 'Please type something',
@@ -18,6 +18,7 @@ export default {
     FileRejected: 'Duplicate file or size / type not allowed',
     DictHelp: "Child dict code must start with the parent dict code and '_'",
     // word
+    Github: 'Github',
     Page: 'Page',
     Register: 'Register',
     Button: 'Button',

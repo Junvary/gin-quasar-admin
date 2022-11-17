@@ -1,4 +1,5 @@
 <template>
+    <!-- 本页面根据需求维护 -->
     <q-layout style="overflow-x: hidden">
         <q-page-container>
             <page-banner />
