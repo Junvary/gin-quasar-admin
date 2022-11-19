@@ -10,12 +10,12 @@
                 @update:model-value="setDrawerTop" />
         </template>
     </q-field>
-    <q-field :label="$t('SideDrawer') + $t('Bottom')" stack-label>
+    <!-- <q-field :label="$t('SideDrawer') + $t('Bottom')" stack-label>
         <template v-slot:control>
             <q-btn-toggle v-model="drawerBottom" toggle-color="primary" :options="bottomOption"
                 @update:model-value="setDrawerBottom" />
         </template>
-    </q-field>
+    </q-field> -->
 </template>
 
 <script setup>

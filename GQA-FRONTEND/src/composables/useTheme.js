@@ -13,6 +13,42 @@ export default function useTheme() {
             return 'bg-dark text-white'
         } else {
             if (themeStyle.value === 'Gin-Quasar-Admin') {
+                return 'bg-blue-grey-9 text-white'
+            }
+            if (themeStyle.value === 'Quasar') {
+                return 'bg-primary text-white'
+            }
+            if (themeStyle.value === 'Element Plus') {
+                return 'bg-primary text-white'
+            }
+            if (themeStyle.value === 'Ant Design Vue') {
+                return 'bg-primary text-white'
+            }
+        }
+    });
+    const darkThemeLoginHelp = computed(() => {
+        if ($q.dark.isActive) {
+            return 'bg-dark text-white'
+        } else {
+            if (themeStyle.value === 'Gin-Quasar-Admin') {
+                return 'text-dark'
+            }
+            if (themeStyle.value === 'Quasar') {
+                return 'bg-primary text-white'
+            }
+            if (themeStyle.value === 'Element Plus') {
+                return 'bg-primary text-white'
+            }
+            if (themeStyle.value === 'Ant Design Vue') {
+                return 'bg-primary text-white'
+            }
+        }
+    });
+    const darkThemeLoginCard = computed(() => {
+        if ($q.dark.isActive) {
+            return 'bg-dark text-white'
+        } else {
+            if (themeStyle.value === 'Gin-Quasar-Admin') {
                 return 'bg-white text-dark'
             }
             if (themeStyle.value === 'Quasar') {
@@ -49,7 +85,7 @@ export default function useTheme() {
             return ['class', 'bg-dark text-white']
         } else {
             if (themeStyle.value === 'Gin-Quasar-Admin') {
-                return ['class', 'bg-white text-dark']
+                return ['class', 'bg-blue-grey-9 text-white']
             }
             if (themeStyle.value === 'Quasar') {
                 return ['class', 'bg-white text-dark']
@@ -64,10 +100,10 @@ export default function useTheme() {
     })
     const darkThemeSelect = computed(() => {
         if ($q.dark.isActive) {
-            return 'bg-grey-9 text-white'
+            return 'bg-blue-grey-9 text-white'
         } else {
             if (themeStyle.value === 'Gin-Quasar-Admin') {
-                return 'bg-grey-4 text-dark'
+                return 'bg-primary text-white'
             }
             if (themeStyle.value === 'Quasar') {
                 return 'bg-primary text-white'
@@ -89,6 +125,8 @@ export default function useTheme() {
     });
     return {
         darkTheme,
+        darkThemeLoginHelp,
+        darkThemeLoginCard,
         darkThemeTab,
         darkThemeSideBar,
         darkThemeSelect,

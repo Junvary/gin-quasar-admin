@@ -1,5 +1,5 @@
 <template>
-    <q-card-section horizontal :class="darkTheme"
+    <q-card-section horizontal :class="darkThemeLoginHelp"
         style="width: 50%; height: 100%; background: #f3fbff; border-radius: 20px 0 0 20px;">
         <q-card-section class="row justify-center" style="width: 100%;">
             <InitDbViewForm @initDbSuccess="initDbSuccess" />
@@ -23,7 +23,7 @@ import InitDbViewForm from './InitDbViewForm.vue'
 import InitDbViewHelp from './InitDbViewHelp.vue'
 import useTheme from 'src/composables/useTheme';
 
-const { darkTheme } = useTheme()
+const { darkThemeLoginHelp } = useTheme()
 
 useDocument()
 const router = useRouter()

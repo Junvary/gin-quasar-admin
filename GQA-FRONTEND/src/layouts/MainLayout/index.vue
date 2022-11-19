@@ -1,7 +1,7 @@
 <template>
     <q-layout :view="layoutView" :style="{ backgroundColor: $q.dark.isActive ? '#1d1d1d' : '#fafafa' }"
         style="overflow-x: hidden;">
-        <q-header reveal bordered :class="darkTheme" style="height: 50px;">
+        <q-header reveal bordered :class="darkTheme" style="height: 50px; border-bottom: 1px solid white;">
             <q-toolbar>
                 <q-btn dense round flat icon="eva-menu" @click="toggleLeftDrawer = !toggleLeftDrawer" />
 
@@ -17,9 +17,8 @@
 
                 <q-select v-if="layoutView.split(' ')[0] === 'hHh'" id="menuSelect" dense borderless
                     v-model="currentTopMenu" :options="topMenu" map-options option-value="name"
-                    @update:model-value="changeTop" style="margin-left: 20px;"
-                    :dark="themeStyle === 'Gin-Quasar-Admin' ? $q.dark.isActive : true"
-                    :option-label="opt => Object(opt) === opt && 'title' in opt ? t(opt.title) : opt.title">
+                    @update:model-value="changeTop" style="margin-left: 20px;" dark
+                    :option-label="opt => Object(opt) === opt && 'title' in opt ? $t(opt.title) : opt.title">
                     <template v-slot:prepend>
                         <q-icon name="ion-md-apps" :class="darkTheme" />
                     </template>
@@ -48,12 +47,12 @@
             :mini="miniState" :mini-to-overlay="miniStateOut ? true : false" @mouseover="miniStateMouseover"
             @mouseout="miniStateMouseout">
             <SideBarLeft :topMenuChildren="topMenuChildren">
-                <q-select v-if="layoutView.split(' ')[0] === 'lHh'" id="menuSelect" filled v-model="currentTopMenu"
+                <q-select v-if="layoutView.split(' ')[0] === 'lHh'" id="menuSelect" v-model="currentTopMenu"
                     :options="topMenu" map-options option-value="name" @update:model-value="changeTop"
-                    :dark="themeStyle === 'Gin-Quasar-Admin' ? $q.dark.isActive : true" style="height: 50px;"
-                    :option-label="opt => Object(opt) === opt && 'title' in opt ? t(opt.title) : opt.title">
+                    :dark="themeStyle === 'Quasar' ? false : true" borderless
+                    :option-label="opt => Object(opt) === opt && 'title' in opt ? $t(opt.title) : opt.title">
                     <template v-slot:prepend>
-                        <q-icon name="ion-md-apps" />
+                        <q-icon name="ion-md-apps" style="margin-left: 12px;" size="30px" />
                     </template>
                 </q-select>
             </SideBarLeft>
@@ -107,14 +106,12 @@ import { useRoute } from 'vue-router';
 import useDocument from 'src/composables/useDocument'
 import { useQuasar } from 'quasar';
 import XEUtils from 'xe-utils'
-import { useI18n } from 'vue-i18n';
 import { postAction } from 'src/api/manage';
 import AchievementDialog from 'src/plugins/Achievement/AchievementDialog.vue';
 // 动态更改网站标题和favicon
 useDocument()
 
 const $q = useQuasar();
-const { t } = useI18n();
 const { darkTheme } = useTheme()
 const route = useRoute();
 const userStore = useUserStore();

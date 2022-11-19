@@ -1,9 +1,9 @@
 <template>
-    <div class="row justify-center items-end gqa-footer" :class="darkTheme">
+    <div class="row justify-center items-end gqa-footer" :style="{ color: $q.dark.isActive ? '#fff' : '#000' }">
         {{ gqaFrontend.subTitle }}
         is powered by&nbsp;
-        <a href="https://github.com/Junvary/gin-quasar-admin" :class="darkTheme" target="_blank"
-            style="text-decoration: none">
+        <a href="https://github.com/Junvary/gin-quasar-admin" target="_blank" style="text-decoration: none"
+            :style="{ color: $q.dark.isActive ? '#fff' : '#000' }">
             Gin-Quasar-Admin
             {{ gqaVersion }}
         </a>

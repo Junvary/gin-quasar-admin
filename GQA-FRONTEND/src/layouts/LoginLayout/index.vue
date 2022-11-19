@@ -15,7 +15,8 @@
                 <figure class="positive-ball" />
                 <figure class="warning-ball" />
                 <figure class="negative-ball" />
-                <q-card bordered class="init-login-card shadow-15" style="border-radius: 20px;" :class="darkTheme">
+                <q-card bordered class="init-login-card shadow-15" style="border-radius: 20px;"
+                    :class="darkThemeLoginCard">
                     <InitDbView @initDbSuccess="checkDb" v-if="dbNeedInit" />
                     <SimpleView v-else />
                 </q-card>
@@ -61,7 +62,7 @@ import config from '../../../package.json'
 import DarkTheme from 'src/components/GqaTheme/DarkTheme.vue';
 import useTheme from 'src/composables/useTheme';
 
-const { darkTheme } = useTheme()
+const { darkThemeLoginCard } = useTheme()
 const gqaVersion = config.version
 useDocument()
 const $q = useQuasar()

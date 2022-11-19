@@ -21,9 +21,14 @@
                     <q-separator />
 
                     <q-tab-panels v-model="tab" animated>
-                        <q-tab-panel name="basicSetting" class="text-left">
-                            <GqaLanguage />
-                            <DarkTheme />
+                        <q-tab-panel name="basicSetting" class="text-left q-gutter-y-xl">
+                            <q-field :label="$t('Dark') + $t('Theme')" dense stack-label style="width: 20%;">
+                                <template v-slot:control>
+                                    <DarkTheme />
+                                </template>
+                            </q-field>
+                            <GqaLanguage style="width: 20%;" />
+
                             <SideDrawer />
                         </q-tab-panel>
 
