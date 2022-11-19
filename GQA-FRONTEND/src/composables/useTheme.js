@@ -26,6 +26,24 @@ export default function useTheme() {
             }
         }
     });
+    const darkThemeTab = computed(() => {
+        if ($q.dark.isActive) {
+            return 'bg-dark text-white'
+        } else {
+            if (themeStyle.value === 'Gin-Quasar-Admin') {
+                return 'bg-white text-dark'
+            }
+            if (themeStyle.value === 'Quasar') {
+                return 'bg-white text-primary'
+            }
+            if (themeStyle.value === 'Element Plus') {
+                return 'bg-white text-primary'
+            }
+            if (themeStyle.value === 'Ant Design Vue') {
+                return 'bg-white text-primary'
+            }
+        }
+    });
     const darkThemeSideBar = computed(() => {
         if ($q.dark.isActive) {
             return ['class', 'bg-dark text-white']
@@ -71,6 +89,7 @@ export default function useTheme() {
     });
     return {
         darkTheme,
+        darkThemeTab,
         darkThemeSideBar,
         darkThemeSelect,
         darkThemeChart

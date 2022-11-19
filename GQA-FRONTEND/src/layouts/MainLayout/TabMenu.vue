@@ -1,5 +1,5 @@
 <template>
-    <q-tabs dense inline-label outside-arrows mobile-arrows :class="darkTheme" style="width: 100%;" v-if="!loginPage"
+    <q-tabs dense inline-label outside-arrows mobile-arrows :class="darkThemeTab" style="width: 100%;" v-if="!loginPage"
         align="left">
         <q-route-tab exact replace v-for="tab in tabMenus" :to="tab.path" :key="tab.path" :name="tab.path">
             <template v-slot>
@@ -44,7 +44,7 @@ import useTheme from 'src/composables/useTheme';
 import { usePermissionStore } from 'src/stores/permission';
 
 const tabMenuStore = useTabMenuStore()
-const { darkTheme } = useTheme()
+const { darkThemeTab } = useTheme()
 const router = useRouter()
 const route = useRoute()
 const permissionStore = usePermissionStore()
@@ -65,10 +65,14 @@ onUnmounted(() => {
 const loginPage = ref(false)
 
 const removeTab = (tab) => {
-    tabMenuStore.RemoveTab(tab)
-    nextTick(() => {
-        router.push({ path: currentTab.value.path })
-    })
+    if (tab.path === currentTab.value.path) {
+        tabMenuStore.RemoveTab(tab)
+        nextTick(() => {
+            router.push({ path: currentTab.value.path })
+        })
+    } else {
+        tabMenuStore.RemoveTab(tab)
+    }
 }
 const removeOtherTab = (tab) => {
     tabMenuStore.DestroyTabMenu()

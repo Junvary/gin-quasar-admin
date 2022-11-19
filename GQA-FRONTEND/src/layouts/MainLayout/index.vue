@@ -1,7 +1,7 @@
 <template>
     <q-layout :view="layoutView" :style="{ backgroundColor: $q.dark.isActive ? '#1d1d1d' : '#fafafa' }"
         style="overflow-x: hidden;">
-        <q-header reveal bordered :class="darkTheme">
+        <q-header reveal bordered :class="darkTheme" style="height: 50px;">
             <q-toolbar>
                 <q-btn dense round flat icon="eva-menu" @click="toggleLeftDrawer = !toggleLeftDrawer" />
 
@@ -59,7 +59,7 @@
             </SideBarLeft>
         </q-drawer>
 
-        <q-page-container style="overflow-x: hidden;">
+        <q-page-container style="overflow: hidden;">
             <router-view v-slot="{ Component }">
                 <component :is="Component" />
             </router-view>
@@ -68,17 +68,17 @@
                 <TabMenu />
             </q-page-sticky>
 
-            <q-page-sticky position="bottom-right" :offset="fabPos" class="column">
-                <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[0, -80]">
-                    <q-btn push fab glossy rounded icon="keyboard_arrow_up" color="primary"
-                        v-touch-pan.prevent.mouse="moveFab" />
+            <q-page-sticky position="bottom-right" :offset="fabPos">
+                <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[0, -70]">
+                    <q-btn dense glossy rounded icon="keyboard_arrow_up" v-touch-pan.prevent.mouse="moveFab" />
                 </q-page-scroller>
             </q-page-sticky>
+            <PageFooter />
         </q-page-container>
 
-        <q-footer reveal elevated>
+        <!-- <q-footer reveal>
             <PageFooter />
-        </q-footer>
+        </q-footer> -->
 
         <UserProfile ref="userProfile" />
         <AchievementDialog ref="achievementDialog" />
