@@ -54,4 +54,8 @@ const checkActive = computed(() => {
     color: $primary;
     background: $primary;
 }
+
+.q-item {
+    border-radius: 0 32px 32px 0
+}
 </style>
