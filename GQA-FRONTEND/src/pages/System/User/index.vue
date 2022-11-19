@@ -1,6 +1,6 @@
 <template>
     <q-page padding>
-        <div class="row q-gutter-md">
+        <div class="row q-gutter-x-md">
             <div class="col-2">
                 {{ $t('Select') + $t('Dept') }}
                 <q-separator />
@@ -9,8 +9,8 @@
                         label-key="dept_name" node-key="dept_code" selected-color="primary" default-expand-all />
                 </div>
             </div>
-            <div class="col">
-                <div class="items-center row q-gutter-md" style="margin-bottom: 10px">
+            <div class="col q-gutter-y-md">
+                <div class="row q-gutter-x-md items-center">
                     <q-input style="width: 20%" v-model="queryParams.username" :label="$t('Username')" />
                     <q-input style="width: 20%" v-model="queryParams.real_name" :label="$t('RealName')" />
                     <q-btn color="primary" @click="handleSearch" :label="$t('Search')" />
@@ -87,10 +87,9 @@
                         </q-td>
                     </template>
                 </q-table>
-                <recordDetail ref="recordDetailDialog" @handleFinish="handleFinish" />
             </div>
         </div>
-
+        <recordDetail ref="recordDetailDialog" @handleFinish="handleFinish" />
     </q-page>
 </template>
 

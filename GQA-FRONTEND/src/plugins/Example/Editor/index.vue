@@ -1,5 +1,5 @@
 <template>
-    <q-page padding>
+    <q-page padding class="q-gutter-y-md">
         <GqaEditor v-model="text" />
     </q-page>
 </template>

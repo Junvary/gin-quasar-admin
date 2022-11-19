@@ -1,7 +1,6 @@
 <template>
-    <q-page padding>
-
-        <div class="items-center row q-gutter-md" style="margin-bottom: 10px">
+    <q-page padding class="q-gutter-y-md">
+        <div class="row q-gutter-x-md items-center">
             <q-input style="width: 20%" v-model="queryParams.login_username" :label="$t('User')" />
             <q-select style="width: 20%" v-model="queryParams.login_success" :options="dictOptions.yesNo" emit-value
                 map-options :label="$t('Login') + $t('Success')"

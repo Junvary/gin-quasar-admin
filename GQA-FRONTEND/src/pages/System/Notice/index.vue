@@ -1,7 +1,6 @@
 <template>
-    <q-page padding>
-
-        <div class="items-center row q-gutter-md" style="margin-bottom: 10px">
+    <q-page padding class="q-gutter-y-md">
+        <div class="row q-gutter-x-md items-center">
             <q-input style="width: 20%" v-model="queryParams.notice_title" :label="$t('Title')" />
             <q-select style="width: 20%" v-model="queryParams.notice_type" :options="dictOptions.noticeType" emit-value
                 map-options :label="$t('Notice') + $t('Type')" />

@@ -1,26 +1,31 @@
 <template>
     <q-layout :view="layoutView" :style="{ backgroundColor: $q.dark.isActive ? '#1d1d1d' : '#fafafa' }"
         style="overflow-x: hidden;">
-        <q-header reveal elevated :class="darkTheme">
+        <q-header reveal bordered :class="darkTheme">
             <q-toolbar>
-                <q-btn dense round flat icon="ion-md-menu" @click="toggleLeftDrawer = !toggleLeftDrawer" />
+                <q-btn dense round flat icon="eva-menu" @click="toggleLeftDrawer = !toggleLeftDrawer" />
 
                 <q-btn dense round flat :icon="miniStateOut ? 'eva-arrowhead-right' : 'eva-arrowhead-left'"
                     @click="miniStateOut = !miniStateOut" />
 
-                <GqaAvatar class="gin-quasar-admin-logo" :src="gqaFrontend.logo" style="margin-left: 5px;"
-                    @mouseenter="startCheck" @mouseleave="stopCheck" />
+                <GqaAvatar class="gin-quasar-admin-logo" :src="gqaFrontend.logo" @mouseenter="startCheck"
+                    @mouseleave="stopCheck" />
 
                 <q-toolbar-title shrink class="text-bold text-italic cursor-pointer" style="padding: 0 5px;">
                     {{ gqaFrontend.subTitle }}
                 </q-toolbar-title>
 
-                <q-select id="menuSelect" dense borderless v-model="currentTopMenu" :options="topMenu" map-options
-                    option-value="name" @update:model-value="changeTop" style="margin: 0 20px;"
+                <q-select v-if="layoutView.split(' ')[0] === 'hHh'" id="menuSelect" dense borderless
+                    v-model="currentTopMenu" :options="topMenu" map-options option-value="name"
+                    @update:model-value="changeTop" style="margin-left: 20px;"
                     :dark="themeStyle === 'Gin-Quasar-Admin' ? $q.dark.isActive : true"
-                    :option-label="opt => Object(opt) === opt && 'title' in opt ? t(opt.title) : opt.title" />
+                    :option-label="opt => Object(opt) === opt && 'title' in opt ? t(opt.title) : opt.title">
+                    <template v-slot:prepend>
+                        <q-icon name="ion-md-apps" :class="darkTheme" />
+                    </template>
+                </q-select>
 
-                <q-breadcrumbs v-if="findCurrentTopMenu">
+                <q-breadcrumbs v-if="findCurrentTopMenu" style="margin-left: 20px;">
                     <q-breadcrumbs-el :label="$t(findCurrentTopMenu?.title)" :icon="findCurrentTopMenu?.icon"
                         :class="darkTheme" />
                     <q-breadcrumbs-el :label="$t(route.meta.title)" :icon="route.meta.icon" />
@@ -32,30 +37,36 @@
                     <Fullscreen />
                     <ChatAndNotice />
                     <AddNoteTodo />
-                    <Setting />
                     <GitLink v-if="gqaFrontend.showGit === 'yesNo_yes'" />
                     <UserMenu @showProfile="$refs.userProfile.show()" />
+                    <Setting />
                 </div>
             </q-toolbar>
-
-            <!-- header下面的标签页 -->
-            <div class="row bg-white">
-                <TabMenu />
-            </div>
         </q-header>
 
-        <q-drawer elevated v-model="toggleLeftDrawer" show-if-above bordered content-class="bg-grey-1"
-            :width="drawerWidth" :mini="miniState" :mini-to-overlay="miniStateOut ? true : false"
-            @mouseover="miniStateMouseover" @mouseout="miniStateMouseout">
-            <SideBarLeft :topMenuChildren="topMenuChildren" />
+        <q-drawer bordered v-model="toggleLeftDrawer" show-if-above content-class="bg-grey-1" :width="drawerWidth"
+            :mini="miniState" :mini-to-overlay="miniStateOut ? true : false" @mouseover="miniStateMouseover"
+            @mouseout="miniStateMouseout">
+            <SideBarLeft :topMenuChildren="topMenuChildren">
+                <q-select v-if="layoutView.split(' ')[0] === 'lHh'" id="menuSelect" filled v-model="currentTopMenu"
+                    :options="topMenu" map-options option-value="name" @update:model-value="changeTop"
+                    :dark="themeStyle === 'Gin-Quasar-Admin' ? $q.dark.isActive : true" style="height: 50px;"
+                    :option-label="opt => Object(opt) === opt && 'title' in opt ? t(opt.title) : opt.title">
+                    <template v-slot:prepend>
+                        <q-icon name="ion-md-apps" />
+                    </template>
+                </q-select>
+            </SideBarLeft>
         </q-drawer>
 
         <q-page-container style="overflow-x: hidden;">
             <router-view v-slot="{ Component }">
-                <transition appear enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
-                    <component :is="Component" />
-                </transition>
+                <component :is="Component" />
             </router-view>
+
+            <q-page-sticky expand position="top">
+                <TabMenu />
+            </q-page-sticky>
 
             <q-page-sticky position="bottom-right" :offset="fabPos" class="column">
                 <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[0, -80]">

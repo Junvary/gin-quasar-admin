@@ -1,5 +1,5 @@
 <template>
-    <q-btn dense round flat icon="notifications">
+    <q-btn dense round flat icon="notifications_none">
         <q-badge color="negative" floating v-if="tableData.length + noteTodoData.length">
             {{ tableData.length + noteTodoData.length }}
         </q-badge>

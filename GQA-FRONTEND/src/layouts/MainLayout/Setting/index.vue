@@ -1,6 +1,6 @@
 <template>
     <div>
-        <q-btn dense round flat :icon="`${!right ? 'settings' : 'close'}`" @click="right = !right" />
+        <q-btn dense round flat :icon="`${!right ? 'ion-ios-options' : 'ion-md-close'}`" @click="right = !right" />
         <q-dialog v-model="right">
             <q-card style="height: 100%; width: 890px; max-width: 80vw;" class="text-center">
                 <q-card-section>

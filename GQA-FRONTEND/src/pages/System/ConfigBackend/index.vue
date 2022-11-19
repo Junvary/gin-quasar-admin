@@ -1,7 +1,6 @@
 <template>
-    <q-page padding>
-
-        <div class="row q-gutter-md items-center" style="margin-bottom: 10px">
+    <q-page padding class="q-gutter-y-md">
+        <div class="row q-gutter-x-md items-center">
             <q-input style="width: 20%" v-model="queryParams.config_item" :label="$t('Config') + $t('Name')" />
             <q-input style="width: 20%" v-model="queryParams.memo" :label="$t('Config') + $t('Memo')" />
             <q-btn color="primary" @click="handleSearch" :label="$t('Search')" />

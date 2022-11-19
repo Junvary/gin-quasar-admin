@@ -1,6 +1,7 @@
 <template>
     <q-scroll-area style="height: calc(100%);" :class="darkThemeSideBar[0] === 'class' ? darkThemeSideBar[1] : ''"
         :style="darkThemeSideBar[0] === 'style' ? darkThemeSideBar[1] : {}">
+        <slot />
         <q-list class="menu-list">
             <template v-for="(childrenItem, index) in topMenuChildren" :key="index">
                 <SideBarLeftItem :childrenItem="childrenItem" :initLevel="0" style="padding-left: ;" />

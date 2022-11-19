@@ -1,5 +1,5 @@
 <template>
-    <q-btn dense round flat icon="groups" @click="showChat">
+    <q-btn dense round flat icon="mdi-chat-processing-outline" @click="showChat">
         <q-badge color="negative" floating v-if="badgeCount">
             {{ badgeCount }}
         </q-badge>

@@ -1,6 +1,6 @@
 <template>
-    <q-page padding>
-        <div class="items-center row q-gutter-md" style="margin-bottom: 10px">
+    <q-page padding class="q-gutter-y-md">
+        <div class="row q-gutter-x-md items-center">
             <q-input style="width: 20%" v-model="queryParams.role_code" :label="$t('Role') + $t('Code')" />
             <q-input style="width: 20%" v-model="queryParams.role_name" :label="$t('Role') + $t('Name')" />
             <q-btn color="primary" @click="handleSearch" :label="$t('Search')" />

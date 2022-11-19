@@ -7,7 +7,6 @@
         </div>
         <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
             :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
-
             <template v-slot:top="props">
                 <div class="row q-gutter-x-md">
                     <q-btn color="primary" @click="showAddForm()" label="新增测试数据" />
@@ -19,13 +18,11 @@
                 <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
                     @click="props.toggleFullscreen" class="q-ml-md" />
             </template>
-
             <template v-slot:body-cell-created_at="props">
                 <q-td :props="props">
                     {{ showDateTime(props.row.created_at) }}
                 </q-td>
             </template>
-
             <template v-slot:body-cell-actions="props">
                 <q-td :props="props">
                     <div class="q-gutter-xs">

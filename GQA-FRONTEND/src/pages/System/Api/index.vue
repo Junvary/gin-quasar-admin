@@ -1,7 +1,6 @@
 <template>
-    <q-page padding>
-
-        <div class="row q-gutter-md items-center" style="margin-bottom: 10px">
+    <q-page padding class="q-gutter-y-md">
+        <div class="row q-gutter-x-md items-center">
             <q-input style="width: 20%" v-model="queryParams.api_group" :label="$t('Api') + $t('Group')" />
             <q-input style="width: 20%" v-model="queryParams.api_method" :label="$t('Api') + $t('Method')" />
             <q-btn color="primary" @click="handleSearch" :label="$t('Search')" />
@@ -41,6 +40,9 @@
                 </q-td>
             </template>
         </q-table>
+
+
+
         <recordDetail ref="recordDetailDialog" @handleFinish="handleFinish" />
     </q-page>
 </template>

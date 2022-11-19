@@ -1,6 +1,6 @@
 <template>
-    <q-page padding>
-        <div class="items-center row q-gutter-md" style="margin-bottom: 10px">
+    <q-page padding class="q-gutter-y-md">
+        <div class="row q-gutter-x-md items-center">
             <q-input style="width: 20%" v-model="queryParams.username" :label="$t('Username')" />
             <q-btn color="primary" @click="handleSearch" :label="$t('Search')" />
             <q-btn color="primary" @click="resetSearch" :label="$t('Reset')" />
@@ -9,6 +9,9 @@
             :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
 
             <template v-slot:top="props">
+                <span class="text-h6">
+                    {{ $t('UserOnline') }}
+                </span>
                 <q-space />
                 <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
                     @click="props.toggleFullscreen" class="q-ml-md" />

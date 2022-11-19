@@ -1,6 +1,6 @@
 <template>
-    <q-page padding>
-        <q-input v-model="filter" label="Filter" outlined clearable style="width: 100%" />
+    <q-page padding class="q-gutter-y-md">
+        <q-input dense v-model="filter" label="Filter" outlined clearable style="width: 100%" />
         <q-tabs v-model="tab" dense class="text-grey" active-color="primary" indicator-color="primary" align="justify"
             narrow-indicator>
             <q-tab name="materia" label="material-icons" />
@@ -9,9 +9,6 @@
             <q-tab name="mdi" label="mdi-v6" />
             <q-tab name="ionicons" label="ionicons-v4" />
         </q-tabs>
-
-        <q-separator />
-
         <q-tab-panels v-model="tab" animated>
             <q-tab-panel name="materia">
                 <div class="row" style="width: 95%">
@@ -20,7 +17,6 @@
                         @click="copyIcon(materiaData.value)" />
                 </div>
             </q-tab-panel>
-
             <q-tab-panel name="fontawesome">
                 <div class="row" style="width: 95%">
                     <q-icon-picker v-model="fontawesomeData.value" v-model:model-pagination="fontawesomeData.pagination"
@@ -28,7 +24,6 @@
                         @click="copyIcon(fontawesomeData.value)" />
                 </div>
             </q-tab-panel>
-
             <q-tab-panel name="eva">
                 <div class="row" style="width: 95%">
                     <q-icon-picker v-model="evaData.value" v-model:model-pagination="evaData.pagination"
@@ -36,7 +31,6 @@
                         @click="copyIcon(evaData.value)" />
                 </div>
             </q-tab-panel>
-
             <q-tab-panel name="mdi">
                 <div class="row" style="width: 95%">
                     <q-icon-picker v-model="mdiData.value" v-model:model-pagination="mdiData.pagination"
@@ -44,7 +38,6 @@
                         @click="copyIcon(mdiData.value)" />
                 </div>
             </q-tab-panel>
-
             <q-tab-panel name="ionicons">
                 <div class="row" style="width: 95%">
                     <q-icon-picker v-model="ioniconsData.value" v-model:model-pagination="ioniconsData.pagination"
@@ -122,7 +115,3 @@ const copyIcon = (item) => {
 
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>
