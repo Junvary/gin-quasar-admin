@@ -28,13 +28,13 @@ English | [简体中文](README.md)
 
 ### Screenshots：
 
-![dark.png](https://s2.loli.net/2022/10/03/YB8eZkGusUpCjtS.png)
+![login.png](https://s2.loli.net/2022/11/21/GPNdE5HjlIKFfr8.png)
 
-![login.png](https://s2.loli.net/2022/10/03/Yjw4zf5NkemI3Vy.png)
+![login-dark.png](https://s2.loli.net/2022/11/21/rLUOuhxt6m457oA.png)
 
+![dashboard-dark.png](https://s2.loli.net/2022/11/21/A9tdvTMhZbJix2f.png)
 
-
-![light.png](https://s2.loli.net/2022/10/03/Oe2LasKRfV9gJyC.png)
+![dashboard.png](https://s2.loli.net/2022/11/21/FiTSxKL8Oo239Vn.png)
 
 ### Online Demo
 
@@ -56,9 +56,10 @@ English | [简体中文](README.md)
 > ```
 
 > Backend：
-> 
+>
 > ```go
 > # cd toyourpath/GQA-BACKEND：
+> go mod tidy
 > go run main.go
 > 
 > # build（Linux）：

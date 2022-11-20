@@ -32,15 +32,14 @@ QQ群号：342045316
 
 ### 项目截图：
 
-![login.png](https://s2.loli.net/2022/10/03/Yjw4zf5NkemI3Vy.png)
+![login.png](https://s2.loli.net/2022/11/21/GPNdE5HjlIKFfr8.png)
 
+![login-dark.png](https://s2.loli.net/2022/11/21/rLUOuhxt6m457oA.png)
 
+![dashboard-dark.png](https://s2.loli.net/2022/11/21/A9tdvTMhZbJix2f.png)
 
-![light.png](https://s2.loli.net/2022/10/03/Oe2LasKRfV9gJyC.png)
+![dashboard.png](https://s2.loli.net/2022/11/21/FiTSxKL8Oo239Vn.png)
 
-
-
-![dark.png](https://s2.loli.net/2022/10/03/YB8eZkGusUpCjtS.png)
 
 ### 在线体验
 
@@ -83,9 +82,10 @@ gitee：https://gitee.com/junvary/gin-quasar-admin
 > ```
 
 > 后端：
-> 
+>
 > ```go
 > # 安装好Go语言环境，后进入GQA-BACKEND文件夹：
+> go mod tidy
 > go run main.go
 > 
 > # 打包（Linux）：
