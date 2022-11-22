@@ -25,7 +25,8 @@ func (s *ServiceRole) GetRoleList(requestRoleList model.RequestGetRoleList) (err
 	if err != nil {
 		return
 	}
-	err = db.Limit(pageSize).Offset(offset).Order(model.OrderByColumn(requestRoleList.SortBy, requestRoleList.Desc)).Find(&roleList).Error
+	err = db.Limit(pageSize).Offset(offset).Order(model.OrderByColumn(requestRoleList.SortBy, requestRoleList.Desc)).
+		Preload("DefaultPageMenu").Find(&roleList).Error
 	return err, roleList, total
 }
 
@@ -82,7 +83,8 @@ func (s *ServiceRole) DeleteRoleById(id uint) (err error) {
 
 func (s *ServiceRole) QueryRoleById(id uint) (err error, roleInfo model.SysRole) {
 	var role model.SysRole
-	err = global.GqaDb.Preload("CreatedByUser").Preload("UpdatedByUser").First(&role, "id = ?", id).Error
+	err = global.GqaDb.Preload("CreatedByUser").Preload("UpdatedByUser").
+		Preload("DefaultPageMenu").First(&role, "id = ?", id).Error
 	return err, role
 }
 
@@ -112,6 +114,8 @@ func (s *ServiceRole) EditRoleMenu(toEditRoleMenu *model.RequestRoleMenuEdit) (e
 			return err
 		}
 	}
+	defaultPage := toEditRoleMenu.DefaultPage
+	err = global.GqaDb.Model(&model.SysRole{}).Where("role_code = ?", toEditRoleMenu.RoleCode).Update("default_page", defaultPage).Error
 	return nil
 }
 

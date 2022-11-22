@@ -110,7 +110,6 @@ export default function useRecordDetail(url, emit) {
         gqaBackend,
         dictOptions,
         showDateTime,
-
         loading,
         show,
         formType,

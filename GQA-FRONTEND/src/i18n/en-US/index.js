@@ -18,6 +18,7 @@ export default {
     FileRejected: 'Duplicate file or size / type not allowed',
     DictHelp: "Child dict code must start with the parent dict code and '_'",
     // word
+    Page: 'Page',
     Register: 'Register',
     Button: 'Button',
     SideDrawer: 'SideDrawer',
@@ -59,6 +60,7 @@ export default {
     Memo: 'Memo',
     Default: 'Default',
     Custom: 'Custom',
+    Customize: 'Customize',
     Status: 'Status',
     Stable: 'Stable',
     Actions: 'Actions',
@@ -129,6 +131,8 @@ export default {
     Describe: 'Describe',
     Choose: 'Choose',
     Theme: 'Theme',
+    Display: 'Display',
+    Style: 'Style',
     Color: 'Color',
     Basic: 'Basic',
     Setting: 'Setting',
@@ -157,6 +161,7 @@ export default {
     StartWith: 'start with {name}',
     Without: 'with out',
     WithoutOther: 'with out other',
+    Your: 'Your',
 
     // phrase
     SystemManage: 'System Manage',
@@ -201,7 +206,6 @@ export default {
     NoticeSystem: 'System Notice',
     NoticeMessage: 'Message Notice',
     ViewAll: 'View all',
-    SystemLoading: 'System loading...',
     GqaDefaultUsername: 'GQA User',
     PageError404Title: 'Oops. Nothing here...',
     PageError404Home: 'Take Me Home',

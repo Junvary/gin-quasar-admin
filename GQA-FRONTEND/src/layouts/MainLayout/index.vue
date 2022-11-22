@@ -1,9 +1,9 @@
 <template>
-    <q-layout :view="layoutView" :style="{backgroundColor: $q.dark.isActive? '#1d1d1d' : '#fafafa'}"
+    <q-layout :view="layoutView" :style="{ backgroundColor: $q.dark.isActive ? '#1d1d1d' : '#fafafa' }"
         style="overflow-x: hidden;">
         <q-header reveal elevated :class="darkTheme">
             <q-toolbar>
-                <q-btn dense round flat :icon="toggleLeftDrawer? 'eva-arrowhead-left' : 'eva-arrowhead-right'"
+                <q-btn dense round flat :icon="toggleLeftDrawer ? 'eva-arrowhead-left' : 'eva-arrowhead-right'"
                     aria-label="Menu" @click="toggleLeftDrawer = !toggleLeftDrawer" />
 
                 <GqaAvatar class="gin-quasar-admin-logo" :src="gqaFrontend.logo" style="margin-left: 5px;"
@@ -15,6 +15,7 @@
 
                 <q-select id="menuSelect" dense borderless v-model="currentTopMenu" :options="topMenu" map-options
                     option-value="name" @update:model-value="changeTop" style="margin: 0 20px;"
+                    :dark="themeStyle === 'Gin-Quasar-Admin' ? $q.dark.isActive : true"
                     :option-label="opt => Object(opt) === opt && 'title' in opt ? t(opt.title) : opt.title" />
 
                 <q-breadcrumbs v-if="findCurrentTopMenu">
@@ -76,7 +77,7 @@ import { useUserStore } from 'src/stores/user';
 import { usePermissionStore } from 'src/stores/permission';
 import { useStorageStore } from 'src/stores/storage';
 import { useSettingStore } from 'src/stores/setting'
-import useDarkTheme from 'src/composables/useDarkTheme';
+import useTheme from 'src/composables/useTheme';
 import SideBarLeft from './SideBarLeft/index.vue'
 import TabMenu from './TabMenu.vue'
 import Fullscreen from './Fullscreen.vue'
@@ -100,7 +101,7 @@ useDocument()
 
 const $q = useQuasar();
 const { t } = useI18n();
-const { darkTheme } = useDarkTheme()
+const { darkTheme } = useTheme()
 const route = useRoute();
 const userStore = useUserStore();
 const storageStore = useStorageStore();
@@ -112,15 +113,10 @@ const currentTopMenu = ref('');
 const fabPos = ref([3, 80]);
 const userProfile = ref(null);
 
-const gqaFrontend = computed(() => {
-    return storageStore.GetGqaFrontend()
-})
-const drawerWidth = computed(() => {
-    return settingStore.GetSideDrawerWidth()
-})
-const layoutView = computed(() => {
-    return settingStore.GetLayoutView()
-})
+const gqaFrontend = computed(() => storageStore.GetGqaFrontend())
+const drawerWidth = computed(() => settingStore.GetSideDrawerWidth())
+const layoutView = computed(() => settingStore.GetLayoutView())
+const themeStyle = computed(() => settingStore.GetThemeStyle())
 
 const changeTop = (childrenMenu) => {
     topMenuChildren.value = childrenMenu.children

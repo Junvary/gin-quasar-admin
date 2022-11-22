@@ -11,9 +11,9 @@
 <script setup>
 import { computed, toRefs } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
-import useDarkTheme from 'src/composables/useDarkTheme';
+import useTheme from 'src/composables/useTheme';
 
-const { darkThemeSelect } = useDarkTheme()
+const { darkThemeSelect } = useTheme()
 const router = useRouter()
 const route = useRoute()
 const props = defineProps({

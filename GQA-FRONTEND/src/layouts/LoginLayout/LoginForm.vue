@@ -56,7 +56,9 @@ import { postAction } from 'src/api/manage'
 import GqaLanguage from 'src/components/GqaLanguage/index.vue'
 import GqaAvatar from 'src/components/GqaAvatar/index.vue'
 import { useUserStore } from 'src/stores/user'
+import { usePermissionStore } from 'src/stores/permission';
 import { useRouter, useRoute } from 'vue-router';
+import { useQuasar } from 'quasar';
 
 const { gqaFrontend } = useCommon()
 
@@ -69,7 +71,9 @@ const form = ref({
 })
 const router = useRouter()
 const route = useRoute()
+const $q = useQuasar()
 const userStore = useUserStore()
+const permissionStore = usePermissionStore()
 const rememberMe = ref(true)
 const captchaImage = ref('')
 const loading = ref(false)
@@ -96,10 +100,22 @@ const onSubmit = async () => {
         captcha_id: form.value.captcha_id
     })
     if (res) {
-        loading.value = false
-        router.push(route.query.redirect || '/')
-        form.value.captcha = ''
-        loading.value = false
+        // 此处添加获取用户菜单，用来触发获取用户默认页面。此处获取成功后，boot/permission.js文件判断中存在了permissionStore.userMenu.length，走next()
+        const userMenu = await permissionStore.GetUserMenu()
+        if (userMenu && userMenu.length) {
+            userMenu.forEach(item => {
+                router.addRoute(item)
+            })
+            router.push({ name: permissionStore.defaultPage[0] })
+        } else {
+            form.value.captcha = ''
+            getCaptcha()
+            loading.value = false
+            $q.notify({
+                type: 'negative',
+                message: userMenu,
+            })
+        }
     } else {
         form.value.captcha = ''
         loading.value = false

@@ -1,10 +1,9 @@
 import { boot } from 'quasar/wrappers'
 import { LoadingBar, Loading, QSpinnerGears } from 'quasar'
-// import { Allowlist } from 'src/settings'
-// import { GetToken } from 'src/utils/cookies'
 import { useUserStore } from 'src/stores/user'
 import { usePermissionStore } from 'src/stores/permission'
-import useCommon from 'src/composables/useCommon'
+import useConfig from 'src/composables/useConfig'
+
 import { i18n } from './i18n'
 
 LoadingBar.setDefaults({
@@ -15,7 +14,7 @@ LoadingBar.setDefaults({
 
 function startLoading() {
     Loading.show({
-        // spinner: QSpinnerGears,
+        spinner: QSpinnerGears,
         message: i18n.global.t('System') + i18n.global.t('Loading')
     })
     LoadingBar.start()
@@ -27,31 +26,30 @@ function stopLoading() {
 }
 
 export default boot(({ router, store }) => {
-    router.beforeEach((to, from, next) => {
+    router.beforeEach(async (to, from, next) => {
         const userStore = useUserStore()
         const permissionStore = usePermissionStore()
         startLoading()
         const token = userStore.GetToken()
-        const { AllowList } = useCommon()
+        const { AllowList } = useConfig()
         if (token) {
             if (AllowList.indexOf(to.path) !== -1) {
                 next({ path: '/' })
                 stopLoading()
             } else {
                 if (!permissionStore.userMenu.length) {
-                    permissionStore.GetUserMenu().then(res => {
-                        // 在vue-router4中，addRoutes被废弃，改为了addRoute，循环调用
+                    const res = await permissionStore.GetUserMenu()
+                    if (res && res.length) {
                         // 动态添加鉴权路由表
-                        if (res) {
-                            res.forEach(item => {
-                                router.addRoute(item)
-                            })
-                            next({ ...to, replace: true })
-                        } else {
-                            store.dispatch('user/HandleLogout')
-                            next({ path: '/', replace: true })
-                        }
-                    })
+                        res.forEach(item => {
+                            router.addRoute(item)
+                        })
+                        next({ ...to, replace: true })
+                    } else {
+                        stopLoading()
+                        store.dispatch('user/HandleLogout')
+                        next({ path: '/', replace: true })
+                    }
                 } else {
                     next()
                 }

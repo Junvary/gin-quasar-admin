@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia';
 import { usePermissionStore } from './permission';
 const permissionStore = usePermissionStore()
-const base = permissionStore.userMenu.filter(item => item.name === 'dashboard')[0]
+// const base = permissionStore.userMenu.filter(item => item.name === 'dashboard')[0]
+const base = permissionStore.userMenu.filter(item => item.name === permissionStore.defaultPage[0])[0]
 
 
 export const useTabMenuStore = defineStore('tabMenu', {
@@ -12,7 +13,6 @@ export const useTabMenuStore = defineStore('tabMenu', {
     getters: {},
     actions: {
         AddTabMenu(tab) {
-
             // 退出时userMenu被清空，不走下面逻辑
             if (base) {
                 // 如果没有仪表盘，则加入仪表盘

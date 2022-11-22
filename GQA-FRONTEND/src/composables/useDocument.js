@@ -1,10 +1,9 @@
 import { computed, onMounted, watch } from 'vue';
 import { useStorageStore } from 'src/stores/storage';
 import { useSettingStore } from 'src/stores/setting';
-// import { GqaFrontendDefault } from 'src/settings'
 import { useI18n } from 'vue-i18n';
 import { Quasar } from 'quasar'
-import useCommon from 'src/composables/useCommon';
+import useConfig from 'src/composables/useConfig';
 
 // 动态更改网站标题和favicon，在MainLayout中调用
 export default function useDocument() {
@@ -12,7 +11,7 @@ export default function useDocument() {
     const settingStore = useSettingStore();
     const gqaFrontend = computed(() => storageStore.GetGqaFrontend());
     const language = computed(() => settingStore.GetLanguage());
-    const { GqaFrontendDefault } = useCommon()
+    const { GqaFrontendDefault } = useConfig()
 
     watch(gqaFrontend, (newValue) => {
         document.title = newValue.subTitle

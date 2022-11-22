@@ -16,8 +16,15 @@
                 selected-color="primary" v-if="menuTree.length !== 0" tick-strategy="strict" v-model:ticked="ticked">
                 <template v-slot:default-header="prop">
                     <div class="items-center row">
-                        <q-icon :name="prop.node.icon || 'share'" size="28px" class="q-mr-sm" />
-                        <div class="text-weight-bold">{{ $t(prop.node.title) }}</div>
+                        <q-icon :name="prop.node.icon || 'share'" size="20px" class="q-mr-sm" />
+                        <div class="text-weight-bold">
+                            {{ $t(prop.node.title) }}
+                        </div>
+                        <q-radio v-model="defaultPage" dense :val="prop.node.name">
+                            <q-tooltip anchor="center end" self="center left">
+                                {{ $t('Default') + $t('Page') }}
+                            </q-tooltip>
+                        </q-radio>
                         <div class="row q-gutter-x-md" style="margin-left: 10px">
                             <q-checkbox v-model="buttonCheckMap[item.button_code]" dense :label="item.button_name"
                                 color="primary" v-for="item in prop.node.button" />
@@ -52,6 +59,8 @@ const url = {
     roleMenuEdit: 'role/edit-role-menu',
 }
 
+const defaultPage = ref('dashboard')
+
 const props = defineProps({
     row: {
         type: Object,
@@ -76,6 +85,7 @@ onMounted(() => {
     getRoleButtonList()
     getRoleMenuList()
 })
+
 const ticked = ref([])
 const getRoleMenuList = () => {
     // 每次获取前，清空ticked
@@ -86,10 +96,13 @@ const getRoleMenuList = () => {
         if (res.code === 1) {
             res.data.records.forEach((item) => {
                 ticked.value.push(item.sys_menu_name)
+                defaultPage.value = row.value.default_page
             })
         }
     })
 }
+
+const emit = defineEmits(['handleRoleMenuOk'])
 const handleRoleMenu = () => {
     const roleMenu = []
     for (let i of ticked.value) {
@@ -111,12 +124,14 @@ const handleRoleMenu = () => {
         role_code: row.value.role_code,
         role_menu: roleMenu,
         role_button: roleButton,
+        default_page: defaultPage.value
     }).then((res) => {
         if (res.code === 1) {
             $q.notify({
                 type: 'positive',
                 message: res.message,
             })
+            emit('handleRoleMenuOk', { id: row.value.id })
             getRoleButtonList()
             getRoleMenuList()
         }

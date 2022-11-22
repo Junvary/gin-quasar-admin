@@ -18,7 +18,7 @@
 
             <q-tab-panels v-model="tab" animated>
                 <q-tab-panel name="menu">
-                    <role-permission-menu :row="row" v-if="tab === 'menu'" />
+                    <role-permission-menu :row="row" v-if="tab === 'menu'" @handleRoleMenuOk="show" />
                 </q-tab-panel>
 
                 <q-tab-panel name="api">
@@ -38,13 +38,25 @@ import RolePermissionMenu from './RolePermissionMenu'
 import RolePermissionApi from './RolePermissionApi'
 import RolePermissionData from './RolePermissionData'
 import { ref } from 'vue';
+import { postAction } from 'src/api/manage';
+
+const url = {
+    queryById: 'role/query-role-by-id'
+}
 
 const rolePermissionVisible = ref(false)
 const row = ref({})
 const tab = ref('menu')
+
 const show = (record) => {
-    row.value = record
-    rolePermissionVisible.value = true
+    postAction(url.queryById, {
+        id: record.id
+    }).then(res => {
+        if (res.code === 1) {
+            row.value = res.data.records
+            rolePermissionVisible.value = true
+        }
+    })
 }
 defineExpose({
     show

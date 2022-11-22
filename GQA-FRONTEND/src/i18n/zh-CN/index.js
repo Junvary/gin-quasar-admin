@@ -18,6 +18,7 @@ export default {
     FileRejected: '文件重复或大小/类型不被允许',
     DictHelp: "子级字典编码 必须以 父级字典编码 加 '_' 开头",
     // 单词
+    Page: '页面',
     Register: '注册',
     Button: '按钮',
     SideDrawer: '侧边栏',
@@ -59,6 +60,7 @@ export default {
     Memo: '备注',
     Default: '默认',
     Custom: '自定义',
+    Customize: '自定义',
     Status: '状态',
     Stable: '内置',
     Actions: '操作',
@@ -130,6 +132,8 @@ export default {
     Describe: '描述',
     Choose: '选择',
     Theme: '主题',
+    Display: '显示',
+    Style: '风格',
     Color: '颜色',
     Basic: '基础',
     Setting: '设置',
@@ -158,6 +162,7 @@ export default {
     StartWith: '以 {name} 开头',
     Without: '不包含',
     WithoutOther: '不包含其他',
+    Your: '你的',
 
     // 词组
     SystemManage: '系统管理',
@@ -202,7 +207,6 @@ export default {
     NoticeSystem: '系统消息',
     NoticeMessage: '消息提示',
     ViewAll: '查看全部',
-    SystemLoading: '系统努力加载中...',
     GqaDefaultUsername: 'GQA用户',
     PageError404Title: '你发现了一个没人来过的页面',
     PageError404Home: '带我回去',

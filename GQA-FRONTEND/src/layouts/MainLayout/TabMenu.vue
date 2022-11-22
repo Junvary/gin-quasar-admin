@@ -5,10 +5,10 @@
             <template v-slot>
                 <q-icon size="1.3rem" v-if="tab.meta.icon" :name="tab.meta.icon" />
                 <span class="tab-label">{{ $t(tab.meta.title) || $t('Unknown') }}</span>
-                <q-icon v-if="tab.path !== '/dashboard'" class="tab-close" name="close"
+                <q-icon v-if="tab.name !== defaultPage" class="tab-close" name="close"
                     @click.prevent.stop="removeTab(tab)" />
                 <q-menu touch-position context-menu>
-                    <q-list dense bordered separator class="bg-white text-grey-8">
+                    <q-list dense bordered separator class="bg-white text-dark">
                         <q-item clickable v-close-popup v-ripple>
                             <q-item-section @click="removeOtherTab(tab)">
                                 {{ $t('CloseOther') }}
@@ -40,14 +40,19 @@
 import { computed, ref, watch, onMounted, onUnmounted, nextTick } from 'vue';
 import { useTabMenuStore } from 'src/stores/tabMenu'
 import { useRoute, useRouter } from 'vue-router';
-import useDarkTheme from 'src/composables/useDarkTheme';
+import useTheme from 'src/composables/useTheme';
+import { usePermissionStore } from 'src/stores/permission';
 
 const tabMenuStore = useTabMenuStore()
-const { darkTheme } = useDarkTheme()
+const { darkTheme } = useTheme()
 const router = useRouter()
 const route = useRoute()
+const permissionStore = usePermissionStore()
+
 const tabMenus = computed(() => tabMenuStore.tabMenus)
 const currentTab = computed(() => tabMenuStore.currentTab)
+const defaultPage = computed(() => permissionStore.defaultPage[0])
+
 watch(route, () => {
     tabMenuStore.AddTabMenu(Object.assign({}, route))
 })
