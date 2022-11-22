@@ -27,7 +27,7 @@ onMounted(() => {
 watch(lang, (val) => {
     // dynamic import, so loading on demand only
     import(
-        /* webpackInclude: /(ru|zh-CN|en-US)\.js$/ */
+        /* webpackInclude: /(zh-CN|en-US|ru)\.js$/ */
         'quasar/lang/' + val
     ).then((lang) => {
         $q.lang.set(lang.default)
