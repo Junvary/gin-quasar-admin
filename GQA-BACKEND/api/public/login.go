@@ -18,8 +18,8 @@ func (a *ApiLogin) Login(c *gin.Context) {
 	if global.Store.Verify(l.CaptchaId, l.Captcha, true) {
 		u := &model.SysUser{Username: l.Username, Password: l.Password}
 		if err, user := servicePublic.ServiceLogin.Login(u); err != nil {
-			global.GqaLogger.Error(l.Username+" 登录失败，用户名或密码错误！", zap.Any("err", err))
-			model.ResponseErrorMessage("用户名或密码错误，"+err.Error(), c)
+			global.GqaLogger.Error(l.Username + "登录失败，用户名或密码错误！")
+			model.ResponseErrorMessage("用户名或密码错误", c)
 			if err = servicePublic.ServiceLogin.LogLogin(l.Username, c, "yesNo_no", "登录失败，用户名或密码错误！"); err != nil {
 				global.GqaLogger.Error("登录日志记录错误！", zap.Any("err", err))
 			}

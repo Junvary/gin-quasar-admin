@@ -43,16 +43,16 @@
             </q-toolbar>
         </q-header>
 
-        <q-drawer bordered v-model="toggleLeftDrawer" show-if-above content-class="bg-grey-1" :width="drawerWidth"
-            :mini="miniState" :mini-to-overlay="miniStateOut ? true : false" @mouseover="miniStateMouseover"
+        <q-drawer bordered v-model="toggleLeftDrawer" show-if-above :width="drawerWidth" :mini="miniState"
+            :mini-to-overlay="miniStateOut ? true : false" @mouseover="miniStateMouseover"
             @mouseout="miniStateMouseout">
             <SideBarLeft :topMenuChildren="topMenuChildren">
                 <q-select v-if="layoutView.split(' ')[0] === 'lHh'" id="menuSelect" v-model="currentTopMenu"
-                    :options="topMenu" map-options option-value="name" @update:model-value="changeTop"
-                    :dark="themeStyle === 'Quasar' ? false : true" borderless
+                    :options="topMenu" map-options option-value="name" @update:model-value="changeTop" filled
+                    :dark="(themeStyle === 'Gin-Quasar-Admin' || themeStyle === 'Quasar') ? false : true" borderless
                     :option-label="opt => Object(opt) === opt && 'title' in opt ? $t(opt.title) : opt.title">
                     <template v-slot:prepend>
-                        <q-icon name="ion-md-apps" style="margin-left: 12px;" size="30px" />
+                        <q-icon name="ion-md-apps" style="margin-right: 17px;" size="30px" />
                     </template>
                 </q-select>
             </SideBarLeft>

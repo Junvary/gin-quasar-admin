@@ -1,6 +1,6 @@
 {
     "name": "gin-quasar-admin",
-    "version": "v2.4.2",
+    "version": "v2.5.0",
     "description": "gin-quasar-admin",
     "productName": "gin-quasar-admin",
     "author": "Junvary <junvary@foxmail.com>",
@@ -11,7 +11,7 @@
         "test": "echo \"No test specified\" && exit 0"
     },
     "dependencies": {
-        "@quasar/extras": "^1.15.5",
+        "@quasar/extras": "^1.15.6",
         "axios": "^0.21.1",
         "core-js": "^3.6.5",
         "echarts": "^5.3.2",

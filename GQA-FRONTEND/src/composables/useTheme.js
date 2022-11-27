@@ -13,7 +13,7 @@ export default function useTheme() {
             return 'bg-dark text-white'
         } else {
             if (themeStyle.value === 'Gin-Quasar-Admin') {
-                return 'bg-blue-grey-9 text-white'
+                return 'bg-grey-10 text-white'
             }
             if (themeStyle.value === 'Quasar') {
                 return 'bg-primary text-white'
@@ -82,10 +82,10 @@ export default function useTheme() {
     });
     const darkThemeSideBar = computed(() => {
         if ($q.dark.isActive) {
-            return ['class', 'bg-dark text-white']
+            return ['class', 'bg-grey-10 text-white']
         } else {
             if (themeStyle.value === 'Gin-Quasar-Admin') {
-                return ['class', 'bg-blue-grey-9 text-white']
+                return ['class', 'bg-grey-3 text-grey-10']
             }
             if (themeStyle.value === 'Quasar') {
                 return ['class', 'bg-white text-dark']
@@ -100,10 +100,10 @@ export default function useTheme() {
     })
     const darkThemeSelect = computed(() => {
         if ($q.dark.isActive) {
-            return 'bg-blue-grey-9 text-white'
+            return 'bg-grey-10 text-white'
         } else {
             if (themeStyle.value === 'Gin-Quasar-Admin') {
-                return 'bg-primary text-white'
+                return 'bg-grey-5 text-grey-10'
             }
             if (themeStyle.value === 'Quasar') {
                 return 'bg-primary text-white'

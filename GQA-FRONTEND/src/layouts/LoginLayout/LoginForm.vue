@@ -11,17 +11,17 @@
                 {{ $t('WelcomeBack') }}
             </div>
             <q-form @submit="onSubmit" class="q-mt-lg gqa-form">
-                <q-input :disable="loading" outlined dense no-error-icon v-model.trim="form.username"
+                <q-input :disable="loading" outlined dense no-error-icon v-model.trim="form.username" rounded color="black"
                     :placeholder="$t('Username')" :rules="[(val) => (val && val.length > 0) || $t('NeedInput')]" />
                 <q-input :disable="loading" outlined dense no-error-icon :type="isPwd ? 'password' : 'text'"
-                    v-model.trim="form.password" :placeholder="$t('Password')"
+                    v-model.trim="form.password" :placeholder="$t('Password')"  rounded color="black"
                     :rules="[(val) => (val && val.length > 0) || $t('NeedInput')]">
                     <template v-slot:append>
                         <q-icon :name="isPwd ? 'visibility_off' : 'visibility'" class="cursor-pointer"
                             @click="isPwd = !isPwd" />
                     </template>
                 </q-input>
-                <q-input :disable="loading" outlined dense no-error-icon v-model.trim="form.captcha"
+                <q-input :disable="loading" outlined dense no-error-icon v-model.trim="form.captcha" rounded color="black"
                     :placeholder="$t('Captcha')" :rules="[(val) => (val && val.length > 0) || $t('NeedInput')]">
                     <template v-slot:after>
                         <q-btn padding="none" style="width: 120px; height: 100%" @click="getCaptcha">
@@ -34,7 +34,7 @@
                         @update:model-value="changeRememberMe" />
                 </div>
                 <div class="items-center justify-around q-mt-md row">
-                    <q-btn :label="$t('Login')" type="submit" color="primary" :loading="loading" style="width: 100%" />
+                    <q-btn rounded glossy :label="$t('Login')" type="submit" color="primary" :loading="loading" style="width: 100%" />
                 </div>
             </q-form>
             <q-inner-loading :showing="loading" style="background-color: rgba(0, 0, 0, 0);">
