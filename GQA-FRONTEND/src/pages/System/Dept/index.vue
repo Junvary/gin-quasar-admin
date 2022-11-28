@@ -1,32 +1,40 @@
 <template>
     <q-page padding>
-        <q-btn color="primary" @click="showAddParentForm()" :label="$t('Add') + $t('Parent') + $t('Dept')"
-            v-has="'dept:addParent'" />
-        <q-hierarchy separator="cell" dense :columns="columns" :data="deptTree">
-            <template v-slot:body="props">
-                <gqa-tree-td :treeTd="props" firstTd="sort"></gqa-tree-td>
-                <td class="text-center">{{ props.item.dept_name }}</td>
-                <td class="text-center">{{ props.item.dept_code }}</td>
-                <td class="text-center">
-                    <GqaShowName :customNameObject="props.item.leader_user" />
-                </td>
-                <td class="text-center">
-                    <GqaDictShow :dictCode="props.item.status" />
-                </td>
-                <td class="text-center">
-                    <div class="q-gutter-xs">
-                        <q-btn dense color="primary" @click="showEditForm(props.item)" :label="$t('Edit')"
-                            v-has="'dept:edit'" />
-                        <q-btn dense color="warning" @click="showDeptUser(props.item)" v-has="'dept:deptUser'"
-                            :label="$t('Dept') + $t('User')" />
-                        <q-btn dense color="warning" @click="showAddChildrenForm(props.item.dept_code)"
-                            v-has="'dept:addChildren'" :label="$t('Add') + $t('Children') + $t('Dept')" />
-                        <q-btn dense color="negative" @click="handleDelete(props.item)" :label="$t('Delete')"
-                            v-has="'dept:delete'" />
-                    </div>
-                </td>
-            </template>
-        </q-hierarchy>
+        <q-card flat>
+            <q-card-section class="row q-gutter-x-md items-center">
+                <q-btn color="primary" @click="showAddParentForm()" :label="$t('Add') + $t('Parent') + $t('Dept')"
+                    v-has="'dept:addParent'" />
+            </q-card-section>
+            <q-card-section>
+                <q-hierarchy separator="cell" dense :columns="columns" :data="deptTree">
+                    <template v-slot:body="props">
+                        <gqa-tree-td :treeTd="props" firstTd="sort"></gqa-tree-td>
+                        <td class="text-center">{{ props.item.dept_name }}</td>
+                        <td class="text-center">{{ props.item.dept_code }}</td>
+                        <td class="text-center">
+                            <GqaShowName :customNameObject="props.item.leader_user" />
+                        </td>
+                        <td class="text-center">
+                            <GqaDictShow :dictCode="props.item.status" />
+                        </td>
+                        <td class="text-center">
+                            <div class="q-gutter-md">
+                                <q-btn flat dense icon="eva-edit-2-outline" color="primary"
+                                    @click="showEditForm(props.item)" :label="$t('Edit')" v-has="'dept:edit'" />
+                                <q-btn flat dense icon="add" color="warning"
+                                    @click="showAddChildrenForm(props.item.dept_code)" v-has="'dept:addChildren'"
+                                    :label="$t('Add') + $t('Children') + $t('Dept')" />
+                                <q-btn flat dense icon="eva-people-outline" color="positive"
+                                    @click="showDeptUser(props.item)" v-has="'dept:deptUser'"
+                                    :label="$t('Dept') + $t('User')" />
+                                <q-btn flat dense icon="delete_outline" color="negative"
+                                    @click="handleDelete(props.item)" :label="$t('Delete')" v-has="'dept:delete'" />
+                            </div>
+                        </td>
+                    </template>
+                </q-hierarchy>
+            </q-card-section>
+        </q-card>
         <recordDetail ref="recordDetailDialog" @handleFinish="handleFinish" />
         <DeptUser ref="deptUserDialog" />
     </q-page>
@@ -39,7 +47,6 @@ import { useI18n } from 'vue-i18n'
 import recordDetail from './modules/recordDetail'
 import { ChangeNullChildren2Array } from 'src/utils/arrayAndTree'
 import DeptUser from './modules/DeptUser'
-
 
 const { t } = useI18n()
 const url = {

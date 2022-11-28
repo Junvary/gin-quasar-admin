@@ -1,31 +1,27 @@
 <template>
     <q-dialog v-model="recordDetailVisible" position="top">
         <q-card style="width: 800px; max-width: 80vw;">
-            <q-card-section>
-                <div class="text-h6">
-                    {{ formTypeName }} {{ $t('Frontend') }} {{ $t('Config') }}:
-                    {{ recordDetail.value.config_item }}
-                </div>
+            <q-card-section class="text-h6">
+                {{ formTypeName }} {{ $t('Frontend') }} {{ $t('Config') }}:
+                {{ recordDetail.value.config_item }}
             </q-card-section>
-
             <q-separator />
-
             <q-card-section>
+                <gqa-form-top :recordDetail="recordDetail"></gqa-form-top>
                 <q-form ref="recordDetailForm">
-                    <gqa-form-top :recordDetail="recordDetail"></gqa-form-top>
-                    <div class="row">
-                        <q-input class="col" v-model.number="recordDetail.value.sort" type="number"
+                    <div class="row q-gutter-md">
+                        <q-input outlined hint="" class="col" v-model.number="recordDetail.value.sort" type="number"
                             :rules="[val => val >= 1 || '排序必须大于0']" label="排序" />
-                        <q-input class="col" v-model="recordDetail.value.memo" label="描述" />
+                        <q-input outlined hint="" class="col" v-model="recordDetail.value.memo" label="描述" />
                     </div>
-                    <div class="row">
-                        <q-input class="col" v-model="recordDetail.value.config_item" label="字段名（英）"
+                    <div class="row q-gutter-md">
+                        <q-input outlined hint="" class="col" v-model="recordDetail.value.config_item" label="字段名（英）"
                             :rules="[val => val && val.length > 0 || '必须输入字段名']" />
 
-                        <q-input class="col" v-model="recordDetail.value.item_default" label="默认值"
+                        <q-input outlined hint="" class="col" v-model="recordDetail.value.item_default" label="默认值"
                             :rules="[val => val && val.length > 0 || '必须输入默认值']" />
                     </div>
-                    <q-field label="是否启用" stack-label>
+                    <q-field outlined hint="" label="是否启用" stack-label>
                         <template v-slot:control>
                             <q-option-group v-model="recordDetail.value.status" :options="dictOptions.onOff"
                                 color="primary" inline>
@@ -39,14 +35,11 @@
                     </q-field>
                 </q-form>
             </q-card-section>
-
             <q-separator />
-
             <q-card-actions align="right">
                 <q-btn :label="$t('Save')" color="primary" @click="handleAddOrEidt" />
                 <q-btn :label="$t('Cancel')" color="negative" v-close-popup />
             </q-card-actions>
-
             <q-inner-loading :showing="loading">
                 <q-spinner-gears size="50px" color="primary" />
             </q-inner-loading>

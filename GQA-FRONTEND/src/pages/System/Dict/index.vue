@@ -1,35 +1,42 @@
 <template>
     <q-page padding>
-        <q-btn color="primary" @click="showAddParentForm()" :label="$t('Add') + $t('Parent') + $t('Dict')"
-            v-has="'dict:addParent'" />
-        <q-hierarchy separator="cell" dense :columns="columns" :data="dictTree">
-            <template v-slot:body="props">
-                <gqa-tree-td :treeTd="props" firstTd="sort"></gqa-tree-td>
-                <td class="text-center">{{ props.item.dict_code }}</td>
-                <td class="text-center">{{ props.item.dict_label }}</td>
-                <td class="text-center">{{ props.item.dict_ext_1 }}</td>
-                <td class="text-center">{{ props.item.dict_ext_2 }}</td>
-                <td class="text-center">{{ props.item.dict_ext_3 }}</td>
-                <td class="text-center">{{ props.item.dict_ext_4 }}</td>
-                <td class="text-center">{{ props.item.dict_ext_5 }}</td>
-                <td class="text-center">
-                    <GqaDictShow :dictCode="props.item.status" />
-                </td>
-                <td class="text-center">
-                    <GqaDictShow :dictCode="props.item.stable" />
-                </td>
-                <td class="text-center">
-                    <div class="q-gutter-xs">
-                        <q-btn dense color="primary" @click="showEditForm(props.item)" :label="$t('Edit')"
-                            v-has="'dict:edit'" />
-                        <q-btn dense color="warning" @click="showAddChildrenForm(props.item.dict_code)"
-                            v-has="'dict:addChildren'" :label="$t('Add') + $t('Children') + $t('Dict')" />
-                        <q-btn dense color="negative" @click="handleDelete(props.item)" :label="$t('Delete')"
-                            v-has="'dict:delete'" />
-                    </div>
-                </td>
-            </template>
-        </q-hierarchy>
+        <q-card flat>
+            <q-card-section class="row q-gutter-x-md items-center">
+                <q-btn color="primary" @click="showAddParentForm()" :label="$t('Add') + $t('Parent') + $t('Dict')"
+                    v-has="'dict:addParent'" />
+            </q-card-section>
+            <q-card-section>
+                <q-hierarchy separator="cell" dense :columns="columns" :data="dictTree">
+                    <template v-slot:body="props">
+                        <gqa-tree-td :treeTd="props" firstTd="sort"></gqa-tree-td>
+                        <td class="text-center">{{ props.item.dict_code }}</td>
+                        <td class="text-center">{{ props.item.dict_label }}</td>
+                        <td class="text-center">{{ props.item.dict_ext_1 }}</td>
+                        <td class="text-center">{{ props.item.dict_ext_2 }}</td>
+                        <td class="text-center">{{ props.item.dict_ext_3 }}</td>
+                        <td class="text-center">{{ props.item.dict_ext_4 }}</td>
+                        <td class="text-center">{{ props.item.dict_ext_5 }}</td>
+                        <td class="text-center">
+                            <GqaDictShow :dictCode="props.item.status" />
+                        </td>
+                        <td class="text-center">
+                            <GqaDictShow :dictCode="props.item.stable" />
+                        </td>
+                        <td class="text-center">
+                            <div class="q-gutter-md">
+                                <q-btn flat dense icon="eva-edit-2-outline" color="primary"
+                                    @click="showEditForm(props.item)" :label="$t('Edit')" v-has="'dict:edit'" />
+                                <q-btn flat dense icon="add" color="warning"
+                                    @click="showAddChildrenForm(props.item.dict_code)" v-has="'dict:addChildren'"
+                                    :label="$t('Add') + $t('Children') + $t('Dict')" />
+                                <q-btn flat dense icon="delete_outline" color="negative"
+                                    @click="handleDelete(props.item)" :label="$t('Delete')" v-has="'dict:delete'" />
+                            </div>
+                        </td>
+                    </template>
+                </q-hierarchy>
+            </q-card-section>
+        </q-card>
         <recordDetail ref="recordDetailDialog" @handleFinish="handleFinish" />
     </q-page>
 </template>

@@ -1,5 +1,5 @@
 <template>
-    <q-page padding class="q-gutter-y-md">
+    <q-page padding>
         <q-input dense v-model="filter" label="Filter" outlined clearable style="width: 100%" />
         <q-tabs v-model="tab" dense class="text-grey" active-color="primary" indicator-color="primary" align="justify"
             narrow-indicator>

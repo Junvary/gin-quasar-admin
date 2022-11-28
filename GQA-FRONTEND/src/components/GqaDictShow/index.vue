@@ -6,10 +6,10 @@
         <q-chip dense text-color="white" color="negative" v-else-if="dictCode === 'onOff_off'">
             {{ $t(dictLabel) }}
         </q-chip>
-        <span v-else-if="dictCode === 'yesNo_yes' 
-        || dictCode === 'yesNo_no' 
-        || dictCode === 'gender_mail' 
-        || dictCode === 'gender_femail'  
+        <span v-else-if="dictCode === 'yesNo_yes'
+        || dictCode === 'yesNo_no'
+        || dictCode === 'gender_male'
+        || dictCode === 'gender_female'
         || dictCode === 'gender_unknown'">
             {{ $t(dictLabel) }}
         </span>

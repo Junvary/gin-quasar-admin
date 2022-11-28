@@ -1,48 +1,56 @@
 <template>
     <q-page padding>
-        <q-btn color="primary" @click="showAddParentForm()" :label="$t('Add') + $t('Parent') + $t('Menu')"
-            v-has="'menu:addParent'" />
-        <q-hierarchy separator="cell" dense :columns="columns" :data="menuTree">
-            <template v-slot:body="props">
-                <gqa-tree-td :treeTd="props" firstTd="sort"></gqa-tree-td>
-                <td class="text-center">
-                    <q-icon size="md" :name="props.item.icon" />
-                </td>
-                <td class="text-center">
-                    {{ t(props.item.title) ? t(props.item.title) : props.item.title }}
-                </td>
-                <td class="text-center">
-                    {{ props.item.path }}
-                </td>
-                <td class="text-center">
-                    {{ props.item.redirect }}
-                </td>
-                <td class="text-center">
-                    {{ props.item.component }}
-                </td>
-                <td class="text-center">
-                    <GqaDictShow :dictCode="props.item.is_link" />
-                </td>
-                <td class="text-center">
-                    <GqaDictShow :dictCode="props.item.hidden" />
-                </td>
-                <td class="text-center">
-                    <GqaDictShow :dictCode="props.item.stable" />
-                </td>
-                <td class="text-center">
-                    <div class="q-gutter-xs">
-                        <q-btn dense color="primary" @click="showEditForm(props.item)" :label="$t('Edit')"
-                            v-has="'menu:edit'" />
-                        <q-btn dense color="warning" @click="showAddChildrenForm(props.item.name)"
-                            v-has="'menu:addChildren'" :label="$t('Add') + $t('Children') + $t('Menu')" />
-                        <q-btn dense color="warning" @click="showButtonForm(props.item)" v-has="'menu:buttonRegister'"
-                            :label="$t('Button') + $t('Register')" />
-                        <q-btn dense color="negative" @click="handleDelete(props.item)" :label="$t('Delete')"
-                            v-has="'menu:delete'" />
-                    </div>
-                </td>
-            </template>
-        </q-hierarchy>
+        <q-card flat>
+            <q-card-section class="row q-gutter-x-md items-center">
+                <q-btn color="primary" @click="showAddParentForm()" :label="$t('Add') + $t('Parent') + $t('Menu')"
+                    v-has="'menu:addParent'" />
+            </q-card-section>
+            <q-card-section>
+                <q-hierarchy separator="cell" dense :columns="columns" :data="menuTree">
+                    <template v-slot:body="props">
+                        <gqa-tree-td :treeTd="props" firstTd="sort"></gqa-tree-td>
+                        <td class="text-center">
+                            <q-icon size="md" :name="props.item.icon" />
+                        </td>
+                        <td class="text-center">
+                            {{ t(props.item.title) ? t(props.item.title) : props.item.title }}
+                        </td>
+                        <td class="text-center">
+                            {{ props.item.path }}
+                        </td>
+                        <td class="text-center">
+                            {{ props.item.redirect }}
+                        </td>
+                        <td class="text-center">
+                            {{ props.item.component }}
+                        </td>
+                        <td class="text-center">
+                            <GqaDictShow :dictCode="props.item.is_link" />
+                        </td>
+                        <td class="text-center">
+                            <GqaDictShow :dictCode="props.item.hidden" />
+                        </td>
+                        <td class="text-center">
+                            <GqaDictShow :dictCode="props.item.stable" />
+                        </td>
+                        <td class="text-center">
+                            <div class="q-gutter-md">
+                                <q-btn flat dense icon="eva-edit-2-outline" color="primary"
+                                    @click="showEditForm(props.item)" :label="$t('Edit')" v-has="'menu:edit'" />
+                                <q-btn flat dense icon="add" color="warning"
+                                    @click="showAddChildrenForm(props.item.name)" v-has="'menu:addChildren'"
+                                    :label="$t('Add') + $t('Children') + $t('Menu')" />
+                                <q-btn flat dense icon="mdi-gesture-tap-button" color="positive"
+                                    @click="showButtonForm(props.item)" v-has="'menu:buttonRegister'"
+                                    :label="$t('Button') + $t('Register')" />
+                                <q-btn flat dense icon="delete_outline" color="negative"
+                                    @click="handleDelete(props.item)" :label="$t('Delete')" v-has="'menu:delete'" />
+                            </div>
+                        </td>
+                    </template>
+                </q-hierarchy>
+            </q-card-section>
+        </q-card>
         <recordDetail ref="recordDetailDialog" @handleFinish="handleFinish" />
         <buttonDetail ref="buttonDetailDialog" />
     </q-page>

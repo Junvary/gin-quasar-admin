@@ -1,24 +1,29 @@
 <template>
-    <q-page padding class="q-gutter-y-md">
-        <div class="row q-gutter-x-md items-center">
-            <q-input style="width: 20%" v-model="queryParams.operation_username" :label="$t('User')" />
-            <q-btn color="primary" @click="handleSearch" :label="$t('Search')" />
-            <q-btn color="primary" @click="resetSearch" :label="$t('Reset')" />
-        </div>
-
-        <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
-            :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
-            <template v-slot:top="props">
-                <q-space />
-                <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
-                    @click="props.toggleFullscreen" class="q-ml-md" />
-            </template>
-            <template v-slot:body-cell-created_at="props">
-                <q-td :props="props">
-                    {{ showDateTime(props.row.created_at) }}
-                </q-td>
-            </template>
-        </q-table>
+    <q-page padding>
+        <q-card flat>
+            <q-card-section class="row q-gutter-x-md items-center">
+                <q-input outlined dense style="width: 20%" v-model="queryParams.operation_username"
+                    :label="$t('User')" />
+                <q-btn color="primary" @click="handleSearch" :label="$t('Search')" />
+                <q-btn color="primary" @click="resetSearch" :label="$t('Reset')" />
+            </q-card-section>
+            <q-card-section>
+                <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns"
+                    v-model:pagination="pagination" :rows-per-page-options="pageOptions" :loading="loading"
+                    @request="onRequest">
+                    <template v-slot:top="props">
+                        <q-space />
+                        <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
+                            @click="props.toggleFullscreen" class="q-ml-md" />
+                    </template>
+                    <template v-slot:body-cell-created_at="props">
+                        <q-td :props="props">
+                            {{ showDateTime(props.row.created_at) }}
+                        </q-td>
+                    </template>
+                </q-table>
+            </q-card-section>
+        </q-card>
     </q-page>
 </template>
 

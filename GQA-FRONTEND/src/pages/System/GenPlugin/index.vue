@@ -1,112 +1,118 @@
 <template>
     <q-page padding>
-        <q-form ref="genPluginForm">
-            <div class="q-gutter-x-md">
-                <div class="row q-gutter-md">
-                    <q-input class="col" v-model.trim="form.plugin_code" prefix="plugin-"
-                        :label="$t('Plugin') + $t('Name') + '(' + $t('English') + ')'" lazy-rules
-                        :rules="[val => val && val.length > 0 || $t('NeedInput')]" />
-                    <q-input class="col" v-model.trim="form.plugin_name" :label="$t('Plugin') + $t('Name')" lazy-rules
-                        :rules="[val => val && val.length > 0 || $t('NeedInput')]" />
-                    <q-toggle class="col-2" v-model="form.with_model" label="生成Model" />
-                    <div class="col">
-                        <q-input v-model="inputModel" v-if="form.with_model" label="新增Model">
-                            <template v-slot:after>
-                                <q-btn icon="add" round dense @click="handleInputModel" />
-                            </template>
-                        </q-input>
+        <q-card flat>
+            <q-card-section>
+                <q-form ref="genPluginForm">
+                    <div class="q-gutter-x-md">
+                        <div class="row q-gutter-md">
+                            <q-input outlined dense class="col" v-model.trim="form.plugin_code" prefix="plugin-"
+                                :label="$t('Plugin') + $t('Name') + '(' + $t('English') + ')'" lazy-rules
+                                :rules="[val => val && val.length > 0 || $t('NeedInput')]" />
+                            <q-input outlined dense class="col" v-model.trim="form.plugin_name"
+                                :label="$t('Plugin') + $t('Name')" lazy-rules
+                                :rules="[val => val && val.length > 0 || $t('NeedInput')]" />
+                            <q-toggle class="col-2" v-model="form.with_model" label="生成Model" />
+                            <div class="col">
+                                <q-input v-model="inputModel" v-if="form.with_model" label="新增Model">
+                                    <template v-slot:after>
+                                        <q-btn icon="add" round dense @click="handleInputModel" />
+                                    </template>
+                                </q-input>
+                            </div>
+                        </div>
+                        <div class="row q-gutter-md" v-if="form.with_model">
+                            <q-card style="width: 100%">
+                                <q-tabs v-model="modelStruct" align="left" inline-label outside-arrows mobile-arrows>
+                                    <q-tab v-for="(item, index) in form.plugin_model" :name="item.model_name">
+                                        <span style="white-space:nowrap">
+                                            维护 {{ item.model_name }}模型
+                                            <q-icon class="tab-close" name="close"
+                                                @click.prevent.stop="removeModel(item, index)" />
+                                        </span>
+                                    </q-tab>
+                                </q-tabs>
+                                <q-separator />
+
+                                <q-tab-panels v-model="modelStruct" animated style="width: 100%">
+                                    <q-tab-panel v-for="(item, index) in form.plugin_model" :name="item.model_name"
+                                        style="padding: 0;">
+                                        <q-table :rows="item.column_list" :columns="columns" row-key="column_name"
+                                            hide-pagination>
+                                            <template v-slot:top class="q-gutter-md">
+                                                <q-btn color="primary" @click="addColumn(item)">添加字段</q-btn>
+                                                <q-toggle v-model="item.with_gqa_column" label="携带基础字段" />
+                                                <q-icon name="question_mark">
+                                                    <q-tooltip>
+                                                        包含id,CreateAt,CreateBy,UpdatedAt,UpdatedBy,DeletedAt,Sort,Stable,Status,Memo等一系列基础字段，
+                                                        推荐启用，关闭后需手动维护。
+                                                    </q-tooltip>
+                                                </q-icon>
+                                                <q-toggle v-model="item.with_public_list" label="携带非鉴权List" />
+                                                <q-toggle v-model="item.with_data_permission" label="使用数据权限" />
+                                                <q-toggle v-model="item.with_log_operation" label="使用操作日志" />
+                                            </template>
+                                            <template v-slot:body-cell-column_name="props">
+                                                <q-td :props="props"
+                                                    :style="{ background: props.row.column_name ? '' : 'grey' }">
+                                                    {{ props.row.column_name }}
+                                                    <q-popup-edit v-model="props.row.column_name" v-slot="scope">
+                                                        <q-input v-model="scope.value" dense autofocus
+                                                            @keyup.enter="scope.set" />
+                                                    </q-popup-edit>
+                                                </q-td>
+                                            </template>
+                                            <template v-slot:body-cell-column_type="props">
+                                                <q-td :props="props"
+                                                    :style="{ background: props.row.column_type ? '' : 'grey' }">
+                                                    {{ props.row.column_type }}
+                                                    <q-popup-edit v-model="props.row.column_type" v-slot="scope">
+                                                        <q-select v-model="scope.value" :options="column_typeOptions"
+                                                            @update:model-value="scope.set" />
+                                                    </q-popup-edit>
+                                                </q-td>
+                                            </template>
+                                            <template v-slot:body-cell-column_comment="props">
+                                                <q-td :props="props"
+                                                    :style="{ background: props.row.column_comment ? '' : 'grey' }">
+                                                    {{ props.row.column_comment }}
+                                                    <q-popup-edit v-model="props.row.column_comment" v-slot="scope">
+                                                        <q-input v-model="scope.value" dense autofocus
+                                                            @keyup.enter="scope.set" />
+                                                    </q-popup-edit>
+                                                </q-td>
+                                            </template>
+                                            <template v-slot:body-cell-column_default="props">
+                                                <q-td :props="props"
+                                                    :style="{ background: props.row.column_default ? '' : 'grey' }">
+                                                    {{ props.row.column_default }}
+                                                    <q-popup-edit v-model="props.row.column_default" v-slot="scope">
+                                                        <q-input v-model="scope.value" dense autofocus
+                                                            @keyup.enter="scope.set" />
+                                                    </q-popup-edit>
+                                                </q-td>
+                                            </template>
+                                            <template v-slot:body-cell-actions="props">
+                                                <q-td :props="props">
+                                                    <div class="q-gutter-xs">
+                                                        <q-btn color="negative" @click="removeColumn(item, props.row)"
+                                                            label="移除" />
+                                                    </div>
+                                                </q-td>
+                                            </template>
+                                        </q-table>
+                                    </q-tab-panel>
+                                </q-tab-panels>
+                            </q-card>
+                        </div>
+                        <div class="row justify-center" style="margin-top: 10px">
+                            <q-btn color="primary" @click="handleGen" v-has="'genPlugin:gen'">
+                                {{ $t('Gen') + $t('Plugin') }}
+                            </q-btn>
+                        </div>
                     </div>
-                </div>
-                <div class="row q-gutter-md" v-if="form.with_model">
-                    <q-card style="width: 100%">
-                        <q-tabs v-model="modelStruct" align="left" inline-label outside-arrows mobile-arrows>
-                            <q-tab v-for="(item, index) in form.plugin_model" :name="item.model_name">
-                                <span style="white-space:nowrap">
-                                    维护 {{ item.model_name }}模型
-                                    <q-icon class="tab-close" name="close"
-                                        @click.prevent.stop="removeModel(item, index)" />
-                                </span>
-                            </q-tab>
-                        </q-tabs>
-                        <q-separator />
-
-                        <q-tab-panels v-model="modelStruct" animated style="width: 100%">
-                            <q-tab-panel v-for="(item, index) in form.plugin_model" :name="item.model_name"
-                                style="padding: 0;">
-                                <q-table :rows="item.column_list" :columns="columns" row-key="column_name"
-                                    hide-pagination>
-                                    <template v-slot:top class="q-gutter-md">
-                                        <q-btn color="primary" @click="addColumn(item)">添加字段</q-btn>
-                                        <q-toggle v-model="item.with_gqa_column" label="携带基础字段" />
-                                        <q-icon name="question_mark">
-                                            <q-tooltip>
-                                                包含id,CreateAt,CreateBy,UpdatedAt,UpdatedBy,DeletedAt,Sort,Stable,Status,Memo等一系列基础字段，
-                                                推荐启用，关闭后需手动维护。
-                                            </q-tooltip>
-                                        </q-icon>
-                                        <q-toggle v-model="item.with_public_list" label="携带非鉴权List" />
-                                        <q-toggle v-model="item.with_data_permission" label="使用数据权限" />
-                                        <q-toggle v-model="item.with_log_operation" label="使用操作日志" />
-                                    </template>
-                                    <template v-slot:body-cell-column_name="props">
-                                        <q-td :props="props" :style="{ background: props.row.column_name ? '' : 'grey' }">
-                                            {{ props.row.column_name }}
-                                            <q-popup-edit v-model="props.row.column_name" v-slot="scope">
-                                                <q-input v-model="scope.value" dense autofocus
-                                                    @keyup.enter="scope.set" />
-                                            </q-popup-edit>
-                                        </q-td>
-                                    </template>
-                                    <template v-slot:body-cell-column_type="props">
-                                        <q-td :props="props" :style="{ background: props.row.column_type ? '' : 'grey' }">
-                                            {{ props.row.column_type }}
-                                            <q-popup-edit v-model="props.row.column_type" v-slot="scope">
-                                                <q-select v-model="scope.value" :options="column_typeOptions"
-                                                    @update:model-value="scope.set" />
-                                            </q-popup-edit>
-                                        </q-td>
-                                    </template>
-                                    <template v-slot:body-cell-column_comment="props">
-                                        <q-td :props="props"
-                                            :style="{ background: props.row.column_comment ? '' : 'grey' }">
-                                            {{ props.row.column_comment }}
-                                            <q-popup-edit v-model="props.row.column_comment" v-slot="scope">
-                                                <q-input v-model="scope.value" dense autofocus
-                                                    @keyup.enter="scope.set" />
-                                            </q-popup-edit>
-                                        </q-td>
-                                    </template>
-                                    <template v-slot:body-cell-column_default="props">
-                                        <q-td :props="props"
-                                            :style="{ background: props.row.column_default ? '' : 'grey' }">
-                                            {{ props.row.column_default }}
-                                            <q-popup-edit v-model="props.row.column_default" v-slot="scope">
-                                                <q-input v-model="scope.value" dense autofocus
-                                                    @keyup.enter="scope.set" />
-                                            </q-popup-edit>
-                                        </q-td>
-                                    </template>
-                                    <template v-slot:body-cell-actions="props">
-                                        <q-td :props="props">
-                                            <div class="q-gutter-xs">
-                                                <q-btn color="negative" @click="removeColumn(item, props.row)"
-                                                    label="移除" />
-                                            </div>
-                                        </q-td>
-                                    </template>
-                                </q-table>
-                            </q-tab-panel>
-                        </q-tab-panels>
-                    </q-card>
-                </div>
-
-                <div class="row justify-center" style="margin-top: 10px">
-                    <q-btn color="primary" @click="handleGen" v-has="'genPlugin:gen'">
-                        {{ $t('Gen') + $t('Plugin') }}
-                    </q-btn>
-                </div>
-            </div>
-        </q-form>
+                </q-form>
+            </q-card-section>
+        </q-card>
     </q-page>
 </template>
 

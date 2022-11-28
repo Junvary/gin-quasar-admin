@@ -1,5 +1,5 @@
 <template>
-    <q-layout :view="layoutView" :style="{ backgroundColor: $q.dark.isActive ? '#1d1d1d' : '#fafafa' }"
+    <q-layout :view="layoutView" :style="{ backgroundColor: $q.dark.isActive ? '#1d1d1d' : '#f0f2f5' }"
         style="overflow-x: hidden;">
         <q-header reveal bordered :class="darkTheme" style="height: 50px; border-bottom: 1px solid white;">
             <q-toolbar>
@@ -64,7 +64,7 @@
             </router-view>
 
             <q-page-sticky expand position="top">
-                <TabMenu />
+                <TabMenu style="border-bottom: 1px solid #e0e0e0;" />
             </q-page-sticky>
 
             <q-page-sticky position="bottom-right" :offset="fabPos">

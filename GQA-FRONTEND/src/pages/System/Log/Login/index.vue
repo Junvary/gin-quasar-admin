@@ -1,52 +1,53 @@
 <template>
-    <q-page padding class="q-gutter-y-md">
-        <div class="row q-gutter-x-md items-center">
-            <q-input style="width: 20%" v-model="queryParams.login_username" :label="$t('User')" />
-            <q-select style="width: 20%" v-model="queryParams.login_success" :options="dictOptions.yesNo" emit-value
-                map-options :label="$t('Login') + $t('Success')"
-                :option-label="opt => Object(opt) === opt && 'label' in opt ? $t(opt.label) : '- Null -'" />
-
-            <q-btn color="primary" @click="handleSearch" :label="$t('Search')" />
-            <q-btn color="primary" @click="resetSearch" :label="$t('Reset')" />
-        </div>
-
-        <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
-            :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
-
-            <template v-slot:top="props">
-                <q-space />
-                <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
-                    @click="props.toggleFullscreen" class="q-ml-md" />
-            </template>
-
-            <template v-slot:body-cell-login_success="props">
-                <q-td :props="props">
-                    <q-badge align="middle" :color="props.row.login_success === 'yesNo_no' ? 'negative' : 'positive'">
-                        <GqaDictShow :dictCode="props.row.login_success" />
-                    </q-badge>
-                </q-td>
-            </template>
-
-            <template v-slot:body-cell-created_at="props">
-                <q-td :props="props">
-                    {{ showDateTime(props.row.created_at) }}
-                </q-td>
-            </template>
-
-            <template v-slot:body-cell-actions="props">
-                <q-td :props="props">
-                    <div class="q-gutter-xs">
-                        <q-btn color="warning" :label="$t('Detail')" v-has="'log-login:detail'">
-                            <q-tooltip>
-                                {{ props.row.memo }}
-                            </q-tooltip>
-                        </q-btn>
-                        <q-btn color="negative" @click="handleDelete(props.row)" :label="$t('Delete')"
-                            v-has="'log-login:delete'" />
-                    </div>
-                </q-td>
-            </template>
-        </q-table>
+    <q-page padding>
+        <q-card flat>
+            <q-card-section class="row q-gutter-x-md items-center">
+                <q-input outlined dense style="width: 20%" v-model="queryParams.login_username" :label="$t('User')" />
+                <q-select outlined dense style="width: 20%" v-model="queryParams.login_success"
+                    :options="dictOptions.yesNo" emit-value map-options :label="$t('Login') + $t('Success')"
+                    :option-label="opt => Object(opt) === opt && 'label' in opt ? $t(opt.label) : '- Null -'" />
+                <q-btn color="primary" @click="handleSearch" :label="$t('Search')" />
+                <q-btn color="primary" @click="resetSearch" :label="$t('Reset')" />
+            </q-card-section>
+            <q-card-section>
+                <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns"
+                    v-model:pagination="pagination" :rows-per-page-options="pageOptions" :loading="loading"
+                    @request="onRequest">
+                    <template v-slot:top="props">
+                        <q-space />
+                        <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
+                            @click="props.toggleFullscreen" class="q-ml-md" />
+                    </template>
+                    <template v-slot:body-cell-login_success="props">
+                        <q-td :props="props">
+                            <q-badge align="middle"
+                                :color="props.row.login_success === 'yesNo_no' ? 'negative' : 'positive'">
+                                <GqaDictShow :dictCode="props.row.login_success" />
+                            </q-badge>
+                        </q-td>
+                    </template>
+                    <template v-slot:body-cell-created_at="props">
+                        <q-td :props="props">
+                            {{ showDateTime(props.row.created_at) }}
+                        </q-td>
+                    </template>
+                    <template v-slot:body-cell-actions="props">
+                        <q-td :props="props">
+                            <div class="q-gutter-md">
+                                <q-btn flat dense icon="zoom_in" color="warning" :label="$t('Detail')"
+                                    v-has="'log-login:detail'">
+                                    <q-tooltip>
+                                        {{ props.row.memo }}
+                                    </q-tooltip>
+                                </q-btn>
+                                <q-btn flat dense icon="delete_outline" color="negative"
+                                    @click="handleDelete(props.row)" :label="$t('Delete')" v-has="'log-login:delete'" />
+                            </div>
+                        </q-td>
+                    </template>
+                </q-table>
+            </q-card-section>
+        </q-card>
     </q-page>
 </template>
 

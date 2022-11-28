@@ -35,9 +35,9 @@
                     </span>
                     <div class="row items-center">
                         <q-icon name="fab fa-github" size="32px" dark />
-                        <q-space></q-space>
+                        <q-space />
                         <span>
-                            {{license}}
+                            {{ license }}
                         </span>
                         <q-inner-loading :showing="loading">
                             <q-spinner-gears size="50px" color="primary" />

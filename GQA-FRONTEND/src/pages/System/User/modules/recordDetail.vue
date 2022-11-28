@@ -1,22 +1,18 @@
 <template>
     <q-dialog v-model="recordDetailVisible" position="top">
         <q-card style="width: 800px; max-width: 80vw;">
-            <q-card-section>
-                <div class="text-h6">
-                    {{ formTypeName }} {{ $t('User') }}:
-                    {{ recordDetail.value.nickname ? recordDetail.value.nickname :
-                    recordDetail.value.real_name ? recordDetail.value.real_name : ""
-                    }}
-                </div>
+            <q-card-section class="text-h6">
+                {{ formTypeName }} {{ $t('User') }}:
+                {{ recordDetail.value.nickname ? recordDetail.value.nickname :
+                        recordDetail.value.real_name ? recordDetail.value.real_name : ""
+                }}
             </q-card-section>
-
             <q-separator />
-
-            <q-card-section>
+            <q-card-section class="q-gutter-md">
+                <gqa-form-top :recordDetail="recordDetail"></gqa-form-top>
                 <q-form ref="recordDetailForm">
-                    <gqa-form-top :recordDetail="recordDetail"></gqa-form-top>
-                    <div class="row">
-                        <q-file class="col" v-model="avatarFile" :label="$t('Avatar')" max-files="1"
+                    <div class="row q-gutter-md">
+                        <q-file outlined hint="" class="col" v-model="avatarFile" :label="$t('Avatar')" max-files="1"
                             @rejected="rejected" :accept="gqaBackend.avatarExt"
                             :max-file-size="gqaBackend.avatarMaxSize * 1024 * 1024">
                             <template v-slot:prepend>
@@ -26,19 +22,22 @@
                                 <q-btn dense flat color="primary" icon="cloud_upload" @click="handleUpload" />
                             </template>
                         </q-file>
-                        <q-input class="col" v-model="recordDetail.value.username" :label="$t('Username')" lazy-rules
+                        <q-input outlined hint="" class="col" v-model="recordDetail.value.username"
+                            :label="$t('Username')" lazy-rules
                             :rules="[val => val && val.length > 0 || $t('NeedInput')]" :disable="formType === 'edit'" />
-                        <q-input class="col" v-model="recordDetail.value.nickname" :label="$t('Nickname')" />
-                        <q-input class="col" v-model="recordDetail.value.real_name" :label="$t('RealName')" lazy-rules
+                        <q-input outlined hint="" class="col" v-model="recordDetail.value.real_name"
+                            :label="$t('RealName')" lazy-rules
                             :rules="[val => val && val.length > 0 || $t('NeedInput')]" :disable="formType === 'edit'" />
+                        <q-input outlined hint="" class="col" v-model="recordDetail.value.nickname"
+                            :label="$t('Nickname')" />
                     </div>
-                    <div class="row">
-                        <q-input class="col" v-model="recordDetail.value.mobile" :label="$t('Mobile')" />
-                        <q-input class="col" v-model="recordDetail.value.email" :label="$t('Email')" />
+                    <div class="row q-gutter-md">
+                        <q-input outlined hint="" class="col" v-model="recordDetail.value.mobile"
+                            :label="$t('Mobile')" />
+                        <q-input outlined hint="" class="col" v-model="recordDetail.value.email" :label="$t('Email')" />
                     </div>
-
-                    <div class="row">
-                        <q-field dense class="col" :label="$t('Gender')" stack-label>
+                    <div class="row q-gutter-md">
+                        <q-field outlined hint="" dense class="col" :label="$t('Gender')" stack-label>
                             <template v-slot:control>
                                 <q-option-group v-model="recordDetail.value.gender" :options="dictOptions.gender"
                                     color="primary" inline>
@@ -50,7 +49,7 @@
                                 </q-option-group>
                             </template>
                         </q-field>
-                        <q-field dense class="col" :label="$t('Status')" stack-label>
+                        <q-field outlined hint="" dense class="col" :label="$t('Status')" stack-label>
                             <template v-slot:control>
                                 <q-option-group v-model="recordDetail.value.status" :options="dictOptions.onOff"
                                     color="primary" inline :disable="recordDetail.value.username === 'admin'">
@@ -63,17 +62,14 @@
                             </template>
                         </q-field>
                     </div>
-                    <q-input v-model="recordDetail.value.memo" type="textarea" :label="$t('Memo')" />
+                    <q-input outlined hint="" v-model="recordDetail.value.memo" type="textarea" :label="$t('Memo')" />
                 </q-form>
             </q-card-section>
-
             <q-separator />
-
             <q-card-actions align="right">
                 <q-btn :label="$t('Save')" color="primary" @click="handleAddOrEidt" />
                 <q-btn :label="$t('Cancel')" color="negative" v-close-popup />
             </q-card-actions>
-
             <q-inner-loading :showing="loading">
                 <q-spinner-gears size="50px" color="primary" />
             </q-inner-loading>

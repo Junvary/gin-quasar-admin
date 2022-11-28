@@ -1,52 +1,53 @@
 <template>
-    <q-page padding class="q-gutter-y-md">
-        <div class="row q-gutter-x-md items-center">
-            <q-input style="width: 20%" v-model="queryParams.notice_title" :label="$t('Title')" />
-            <q-select style="width: 20%" v-model="queryParams.notice_type" :options="dictOptions.noticeType" emit-value
-                map-options :label="$t('Notice') + $t('Type')" />
-            <q-select style="width: 20%" v-model="queryParams.notice_sent" :options="dictOptions.yesNo" emit-value
-                map-options :label="$t('Sent')"
-                :option-label="opt => Object(opt) === opt && 'label' in opt ? $t(opt.label) : '- Null -'" />
-            <q-btn color="primary" @click="handleSearch" :label="$t('Search')" />
-            <q-btn color="primary" @click="resetSearch" :label="$t('Reset')" />
-        </div>
-
-        <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
-            :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
-
-            <template v-slot:top="props">
-                <q-btn color="primary" @click="showAddForm()" :label="$t('Add') + ' ' + $t('Notice')"
-                    v-has="'notice:add'" />
-                <q-space />
-                <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
-                    @click="props.toggleFullscreen" class="q-ml-md" />
-            </template>
-
-            <template v-slot:body-cell-notice_type="props">
-                <q-td :props="props">
-                    <GqaDictShow :dictCode="props.row.notice_type" />
-                </q-td>
-            </template>
-
-            <template v-slot:body-cell-notice_sent="props">
-                <q-td :props="props">
-                    <GqaDictShow :dictCode="props.row.notice_sent" />
-                </q-td>
-            </template>
-
-            <template v-slot:body-cell-actions="props">
-                <q-td :props="props">
-                    <div class="q-gutter-xs">
-                        <q-btn color="warning" @click="sendMessage(props.row)" :label="$t('Send')" v-has="'notice:send'"
-                            v-if="props.row.notice_sent === 'yesNo_no'" />
-                        <q-btn color="primary" @click="showEditForm(props.row)" :label="$t('Edit')"
-                            v-has="'notice:edit'" />
-                        <q-btn color="negative" @click="handleDelete(props.row)" :label="$t('Delete')"
-                            v-has="'notice:delete'" />
-                    </div>
-                </q-td>
-            </template>
-        </q-table>
+    <q-page padding>
+        <q-card flat>
+            <q-card-section class="row q-gutter-x-md items-center">
+                <q-input outlined dense style="width: 20%" v-model="queryParams.notice_title" :label="$t('Title')" />
+                <q-select outlined dense style="width: 20%" v-model="queryParams.notice_type"
+                    :options="dictOptions.noticeType" emit-value map-options :label="$t('Notice') + $t('Type')" />
+                <q-select outlined dense style="width: 20%" v-model="queryParams.notice_sent"
+                    :options="dictOptions.yesNo" emit-value map-options :label="$t('Sent')"
+                    :option-label="opt => Object(opt) === opt && 'label' in opt ? $t(opt.label) : '- Null -'" />
+                <q-btn color="primary" @click="handleSearch" :label="$t('Search')" />
+                <q-btn color="primary" @click="resetSearch" :label="$t('Reset')" />
+            </q-card-section>
+            <q-card-section>
+                <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns"
+                    v-model:pagination="pagination" :rows-per-page-options="pageOptions" :loading="loading"
+                    @request="onRequest">
+                    <template v-slot:top="props">
+                        <q-btn color="primary" @click="showAddForm()" :label="$t('Add') + ' ' + $t('Notice')"
+                            v-has="'notice:add'" />
+                        <q-space />
+                        <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
+                            @click="props.toggleFullscreen" class="q-ml-md" />
+                    </template>
+                    <template v-slot:body-cell-notice_type="props">
+                        <q-td :props="props">
+                            <GqaDictShow :dictCode="props.row.notice_type" />
+                        </q-td>
+                    </template>
+                    <template v-slot:body-cell-notice_sent="props">
+                        <q-td :props="props">
+                            <GqaDictShow :dictCode="props.row.notice_sent" />
+                        </q-td>
+                    </template>
+                    <template v-slot:body-cell-actions="props">
+                        <q-td :props="props">
+                            <div class="q-gutter-md">
+                                <q-btn flat dense icon="send" color="warning" @click="sendMessage(props.row)"
+                                    :label="$t('Send')" v-has="'notice:send'"
+                                    v-if="props.row.notice_sent === 'yesNo_no'" />
+                                <q-btn flat dense icon="eva-edit-2-outline" color="primary"
+                                    @click="showEditForm(props.row)" :label="$t('Edit')" v-has="'notice:edit'" />
+                                <q-btn flat dense icon="delete_outline" color="negative"
+                                    @click="handleDelete(props.row)" :label="$t('Delete')" v-has="'notice:delete'" />
+                            </div>
+                        </q-td>
+                    </template>
+                </q-table>
+            </q-card-section>
+        </q-card>
         <recordDetail ref="recordDetailDialog" @handleFinish="handleFinish" />
     </q-page>
 </template>

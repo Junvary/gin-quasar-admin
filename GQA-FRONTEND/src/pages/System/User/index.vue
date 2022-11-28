@@ -1,94 +1,92 @@
 <template>
     <q-page padding>
-        <div class="row q-gutter-x-md">
-            <div class="col-2">
-                {{ $t('Select') + $t('Dept') }}
+        <q-card flat class="row">
+            <q-card-section class="col-2">
+                <q-card-section>
+                    {{ $t('Select') + $t('Dept') }}
+                </q-card-section>
                 <q-separator />
-                <div v-if="deptList.length">
+                <q-card-section v-if="deptList.length">
                     <q-tree :nodes="deptList" v-model:selected="selectDept" @update:selected="handleSelectDept"
                         label-key="dept_name" node-key="dept_code" selected-color="primary" default-expand-all />
-                </div>
-            </div>
-            <div class="col q-gutter-y-md">
-                <div class="row q-gutter-x-md items-center">
-                    <q-input style="width: 20%" v-model="queryParams.username" :label="$t('Username')" />
-                    <q-input style="width: 20%" v-model="queryParams.real_name" :label="$t('RealName')" />
+                </q-card-section>
+            </q-card-section>
+            <q-card-section class="col q-gutter-y-md">
+                <q-card-section class="row q-gutter-x-md items-center">
+                    <q-input outlined dense style="width: 20%" v-model="queryParams.username" :label="$t('Username')" />
+                    <q-input outlined dense style="width: 20%" v-model="queryParams.real_name"
+                        :label="$t('RealName')" />
                     <q-btn color="primary" @click="handleSearch" :label="$t('Search')" />
                     <q-btn color="primary" @click="resetSearch" :label="$t('Reset')" />
-                </div>
-                <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns"
-                    v-model:pagination="pagination" :rows-per-page-options="pageOptions" :loading="loading"
-                    @request="onRequest">
-
-                    <template v-slot:top="props">
-                        <q-btn color="primary" @click="showAddForm()" :label="$t('Add') + ' ' + $t('User')"
-                            v-has="'user:add'" />
-                        <q-space />
-                        <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
-                            @click="props.toggleFullscreen" class="q-ml-md" />
-                    </template>
-
-                    <template v-slot:body-cell-avatar="props">
-                        <q-td :props="props">
-                            <GqaAvatar :src="props.row.avatar" />
-                        </q-td>
-                    </template>
-
-                    <template v-slot:body-cell-gender="props">
-                        <q-td :props="props">
-                            <GqaDictShow :dictCode="props.row.gender" />
-                        </q-td>
-                    </template>
-
-                    <template v-slot:body-cell-role="props">
-                        <q-td :props="props">
-                            <div class="column items-center q-gutter-xs">
-                                <q-badge class="col" color="primary" v-for="(item, index) in props.row.role"
-                                    :key="index">
-                                    {{ item.role_name }}
-                                </q-badge>
-                            </div>
-                        </q-td>
-                    </template>
-
-                    <template v-slot:body-cell-dept="props">
-                        <q-td :props="props">
-                            <div class="column items-center q-gutter-xs">
-                                <q-badge class="col" color="primary" v-for="(item, index) in props.row.dept"
-                                    :key="index">
-                                    {{ item.dept_name }}
-                                </q-badge>
-                            </div>
-                        </q-td>
-                    </template>
-
-                    <template v-slot:body-cell-status="props">
-                        <q-td :props="props">
-                            <GqaDictShow :dictCode="props.row.status" />
-                        </q-td>
-                    </template>
-
-                    <template v-slot:body-cell-stable="props">
-                        <q-td :props="props">
-                            <GqaDictShow :dictCode="props.row.stable" />
-                        </q-td>
-                    </template>
-
-                    <template v-slot:body-cell-actions="props">
-                        <q-td :props="props">
-                            <div class="q-gutter-xs">
-                                <q-btn color="warning" @click="resetPassword(props.row)" v-has="'user:password'"
-                                    :label="$t('Reset') + $t('Password')" />
-                                <q-btn color="primary" @click="showEditForm(props.row)" :label="$t('Edit')"
-                                    v-has="'user:edit'" />
-                                <q-btn color="negative" @click="handleDelete(props.row)" :label="$t('Delete')"
-                                    v-has="'user:delete'" />
-                            </div>
-                        </q-td>
-                    </template>
-                </q-table>
-            </div>
-        </div>
+                </q-card-section>
+                <q-card-section>
+                    <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns"
+                        v-model:pagination="pagination" :rows-per-page-options="pageOptions" :loading="loading"
+                        @request="onRequest">
+                        <template v-slot:top="props">
+                            <q-btn color="primary" @click="showAddForm()" :label="$t('Add') + ' ' + $t('User')"
+                                v-has="'user:add'" />
+                            <q-space />
+                            <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
+                                @click="props.toggleFullscreen" class="q-ml-md" />
+                        </template>
+                        <template v-slot:body-cell-avatar="props">
+                            <q-td :props="props">
+                                <GqaAvatar :src="props.row.avatar" />
+                            </q-td>
+                        </template>
+                        <template v-slot:body-cell-gender="props">
+                            <q-td :props="props">
+                                <GqaDictShow :dictCode="props.row.gender" />
+                            </q-td>
+                        </template>
+                        <template v-slot:body-cell-role="props">
+                            <q-td :props="props">
+                                <div class="column items-center q-gutter-xs">
+                                    <q-badge class="col" color="primary" v-for="(item, index) in props.row.role"
+                                        :key="index">
+                                        {{ item.role_name }}
+                                    </q-badge>
+                                </div>
+                            </q-td>
+                        </template>
+                        <template v-slot:body-cell-dept="props">
+                            <q-td :props="props">
+                                <div class="column items-center q-gutter-xs">
+                                    <q-badge class="col" color="primary" v-for="(item, index) in props.row.dept"
+                                        :key="index">
+                                        {{ item.dept_name }}
+                                    </q-badge>
+                                </div>
+                            </q-td>
+                        </template>
+                        <template v-slot:body-cell-status="props">
+                            <q-td :props="props">
+                                <GqaDictShow :dictCode="props.row.status" />
+                            </q-td>
+                        </template>
+                        <template v-slot:body-cell-stable="props">
+                            <q-td :props="props">
+                                <GqaDictShow :dictCode="props.row.stable" />
+                            </q-td>
+                        </template>
+                        <template v-slot:body-cell-actions="props">
+                            <q-td :props="props">
+                                <div class="q-gutter-md">
+                                    <q-btn flat dense icon="eva-edit-2-outline" color="primary"
+                                        @click="showEditForm(props.row)" :label="$t('Edit')" v-has="'user:edit'" />
+                                    <q-btn flat dense icon="mdi-lock-reset" color="warning"
+                                        @click="resetPassword(props.row)" v-has="'user:password'"
+                                        :label="$t('Reset') + $t('Password')" />
+                                    <q-btn flat dense icon="delete_outline" color="negative"
+                                        @click="handleDelete(props.row)" :label="$t('Delete')" v-has="'user:delete'" />
+                                </div>
+                            </q-td>
+                        </template>
+                    </q-table>
+                </q-card-section>
+            </q-card-section>
+        </q-card>
         <recordDetail ref="recordDetailDialog" @handleFinish="handleFinish" />
     </q-page>
 </template>

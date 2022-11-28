@@ -1,55 +1,55 @@
 <template>
-    <q-page padding class="q-gutter-y-md">
-        <div class="row q-gutter-x-md items-center">
-            <q-input style="width: 20%" v-model="queryParams.username" :label="$t('Username')" />
-            <q-btn color="primary" @click="handleSearch" :label="$t('Search')" />
-            <q-btn color="primary" @click="resetSearch" :label="$t('Reset')" />
-        </div>
-        <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
-            :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
-
-            <template v-slot:top="props">
-                <span class="text-h6">
-                    {{ $t('UserOnline') }}
-                </span>
-                <q-space />
-                <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
-                    @click="props.toggleFullscreen" class="q-ml-md" />
-            </template>
-
-            <template v-slot:body-cell-avatar="props">
-                <q-td :props="props">
-                    <GqaAvatar :src="props.row.avatar" />
-                </q-td>
-            </template>
-
-            <template v-slot:body-cell-username="props">
-                <q-td :props="props">
-                    {{ props.row.user.username }}
-                </q-td>
-            </template>
-
-            <template v-slot:body-cell-nickname="props">
-                <q-td :props="props">
-                    {{ props.row.user.nickname }}
-                </q-td>
-            </template>
-
-            <template v-slot:body-cell-real_name="props">
-                <q-td :props="props">
-                    {{ props.row.user.real_name }}
-                </q-td>
-            </template>
-
-            <template v-slot:body-cell-actions="props">
-                <q-td :props="props">
-                    <div class="q-gutter-xs">
-                        <q-btn color="negative" @click="handleKickOut(props.row)" :label="$t('KickOut')"
-                            v-has="'user-online:kick'" />
-                    </div>
-                </q-td>
-            </template>
-        </q-table>
+    <q-page padding>
+        <q-card flat>
+            <q-card-section class="row q-gutter-x-md items-center">
+                <q-input outlined dense style="width: 20%" v-model="queryParams.username" :label="$t('Username')" />
+                <q-btn color="primary" @click="handleSearch" :label="$t('Search')" />
+                <q-btn color="primary" @click="resetSearch" :label="$t('Reset')" />
+            </q-card-section>
+            <q-card-section>
+                <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns"
+                    v-model:pagination="pagination" :rows-per-page-options="pageOptions" :loading="loading"
+                    @request="onRequest">
+                    <template v-slot:top="props">
+                        <span class="text-h6">
+                            {{ $t('UserOnline') }}
+                        </span>
+                        <q-space />
+                        <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
+                            @click="props.toggleFullscreen" class="q-ml-md" />
+                    </template>
+                    <template v-slot:body-cell-avatar="props">
+                        <q-td :props="props">
+                            <GqaAvatar :src="props.row.avatar" />
+                        </q-td>
+                    </template>
+                    <template v-slot:body-cell-username="props">
+                        <q-td :props="props">
+                            {{ props.row.user.username }}
+                        </q-td>
+                    </template>
+                    <template v-slot:body-cell-nickname="props">
+                        <q-td :props="props">
+                            {{ props.row.user.nickname }}
+                        </q-td>
+                    </template>
+                    <template v-slot:body-cell-real_name="props">
+                        <q-td :props="props">
+                            {{ props.row.user.real_name }}
+                        </q-td>
+                    </template>
+                    <template v-slot:body-cell-actions="props">
+                        <q-td :props="props">
+                            <div class="q-gutter-md">
+                                <q-btn flat dense icon="mdi-logout-variant" color="negative"
+                                    @click="handleKickOut(props.row)" :label="$t('KickOut')"
+                                    v-has="'user-online:kick'" />
+                            </div>
+                        </q-td>
+                    </template>
+                </q-table>
+            </q-card-section>
+        </q-card>
     </q-page>
 </template>
 

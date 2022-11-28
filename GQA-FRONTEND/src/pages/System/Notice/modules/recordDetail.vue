@@ -1,33 +1,33 @@
 <template>
     <q-dialog v-model="recordDetailVisible" position="top">
         <q-card style="width: 1400px; max-width: 80vw;">
-            <q-card-section>
-                <div class="text-h6">
-                    {{ formTypeName }} {{ $t('Notice') }}:
-                    {{ recordDetail.value.notice_title }}
-                </div>
+            <q-card-section class="text-h6">
+                {{ formTypeName }} {{ $t('Notice') }}:
+                {{ recordDetail.value.notice_title }}
             </q-card-section>
-
             <q-separator />
-
             <q-card-section>
+                <gqa-form-top :recordDetail="recordDetail"></gqa-form-top>
                 <q-form ref="recordDetailForm">
-                    <gqa-form-top :recordDetail="recordDetail"></gqa-form-top>
-                    <q-input v-model="recordDetail.value.notice_title" :label="$t('Title')"
-                        :rules="[val => val && val.length > 0 || $t('NeedInput')]" />
-                    <q-select v-model="recordDetail.value.notice_type" :options="dictOptions.noticeType" emit-value
-                        map-options :rules="[val => val && val.length > 0 || $t('NeedInput')]"
-                        :label="$t('Notice') + $t('Type')" />
-                    <q-input v-model="recordDetail.value.notice_content" type="textarea" :label="$t('Content')" />
-
-                    <q-field :label="$t('SendTo')" stack-label>
+                    <div class="row q-gutter-md">
+                        <q-input outlined hint="" class="col" v-model="recordDetail.value.notice_title"
+                            :label="$t('Title')" :rules="[val => val && val.length > 0 || $t('NeedInput')]" />
+                        <q-select outlined hint="" class="col" v-model="recordDetail.value.notice_type"
+                            :options="dictOptions.noticeType" emit-value map-options
+                            :rules="[val => val && val.length > 0 || $t('NeedInput')]"
+                            :label="$t('Notice') + $t('Type')" />
+                    </div>
+                    <q-input outlined hint="" v-model="recordDetail.value.notice_content" type="textarea"
+                        :label="$t('Content')" />
+                    <q-field outlined hint="" :label="$t('SendTo')" stack-label>
                         <template v-slot:control>
                             <q-option-group :options="noticeToUserTypeOption" name="noticeToUserType"
                                 v-model="recordDetail.value.notice_to_user_type" inline
                                 @update:model-value="changenoticeToUserType" />
                         </template>
                     </q-field>
-                    <q-select v-if="recordDetail.value.notice_to_user_type === 'some' && changeTableData.length"
+                    <q-select outlined hint=""
+                        v-if="recordDetail.value.notice_to_user_type === 'some' && changeTableData.length"
                         v-model="selectUser" :options="changeTableData" multiple clearable emit-value map-options
                         :rules="[val => val && val.length > 0 || $t('NeedInput')]" :label="$t('User')" />
                     <span v-if="recordDetail.value.notice_to_user_type === 'some' && !changeTableData.length">
@@ -35,14 +35,11 @@
                     </span>
                 </q-form>
             </q-card-section>
-
             <q-separator />
-
             <q-card-actions align="right">
                 <q-btn :label="$t('Save')" color="primary" @click="handleAddOrEidt" />
                 <q-btn :label="$t('Cancel')" color="negative" v-close-popup />
             </q-card-actions>
-
             <q-inner-loading :showing="loading">
                 <q-spinner-gears size="50px" color="primary" />
             </q-inner-loading>
