@@ -235,48 +235,45 @@ var sysApiData = []model.SysApi{
 		Sort: 64, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "获取消息列表",
 	}}, ApiGroup: "notice", ApiMethod: "POST", ApiPath: "/notice/get-notice-list"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 65, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "编辑消息信息",
-	}}, ApiGroup: "notice", ApiMethod: "POST", ApiPath: "/notice/edit-notice"},
-	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 66, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "新增消息"}},
+		Sort: 65, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "新增消息"}},
 		ApiGroup: "notice", ApiMethod: "POST", ApiPath: "/notice/add-notice"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 67, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "删除消息",
+		Sort: 66, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "删除消息",
 	}}, ApiGroup: "notice", ApiMethod: "POST", ApiPath: "/notice/delete-notice-by-id"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 68, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "根据ID查找消息",
+		Sort: 67, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "根据ID查找消息",
 	}}, ApiGroup: "notice", ApiMethod: "POST", ApiPath: "/notice/query-notice-by-id"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 69, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "根据ID查找消息并阅读",
+		Sort: 68, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "根据ID查找消息并阅读",
 	}}, ApiGroup: "notice", ApiMethod: "POST", ApiPath: "/notice/query-notice-read-by-id"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 70, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "发送消息",
+		Sort: 69, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "发送消息",
 	}}, ApiGroup: "notice", ApiMethod: "POST", ApiPath: "/notice/send-notice"},
 
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 71, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "获取待办便签列表",
+		Sort: 70, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "获取待办便签列表",
 	}}, ApiGroup: "todoNote", ApiMethod: "POST", ApiPath: "/note-todo/get-note-todo-list"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 72, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "编辑待办便签信息",
+		Sort: 71, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "编辑待办便签信息",
 	}}, ApiGroup: "todoNote", ApiMethod: "POST", ApiPath: "/note-todo/edit-note-todo"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 73, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "新增待办便签",
+		Sort: 72, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "新增待办便签",
 	}}, ApiGroup: "todoNote", ApiMethod: "POST", ApiPath: "/note-todo/add-note-todo"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 74, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "删除待办便签",
+		Sort: 73, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "删除待办便签",
 	}}, ApiGroup: "todoNote", ApiMethod: "POST", ApiPath: "/note-todo/delete-note-todo-by-id"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 75, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "根据ID查找待办便签",
+		Sort: 74, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "根据ID查找待办便签",
 	}}, ApiGroup: "todoNote", ApiMethod: "POST", ApiPath: "/note-todo/query-note-todo-by-id"},
 
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 76, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件代码生成",
+		Sort: 75, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件代码生成",
 	}}, ApiGroup: "genPlugin", ApiMethod: "POST", ApiPath: "/gen-plugin/gen-plugin"},
 
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 77, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "获取在线用户列表",
+		Sort: 76, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "获取在线用户列表",
 	}}, ApiGroup: "user-online", ApiMethod: "POST", ApiPath: "/user-online/get-user-online-list"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 78, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "踢出在线用户",
+		Sort: 77, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "踢出在线用户",
 	}}, ApiGroup: "user-online", ApiMethod: "POST", ApiPath: "/user-online/kick-online-user"},
 }

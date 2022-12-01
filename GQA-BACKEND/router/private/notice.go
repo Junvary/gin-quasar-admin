@@ -8,7 +8,6 @@ func (r *RouterNotice) InitRouterRouterNotice(privateGroup *gin.RouterGroup) (R 
 	privateGroup = privateGroup.Group("notice")
 	{
 		privateGroup.POST("get-notice-list", apiPrivate.ApiNotice.GetNoticeList)
-		privateGroup.POST("edit-notice", apiPrivate.ApiNotice.EditNotice)
 		privateGroup.POST("add-notice", apiPrivate.ApiNotice.AddNotice)
 		privateGroup.POST("delete-notice-by-id", apiPrivate.ApiNotice.DeleteNoticeById)
 		privateGroup.POST("query-notice-by-id", apiPrivate.ApiNotice.QueryNoticeById)

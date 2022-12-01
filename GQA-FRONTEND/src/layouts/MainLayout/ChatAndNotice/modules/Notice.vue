@@ -73,8 +73,8 @@ const {
 } = useTableData(url)
 
 const username = computed(() => userStore.GetUsername())
-const systemData = computed(() => tableData.value.filter((item) => item.notice_type === 'system'))
-const messageData = computed(() => tableData.value.filter((item) => item.notice_type === 'message'))
+const systemData = computed(() => tableData.value.filter((item) => item.notice_type === 'noticeType_system'))
+const messageData = computed(() => tableData.value.filter((item) => item.notice_type === 'noticeType_message'))
 
 const noticeType = ref('system')
 

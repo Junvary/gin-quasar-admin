@@ -38,7 +38,7 @@ const { messageData } = toRefs(props)
 
 const userProfile = ref(null)
 const toUserProfile = () => {
-    userProfile.value.show('message')
+    userProfile.value.show('noticeType_message')
 }
 
 const noticeDetail = ref(null)

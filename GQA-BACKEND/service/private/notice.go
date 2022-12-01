@@ -62,20 +62,6 @@ func (s *ServiceNotice) GetNoticeList(requestNoticeList model.RequestGetNoticeLi
 	return err, noticeList, total
 }
 
-func (s *ServiceNotice) EditNotice(toEditNotice model.SysNotice) (err error) {
-	var sysNotice model.SysNotice
-	if err = global.GqaDb.Where("id = ?", toEditNotice.Id).First(&sysNotice).Error; err != nil {
-		return err
-	}
-	var sysNoticeToUser []model.SysNoticeToUser
-	if err = global.GqaDb.Where("notice_id = ?", toEditNotice.NoticeId).Unscoped().Delete(&sysNoticeToUser).Error; err != nil {
-		return err
-	}
-	//err = global.GqaDb.Updates(&toEditNotice).Error
-	err = global.GqaDb.Save(&toEditNotice).Error
-	return err
-}
-
 func (s *ServiceNotice) AddNotice(toAddNotice model.RequestAddNotice, username string) (err error) {
 	noticeId := uuid.New()
 	var noticeToUser []model.SysNoticeToUser
@@ -142,7 +128,7 @@ func (s *ServiceNotice) QueryNoticeReadById(id uint, username string) (err error
 	}
 	if err = global.GqaDb.Model(&model.SysNoticeToUser{}).
 		Where("notice_id = ? and to_user = ?", sysNotice.NoticeId, username).
-		Update("user_read", "yes").Error; err != nil {
+		Update("user_read", "yesNo_yes").Error; err != nil {
 		return err, sysNotice
 	}
 	err = global.GqaDb.Preload("CreatedByUser").Preload("UpdatedByUser").Preload("NoticeToUser").
@@ -155,11 +141,11 @@ func (s *ServiceNotice) SendNotice(toSendNotice model.SysNotice) (err error) {
 	if err = global.GqaDb.Where("id = ?", toSendNotice.Id).First(&sysNotice).Error; err != nil {
 		return err
 	}
-	if sysNotice.NoticeSent == "yes" {
+	if sysNotice.NoticeSent == "yesNo_yes" {
 		return errors.New("这条消息已被发送过！")
 	}
 	//还没发送的，就置为发送
-	toSendNotice.NoticeSent = "yes"
+	toSendNotice.NoticeSent = "yesNo_yes"
 	//发送字段同步到表
 	if err = global.GqaDb.Omit("NoticeToUser").Updates(&toSendNotice).Error; err != nil {
 		return err

@@ -28,21 +28,6 @@ func (a *ApiNotice) GetNoticeList(c *gin.Context) {
 	}
 }
 
-func (a *ApiNotice) EditNotice(c *gin.Context) {
-	var toEditNotice model.SysNotice
-	if err := model.RequestShouldBindJSON(c, &toEditNotice); err != nil {
-		return
-	}
-	toEditNotice.UpdatedBy = utils.GetUsername(c)
-	if err := servicePrivate.ServiceNotice.EditNotice(toEditNotice); err != nil {
-		global.GqaLogger.Error("编辑消息失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("编辑消息失败，"+err.Error(), c)
-	} else {
-		global.GqaLogger.Warn(utils.GetUsername(c) + "编辑消息成功！")
-		model.ResponseSuccessMessage("编辑消息成功！", c)
-	}
-}
-
 func (a *ApiNotice) AddNotice(c *gin.Context) {
 	var toAddNotice model.RequestAddNotice
 	if err := model.RequestShouldBindJSON(c, &toAddNotice); err != nil {

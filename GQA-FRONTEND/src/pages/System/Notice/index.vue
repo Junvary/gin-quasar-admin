@@ -38,8 +38,6 @@
                                 <q-btn flat dense icon="send" color="warning" @click="sendMessage(props.row)"
                                     :label="$t('Send')" v-has="'notice:send'"
                                     v-if="props.row.notice_sent === 'yesNo_no'" />
-                                <q-btn flat dense icon="eva-edit-2-outline" color="primary"
-                                    @click="showEditForm(props.row)" :label="$t('Edit')" v-has="'notice:edit'" />
                                 <q-btn flat dense icon="delete_outline" color="negative"
                                     @click="handleDelete(props.row)" :label="$t('Delete')" v-has="'notice:delete'" />
                             </div>
@@ -86,7 +84,6 @@ const {
     tableData,
     recordDetailDialog,
     showAddForm,
-    showEditForm,
     onRequest,
     getTableData,
     handleSearch,

@@ -1,17 +1,17 @@
 <template>
     <q-tabs v-model="messageType" dense class="text-grey" active-color="primary" indicator-color="primary"
         align="justify" narrow-indicator style="width: 100%">
-        <q-tab name="system" :label="$t('NoticeSystem')" />
-        <q-tab name="message" :label="$t('NoticeMessage')" />
+        <q-tab name="noticeType_system" :label="$t('NoticeSystem')" />
+        <q-tab name="noticeType_message" :label="$t('NoticeMessage')" />
         <q-tab name="noteTodo" :label="$t('NoteTodo')" />
     </q-tabs>
     <q-tab-panels v-model="messageType" animated style="width: 100%">
-        <q-tab-panel name="system">
-            <NoticeSystem v-if="messageType === 'system'" />
+        <q-tab-panel name="noticeType_system">
+            <NoticeSystem v-if="messageType === 'noticeType_system'" />
         </q-tab-panel>
 
-        <q-tab-panel name="message">
-            <NoticeMessage v-if="messageType === 'message'" />
+        <q-tab-panel name="noticeType_message">
+            <NoticeMessage v-if="messageType === 'noticeType_message'" />
         </q-tab-panel>
 
         <q-tab-panel name="noteTodo">
@@ -26,7 +26,7 @@ import NoticeMessage from './NoticeMessage'
 import NoticeNoteTodo from './NoticeNoteTodo'
 import { ref } from 'vue';
 
-const messageType = ref('system')
+const messageType = ref('noticeType_system')
 const changeMessageType = (type) => {
     messageType.value = type
 }

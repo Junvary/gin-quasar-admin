@@ -105,7 +105,6 @@ var sysRoleApiData = []model.SysRoleApi{
 	{RoleCode: "super-admin", ApiGroup: "log", ApiMethod: "POST", ApiPath: "/log/delete-log-operation-by-id"},
 
 	{RoleCode: "super-admin", ApiGroup: "notice", ApiMethod: "POST", ApiPath: "/notice/get-notice-list"},
-	{RoleCode: "super-admin", ApiGroup: "notice", ApiMethod: "POST", ApiPath: "/notice/edit-notice"},
 	{RoleCode: "super-admin", ApiGroup: "notice", ApiMethod: "POST", ApiPath: "/notice/add-notice"},
 	{RoleCode: "super-admin", ApiGroup: "notice", ApiMethod: "POST", ApiPath: "/notice/delete-notice-by-id"},
 	{RoleCode: "super-admin", ApiGroup: "notice", ApiMethod: "POST", ApiPath: "/notice/query-notice-by-id"},

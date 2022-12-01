@@ -39,7 +39,7 @@ const { systemData } = toRefs(props)
 
 const userProfile = ref(null)
 const toUserProfile = () => {
-    userProfile.value.show('system')
+    userProfile.value.show('noticeType_system')
 }
 
 const noticeDetail = ref(null)

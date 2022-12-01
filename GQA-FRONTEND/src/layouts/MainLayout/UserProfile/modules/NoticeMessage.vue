@@ -70,8 +70,8 @@ const username = computed(() => userStore.GetUsername())
 
 onMounted(() => {
     queryParams.value = {
-        notice_type: 'message',
-        notice_sent: 'yes',
+        notice_type: 'noticeType_message',
+        notice_sent: 'yesNo_yes',
         notice_to_user: String(username.value),
     }
     pagination.value.sortBy = 'created_at'

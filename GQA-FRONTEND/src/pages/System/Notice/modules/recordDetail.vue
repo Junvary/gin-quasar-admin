@@ -62,7 +62,6 @@ const emit = defineEmits(['handleFinish'])
 const url = {
     list: 'user/get-user-list',
     add: 'notice/add-notice',
-    edit: 'notice/edit-notice',
     queryById: 'notice/query-notice-by-id',
 }
 const {
@@ -148,28 +147,29 @@ const handleAddOrEidt = async () => {
             recordDetail.value.notice_to_user = []
         }
         if (formType.value === 'edit') {
-            if (url === undefined || !url.edit) {
-                $q.notify({
-                    type: 'negative',
-                    message: "请先配置url",
-                })
-                return
-            }
-            recordDetail.value.notice_to_user = []
-            selectUser.value.forEach((item) => {
-                recordDetail.value.notice_to_user.push({
-                    noticeId: recordDetail.value.notice_id,
-                    toUser: item,
-                })
-            })
-            const res = await postAction(url.edit, recordDetail.value)
-            if (res.code === 1) {
-                $q.notify({
-                    type: 'positive',
-                    message: res.message,
-                })
-                recordDetailVisible.value = false
-            }
+            return
+            // if (url === undefined || !url.edit) {
+            //     $q.notify({
+            //         type: 'negative',
+            //         message: "请先配置url",
+            //     })
+            //     return
+            // }
+            // recordDetail.value.notice_to_user = []
+            // selectUser.value.forEach((item) => {
+            //     recordDetail.value.notice_to_user.push({
+            //         noticeId: recordDetail.value.notice_id,
+            //         toUser: item,
+            //     })
+            // })
+            // const res = await postAction(url.edit, recordDetail.value)
+            // if (res.code === 1) {
+            //     $q.notify({
+            //         type: 'positive',
+            //         message: res.message,
+            //     })
+            //     recordDetailVisible.value = false
+            // }
         } else if (formType.value === 'add') {
             if (url === undefined || !url.add) {
                 $q.notify({
