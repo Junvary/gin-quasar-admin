@@ -34,7 +34,7 @@ func (s *sysMenu) LoadData() error {
 var sysMenuData = []gqaModel.SysMenu{
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
 		Sort: 70001, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是成就系统插件",
-	}}, Name: "GqaPluginAchievement", Title: "PluginAchievement", Icon: "fas fa-award", Path: "", Component: ""},
+	}}, Name: "GqaPluginAchievement", Title: "PluginAchievement", Icon: "fas fa-award", Path: "", Component: "", Redirect: "/plugin-achievement/achievement/category"},
 
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
 		Sort: 1, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是Category",

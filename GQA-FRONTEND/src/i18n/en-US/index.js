@@ -119,6 +119,7 @@ export default {
     Statistic: 'Statistic',
     Cascader: 'Cascader',
     ImportExport: 'ImportAndExport',
+    Uploader: 'Uploader',
     Phone: 'Phone',
     New: 'New',
     Old: 'Old',

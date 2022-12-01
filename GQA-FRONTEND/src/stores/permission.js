@@ -19,7 +19,13 @@ export const usePermissionStore = defineStore('permission', {
                 if (res.code === 1) {
                     const data = res.data.records
                     // 角色默认页面
-                    this.InitUserDefautlPage(res.data.default_page_list)
+                    const dp = res.data.default_page_list
+                    const redirect = data.filter(item => item.name === dp[0] && item.redirect !== '')
+                    if (redirect.length) {
+                        this.InitUserDefautlPage([data.filter(item => item.path === redirect[0].redirect)[0].name])
+                    } else {
+                        this.InitUserDefautlPage(dp)
+                    }
                     // 获取用户按钮权限
                     this.InitUserButton(res.data.buttons)
                     // 拿到鉴权路由表（用户自己的所有菜单），整理成路由

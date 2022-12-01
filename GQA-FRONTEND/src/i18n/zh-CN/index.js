@@ -119,6 +119,7 @@ export default {
     Statistic: '统计数据',
     Cascader: '级联选择器',
     ImportExport: '导入导出',
+    Uploader: '上传器',
     Phone: '电话',
     New: '新',
     Old: '旧',

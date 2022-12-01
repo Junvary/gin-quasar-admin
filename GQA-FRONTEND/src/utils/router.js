@@ -18,7 +18,7 @@ export const HandleRouter = (menuData) => {
             }
             result.push(obj)
         } else {
-            if (item.is_link === "yes") {
+            if (item.is_link === "yesNo_yes") {
                 delete item.path
             }
         }

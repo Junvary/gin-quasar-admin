@@ -34,7 +34,7 @@ func (s *sysMenu) LoadData() error {
 var sysMenuData = []gqaModel.SysMenu{
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
 		Sort: 1101, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是示例插件",
-	}}, Name: "GqaPluginExample", Title: "PluginExample", Icon: "install_desktop", Path: "", Component: ""},
+	}}, Name: "GqaPluginExample", Title: "PluginExample", Icon: "install_desktop", Path: "", Component: "", Redirect: "/plugin-example/example/icons"},
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
 		Sort: 1, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是图标合集",
 	}}, Name: "plugin-example-icons", Title: "Icons", Icon: "insert_emoticon", Path: "/plugin-example/example/icons", Component: "plugins/Example/Icons/index", ParentCode: "GqaPluginExample"},
@@ -52,5 +52,8 @@ var sysMenuData = []gqaModel.SysMenu{
 	}}, Name: "plugin-example-cascader", Title: "Cascader", Icon: "call_split", Path: "/plugin-example/example/cascader", Component: "plugins/Example/Cascader/index", ParentCode: "GqaPluginExample"},
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
 		Sort: 6, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是数据导入导出",
-	}}, Name: "plugin-example-test-data", Title: "ImportExport", Icon: "import_export", Path: "/plugin-example/example/test-data", Component: "plugins/Example/ExportData/index", ParentCode: "GqaPluginExample"},
+	}}, Name: "plugin-example-import-export", Title: "ImportExport", Icon: "import_export", Path: "/plugin-example/example/import-export", Component: "plugins/Example/ExportData/index", ParentCode: "GqaPluginExample"},
+	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
+		Sort: 7, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是上传组件",
+	}}, Name: "plugin-example-uploader", Title: "Uploader", Icon: "eva-cloud-upload-outline", Path: "/plugin-example/example/uploader", Component: "plugins/Example/Uploader/index", ParentCode: "GqaPluginExample"},
 }
