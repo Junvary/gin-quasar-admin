@@ -32,13 +32,13 @@ QQ群号：342045316
 
 ### 项目截图：
 
-![login.png](https://s2.loli.net/2022/11/21/GPNdE5HjlIKFfr8.png)
+![white1.png](https://s2.loli.net/2022/12/01/kEbBwuLi37VlGcF.png)
 
-![login-dark.png](https://s2.loli.net/2022/11/21/rLUOuhxt6m457oA.png)
+![dark1.png](https://s2.loli.net/2022/12/01/feywBOXFDRgk9rY.png)
 
-![dashboard-dark.png](https://s2.loli.net/2022/11/21/A9tdvTMhZbJix2f.png)
+![white2.png](https://s2.loli.net/2022/12/01/oNSz8dYDqFZCRxI.png)
 
-![dashboard.png](https://s2.loli.net/2022/11/21/FiTSxKL8Oo239Vn.png)
+![dark2.png](https://s2.loli.net/2022/12/01/AJL7zjm9RiG6fQr.png)
 
 
 ### 在线体验
