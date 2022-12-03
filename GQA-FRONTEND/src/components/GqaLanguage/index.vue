@@ -11,7 +11,7 @@ import { useI18n } from 'vue-i18n'
 import { useSettingStore } from 'src/stores/setting'
 
 const settingStore = useSettingStore()
-const appLanguages = languages.filter((lang) => ['zh-CN', 'en-US'].includes(lang.isoName))
+const appLanguages = languages.filter((lang) => ['ru', 'zh-CN', 'en-US'].includes(lang.isoName))
 
 const langOptions = appLanguages.map((lang) => ({
     label: lang.nativeName,
@@ -27,7 +27,7 @@ onMounted(() => {
 watch(lang, (val) => {
     // dynamic import, so loading on demand only
     import(
-        /* webpackInclude: /(zh-CN|en-US)\.js$/ */
+        /* webpackInclude: /(zh-CN|en-US|ru)\.js$/ */
         'quasar/lang/' + val
     ).then((lang) => {
         $q.lang.set(lang.default)

@@ -24,7 +24,7 @@ export default function useDocument() {
         const { locale } = useI18n({ useScope: 'global' })
         locale.value = language.value
         await import(
-            /* webpackInclude: /(zh-CN|en-US)\.js$/ */
+            /* webpackInclude: /(zh-CN|en-US|ru)\.js$/ */
             'quasar/lang/' + language.value
         ).then((lang) => {
             // ! NOTICE ssrContext param:
