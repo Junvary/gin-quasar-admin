@@ -1,9 +1,15 @@
-import enUS from './en-US'
-import zhCN from './zh-CN'
-import ru from './ru'
+import languages from "./languages"
+
+const Translator = (lang) => {
+    const temp = {}
+    for (let key in languages) {
+        temp[key] = languages[key][lang]
+    }
+    return temp
+}
 
 export default {
-    'en-US': enUS,
-    'zh-CN': zhCN,
-    'ru': ru
+    'zh-CN': Translator('zh-CN'),
+    'en-US': Translator('en-US'),
+    'ru': Translator('ru'),
 }
