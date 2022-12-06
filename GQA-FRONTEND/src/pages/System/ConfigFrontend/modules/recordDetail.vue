@@ -11,17 +11,19 @@
                 <q-form ref="recordDetailForm">
                     <div class="row q-gutter-md">
                         <q-input outlined hint="" class="col" v-model.number="recordDetail.value.sort" type="number"
-                            :rules="[val => val >= 1 || '排序必须大于0']" label="排序" />
-                        <q-input outlined hint="" class="col" v-model="recordDetail.value.memo" label="描述" />
+                            :rules="[val => val >= 1 || $t('SortRule')]" :label="$t('Sort')" />
+                        <q-input outlined hint="" class="col" v-model="recordDetail.value.memo"
+                            :label="$t('Describe')" />
                     </div>
                     <div class="row q-gutter-md">
-                        <q-input outlined hint="" class="col" v-model="recordDetail.value.config_item" label="字段名（英）"
-                            :rules="[val => val && val.length > 0 || '必须输入字段名']" />
+                        <q-input outlined hint="" class="col" v-model="recordDetail.value.config_item"
+                            :label="$t('Config') + $t('Item')"
+                            :rules="[val => val && val.length > 0 || $t('FixForm')]" />
 
-                        <q-input outlined hint="" class="col" v-model="recordDetail.value.item_default" label="默认值"
-                            :rules="[val => val && val.length > 0 || '必须输入默认值']" />
+                        <q-input outlined hint="" class="col" v-model="recordDetail.value.item_default"
+                            :label="$t('Default')" :rules="[val => val && val.length > 0 || $t('FixForm')]" />
                     </div>
-                    <q-field outlined hint="" label="是否启用" stack-label>
+                    <q-field outlined hint="" :label="$t('On') + $t('Off')" stack-label>
                         <template v-slot:control>
                             <q-option-group v-model="recordDetail.value.status" :options="dictOptions.onOff"
                                 color="primary" inline>

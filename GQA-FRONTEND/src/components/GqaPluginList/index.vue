@@ -14,7 +14,7 @@
             <template v-slot:body-cell-first="props">
                 <q-td :props="props">
                     <q-chip dense color="primary" text-color="white">
-                        {{  $t('Installed') + $t('Plugin')  }}
+                        {{ $t('Installed') + $t('Plugin') }}
                     </q-chip>
                 </q-td>
             </template>
@@ -22,9 +22,9 @@
             <template v-slot:body-cell-memo="props">
                 <q-td :props="props">
                     <q-chip dense color="primary" text-color="white">
-                        {{  $t('Plugin') + $t('Describe')  }}
+                        {{ $t('Plugin') + $t('Describe') }}
                         <q-tooltip>
-                            {{  props.row.plugin_memo  }}
+                            {{ props.row.plugin_memo }}
                         </q-tooltip>
                     </q-chip>
                 </q-td>
@@ -97,13 +97,13 @@ const choosePluginLoginLayout = (code) => {
     tryImport.then(() => {
         $q.notify({
             type: 'positive',
-            message: '切换成功！',
+            message: 'Switching succeeded',
         })
         emit('changeSuccess', code)
     }).catch(() => {
         $q.notify({
             type: 'negative',
-            message: '此插件还未支持登录页面！',
+            message: 'This plugin does not support the login page yet',
         })
         emit('changeSuccess', '')
     })

@@ -42,19 +42,17 @@ export default function useTableData(url) {
         }
         tableData.value = []
         loading.value = true
-        // 组装分页和过滤条件
+        // Assembly paging and filtering conditions
         const params = {}
         params.sort_by = props.pagination.sortBy
         params.desc = props.pagination.descending
         params.page = props.pagination.page
         params.page_size = props.pagination.rowsPerPage
         const allParams = Object.assign({}, params, queryParams.value)
-        // 带参数请求数据
+
         await postAction(url.list, allParams).then(res => {
             if (res.code === 1) {
-                // 最终要把分页给同步掉
                 pagination.value = props.pagination
-                // 并且加入总数字段
                 pagination.value.rowsNumber = res.data.total
                 tableData.value = res.data.records
             }
@@ -77,7 +75,7 @@ export default function useTableData(url) {
         if (!url || !url.delete) {
             $q.notify({
                 type: 'negative',
-                message: "请先配置url",
+                message: t('UrlNotConfig'),
             })
             return
         }
@@ -99,7 +97,6 @@ export default function useTableData(url) {
             getTableData()
         })
     }
-    // 引入useCommon中的方法
     const { showDateTime, gqaFrontend, gqaBackend, GqaDictShow, GqaShowName, GqaAvatar, } = useCommon()
     return {
         GqaAvatar,
@@ -109,7 +106,6 @@ export default function useTableData(url) {
         gqaBackend,
         dictOptions,
         showDateTime,
-
         loading,
         pagination,
         queryParams,

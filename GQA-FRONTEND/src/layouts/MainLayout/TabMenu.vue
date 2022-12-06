@@ -79,7 +79,7 @@ const removeTab = (tab) => {
 const removeOtherTab = (tab) => {
     tabMenuStore.DestroyTabMenu()
     tabMenuStore.AddTabMenu(tab)
-    // 没有点击在当前激活菜单上，那么跳转到这个菜单
+    // If the current active menu is not clicked, then jump to this menu
     if (tab.path !== route.path) {
         nextTick(() => {
             router.push({ path: tab.path })
@@ -88,7 +88,7 @@ const removeOtherTab = (tab) => {
 }
 const removeRightTab = (tab) => {
     tabMenuStore.RemoveRightTab(tab)
-    // 没有点击在当前激活菜单上，那么跳转到这个菜单
+    // If the current active menu is not clicked, then jump to this menu
     if (tab.path !== route.path) {
         nextTick(() => {
             router.push({ path: tab.path })
@@ -97,7 +97,7 @@ const removeRightTab = (tab) => {
 }
 const removeLeftTab = (tab) => {
     tabMenuStore.RemoveLeftTab(tab)
-    // 没有点击在当前激活菜单上，那么跳转到这个菜单
+    // If the current active menu is not clicked, then jump to this menu
     if (tab.path !== route.path) {
         nextTick(() => {
             router.push({ path: tab.path })

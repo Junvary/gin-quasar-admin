@@ -91,19 +91,14 @@ onMounted(() => {
 
 const myAvatar = computed(() => {
     const cookieAvatar = $q.cookies.get('gqa-avatar')
-    // 登录用户的头像
     if (cookieAvatar) {
-        // 如果Cookies里拿到头像，就显示
         if (cookieAvatar.substring(0, 4) === 'http') {
-            // 头像为链接
             return cookieAvatar
         } else if (cookieAvatar.substring(0, 11) === 'gqa-upload:') {
-            // 头像为上传
             return process.env.API + cookieAvatar.substring(11)
         }
         return cookieAvatar
     } else {
-        // 否则显示默认头像
         return GqaDefaultAvatar
     }
 })
@@ -121,7 +116,7 @@ const myName = computed(() => {
 const chatDialogVisible = ref(false)
 const messageScroll = ref(null)
 watch(oldMessage.value, () => {
-    // 只有在Dialog打开的时候滚动到最底部
+    // Scroll to the bottom only when Dialog is open
     if (chatDialogVisible.value) {
         nextTick(() => {
             messageScroll.value.setScrollPosition('vertical', oldMessage.value.length * 75, 200)
@@ -133,7 +128,7 @@ const show = () => {
     chatDialogVisible.value = true
     // this.getTableData()
     nextTick(() => {
-        // userList不要滚动到最底部了，保持在最上面
+        // Don't scroll to the bottom of userList, keep it at the top
         // this.$refs.userScroll.setScrollPosition('vertical', this.tableData.length * 55)
         messageScroll.value.setScrollPosition('vertical', oldMessage.value.length * 75)
     })

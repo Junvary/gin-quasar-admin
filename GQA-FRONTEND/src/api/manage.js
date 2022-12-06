@@ -47,7 +47,7 @@ export async function downloadAction(url, params, fileName) {
     if (!data || data.size === 0) {
         Notify.create({
             type: 'negative',
-            message: '文件下载失败！',
+            message: 'download error!',
         })
         return
     }
@@ -61,7 +61,7 @@ export async function downloadAction(url, params, fileName) {
         link.setAttribute('download', fileName)
         document.body.appendChild(link)
         link.click()
-        document.body.removeChild(link) //下载完成移除元素
-        window.URL.revokeObjectURL(urlHref) //释放掉blob对象
+        document.body.removeChild(link)
+        window.URL.revokeObjectURL(urlHref)
     }
 }

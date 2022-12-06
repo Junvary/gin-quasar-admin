@@ -17,7 +17,7 @@
                             <GqaShowName showMyName />
                         </div>
 
-                        <q-list>
+                        <!-- <q-list>
                             <q-item clickable v-ripple>
                                 <q-item-section avatar>
                                     <q-icon size="lg" name="star" class="text-warning" />
@@ -36,7 +36,7 @@
                                 </q-item-section>
                                 <q-item-section>成就:888</q-item-section>
                             </q-item>
-                        </q-list>
+                        </q-list> -->
 
                         <q-separator inset spaced />
 

@@ -40,7 +40,6 @@ export default boot(({ router, store }) => {
                 if (!permissionStore.userMenu.length) {
                     const res = await permissionStore.GetUserMenu()
                     if (res && res.length) {
-                        // 动态添加鉴权路由表
                         res.forEach(item => {
                             router.addRoute(item)
                         })

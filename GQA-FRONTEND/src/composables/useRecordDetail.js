@@ -58,7 +58,7 @@ export default function useRecordDetail(url, emit) {
                 if (url === undefined || !url.edit) {
                     $q.notify({
                         type: 'negative',
-                        message: "请先配置url",
+                        message: "check your url",
                     })
                     return
                 }
@@ -74,7 +74,7 @@ export default function useRecordDetail(url, emit) {
                 if (url === undefined || !url.add) {
                     $q.notify({
                         type: 'negative',
-                        message: "请先配置url",
+                        message: "check your url",
                     })
                     return
                 }
@@ -100,7 +100,6 @@ export default function useRecordDetail(url, emit) {
             })
         }
     }
-    // 引入useCommon中的方法
     const { showDateTime, gqaFrontend, gqaBackend, GqaDictShow, GqaShowName, GqaAvatar, } = useCommon()
     return {
         GqaAvatar,

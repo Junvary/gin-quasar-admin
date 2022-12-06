@@ -114,17 +114,14 @@ const getNoteTodoData = async (props) => {
         return
     }
     noteTodoData.value = []
-    // 组装分页和过滤条件
     const params = {}
     params.sort_by = props.pagination.sortBy
     params.desc = props.pagination.descending
     params.page = props.pagination.page
     params.page_size = props.pagination.rowsPerPage
     const allParams = Object.assign({}, params, todoQueryParams)
-    // 带参数请求数据
     await postAction(url.noteTodoList, allParams).then((res) => {
         if (res.code === 1) {
-            // 最终要把分页给同步掉
             pagination.value = props.pagination
             noteTodoData.value = res.data.records
         }

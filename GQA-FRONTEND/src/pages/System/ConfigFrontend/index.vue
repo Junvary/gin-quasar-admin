@@ -29,7 +29,7 @@
                                 <GqaAvatar src="favicon.ico" />
                             </template>
                             <template v-else-if="props.row.config_item === 'bannerImage'">
-                                默认效果
+                                Default
                             </template>
                             <template v-else-if="props.row.config_item === 'loginLayoutStyle'">
                                 <GqaDictShow :dictCode="props.row.item_default" />

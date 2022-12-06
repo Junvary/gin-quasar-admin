@@ -25,7 +25,7 @@ const props = defineProps({
     size: {
         type: String,
         required: false,
-        default: 'md', // 可选:'xs', 'sm', 'md', 'lg', 'xl'， '**px'
+        default: 'md', // 'xs', 'sm', 'md', 'lg', 'xl'， '**px'
     },
 })
 const { loginUser, src, size } = toRefs(props)
@@ -33,29 +33,29 @@ const { loginUser, src, size } = toRefs(props)
 const avatarSrc = computed(() => {
     const cookieAvatar = $q.cookies.get('gqa-avatar')
     if (loginUser.value) {
-        // 登录用户的头像
+        // Login user's avatar
         if (cookieAvatar) {
-            // 如果Cookies里拿到头像，就显示
+            // avatar in the cookies
             if (cookieAvatar.substring(0, 4) === 'http') {
-                // 头像为链接
+                // avatar is a link
                 return cookieAvatar
             } else if (cookieAvatar.substring(0, 11) === 'gqa-upload:') {
-                // 头像为上传
+                // avatar is uploaded
                 return process.env.API + cookieAvatar.substring(11)
             }
             return cookieAvatar
         } else {
-            // 否则显示默认头像
+            // default avatar
             return GqaDefaultAvatar
         }
     } else if (src.value === '') {
-        // 非登录用户，没有头像配置
+        // Non login user, no avatar configuration
         return GqaDefaultAvatar
     } else if (src.value.substring(0, 4) === 'http') {
-        // 非登录上传，头像为链接
+        // avatar is a link
         return src.value
     } else if (src.value.substring(0, 11) === 'gqa-upload:') {
-        // 非登录用户，头像为上传
+        // avatar is uploaded
         return process.env.API + src.value.substring(11)
     } else {
         return src.value

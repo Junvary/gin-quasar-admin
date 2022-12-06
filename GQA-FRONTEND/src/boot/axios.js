@@ -62,7 +62,7 @@ export default boot(({ app, router, store }) => {
         if (forbiddenUrl.some(item => item === request.url)) {
             Notify.create({
                 type: 'negative',
-                message: '演示模式不允许此操作'
+                message: 'Demo Mode'
             })
             return
         }
@@ -74,9 +74,12 @@ export default boot(({ app, router, store }) => {
         })
         return Promise.reject(error)
     })
-    // 响应拦截
+
     api.interceptors.response.use(response => {
-        // 如果JWT的ExpiresAt已经过期，但是RefreshAt没有过期，那么后台会在headers里插入Gqa-Refresh-Token，这里保存下来，形成更换token逻辑
+        // If the ExpiresAt of the JWT has expired,
+        // but the RefreshAt has not expired, 
+        // the background will insert a Gqa Refresh Token in the headers, 
+        // which will be saved here to form a token replacement logic
         if (response.headers['gqa-refresh-token'] && response.data.data.refresh) {
             userStore.SetToken(response.headers['gqa-refresh-token'])
             // store.dispatch('user/SetToken', response.headers['gqa-refresh-token'])
@@ -120,7 +123,7 @@ export default boot(({ app, router, store }) => {
             }
         }
     }, error => {
-        // 500的情况
+        // 500
         if (error + '' === 'Error: Request failed with status code 500') {
             Dialog.create({
                 title: i18n.global.t('Error'),
@@ -137,18 +140,17 @@ export default boot(({ app, router, store }) => {
                 router.push({ name: 'login' })
             })
         }
-        // 超时
+        // timeout
         if (error + '' === 'Error: timeout of 40000ms exceeded') {
             Notify.create({
                 type: 'negative',
                 message: i18n.global.t('Operation') + i18n.global.t('Timeout')
             })
         }
-        // 网络错误情况，比如后台没有对应的接口
+        // network error
         if (error + '' === 'Error: Network Error') {
             router.push({ name: 'notFound' })
         } else if (error.response && error.response.status === 404) {
-            console.log('请求地址不存在 [' + error.response.request.responseURL + ']')
             Notify.create({
                 type: 'negative',
                 message: i18n.global.t('Request') + i18n.global.t('Address') + i18n.global.t('NotFound') + ' ' + error.response.request.responseURL,

@@ -46,7 +46,7 @@ import { ArrayOrObject } from 'src/utils/arrayOrObject'
 
 const { t } = useI18n()
 const props = defineProps({
-    // 必须传递单选多选: multiple, single
+    // multiple, single
     selection: {
         type: String,
         required: true,

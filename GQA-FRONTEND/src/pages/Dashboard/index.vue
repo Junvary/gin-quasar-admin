@@ -18,7 +18,7 @@
                         </q-item-section>
                     </q-item>
                     <div class="col-auto">
-                        <q-statistic label="项目数量" textAlign="right">
+                        <q-statistic label="Total" textAlign="right">
                             <q-icon name="star" />
                             123456
                         </q-statistic>

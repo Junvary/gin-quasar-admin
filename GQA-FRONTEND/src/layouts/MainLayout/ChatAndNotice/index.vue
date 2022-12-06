@@ -53,19 +53,18 @@ const initWebSocket = () => {
     ws.value.onclose = websocketOnclose
 }
 const websocketOnopen = () => {
-    console.log('Gin-Quasar-Admin: WebSocket连接成功!')
+    console.log('Gin-Quasar-Admin: WebSocket Connection Succeeded!')
 }
 const websocketOnerror = () => {
-    console.log('Gin-Quasar-Admin: WebSocket连接发生错误!')
+    console.log('Gin-Quasar-Admin: WebSocket Connection Error!')
     reconnect()
 }
 const moduleChat = ref(null)
 const moduleNotice = ref(null)
 const websocketOnmessage = (e) => {
     let newData = JSON.parse(e.data)
-    // console.log('Gin-Quasar-Admin: 收到新消息', e.data)
     if (newData.message_type === 'chat') {
-        // 聊天信息
+        // chat message
         newData.text = [newData.text]
         if (newData.name === myName.value) {
             newData.sent = true
@@ -82,10 +81,10 @@ const websocketOnmessage = (e) => {
 }
 const websocketOnclose = (e) => {
     if (e && e.code) {
-        console.log('Gin-Quasar-Admin: WebSocket连接已关闭:', e, e.code)
+        console.log('Gin-Quasar-Admin: WebSocket Connection Closed:', e, e.code)
         reconnect()
     } else {
-        console.log('Gin-Quasar-Admin: WebSocket连接已关闭。')
+        console.log('Gin-Quasar-Admin: WebSocket Connection Closed')
         clearInterval(timer.value)
         timer.value = null
     }
@@ -94,7 +93,7 @@ const reconnect = () => {
     if (lockReconnect.value) return
     lockReconnect.value = true
     timer.value = setTimeout(() => {
-        console.log('Gin-Quasar-Admin: WebSocket尝试重连...')
+        console.log('Gin-Quasar-Admin: WebSocket Reconnecting...')
         initWebSocket()
         lockReconnect.value = false
     }, 5000)
