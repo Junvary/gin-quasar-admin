@@ -1,42 +1,14 @@
 <template>
     <q-btn dense flat>
-        {{ t('Welcome') }}
+        {{ t('Welcome') }},
         <GqaShowName showMyName style="margin: 0 5px;" />
         <GqaAvatar loginUser size="28px" />
         <q-menu class="row no-wrap items-center justify-around q-pa-md">
-            <div class="column" style="width: 240px;">
-                <div class="text-h6">摘要</div>
-                <q-list>
-                    <q-item clickable v-ripple>
-                        <q-item-section avatar>
-                            <q-icon size="lg" name="star" class="text-warning" />
-                        </q-item-section>
-                        <q-item-section>等级:23</q-item-section>
-                    </q-item>
-                    <q-item clickable v-ripple>
-                        <q-item-section avatar>
-                            <q-icon size="lg" name="star" class="text-warning" />
-                        </q-item-section>
-                        <q-item-section>积分:88888</q-item-section>
-                    </q-item>
-                    <q-item clickable v-ripple>
-                        <q-item-section avatar>
-                            <q-icon size="lg" name="star" class="text-warning" />
-                        </q-item-section>
-                        <q-item-section>成就:888</q-item-section>
-                    </q-item>
-                </q-list>
-            </div>
-
-            <q-separator vertical inset class="q-mx-lg" />
-
             <div class="column items-center" style="width: 240px;">
                 <GqaAvatar loginUser size="88px" />
-
                 <div class="text-subtitle1 q-mt-md q-mb-md">
                     <GqaShowName showMyName />
                 </div>
-
                 <div class="row no-wrap q-gutter-md">
                     <q-btn icon="person_pin" color="primary" :label="$t('UserProfile')" push size="sm" v-close-popup
                         @click="showProfile" />

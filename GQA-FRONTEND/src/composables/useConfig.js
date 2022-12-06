@@ -1,17 +1,14 @@
-import { useI18n } from 'vue-i18n';
-
 export default function useConfig() {
-    const { t } = useI18n
     // 浏览器console打印内容
     const GqaConsoleLogo = () => {
-        console.info('欢迎使用Gin-Quasar-Admin!')
-        console.info('项目地址: https://github.com/Junvary/gin-quasar-admin ')
-        console.info('欢迎交流, 感谢Star!')
+        console.info('Welcome to Gin-Quasar-Admin!')
+        console.info('Github: https://github.com/Junvary/gin-quasar-admin ')
+        console.info('Expecting Your Star!')
     }
     // 首页等允许无token的白名单
     const AllowList = ['/login',]
     // 没有用户名的时候使用这个名字
-    const GqaDefaultUsername = () => t('GqaDefaultUsername')
+    const GqaDefaultUsername = 'GQA'
     // 没有头像配置的时候使用这个头像
     const GqaDefaultAvatar = "gqa128.png"
     // 没有网站前台配置的时候用这个配置

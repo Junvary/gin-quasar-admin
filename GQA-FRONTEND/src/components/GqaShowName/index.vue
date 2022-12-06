@@ -34,10 +34,10 @@ const { customNameString, customNameObject, showMyName } = toRefs(props)
 
 const trueName = computed(() => {
     if (customNameString.value !== '') {
-        // 自定义名字
+        // custom name
         return customNameString.value
     } else if (JSON.stringify(customNameObject.value) !== '{}') {
-        // 其他用户的名字
+        // other user's name
         if (customNameObject.value.nickname) {
             return customNameObject.value.nickname
         } else if (customNameObject.value.real_name) {

@@ -1009,11 +1009,6 @@ export default {
         "en-US": "View all",
         "ru": "Просмотреть все"
     },
-    GqaDefaultUsername: {
-        "zh-CN": "GQA用户",
-        "en-US": "GQA User",
-        "ru": "Пользователь GQA"
-    },
     PageError404Title: {
         "zh-CN": "你发现了一个没人来过的页面",
         "en-US": "Oops. Nothing here...",

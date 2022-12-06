@@ -75,10 +75,6 @@
             <PageFooter />
         </q-page-container>
 
-        <!-- <q-footer reveal>
-            <PageFooter />
-        </q-footer> -->
-
         <UserProfile ref="userProfile" />
         <AchievementDialog ref="achievementDialog" />
     </q-layout>
@@ -110,7 +106,7 @@ import XEUtils from 'xe-utils'
 import { postAction } from 'src/api/manage';
 import AchievementDialog from 'src/plugins/Achievement/AchievementDialog.vue';
 
-// 动态更改网站标题和favicon
+// Dynamically change the website title and favicon
 useDocument()
 
 const $q = useQuasar();
@@ -125,21 +121,21 @@ const topMenuChildren = ref({});
 const currentTopMenu = ref('');
 const fabPos = ref([3, 80]);
 const userProfile = ref(null);
-// 顶部导航栏总体控制是否mini模式
+// The top navigation bar generally controls whether it is mini mode
 const miniStateOut = ref(false)
-// 控制mini模式
+// Control mini mode
 const miniState = ref(false)
-// 监听总体变换mini模式
+// Monitor the overall transformation of mini mode
 watch(miniStateOut, (newVlaue) => {
     miniState.value = newVlaue
 })
-// 如果总体是mini模式，进行鼠标进入转换
+// If the overall mode is mini, perform mouse entry conversion
 const miniStateMouseover = () => {
     if (miniStateOut.value === true) {
         miniState.value = false
     }
 }
-// 如果总体是mini模式，进行鼠标移出转换
+// If the overall mode is mini, perform mouse out conversion
 const miniStateMouseout = () => {
     if (miniStateOut.value === true) {
         miniState.value = true
