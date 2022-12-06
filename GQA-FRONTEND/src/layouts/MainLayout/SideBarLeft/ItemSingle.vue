@@ -5,7 +5,7 @@
             <q-icon :name="trueItem.icon" />
         </q-item-section>
         <q-item-section>
-            {{ $t(trueItem.title) }}
+            {{ selectOptionLabel(trueItem) }}
         </q-item-section>
     </q-item>
 </template>
@@ -14,7 +14,9 @@
 import { computed, toRefs } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import useTheme from 'src/composables/useTheme';
+import useCommon from 'src/composables/useCommon'
 
+const { selectOptionLabel } = useCommon()
 const { darkThemeSelect } = useTheme()
 const router = useRouter()
 const route = useRoute()

@@ -559,36 +559,6 @@ export default {
         "en-US": "icon",
         "ru": "Иконка"
     },
-    Icons: {
-        "zh-CN": "图标",
-        "en-US": "Icons",
-        "ru": "Значки"
-    },
-    Editor: {
-        "zh-CN": "编辑器",
-        "en-US": "Editor",
-        "ru": "редактор"
-    },
-    Statistic: {
-        "zh-CN": "统计数据",
-        "en-US": "Statistic",
-        "ru": "Статистические данные"
-    },
-    Cascader: {
-        "zh-CN": "级联选择器",
-        "en-US": "Cascader",
-        "ru": "каскадный искатель"
-    },
-    ImportExport: {
-        "zh-CN": "导入导出",
-        "en-US": "ImportAndExport",
-        "ru": "Импорт экспорт"
-    },
-    Uploader: {
-        "zh-CN": "上传器",
-        "en-US": "Uploader",
-        "ru": "загрузчик"
-    },
     Phone: {
         "zh-CN": "电话",
         "en-US": "Phone",
@@ -899,16 +869,6 @@ export default {
         "en-US": "Operation Log",
         "ru": "Журнал операций"
     },
-    SystemExample: {
-        "zh-CN": "系统示例",
-        "en-US": "Example",
-        "ru": "Пример"
-    },
-    ExampleIcon: {
-        "zh-CN": "图标合集",
-        "en-US": "Icons",
-        "ru": "Значки"
-    },
     NoticeManage: {
         "zh-CN": "消息管理",
         "en-US": "Notice Manage",
@@ -1069,29 +1029,4 @@ export default {
         "en-US": "Department Data Permission Type",
         "ru": "Тип разрешения на данные отдела"
     },
-    PluginExample: {
-        "zh-CN": "示例插件",
-        "en-US": "PluginExample",
-        "ru": "Пример модуля"
-    },
-    TreeTable: {
-        "zh-CN": "树形表格",
-        "en-US": "TreeTable",
-        "ru": "древовидная таблица"
-    },
-    PluginAchievement: {
-        "zh-CN": "成就插件",
-        "en-US": "PluginAchievement",
-        "ru": "модуль достижения результатов"
-    },
-    Category: {
-        "zh-CN": "分类",
-        "en-US": "Category",
-        "ru": "классификация"
-    },
-    Obtain: {
-        "zh-CN": "获得",
-        "en-US": "Obtain",
-        "ru": "добывать"
-    }
 }

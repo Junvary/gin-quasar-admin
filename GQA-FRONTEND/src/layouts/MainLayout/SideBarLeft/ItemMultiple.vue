@@ -5,7 +5,7 @@
                 <q-icon :name="trueItem.icon" />
             </q-item-section>
             <q-item-section>
-                {{ $t(trueItem.title) }}
+                {{ selectOptionLabel(trueItem) }}
             </q-item-section>
         </template>
         <slot></slot>
@@ -15,7 +15,9 @@
 <script setup>
 import { watch, onMounted, ref, toRefs } from 'vue';
 import { useRoute } from 'vue-router';
+import useCommon from 'src/composables/useCommon'
 
+const { selectOptionLabel } = useCommon()
 const route = useRoute()
 const props = defineProps({
     trueItem: {

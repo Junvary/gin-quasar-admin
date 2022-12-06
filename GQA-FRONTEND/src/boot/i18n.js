@@ -1,5 +1,5 @@
 import { createI18n } from 'vue-i18n'
-import messages from 'src/i18n'
+import { Translator } from 'src/i18n'
 import { useSettingStore } from 'src/stores/setting'
 
 export const settingStore = useSettingStore()
@@ -8,7 +8,7 @@ export const i18n = createI18n({
     legacy: false,
     locale: settingStore.GetLanguage(),
     fallbackLocale: 'zh-CN',
-    messages,
+    messages: Translator(),
     silentTranslationWarn: true,
     silentFallbackWarn: true
 })

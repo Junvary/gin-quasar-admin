@@ -13,6 +13,7 @@ export const HandleRouter = (menuData) => {
                     keepAlive: item.keep_alive,
                     title: item.title,
                     icon: item.icon,
+                    parent_code: item.parent_code,
                 },
                 redirect: item.redirect,
             }

@@ -1,15 +1,15 @@
 import languages from "./languages"
 
-const Translator = (lang) => {
-    const temp = {}
+export const Translator = () => {
+    const temp = {
+        'zh-CN': {},
+        'en-US': {},
+        'ru': {}
+    }
     for (let key in languages) {
-        temp[key] = languages[key][lang]
+        temp['zh-CN'][key] = languages[key]['zh-CN']
+        temp['en-US'][key] = languages[key]['en-US']
+        temp['ru'][key] = languages[key]['ru']
     }
     return temp
-}
-
-export default {
-    'zh-CN': Translator('zh-CN'),
-    'en-US': Translator('en-US'),
-    'ru': Translator('ru'),
 }

@@ -34,26 +34,26 @@ func (s *sysMenu) LoadData() error {
 var sysMenuData = []gqaModel.SysMenu{
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
 		Sort: 1101, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是示例插件",
-	}}, Name: "GqaPluginExample", Title: "PluginExample", Icon: "install_desktop", Path: "", Component: "", Redirect: "/plugin-example/example/icons"},
+	}}, Name: "GqaPluginExample", Title: "示例插件", Icon: "install_desktop", Path: "", Component: "", Redirect: "/plugin-example/example/icons"},
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
 		Sort: 1, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是图标合集",
-	}}, Name: "plugin-example-icons", Title: "Icons", Icon: "insert_emoticon", Path: "/plugin-example/example/icons", Component: "plugins/Example/Icons/index", ParentCode: "GqaPluginExample"},
+	}}, Name: "plugin-example-icons", Title: "图标合集", Icon: "insert_emoticon", Path: "/plugin-example/example/icons", Component: "plugins/Example/Icons/index", ParentCode: "GqaPluginExample"},
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
 		Sort: 2, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是编辑器",
-	}}, Name: "plugin-example-editor", Title: "Editor", Icon: "edit", Path: "/plugin-example/example/editor", Component: "plugins/Example/Editor/index", ParentCode: "GqaPluginExample"},
+	}}, Name: "plugin-example-editor", Title: "编辑器", Icon: "edit", Path: "/plugin-example/example/editor", Component: "plugins/Example/Editor/index", ParentCode: "GqaPluginExample"},
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
 		Sort: 3, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是树形表格",
-	}}, Name: "plugin-example-tree-table", Title: "TreeTable", Icon: "list_alt", Path: "/plugin-example/example/tree-table", Component: "plugins/Example/TreeTable/index", ParentCode: "GqaPluginExample"},
+	}}, Name: "plugin-example-tree-table", Title: "树形表格", Icon: "list_alt", Path: "/plugin-example/example/tree-table", Component: "plugins/Example/TreeTable/index", ParentCode: "GqaPluginExample"},
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
 		Sort: 4, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是统计数据",
-	}}, Name: "plugin-example-statistic", Title: "Statistic", Icon: "filter_9_plus", Path: "/plugin-example/example/statistic", Component: "plugins/Example/Statistic/index", ParentCode: "GqaPluginExample"},
+	}}, Name: "plugin-example-statistic", Title: "统计数据", Icon: "filter_9_plus", Path: "/plugin-example/example/statistic", Component: "plugins/Example/Statistic/index", ParentCode: "GqaPluginExample"},
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
 		Sort: 5, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是级联选择器",
-	}}, Name: "plugin-example-cascader", Title: "Cascader", Icon: "call_split", Path: "/plugin-example/example/cascader", Component: "plugins/Example/Cascader/index", ParentCode: "GqaPluginExample"},
+	}}, Name: "plugin-example-cascader", Title: "级联选择器", Icon: "call_split", Path: "/plugin-example/example/cascader", Component: "plugins/Example/Cascader/index", ParentCode: "GqaPluginExample"},
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
 		Sort: 6, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是数据导入导出",
-	}}, Name: "plugin-example-import-export", Title: "ImportExport", Icon: "import_export", Path: "/plugin-example/example/import-export", Component: "plugins/Example/ExportData/index", ParentCode: "GqaPluginExample"},
+	}}, Name: "plugin-example-import-export", Title: "导入导出", Icon: "import_export", Path: "/plugin-example/example/import-export", Component: "plugins/Example/ExportData/index", ParentCode: "GqaPluginExample"},
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
 		Sort: 7, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是上传组件",
-	}}, Name: "plugin-example-uploader", Title: "Uploader", Icon: "eva-cloud-upload-outline", Path: "/plugin-example/example/uploader", Component: "plugins/Example/Uploader/index", ParentCode: "GqaPluginExample"},
+	}}, Name: "plugin-example-uploader", Title: "上传器", Icon: "eva-cloud-upload-outline", Path: "/plugin-example/example/uploader", Component: "plugins/Example/Uploader/index", ParentCode: "GqaPluginExample"},
 }

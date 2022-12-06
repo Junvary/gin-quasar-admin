@@ -18,16 +18,16 @@
                 <q-select v-if="layoutView.split(' ')[0] === 'hHh'" id="menuSelect" dense borderless
                     v-model="currentTopMenu" :options="topMenu" map-options option-value="name"
                     @update:model-value="changeTop" style="margin-left: 20px;" dark
-                    :option-label="opt => Object(opt) === opt && 'title' in opt ? $t(opt.title) : opt.title">
+                    :option-label="opt => selectOptionLabel(opt)">
                     <template v-slot:prepend>
                         <q-icon name="ion-md-apps" :class="darkTheme" />
                     </template>
                 </q-select>
 
                 <q-breadcrumbs v-if="findCurrentTopMenu" style="margin-left: 20px;">
-                    <q-breadcrumbs-el :label="$t(findCurrentTopMenu?.title)" :icon="findCurrentTopMenu?.icon"
+                    <q-breadcrumbs-el :label="selectOptionLabel(findCurrentTopMenu)" :icon="findCurrentTopMenu?.icon"
                         :class="darkTheme" />
-                    <q-breadcrumbs-el :label="$t(route.meta.title)" :icon="route.meta.icon" />
+                    <q-breadcrumbs-el :label="selectRouteLabel(route)" :icon="route.meta.icon" />
                 </q-breadcrumbs>
 
                 <q-space />
@@ -105,9 +105,11 @@ import AddNoteTodo from './AddNoteTodo.vue';
 import { useRoute } from 'vue-router';
 import useDocument from 'src/composables/useDocument'
 import { useQuasar } from 'quasar';
+import useCommon from 'src/composables/useCommon'
 import XEUtils from 'xe-utils'
 import { postAction } from 'src/api/manage';
 import AchievementDialog from 'src/plugins/Achievement/AchievementDialog.vue';
+
 // 动态更改网站标题和favicon
 useDocument()
 
@@ -144,6 +146,7 @@ const miniStateMouseout = () => {
     }
 }
 
+const { selectOptionLabel, selectRouteLabel } = useCommon()
 const gqaFrontend = computed(() => storageStore.GetGqaFrontend())
 const drawerWidth = computed(() => settingStore.GetSideDrawerWidth())
 const layoutView = computed(() => settingStore.GetLayoutView())

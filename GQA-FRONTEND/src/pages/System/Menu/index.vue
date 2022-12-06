@@ -13,7 +13,7 @@
                             <q-icon size="md" :name="props.item.icon" />
                         </td>
                         <td class="text-center">
-                            {{ t(props.item.title) ? t(props.item.title) : props.item.title }}
+                            {{ selectOptionLabel(props.item) }}
                         </td>
                         <td class="text-center">
                             {{ props.item.path }}
@@ -63,7 +63,9 @@ import { useI18n } from 'vue-i18n'
 import recordDetail from './modules/recordDetail'
 import { ChangeNullChildren2Array } from 'src/utils/arrayAndTree'
 import buttonDetail from './modules/buttonDetail.vue'
+import useCommon from 'src/composables/useCommon'
 
+const { selectOptionLabel } = useCommon()
 const { t } = useI18n()
 const url = {
     list: 'menu/get-menu-list',
