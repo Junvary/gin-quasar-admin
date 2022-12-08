@@ -18,7 +18,7 @@
                     <div class="items-center row">
                         <q-icon :name="prop.node.icon || 'share'" size="20px" class="q-mr-sm" />
                         <div class="text-weight-bold">
-                            {{ $t(prop.node.title) }}
+                            {{ selectOptionLabel(prop.node) }}
                         </div>
                         <q-radio v-model="defaultPage" dense :val="prop.node.name">
                             <q-tooltip anchor="center end" self="center left">
@@ -50,7 +50,9 @@ import { useQuasar } from 'quasar'
 import { postAction } from 'src/api/manage'
 import { computed, onMounted, ref, toRefs } from 'vue'
 import { TreeToArray } from 'src/utils/arrayAndTree';
+import useCommon from 'src/composables/useCommon'
 
+const { selectOptionLabel } = useCommon()
 const $q = useQuasar()
 const url = {
     list: 'menu/get-menu-list',
