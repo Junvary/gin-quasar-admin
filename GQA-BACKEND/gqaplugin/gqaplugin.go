@@ -20,6 +20,7 @@ import (
 var PluginList = []GqaPlugin{ //插件加入此切片即可
 	example.PluginExample,
 	achievement.PluginAchievement,
+	//extinguisher.PluginExtinguisher,
 }
 
 /*

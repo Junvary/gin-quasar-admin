@@ -76,8 +76,8 @@ var sysRoleButtonData = []model.SysRoleButton{
 	{"super-admin", "log-login:detail"},
 	{"super-admin", "log-login:delete"},
 
-	//{"super-admin", "log-operation:detail"},
-	//{"super-admin", "log-operation:delete"},
+	{"super-admin", "log-operation:detail"},
+	{"super-admin", "log-operation:delete"},
 
 	{"super-admin", "notice:add"},
 	{"super-admin", "notice:send"},

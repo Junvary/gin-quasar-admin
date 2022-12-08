@@ -21,9 +21,28 @@
                             {{ showDateTime(props.row.created_at) }}
                         </q-td>
                     </template>
+                    <template v-slot:body-cell-actions="props">
+                        <q-td :props="props">
+                            <div class="q-gutter-md">
+                                <q-btn flat dense icon="zoom_in" color="warning" :label="$t('Detail')"
+                                    v-has="'log-operation:detail'" @click="showBody(props.row.operation_body)">
+                                </q-btn>
+                            </div>
+                        </q-td>
+                    </template>
                 </q-table>
             </q-card-section>
         </q-card>
+        <q-dialog v-model="showBodyFlag">
+            <q-card>
+                <q-card-section class="q-pt-none">
+                    <pre>
+                        {{ body }}
+                    </pre>
+                </q-card-section>
+            </q-card>
+        </q-dialog>
+
     </q-page>
 </template>
 
@@ -48,6 +67,7 @@ const columns = computed(() => {
         { name: 'operation_api', align: 'center', label: t('Api'), field: 'operation_api' },
         { name: 'operation_status', align: 'center', label: t('Status'), field: 'operation_status' },
         { name: 'created_at', align: 'center', label: t('CreatedAt'), field: 'created_at' },
+        { name: 'actions', align: 'center', label: t('Actions'), field: 'actions' },
     ]
 })
 const {
@@ -67,4 +87,11 @@ onMounted(async () => {
     pagination.value.descending = true
     getTableData()
 })
+
+const showBodyFlag = ref(false)
+const body = ref('')
+const showBody = (b) => {
+    body.value = JSON.parse(b)
+    showBodyFlag.value = true
+}
 </script>

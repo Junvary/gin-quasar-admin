@@ -76,8 +76,8 @@ var sysButtonData = []model.SysButton{
 	{MenuName: "log-login", ButtonName: "详情", ButtonCode: "log-login:detail"},
 	{MenuName: "log-login", ButtonName: "删除", ButtonCode: "log-login:delete"},
 
-	//{MenuName: "log-operation", ButtonName: "详情", ButtonCode: "log-operation:detail"},
-	//{MenuName: "log-operation", ButtonName: "删除", ButtonCode: "log-operation:delete"},
+	{MenuName: "log-operation", ButtonName: "详情", ButtonCode: "log-operation:detail"},
+	{MenuName: "log-operation", ButtonName: "删除", ButtonCode: "log-operation:delete"},
 
 	{MenuName: "notice", ButtonName: "新增消息", ButtonCode: "notice:add"},
 	{MenuName: "notice", ButtonName: "发送", ButtonCode: "notice:send"},
