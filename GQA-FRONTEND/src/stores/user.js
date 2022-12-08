@@ -56,7 +56,7 @@ export const useUserStore = defineStore('user', {
             Cookies.remove('gqa-nickname')
             Cookies.remove('gqa-realName')
             Cookies.remove('gqa-avatar')
-            // 字典不删除
+            // dont delete dict
             // LocalStorage.remove('gqa-dict')
             this.token = undefined
             this.username = undefined

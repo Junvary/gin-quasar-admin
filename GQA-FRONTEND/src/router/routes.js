@@ -1,4 +1,4 @@
-// 公共路由，无须鉴权
+// Public route without authentication
 export const PublicRoutes = [
     {
         path: '/login',
@@ -15,7 +15,9 @@ export const PublicRoutes = [
     // // Always leave this as last one,
     // // but you can also remove it
 
-    // 以下内容在动态路由中添加，这里注释掉，解决刷新404的问题:store-permission-actions
+    // The following content is added to the dynamic routing
+    // and is commented out here to solve the problem of refreshing 404:store-permission-actions
+
     // {
     //     path: '/:catchAll(.*)*',
     //     name: 'notFound',

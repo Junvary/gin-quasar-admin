@@ -29,7 +29,6 @@
                             <q-checkbox v-model="buttonCheckMap[item.button_code]" dense :label="item.button_name"
                                 color="primary" v-for="item in prop.node.button" />
                         </div>
-
                     </div>
                 </template>
                 <template v-slot:default-body="prop">
@@ -41,7 +40,6 @@
             <q-spinner-gears size="50px" color="primary" />
         </q-inner-loading>
     </div>
-
 </template>
 
 <script setup>
@@ -90,7 +88,7 @@ onMounted(() => {
 
 const ticked = ref([])
 const getRoleMenuList = () => {
-    // 每次获取前，清空ticked
+    // Clear ticked before each getRoleMenuList
     ticked.value = []
     postAction(url.roleMenuList, {
         role_code: row.value.role_code,

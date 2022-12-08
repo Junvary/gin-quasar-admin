@@ -13,14 +13,15 @@ export const useTabMenuStore = defineStore('tabMenu', {
     getters: {},
     actions: {
         AddTabMenu(tab) {
-            // 退出时userMenu被清空，不走下面逻辑
+            // When exiting, the userMenu is cleared
+            // pass it
             if (base) {
-                // 如果没有仪表盘，则加入仪表盘
+                // If there is no default page, add it
                 if (this.tabMenus.filter(item => item.path === base.path).length === 0) {
                     this.tabMenus = this.tabMenus.concat([base])
                     this.currentTab = base
                 }
-                // 判断tab是否存在，是为了关闭所有菜单时，不会传递tab
+                // To determine whether a tab exists, the tab will not be passed when all menus are closed
                 if (tab && !this.tabMenus.some(item => item.path === tab.path)) {
                     this.tabMenus = this.tabMenus.concat([tab])
                     this.currentTab = tab

@@ -1,26 +1,26 @@
 export default function useConfig() {
-    // 浏览器console打印内容
+    // console logo
     const GqaConsoleLogo = () => {
         console.info('Welcome to Gin-Quasar-Admin!')
         console.info('Github: https://github.com/Junvary/gin-quasar-admin ')
         console.info('Expecting Your Star!')
     }
-    // 首页等允许无token的白名单
+    // allow list without token
     const AllowList = ['/login',]
-    // 没有用户名的时候使用这个名字
+    // use this name if there is no username
     const GqaDefaultUsername = 'GQA'
-    // 没有头像配置的时候使用这个头像
+    // use this avatar if there is no avatar
     const GqaDefaultAvatar = "gqa128.png"
-    // 没有网站前台配置的时候用这个配置
+    // use this frontend config if there is no frontend config
     const GqaFrontendDefault = {
         mainTitle: "Gin-Quasar-Admin",
         subTitle: "Gin-Quasar-Admin",
         webDescribe: "Be the change you want to see in the world.",
         showGit: "yesNo_yes"
     }
-    // 没有网站后台配置的时候用这个配置
+    // use this backend config if there is no backend config
     const GqaBackendDefault = {}
-    // Quasar主题配色
+    // Quasar Theme Color
     const ThemeStyleQuasar = {
         primary: '#1976D2',
         secondary: '#26A69A',
@@ -32,7 +32,7 @@ export default function useConfig() {
         light: '#FFFFFF',
         dark: '#1D1D1D',
     }
-    // Element主题配色
+    // Element Theme Color
     const ThemeStyleElement = {
         primary: '#409EFF',
         secondary: '#26A69A',
@@ -44,7 +44,7 @@ export default function useConfig() {
         light: '#FFFFFF',
         dark: '#1D1D1D',
     }
-    // Ant Design主题配色
+    // Ant Design Theme Color
     const ThemeStyleAnt = {
         primary: '#1890ff',
         secondary: '#26A69A',

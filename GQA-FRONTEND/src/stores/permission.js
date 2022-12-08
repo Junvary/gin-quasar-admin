@@ -18,7 +18,7 @@ export const usePermissionStore = defineStore('permission', {
                 const res = await postAction('user/get-user-menu')
                 if (res.code === 1) {
                     const data = res.data.records
-                    // 角色默认页面
+                    // role default page
                     const dp = res.data.default_page_list
                     const redirect = data.filter(item => item.name === dp[0] && item.redirect !== '')
                     if (redirect.length) {
@@ -26,28 +26,28 @@ export const usePermissionStore = defineStore('permission', {
                     } else {
                         this.InitUserDefautlPage(dp)
                     }
-                    // 获取用户按钮权限
+                    // get user button permisstion
                     this.InitUserButton(res.data.buttons)
-                    // 拿到鉴权路由表（用户自己的所有菜单），整理成路由
+                    // Get the authentication route table (all the user's own menus) and handle it into routes
                     const userMenu = HandleRouter(data)
-                    // 加入404界面
+                    // add 404 page
                     userMenu.push({
                         path: '/:catchAll(.*)*',
                         name: 'notFound',
                         component: () => import('pages/Error404.vue')
                     })
-                    // 设置所有菜单
+                    // set all menus
                     this.InitUserMenu(userMenu)
-                    // 去掉隐藏菜单
+                    // drop hidden menus
                     const searchMenu = data.filter(value => value.hidden === "yesNo_no")
-                    // 设置搜索菜单
+                    // set search menus
                     this.InitSearchMenu(searchMenu)
-                    // 深度拷贝，避免影响其他数据
+                    // Deep copy to avoid affecting other data
                     const searchMenuNew = JSON.parse(JSON.stringify(searchMenu))
                     const topMenu = ArrayToTree(searchMenuNew, "name", "parent_code")
                     this.InitTopMenu(topMenu)
 
-                    // 返回鉴权路由表
+                    // Return authentication routes
                     return userMenu
                 } else {
                     return []

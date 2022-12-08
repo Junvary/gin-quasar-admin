@@ -58,7 +58,7 @@ export default function useRecordDetail(url, emit) {
                 if (url === undefined || !url.edit) {
                     $q.notify({
                         type: 'negative',
-                        message: "check your url",
+                        message: t('UrlNotConfig'),
                     })
                     return
                 }
@@ -74,7 +74,7 @@ export default function useRecordDetail(url, emit) {
                 if (url === undefined || !url.add) {
                     $q.notify({
                         type: 'negative',
-                        message: "check your url",
+                        message: t('UrlNotConfig'),
                     })
                     return
                 }

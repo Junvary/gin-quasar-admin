@@ -51,14 +51,14 @@ const forbiddenUrl = [
 
 export default boot(({ app, router, store }) => {
     const userStore = useUserStore()
-    // 请求拦截
+
     api.interceptors.request.use(request => {
         const token = userStore.GetToken()
         request.headers = {
             'Content-Type': 'application/json;charset=utf-8',
             'Gqa-Token': token,
         }
-        // 演示模式禁止URL
+        // demo mode
         if (forbiddenUrl.some(item => item === request.url)) {
             Notify.create({
                 type: 'negative',

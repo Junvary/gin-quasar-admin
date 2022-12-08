@@ -89,4 +89,29 @@ export default {
         "en-US": "Child dict code must start with the parent dict code and '_'",
         "ru": "Дочерний код справочника должен начинаться с родительского кода справочника и '_'"
     },
+    GoOutForAWalk: {
+        "zh-CN": "要不要出去走走？",
+        "en-US": "Do you want to go out for a walk?",
+        "ru": "идти, уйти?"
+    },
+    NeedSomeCoffee: {
+        "zh-CN": "我想我需要喝点咖啡",
+        "en-US": "I think I need some coffee.",
+        "ru": "Я думаю, мне нужно выпить кофе."
+    },
+    CleanTheWindows: {
+        "zh-CN": "窗户该擦一擦了",
+        "en-US": "The windows need cleaning.",
+        "ru": "окно надо стереть."
+    },
+    StarOnGithub: {
+        "zh-CN": "可不可以去Github帮忙点个star呢？",
+        "en-US": "Please give me a star on github.",
+        "ru": "Пожалуйста, дайте мне звезду на гитарубе."
+    },
+    WantSomeFeatures: {
+        "zh-CN": "也许你想要一些更多的功能.",
+        "en-US": "Maybe you want some more features.",
+        "ru": "Возможно, вам нужно больше функций."
+    }
 }

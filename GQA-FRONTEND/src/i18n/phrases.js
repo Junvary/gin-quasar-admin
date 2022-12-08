@@ -59,4 +59,24 @@ export default {
         "en-US": "View all",
         "ru": "Просмотреть все"
     },
+    GoodMorning: {
+        "zh-CN": "早上好, ",
+        "en-US": "Good Morning, ",
+        "ru": "Доброе утро, "
+    },
+    GoodNoon: {
+        "zh-CN": "中午好, ",
+        "en-US": "Good noon, ",
+        "ru": "Добрый день, "
+    },
+    GoodAfternoon: {
+        "zh-CN": "下午好, ",
+        "en-US": "Good Afternoon, ",
+        "ru": "Добрый день, "
+    },
+    GoodEvening: {
+        "zh-CN": "晚上好, ",
+        "en-US": "Good Evening, ",
+        "ru": "Добрый вечер, "
+    },
 }

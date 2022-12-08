@@ -231,7 +231,7 @@ const handleUploadBannerImage = (scope) => {
     if (!bannerImage.value) {
         $q.notify({
             type: 'negative',
-            message: '请选择图片！',
+            message: t('Please') + t('Select') + t('File'),
         })
         return
     }
@@ -246,7 +246,7 @@ const handleUploadBannerImage = (scope) => {
             bannerImage.value = null
             $q.notify({
                 type: 'positive',
-                message: '首页大图上传成功！',
+                message: t('Upload') + t('Success'),
             })
             scope.set()
         }
@@ -256,7 +256,7 @@ const handleUploadLogo = (scope) => {
     if (!logoFile.value) {
         $q.notify({
             type: 'negative',
-            message: '请选择文件！',
+            message: t('Please') + t('Select') + t('File'),
         })
         return
     }
@@ -271,7 +271,7 @@ const handleUploadLogo = (scope) => {
             logoFile.value = null
             $q.notify({
                 type: 'positive',
-                message: '网站Logo上传成功！',
+                message: t('Upload') + t('Success'),
             })
             scope.set()
         }
@@ -281,7 +281,7 @@ const handleUploadFavicon = (scope) => {
     if (!faviconFile.value) {
         $q.notify({
             type: 'negative',
-            message: '请选择文件！',
+            message: t('Please') + t('Select') + t('File'),
         })
         return
     }
@@ -296,7 +296,7 @@ const handleUploadFavicon = (scope) => {
             faviconFile.value = null
             $q.notify({
                 type: 'positive',
-                message: '网站Favicon上传成功！',
+                message: t('Upload') + t('Success'),
             })
             scope.set()
         }
@@ -305,7 +305,7 @@ const handleUploadFavicon = (scope) => {
 const rejected = (rejectedEntries) => {
     $q.notify({
         type: 'negative',
-        message: '文件重复或大小/类型不被允许，请联系管理员！',
+        message: t('SizeOrExtError'),
     })
 }
 const handleSetLoginLayout = (event, scope) => {

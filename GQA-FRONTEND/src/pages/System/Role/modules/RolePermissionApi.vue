@@ -133,7 +133,7 @@ const apiData = computed(() => {
             }
         }
         apiTab.value = apiTree[0].api_group
-        // 如果是super-admin角色，那么禁用所有API编辑，保证API可以拥有全部调用权限。
+        // If the role is super admin, disable all API editing to ensure that the API can have all call permissions
         if (row.value.role_code === 'super-admin') {
             for (let a of apiTree) {
                 for (let i of a.children) {
@@ -161,7 +161,7 @@ const getThisTickedNumber = computed(() => {
 })
 
 const getRoleApiList = () => {
-    // 每次获取前，清空ticked
+    // Clear ticked before each getRoleApiList
     ticked.value = []
     postAction(url.roleApiList, {
         role_code: row.value.role_code,

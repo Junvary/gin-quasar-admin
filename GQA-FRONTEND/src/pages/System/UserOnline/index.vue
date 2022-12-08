@@ -112,6 +112,4 @@ const handleKickOut = (row) => {
         getTableData()
     })
 }
-
-
 </script>

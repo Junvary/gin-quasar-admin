@@ -31,7 +31,7 @@
                         v-model="selectUser" :options="changeTableData" multiple clearable emit-value map-options
                         :rules="[val => val && val.length > 0 || $t('NeedInput')]" :label="$t('User')" />
                     <span v-if="recordDetail.value.notice_to_user_type === 'some' && !changeTableData.length">
-                        系统还没有非管理员账户！
+                        {{ $t('NoUserNow') }}
                     </span>
                 </q-form>
             </q-card-section>
@@ -148,33 +148,11 @@ const handleAddOrEidt = async () => {
         }
         if (formType.value === 'edit') {
             return
-            // if (url === undefined || !url.edit) {
-            //     $q.notify({
-            //         type: 'negative',
-            //         message: "请先配置url",
-            //     })
-            //     return
-            // }
-            // recordDetail.value.notice_to_user = []
-            // selectUser.value.forEach((item) => {
-            //     recordDetail.value.notice_to_user.push({
-            //         noticeId: recordDetail.value.notice_id,
-            //         toUser: item,
-            //     })
-            // })
-            // const res = await postAction(url.edit, recordDetail.value)
-            // if (res.code === 1) {
-            //     $q.notify({
-            //         type: 'positive',
-            //         message: res.message,
-            //     })
-            //     recordDetailVisible.value = false
-            // }
         } else if (formType.value === 'add') {
             if (url === undefined || !url.add) {
                 $q.notify({
                     type: 'negative',
-                    message: "请先配置url",
+                    message: t('UrlNotConfig'),
                 })
                 return
             }

@@ -5,7 +5,8 @@ import { useI18n } from 'vue-i18n';
 import { Quasar } from 'quasar'
 import useConfig from 'src/composables/useConfig';
 
-// 动态更改网站标题和favicon，在MainLayout中调用
+// Dynamically change the website title and favicon
+// Call them in MainLayout
 export default function useDocument() {
     const storageStore = useStorageStore();
     const settingStore = useSettingStore();

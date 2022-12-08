@@ -2,8 +2,8 @@ import XEUtils from 'xe-utils'
 import { uniqueId } from 'lodash'
 
 export const HandleAsideMenu = function (menuData, key, parentKey) {
-    // 将列表数据转换为树形数据
-    // 处理菜单成树，key值为name，parentKey为parentCode
+    // change list to tree
+    // menu to tree: key => name，parentKey => parentCode
     const menu = ArrayToTree(menuData, key, parentKey)
     return checkPathAndChildren(menu)
 }

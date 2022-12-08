@@ -11,9 +11,9 @@
                             <q-input outlined dense class="col" v-model.trim="form.plugin_name"
                                 :label="$t('Plugin') + $t('Name')" lazy-rules
                                 :rules="[val => val && val.length > 0 || $t('NeedInput')]" />
-                            <q-toggle class="col-2" v-model="form.with_model" label="生成Model" />
+                            <q-toggle class="col-2" v-model="form.with_model" :label="$t('Gen') + 'Model'" />
                             <div class="col">
-                                <q-input v-model="inputModel" v-if="form.with_model" label="新增Model">
+                                <q-input v-model="inputModel" v-if="form.with_model" :label="$t('Add') + 'Model'">
                                     <template v-slot:after>
                                         <q-btn icon="add" round dense @click="handleInputModel" />
                                     </template>
@@ -25,7 +25,7 @@
                                 <q-tabs v-model="modelStruct" align="left" inline-label outside-arrows mobile-arrows>
                                     <q-tab v-for="(item, index) in form.plugin_model" :name="item.model_name">
                                         <span style="white-space:nowrap">
-                                            维护 {{ item.model_name }}模型
+                                            {{ item.model_name }} Model
                                             <q-icon class="tab-close" name="close"
                                                 @click.prevent.stop="removeModel(item, index)" />
                                         </span>
@@ -39,17 +39,18 @@
                                         <q-table :rows="item.column_list" :columns="columns" row-key="column_name"
                                             hide-pagination>
                                             <template v-slot:top class="q-gutter-md">
-                                                <q-btn color="primary" @click="addColumn(item)">添加字段</q-btn>
-                                                <q-toggle v-model="item.with_gqa_column" label="携带基础字段" />
-                                                <q-icon name="question_mark">
-                                                    <q-tooltip>
-                                                        包含id,CreateAt,CreateBy,UpdatedAt,UpdatedBy,DeletedAt,Sort,Stable,Status,Memo等一系列基础字段，
-                                                        推荐启用，关闭后需手动维护。
-                                                    </q-tooltip>
-                                                </q-icon>
-                                                <q-toggle v-model="item.with_public_list" label="携带非鉴权List" />
-                                                <q-toggle v-model="item.with_data_permission" label="使用数据权限" />
-                                                <q-toggle v-model="item.with_log_operation" label="使用操作日志" />
+                                                <q-btn color="primary" @click="addColumn(item)">
+                                                    {{ $t('Add') }}
+                                                    {{ $t('Column') }}
+                                                </q-btn>
+                                                <q-toggle v-model="item.with_gqa_column"
+                                                    :label="($t('With') + $t('Basic') + $t('Column'))" />
+                                                <q-toggle v-model="item.with_public_list"
+                                                    :label="$t('With') + $t('Public') + 'List'" />
+                                                <q-toggle v-model="item.with_data_permission"
+                                                    :label="($t('With') + ' ' + $t('DataPermission'))" />
+                                                <q-toggle v-model="item.with_log_operation"
+                                                    :label="($t('With') + ' ' + $t('LogOperation'))" />
                                             </template>
                                             <template v-slot:body-cell-column_name="props">
                                                 <q-td :props="props"
@@ -134,13 +135,16 @@ const form = ref({
     with_model: false,
     plugin_model: [],
 })
-const columns = [
-    { name: 'column_name', label: '字段名', field: 'column_name', align: 'center' },
-    { name: 'column_type', label: '数据类型', field: 'column_type', align: 'center' },
-    { name: 'column_comment', label: '字段描述', field: 'column_comment', align: 'center' },
-    { name: 'column_default', label: '默认值', field: 'column_default', align: 'center' },
-    { name: 'actions', label: '操作', field: 'actions', align: 'center' },
-]
+const columns = computed(() => {
+    return [
+        { name: 'column_name', label: t('Column') + t('Name'), field: 'column_name', align: 'center' },
+        { name: 'column_type', label: t('Data') + t('Type'), field: 'column_type', align: 'center' },
+        { name: 'column_comment', label: t('Comment'), field: 'column_comment', align: 'center' },
+        { name: 'column_default', label: t('Default'), field: 'column_default', align: 'center' },
+        { name: 'actions', align: 'center', label: t('Actions'), field: 'actions' },
+    ]
+})
+
 const column_typeOptions = [
     'string', 'uint', 'time.Time', 'float64'
 ]
@@ -192,7 +196,7 @@ const handleGen = async () => {
         const data = await postBlobAction(url, form.value)
         $q.notify({
             type: 'positive',
-            message: '插件生成成功，开始下载！',
+            message: t('Gen') + t('Success'),
         })
         const blob = new Blob([data])
         const fileName = 'gqa-gen-plugin.zip'

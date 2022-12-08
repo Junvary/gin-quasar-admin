@@ -184,9 +184,19 @@ export default {
         "en-US": "Take Me Home",
         "ru": "Отвези меня домой"
     },
+    DataPermission: {
+        "zh-CN": "数据权限",
+        "en-US": "Data Permission",
+        "ru": "Права доступа к данным"
+    },
     DeptDataPermissionType: {
         "zh-CN": "部门数据权限分类",
         "en-US": "Department Data Permission Type",
         "ru": "Тип разрешения на данные отдела"
     },
+    NoUserNow: {
+        "zh-CN": "系统还没有非管理员账户",
+        "en-US": "The system does not have a non administrator account",
+        "ru": "система не является администратором"
+    }
 }

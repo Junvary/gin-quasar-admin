@@ -24,15 +24,15 @@ export const HandleRouter = (menuData) => {
             }
         }
     }
-    // 将需要鉴权路由的children（默认是空的）替换成后台传过来的整理后的路由表
+    // Replace the children that need authentication routing (empty by default) with the collated routes from the backend.
     PrivateRoutes[0].children = [...result]
-    // 返回鉴权路由
+    // return authentication routes
     return PrivateRoutes
 }
 
 const pageImporter = (component) => {
-    // Quasar2 版本:
+    // Quasar2:
     return () => Promise.resolve(require(`src/${component}.vue`).default)
-    // Quasar1 版本:
+    // Quasar1:
     // return (resolve) => require([`src/pages/${component}`], resolve)
 }

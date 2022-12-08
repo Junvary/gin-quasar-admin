@@ -9,6 +9,11 @@ export default {
         "en-US": "Page",
         "ru": "Страница"
     },
+    Public: {
+        "zh-CN": "公开",
+        "en-US": "Public",
+        "ru": "гражданский"
+    },
     SideDrawer: {
         "zh-CN": "侧边栏",
         "en-US": "SideDrawer",
@@ -514,6 +519,11 @@ export default {
         "en-US": "Component",
         "ru": "Компонент"
     },
+    Comment: {
+        "zh-CN": "描述",
+        "en-US": "Comment",
+        "ru": "рассуждение"
+    },
     Change: {
         "zh-CN": "修改",
         "en-US": "Change",
@@ -673,6 +683,11 @@ export default {
         "zh-CN": "女",
         "en-US": "Female",
         "ru": "Женщина"
+    },
+    With: {
+        "zh-CN": "包含",
+        "en-US": "With",
+        "ru": "иметь"
     },
     Without: {
         "zh-CN": "不包含",
