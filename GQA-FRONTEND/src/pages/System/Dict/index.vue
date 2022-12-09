@@ -22,16 +22,25 @@
                         <td class="text-center">
                             <GqaDictShow :dictCode="props.item.stable" />
                         </td>
-                        <td class="text-center">
-                            <div class="q-gutter-md">
-                                <q-btn flat dense icon="eva-edit-2-outline" color="primary"
-                                    @click="showEditForm(props.item)" :label="$t('Edit')" v-has="'dict:edit'" />
-                                <q-btn flat dense icon="add" color="warning"
-                                    @click="showAddChildrenForm(props.item.dict_code)" v-has="'dict:addChildren'"
-                                    :label="$t('Add') + $t('Children') + $t('Dict')" />
-                                <q-btn flat dense icon="delete_outline" color="negative"
-                                    @click="handleDelete(props.item)" :label="$t('Delete')" v-has="'dict:delete'" />
-                            </div>
+                        <td class="text-center q-gutter-x-xs">
+                            <q-btn flat dense rounded icon="eva-edit-2-outline" color="primary"
+                                @click="showEditForm(props.item)" v-has="'dict:edit'">
+                                <q-tooltip>
+                                    {{ $t('Edit') }}
+                                </q-tooltip>
+                            </q-btn>
+                            <q-btn flat dense rounded icon="add" color="warning"
+                                @click="showAddChildrenForm(props.item.dict_code)" v-has="'dict:addChildren'">
+                                <q-tooltip>
+                                    {{ $t('Add') + $t('Children') + $t('Dict') }}
+                                </q-tooltip>
+                            </q-btn>
+                            <q-btn flat dense rounded icon="delete_outline" color="negative"
+                                @click="handleDelete(props.item)" v-has="'dict:delete'">
+                                <q-tooltip>
+                                    {{ $t('Delete') }}
+                                </q-tooltip>
+                            </q-btn>
                         </td>
                     </template>
                 </q-hierarchy>

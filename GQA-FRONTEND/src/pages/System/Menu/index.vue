@@ -33,19 +33,31 @@
                         <td class="text-center">
                             <GqaDictShow :dictCode="props.item.stable" />
                         </td>
-                        <td class="text-center">
-                            <div class="q-gutter-md">
-                                <q-btn flat dense icon="eva-edit-2-outline" color="primary"
-                                    @click="showEditForm(props.item)" :label="$t('Edit')" v-has="'menu:edit'" />
-                                <q-btn flat dense icon="add" color="warning"
-                                    @click="showAddChildrenForm(props.item.name)" v-has="'menu:addChildren'"
-                                    :label="$t('Add') + $t('Children') + $t('Menu')" />
-                                <q-btn flat dense icon="mdi-gesture-tap-button" color="positive"
-                                    @click="showButtonForm(props.item)" v-has="'menu:buttonRegister'"
-                                    :label="$t('Button') + $t('Register')" />
-                                <q-btn flat dense icon="delete_outline" color="negative"
-                                    @click="handleDelete(props.item)" :label="$t('Delete')" v-has="'menu:delete'" />
-                            </div>
+                        <td class="text-center q-gutter-x-xs">
+                            <q-btn flat dense rounded icon="eva-edit-2-outline" color="primary"
+                                @click="showEditForm(props.item)" v-has="'menu:edit'">
+                                <q-tooltip>
+                                    {{ $t('Edit') }}
+                                </q-tooltip>
+                            </q-btn>
+                            <q-btn flat dense rounded icon="add" color="warning"
+                                @click="showAddChildrenForm(props.item.name)" v-has="'menu:addChildren'">
+                                <q-tooltip>
+                                    {{ $t('Add') + $t('Children') + $t('Menu') }}
+                                </q-tooltip>
+                            </q-btn>
+                            <q-btn flat dense rounded icon="mdi-gesture-tap-button" color="positive"
+                                @click="showButtonForm(props.item)" v-has="'menu:buttonRegister'">
+                                <q-tooltip>
+                                    {{ $t('Button') + $t('Register') }}
+                                </q-tooltip>
+                            </q-btn>
+                            <q-btn flat dense rounded icon="delete_outline" color="negative"
+                                @click="handleDelete(props.item)" v-has="'menu:delete'">
+                                <q-tooltip>
+                                    {{ $t('Delete') }}
+                                </q-tooltip>
+                            </q-btn>
                         </td>
                     </template>
                 </q-hierarchy>

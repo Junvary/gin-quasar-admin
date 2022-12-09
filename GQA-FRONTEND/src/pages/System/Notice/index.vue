@@ -33,14 +33,19 @@
                         </q-td>
                     </template>
                     <template v-slot:body-cell-actions="props">
-                        <q-td :props="props">
-                            <div class="q-gutter-md">
-                                <q-btn flat dense icon="send" color="warning" @click="sendMessage(props.row)"
-                                    :label="$t('Send')" v-has="'notice:send'"
-                                    v-if="props.row.notice_sent === 'yesNo_no'" />
-                                <q-btn flat dense icon="delete_outline" color="negative"
-                                    @click="handleDelete(props.row)" :label="$t('Delete')" v-has="'notice:delete'" />
-                            </div>
+                        <q-td :props="props" class="q-gutter-x-xs">
+                            <q-btn flat dense rounded icon="send" color="warning" @click="sendMessage(props.row)"
+                                v-has="'notice:send'" v-if="props.row.notice_sent === 'yesNo_no'">
+                                <q-tooltip>
+                                    {{ $t('Send') }}
+                                </q-tooltip>
+                            </q-btn>
+                            <q-btn flat dense rounded icon="delete_outline" color="negative"
+                                @click="handleDelete(props.row)" v-has="'notice:delete'">
+                                <q-tooltip>
+                                    {{ $t('Delete') }}
+                                </q-tooltip>
+                            </q-btn>
                         </q-td>
                     </template>
                 </q-table>

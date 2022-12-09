@@ -32,28 +32,37 @@
                         </q-td>
                     </template>
                     <template v-slot:body-cell-actions="props">
-                        <q-td :props="props">
-                            <div class="q-gutter-md">
-                                <q-btn flat dense icon="zoom_in" color="warning" :label="$t('Detail')"
-                                    v-has="'log-login:detail'">
-                                    <q-tooltip>
-                                        {{ props.row.memo }}
-                                    </q-tooltip>
-                                </q-btn>
-                                <q-btn flat dense icon="delete_outline" color="negative"
-                                    @click="handleDelete(props.row)" :label="$t('Delete')" v-has="'log-login:delete'" />
-                            </div>
+                        <q-td :props="props" class="q-gutter-x-xs">
+                            <q-btn flat dense rounded icon="zoom_in" color="warning" @click="showMemo(props.row.memo)"
+                                v-has="'log-login:detail'">
+                                <q-tooltip>
+                                    {{ $t('Detail') }}
+                                </q-tooltip>
+                            </q-btn>
+                            <q-btn flat dense rounded icon="delete_outline" color="negative"
+                                @click="handleDelete(props.row)" v-has="'log-login:delete'">
+                                <q-tooltip>
+                                    {{ $t('Delete') }}
+                                </q-tooltip>
+                            </q-btn>
                         </q-td>
                     </template>
                 </q-table>
             </q-card-section>
         </q-card>
+        <q-dialog v-model="showMemoFlag">
+            <q-card>
+                <q-card-section>
+                    {{ memo }}
+                </q-card-section>
+            </q-card>
+        </q-dialog>
     </q-page>
 </template>
 
 <script setup>
 import useTableData from 'src/composables/useTableData'
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import useCommon from 'src/composables/useCommon'
 
@@ -96,4 +105,11 @@ onMounted(async () => {
     pagination.value.descending = true
     getTableData()
 })
+
+const showMemoFlag = ref(false)
+const memo = ref('')
+const showMemo = (b) => {
+    memo.value = b
+    showMemoFlag.value = true
+}
 </script>

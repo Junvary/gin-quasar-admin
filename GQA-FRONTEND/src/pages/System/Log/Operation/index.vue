@@ -22,12 +22,13 @@
                         </q-td>
                     </template>
                     <template v-slot:body-cell-actions="props">
-                        <q-td :props="props">
-                            <div class="q-gutter-md">
-                                <q-btn flat dense icon="zoom_in" color="warning" :label="$t('Detail')"
-                                    v-has="'log-operation:detail'" @click="showBody(props.row.operation_body)">
-                                </q-btn>
-                            </div>
+                        <q-td :props="props" class="q-gutter-x-xs">
+                            <q-btn flat dense rounded icon="zoom_in" color="warning" v-has="'log-operation:detail'"
+                                @click="showBody(props.row.operation_body)">
+                                <q-tooltip>
+                                    {{ $t('Detail') }}
+                                </q-tooltip>
+                            </q-btn>
                         </q-td>
                     </template>
                 </q-table>
@@ -42,7 +43,6 @@
                 </q-card-section>
             </q-card>
         </q-dialog>
-
     </q-page>
 </template>
 

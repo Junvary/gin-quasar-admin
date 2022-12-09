@@ -71,16 +71,25 @@
                             </q-td>
                         </template>
                         <template v-slot:body-cell-actions="props">
-                            <q-td :props="props">
-                                <div class="q-gutter-md">
-                                    <q-btn flat dense icon="eva-edit-2-outline" color="primary"
-                                        @click="showEditForm(props.row)" :label="$t('Edit')" v-has="'user:edit'" />
-                                    <q-btn flat dense icon="mdi-lock-reset" color="warning"
-                                        @click="resetPassword(props.row)" v-has="'user:password'"
-                                        :label="$t('Reset') + $t('Password')" />
-                                    <q-btn flat dense icon="delete_outline" color="negative"
-                                        @click="handleDelete(props.row)" :label="$t('Delete')" v-has="'user:delete'" />
-                                </div>
+                            <q-td :props="props" class="q-gutter-x-xs">
+                                <q-btn flat dense rounded icon="eva-edit-2-outline" color="primary"
+                                    @click="showEditForm(props.row)" v-has="'user:edit'">
+                                    <q-tooltip>
+                                        {{ $t('Edit') }}
+                                    </q-tooltip>
+                                </q-btn>
+                                <q-btn flat dense rounded icon="mdi-lock-reset" color="warning"
+                                    @click="resetPassword(props.row)" v-has="'user:password'">
+                                    <q-tooltip>
+                                        {{ $t('Reset') + $t('Password') }}
+                                    </q-tooltip>
+                                </q-btn>
+                                <q-btn flat dense rounded icon="delete_outline" color="negative"
+                                    @click="handleDelete(props.row)" v-has="'user:delete'">
+                                    <q-tooltip>
+                                        {{ $t('Delete') }}
+                                    </q-tooltip>
+                                </q-btn>
                             </q-td>
                         </template>
                     </q-table>

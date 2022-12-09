@@ -31,13 +31,19 @@
                         </q-td>
                     </template>
                     <template v-slot:body-cell-actions="props">
-                        <q-td :props="props">
-                            <div class="q-gutter-md">
-                                <q-btn flat dense icon="eva-edit-2-outline" color="primary"
-                                    @click="showEditForm(props.row)" :label="$t('Edit')" v-has="'api:edit'" />
-                                <q-btn flat dense icon="delete_outline" color="negative"
-                                    @click="handleDelete(props.row)" :label="$t('Delete')" v-has="'api:delete'" />
-                            </div>
+                        <q-td :props="props" class="q-gutter-x-xs">
+                            <q-btn flat dense rounded icon="eva-edit-2-outline" color="primary"
+                                @click="showEditForm(props.row)" v-has="'api:edit'">
+                                <q-tooltip>
+                                    {{ $t('Edit') }}
+                                </q-tooltip>
+                            </q-btn>
+                            <q-btn flat dense rounded icon="delete_outline" color="negative"
+                                @click="handleDelete(props.row)" v-has="'api:delete'">
+                                <q-tooltip>
+                                    {{ $t('Delete') }}
+                                </q-tooltip>
+                            </q-btn>
                         </q-td>
                     </template>
                 </q-table>
@@ -67,7 +73,7 @@ const columns = computed(() => {
         { name: 'memo', align: 'center', label: t('Memo'), field: 'memo' },
         { name: 'status', align: 'center', label: t('Status'), field: 'status' },
         { name: 'stable', align: 'center', label: t('Stable'), field: 'stable' },
-        { name: 'actions', align: 'center', label: t('Actions'), field: 'actions' },
+        { name: 'actions', align: 'center', label: t('Actions'), field: 'actions', },
     ]
 })
 const {
