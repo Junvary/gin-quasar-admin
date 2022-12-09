@@ -18,7 +18,7 @@
                 <q-select v-if="layoutView.split(' ')[0] === 'hHh'" id="menuSelect" dense borderless
                     v-model="currentTopMenu" :options="topMenu" map-options option-value="name"
                     @update:model-value="changeTop" style="margin-left: 20px;" dark
-                    :option-label="opt => selectOptionLabel(opt)">
+                    :option-label="opt => selectOptionLabel(opt)" options-selected-class="text-dark bg-grey-5">
                     <template v-slot:prepend>
                         <q-icon name="ion-md-apps" :class="darkTheme" />
                     </template>
@@ -49,8 +49,8 @@
             <SideBarLeft :topMenuChildren="topMenuChildren">
                 <q-select v-if="layoutView.split(' ')[0] === 'lHh'" id="menuSelect" v-model="currentTopMenu"
                     :options="topMenu" map-options option-value="name" @update:model-value="changeTop" filled
-                    :dark="(themeStyle === 'Gin-Quasar-Admin' || themeStyle === 'Quasar') ? false : true" borderless
-                    :option-label="opt => Object(opt) === opt && 'title' in opt ? $t(opt.title) : opt.title">
+                    :dark="((themeStyle === 'Gin-Quasar-Admin' || themeStyle === 'Quasar') && !$q.dark.isActive) ? false : true"
+                    borderless :option-label="opt => Object(opt) === opt && 'title' in opt ? $t(opt.title) : opt.title">
                     <template v-slot:prepend>
                         <q-icon name="ion-md-apps" style="margin-right: 17px;" size="30px" />
                     </template>
