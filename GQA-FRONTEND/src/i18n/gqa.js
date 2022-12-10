@@ -1,4 +1,9 @@
 export default {
+    DemoMode: {
+        "zh-CN": "演示模式不允许操作",
+        "en-US": "Demo Mode",
+        "ru": "демонстрационная модель"
+    },
     NoteTodo: {
         "zh-CN": "待办便签",
         "en-US": "Todo Note",

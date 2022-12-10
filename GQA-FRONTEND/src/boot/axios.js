@@ -58,14 +58,17 @@ export default boot(({ app, router, store }) => {
             'Content-Type': 'application/json;charset=utf-8',
             'Gqa-Token': token,
         }
-        // demo mode
+
+        /* 👇demo mode👇 */
         if (forbiddenUrl.some(item => item === request.url)) {
             Notify.create({
                 type: 'negative',
-                message: 'Demo Mode'
+                message: i18n.global.t('DemoMode')
             })
             return
         }
+        /* 👆demo mode👆 */
+
         return request
     }, error => {
         Notify.create({

@@ -25,7 +25,7 @@
 
             <q-card-section class="items-center row q-gutter-md">
                 <q-input dense style="width: 20%" v-model="queryParams.username" :label="$t('Username')" />
-                <q-input dense style="width: 20%" v-model="queryParams.realName" :label="$t('RealName')" />
+                <q-input dense style="width: 20%" v-model="queryParams.real_name" :label="$t('RealName')" />
                 <q-btn dense color="primary" @click="handleSearch" :label="$t('Search')" />
                 <q-btn dense color="primary" @click="resetSearch" :label="$t('Reset')" />
             </q-card-section>
@@ -65,7 +65,7 @@ const columns = computed(() => {
     return [
         { name: 'username', align: 'center', label: t('Username'), field: 'username' },
         { name: 'nickname', align: 'center', label: t('Nickname'), field: 'nickname' },
-        { name: 'realName', align: 'center', label: t('RealName'), field: 'realName' },
+        { name: 'real_name', align: 'center', label: t('RealName'), field: 'real_name' },
     ]
 })
 const {
@@ -93,8 +93,10 @@ const show = (selectUser) => {
         } else {
             selected.value = []
         }
-    } else {
+    } else if (selectUser) {
         selected.value.push(selectUser)
+    } else {
+        selected.value = []
     }
 }
 
