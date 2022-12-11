@@ -1,6 +1,6 @@
 <h1>Gin-Quasar-Admin<sup>v2</sup></h1>
 
-[English](README.en.md) | 简体中文
+[English](README.en.md) | 简体中文 | [Wiki](https://github.com/Junvary/gin-quasar-admin/wiki)
 
 <div align=center>
 <img src="https://i.loli.net/2020/12/14/cnJoF9r1BXY7Da5.png" width=150" height="150" />
