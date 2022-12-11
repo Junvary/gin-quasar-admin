@@ -135,8 +135,11 @@ func (s *ServiceUser) GetUserMenu(c *gin.Context) (err error, defaultPageList []
 		return err, nil, nil, nil
 	}
 	//获取角色默认页面列表
+	var roleCodeList []string
 	for _, v := range role {
 		defaultPageList = append(defaultPageList, v.DefaultPage)
+		// 获取角色code列表为获取按钮列表做准备
+		roleCodeList = append(roleCodeList, v.RoleCode)
 	}
 
 	var menus []model.SysMenu
@@ -145,14 +148,14 @@ func (s *ServiceUser) GetUserMenu(c *gin.Context) (err error, defaultPageList []
 		return err, nil, nil, nil
 	}
 	//获取所有按钮权限
-	var buttonList []string
-	for _, bl := range menus {
-		for _, b := range bl.Button {
-			buttonList = append(buttonList, b.ButtonCode)
-		}
+	var buttonList []model.SysRoleButton
+	err = global.GqaDb.Where("sys_role_role_code in ?", roleCodeList).Find(&buttonList).Error
+	var buttonListString []string
+	for _, v := range buttonList {
+		buttonListString = append(buttonListString, v.SysButtonButtonCode)
 	}
 	//按钮权限去重
-	buttons = utils.RemoveDuplicateElementFromSlice(buttonList)
+	buttons = utils.RemoveDuplicateElementFromSlice(buttonListString)
 	//menus切片去重
 	type distinctMenu []model.SysMenu
 	resultMenu := map[string]bool{}

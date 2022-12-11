@@ -27,7 +27,7 @@
                         </q-radio>
                         <div class="row q-gutter-x-md" style="margin-left: 10px">
                             <q-checkbox v-model="buttonCheckMap[item.button_code]" dense :label="item.button_name"
-                                color="primary" v-for="item in prop.node.button" />
+                                color="primary" v-for="item in prop.node.button" :false-value="null" />
                         </div>
                     </div>
                 </template>
@@ -156,7 +156,6 @@ const getRoleButtonList = () => {
         res.data.records.forEach(item => {
             buttonCheckMap.value[item.sys_button_button_code] = true
         })
-
     })
 }
 </script>
