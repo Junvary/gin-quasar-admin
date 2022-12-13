@@ -16,8 +16,8 @@ func (a *ApiConfigBackend) GetConfigBackendList(c *gin.Context) {
 		return
 	}
 	if err, configList, total := servicePrivate.ServiceConfigBackend.GetConfigBackendList(getConfigBackendList); err != nil {
-		global.GqaLogger.Error("获取后台配置列表失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("获取后台配置列表失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("GetListFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("GetListFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessData(model.ResponsePage{
 			Records:  configList,
@@ -35,11 +35,11 @@ func (a *ApiConfigBackend) EditConfigBackend(c *gin.Context) {
 	}
 	toEditConfigBackend.UpdatedBy = utils.GetUsername(c)
 	if err := servicePrivate.ServiceConfigBackend.EditConfigBackend(toEditConfigBackend); err != nil {
-		global.GqaLogger.Error("编辑后台配置失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("编辑后台配置失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("EditFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("EditFailed")+err.Error(), c)
 	} else {
-		global.GqaLogger.Warn(utils.GetUsername(c) + "编辑后台配置成功！")
-		model.ResponseSuccessMessage("编辑后台配置成功！", c)
+		global.GqaLogger.Warn(utils.GetUsername(c) + utils.GqaI18n("EditSuccess"))
+		model.ResponseSuccessMessage(utils.GqaI18n("EditSuccess"), c)
 	}
 }
 
@@ -63,10 +63,10 @@ func (a *ApiConfigBackend) AddConfigBackend(c *gin.Context) {
 		ItemCustom:                        toAddConfigBackend.ItemCustom,
 	}
 	if err := servicePrivate.ServiceConfigBackend.AddConfigBackend(*addConfigBackend); err != nil {
-		global.GqaLogger.Error("添加后台配置失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("添加后台配置失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("AddFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("AddFailed")+err.Error(), c)
 	} else {
-		model.ResponseSuccessMessage("添加后台配置成功！", c)
+		model.ResponseSuccessMessage(utils.GqaI18n("AddSuccess"), c)
 	}
 }
 
@@ -76,10 +76,10 @@ func (a *ApiConfigBackend) DeleteConfigBackendById(c *gin.Context) {
 		return
 	}
 	if err := servicePrivate.ServiceConfigBackend.DeleteConfigBackendById(toDeleteId.Id); err != nil {
-		global.GqaLogger.Error("删除后台配置失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("删除后台配置失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("DeleteFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("DeleteFailed")+err.Error(), c)
 	} else {
-		global.GqaLogger.Warn(utils.GetUsername(c) + "删除后台配置成功！")
-		model.ResponseSuccessMessage("删除后台配置成功！", c)
+		global.GqaLogger.Warn(utils.GetUsername(c) + utils.GqaI18n("DeleteSuccess"))
+		model.ResponseSuccessMessage(utils.GqaI18n("DeleteSuccess"), c)
 	}
 }

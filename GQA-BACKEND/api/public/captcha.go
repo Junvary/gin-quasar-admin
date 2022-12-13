@@ -15,20 +15,20 @@ type ApiCaptcha struct{}
 func (a *ApiCaptcha) GetCaptcha(c *gin.Context) {
 	captchaKeyLong := utils.GetConfigBackend("captchaKeyLong")
 	if captchaKeyLong == "" {
-		global.GqaLogger.Error("没有找到验证码字符数配置！")
-		model.ResponseErrorMessage("没有找到验证码字符数配置！", c)
+		global.GqaLogger.Error(utils.GqaI18n("CaptchaConfigError"))
+		model.ResponseErrorMessage(utils.GqaI18n("CaptchaConfigError"), c)
 		return
 	}
 	captchaWidth := utils.GetConfigBackend("captchaWidth")
 	if captchaWidth == "" {
-		global.GqaLogger.Error("没有找到验证码宽度配置！")
-		model.ResponseErrorMessage("没有找到验证码宽度配置！", c)
+		global.GqaLogger.Error(utils.GqaI18n("CaptchaConfigError"))
+		model.ResponseErrorMessage(utils.GqaI18n("CaptchaConfigError"), c)
 		return
 	}
 	captchaHeight := utils.GetConfigBackend("captchaHeight")
 	if captchaHeight == "" {
-		global.GqaLogger.Error("没有找到验证码高度配置！")
-		model.ResponseErrorMessage("没有找到验证码高度配置！", c)
+		global.GqaLogger.Error(utils.GqaI18n("CaptchaConfigError"))
+		model.ResponseErrorMessage(utils.GqaI18n("CaptchaConfigError"), c)
 		return
 	}
 	keyLong, _ := strconv.Atoi(captchaKeyLong)
@@ -37,12 +37,12 @@ func (a *ApiCaptcha) GetCaptcha(c *gin.Context) {
 	driver := base64Captcha.NewDriverDigit(height, width, keyLong, 0.7, 80)
 	cp := base64Captcha.NewCaptcha(driver, global.Store)
 	if id, b64s, err := cp.Generate(); err != nil {
-		global.GqaLogger.Error("验证码获取失败!", zap.Any("err", err))
-		model.ResponseErrorMessage("验证码获取失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("GetCaptchaFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("GetCaptchaFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessMessageData(model.ResponseCaptcha{
 			CaptchaImage: b64s,
 			CaptchaId:    id,
-		}, "验证码获取成功！", c)
+		}, utils.GqaI18n("GetCaptchaSuccess"), c)
 	}
 }

@@ -9,10 +9,10 @@ mysql:
 system:
     port: 8888
     successCode: 1
-    successMessage: 操作成功！
+    successMessage: Success
     errorCode: 0
-    errorMessage: 操作失败！
-    bindError: 入参校验失败！
+    errorMessage: Failed
+    bindError: params verification failed
     genPluginPath: template/gqaplugintemplate
     importPath: ./template/import
     exportPath: ./template/export

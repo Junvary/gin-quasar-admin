@@ -16,8 +16,8 @@ func (a *ApiUser) GetUserList(c *gin.Context) {
 		return
 	}
 	if err, userList, total := servicePrivate.ServiceUser.GetUserList(requestUserList); err != nil {
-		global.GqaLogger.Error("获取用户列表失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("获取用户列表失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("GetListFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("GetListFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessData(model.ResponsePage{
 			Records:  userList,
@@ -34,16 +34,16 @@ func (a *ApiUser) EditUser(c *gin.Context) {
 		return
 	}
 	if toEditUser.Username == "admin" && toEditUser.Status == "off" {
-		model.ResponseErrorMessage("超级管理不能被禁用！", c)
+		model.ResponseErrorMessage(utils.GqaI18n("CantDisableAdmin"), c)
 		return
 	}
 	toEditUser.UpdatedBy = utils.GetUsername(c)
 	if err := servicePrivate.ServiceUser.EditUser(toEditUser); err != nil {
-		global.GqaLogger.Error("编辑用户失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("编辑用户失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("EditFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("EditFailed")+err.Error(), c)
 	} else {
-		global.GqaLogger.Warn(utils.GetUsername(c) + "编辑用户成功！")
-		model.ResponseSuccessMessage("编辑用户成功！", c)
+		global.GqaLogger.Warn(utils.GetUsername(c) + utils.GqaI18n("EditSuccess"))
+		model.ResponseSuccessMessage(utils.GqaI18n("EditSuccess"), c)
 	}
 }
 
@@ -72,13 +72,13 @@ func (a *ApiUser) AddUser(c *gin.Context) {
 	}
 	if err := servicePrivate.ServiceUser.AddUser(addUser); err != nil {
 		if err.Error() == "successWithNoDefaultPassword" {
-			model.ResponseSuccessMessage("添加用户成功！但未找到配置的默认密码，此用户的密码设置为：123456", c)
+			model.ResponseSuccessMessage(utils.GqaI18n("AddUserSuccessWithoutPwd"), c)
 		} else {
-			global.GqaLogger.Error("添加用户失败！", zap.Any("err", err))
-			model.ResponseErrorMessage("添加用户失败，"+err.Error(), c)
+			global.GqaLogger.Error(utils.GqaI18n("AddFailed"), zap.Any("err", err))
+			model.ResponseErrorMessage(utils.GqaI18n("AddFailed")+err.Error(), c)
 		}
 	} else {
-		model.ResponseSuccessMessage("添加用户成功！", c)
+		model.ResponseSuccessMessage(utils.GqaI18n("AddSuccess"), c)
 	}
 }
 
@@ -90,27 +90,27 @@ func (a *ApiUser) DeleteUserById(c *gin.Context) {
 	currentUsername := utils.GetUsername(c)
 	err, currentUser := servicePrivate.ServiceUser.GetUserByUsername(currentUsername)
 	if err != nil {
-		global.GqaLogger.Error("获取用户信息失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("获取用户信息失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("FindFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("FindFailed")+err.Error(), c)
 		return
 	}
 	if currentUser.Id == toDeleteId.Id {
-		global.GqaLogger.Error(utils.GetUsername(c) + "你不能删除自己！")
-		model.ResponseErrorMessage("你不能删除自己！", c)
+		global.GqaLogger.Error(utils.GetUsername(c) + utils.GqaI18n("CantDeleteYourself"))
+		model.ResponseErrorMessage(utils.GqaI18n("CantDeleteYourself"), c)
 		return
 	}
 	// 初始化时 admin 的 Id 为 1，这里就这样判断了，可以增加更多的逻辑。
 	if toDeleteId.Id == 1 {
-		global.GqaLogger.Error(utils.GetUsername(c) + "超级管理员不能被删除！")
-		model.ResponseErrorMessage("超级管理员不能被删除！", c)
+		global.GqaLogger.Error(utils.GetUsername(c) + utils.GqaI18n("CantDeleteSuperAdmin"))
+		model.ResponseErrorMessage(utils.GqaI18n("CantDeleteSuperAdmin"), c)
 		return
 	}
 	if err := servicePrivate.ServiceUser.DeleteUserById(toDeleteId.Id); err != nil {
-		global.GqaLogger.Error(utils.GetUsername(c)+"删除用户失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("删除用户失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GetUsername(c)+utils.GqaI18n("DeleteFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("DeleteFailed")+err.Error(), c)
 	} else {
-		global.GqaLogger.Warn(utils.GetUsername(c) + "删除用户成功！")
-		model.ResponseSuccessMessage("删除用户成功！", c)
+		global.GqaLogger.Warn(utils.GetUsername(c) + utils.GqaI18n("DeleteSuccess"))
+		model.ResponseSuccessMessage(utils.GqaI18n("DeleteSuccess"), c)
 	}
 }
 
@@ -120,34 +120,35 @@ func (a *ApiUser) QueryUserById(c *gin.Context) {
 		return
 	}
 	if err, user := servicePrivate.ServiceUser.QueryUserById(toQueryId.Id); err != nil {
-		global.GqaLogger.Error("查找用户失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("查找用户失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("FindFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("FindFailed")+err.Error(), c)
 	} else {
-		model.ResponseSuccessMessageData(gin.H{"records": user}, "查找用户成功！", c)
+		model.ResponseSuccessMessageData(gin.H{"records": user}, utils.GqaI18n("FindSuccess"), c)
 	}
 }
 
 func (a *ApiUser) ResetPassword(c *gin.Context) {
 	var toResetPasswordId model.RequestQueryById
-	if err := c.ShouldBindJSON(&toResetPasswordId); err != nil {
-		global.GqaLogger.Error("模型绑定失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("模型绑定失败，"+err.Error(), c)
+	if err := model.RequestShouldBindJSON(c, &toResetPasswordId); err != nil {
 		return
 	}
 	if err := servicePrivate.ServiceUser.ResetPassword(toResetPasswordId.Id); err != nil {
-		global.GqaLogger.Error("重置用户密码失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("重置用户密码失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("ResetPasswordFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("ResetPasswordFailed")+err.Error(), c)
 	} else {
-		model.ResponseSuccessMessage("重置用户密码成功！", c)
+		model.ResponseSuccessMessage(utils.GqaI18n("ResetPasswordSuccess"), c)
 	}
 }
 
 func (a *ApiUser) GetUserMenu(c *gin.Context) {
 	err, defaultPageList, menu, buttons := servicePrivate.ServiceUser.GetUserMenu(c)
 	if err != nil {
-		model.ResponseErrorMessage("获取用户菜单失败，"+err.Error(), c)
+		model.ResponseErrorMessage(utils.GqaI18n("GetUserMenuFailed")+err.Error(), c)
 	} else {
-		model.ResponseSuccessMessageData(gin.H{"records": menu, "buttons": buttons, "default_page_list": defaultPageList}, "获取用户菜单成功！", c)
+		model.ResponseSuccessMessageData(
+			gin.H{"records": menu, "buttons": buttons, "default_page_list": defaultPageList},
+			utils.GqaI18n("GetUserMenuSuccess"), c,
+		)
 	}
 }
 
@@ -158,11 +159,11 @@ func (a *ApiUser) ChangePassword(c *gin.Context) {
 	}
 	username := utils.GetUsername(c)
 	if err := servicePrivate.ServiceUser.ChangePassword(username, toChangePassword); err != nil {
-		global.GqaLogger.Error("修改密码失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("修改密码失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("ChangePasswordFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("ChangePasswordFailed")+err.Error(), c)
 	} else {
-		global.GqaLogger.Warn(utils.GetUsername(c) + "修改密码成功！")
-		model.ResponseSuccessMessage("修改密码成功！", c)
+		global.GqaLogger.Warn(utils.GetUsername(c) + utils.GqaI18n("ChangePasswordSuccess"))
+		model.ResponseSuccessMessage(utils.GqaI18n("ChangePasswordSuccess"), c)
 	}
 }
 
@@ -172,15 +173,15 @@ func (a *ApiUser) ChangeNickname(c *gin.Context) {
 		return
 	}
 	if toChangeNickname.Nickname == "" {
-		global.GqaLogger.Error("修改昵称失败！不能为空！")
-		model.ResponseErrorMessage("修改昵称失败！不能为空！", c)
+		global.GqaLogger.Error(utils.GqaI18n("NullNickname"))
+		model.ResponseErrorMessage(utils.GqaI18n("NullNickname"), c)
 	}
 	username := utils.GetUsername(c)
 	if err := servicePrivate.ServiceUser.ChangeNickname(username, toChangeNickname); err != nil {
-		global.GqaLogger.Error("修改昵称失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("修改昵称失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("ChangeNicknameFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("ChangeNicknameFailed")+err.Error(), c)
 	} else {
-		global.GqaLogger.Warn(utils.GetUsername(c) + "修改昵称成功！")
-		model.ResponseSuccessMessage("修改昵称成功！", c)
+		global.GqaLogger.Warn(utils.GetUsername(c) + utils.GqaI18n("ChangeNicknameSuccess"))
+		model.ResponseSuccessMessage(utils.GqaI18n("ChangeNicknameSuccess"), c)
 	}
 }

@@ -16,8 +16,8 @@ func (a *ApiNotice) GetNoticeList(c *gin.Context) {
 		return
 	}
 	if err, noticeList, total := servicePrivate.ServiceNotice.GetNoticeList(requestNoticeList); err != nil {
-		global.GqaLogger.Error("获取消息列表失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("获取消息列表失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("GetListFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("GetListFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessData(model.ResponsePage{
 			Records:  noticeList,
@@ -35,10 +35,10 @@ func (a *ApiNotice) AddNotice(c *gin.Context) {
 	}
 	username := utils.GetUsername(c)
 	if err := servicePrivate.ServiceNotice.AddNotice(toAddNotice, username); err != nil {
-		global.GqaLogger.Error("添加消息失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("添加消息失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("AddFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("AddFailed")+err.Error(), c)
 	} else {
-		model.ResponseSuccessMessage("添加消息成功！", c)
+		model.ResponseSuccessMessage(utils.GqaI18n("AddSuccess"), c)
 	}
 }
 
@@ -48,11 +48,11 @@ func (a *ApiNotice) DeleteNoticeById(c *gin.Context) {
 		return
 	}
 	if err := servicePrivate.ServiceNotice.DeleteNoticeById(toDeleteId.Id); err != nil {
-		global.GqaLogger.Error("删除消息失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("删除消息失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("DeleteFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("DeleteFailed")+err.Error(), c)
 	} else {
-		global.GqaLogger.Warn(utils.GetUsername(c) + "删除消息成功！")
-		model.ResponseSuccessMessage("删除消息成功！", c)
+		global.GqaLogger.Warn(utils.GetUsername(c) + utils.GqaI18n("DeleteSuccess"))
+		model.ResponseSuccessMessage(utils.GqaI18n("DeleteSuccess"), c)
 	}
 }
 
@@ -62,10 +62,10 @@ func (a *ApiNotice) QueryNoticeById(c *gin.Context) {
 		return
 	}
 	if err, notice := servicePrivate.ServiceNotice.QueryNoticeById(toQueryId.Id); err != nil {
-		global.GqaLogger.Error("查找消息失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("查找消息失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("FindFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("FindFailed")+err.Error(), c)
 	} else {
-		model.ResponseSuccessMessageData(gin.H{"records": notice}, "查找消息成功！", c)
+		model.ResponseSuccessMessageData(gin.H{"records": notice}, utils.GqaI18n("FindSuccess"), c)
 	}
 }
 
@@ -76,10 +76,10 @@ func (a *ApiNotice) QueryNoticeReadById(c *gin.Context) {
 	}
 	username := utils.GetUsername(c)
 	if err, notice := servicePrivate.ServiceNotice.QueryNoticeReadById(toQueryId.Id, username); err != nil {
-		global.GqaLogger.Error("查找消息失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("查找消息失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("FindFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("FindFailed")+err.Error(), c)
 	} else {
-		model.ResponseSuccessMessageData(gin.H{"records": notice}, "查找消息成功！", c)
+		model.ResponseSuccessMessageData(gin.H{"records": notice}, utils.GqaI18n("FindSuccess"), c)
 	}
 }
 
@@ -90,10 +90,10 @@ func (a *ApiNotice) SendNotice(c *gin.Context) {
 	}
 	toSendNotice.UpdatedBy = utils.GetUsername(c)
 	if err := servicePrivate.ServiceNotice.SendNotice(toSendNotice); err != nil {
-		global.GqaLogger.Error("发送消息失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("发送消息失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("SendFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("SendFailed")+err.Error(), c)
 	} else {
-		global.GqaLogger.Warn(utils.GetUsername(c) + "发送消息成功！")
-		model.ResponseSuccessMessage("发送消息成功！", c)
+		global.GqaLogger.Warn(utils.GetUsername(c) + utils.GqaI18n("SendSuccess"))
+		model.ResponseSuccessMessage(utils.GqaI18n("SendSuccess"), c)
 	}
 }

@@ -17,8 +17,8 @@ func (a *ApiNoteTodo) GetNoteTodoList(c *gin.Context) {
 	}
 	username := utils.GetUsername(c)
 	if err, deptList, total := servicePrivate.ServiceNoteTodo.GetNoteTodoList(requestNoteTodoList, username); err != nil {
-		global.GqaLogger.Error("获取待办便签列表失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("获取待办便签列表失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("GetListFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("GetListFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessData(model.ResponsePage{
 			Records:  deptList,
@@ -36,11 +36,11 @@ func (a *ApiNoteTodo) EditNoteTodo(c *gin.Context) {
 	}
 	toEditNoteTodo.UpdatedBy = utils.GetUsername(c)
 	if err := servicePrivate.ServiceNoteTodo.EditNoteTodo(toEditNoteTodo); err != nil {
-		global.GqaLogger.Error("编辑待办便签失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("编辑待办便签失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("EditFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("EditFailed")+err.Error(), c)
 	} else {
-		global.GqaLogger.Warn(utils.GetUsername(c) + "编辑待办便签成功！")
-		model.ResponseSuccessMessage("编辑待办便签成功！", c)
+		global.GqaLogger.Warn(utils.GetUsername(c) + utils.GqaI18n("EditSuccess"))
+		model.ResponseSuccessMessage(utils.GqaI18n("EditSuccess"), c)
 	}
 }
 
@@ -59,10 +59,10 @@ func (a *ApiNoteTodo) AddNoteTodo(c *gin.Context) {
 		TodoDetail:                        toAddNoteTodo.TodoDetail,
 	}
 	if err := servicePrivate.ServiceNoteTodo.AddNoteTodo(*addNoteTodo); err != nil {
-		global.GqaLogger.Error("添加待办便签失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("添加待办便签失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("AddFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("AddFailed")+err.Error(), c)
 	} else {
-		model.ResponseSuccessMessage("添加待办便签成功！", c)
+		model.ResponseSuccessMessage(utils.GqaI18n("AddSuccess"), c)
 	}
 }
 
@@ -72,11 +72,11 @@ func (a *ApiNoteTodo) DeleteNoteTodoById(c *gin.Context) {
 		return
 	}
 	if err := servicePrivate.ServiceNoteTodo.DeleteNoteTodoById(toDeleteId.Id); err != nil {
-		global.GqaLogger.Error("删除待办便签失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("删除待办便签失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("DeleteFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("DeleteFailed")+err.Error(), c)
 	} else {
-		global.GqaLogger.Warn(utils.GetUsername(c) + "删除待办便签成功！")
-		model.ResponseSuccessMessage("删除待办便签成功！", c)
+		global.GqaLogger.Warn(utils.GetUsername(c) + utils.GqaI18n("DeleteSuccess"))
+		model.ResponseSuccessMessage(utils.GqaI18n("DeleteSuccess"), c)
 	}
 }
 
@@ -86,9 +86,9 @@ func (a *ApiNoteTodo) QueryNoteTodoById(c *gin.Context) {
 		return
 	}
 	if err, dept := servicePrivate.ServiceNoteTodo.QueryNoteTodoById(toQueryId.Id); err != nil {
-		global.GqaLogger.Error("查找待办便签失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("查找待办便签失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("FindFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("FindFailed")+err.Error(), c)
 	} else {
-		model.ResponseSuccessMessageData(gin.H{"records": dept}, "查找待办便签成功！", c)
+		model.ResponseSuccessMessageData(gin.H{"records": dept}, utils.GqaI18n("FindSuccess"), c)
 	}
 }

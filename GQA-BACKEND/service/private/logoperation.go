@@ -12,7 +12,7 @@ func (s *ServiceLogOperation) GetLogOperationList(requestLogList model.RequestGe
 	offset := requestLogList.PageSize * (requestLogList.Page - 1)
 	db := global.GqaDb.Model(&model.SysLogOperation{})
 	var logList []model.SysLogOperation
-	//配置搜索
+	// Search
 	if requestLogList.OperationUsername != "" {
 		db = db.Where("operation_username like ?", "%"+requestLogList.OperationUsername+"%")
 	}

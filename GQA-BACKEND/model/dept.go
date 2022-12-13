@@ -2,7 +2,7 @@ package model
 
 type SysDept struct {
 	GqaModelWithCreatedByAndUpdatedBy
-	//ParentCode 对应 DeptCode
+	//ParentCode <==> DeptCode
 	ParentCode string    `json:"parent_code" gorm:"comment:父部门DeptCode;index;"`
 	DeptCode   string    `json:"dept_code" gorm:"comment:部门编码;not null;uniqueIndex;"`
 	DeptName   string    `json:"dept_name" gorm:"comment:部门名称;not null;"`

@@ -4,6 +4,7 @@ import (
 	"errors"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
 	"gorm.io/gorm"
 )
 
@@ -49,7 +50,7 @@ func (s *ServiceDict) GetDictList(requestDictList model.RequestGetDictList) (err
 func (s *ServiceDict) EditDict(toEditDict model.SysDict) (err error) {
 	var sysDict model.SysDict
 	if sysDict.Stable == "yesNo_yes" {
-		return errors.New("系统内置不允许编辑：" + toEditDict.DictCode)
+		return errors.New(utils.GqaI18n("StableCantDo") + toEditDict.DictCode)
 	}
 	if err = global.GqaDb.Where("id = ?", toEditDict.Id).First(&sysDict).Error; err != nil {
 		return err
@@ -62,7 +63,7 @@ func (s *ServiceDict) EditDict(toEditDict model.SysDict) (err error) {
 func (s *ServiceDict) AddDict(toAddDict model.SysDict) (err error) {
 	var dict model.SysDict
 	if !errors.Is(global.GqaDb.Where("dict_code = ?", toAddDict.DictCode).First(&dict).Error, gorm.ErrRecordNotFound) {
-		return errors.New("此字典已存在：" + toAddDict.DictCode)
+		return errors.New(utils.GqaI18n("AlreadyExist") + toAddDict.DictCode)
 	}
 	err = global.GqaDb.Create(&toAddDict).Error
 	return err
@@ -71,7 +72,7 @@ func (s *ServiceDict) AddDict(toAddDict model.SysDict) (err error) {
 func (s *ServiceDict) DeleteDictById(id uint) (err error) {
 	var dict model.SysDict
 	if dict.Stable == "yesNo_yes" {
-		return errors.New("系统内置不允许删除：" + dict.DictCode)
+		return errors.New(utils.GqaI18n("StableCantDo") + dict.DictCode)
 	}
 	if err = global.GqaDb.Where("id = ?", id).First(&dict).Error; err != nil {
 		return err

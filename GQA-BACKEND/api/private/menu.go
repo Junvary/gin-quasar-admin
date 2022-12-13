@@ -16,8 +16,8 @@ func (a *ApiMenu) GetMenuList(c *gin.Context) {
 		return
 	}
 	if err, menuList, total := servicePrivate.ServiceMenu.GetMenuList(requestMenuList); err != nil {
-		global.GqaLogger.Error("获取菜单列表失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("获取菜单列表失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("GetListFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("GetListFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessData(model.ResponsePage{
 			Records:  menuList,
@@ -35,11 +35,11 @@ func (a *ApiMenu) EditMenu(c *gin.Context) {
 	}
 	toEditMenu.UpdatedBy = utils.GetUsername(c)
 	if err := servicePrivate.ServiceMenu.EditMenu(toEditMenu); err != nil {
-		global.GqaLogger.Error("编辑菜单失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("编辑菜单失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("EditFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("EditFailed")+err.Error(), c)
 	} else {
-		global.GqaLogger.Warn(utils.GetUsername(c) + "编辑菜单成功！")
-		model.ResponseSuccessMessage("编辑菜单成功！", c)
+		global.GqaLogger.Warn(utils.GetUsername(c) + utils.GqaI18n("EditSuccess"))
+		model.ResponseSuccessMessage(utils.GqaI18n("EditSuccess"), c)
 	}
 }
 
@@ -69,10 +69,10 @@ func (a *ApiMenu) AddMenu(c *gin.Context) {
 		IsLink:                            toAddMenu.IsLink,
 	}
 	if err := servicePrivate.ServiceMenu.AddMenu(*addMenu); err != nil {
-		global.GqaLogger.Error("添加菜单失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("添加菜单失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("AddFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("AddFailed")+err.Error(), c)
 	} else {
-		model.ResponseSuccessMessage("添加菜单成功！", c)
+		model.ResponseSuccessMessage(utils.GqaI18n("AddSuccess"), c)
 	}
 }
 
@@ -82,11 +82,11 @@ func (a *ApiMenu) DeleteMenuById(c *gin.Context) {
 		return
 	}
 	if err := servicePrivate.ServiceMenu.DeleteMenuById(toDeleteId.Id); err != nil {
-		global.GqaLogger.Error("删除菜单失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("删除菜单失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("DeleteFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("DeleteFailed")+err.Error(), c)
 	} else {
-		global.GqaLogger.Warn(utils.GetUsername(c) + "删除菜单成功！")
-		model.ResponseSuccessMessage("删除菜单成功！", c)
+		global.GqaLogger.Warn(utils.GetUsername(c) + utils.GqaI18n("DeleteSuccess"))
+		model.ResponseSuccessMessage(utils.GqaI18n("DeleteSuccess"), c)
 	}
 }
 
@@ -96,9 +96,9 @@ func (a *ApiMenu) QueryMenuById(c *gin.Context) {
 		return
 	}
 	if err, menu := servicePrivate.ServiceMenu.QueryMenuById(toQueryId.Id); err != nil {
-		global.GqaLogger.Error("查找菜单失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("查找菜单失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("FindFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("FindFailed")+err.Error(), c)
 	} else {
-		model.ResponseSuccessMessageData(gin.H{"records": menu}, "查找菜单成功！", c)
+		model.ResponseSuccessMessageData(gin.H{"records": menu}, utils.GqaI18n("FindSuccess"), c)
 	}
 }

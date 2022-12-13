@@ -90,24 +90,24 @@ func (s *ServiceDb) InitDb(initDbInfo model.RequestDbInit) error {
 	err := global.GqaDb.AutoMigrate(migrateList...)
 	if err != nil {
 		global.GqaDb = nil
-		global.GqaLogger.Error("迁移Gin-Quasar-Admin数据库失败！", zap.Any("err", err))
-		return errors.New("迁移Gin-Quasar-Admin数据库失败：" + err.Error())
+		global.GqaLogger.Error("Merge Gin-Quasar-Admin database failed！", zap.Any("err", err))
+		return errors.New("Merge Gin-Quasar-Admin database failed：" + err.Error())
 	}
 	//迁移Gin-Quasar-Admin插件数据库
 	err = global.GqaDb.AutoMigrate(gqaplugin.MigratePluginModel()...)
 	if err != nil {
 		global.GqaDb = nil
-		global.GqaLogger.Error("迁移Gin-Quasar-Admin数据库失败！", zap.Any("err", err))
-		return errors.New("迁移Gin-Quasar-Admin数据库失败：" + err.Error())
+		global.GqaLogger.Error("Merge Gin-Quasar-Admin database failed！", zap.Any("err", err))
+		return errors.New("Merge Gin-Quasar-Admin database failed：" + err.Error())
 	}
-	//初始化Gin-Quasar-Admin数据
+	// Init Gin-Quasar-Admin data
 	for _, v := range dataList {
 		err = v.LoadData()
 		if err != nil {
 			return err
 		}
 	}
-	//初始化Gin-Quasar-Admin插件数据
+	// Init Gin-Quasar-Admin plugin data
 	for _, v := range gqaplugin.LoadPluginData() {
 		err = v.LoadData()
 		if err != nil {

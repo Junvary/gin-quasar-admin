@@ -4,6 +4,7 @@ import (
 	"errors"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
 )
 
 type ServiceMenu struct{}
@@ -24,7 +25,7 @@ func (s *ServiceMenu) GetMenuList(requestMenuList model.RequestGetMenuList) (err
 	offset := requestMenuList.PageSize * (requestMenuList.Page - 1)
 	db := global.GqaDb.Model(&model.SysMenu{})
 	var menuList []model.SysMenu
-	//配置搜索
+	// Search
 	if requestMenuList.Path != "" {
 		db = db.Where("path like ?", "%"+requestMenuList.Path+"%")
 	}
@@ -44,7 +45,7 @@ func (s *ServiceMenu) GetMenuList(requestMenuList model.RequestGetMenuList) (err
 func (s *ServiceMenu) EditMenu(toEditMenu model.SysMenu) (err error) {
 	var sysMenu model.SysMenu
 	if sysMenu.Stable == "yesNo_yes" {
-		return errors.New("系统内置不允许编辑：" + toEditMenu.Title)
+		return errors.New(utils.GqaI18n("StableCantDo") + toEditMenu.Title)
 	}
 	if err = global.GqaDb.Where("id = ?", toEditMenu.Id).First(&sysMenu).Error; err != nil {
 		return err
@@ -66,7 +67,7 @@ func (s *ServiceMenu) AddMenu(toAddMenu model.SysMenu) (err error) {
 func (s *ServiceMenu) DeleteMenuById(id uint) (err error) {
 	var sysMenu model.SysMenu
 	if sysMenu.Stable == "yesNo_yes" {
-		return errors.New("系统内置不允许删除：" + sysMenu.Title)
+		return errors.New(utils.GqaI18n("StableCantDo") + sysMenu.Title)
 	}
 	if err = global.GqaDb.Where("id = ?", id).First(&sysMenu).Error; err != nil {
 		return err

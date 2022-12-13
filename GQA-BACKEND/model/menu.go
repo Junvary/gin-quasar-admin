@@ -2,7 +2,7 @@ package model
 
 type SysMenu struct {
 	GqaModelWithCreatedByAndUpdatedBy
-	//ParentCode 对应 Name
+	//ParentCode <==> Name
 	ParentCode string      `json:"parent_code" gorm:"comment:父菜单Name;index;"`
 	Name       string      `json:"name" gorm:"comment:菜单Name;not null;unique;index;"`
 	Path       string      `json:"path" gorm:"comment:菜单地址;"`

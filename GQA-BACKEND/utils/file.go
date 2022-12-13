@@ -12,39 +12,39 @@ import (
 )
 
 func UploadFile(createPath string, fileHeader *multipart.FileHeader) (filename string, err error) {
-	// 读取文件后缀
+	// Read file suffix
 	ext := path.Ext(fileHeader.Filename)
 
-	// 读取文件名并加密
+	// Read file name and encrypt
 	name := strings.TrimSuffix(fileHeader.Filename, ext)
 	name = EncodeMD5(name)
 
-	// 拼接新文件名
+	// Splice new file names
 	filename = name + "_" + time.Now().Format("20060102150405") + ext
 
-	// 创建upload/username的目录
+	// Create the directory of upload/username
 	if err = os.MkdirAll(createPath, os.ModePerm); err != nil {
 		return "", err
 	}
 
-	// 拼接路径和文件名
+	// Splicing path and file name
 	filepath := createPath + "/" + filename
 
-	// 读取文件
+	// read file
 	f, openError := fileHeader.Open()
 	if err != nil {
 		return "", openError
 	}
 	defer f.Close()
 
-	// 创建目录
+	// create dir
 	out, createErr := os.Create(filepath)
 	if createErr != nil {
 		return "", createErr
 	}
 	defer out.Close()
 
-	// 拷贝文件
+	// copy file
 	if _, err = io.Copy(out, f); err != nil {
 		return "", err
 	}
@@ -57,12 +57,12 @@ func CheckFileSize(file multipart.File, maxSizeString string, unit string) bool 
 	size := len(content)
 	maxSize, _ := strconv.Atoi(maxSizeString)
 	if unit == "M" {
-		// 转换成M
+		// ==> M
 		if size > maxSize*1024*1024 {
 			return false
 		}
 	} else {
-		// 默认转换成K
+		// ==> K
 		if size > maxSize*1024 {
 			return false
 		}

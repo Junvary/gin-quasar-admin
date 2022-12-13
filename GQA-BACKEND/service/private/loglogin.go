@@ -12,7 +12,7 @@ func (s *ServiceLogLogin) GetLogLoginList(requestLogList model.RequestGetLogLogi
 	offset := requestLogList.PageSize * (requestLogList.Page - 1)
 	db := global.GqaDb.Model(&model.SysLogLogin{})
 	var logList []model.SysLogLogin
-	//配置搜索
+	// Search
 	if requestLogList.LoginUsername != "" {
 		db = db.Where("login_username like ?", "%"+requestLogList.LoginUsername+"%")
 	}

@@ -20,10 +20,10 @@ func CheckAndCreatePath(path ...string) error {
 		if !CheckPath(p) {
 			err := os.MkdirAll(p, os.ModePerm)
 			if err != nil {
-				fmt.Println("创建目录错误:", err)
+				fmt.Println("error creating dir:", err)
 				return err
 			} else {
-				fmt.Println("已创建目录:", p)
+				fmt.Println("created dir:", p)
 			}
 		}
 	}

@@ -16,8 +16,8 @@ func (a *ApiConfigFrontend) GetConfigFrontendList(c *gin.Context) {
 		return
 	}
 	if err, configList, total := servicePrivate.ServiceConfigFrontend.GetConfigFrontendList(getConfigFrontendList); err != nil {
-		global.GqaLogger.Error("获取网站前台配置列表失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("获取网站前台配置列表失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("GetListFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("GetListFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessData(model.ResponsePage{
 			Records:  configList,
@@ -35,11 +35,11 @@ func (a *ApiConfigFrontend) EditConfigFrontend(c *gin.Context) {
 	}
 	toEditConfigFrontend.UpdatedBy = utils.GetUsername(c)
 	if err := servicePrivate.ServiceConfigFrontend.EditConfigFrontend(toEditConfigFrontend); err != nil {
-		global.GqaLogger.Error("编辑网站前台配置失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("编辑网站前台配置失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("EditFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("EditFailed")+err.Error(), c)
 	} else {
-		global.GqaLogger.Warn(utils.GetUsername(c) + "编辑网站前台配置成功！")
-		model.ResponseSuccessMessage("编辑网站前台配置成功！", c)
+		global.GqaLogger.Warn(utils.GetUsername(c) + utils.GqaI18n("EditSuccess"))
+		model.ResponseSuccessMessage(utils.GqaI18n("EditSuccess"), c)
 	}
 }
 
@@ -63,10 +63,10 @@ func (a *ApiConfigFrontend) AddConfigFrontend(c *gin.Context) {
 		ItemCustom:                        toAddConfigFrontend.ItemCustom,
 	}
 	if err := servicePrivate.ServiceConfigFrontend.AddConfigFrontend(*addConfigFrontend); err != nil {
-		global.GqaLogger.Error("添加网站前台配置失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("添加网站前台配置失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("AddFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("AddFailed")+err.Error(), c)
 	} else {
-		model.ResponseSuccessMessage("添加网站前台配置成功！", c)
+		model.ResponseSuccessMessage(utils.GqaI18n("AddSuccess"), c)
 	}
 }
 
@@ -76,10 +76,10 @@ func (a *ApiConfigFrontend) DeleteConfigFrontendById(c *gin.Context) {
 		return
 	}
 	if err := servicePrivate.ServiceConfigFrontend.DeleteConfigFrontendById(toDeleteId.Id); err != nil {
-		global.GqaLogger.Error("删除网站前台配置失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("删除网站前台配置失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("DeleteFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("DeleteFailed")+err.Error(), c)
 	} else {
-		global.GqaLogger.Warn(utils.GetUsername(c) + "删除网站前台配置成功！")
-		model.ResponseSuccessMessage("删除网站前台配置成功！", c)
+		global.GqaLogger.Warn(utils.GetUsername(c) + utils.GqaI18n("DeleteSuccess"))
+		model.ResponseSuccessMessage(utils.GqaI18n("DeleteSuccess"), c)
 	}
 }

@@ -16,8 +16,8 @@ func (a *ApiUserOnline) GetUserOnlineList(c *gin.Context) {
 		return
 	}
 	if err, userList, total := servicePrivate.ServiceUserOnline.GetUserOnlineList(requestUserOnlineList); err != nil {
-		global.GqaLogger.Error("获取在线用户列表失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("获取在线用户列表失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("GetListFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("GetListFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessData(model.ResponsePage{
 			Records:  userList,
@@ -36,11 +36,11 @@ func (a *ApiUserOnline) KickUserOnlineByUsername(c *gin.Context) {
 	currentUsername := utils.GetUsername(c)
 	err := servicePrivate.ServiceUserOnline.KickOnlineUserByUsername(currentUsername)
 	if err != nil {
-		global.GqaLogger.Error("踢出用户失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("踢出用户失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("KickFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("KickFailed")+err.Error(), c)
 		return
 	} else {
-		global.GqaLogger.Warn(utils.GetUsername(c) + "踢出用户成功！")
-		model.ResponseSuccessMessage("踢出用户成功！", c)
+		global.GqaLogger.Warn(utils.GetUsername(c) + utils.GqaI18n("KickSuccess"))
+		model.ResponseSuccessMessage(utils.GqaI18n("KickSuccess"), c)
 	}
 }

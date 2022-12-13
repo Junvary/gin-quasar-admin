@@ -4,6 +4,7 @@ import (
 	"errors"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
 	"gorm.io/gorm"
 )
 
@@ -14,7 +15,7 @@ func (s *ServiceConfigBackend) GetConfigBackendList(getConfigBackendList model.R
 	offset := getConfigBackendList.PageSize * (getConfigBackendList.Page - 1)
 	db := global.GqaDb.Model(&model.SysConfigBackend{})
 	var configList []model.SysConfigBackend
-	//配置搜索
+	// Search
 	if getConfigBackendList.ConfigItem != "" {
 		db = db.Where("config_item like ?", "%"+getConfigBackendList.ConfigItem+"%")
 	}
@@ -30,7 +31,6 @@ func (s *ServiceConfigBackend) GetConfigBackendList(getConfigBackendList model.R
 }
 
 func (s *ServiceConfigBackend) EditConfigBackend(toEditConfigBackend model.SysConfigBackend) (err error) {
-	// 因为前台只传 custom 字段，这里允许编辑
 	err = global.GqaDb.Save(&toEditConfigBackend).Error
 	return err
 }
@@ -38,7 +38,7 @@ func (s *ServiceConfigBackend) EditConfigBackend(toEditConfigBackend model.SysCo
 func (s *ServiceConfigBackend) AddConfigBackend(toAddConfigBackend model.SysConfigBackend) (err error) {
 	var configBackend model.SysConfigBackend
 	if !errors.Is(global.GqaDb.Where("config_item = ?", toAddConfigBackend.ConfigItem).First(&configBackend).Error, gorm.ErrRecordNotFound) {
-		return errors.New("此后台配置已存在：" + toAddConfigBackend.ConfigItem)
+		return errors.New(utils.GqaI18n("AlreadyExist") + toAddConfigBackend.ConfigItem)
 	}
 	err = global.GqaDb.Create(&toAddConfigBackend).Error
 	return err
@@ -47,7 +47,7 @@ func (s *ServiceConfigBackend) AddConfigBackend(toAddConfigBackend model.SysConf
 func (s *ServiceConfigBackend) DeleteConfigBackendById(id uint) (err error) {
 	var sysConfigBackend model.SysConfigBackend
 	if sysConfigBackend.Stable == "yesNo_yes" {
-		return errors.New("系统内置不允许删除：" + sysConfigBackend.ConfigItem)
+		return errors.New(utils.GqaI18n("StableCantDo") + sysConfigBackend.ConfigItem)
 	}
 	if err = global.GqaDb.Where("id = ?", id).First(&sysConfigBackend).Error; err != nil {
 		return err

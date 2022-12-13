@@ -12,7 +12,7 @@ func (s *ServiceNoteTodo) GetNoteTodoList(requestNoteTodoList model.RequestGetNo
 	offset := requestNoteTodoList.PageSize * (requestNoteTodoList.Page - 1)
 	db := global.GqaDb.Where("created_by = ?", username).Model(&model.SysNoteTodo{})
 	var todoNoteList []model.SysNoteTodo
-	//配置搜索
+	// Search
 	if requestNoteTodoList.TodoStatus != "" {
 		db = db.Where("todo_status = ?", requestNoteTodoList.TodoStatus)
 	}

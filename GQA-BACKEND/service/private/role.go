@@ -4,6 +4,7 @@ import (
 	"errors"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
 	"gorm.io/gorm"
 )
 
@@ -14,7 +15,7 @@ func (s *ServiceRole) GetRoleList(requestRoleList model.RequestGetRoleList) (err
 	offset := requestRoleList.PageSize * (requestRoleList.Page - 1)
 	db := global.GqaDb.Model(&model.SysRole{})
 	var roleList []model.SysRole
-	//配置搜索
+	// Search
 	if requestRoleList.RoleCode != "" {
 		db = db.Where("role_code like ?", "%"+requestRoleList.RoleCode+"%")
 	}
@@ -33,7 +34,7 @@ func (s *ServiceRole) GetRoleList(requestRoleList model.RequestGetRoleList) (err
 func (s *ServiceRole) EditRole(toEditRole model.SysRole) (err error) {
 	var sysRole model.SysRole
 	if sysRole.Stable == "yesNo_yes" {
-		return errors.New("系统内置不允许编辑：" + toEditRole.RoleCode)
+		return errors.New(utils.GqaI18n("StableCantDo") + toEditRole.RoleCode)
 	}
 	if err = global.GqaDb.Where("id = ?", toEditRole.Id).First(&sysRole).Error; err != nil {
 		return err
@@ -46,7 +47,7 @@ func (s *ServiceRole) EditRole(toEditRole model.SysRole) (err error) {
 func (s *ServiceRole) AddRole(toAddRole model.SysRole) (err error) {
 	var role model.SysRole
 	if !errors.Is(global.GqaDb.Where("role_code = ?", toAddRole.RoleCode).First(&role).Error, gorm.ErrRecordNotFound) {
-		return errors.New("此角色已存在：" + toAddRole.RoleCode)
+		return errors.New(utils.GqaI18n("AlreadyExist") + toAddRole.RoleCode)
 	}
 	err = global.GqaDb.Create(&toAddRole).Error
 	return err
@@ -55,7 +56,7 @@ func (s *ServiceRole) AddRole(toAddRole model.SysRole) (err error) {
 func (s *ServiceRole) DeleteRoleById(id uint) (err error) {
 	var sysRole model.SysRole
 	if sysRole.Stable == "yesNo_yes" {
-		return errors.New("系统内置不允许删除：" + sysRole.RoleCode)
+		return errors.New(utils.GqaI18n("StableCantDo") + sysRole.RoleCode)
 	}
 	if err = global.GqaDb.Where("id = ?", id).First(&sysRole).Error; err != nil {
 		return err
@@ -147,7 +148,7 @@ func (s *ServiceRole) QueryUserByRole(roleCode *model.RequestRoleCode) (err erro
 func (s *ServiceRole) RemoveRoleUser(toRemoveRoleUser *model.RequestRoleUser) (err error) {
 	var roleUser model.SysUserRole
 	if toRemoveRoleUser.Username == "admin" && toRemoveRoleUser.RoleCode == "super-admin" {
-		return errors.New("抱歉，你不能把超级管理员从超级管理员组中移除！")
+		return errors.New(utils.GqaI18n("CantRemoveAdminFromAdmin"))
 	}
 	err = global.GqaDb.Where("sys_role_role_code = ? and sys_user_username = ?", toRemoveRoleUser.RoleCode, toRemoveRoleUser.Username).Delete(&roleUser).Error
 	return err
@@ -166,7 +167,7 @@ func (s *ServiceRole) AddRoleUser(toAddRoleUser *model.RequestRoleUserAdd) (err 
 		err = global.GqaDb.Model(&model.SysUserRole{}).Save(&roleUser).Error
 		return err
 	} else {
-		return errors.New("本次操作没有影响！")
+		return errors.New(utils.GqaI18n("NoEffect"))
 	}
 }
 
@@ -176,7 +177,7 @@ func (s *ServiceRole) EditRoleDeptDataPermission(toEditRoleDeptDataPermission *m
 		return err
 	}
 	if sysRole.Stable == "yesNo_yes" {
-		return errors.New("系统内置不允许编辑：" + toEditRoleDeptDataPermission.RoleCode)
+		return errors.New(utils.GqaI18n("StableCantDo") + toEditRoleDeptDataPermission.RoleCode)
 	}
 	sysRole.DeptDataPermissionType = toEditRoleDeptDataPermission.DeptDataPermissionType
 	sysRole.DeptDataPermissionCustom = toEditRoleDeptDataPermission.DeptDataPermissionCustom

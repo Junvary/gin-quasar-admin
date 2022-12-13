@@ -3,6 +3,7 @@ package private
 import (
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -15,8 +16,8 @@ func (a *ApiLogLogin) GetLogLoginList(c *gin.Context) {
 		return
 	}
 	if err, logList, total := servicePrivate.ServiceLogLogin.GetLogLoginList(requestLogList); err != nil {
-		global.GqaLogger.Error("获取登录日志列表失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("获取登录日志列表失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("GetListFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("GetListFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessData(model.ResponsePage{
 			Records:  logList,
@@ -33,9 +34,9 @@ func (a *ApiLogLogin) DeleteLogLoginById(c *gin.Context) {
 		return
 	}
 	if err := servicePrivate.ServiceLogLogin.DeleteLogLoginById(toDeleteId.Id); err != nil {
-		global.GqaLogger.Error("删除登录日志失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("删除登录日志失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("DeleteFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("DeleteFailed")+err.Error(), c)
 	} else {
-		model.ResponseSuccessMessage("删除登录日志成功！", c)
+		model.ResponseSuccessMessage(utils.GqaI18n("DeleteSuccess"), c)
 	}
 }

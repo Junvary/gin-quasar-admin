@@ -15,7 +15,7 @@ func (s *ServiceUserOnline) GetUserOnlineList(requestUserOnlineList model.Reques
 	offset := requestUserOnlineList.PageSize * (requestUserOnlineList.Page - 1)
 	db := global.GqaDb.Model(&model.SysUserOnline{})
 	var userList []model.SysUserOnline
-	//配置搜索
+	// Search
 	if requestUserOnlineList.Username != "" {
 		db = db.Where("username like ?", "%"+requestUserOnlineList.Username+"%")
 	}

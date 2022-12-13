@@ -18,18 +18,18 @@ func (a *ApiLogin) Login(c *gin.Context) {
 	if global.Store.Verify(l.CaptchaId, l.Captcha, true) {
 		u := &model.SysUser{Username: l.Username, Password: l.Password}
 		if err, user := servicePublic.ServiceLogin.Login(u); err != nil {
-			global.GqaLogger.Error(l.Username + "登录失败，用户名或密码错误！")
-			model.ResponseErrorMessage("用户名或密码错误", c)
-			if err = servicePublic.ServiceLogin.LogLogin(l.Username, c, "yesNo_no", "登录失败，用户名或密码错误！"); err != nil {
-				global.GqaLogger.Error("登录日志记录错误！", zap.Any("err", err))
+			global.GqaLogger.Error(l.Username + utils.GqaI18n("LoginFailed"))
+			model.ResponseErrorMessage(utils.GqaI18n("LoginFailed"), c)
+			if err = servicePublic.ServiceLogin.LogLogin(l.Username, c, "yesNo_no", utils.GqaI18n("LoginFailed")); err != nil {
+				global.GqaLogger.Error(utils.GqaI18n("LoginLogError"), zap.Any("err", err))
 			}
 		} else {
 			a.createToken(*user, c)
 		}
 	} else {
-		model.ResponseErrorMessage("验证码错误！", c)
-		if err := servicePublic.ServiceLogin.LogLogin(l.Username, c, "yesNo_no", "验证码错误！"); err != nil {
-			global.GqaLogger.Error("登录日志记录错误！", zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("CaptchaError"), c)
+		if err := servicePublic.ServiceLogin.LogLogin(l.Username, c, "yesNo_no", utils.GqaI18n("CaptchaError")); err != nil {
+			global.GqaLogger.Error(utils.GqaI18n("LoginLogError"), zap.Any("err", err))
 		}
 	}
 }
@@ -37,15 +37,15 @@ func (a *ApiLogin) Login(c *gin.Context) {
 func (a *ApiLogin) createToken(user model.SysUser, c *gin.Context) {
 	ss := utils.CreateToken(user.Username)
 	if ss == "" {
-		global.GqaLogger.Error("Jwt配置错误，请重新初始化数据库！")
-		model.ResponseErrorMessage("Jwt配置错误，请重新初始化数据库！", c)
+		global.GqaLogger.Error(utils.GqaI18n("JwtConfigError"))
+		model.ResponseErrorMessage(utils.GqaI18n("JwtConfigError"), c)
 		return
 	}
-	if err := servicePublic.ServiceLogin.LogLogin(user.Username, c, "yesNo_yes", "登录成功！"); err != nil {
-		global.GqaLogger.Error("登录日志记录错误！", zap.Any("err", err))
+	if err := servicePublic.ServiceLogin.LogLogin(user.Username, c, "yesNo_yes", utils.GqaI18n("LoginSuccess")); err != nil {
+		global.GqaLogger.Error(utils.GqaI18n("LoginLogError"), zap.Any("err", err))
 	}
 	if err := servicePublic.ServiceLogin.SaveOnline(user.Username, ss); err != nil {
-		global.GqaLogger.Error("记录在线用户失败！", zap.Any("err", err))
+		global.GqaLogger.Error(utils.GqaI18n("UserOnlineFailed"), zap.Any("err", err))
 	}
 	model.ResponseSuccessMessageData(model.ResponseLogin{
 		Avatar:   user.Avatar,
@@ -53,5 +53,5 @@ func (a *ApiLogin) createToken(user model.SysUser, c *gin.Context) {
 		Nickname: user.Nickname,
 		RealName: user.RealName,
 		Token:    ss,
-	}, "登录成功！", c)
+	}, utils.GqaI18n("LoginSuccess"), c)
 }

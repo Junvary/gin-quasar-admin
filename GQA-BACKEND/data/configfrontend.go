@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
 	"time"
@@ -18,15 +19,15 @@ func (s *sysConfigFrontend) LoadData() error {
 		var count int64
 		tx.Model(&model.SysConfigFrontend{}).Count(&count)
 		if count != 0 {
-			fmt.Println("[Gin-Quasar-Admin] --> sys_config_frontend 表的初始数据已存在，跳过初始化数据！数据量：", count)
-			global.GqaLogger.Warn("[Gin-Quasar-Admin] --> sys_config_frontend 表的初始数据已存在，跳过初始化数据！", zap.Any("数据量", count))
+			fmt.Println(utils.GqaI18nWithData("SkipInsertWithData", "sys_config_frontend"), count)
+			global.GqaLogger.Warn(utils.GqaI18nWithData("SkipInsertWithData", "sys_config_frontend"), zap.Any("count", count))
 			return nil
 		}
 		if err := tx.Create(&sysConfigFrontendData).Error; err != nil { // 遇到错误时回滚事务
 			return err
 		}
-		fmt.Println("[Gin-Quasar-Admin] --> sys_config_frontend 表初始数据成功！")
-		global.GqaLogger.Info("[Gin-Quasar-Admin] --> sys_config_frontend 表初始数据成功！")
+		fmt.Println(utils.GqaI18nWithData("TableInitSuccess", "sys_config_frontend"))
+		global.GqaLogger.Info(utils.GqaI18nWithData("TableInitSuccess", "sys_config_frontend"))
 		return nil
 	})
 }

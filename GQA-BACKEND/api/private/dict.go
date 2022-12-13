@@ -16,8 +16,8 @@ func (a *ApiDict) GetDictList(c *gin.Context) {
 		return
 	}
 	if err, dictList, total, parentCode := servicePrivate.ServiceDict.GetDictList(requestDictList); err != nil {
-		global.GqaLogger.Error("获取字典列表失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("获取字典列表失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("GetListFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("GetListFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessData(model.ResponsePageWithParentId{
 			Records:    dictList,
@@ -36,11 +36,11 @@ func (a *ApiDict) EditDict(c *gin.Context) {
 	}
 	toEditDict.UpdatedBy = utils.GetUsername(c)
 	if err := servicePrivate.ServiceDict.EditDict(toEditDict); err != nil {
-		global.GqaLogger.Error("编辑字典失败!", zap.Any("err", err))
-		model.ResponseErrorMessage("编辑字典失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("EditFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("EditFailed")+err.Error(), c)
 	} else {
-		global.GqaLogger.Warn(utils.GetUsername(c) + "编辑字典成功！")
-		model.ResponseSuccessMessage("编辑字典成功！", c)
+		global.GqaLogger.Warn(utils.GetUsername(c) + utils.GqaI18n("EditSuccess"))
+		model.ResponseSuccessMessage(utils.GqaI18n("EditSuccess"), c)
 	}
 }
 
@@ -69,10 +69,10 @@ func (a *ApiDict) AddDict(c *gin.Context) {
 		DictExt5:                          toAddDict.DictExt5,
 	}
 	if err := servicePrivate.ServiceDict.AddDict(*addDict); err != nil {
-		global.GqaLogger.Error("添加字典失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("添加字典失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("AddFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("AddFailed")+err.Error(), c)
 	} else {
-		model.ResponseSuccessMessage("添加字典成功！", c)
+		model.ResponseSuccessMessage(utils.GqaI18n("AddSuccess"), c)
 	}
 }
 
@@ -82,11 +82,11 @@ func (a *ApiDict) DeleteDictById(c *gin.Context) {
 		return
 	}
 	if err := servicePrivate.ServiceDict.DeleteDictById(toDeleteId.Id); err != nil {
-		global.GqaLogger.Error("删除字典失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("删除字典失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("DeleteFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("DeleteFailed")+err.Error(), c)
 	} else {
-		global.GqaLogger.Warn(utils.GetUsername(c) + "删除字典成功！")
-		model.ResponseSuccessMessage("删除字典成功！", c)
+		global.GqaLogger.Warn(utils.GetUsername(c) + utils.GqaI18n("DeleteSuccess"))
+		model.ResponseSuccessMessage(utils.GqaI18n("DeleteSuccess"), c)
 	}
 }
 
@@ -96,9 +96,9 @@ func (a *ApiDict) QueryDictById(c *gin.Context) {
 		return
 	}
 	if err, dict := servicePrivate.ServiceDict.QueryDictById(toQueryId.Id); err != nil {
-		global.GqaLogger.Error("查找字典失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("查找字典失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("FindFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("FindFailed")+err.Error(), c)
 	} else {
-		model.ResponseSuccessMessageData(gin.H{"records": dict}, "查找字典成功！", c)
+		model.ResponseSuccessMessageData(gin.H{"records": dict}, utils.GqaI18n("FindSuccess"), c)
 	}
 }

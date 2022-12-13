@@ -2,10 +2,8 @@ package private
 
 import (
 	"fmt"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
 	"github.com/gin-gonic/gin"
-	"go.uber.org/zap"
 	"net/url"
 	"os"
 )
@@ -14,9 +12,7 @@ type ApiGenPlugin struct{}
 
 func (a *ApiGenPlugin) GenPlugin(c *gin.Context) {
 	var sysGenPlugin model.SysGenPlugin
-	if err := c.ShouldBindJSON(&sysGenPlugin); err != nil {
-		global.GqaLogger.Error("模型绑定失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("模型绑定失败，"+err.Error(), c)
+	if err := model.RequestShouldBindJSON(c, &sysGenPlugin); err != nil {
 		return
 	}
 	err := servicePrivate.ServiceGenPlugin.GenPlugin(&sysGenPlugin)

@@ -4,6 +4,7 @@ import (
 	"errors"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
 	"gorm.io/gorm"
 )
 
@@ -25,7 +26,7 @@ func (s *ServiceDept) GetDeptList(requestDeptList model.RequestGetDeptList) (err
 	offset := requestDeptList.PageSize * (requestDeptList.Page - 1)
 	db := global.GqaDb.Model(&model.SysDept{})
 	var deptList []model.SysDept
-	//配置搜索
+	// Search
 	if requestDeptList.DeptCode != "" {
 		db = db.Where("dept_code like ?", "%"+requestDeptList.DeptCode+"%")
 	}
@@ -45,7 +46,7 @@ func (s *ServiceDept) GetDeptList(requestDeptList model.RequestGetDeptList) (err
 func (s *ServiceDept) EditDept(toEditDept model.SysDept) (err error) {
 	var sysDept model.SysDept
 	if sysDept.Stable == "yesNo_yes" {
-		return errors.New("系统内置不允许编辑：" + toEditDept.DeptCode)
+		return errors.New(utils.GqaI18n("StableCantDo") + toEditDept.DeptCode)
 	}
 	if err = global.GqaDb.Where("id = ?", toEditDept.Id).First(&sysDept).Error; err != nil {
 		return err
@@ -58,7 +59,7 @@ func (s *ServiceDept) EditDept(toEditDept model.SysDept) (err error) {
 func (s *ServiceDept) AddDept(toAddDept model.SysDept) (err error) {
 	var dept model.SysDept
 	if !errors.Is(global.GqaDb.Where("dept_code = ?", toAddDept.DeptCode).First(&dept).Error, gorm.ErrRecordNotFound) {
-		return errors.New("此部门已存在：" + toAddDept.DeptCode)
+		return errors.New(utils.GqaI18n("AlreadyExist") + toAddDept.DeptCode)
 	}
 	err = global.GqaDb.Create(&toAddDept).Error
 	return err
@@ -67,7 +68,7 @@ func (s *ServiceDept) AddDept(toAddDept model.SysDept) (err error) {
 func (s *ServiceDept) DeleteDeptById(id uint) (err error) {
 	var sysDept model.SysDept
 	if sysDept.Stable == "yesNo_yes" {
-		return errors.New("系统内置不允许删除：" + sysDept.DeptCode)
+		return errors.New(utils.GqaI18n("StableCantDo") + sysDept.DeptCode)
 	}
 	if err = global.GqaDb.Where("id = ?", id).First(&sysDept).Error; err != nil {
 		return err
@@ -114,6 +115,6 @@ func (s *ServiceDept) AddDeptUser(toAddDeptUser *model.RequestDeptUserAdd) (err 
 		err = global.GqaDb.Model(&model.SysDeptUser{}).Save(&deptUser).Error
 		return err
 	} else {
-		return errors.New("本次操作没有影响！")
+		return errors.New(utils.GqaI18n("NoEffect"))
 	}
 }

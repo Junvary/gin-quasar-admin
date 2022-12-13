@@ -16,8 +16,8 @@ func (a *ApiApi) GetApiList(c *gin.Context) {
 		return
 	}
 	if err, configList, total := servicePrivate.ServiceApi.GetApiList(getApiList); err != nil {
-		global.GqaLogger.Error("获取Api列表失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("获取Api列表失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18nWithData("GetSomeListFailed", "Api"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18nWithData("GetSomeListFailed", "Api")+err.Error(), c)
 	} else {
 		model.ResponseSuccessData(model.ResponsePage{
 			Records:  configList,
@@ -35,11 +35,11 @@ func (a *ApiApi) EditApi(c *gin.Context) {
 	}
 	toEditApi.UpdatedBy = utils.GetUsername(c)
 	if err := servicePrivate.ServiceApi.EditApi(toEditApi); err != nil {
-		global.GqaLogger.Error("编辑Api失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("编辑Api失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18nWithData("EditSomeFailed", "Api"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18nWithData("EditSomeFailed", "Api")+err.Error(), c)
 	} else {
-		global.GqaLogger.Warn(utils.GetUsername(c) + "编辑Api成功！")
-		model.ResponseSuccessMessage("编辑Api成功！", c)
+		global.GqaLogger.Warn(utils.GetUsername(c) + utils.GqaI18nWithData("EditSomeSuccess", "Api"))
+		model.ResponseSuccessMessage(utils.GqaI18nWithData("EditSomeSuccess", "Api"), c)
 	}
 }
 
@@ -63,10 +63,10 @@ func (a *ApiApi) AddApi(c *gin.Context) {
 		ApiPath:                           toAddApi.ApiPath,
 	}
 	if err := servicePrivate.ServiceApi.AddApi(*addApi); err != nil {
-		global.GqaLogger.Error("添加Api失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("添加Api失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18nWithData("AddSomeFailed", "Api"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18nWithData("AddSomeFailed", "Api")+err.Error(), c)
 	} else {
-		model.ResponseSuccessMessage("添加Api成功！", c)
+		model.ResponseSuccessMessage(utils.GqaI18nWithData("AddSomeSuccess", "Api"), c)
 	}
 }
 
@@ -76,11 +76,11 @@ func (a *ApiApi) DeleteApiById(c *gin.Context) {
 		return
 	}
 	if err := servicePrivate.ServiceApi.DeleteApiById(toDeleteId.Id); err != nil {
-		global.GqaLogger.Error("删除Api失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("删除Api失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18nWithData("DeleteSomeFailed", "Api"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18nWithData("DeleteSomeFailed", "Api")+err.Error(), c)
 	} else {
-		global.GqaLogger.Warn(utils.GetUsername(c) + "删除Api成功！")
-		model.ResponseSuccessMessage("删除Api成功！", c)
+		global.GqaLogger.Warn(utils.GetUsername(c) + utils.GqaI18nWithData("DeleteSomeSuccess", "Api"))
+		model.ResponseSuccessMessage(utils.GqaI18nWithData("DeleteSomeSuccess", "Api"), c)
 	}
 }
 
@@ -90,9 +90,9 @@ func (a *ApiApi) QueryApiById(c *gin.Context) {
 		return
 	}
 	if err, api := servicePrivate.ServiceApi.QueryApiById(toQueryId.Id); err != nil {
-		global.GqaLogger.Error("查找Api失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("查找Api失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18nWithData("FindSomeFailed", "Api"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18nWithData("FindSomeFailed", "Api")+err.Error(), c)
 	} else {
-		model.ResponseSuccessMessageData(gin.H{"records": api}, "查找Api成功！", c)
+		model.ResponseSuccessMessageData(gin.H{"records": api}, utils.GqaI18nWithData("FindSomeSuccess", "Api"), c)
 	}
 }

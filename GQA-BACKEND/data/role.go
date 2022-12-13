@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
 	"time"
@@ -18,15 +19,15 @@ func (s *sysRole) LoadData() error {
 		var count int64
 		tx.Model(&model.SysRole{}).Count(&count)
 		if count != 0 {
-			fmt.Println("[Gin-Quasar-Admin] --> sys_role 表的初始数据已存在，跳过初始化数据！数据量：", count)
-			global.GqaLogger.Warn("[Gin-Quasar-Admin] --> sys_role 表的初始数据已存在，跳过初始化数据！", zap.Any("数据量", count))
+			fmt.Println(utils.GqaI18nWithData("SkipInsertWithData", "sys_role"), count)
+			global.GqaLogger.Warn(utils.GqaI18nWithData("SkipInsertWithData", "sys_role"), zap.Any("count", count))
 			return nil
 		}
 		if err := tx.Create(&sysRoleData).Error; err != nil { // 遇到错误时回滚事务
 			return err
 		}
-		fmt.Println("[Gin-Quasar-Admin] --> sys_role 表初始数据成功！")
-		global.GqaLogger.Info("[Gin-Quasar-Admin] --> sys_role 表初始数据成功！")
+		fmt.Println(utils.GqaI18nWithData("TableInitSuccess", "sys_role"))
+		global.GqaLogger.Info(utils.GqaI18nWithData("TableInitSuccess", "sys_role"))
 		return nil
 	})
 }
