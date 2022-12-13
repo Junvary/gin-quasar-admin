@@ -11,16 +11,19 @@ import (
 
 func Router() *gin.Engine {
 	var r = gin.Default()
-	r.Use(middleware.Cors())
+	r.Use(middleware.Cors()).Use(middleware.I18nHandler())
 	StaticFS(r)
-	//公共路由分组：以 public 开头，路由内部无须再次分组，无须鉴权。
+
+	//Public route: starts with "public". There is no need to regroup or authenticate within the route
 	PublicGroup := r.Group("public")
 	RouterPublic(PublicGroup)
 
-	//鉴权路由分组：这里以空分组，路由内部按实绩情况分组，需要鉴权。
+	//Private route：starts with "". The route is grouped according to the actual performance, and authentication is required
 	PrivateGroup := r.Group("")
 	PrivateGroup.Use(middleware.JwtHandler()).Use(middleware.RoleApiHandler())
 	RouterPrivate(PrivateGroup)
+
+	//Register Plugin Route
 	RouterPlugin(PublicGroup, PrivateGroup)
 	return r
 }

@@ -117,7 +117,7 @@ const checkDb = async () => {
             dbNeedInit.value = true
             $q.notify({
                 type: 'warning',
-                message: t('Database') + t('Need') + t('Init'),
+                message: res.message,
             })
         }
     }

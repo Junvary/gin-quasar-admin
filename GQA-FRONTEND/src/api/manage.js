@@ -1,5 +1,6 @@
 import { api } from 'src/boot/axios'
 import { Notify } from 'quasar'
+import { Cookies } from 'quasar'
 
 export function getAction(url, params) {
     return api({
@@ -13,7 +14,8 @@ export function postAction(url, params) {
     return api({
         url: url,
         method: 'post',
-        data: params
+        data: params,
+        params: { lang: Cookies.get("gqa-language") || "zh-CN" }
     })
 }
 

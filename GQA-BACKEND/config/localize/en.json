@@ -1,0 +1,6 @@
+{
+  "DbNeedInit": "The database need to init",
+  "DbNoNeedInit": "The database does not need to init",
+  "CreateDbError": "Failed to create database",
+  "InitSuccess": "System initialization succeeded"
+}

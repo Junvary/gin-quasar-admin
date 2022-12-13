@@ -1,0 +1,6 @@
+{
+  "DbNeedInit": "数据库需要初始化",
+  "DbNoNeedInit": "数据库无需初始化",
+  "CreateDbError": "创建数据库失败",
+  "InitSuccess": "系统初始化成功"
+}
