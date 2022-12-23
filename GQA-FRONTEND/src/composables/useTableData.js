@@ -97,7 +97,7 @@ export default function useTableData(url) {
             getTableData()
         })
     }
-    const { showDateTime, gqaFrontend, gqaBackend, GqaDictShow, GqaShowName, GqaAvatar, } = useCommon()
+    const { showDateTime, showDate, gqaFrontend, gqaBackend, GqaDictShow, GqaShowName, GqaAvatar, } = useCommon()
     return {
         GqaAvatar,
         GqaShowName,
@@ -106,6 +106,7 @@ export default function useTableData(url) {
         gqaBackend,
         dictOptions,
         showDateTime,
+        showDate,
         loading,
         pagination,
         queryParams,

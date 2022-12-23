@@ -100,7 +100,7 @@ export default function useRecordDetail(url, emit) {
             })
         }
     }
-    const { showDateTime, gqaFrontend, gqaBackend, GqaDictShow, GqaShowName, GqaAvatar, } = useCommon()
+    const { showDateTime, showDate, gqaFrontend, gqaBackend, GqaDictShow, GqaShowName, GqaAvatar, } = useCommon()
     return {
         GqaAvatar,
         GqaShowName,
@@ -109,6 +109,7 @@ export default function useRecordDetail(url, emit) {
         gqaBackend,
         dictOptions,
         showDateTime,
+        showDate,
         loading,
         show,
         formType,

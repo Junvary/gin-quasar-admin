@@ -1,6 +1,6 @@
 import { useStorageStore } from 'src/stores/storage';
 import { computed } from 'vue';
-import { FormatDateTime } from 'src/utils/date'
+import { FormatDateTime, FormatDate } from 'src/utils/date'
 import GqaDictShow from 'src/components/GqaDictShow'
 import GqaShowName from 'src/components/GqaShowName'
 import GqaAvatar from 'src/components/GqaAvatar'
@@ -18,6 +18,11 @@ export default function useCommon() {
     const showDateTime = computed(() => {
         return (datetime) => {
             return FormatDateTime(datetime)
+        }
+    })
+    const showDate = computed(() => {
+        return (datetime) => {
+            return FormatDate(datetime)
         }
     })
     const selectOptionLabel = (opt) => {
@@ -38,6 +43,7 @@ export default function useCommon() {
         GqaShowName,
         GqaAvatar,
         showDateTime,
+        showDate,
         gqaFrontend,
         gqaBackend,
         openLink,
