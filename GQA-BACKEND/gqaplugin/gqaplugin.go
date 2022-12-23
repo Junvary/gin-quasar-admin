@@ -36,6 +36,7 @@ type GqaPlugin interface {
 	PluginRouterPrivate(privateGroup *gin.RouterGroup) //Plugin Private Router
 	PluginMigrate() []interface{}                      //Plugin Migrations
 	PluginData() []interface{ LoadData() (err error) } //Plugin Default Data
+	PluginCron() map[string]func()
 }
 
 func RegisterPluginRouter(PublicGroup, PrivateGroup *gin.RouterGroup) {
@@ -72,4 +73,13 @@ func PluginRouter(publicGroup, privateGroup *gin.RouterGroup, Plugin ...GqaPlugi
 		PrivateGroup := privateGroup.Group(Plugin[i].PluginCode())
 		Plugin[i].PluginRouterPrivate(PrivateGroup)
 	}
+}
+
+func RegisterPluginCron(taskList map[string]func()) map[string]func() {
+	for _, p := range PluginList {
+		for k, v := range p.PluginCron() {
+			taskList[k] = v
+		}
+	}
+	return taskList
 }

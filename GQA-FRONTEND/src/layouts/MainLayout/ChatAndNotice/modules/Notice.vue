@@ -1,7 +1,10 @@
 <template>
     <q-btn dense round flat icon="notifications_none">
-        <q-badge color="negative" floating v-if="tableData.length + noteTodoData.length">
-            {{ tableData.length + noteTodoData.length }}
+        <q-badge color="negative" floating rounded v-if="tableData.length + noteTodoData.length">
+            {{ (pagination.rowsNumber + noteTodoData.length) > 99
+                    ? "99+" :
+                    (pagination.rowsNumber + noteTodoData.length)
+            }}
         </q-badge>
         <q-menu anchor="bottom start" self="top middle">
             <q-card style="max-width: 400px">
@@ -9,18 +12,18 @@
                     align="justify" narrow-indicator style="padding: 10px">
                     <q-tab name="system" :label="$t('NoticeSystem')">
                         <q-badge color="negative" floating v-if="systemData.length">
-                            {{ systemData.length }}
+                            {{ systemData.length == 10 ? "10+" : systemData.length }}
                         </q-badge>
                     </q-tab>
                     <q-tab name="message" :label="$t('NoticeMessage')">
                         <q-badge color="negative" floating v-if="messageData.length">
-                            {{ messageData.length }}
+                            {{ messageData.length == 10 ? "10+" : messageData.length }}
                         </q-badge>
                     </q-tab>
 
                     <q-tab name="noteTodo" :label="$t('NoteTodo')">
                         <q-badge color="negative" floating v-if="noteTodoData.length">
-                            {{ noteTodoData.length }}
+                            {{ noteTodoData.length == 10 ? "10+" : noteTodoData.length }}
                         </q-badge>
                     </q-tab>
                 </q-tabs>
