@@ -3,6 +3,7 @@ package global
 import (
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/config"
 	"github.com/mojocn/base64Captcha"
+	"github.com/robfig/cron/v3"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
@@ -16,6 +17,7 @@ var (
 	GqaViper       *viper.Viper
 	GqaLogger      *zap.Logger
 	GqaDb          *gorm.DB
+	GqaCron        *cron.Cron
 	GqaServeUpload = "upload"
 	GqaServeAvatar = "avatar"
 	GqaServeFile   = "file"

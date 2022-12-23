@@ -51,3 +51,7 @@ func (p *example) PluginData() []interface{ LoadData() (err error) } { //实现�
 	}
 	return DataList
 }
+
+func (p *example) PluginCron() map[string]func() {
+	return nil
+}

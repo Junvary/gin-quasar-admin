@@ -14,5 +14,6 @@ func main() {
 		db, _ := global.GqaDb.DB()
 		defer db.Close()
 	}
+	global.GqaCron = boot.Cron()
 	boot.Boot()
 }

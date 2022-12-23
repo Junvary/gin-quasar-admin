@@ -25,6 +25,10 @@ func (d GqaDate) Value() (driver.Value, error) {
 	return tTime.Format("2006-01-02"), nil
 }
 
+func (d GqaDate) String() string {
+	return time.Time(d).Format("2006-01-02")
+}
+
 func (d GqaDate) GormDataType() string {
 	return "date"
 }

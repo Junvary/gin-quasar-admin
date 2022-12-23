@@ -56,3 +56,7 @@ func (*Achievement) PluginData() []interface{ LoadData() (err error) } { //å®žçŽ
 	}
 	return DataList
 }
+
+func (p *Achievement) PluginCron() map[string]func() {
+	return nil
+}
