@@ -46,7 +46,9 @@ const forbiddenUrl = [
     'notice/delete-notice-by-id',
     'note-todo/edit-note-todo',
     'note-todo/delete-note-todo-by-id',
-    'user-online/kick-online-user'
+    'user-online/kick-online-user',
+    'cron/start-cron',
+    'cron/stop-cron'
 ]
 
 export default boot(({ app, router, store }) => {

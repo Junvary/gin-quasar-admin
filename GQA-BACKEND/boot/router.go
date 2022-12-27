@@ -65,6 +65,7 @@ func RouterPrivate(PrivateGroup *gin.RouterGroup) {
 		routerPrivate.RouterUpload.InitRouterRouterUpload(PrivateGroup)
 		routerPrivate.RouterUser.InitRouterRouterUser(PrivateGroup)
 		routerPrivate.RouterUserOnline.InitRouterRouterUserOnline(PrivateGroup)
+		routerPrivate.RouterCron.InitRouterRouterCron(PrivateGroup)
 	}
 }
 

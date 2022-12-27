@@ -106,5 +106,10 @@
   "StableCantDo": "系统内置不允许操作.",
   "AlreadyExist": "此项已存在.",
   "NoConfig": "没有配置.",
-  "NoEffect": "没有效果."
+  "NoEffect": "没有效果.",
+
+  "CronStartSuccess": "启动定时任务成功",
+  "CronAlreadyStart": "定时任务已经启动",
+  "CronStopSuccess": "停止定时任务成功",
+  "CronAlreadyStop": "定时任务已经停止"
 }

@@ -6,6 +6,7 @@ type RouterPrivate struct {
 	RouterApi            RouterApi
 	RouterConfigBackend  RouterConfigBackend
 	RouterConfigFrontend RouterConfigFrontend
+	RouterCron           RouterCron
 	RouterDept           RouterDept
 	RouterDict           RouterDict
 	RouterGenPlugin      RouterGenPlugin

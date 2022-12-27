@@ -31,7 +31,7 @@ func GetTestDataList(c *gin.Context) {
 }
 
 func EditTestData(c *gin.Context) {
-	var toEditTestData model.GqaPluginExampleTestData
+	var toEditTestData model.PluginExampleTestData
 	if err := gqaModel.RequestShouldBindJSON(c, &toEditTestData); err != nil {
 		return
 	}
@@ -57,7 +57,7 @@ func AddTestData(c *gin.Context) {
 			Memo:      toAddTestData.Memo,
 		},
 	}
-	addTestData := &model.GqaPluginExampleTestData{
+	addTestData := &model.PluginExampleTestData{
 		GqaModelWithCreatedByAndUpdatedBy: GqaModelWithCreatedByAndUpdatedBy,
 		Column1:                           toAddTestData.Column1,
 		Column2:                           toAddTestData.Column2,

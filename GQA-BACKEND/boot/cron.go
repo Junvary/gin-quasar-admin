@@ -2,31 +2,27 @@ package boot
 
 import (
 	"fmt"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqacron"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin"
 	"github.com/robfig/cron/v3"
-	"time"
 )
 
-var TaskList = map[string]func(){
-	"@every 1m": CronTest,
-}
-
-func CronTest() {
-	t := time.Now().Format("2006-01-02 15:04:05")
-	fmt.Println("Test cron from Gin-Quasar-Admin every 1m: ", t)
-}
-
-func Cron() *cron.Cron {
+func Cron() {
 	c := cron.New()
-	resultList := gqaplugin.RegisterPluginCron(TaskList)
-	for k, v := range resultList {
-		entryID, err := c.AddFunc(k, v)
-		if err != nil {
-			fmt.Println("cron start error:", entryID)
-			return nil
-		}
+	global.GqaCron = c
+	global.GqaCron.Start()
+	fmt.Println("Gin-Quasar-Admin Cron Start Succeeded!")
+	global.GqaLogger.Error("Gin-Quasar-Admin Cron Start Succeeded!")
+	// Gin-Quasar-Admin cron
+	gqacron.CronList = append(gqacron.CronList, gqacron.T1)
+	gqacron.CronMap[gqacron.T1.UUID] = gqacron.CronTest
+	// add more Gin-Quasar-Admin cron...
+
+	// plugin cron
+	pluginCronList, pluginCronMap := gqaplugin.GetPluginCron()
+	for _, v := range pluginCronList {
+		gqacron.CronList = append(gqacron.CronList, v)
+		gqacron.CronMap[v.UUID] = pluginCronMap[v.UUID]
 	}
-	c.Start()
-	fmt.Println("cron started! list: ", c.Entries())
-	return c
 }

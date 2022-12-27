@@ -6,6 +6,7 @@ type ApiPrivate struct {
 	ApiApi            ApiApi
 	ApiConfigBackend  ApiConfigBackend
 	ApiConfigFrontend ApiConfigFrontend
+	ApiCron           ApiCron
 	ApiDept           ApiDept
 	ApiDict           ApiDict
 	ApiGenPlugin      ApiGenPlugin

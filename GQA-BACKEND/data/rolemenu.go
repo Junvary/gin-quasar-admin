@@ -49,5 +49,6 @@ var sysRoleMenuData = []model.SysRoleMenu{
 	{"super-admin", "notice"},
 	{"super-admin", "genPlugin"},
 	{"super-admin", "user-online"},
+	{"super-admin", "cron"},
 	{"super-admin", "github"},
 }

@@ -4,7 +4,7 @@ import (
 	gqaModel "github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
 )
 
-type GqaPluginExampleTestData struct {
+type PluginExampleTestData struct {
 	gqaModel.GqaModelWithCreatedByAndUpdatedBy
 	Column1 string `json:"column_1" gorm:"comment:第1列;"`
 	Column2 string `json:"column_2" gorm:"comment:第2列;"`

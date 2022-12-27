@@ -15,7 +15,9 @@ package gqaplugin
 import (
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/achievement"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/example"
+	gqaModel "github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 )
 
 var PluginList = []GqaPlugin{
@@ -28,15 +30,15 @@ var PluginList = []GqaPlugin{
 */
 
 type GqaPlugin interface {
-	PluginCode() string                                //Plugin code, used for routing packet name
-	PluginName() string                                //Plugin Name
-	PluginVersion() string                             //Plugin Version
-	PluginMemo() string                                //Plugin Memo
-	PluginRouterPublic(publicGroup *gin.RouterGroup)   //Plugin Public Router
-	PluginRouterPrivate(privateGroup *gin.RouterGroup) //Plugin Private Router
-	PluginMigrate() []interface{}                      //Plugin Migrations
-	PluginData() []interface{ LoadData() (err error) } //Plugin Default Data
-	PluginCron() map[string]func()
+	PluginCode() string                                     //Plugin code, used for routing packet name
+	PluginName() string                                     //Plugin Name
+	PluginVersion() string                                  //Plugin Version
+	PluginMemo() string                                     //Plugin Memo
+	PluginRouterPublic(publicGroup *gin.RouterGroup)        //Plugin Public Router
+	PluginRouterPrivate(privateGroup *gin.RouterGroup)      //Plugin Private Router
+	PluginMigrate() []interface{}                           //Plugin Migrations
+	PluginData() []interface{ LoadData() (err error) }      //Plugin Default Data
+	PluginCron() ([]gqaModel.SysCron, map[uuid.UUID]func()) // Plugin Cron
 }
 
 func RegisterPluginRouter(PublicGroup, PrivateGroup *gin.RouterGroup) {
@@ -75,11 +77,15 @@ func PluginRouter(publicGroup, privateGroup *gin.RouterGroup, Plugin ...GqaPlugi
 	}
 }
 
-func RegisterPluginCron(taskList map[string]func()) map[string]func() {
+func GetPluginCron() ([]gqaModel.SysCron, map[uuid.UUID]func()) {
+	var pluginCronList []gqaModel.SysCron
+	var pluginCronMap = make(map[uuid.UUID]func())
 	for _, p := range PluginList {
-		for k, v := range p.PluginCron() {
-			taskList[k] = v
+		s, m := p.PluginCron()
+		for _, sc := range s {
+			pluginCronList = append(pluginCronList, sc)
+			pluginCronMap[sc.UUID] = m[sc.UUID]
 		}
 	}
-	return taskList
+	return pluginCronList, pluginCronMap
 }

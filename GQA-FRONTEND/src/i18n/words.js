@@ -57,7 +57,17 @@ export default {
     Start: {
         "zh-CN": "开始",
         "en-US": "Start",
+        "ru": "Остановить"
+    },
+    Stop: {
+        "zh-CN": "停止",
+        "en-US": "Stop",
         "ru": "Запуск"
+    },
+    Interval: {
+        "zh-CN": "间隔",
+        "en-US": "Interval",
+        "ru": "Интервал"
     },
     Init: {
         "zh-CN": "初始化",

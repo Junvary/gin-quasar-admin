@@ -17,7 +17,7 @@ type exportData struct{}
 func (s *exportData) LoadData() error {
 	return gqaGlobal.GqaDb.Transaction(func(tx *gorm.DB) error {
 		var count int64
-		tx.Model(&model.GqaPluginExampleTestData{}).Count(&count)
+		tx.Model(&model.PluginExampleTestData{}).Count(&count)
 		if count != 0 {
 			fmt.Println("[GQA-plugins] --> example插件testData表存在数据，跳过初始化数据！数据量：", count)
 			gqaGlobal.GqaLogger.Warn("[GQA-plugins] --> example插件testData表存在数据，跳过初始化数据！", zap.Any("数据量", count))
@@ -32,9 +32,9 @@ func (s *exportData) LoadData() error {
 	})
 }
 
-func CreateData() (d []model.GqaPluginExampleTestData) {
+func CreateData() (d []model.PluginExampleTestData) {
 	for i := 1; i < 500; i++ {
-		d = append(d, model.GqaPluginExampleTestData{
+		d = append(d, model.PluginExampleTestData{
 			GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{
 				GqaModel: gqaGlobal.GqaModel{
 					Sort:   uint(100 + i),

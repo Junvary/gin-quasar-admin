@@ -84,6 +84,11 @@ export default {
         "en-US": "User Online",
         "ru": "Пользователь онлайн"
     },
+    Cron: {
+        "zh-CN": "定时任务",
+        "en-US": "Cron",
+        "ru": "Время выполнения заданий"
+    },
     Github: {
         "zh-CN": "Github",
         "en-US": "Github",

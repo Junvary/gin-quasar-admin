@@ -122,4 +122,8 @@ var sysRoleApiData = []model.SysRoleApi{
 
 	{RoleCode: "super-admin", ApiGroup: "user-online", ApiMethod: "POST", ApiPath: "/user-online/get-user-online-list"},
 	{RoleCode: "super-admin", ApiGroup: "user-online", ApiMethod: "POST", ApiPath: "/user-online/kick-online-user"},
+
+	{RoleCode: "super-admin", ApiGroup: "cron", ApiMethod: "POST", ApiPath: "/cron/get-cron-list"},
+	{RoleCode: "super-admin", ApiGroup: "cron", ApiMethod: "POST", ApiPath: "/cron/start-cron"},
+	{RoleCode: "super-admin", ApiGroup: "cron", ApiMethod: "POST", ApiPath: "/cron/stop-cron"},
 }

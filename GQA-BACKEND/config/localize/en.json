@@ -106,5 +106,10 @@
   "StableCantDo": "Operation not allowed for system built-in items.",
   "AlreadyExist": "This item already exists.",
   "NoConfig": "No configuration.",
-  "NoEffect": "No effect."
+  "NoEffect": "No effect.",
+
+  "CronStartSuccess": "Start cron succeeded.",
+  "CronAlreadyStart": "Cron already started.",
+  "CronStopSuccess": "Stop cron succeeded.",
+  "CronAlreadyStop": "Cron already stopped."
 }

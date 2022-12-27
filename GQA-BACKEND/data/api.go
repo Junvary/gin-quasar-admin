@@ -277,4 +277,14 @@ var sysApiData = []model.SysApi{
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
 		Sort: 77, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "踢出在线用户",
 	}}, ApiGroup: "user-online", ApiMethod: "POST", ApiPath: "/user-online/kick-online-user"},
+
+	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
+		Sort: 78, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "获取定时任务列表",
+	}}, ApiGroup: "cron", ApiMethod: "POST", ApiPath: "/cron/get-cron-list"},
+	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
+		Sort: 79, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "启动定时任务",
+	}}, ApiGroup: "cron", ApiMethod: "POST", ApiPath: "/cron/start-cron"},
+	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
+		Sort: 80, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "停止定时任务",
+	}}, ApiGroup: "cron", ApiMethod: "POST", ApiPath: "/cron/stop-cron"},
 }

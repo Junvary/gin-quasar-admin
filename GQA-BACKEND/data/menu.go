@@ -82,6 +82,9 @@ var sysMenuData = []model.SysMenu{
 		Sort: 13, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "在线用户",
 	}}, Name: "user-online", Title: "UserOnline", Icon: "eva-people-outline", Path: "/user-online", Component: "pages/System/UserOnline/index", ParentCode: "system"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 14, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "Github",
+		Sort: 14, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "定时任务",
+	}}, Name: "cron", Title: "Cron", Icon: "add_task", Path: "/cron", Component: "pages/System/Cron/index", ParentCode: "system"},
+	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
+		Sort: 100, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "Github",
 	}}, Name: "github", Title: "Github", Icon: "fab fa-github", IsLink: "yes", Path: "https://github.com/Junvary/gin-quasar-admin", Component: "", ParentCode: "system"},
 }

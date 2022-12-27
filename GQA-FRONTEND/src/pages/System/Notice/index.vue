@@ -98,7 +98,7 @@ const {
 } = useTableData(url)
 
 onMounted(async () => {
-    pagination.value.sortBy = 'created_at'
+    pagination.value.sortBy = 'id'
     pagination.value.descending = true
     getTableData()
 })
