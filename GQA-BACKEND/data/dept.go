@@ -34,7 +34,7 @@ func (s *sysDept) LoadData() error {
 
 var sysDeptData = []model.SysDept{
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 1, CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是Gin-Quasar-Admin部门",
+		Sort: GqaSort + 1, CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是Gin-Quasar-Admin部门",
 	}}, DeptCode: "gin-quasar-admin", DeptName: "Gin-Quasar-Admin", Leader: "admin"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
 		Sort: 1, CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是Gin部门",

@@ -3,6 +3,7 @@ package model
 import (
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 	"go.uber.org/zap"
 )
 
@@ -29,6 +30,10 @@ type RequestAdd struct {
 
 type RequestQueryById struct {
 	Id uint `json:"id"`
+}
+
+type RequestQueryByUUID struct {
+	UUID uuid.UUID `json:"uuid"`
 }
 
 type RequestQueryByUsername struct {

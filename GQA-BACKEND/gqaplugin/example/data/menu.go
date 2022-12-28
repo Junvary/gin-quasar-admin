@@ -33,7 +33,7 @@ func (s *sysMenu) LoadData() error {
 
 var sysMenuData = []gqaModel.SysMenu{
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
-		Sort: 1101, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是示例插件",
+		Sort: PluginSort + 1, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是示例插件",
 	}}, Name: "GqaPluginExample", Title: "示例插件", Icon: "install_desktop", Path: "", Component: "", Redirect: "/plugin-example/example/icons"},
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
 		Sort: 1, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "这是图标合集",

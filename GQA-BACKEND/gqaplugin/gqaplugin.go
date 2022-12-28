@@ -21,8 +21,9 @@ import (
 )
 
 var PluginList = []GqaPlugin{
-	example.PluginExample,
-	achievement.PluginAchievement,
+	// It is recommended to use more than 1000 sorting, define them from data/data.go
+	example.PluginExample,         // PluginSort 1100
+	achievement.PluginAchievement, // PluginSort 1200
 }
 
 /*

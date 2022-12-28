@@ -34,7 +34,7 @@ func (s *sysMenu) LoadData() error {
 
 var sysMenuData = []model.SysMenu{
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 1, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "系统管理",
+		Sort: GqaSort + 1, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "系统管理",
 	}}, Name: "system", Title: "SystemManage", Icon: "eva-settings-2-outline", Path: "", Component: "", Redirect: "/dashboard"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
 		Sort: 1, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "仪表盘",

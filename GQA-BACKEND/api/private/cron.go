@@ -12,7 +12,7 @@ type ApiCron struct{}
 
 func (a *ApiCron) StartCron(c *gin.Context) {
 	startFlag := true
-	var toQueryUuid model.RequestUuid
+	var toQueryUuid model.RequestQueryByUUID
 	if err := model.RequestShouldBindJSON(c, &toQueryUuid); err != nil {
 		return
 	}
@@ -36,7 +36,7 @@ func (a *ApiCron) StartCron(c *gin.Context) {
 
 func (a *ApiCron) StopCron(c *gin.Context) {
 	stopFlag := true
-	var toQueryUuid model.RequestUuid
+	var toQueryUuid model.RequestQueryByUUID
 	if err := model.RequestShouldBindJSON(c, &toQueryUuid); err != nil {
 		return
 	}

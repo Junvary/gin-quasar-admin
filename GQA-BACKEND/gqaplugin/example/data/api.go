@@ -33,27 +33,27 @@ func (s *sysApi) LoadData() error {
 
 var sysApiData = []gqaModel.SysApi{
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
-		Sort: 101, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件example：获取test-data-list",
+		Sort: PluginSort + 1, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件example：获取test-data-list",
 	}}, ApiGroup: "plugin-example", ApiMethod: "POST", ApiPath: "/plugin-example/get-test-data-list"},
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
-		Sort: 102, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件example：编辑test-data信息",
+		Sort: PluginSort + 2, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件example：编辑test-data信息",
 	}}, ApiGroup: "plugin-example", ApiMethod: "POST", ApiPath: "/plugin-example/edit-test-data"},
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
-		Sort: 103, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件example：新增test-data",
+		Sort: PluginSort + 3, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件example：新增test-data",
 	}}, ApiGroup: "plugin-example", ApiMethod: "POST", ApiPath: "/plugin-example/add-test-data"},
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
-		Sort: 104, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件example：删除test-data",
+		Sort: PluginSort + 4, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件example：删除test-data",
 	}}, ApiGroup: "plugin-example", ApiMethod: "POST", ApiPath: "/plugin-example/delete-test-data-by-id"},
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
-		Sort: 105, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件example：根据ID查找test-data",
+		Sort: PluginSort + 5, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件example：根据ID查找test-data",
 	}}, ApiGroup: "plugin-example", ApiMethod: "POST", ApiPath: "/plugin-example/query-test-data-by-id"},
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
-		Sort: 106, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件example：下载test-data模板",
+		Sort: PluginSort + 6, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件example：下载test-data模板",
 	}}, ApiGroup: "plugin-example", ApiMethod: "POST", ApiPath: "/plugin-example/download-template-test-data"},
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
-		Sort: 107, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件example：导出test-data",
+		Sort: PluginSort + 7, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件example：导出test-data",
 	}}, ApiGroup: "plugin-example", ApiMethod: "POST", ApiPath: "/plugin-example/export-test-data"},
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
-		Sort: 108, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件example：导入test-data",
+		Sort: PluginSort + 8, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件example：导入test-data",
 	}}, ApiGroup: "plugin-example", ApiMethod: "POST", ApiPath: "/plugin-example/import-test-data"},
 }

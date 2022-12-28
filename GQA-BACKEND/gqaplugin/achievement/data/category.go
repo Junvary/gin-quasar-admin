@@ -34,9 +34,9 @@ func (s *category) LoadData() error {
 
 var categoryData = []model.PluginAchievementCategory{
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
-		Sort: 70001, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "发现某个可以旋转的图标",
+		Sort: PluginSort + 1, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "发现某个可以旋转的图标",
 	}}, Category: "QiYu", Code: "QiYu-Roll-Icon", Name: "摇滚吧，少年！"},
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
-		Sort: 70002, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "发现404页面",
+		Sort: PluginSort + 2, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "发现404页面",
 	}}, Category: "QiYu", Code: "QiYu-Find-404", Name: "未知领域！"},
 }

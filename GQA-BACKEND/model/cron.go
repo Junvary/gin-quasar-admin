@@ -11,7 +11,3 @@ type SysCron struct {
 	Name string       `json:"name"`
 	Spec string       `json:"spec"`
 }
-
-type RequestUuid struct {
-	UUID uuid.UUID `json:"uuid"`
-}
