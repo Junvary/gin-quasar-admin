@@ -73,11 +73,9 @@
 
 <script setup>
 import useTableData from 'src/composables/useTableData'
-import { useQuasar } from 'quasar'
 import { postAction } from 'src/api/manage'
 import { computed, onMounted, ref, toRefs } from 'vue'
 
-const $q = useQuasar()
 const splitterModel = ref(20)
 const url = {
     list: 'api/get-api-list',
@@ -94,6 +92,7 @@ const props = defineProps({
 const { row } = toRefs(props)
 
 const {
+    $q,
     pagination,
     loading,
     tableData,

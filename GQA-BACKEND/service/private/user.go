@@ -28,17 +28,17 @@ func (s *ServiceUser) GetUserList(requestUserList model.RequestGetUserList) (err
 	if requestUserList.RealName != "" {
 		db = db.Where("real_name like ?", "%"+requestUserList.RealName+"%")
 	}
+	err = db.Count(&total).Error
 	db = db.Limit(pageSize).Offset(offset).Order(model.OrderByColumn(requestUserList.SortBy, requestUserList.Desc))
 	if requestUserList.DeptCode != "" {
 		dept := model.SysDept{
 			DeptCode: requestUserList.DeptCode,
 		}
 		err = db.Model(&dept).Preload("Role").Preload("Dept").Association("Staff").Find(&userList)
-		err = db.Count(&total).Error
+		total = int64(len(userList))
 		return err, userList, total
 	} else {
 		err = db.Preload("Role").Preload("Dept").Find(&userList).Error
-		err = db.Count(&total).Error
 		return err, userList, total
 	}
 }

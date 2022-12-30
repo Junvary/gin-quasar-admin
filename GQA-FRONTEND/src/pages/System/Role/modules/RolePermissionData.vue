@@ -42,11 +42,9 @@
 
 <script setup>
 import useTableData from 'src/composables/useTableData'
-import { useQuasar } from 'quasar'
 import { postAction } from 'src/api/manage'
 import { onMounted, ref, toRefs } from 'vue'
 
-const $q = useQuasar()
 const url = {
     list: 'dept/get-dept-list',
     roleDeptDataEdit: 'role/edit-role-dept-data-permission',
@@ -59,6 +57,7 @@ const props = defineProps({
 })
 const { row } = toRefs(props)
 const {
+    $q,
     dictOptions,
     pagination,
     loading,

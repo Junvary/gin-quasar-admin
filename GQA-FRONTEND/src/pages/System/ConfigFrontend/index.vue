@@ -162,17 +162,13 @@
 
 <script setup>
 import useTableData from 'src/composables/useTableData'
-import { useQuasar } from 'quasar'
 import { postAction } from 'src/api/manage'
 import { computed, onMounted, ref } from 'vue'
-import { useI18n } from 'vue-i18n'
 import GqaPluginList from 'src/components/GqaPluginList/index.vue'
 import { useStorageStore } from 'src/stores/storage'
 import recordDetail from './modules/recordDetail'
 import useTheme from 'src/composables/useTheme';
 
-const $q = useQuasar()
-const { t } = useI18n()
 const storageStore = useStorageStore()
 const { darkThemeSelect } = useTheme()
 const url = {
@@ -196,6 +192,8 @@ const columns = computed(() => {
     ]
 })
 const {
+    $q,
+    t,
     gqaBackend,
     dictOptions,
     pagination,

@@ -71,14 +71,12 @@
 <script setup>
 import useTableData from 'src/composables/useTableData'
 import { computed, onMounted, ref } from 'vue'
-import { useI18n } from 'vue-i18n'
 import recordDetail from './modules/recordDetail'
 import { ChangeNullChildren2Array } from 'src/utils/arrayAndTree'
 import buttonDetail from './modules/buttonDetail.vue'
 import useCommon from 'src/composables/useCommon'
 
 const { selectOptionLabel } = useCommon()
-const { t } = useI18n()
 const url = {
     list: 'menu/get-menu-list',
     delete: 'menu/delete-menu-by-id',
@@ -98,6 +96,7 @@ const columns = computed(() => {
     ]
 })
 const {
+    t,
     pagination,
     GqaDictShow,
     tableData,

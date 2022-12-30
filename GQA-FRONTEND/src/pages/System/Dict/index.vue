@@ -53,11 +53,9 @@
 <script setup>
 import useTableData from 'src/composables/useTableData'
 import { computed, onMounted } from 'vue'
-import { useI18n } from 'vue-i18n'
 import recordDetail from './modules/recordDetail'
 import { ChangeNullChildren2Array } from 'src/utils/arrayAndTree'
 
-const { t } = useI18n()
 const url = {
     list: 'dict/get-dict-list',
     delete: 'dict/delete-dict-by-id',
@@ -78,6 +76,7 @@ const columns = computed(() => {
     ]
 })
 const {
+    t,
     pagination,
     GqaDictShow,
     tableData,

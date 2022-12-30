@@ -32,11 +32,7 @@
 import { postAction } from 'src/api/manage';
 import useTableData from 'src/composables/useTableData'
 import { computed, onMounted } from 'vue'
-import { useI18n } from 'vue-i18n'
-import { useQuasar } from 'quasar';
 
-const { t } = useI18n()
-const $q = useQuasar()
 const url = {
     list: 'cron/get-cron-list',
     start: 'cron/start-cron',
@@ -53,6 +49,8 @@ const columns = computed(() => {
     ]
 })
 const {
+    $q,
+    t,
     pagination,
     pageOptions,
     loading,

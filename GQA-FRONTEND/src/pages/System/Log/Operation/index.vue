@@ -49,11 +49,7 @@
 <script setup>
 import useTableData from 'src/composables/useTableData'
 import { computed, onMounted, ref } from 'vue'
-import { useI18n } from 'vue-i18n'
-import useCommon from 'src/composables/useCommon'
 
-const { showDateTime } = useCommon()
-const { t } = useI18n()
 const url = {
     list: 'log/get-log-operation-list',
     delete: 'log/delete-log-operation-by-id',
@@ -71,6 +67,8 @@ const columns = computed(() => {
     ]
 })
 const {
+    t,
+    showDateTime,
     pagination,
     queryParams,
     pageOptions,

@@ -93,7 +93,7 @@
                 <q-btn :label="$t('Cancel')" color="negative" v-close-popup />
             </q-card-actions>
             <q-inner-loading :showing="loading">
-                <q-spinner-gears size="50px" color="primary" />
+                "primary" />
             </q-inner-loading>
         </q-card>
     </q-dialog>
@@ -103,9 +103,7 @@
 <script setup>
 import useRecordDetail from 'src/composables/useRecordDetail'
 import { ref, watch } from 'vue'
-import { useI18n } from 'vue-i18n'
 
-const { t } = useI18n()
 const emit = defineEmits(['handleFinish'])
 const url = {
     list: 'menu/get-menu-list',
@@ -114,6 +112,7 @@ const url = {
     queryById: 'menu/query-menu-by-id',
 }
 const {
+    t,
     dictOptions,
     formType,
     formTypeName,

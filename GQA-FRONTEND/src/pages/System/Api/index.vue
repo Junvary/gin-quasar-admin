@@ -56,10 +56,8 @@
 <script setup>
 import useTableData from 'src/composables/useTableData'
 import { computed, onMounted } from 'vue'
-import { useI18n } from 'vue-i18n'
 import recordDetail from './modules/recordDetail'
 
-const { t } = useI18n()
 const url = {
     list: 'api/get-api-list',
     delete: 'api/delete-api-by-id',
@@ -77,6 +75,7 @@ const columns = computed(() => {
     ]
 })
 const {
+    t,
     pagination,
     queryParams,
     pageOptions,

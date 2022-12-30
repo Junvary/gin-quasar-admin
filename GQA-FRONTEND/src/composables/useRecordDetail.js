@@ -102,6 +102,8 @@ export default function useRecordDetail(url, emit) {
     }
     const { showDateTime, showDate, gqaFrontend, gqaBackend, GqaDictShow, GqaShowName, GqaAvatar, } = useCommon()
     return {
+        $q,
+        t,
         GqaAvatar,
         GqaShowName,
         GqaDictShow,

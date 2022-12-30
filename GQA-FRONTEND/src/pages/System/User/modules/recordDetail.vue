@@ -4,8 +4,8 @@
             <q-card-section class="text-h6">
                 {{ formTypeName }} {{ $t('User') }}:
                 {{ recordDetail.value.nickname ? recordDetail.value.nickname :
-                        recordDetail.value.real_name ? recordDetail.value.real_name : ""
-                }}
+        recordDetail.value.real_name ? recordDetail.value.real_name : ""
+}}
             </q-card-section>
             <q-separator />
             <q-card-section class="q-gutter-md">
@@ -82,11 +82,7 @@ import useRecordDetail from 'src/composables/useRecordDetail'
 import { postAction } from 'src/api/manage'
 import { useStorageStore } from 'src/stores/storage'
 import { ref, computed } from 'vue'
-import { useQuasar } from 'quasar'
-import { useI18n } from 'vue-i18n'
 
-const $q = useQuasar()
-const { t } = useI18n()
 const storageStore = useStorageStore()
 const gqaBackend = computed(() => storageStore.GetGqaBackend())
 const emit = defineEmits(['handleFinish'])
@@ -97,6 +93,8 @@ const url = {
     avatarUrl: 'upload/upload-avatar',
 }
 const {
+    $q,
+    t,
     GqaAvatar,
     dictOptions,
     formType,

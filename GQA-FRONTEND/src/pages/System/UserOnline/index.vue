@@ -56,13 +56,9 @@
 
 <script setup>
 import useTableData from 'src/composables/useTableData'
-import { useQuasar } from 'quasar'
 import { postAction } from 'src/api/manage'
 import { computed, onMounted } from 'vue'
-import { useI18n } from 'vue-i18n'
 
-const $q = useQuasar()
-const { t } = useI18n()
 const url = {
     list: 'user-online/get-user-online-list',
     kick: 'user-online/kick-online-user',
@@ -77,6 +73,8 @@ const columns = computed(() => {
     ]
 })
 const {
+    $q,
+    t,
     pagination,
     queryParams,
     pageOptions,

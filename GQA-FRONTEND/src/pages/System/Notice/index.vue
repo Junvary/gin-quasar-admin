@@ -57,14 +57,10 @@
 
 <script setup>
 import useTableData from 'src/composables/useTableData'
-import { useQuasar } from 'quasar'
 import { postAction } from 'src/api/manage'
 import { computed, onMounted } from 'vue'
-import { useI18n } from 'vue-i18n'
 import recordDetail from './modules/recordDetail'
 
-const $q = useQuasar()
-const { t } = useI18n()
 const url = {
     list: 'notice/get-notice-list',
     delete: 'notice/delete-notice-by-id',
@@ -80,6 +76,8 @@ const columns = computed(() => {
     ]
 })
 const {
+    $q,
+    t,
     dictOptions,
     pagination,
     queryParams,

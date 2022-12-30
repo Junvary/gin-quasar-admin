@@ -57,15 +57,15 @@
                         <q-td key="button_code" :props="props">
                             {{ props.row.button_code }}
                             <q-popup-edit v-model="props.row.button_code" v-slot="scope" :validate="val =>
-                            val && val.length > 0
-                            && val.indexOf(recordDetail.value.name + ':') === 0
-                            && val.slice(recordDetail.value.name.length + 1).indexOf(':') === -1
-                            && !recordDetail.value.button.some(item => item.button_code === val)">
+    val && val.length > 0
+    && val.indexOf(recordDetail.value.name + ':') === 0
+    && val.slice(recordDetail.value.name.length + 1).indexOf(':') === -1
+    && !recordDetail.value.button.some(item => item.button_code === val)">
                                 {{ $t('Button') + $t('Code') + ' ' + $t('StartWith', {
-                                        name: recordDetail.value.name +
-                                            ':'
-                                    })
-                                }}
+        name: recordDetail.value.name +
+            ':'
+    })
+}}
                                 <q-input v-model="scope.value" dense autofocus counter no-error-icon
                                     :rules="[val => scope.validate(val) || $t('FixForm')]">
                                     <template v-slot:after>
@@ -105,12 +105,8 @@
 <script setup>
 import useRecordDetail from 'src/composables/useRecordDetail'
 import { ref, computed } from 'vue'
-import { useI18n } from 'vue-i18n'
 import { postAction } from 'src/api/manage';
-import { useQuasar } from 'quasar';
 
-const $q = useQuasar()
-const { t } = useI18n()
 const emit = defineEmits(['handleFinish'])
 const pagination = ref({
     sortBy: 'button_code',
@@ -124,6 +120,8 @@ const url = {
     queryById: 'menu/query-menu-by-id',
 }
 const {
+    $q,
+    t,
     recordDetail,
     recordDetailVisible,
     loading,

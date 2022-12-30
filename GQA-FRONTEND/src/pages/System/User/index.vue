@@ -102,14 +102,10 @@
 
 <script setup>
 import useTableData from 'src/composables/useTableData'
-import { useQuasar } from 'quasar'
 import { postAction } from 'src/api/manage'
 import { computed, onMounted, ref } from 'vue'
-import { useI18n } from 'vue-i18n'
 import recordDetail from './modules/recordDetail'
 
-const $q = useQuasar()
-const { t } = useI18n()
 const url = {
     list: 'user/get-user-list',
     delete: 'user/delete-user-by-id',
@@ -131,6 +127,8 @@ const columns = computed(() => {
     ]
 })
 const {
+    $q,
+    t,
     pagination,
     queryParams,
     pageOptions,

@@ -2,7 +2,7 @@
     <q-dialog v-model="deptUserVisible" position="right">
         <q-card style="min-width: 500px; max-width: 45vw; height: 100%;">
             <q-card-section>
-                {{record.dept_name}}
+                {{ record.dept_name }}
             </q-card-section>
             <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
                 :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
@@ -28,14 +28,10 @@
 
 <script setup>
 import useTableData from 'src/composables/useTableData'
-import { useQuasar } from 'quasar'
 import { postAction } from 'src/api/manage'
 import { computed, ref } from 'vue'
-import { useI18n } from 'vue-i18n'
 import SelectUserDialog from 'src/components/GqaSeleteUser/SelectUserDialog'
 
-const $q = useQuasar()
-const { t } = useI18n()
 const url = {
     list: 'dept/query-user-by-dept',
     removeUser: 'dept/remove-dept-user',
@@ -50,6 +46,8 @@ const columns = computed(() => {
     ]
 })
 const {
+    $q,
+    t,
     pagination,
     queryParams,
     pageOptions,

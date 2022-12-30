@@ -70,12 +70,10 @@
 <script setup>
 import useTableData from 'src/composables/useTableData'
 import { computed, onMounted, ref } from 'vue'
-import { useI18n } from 'vue-i18n'
 import recordDetail from './modules/recordDetail'
 import RolePermissionDialog from './modules/RolePermissionDialog'
 import RoleUserDialog from './modules/RoleUserDialog'
 
-const { t } = useI18n()
 const url = {
     list: 'role/get-role-list',
     delete: 'role/delete-role-by-id',
@@ -91,6 +89,7 @@ const columns = computed(() => {
     ]
 })
 const {
+    t,
     pagination,
     queryParams,
     pageOptions,

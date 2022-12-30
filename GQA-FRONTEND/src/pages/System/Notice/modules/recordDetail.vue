@@ -53,11 +53,7 @@ import useRecordDetail from 'src/composables/useRecordDetail'
 import useTableData from 'src/composables/useTableData'
 import { postAction } from 'src/api/manage'
 import { ref, computed } from 'vue'
-import { useQuasar } from 'quasar'
-import { useI18n } from 'vue-i18n'
 
-const $q = useQuasar()
-const { t } = useI18n()
 const emit = defineEmits(['handleFinish'])
 const url = {
     list: 'user/get-user-list',
@@ -65,6 +61,8 @@ const url = {
     queryById: 'notice/query-notice-by-id',
 }
 const {
+    $q,
+    t,
     dictOptions,
     formType,
     formTypeName,

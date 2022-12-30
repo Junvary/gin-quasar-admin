@@ -44,14 +44,12 @@
 
 <script setup>
 import useTableData from 'src/composables/useTableData'
-import { useQuasar } from 'quasar'
 import { postAction } from 'src/api/manage'
 import { computed, onMounted, ref, toRefs } from 'vue'
 import { TreeToArray } from 'src/utils/arrayAndTree';
 import useCommon from 'src/composables/useCommon'
 
 const { selectOptionLabel } = useCommon()
-const $q = useQuasar()
 const url = {
     list: 'menu/get-menu-list',
     roleMenuList: 'role/get-role-menu-list',
@@ -70,6 +68,7 @@ const props = defineProps({
 const { row } = toRefs(props)
 
 const {
+    $q,
     pagination,
     loading,
     tableData,
