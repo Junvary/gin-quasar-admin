@@ -47,9 +47,7 @@
 
 <script setup>
 import useRecordDetail from 'src/composables/useRecordDetail'
-import { inject } from 'vue'
 
-const bus = inject('bus')
 const emit = defineEmits(['handleFinish'])
 const url = {
     add: 'note-todo/add-note-todo',
@@ -57,6 +55,7 @@ const url = {
     queryById: 'note-todo/query-note-todo-by-id',
 }
 const {
+    bus,
     dictOptions,
     formType,
     formTypeName,

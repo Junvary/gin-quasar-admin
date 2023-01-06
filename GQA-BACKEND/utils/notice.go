@@ -66,7 +66,7 @@ func CreateAndSendNotice(toAddNotice model.RequestAddNotice, username string) (e
 		var byteMessage, _ = json.Marshal(model.WsMessage{
 			Text:              addNotice.NoticeTitle,
 			MessageToUserType: "all",
-			MessageType:       "notice",
+			MessageType:       toAddNotice.NoticeType,
 		})
 		model.BroadcastMsg <- byteMessage
 		return nil
@@ -79,7 +79,7 @@ func CreateAndSendNotice(toAddNotice model.RequestAddNotice, username string) (e
 		var byteMessage, _ = json.Marshal(model.WsMessage{
 			Text:              addNotice.NoticeTitle,
 			MessageToUserType: "some",
-			MessageType:       "notice",
+			MessageType:       toAddNotice.NoticeType,
 			ToUser:            userList,
 		})
 		model.BroadcastMsg <- byteMessage

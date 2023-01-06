@@ -154,7 +154,7 @@ func (s *ServiceNotice) SendNotice(toSendNotice model.SysNotice) (err error) {
 		var byteMessage, _ = json.Marshal(model.WsMessage{
 			Text:              toSendNotice.NoticeTitle,
 			MessageToUserType: "all",
-			MessageType:       "notice",
+			MessageType:       toSendNotice.NoticeType,
 		})
 		model.BroadcastMsg <- byteMessage
 		return nil
@@ -167,7 +167,7 @@ func (s *ServiceNotice) SendNotice(toSendNotice model.SysNotice) (err error) {
 		var byteMessage, _ = json.Marshal(model.WsMessage{
 			Text:              toSendNotice.NoticeTitle,
 			MessageToUserType: "some",
-			MessageType:       "notice",
+			MessageType:       toSendNotice.NoticeType,
 			ToUser:            userList,
 		})
 		model.BroadcastMsg <- byteMessage

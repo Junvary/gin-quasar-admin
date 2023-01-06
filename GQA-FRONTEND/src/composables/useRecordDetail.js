@@ -4,11 +4,13 @@ import { postAction } from 'src/api/manage'
 import { useQuasar } from 'quasar'
 import { useI18n } from 'vue-i18n'
 import useCommon from './useCommon'
+import { inject } from 'vue'
 
 export default function useRecordDetail(url, emit) {
     const { t } = useI18n()
     const $q = useQuasar()
     const dictOptions = ref({})
+    const bus = inject('bus')
     onMounted(async () => {
         dictOptions.value = await DictOptions()
     })
@@ -104,6 +106,7 @@ export default function useRecordDetail(url, emit) {
     return {
         $q,
         t,
+        bus,
         GqaAvatar,
         GqaShowName,
         GqaDictShow,

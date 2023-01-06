@@ -34,14 +34,13 @@
 
 <script setup>
 import useRecordDetail from 'src/composables/useRecordDetail'
-import { inject } from 'vue'
 
-const bus = inject('bus')
 const emit = defineEmits(['handleFinish', 'hide'])
 const url = {
     queryById: 'notice/query-notice-read-by-id',
 }
 const {
+    bus,
     dictOptions,
     formType,
     recordDetail,

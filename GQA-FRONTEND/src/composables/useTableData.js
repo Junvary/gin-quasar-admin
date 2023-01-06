@@ -4,10 +4,12 @@ import { useI18n } from 'vue-i18n'
 import { postAction } from 'src/api/manage'
 import { DictOptions } from 'src/utils/dict'
 import useCommon from './useCommon'
+import { inject } from 'vue'
 
 export default function useTableData(url) {
     const { t } = useI18n()
     const $q = useQuasar()
+    const bus = inject('bus')
     const dictOptions = ref({})
     onMounted(async () => {
         dictOptions.value = await DictOptions()
@@ -101,6 +103,7 @@ export default function useTableData(url) {
     return {
         $q,
         t,
+        bus,
         GqaAvatar,
         GqaShowName,
         GqaDictShow,
