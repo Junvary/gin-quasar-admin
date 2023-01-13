@@ -1,25 +1,26 @@
 import { defineStore } from 'pinia';
 import { usePermissionStore } from './permission';
 const permissionStore = usePermissionStore()
-// const base = permissionStore.userMenu.filter(item => item.name === 'dashboard')[0]
-const base = permissionStore.userMenu.filter(item => item.name === permissionStore.defaultPage[0])[0]
-
 
 export const useTabMenuStore = defineStore('tabMenu', {
     state: () => ({
         tabMenus: [],
         currentTab: {},
     }),
-    getters: {},
+    getters: {
+        base() {
+            return permissionStore.userMenu.filter(item => item.name === permissionStore.defaultPage[0])[0]
+        }
+    },
     actions: {
         AddTabMenu(tab) {
             // When exiting, the userMenu is cleared
             // pass it
-            if (base) {
+            if (this.base) {
                 // If there is no default page, add it
-                if (this.tabMenus.filter(item => item.path === base.path).length === 0) {
-                    this.tabMenus = this.tabMenus.concat([base])
-                    this.currentTab = base
+                if (this.tabMenus.filter(item => item.path === this.base.path).length === 0) {
+                    this.tabMenus = this.tabMenus.concat([this.base])
+                    this.currentTab = this.base
                 }
                 // To determine whether a tab exists, the tab will not be passed when all menus are closed
                 if (tab && !this.tabMenus.some(item => item.path === tab.path)) {
@@ -43,7 +44,7 @@ export const useTabMenuStore = defineStore('tabMenu', {
         RemoveLeftTab(tab) {
             const removeIndex = this.tabMenus.indexOf(tab)
             const rightMenu = this.tabMenus.slice(removeIndex)
-            this.tabMenus = [base].concat(rightMenu)
+            this.tabMenus = [this.base].concat(rightMenu)
         },
         DestroyTabMenu() {
             this.currentTab = ''
