@@ -15,7 +15,6 @@ export function postAction(url, params) {
         url: url,
         method: 'post',
         data: params,
-        params: { lang: Cookies.get("gqa-language") || "zh-CN" }
     })
 }
 

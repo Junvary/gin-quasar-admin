@@ -6,7 +6,6 @@ import (
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
 	"github.com/gin-gonic/gin"
-	"strings"
 )
 
 func RoleApiHandler() gin.HandlerFunc {
@@ -28,9 +27,7 @@ func RoleApiHandler() gin.HandlerFunc {
 		}
 		for _, v := range roleList {
 			var roleApi model.SysRoleApi
-			// ignore ?lang=***
-			ap := strings.Split(apiPath, "?")[0]
-			result := global.GqaDb.Where("role_code = ? and api_path = ? and api_method = ?", v.RoleCode, ap, apiMethod).First(&roleApi)
+			result := global.GqaDb.Where("role_code = ? and api_path = ? and api_method = ?", v.RoleCode, apiPath, apiMethod).First(&roleApi)
 			if result.RowsAffected != 0 {
 				c.Next()
 				return

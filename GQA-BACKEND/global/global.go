@@ -7,6 +7,7 @@ import (
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
+	"runtime"
 	"time"
 )
 
@@ -23,6 +24,7 @@ var (
 	GqaServeFile   = "file"
 	GqaServeLogo   = "logo"
 	GqaServeBanner = "banner"
+	GqaOsType      = runtime.GOOS
 )
 
 type GqaModel struct {

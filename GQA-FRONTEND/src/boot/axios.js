@@ -1,6 +1,6 @@
 import { boot } from 'quasar/wrappers'
 import axios from 'axios'
-import { Notify, Dialog } from 'quasar'
+import { Notify, Dialog, Cookies } from 'quasar'
 import { i18n } from './i18n'
 import { useUserStore } from 'src/stores/user'
 
@@ -59,6 +59,7 @@ export default boot(({ app, router, store }) => {
         request.headers = {
             'Content-Type': 'application/json;charset=utf-8',
             'Gqa-Token': token,
+            'Gqa-Lang': Cookies.get("gqa-language") || "zh-CN"
         }
 
         /* 👇demo mode👇 */
