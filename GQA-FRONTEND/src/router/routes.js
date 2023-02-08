@@ -9,7 +9,13 @@ export const PublicRoutes = [
     {
         path: '/new-tab',
         component: () => import('layouts/NewTabLayout/index.vue'),
-        children: []
+        children: [
+            // add your new-tab route here, example:
+            // {
+            //     path: 'plugin-bp/bp/screen',
+            //     component: () => import('src/plugins/Bp/Screen/index.vue')
+            // },
+        ]
     }
 
     // // Always leave this as last one,

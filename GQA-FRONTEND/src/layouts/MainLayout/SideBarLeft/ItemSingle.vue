@@ -35,7 +35,7 @@ const props = defineProps({
 const { trueItem, initLevel } = toRefs(props)
 
 const toPath = (item) => {
-    if (item.is_link === 'yes') {
+    if (item.is_link === 'yesNo_yes') {
         window.open(item.path)
     } else {
         router.push(item.path)
