@@ -1,6 +1,6 @@
 module github.com/Junvary/gin-quasar-admin/GQA-BACKEND
 
-go 1.19
+go 1.20
 
 require (
 	github.com/fsnotify/fsnotify v1.6.0

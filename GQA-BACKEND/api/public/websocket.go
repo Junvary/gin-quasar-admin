@@ -45,7 +45,7 @@ func (a *ApiWebSocket) WebSocket(c *gin.Context) {
 		if err = json.Unmarshal(message, &wsMessage); err != nil {
 			return
 		}
-		wsMessage.Stamp = time.Now().Format("2006-01-02 15:04:05")
+		wsMessage.Stamp = time.Now().Format(time.DateTime)
 		byteMessage, _ := json.Marshal(wsMessage)
 		if wsMessage.MessageType == "chat" {
 			model.BroadcastMsg <- byteMessage

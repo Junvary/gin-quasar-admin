@@ -22,11 +22,11 @@ func (d *GqaDate) Scan(v interface{}) error {
 
 func (d GqaDate) Value() (driver.Value, error) {
 	tTime := time.Time(d)
-	return tTime.Format("2006-01-02"), nil
+	return tTime.Format(time.DateOnly), nil
 }
 
 func (d GqaDate) String() string {
-	return time.Time(d).Format("2006-01-02")
+	return time.Time(d).Format(time.DateOnly)
 }
 
 func (d GqaDate) GormDataType() string {
@@ -42,7 +42,7 @@ func (d *GqaDate) GobDecode(b []byte) error {
 }
 
 func (d GqaDate) MarshalJSON() ([]byte, error) {
-	formatted := fmt.Sprintf("\"%v\"", time.Time(d).Format("2006-01-02"))
+	formatted := fmt.Sprintf("\"%v\"", time.Time(d).Format(time.DateOnly))
 	return []byte(formatted), nil
 }
 
@@ -53,7 +53,7 @@ func (d *GqaDate) UnmarshalJSON(data []byte) error {
 	var err error
 	str := string(data)
 	timeStr := strings.Trim(str, "\"")
-	t1, err := time.Parse("2006-01-02", timeStr)
+	t1, err := time.Parse(time.DateOnly, timeStr)
 	*d = GqaDate(t1)
 	return err
 }
