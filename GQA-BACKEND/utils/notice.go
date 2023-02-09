@@ -65,7 +65,7 @@ func CreateAndSendNotice(toAddNotice model.RequestAddNotice, username string) (e
 		// If a notice is sent to all, ToUser remains blank. It is not filled in here
 		var byteMessage, _ = json.Marshal(model.WsMessage{
 			Text:              addNotice.NoticeTitle,
-			MessageToUserType: "all",
+			MessageToUserType: addNotice.NoticeToUserType,
 			MessageType:       toAddNotice.NoticeType,
 		})
 		model.BroadcastMsg <- byteMessage
@@ -78,7 +78,7 @@ func CreateAndSendNotice(toAddNotice model.RequestAddNotice, username string) (e
 		// If you send a notice to some users, add the NoticeToUser content to the ToUser field and let websocket judge
 		var byteMessage, _ = json.Marshal(model.WsMessage{
 			Text:              addNotice.NoticeTitle,
-			MessageToUserType: "some",
+			MessageToUserType: addNotice.NoticeToUserType,
 			MessageType:       toAddNotice.NoticeType,
 			ToUser:            userList,
 		})

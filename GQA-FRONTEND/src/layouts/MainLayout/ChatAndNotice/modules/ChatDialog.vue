@@ -42,8 +42,12 @@
                     </q-scroll-area>
                     <q-toolbar>
                         <q-form ref="newMessageForm" class="gqa-form" style="width: 100%">
-                            <q-input dense v-model="newMessage" rounded outlined @keyup.enter.stop="sendMessage"
+                            <q-input class="col-auto" dense v-model="newMessage" rounded outlined
+                                @keyup.enter.stop="sendMessage"
                                 :rules="[val => val && val.length > 0 || $t('NeedInput')]" :label="$t('Content')">
+                                <template v-slot:append>
+                                    <q-btn flat rounded icon="send" @click="sendMessage"></q-btn>
+                                </template>
                             </q-input>
                         </q-form>
                     </q-toolbar>
