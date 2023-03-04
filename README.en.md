@@ -6,11 +6,12 @@ English | [简体中文](README.md) | [Wiki](https://github.com/Junvary/gin-quas
 <img src="https://i.loli.net/2020/12/14/cnJoF9r1BXY7Da5.png" width=150" height="150" />
 <h1>Gin-Quasar-Admin<sup>v2</sup></h1>
 <img src="https://img.shields.io/badge/Vue-3.2.45-brightgreen"/> 
-<img src="https://img.shields.io/badge/Quasar-2.11.5-brightgreen"/>                          
-<img src="https://img.shields.io/badge/Go-1.20-brightgreen"/>                          
+<img src="https://img.shields.io/badge/Quasar-2.11.7-brightgreen"/>                          
+<img src="https://img.shields.io/badge/Go-1.20.1-brightgreen"/>                          
 <img src="https://img.shields.io/badge/Gin-1.8.1-brightgreen"/>                              
 <img src="https://img.shields.io/badge/Gorm-1.24.0-brightgreen"/>                  
 <img src="https://img.shields.io/badge/License-MIT-brightgreen"/>                                                                 </div>
+
 
 
 

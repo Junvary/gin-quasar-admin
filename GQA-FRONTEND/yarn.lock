@@ -1187,10 +1187,10 @@
   resolved "https://registry.yarnpkg.com/@positron/stack-trace/-/stack-trace-1.0.0.tgz#14fcc712a530038ef9be1ce6952315a839f466a8"
   integrity sha512-nWlGg+aMfQDhGYa5FtBhZwldeo2MtdjHdxmEQvhBXEnxgD5IhIYl0PHvex8SdwyN7qcSoMykMWdjyAX7ZxkpMw==
 
-"@quasar/app-webpack@^3.7.1":
-  version "3.7.1"
-  resolved "https://registry.yarnpkg.com/@quasar/app-webpack/-/app-webpack-3.7.1.tgz#c2d9f826ac240894b033ab4c2364726101f5a216"
-  integrity sha512-gy77FP3PY/T2HDUa7cGU7oHKbdTmHUOLT4YBd/HvIsIHenjmZCaj/g+ero1kuoKRBy00Y5CalM5tDJnhO8PXOQ==
+"@quasar/app-webpack@^3.7.2":
+  version "3.7.2"
+  resolved "https://registry.yarnpkg.com/@quasar/app-webpack/-/app-webpack-3.7.2.tgz#feaea083d79c5e6c62052dfe87a6e7df73d44e5e"
+  integrity sha512-OztjmlXaLqjBRm6YPV9/Q+WfXhdu9mcXk5OXExyEpzCII7dfa4m1UMzp+AOsgDXUgoSBt5Wg1WmAICLnKELAjw==
   dependencies:
     "@quasar/babel-preset-app" "2.0.2"
     "@quasar/fastclick" "1.1.5"
@@ -1282,10 +1282,10 @@
     core-js "^3.6.5"
     core-js-compat "^3.6.5"
 
-"@quasar/extras@^1.15.10":
-  version "1.15.10"
-  resolved "https://registry.yarnpkg.com/@quasar/extras/-/extras-1.15.10.tgz#515298377249765f9ca0027f6843f6a8e61efcd8"
-  integrity sha512-6w8e+wPNfcWhzW43tlnJPHOrcNwAgaaNJ3zBz8k+BMqpenA3fHZhFhxCYEVRZVqPFE2IK/8nRiPBp4t9xlW5tA==
+"@quasar/extras@^1.15.11":
+  version "1.15.11"
+  resolved "https://registry.yarnpkg.com/@quasar/extras/-/extras-1.15.11.tgz#a54d60b14446b850a1e5fccab3f381a2e447a73f"
+  integrity sha512-EEXL10EJQmL9jNs5fp0Kd/nyonG8hTODolj+qpYNPG3qEEoy3txr05Pdmp9qJYaXIzP9rOS9FGhFe9Mnq6MBBg==
 
 "@quasar/fastclick@1.1.5":
   version "1.1.5"
@@ -4691,10 +4691,10 @@ quasar-ui-qstatistic@latest:
   resolved "https://registry.yarnpkg.com/quasar-ui-qstatistic/-/quasar-ui-qstatistic-0.0.5.tgz#c55288a79e3965b1549c598d5f869c2ef9b51a67"
   integrity sha512-F/tut3MvZWubSmekLJGfXR1GThK+eGk0Mv0eVZLdspWfO6kkPa7yHKa53jYjeffccX97zMMtVHDxsAy0WFLx3A==
 
-quasar@^2.11.5:
-  version "2.11.5"
-  resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.11.5.tgz#c8a74c8f7bf24b16cdf51f1257df1a38b68fdfb8"
-  integrity sha512-rX4Rwp9wlCeB9A6RQUxEx/q84LMBVVm6WTECkoq8r/+NBgl9aHVexzZQBnRn2i61D0BJpdX5VcnMxAnJkTx/kA==
+quasar@^2.11.7:
+  version "2.11.7"
+  resolved "https://registry.yarnpkg.com/quasar/-/quasar-2.11.7.tgz#0371d2cbe299305a0949332d2a3fc6929a70e2f6"
+  integrity sha512-OzDwYfoSwZbwqfNWz9Bfn1mhGE8YMxpTLhPvVkQU87ePF6qFj4aWttcTUifXITKldOAZziN1Mmv8VLQyITHwiw==
 
 queue-microtask@^1.2.2:
   version "1.2.3"
