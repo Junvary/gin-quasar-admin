@@ -20,6 +20,7 @@
                     <InitDbView @initDbSuccess="checkDb" v-if="dbNeedInit" />
                     <SimpleView v-else />
                 </q-card>
+                <audio ref="loginBgm" src="http://music.163.com/song/media/outer/url?id=1479760027.mp3" loop></audio>
                 <div class="power-show">
                     Powered by Gin-Quasar-Admin
                     {{ gqaVersion }}
@@ -36,6 +37,7 @@
                     <GqaLanguage style="width: 100%;" />
                 </div>
                 <div class="dark-theme-show">
+                    <q-btn :icon="playFlag? 'music_off' : 'music_note'" round flat @click="playBgm"></q-btn>
                     <DarkTheme />
                 </div>
             </div>
@@ -149,4 +151,17 @@ const bannerImage = computed(() => {
     }
     return ''
 })
+
+const loginBgm = ref(null)
+const playFlag = ref(false)
+const playBgm = ()=>{
+    if(playFlag.value){
+        loginBgm.value.pause()
+        playFlag.value = false
+    }else{
+        loginBgm.value.play()
+        playFlag.value = true
+    }
+    
+}
 </script>
