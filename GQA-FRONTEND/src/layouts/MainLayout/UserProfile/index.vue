@@ -8,37 +8,14 @@
                 <q-space />
                 <q-btn icon="close" flat round dense v-close-popup />
             </q-card-section>
-            <q-card-section>
-                <div class="row q-pa-md items-center justify-around" style="max-width: 95vw">
-                    <div class="col-4 column items-center">
+            <q-card-section style="max-width: 95vw; height: 85vh;">
+                <div class="row items-center" style="height: 100%">
+                    <div class="col-4 column items-center justify-center">
                         <GqaAvatar loginUser size="200px" />
 
                         <div class="text-subtitle1 q-mt-md q-mb-md">
                             <GqaShowName showMyName />
                         </div>
-
-                        <!-- <q-list>
-                            <q-item clickable v-ripple>
-                                <q-item-section avatar>
-                                    <q-icon size="lg" name="star" class="text-warning" />
-                                </q-item-section>
-                                <q-item-section>等级:23</q-item-section>
-                            </q-item>
-                            <q-item clickable v-ripple>
-                                <q-item-section avatar>
-                                    <q-icon size="lg" name="star" class="text-warning" />
-                                </q-item-section>
-                                <q-item-section>积分:88888</q-item-section>
-                            </q-item>
-                            <q-item clickable v-ripple>
-                                <q-item-section avatar>
-                                    <q-icon size="lg" name="star" class="text-warning" />
-                                </q-item-section>
-                                <q-item-section>成就:888</q-item-section>
-                            </q-item>
-                        </q-list> -->
-
-                        <q-separator inset spaced />
 
                         <div class="row q-gutter-md">
                             <q-btn color="primary" :label="$t('Change') + ' ' + $t('Nickname')"
@@ -47,7 +24,7 @@
                                 @click="showPasswordDialog"></q-btn>
                         </div>
                     </div>
-                    <div class="q-pa-md col-8 column items-center">
+                    <div class="col-8 column items-center justify-start" style="height: 100%;">
                         <NoticeTab ref="noticeTab" />
                     </div>
                 </div>

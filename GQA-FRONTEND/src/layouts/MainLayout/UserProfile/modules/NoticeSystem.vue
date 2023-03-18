@@ -1,7 +1,7 @@
 <template>
     <div>
         <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
-            :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
+            :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest" style="max-height: 70vh;">
             <template v-slot:body-cell-notice_type="props">
                 <q-td :props="props">
                     <GqaDictShow :dictCode="props.row.notice_type" />
