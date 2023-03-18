@@ -114,7 +114,6 @@ export default boot(({ app, router, store }) => {
                             },
                         }).onOk(() => {
                             userStore.HandleLogout()
-                            // store.dispatch('user/HandleLogout')
                             router.push({ name: 'login' })
                         })
                     } else {
@@ -142,7 +141,6 @@ export default boot(({ app, router, store }) => {
                 },
             }).onOk(() => {
                 userStore.HandleLogout()
-                // store.dispatch('user/HandleLogout')
                 router.push({ name: 'login' })
             })
         }
