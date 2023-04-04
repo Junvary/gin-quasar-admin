@@ -13,7 +13,7 @@ import { useUserStore } from 'src/stores/user'
 
 const api = axios.create({
     baseURL: process.env.API,
-    timeout: 40000,
+    timeout: 120000,
     withCredentials: false
 })
 

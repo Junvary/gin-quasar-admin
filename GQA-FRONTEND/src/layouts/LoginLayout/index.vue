@@ -15,8 +15,7 @@
                 <figure class="positive-ball" />
                 <figure class="warning-ball" />
                 <figure class="negative-ball" />
-                <q-card bordered class="init-login-card shadow-15" style="border-radius: 20px;"
-                    :class="darkThemeLoginCard">
+                <q-card bordered class="init-login-card shadow-15" style="border-radius: 20px;" :class="darkThemeLoginCard">
                     <InitDbView @initDbSuccess="checkDb" v-if="dbNeedInit" />
                     <SimpleView v-else />
                 </q-card>
@@ -37,7 +36,7 @@
                     <GqaLanguage style="width: 100%;" />
                 </div>
                 <div class="dark-theme-show">
-                    <q-btn :icon="playFlag? 'music_off' : 'music_note'" round flat @click="playBgm"></q-btn>
+                    <q-btn :icon="playFlag ? 'music_off' : 'music_note'" round flat @click="playBgm"></q-btn>
                     <DarkTheme />
                 </div>
             </div>
@@ -154,14 +153,14 @@ const bannerImage = computed(() => {
 
 const loginBgm = ref(null)
 const playFlag = ref(false)
-const playBgm = ()=>{
-    if(playFlag.value){
+const playBgm = () => {
+    if (playFlag.value) {
         loginBgm.value.pause()
         playFlag.value = false
-    }else{
+    } else {
         loginBgm.value.play()
         playFlag.value = true
     }
-    
+
 }
 </script>
