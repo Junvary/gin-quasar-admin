@@ -112,11 +112,11 @@ var sysRoleApiData = []model.SysRoleApi{
 	{RoleCode: "super-admin", ApiGroup: "notice", ApiMethod: "POST", ApiPath: "/notice/query-notice-read-by-id"},
 	{RoleCode: "super-admin", ApiGroup: "notice", ApiMethod: "POST", ApiPath: "/notice/send-notice"},
 
-	{RoleCode: "super-admin", ApiGroup: "todoNote", ApiMethod: "POST", ApiPath: "/note-todo/get-note-todo-list"},
-	{RoleCode: "super-admin", ApiGroup: "todoNote", ApiMethod: "POST", ApiPath: "/note-todo/edit-note-todo"},
-	{RoleCode: "super-admin", ApiGroup: "todoNote", ApiMethod: "POST", ApiPath: "/note-todo/add-note-todo"},
-	{RoleCode: "super-admin", ApiGroup: "todoNote", ApiMethod: "POST", ApiPath: "/note-todo/delete-note-todo-by-id"},
-	{RoleCode: "super-admin", ApiGroup: "todoNote", ApiMethod: "POST", ApiPath: "/note-todo/query-note-todo-by-id"},
+	{RoleCode: "super-admin", ApiGroup: "todo", ApiMethod: "POST", ApiPath: "/todo/get-todo-list"},
+	{RoleCode: "super-admin", ApiGroup: "todo", ApiMethod: "POST", ApiPath: "/todo/edit-todo"},
+	{RoleCode: "super-admin", ApiGroup: "todo", ApiMethod: "POST", ApiPath: "/todo/add-todo"},
+	{RoleCode: "super-admin", ApiGroup: "todo", ApiMethod: "POST", ApiPath: "/todo/delete-todo-by-id"},
+	{RoleCode: "super-admin", ApiGroup: "todo", ApiMethod: "POST", ApiPath: "/todo/query-todo-by-id"},
 
 	{RoleCode: "super-admin", ApiGroup: "genPlugin", ApiMethod: "POST", ApiPath: "/gen-plugin/gen-plugin"},
 

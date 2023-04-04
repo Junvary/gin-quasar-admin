@@ -1,9 +1,9 @@
 <template>
     <q-btn dense round flat icon="notifications_none">
-        <q-badge color="negative" floating rounded v-if="systemNum + messageNum + noteTodoNum">
-            {{ (systemNum + messageNum + noteTodoNum) > 99
+        <q-badge color="negative" floating rounded v-if="systemNum + messageNum + todoNum">
+            {{ (systemNum + messageNum + todoNum) > 99
                 ? "99+" :
-                (systemNum + messageNum + noteTodoNum)
+                (systemNum + messageNum + todoNum)
             }}
         </q-badge>
         <q-menu anchor="bottom start" self="top middle">
@@ -21,9 +21,9 @@
                         </q-badge>
                     </q-tab>
 
-                    <q-tab name="noteTodo" :label="$t('NoteTodo')">
-                        <q-badge color="negative" floating v-if="noteTodoNum">
-                            {{ noteTodoNum > 99 ? '99+' : noteTodoNum }}
+                    <q-tab name="todo" :label="$t('Todo')">
+                        <q-badge color="negative" floating v-if="todoNum">
+                            {{ todoNum > 99 ? '99+' : todoNum }}
                         </q-badge>
                     </q-tab>
                 </q-tabs>
@@ -39,8 +39,8 @@
                         <NoticeMessage :messageData="messageData" />
                     </q-tab-panel>
 
-                    <q-tab-panel style="padding: 0" name="noteTodo">
-                        <NoticeNoteTodo :noteTodoData="noteTodoData" />
+                    <q-tab-panel style="padding: 0" name="todo">
+                        <NoticeTodo :todoData="todoData" />
                     </q-tab-panel>
                 </q-tab-panels>
             </q-card>
@@ -52,7 +52,7 @@
 import { onMounted, ref, inject, computed } from 'vue'
 import NoticeSystem from './NoticeSystem.vue'
 import NoticeMessage from './NoticeMessage.vue'
-import NoticeNoteTodo from './NoticeNoteTodo.vue'
+import NoticeTodo from './NoticeTodo.vue'
 import { postAction } from 'src/api/manage';
 import { useUserStore } from 'src/stores/user'
 
@@ -62,13 +62,13 @@ const username = computed(() => userStore.GetUsername())
 const bus = inject('bus')
 const url = {
     list: 'notice/get-notice-list',
-    todo: 'note-todo/get-note-todo-list'
+    todo: 'todo/get-todo-list'
 }
 
-const getNoticeData = () => {
+const getNoticeAndTodoData = () => {
     getNoticeSystem()
     getNoticeMessage()
-    getNoticeNoteTodo()
+    getNoticeTodo()
 }
 
 const systemData = ref([])
@@ -111,9 +111,9 @@ const getNoticeMessage = () => {
     })
 }
 
-const noteTodoData = ref([])
-const noteTodoNum = ref(0)
-const getNoticeNoteTodo = () => {
+const todoData = ref([])
+const todoNum = ref(0)
+const getNoticeTodo = () => {
     postAction(url.todo, {
         todo_status: 'yesNo_no',
         sort_by: 'created_at',
@@ -122,21 +122,21 @@ const getNoticeNoteTodo = () => {
         page_size: 10
     }).then(res => {
         if (res.code === 1) {
-            noteTodoData.value = res.data.records
-            noteTodoNum.value = res.data.total
+            todoData.value = res.data.records
+            todoNum.value = res.data.total
         }
     })
 }
 
 onMounted(() => {
     bus.on('noticeGetTableData', () => {
-        getNoticeData()
+        getNoticeAndTodoData()
     })
-    getNoticeData()
+    getNoticeAndTodoData()
 })
 
 defineExpose({
-    getNoticeData
+    getNoticeAndTodoData
 })
 
 </script>

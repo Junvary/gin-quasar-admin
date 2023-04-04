@@ -12,7 +12,7 @@ type RouterPrivate struct {
 	RouterGenPlugin      RouterGenPlugin
 	RouterLog            RouterLog
 	RouterMenu           RouterMenu
-	RouterNoteTodo       RouterNoteTodo
+	RouterTodo           RouterTodo
 	RouterNotice         RouterNotice
 	RouterRole           RouterRole
 	RouterUpload         RouterUpload

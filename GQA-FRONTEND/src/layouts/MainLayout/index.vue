@@ -35,7 +35,7 @@
                 <div class="q-gutter-sm row items-center no-wrap">
                     <Fullscreen />
                     <ChatAndNotice />
-                    <AddNoteTodo />
+                    <AddTodo />
                     <GitLink v-if="gqaFrontend.showGit === 'yesNo_yes'" />
                     <UserMenu @showProfile="$refs.userProfile.show()" />
                     <Setting />
@@ -44,8 +44,7 @@
         </q-header>
 
         <q-drawer bordered v-model="toggleLeftDrawer" show-if-above :width="drawerWidth" :mini="miniState"
-            :mini-to-overlay="miniStateOut ? true : false" @mouseover="miniStateMouseover"
-            @mouseout="miniStateMouseout">
+            :mini-to-overlay="miniStateOut ? true : false" @mouseover="miniStateMouseover" @mouseout="miniStateMouseout">
             <SideBarLeft :topMenuChildren="topMenuChildren">
                 <q-select v-if="layoutView.split(' ')[0] === 'lHh'" id="menuSelect" v-model="currentTopMenu"
                     :options="topMenu" map-options option-value="name" @update:model-value="changeTop" filled
@@ -97,7 +96,7 @@ import Setting from './Setting/index.vue'
 import PageFooter from './PageFooter.vue'
 import GqaAvatar from 'src/components/GqaAvatar/index.vue'
 import UserProfile from './UserProfile/index.vue'
-import AddNoteTodo from './AddNoteTodo.vue';
+import AddTodo from './AddTodo.vue';
 import { useRoute } from 'vue-router';
 import useDocument from 'src/composables/useDocument'
 import { useQuasar } from 'quasar';

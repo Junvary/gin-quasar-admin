@@ -13,7 +13,7 @@ type ApiPrivate struct {
 	ApiLogLogin       ApiLogLogin
 	ApiLogOperation   ApiLogOperation
 	ApiMenu           ApiMenu
-	ApiNoteTodo       ApiNoteTodo
+	ApiTodo           ApiTodo
 	ApiNotice         ApiNotice
 	ApiRole           ApiRole
 	ApiUpload         ApiUpload

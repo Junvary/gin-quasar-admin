@@ -3,7 +3,7 @@
         <q-card style="width: 1400px; max-width: 80vw;">
             <q-card-section>
                 <div class="text-h6">
-                    {{ formTypeName }} {{ $t('NoteTodo') }}:
+                    {{ formTypeName }} {{ $t('Todo') }}:
                 </div>
             </q-card-section>
 
@@ -50,9 +50,9 @@ import useRecordDetail from 'src/composables/useRecordDetail'
 
 const emit = defineEmits(['handleFinish'])
 const url = {
-    add: 'note-todo/add-note-todo',
-    edit: 'note-todo/edit-note-todo',
-    queryById: 'note-todo/query-note-todo-by-id',
+    add: 'todo/add-todo',
+    edit: 'todo/edit-todo',
+    queryById: 'todo/query-todo-by-id',
 }
 const {
     bus,

@@ -1,7 +1,7 @@
 <template>
     <div>
         <q-list bordered separator style="min-width: 300px">
-            <q-item clickable v-ripple v-for="(item, index) in noteTodoData" :key="index" @click="toTodoDetail(item)">
+            <q-item clickable v-ripple v-for="(item, index) in todoData" :key="index" @click="toTodoDetail(item)">
                 <q-item-section avatar>
                     <q-icon color="primary" name="notifications" />
                 </q-item-section>
@@ -18,31 +18,31 @@
         </q-item>
 
         <UserProfile ref="userProfile" />
-        <NoticeNoteTodoDetail ref="noticeNoteTodoDetail" />
+        <NoticeTodoDetail ref="noticeTodoDetail" />
     </div>
 </template>
 
 <script setup>
 import UserProfile from 'src/layouts/MainLayout/UserProfile/index.vue'
-import NoticeNoteTodoDetail from 'src/layouts/MainLayout/UserProfile/modules/NoticeNoteTodoDetail.vue'
+import NoticeTodoDetail from 'src/layouts/MainLayout/UserProfile/modules/NoticeTodoDetail.vue'
 import { ref, toRefs } from 'vue';
 
 const props = defineProps({
-    noteTodoData: {
+    todoData: {
         type: Array,
         required: false,
         default: () => [],
     },
 })
-const { noteTodoData } = toRefs(props)
+const { todoData } = toRefs(props)
 
 const userProfile = ref(null)
 const toUserProfile = () => {
-    userProfile.value.show('noteTodo')
+    userProfile.value.show('todo')
 }
-const noticeNoteTodoDetail = ref(null)
+const noticeTodoDetail = ref(null)
 const toTodoDetail = (item) => {
-    noticeNoteTodoDetail.value.formType = 'edit'
-    noticeNoteTodoDetail.value.show(item)
+    noticeTodoDetail.value.formType = 'edit'
+    noticeTodoDetail.value.show(item)
 }
 </script>

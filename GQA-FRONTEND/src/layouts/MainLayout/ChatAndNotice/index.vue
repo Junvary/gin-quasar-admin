@@ -76,7 +76,7 @@ const websocketOnmessage = (e) => {
             moduleChat.value.receiveMessage(1)
         }
     } else {
-        moduleNotice.value.getNoticeData()
+        moduleNotice.value.getNoticeAndTodoData()
     }
 }
 const websocketOnclose = (e) => {

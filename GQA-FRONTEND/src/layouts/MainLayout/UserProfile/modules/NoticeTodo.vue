@@ -3,7 +3,7 @@
         <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
             :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest" style="max-height: 70vh;">
             <template v-slot:top>
-                <q-btn color="primary" @click="showAddForm()" :label="$t('Add') + ' ' + $t('NoteTodo')" />
+                <q-btn color="primary" @click="showAddForm()" :label="$t('Add') + ' ' + $t('Todo')" />
             </template>
             <template v-slot:body-cell-todo_detail="props">
                 <q-td :props="props" class="ellipsis" style="max-width: 400px;">
@@ -25,7 +25,7 @@
                 </q-td>
             </template>
         </q-table>
-        <NoticeNoteTodoDetail ref="recordDetailDialog" @handleFinish="handleFinish" />
+        <NoticeTodoDetail ref="recordDetailDialog" @handleFinish="handleFinish" />
     </div>
 </template>
 
@@ -33,11 +33,11 @@
 import useTableData from 'src/composables/useTableData'
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import NoticeNoteTodoDetail from './NoticeNoteTodoDetail'
+import NoticeTodoDetail from './NoticeTodoDetail'
 
 const { t } = useI18n()
 const url = {
-    list: 'note-todo/get-note-todo-list',
+    list: 'todo/get-todo-list',
 }
 const columns = computed(() => {
     return [

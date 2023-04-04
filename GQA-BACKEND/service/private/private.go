@@ -10,7 +10,7 @@ type ServicePrivate struct {
 	ServiceLogLogin       ServiceLogLogin
 	ServiceLogOperation   ServiceLogOperation
 	ServiceMenu           ServiceMenu
-	ServiceNoteTodo       ServiceNoteTodo
+	ServiceTodo           ServiceTodo
 	ServiceNotice         ServiceNotice
 	ServiceRole           ServiceRole
 	ServiceUpload         ServiceUpload

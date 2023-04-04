@@ -4,10 +4,10 @@ export default {
         "en-US": "Demo Mode",
         "ru": "демонстрационная модель"
     },
-    NoteTodo: {
-        "zh-CN": "待办便签",
-        "en-US": "Todo Note",
-        "ru": "Задача"
+    Todo: {
+        "zh-CN": "待办",
+        "en-US": "Todo",
+        "ru": "Тодо"
     },
     SystemManage: {
         "zh-CN": "系统管理",
