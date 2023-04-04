@@ -21,6 +21,12 @@
                 </q-td>
             </template>
 
+            <template v-slot:body-cell-created_at="props">
+                <q-td :props="props">
+                    {{ showDateTime(props.row.created_at) }}
+                </q-td>
+            </template>
+
             <template v-slot:body-cell-actions="props">
                 <q-td :props="props">
                     <div class="q-gutter-xs">
@@ -52,6 +58,7 @@ const columns = computed(() => {
         { name: 'notice_type', align: 'center', label: t('Type'), field: 'notice_type' },
         { name: 'notice_read', align: 'center', label: t('Read') + t('Status'), field: 'notice_read' },
         { name: 'notice_sent', align: 'center', label: t('Sent'), field: 'notice_sent' },
+        { name: 'created_at', align: 'center', label: t('CreatedAt'), field: 'created_at' },
         { name: 'actions', align: 'center', label: t('Actions'), field: 'actions' },
     ]
 })
@@ -64,6 +71,7 @@ const {
     tableData,
     onRequest,
     getTableData,
+    showDateTime,
 } = useTableData(url)
 
 const username = computed(() => userStore.GetUsername())
@@ -75,6 +83,7 @@ onMounted(() => {
         notice_to_user: String(username.value),
     }
     pagination.value.sortBy = 'created_at'
+    pagination.value.descending = true
     getTableData()
 })
 const noticeDetail = ref(null)
