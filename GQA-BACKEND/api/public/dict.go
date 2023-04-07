@@ -9,9 +9,9 @@ import (
 type ApiDict struct{}
 
 func (a *ApiDict) GetDictAll(c *gin.Context) {
-	err, dictList := servicePublic.ServiceDict.GetDictAll()
+	err, dataList := servicePublic.ServiceDict.GetDictAll()
 	if err != nil {
 		model.ResponseErrorMessage(utils.GqaI18n("GetDictFailed"), c)
 	}
-	model.ResponseSuccessData(gin.H{"records": dictList}, c)
+	model.ResponseSuccessData(gin.H{"records": dataList}, c)
 }

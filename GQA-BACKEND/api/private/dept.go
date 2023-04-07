@@ -11,30 +11,30 @@ import (
 type ApiDept struct{}
 
 func (a *ApiDept) GetDeptList(c *gin.Context) {
-	var requestDeptList model.RequestGetDeptList
-	if err := model.RequestShouldBindJSON(c, &requestDeptList); err != nil {
+	var toGetDataList model.RequestGetDeptList
+	if err := model.RequestShouldBindJSON(c, &toGetDataList); err != nil {
 		return
 	}
-	if err, deptList, total := servicePrivate.ServiceDept.GetDeptList(requestDeptList); err != nil {
+	if err, dataList, total := servicePrivate.ServiceDept.GetDeptList(toGetDataList); err != nil {
 		global.GqaLogger.Error(utils.GqaI18n("GetListFailed"), zap.Any("err", err))
 		model.ResponseErrorMessage(utils.GqaI18n("GetListFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessData(model.ResponsePage{
-			Records:  deptList,
-			Page:     requestDeptList.Page,
-			PageSize: requestDeptList.PageSize,
+			Records:  dataList,
+			Page:     toGetDataList.Page,
+			PageSize: toGetDataList.PageSize,
 			Total:    total,
 		}, c)
 	}
 }
 
 func (a *ApiDept) EditDept(c *gin.Context) {
-	var toEditDept model.SysDept
-	if err := model.RequestShouldBindJSON(c, &toEditDept); err != nil {
+	var toEditData model.SysDept
+	if err := model.RequestShouldBindJSON(c, &toEditData); err != nil {
 		return
 	}
-	toEditDept.UpdatedBy = utils.GetUsername(c)
-	if err := servicePrivate.ServiceDept.EditDept(toEditDept); err != nil {
+	toEditData.UpdatedBy = utils.GetUsername(c)
+	if err := servicePrivate.ServiceDept.EditDept(toEditData); err != nil {
 		global.GqaLogger.Error(utils.GqaI18n("EditFailed"), zap.Any("err", err))
 		model.ResponseErrorMessage(utils.GqaI18n("EditFailed")+err.Error(), c)
 	} else {
@@ -44,26 +44,26 @@ func (a *ApiDept) EditDept(c *gin.Context) {
 }
 
 func (a *ApiDept) AddDept(c *gin.Context) {
-	var toAddDept model.RequestAddDept
-	if err := model.RequestShouldBindJSON(c, &toAddDept); err != nil {
+	var toAddData model.RequestAddDept
+	if err := model.RequestShouldBindJSON(c, &toAddData); err != nil {
 		return
 	}
 	var GqaModelWithCreatedByAndUpdatedBy = model.GqaModelWithCreatedByAndUpdatedBy{
 		GqaModel: global.GqaModel{
 			CreatedBy: utils.GetUsername(c),
-			Status:    toAddDept.Status,
-			Sort:      toAddDept.Sort,
-			Memo:      toAddDept.Memo,
+			Status:    toAddData.Status,
+			Sort:      toAddData.Sort,
+			Memo:      toAddData.Memo,
 		},
 	}
-	addDept := &model.SysDept{
+	addData := &model.SysDept{
 		GqaModelWithCreatedByAndUpdatedBy: GqaModelWithCreatedByAndUpdatedBy,
-		ParentCode:                        toAddDept.ParentCode,
-		DeptCode:                          toAddDept.DeptCode,
-		DeptName:                          toAddDept.DeptName,
-		Leader:                            toAddDept.Leader,
+		ParentCode:                        toAddData.ParentCode,
+		DeptCode:                          toAddData.DeptCode,
+		DeptName:                          toAddData.DeptName,
+		Leader:                            toAddData.Leader,
 	}
-	if err := servicePrivate.ServiceDept.AddDept(*addDept); err != nil {
+	if err := servicePrivate.ServiceDept.AddDept(*addData); err != nil {
 		global.GqaLogger.Error(utils.GqaI18n("AddFailed"), zap.Any("err", err))
 		model.ResponseErrorMessage(utils.GqaI18n("AddFailed")+err.Error(), c)
 	} else {
@@ -90,11 +90,11 @@ func (a *ApiDept) QueryDeptById(c *gin.Context) {
 	if err := model.RequestShouldBindJSON(c, &toQueryId); err != nil {
 		return
 	}
-	if err, dept := servicePrivate.ServiceDept.QueryDeptById(toQueryId.Id); err != nil {
+	if err, data := servicePrivate.ServiceDept.QueryDeptById(toQueryId.Id); err != nil {
 		global.GqaLogger.Error(utils.GqaI18n("FindFailed"), zap.Any("err", err))
 		model.ResponseErrorMessage(utils.GqaI18n("FindFailed")+err.Error(), c)
 	} else {
-		model.ResponseSuccessMessageData(gin.H{"records": dept}, utils.GqaI18n("FindSuccess"), c)
+		model.ResponseSuccessMessageData(gin.H{"records": data}, utils.GqaI18n("FindSuccess"), c)
 	}
 }
 
@@ -126,11 +126,11 @@ func (a *ApiDept) RemoveDeptUser(c *gin.Context) {
 }
 
 func (a *ApiDept) AddDeptUser(c *gin.Context) {
-	var toAddDeptUser model.RequestDeptUserAdd
-	if err := model.RequestShouldBindJSON(c, &toAddDeptUser); err != nil {
+	var toAddDataUser model.RequestDeptUserAdd
+	if err := model.RequestShouldBindJSON(c, &toAddDataUser); err != nil {
 		return
 	}
-	if err := servicePrivate.ServiceDept.AddDeptUser(&toAddDeptUser); err != nil {
+	if err := servicePrivate.ServiceDept.AddDeptUser(&toAddDataUser); err != nil {
 		global.GqaLogger.Error(utils.GqaI18n("AddFailed"), zap.Any("err", err))
 		model.ResponseErrorMessage(utils.GqaI18n("AddFailed")+err.Error(), c)
 	} else {

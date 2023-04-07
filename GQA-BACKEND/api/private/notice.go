@@ -11,30 +11,30 @@ import (
 type ApiNotice struct{}
 
 func (a *ApiNotice) GetNoticeList(c *gin.Context) {
-	var requestNoticeList model.RequestGetNoticeList
-	if err := model.RequestShouldBindJSON(c, &requestNoticeList); err != nil {
+	var toGetDataList model.RequestGetNoticeList
+	if err := model.RequestShouldBindJSON(c, &toGetDataList); err != nil {
 		return
 	}
-	if err, noticeList, total := servicePrivate.ServiceNotice.GetNoticeList(requestNoticeList); err != nil {
+	if err, dataList, total := servicePrivate.ServiceNotice.GetNoticeList(toGetDataList); err != nil {
 		global.GqaLogger.Error(utils.GqaI18n("GetListFailed"), zap.Any("err", err))
 		model.ResponseErrorMessage(utils.GqaI18n("GetListFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessData(model.ResponsePage{
-			Records:  noticeList,
-			Page:     requestNoticeList.Page,
-			PageSize: requestNoticeList.PageSize,
+			Records:  dataList,
+			Page:     toGetDataList.Page,
+			PageSize: toGetDataList.PageSize,
 			Total:    total,
 		}, c)
 	}
 }
 
 func (a *ApiNotice) AddNotice(c *gin.Context) {
-	var toAddNotice model.RequestAddNotice
-	if err := model.RequestShouldBindJSON(c, &toAddNotice); err != nil {
+	var toAddData model.RequestAddNotice
+	if err := model.RequestShouldBindJSON(c, &toAddData); err != nil {
 		return
 	}
 	username := utils.GetUsername(c)
-	if err := servicePrivate.ServiceNotice.AddNotice(toAddNotice, username); err != nil {
+	if err := servicePrivate.ServiceNotice.AddNotice(toAddData, username); err != nil {
 		global.GqaLogger.Error(utils.GqaI18n("AddFailed"), zap.Any("err", err))
 		model.ResponseErrorMessage(utils.GqaI18n("AddFailed")+err.Error(), c)
 	} else {
@@ -61,11 +61,11 @@ func (a *ApiNotice) QueryNoticeById(c *gin.Context) {
 	if err := model.RequestShouldBindJSON(c, &toQueryId); err != nil {
 		return
 	}
-	if err, notice := servicePrivate.ServiceNotice.QueryNoticeById(toQueryId.Id); err != nil {
+	if err, data := servicePrivate.ServiceNotice.QueryNoticeById(toQueryId.Id); err != nil {
 		global.GqaLogger.Error(utils.GqaI18n("FindFailed"), zap.Any("err", err))
 		model.ResponseErrorMessage(utils.GqaI18n("FindFailed")+err.Error(), c)
 	} else {
-		model.ResponseSuccessMessageData(gin.H{"records": notice}, utils.GqaI18n("FindSuccess"), c)
+		model.ResponseSuccessMessageData(gin.H{"records": data}, utils.GqaI18n("FindSuccess"), c)
 	}
 }
 
@@ -75,11 +75,11 @@ func (a *ApiNotice) QueryNoticeReadById(c *gin.Context) {
 		return
 	}
 	username := utils.GetUsername(c)
-	if err, notice := servicePrivate.ServiceNotice.QueryNoticeReadById(toQueryId.Id, username); err != nil {
+	if err, data := servicePrivate.ServiceNotice.QueryNoticeReadById(toQueryId.Id, username); err != nil {
 		global.GqaLogger.Error(utils.GqaI18n("FindFailed"), zap.Any("err", err))
 		model.ResponseErrorMessage(utils.GqaI18n("FindFailed")+err.Error(), c)
 	} else {
-		model.ResponseSuccessMessageData(gin.H{"records": notice}, utils.GqaI18n("FindSuccess"), c)
+		model.ResponseSuccessMessageData(gin.H{"records": data}, utils.GqaI18n("FindSuccess"), c)
 	}
 }
 

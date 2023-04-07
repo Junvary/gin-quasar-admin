@@ -11,62 +11,62 @@ import (
 type ApiApi struct{}
 
 func (a *ApiApi) GetApiList(c *gin.Context) {
-	var getApiList model.RequestGetApiList
-	if err := model.RequestShouldBindJSON(c, &getApiList); err != nil {
+	var toGetDataList model.RequestGetApiList
+	if err := model.RequestShouldBindJSON(c, &toGetDataList); err != nil {
 		return
 	}
-	if err, configList, total := servicePrivate.ServiceApi.GetApiList(getApiList); err != nil {
-		global.GqaLogger.Error(utils.GqaI18nWithData("GetSomeListFailed", "Api"), zap.Any("err", err))
-		model.ResponseErrorMessage(utils.GqaI18nWithData("GetSomeListFailed", "Api")+err.Error(), c)
+	if err, dataList, total := servicePrivate.ServiceApi.GetApiList(toGetDataList); err != nil {
+		global.GqaLogger.Error(utils.GqaI18n("GetListFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("GetListFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessData(model.ResponsePage{
-			Records:  configList,
-			Page:     getApiList.Page,
-			PageSize: getApiList.PageSize,
+			Records:  dataList,
+			Page:     toGetDataList.Page,
+			PageSize: toGetDataList.PageSize,
 			Total:    total,
 		}, c)
 	}
 }
 
 func (a *ApiApi) EditApi(c *gin.Context) {
-	var toEditApi model.SysApi
-	if err := model.RequestShouldBindJSON(c, &toEditApi); err != nil {
+	var toEditData model.SysApi
+	if err := model.RequestShouldBindJSON(c, &toEditData); err != nil {
 		return
 	}
-	toEditApi.UpdatedBy = utils.GetUsername(c)
-	if err := servicePrivate.ServiceApi.EditApi(toEditApi); err != nil {
-		global.GqaLogger.Error(utils.GqaI18nWithData("EditSomeFailed", "Api"), zap.Any("err", err))
-		model.ResponseErrorMessage(utils.GqaI18nWithData("EditSomeFailed", "Api")+err.Error(), c)
+	toEditData.UpdatedBy = utils.GetUsername(c)
+	if err := servicePrivate.ServiceApi.EditApi(toEditData); err != nil {
+		global.GqaLogger.Error(utils.GqaI18n("EditFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("EditFailed")+err.Error(), c)
 	} else {
-		global.GqaLogger.Warn(utils.GetUsername(c) + utils.GqaI18nWithData("EditSomeSuccess", "Api"))
-		model.ResponseSuccessMessage(utils.GqaI18nWithData("EditSomeSuccess", "Api"), c)
+		global.GqaLogger.Warn(utils.GetUsername(c) + utils.GqaI18n("EditSuccess"))
+		model.ResponseSuccessMessage(utils.GqaI18n("EditSuccess"), c)
 	}
 }
 
 func (a *ApiApi) AddApi(c *gin.Context) {
-	var toAddApi model.RequestAddApi
-	if err := model.RequestShouldBindJSON(c, &toAddApi); err != nil {
+	var toAddData model.RequestAddApi
+	if err := model.RequestShouldBindJSON(c, &toAddData); err != nil {
 		return
 	}
 	var GqaModelWithCreatedByAndUpdatedBy = model.GqaModelWithCreatedByAndUpdatedBy{
 		GqaModel: global.GqaModel{
 			CreatedBy: utils.GetUsername(c),
-			Status:    toAddApi.Status,
-			Sort:      toAddApi.Sort,
-			Memo:      toAddApi.Memo,
+			Status:    toAddData.Status,
+			Sort:      toAddData.Sort,
+			Memo:      toAddData.Memo,
 		},
 	}
-	addApi := &model.SysApi{
+	addData := &model.SysApi{
 		GqaModelWithCreatedByAndUpdatedBy: GqaModelWithCreatedByAndUpdatedBy,
-		ApiGroup:                          toAddApi.ApiGroup,
-		ApiMethod:                         toAddApi.ApiMethod,
-		ApiPath:                           toAddApi.ApiPath,
+		ApiGroup:                          toAddData.ApiGroup,
+		ApiMethod:                         toAddData.ApiMethod,
+		ApiPath:                           toAddData.ApiPath,
 	}
-	if err := servicePrivate.ServiceApi.AddApi(*addApi); err != nil {
-		global.GqaLogger.Error(utils.GqaI18nWithData("AddSomeFailed", "Api"), zap.Any("err", err))
-		model.ResponseErrorMessage(utils.GqaI18nWithData("AddSomeFailed", "Api")+err.Error(), c)
+	if err := servicePrivate.ServiceApi.AddApi(*addData); err != nil {
+		global.GqaLogger.Error(utils.GqaI18n("AddFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("AddFailed")+err.Error(), c)
 	} else {
-		model.ResponseSuccessMessage(utils.GqaI18nWithData("AddSomeSuccess", "Api"), c)
+		model.ResponseSuccessMessage(utils.GqaI18n("AddSuccess"), c)
 	}
 }
 
@@ -76,11 +76,11 @@ func (a *ApiApi) DeleteApiById(c *gin.Context) {
 		return
 	}
 	if err := servicePrivate.ServiceApi.DeleteApiById(toDeleteId.Id); err != nil {
-		global.GqaLogger.Error(utils.GqaI18nWithData("DeleteSomeFailed", "Api"), zap.Any("err", err))
-		model.ResponseErrorMessage(utils.GqaI18nWithData("DeleteSomeFailed", "Api")+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("DeleteFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("DeleteFailed")+err.Error(), c)
 	} else {
-		global.GqaLogger.Warn(utils.GetUsername(c) + utils.GqaI18nWithData("DeleteSomeSuccess", "Api"))
-		model.ResponseSuccessMessage(utils.GqaI18nWithData("DeleteSomeSuccess", "Api"), c)
+		global.GqaLogger.Warn(utils.GetUsername(c) + utils.GqaI18n("DeleteSuccess"))
+		model.ResponseSuccessMessage(utils.GqaI18n("DeleteSuccess"), c)
 	}
 }
 
@@ -89,10 +89,10 @@ func (a *ApiApi) QueryApiById(c *gin.Context) {
 	if err := model.RequestShouldBindJSON(c, &toQueryId); err != nil {
 		return
 	}
-	if err, api := servicePrivate.ServiceApi.QueryApiById(toQueryId.Id); err != nil {
+	if err, data := servicePrivate.ServiceApi.QueryApiById(toQueryId.Id); err != nil {
 		global.GqaLogger.Error(utils.GqaI18nWithData("FindSomeFailed", "Api"), zap.Any("err", err))
 		model.ResponseErrorMessage(utils.GqaI18nWithData("FindSomeFailed", "Api")+err.Error(), c)
 	} else {
-		model.ResponseSuccessMessageData(gin.H{"records": api}, utils.GqaI18nWithData("FindSomeSuccess", "Api"), c)
+		model.ResponseSuccessMessageData(gin.H{"records": data}, utils.GqaI18nWithData("FindSomeSuccess", "Api"), c)
 	}
 }

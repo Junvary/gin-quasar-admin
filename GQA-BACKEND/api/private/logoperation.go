@@ -11,18 +11,18 @@ import (
 type ApiLogOperation struct{}
 
 func (a *ApiLogOperation) GetLogOperationList(c *gin.Context) {
-	var requestLogList model.RequestGetLogOperationList
-	if err := model.RequestShouldBindJSON(c, &requestLogList); err != nil {
+	var toGetDataList model.RequestGetLogOperationList
+	if err := model.RequestShouldBindJSON(c, &toGetDataList); err != nil {
 		return
 	}
-	if err, logList, total := servicePrivate.ServiceLogOperation.GetLogOperationList(requestLogList); err != nil {
+	if err, dataList, total := servicePrivate.ServiceLogOperation.GetLogOperationList(toGetDataList); err != nil {
 		global.GqaLogger.Error(utils.GqaI18n("GetListFailed"), zap.Any("err", err))
 		model.ResponseErrorMessage(utils.GqaI18n("GetListFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessData(model.ResponsePage{
-			Records:  logList,
-			Page:     requestLogList.Page,
-			PageSize: requestLogList.PageSize,
+			Records:  dataList,
+			Page:     toGetDataList.Page,
+			PageSize: toGetDataList.PageSize,
 			Total:    total,
 		}, c)
 	}

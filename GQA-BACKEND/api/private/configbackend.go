@@ -11,30 +11,30 @@ import (
 type ApiConfigBackend struct{}
 
 func (a *ApiConfigBackend) GetConfigBackendList(c *gin.Context) {
-	var getConfigBackendList model.RequestGetConfigBackendList
-	if err := model.RequestShouldBindJSON(c, &getConfigBackendList); err != nil {
+	var toGetDataList model.RequestGetConfigBackendList
+	if err := model.RequestShouldBindJSON(c, &toGetDataList); err != nil {
 		return
 	}
-	if err, configList, total := servicePrivate.ServiceConfigBackend.GetConfigBackendList(getConfigBackendList); err != nil {
+	if err, dataList, total := servicePrivate.ServiceConfigBackend.GetConfigBackendList(toGetDataList); err != nil {
 		global.GqaLogger.Error(utils.GqaI18n("GetListFailed"), zap.Any("err", err))
 		model.ResponseErrorMessage(utils.GqaI18n("GetListFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessData(model.ResponsePage{
-			Records:  configList,
-			Page:     getConfigBackendList.Page,
-			PageSize: getConfigBackendList.PageSize,
+			Records:  dataList,
+			Page:     toGetDataList.Page,
+			PageSize: toGetDataList.PageSize,
 			Total:    total,
 		}, c)
 	}
 }
 
 func (a *ApiConfigBackend) EditConfigBackend(c *gin.Context) {
-	var toEditConfigBackend model.SysConfigBackend
-	if err := model.RequestShouldBindJSON(c, &toEditConfigBackend); err != nil {
+	var toEditData model.SysConfigBackend
+	if err := model.RequestShouldBindJSON(c, &toEditData); err != nil {
 		return
 	}
-	toEditConfigBackend.UpdatedBy = utils.GetUsername(c)
-	if err := servicePrivate.ServiceConfigBackend.EditConfigBackend(toEditConfigBackend); err != nil {
+	toEditData.UpdatedBy = utils.GetUsername(c)
+	if err := servicePrivate.ServiceConfigBackend.EditConfigBackend(toEditData); err != nil {
 		global.GqaLogger.Error(utils.GqaI18n("EditFailed"), zap.Any("err", err))
 		model.ResponseErrorMessage(utils.GqaI18n("EditFailed")+err.Error(), c)
 	} else {
@@ -44,25 +44,25 @@ func (a *ApiConfigBackend) EditConfigBackend(c *gin.Context) {
 }
 
 func (a *ApiConfigBackend) AddConfigBackend(c *gin.Context) {
-	var toAddConfigBackend model.RequestAddConfigBackend
-	if err := model.RequestShouldBindJSON(c, &toAddConfigBackend); err != nil {
+	var toAddData model.RequestAddConfigBackend
+	if err := model.RequestShouldBindJSON(c, &toAddData); err != nil {
 		return
 	}
 	var GqaModelWithCreatedByAndUpdatedBy = model.GqaModelWithCreatedByAndUpdatedBy{
 		GqaModel: global.GqaModel{
 			CreatedBy: utils.GetUsername(c),
-			Status:    toAddConfigBackend.Status,
-			Sort:      toAddConfigBackend.Sort,
-			Memo:      toAddConfigBackend.Memo,
+			Status:    toAddData.Status,
+			Sort:      toAddData.Sort,
+			Memo:      toAddData.Memo,
 		},
 	}
-	addConfigBackend := &model.SysConfigBackend{
+	addData := &model.SysConfigBackend{
 		GqaModelWithCreatedByAndUpdatedBy: GqaModelWithCreatedByAndUpdatedBy,
-		ConfigItem:                        toAddConfigBackend.ConfigItem,
-		ItemDefault:                       toAddConfigBackend.ItemDefault,
-		ItemCustom:                        toAddConfigBackend.ItemCustom,
+		ConfigItem:                        toAddData.ConfigItem,
+		ItemDefault:                       toAddData.ItemDefault,
+		ItemCustom:                        toAddData.ItemCustom,
 	}
-	if err := servicePrivate.ServiceConfigBackend.AddConfigBackend(*addConfigBackend); err != nil {
+	if err := servicePrivate.ServiceConfigBackend.AddConfigBackend(*addData); err != nil {
 		global.GqaLogger.Error(utils.GqaI18n("AddFailed"), zap.Any("err", err))
 		model.ResponseErrorMessage(utils.GqaI18n("AddFailed")+err.Error(), c)
 	} else {

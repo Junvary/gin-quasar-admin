@@ -11,34 +11,34 @@ import (
 type ApiUser struct{}
 
 func (a *ApiUser) GetUserList(c *gin.Context) {
-	var requestUserList model.RequestGetUserList
-	if err := model.RequestShouldBindJSON(c, &requestUserList); err != nil {
+	var toGetDataList model.RequestGetUserList
+	if err := model.RequestShouldBindJSON(c, &toGetDataList); err != nil {
 		return
 	}
-	if err, userList, total := servicePrivate.ServiceUser.GetUserList(requestUserList); err != nil {
+	if err, dataList, total := servicePrivate.ServiceUser.GetUserList(toGetDataList); err != nil {
 		global.GqaLogger.Error(utils.GqaI18n("GetListFailed"), zap.Any("err", err))
 		model.ResponseErrorMessage(utils.GqaI18n("GetListFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessData(model.ResponsePage{
-			Records:  userList,
-			Page:     requestUserList.Page,
-			PageSize: requestUserList.PageSize,
+			Records:  dataList,
+			Page:     toGetDataList.Page,
+			PageSize: toGetDataList.PageSize,
 			Total:    total,
 		}, c)
 	}
 }
 
 func (a *ApiUser) EditUser(c *gin.Context) {
-	var toEditUser model.SysUser
-	if err := model.RequestShouldBindJSON(c, &toEditUser); err != nil {
+	var toEditData model.SysUser
+	if err := model.RequestShouldBindJSON(c, &toEditData); err != nil {
 		return
 	}
-	if toEditUser.Username == "admin" && toEditUser.Status == "off" {
+	if toEditData.Username == "admin" && toEditData.Status == "off" {
 		model.ResponseErrorMessage(utils.GqaI18n("CantDisableAdmin"), c)
 		return
 	}
-	toEditUser.UpdatedBy = utils.GetUsername(c)
-	if err := servicePrivate.ServiceUser.EditUser(toEditUser); err != nil {
+	toEditData.UpdatedBy = utils.GetUsername(c)
+	if err := servicePrivate.ServiceUser.EditUser(toEditData); err != nil {
 		global.GqaLogger.Error(utils.GqaI18n("EditFailed"), zap.Any("err", err))
 		model.ResponseErrorMessage(utils.GqaI18n("EditFailed")+err.Error(), c)
 	} else {
@@ -48,29 +48,29 @@ func (a *ApiUser) EditUser(c *gin.Context) {
 }
 
 func (a *ApiUser) AddUser(c *gin.Context) {
-	var toAddUser model.RequestAddUser
-	if err := model.RequestShouldBindJSON(c, &toAddUser); err != nil {
+	var toAddData model.RequestAddUser
+	if err := model.RequestShouldBindJSON(c, &toAddData); err != nil {
 		return
 	}
 	var GqaModelWithCreatedByAndUpdatedBy = model.GqaModelWithCreatedByAndUpdatedBy{
 		GqaModel: global.GqaModel{
 			CreatedBy: utils.GetUsername(c),
-			Status:    toAddUser.Status,
-			Sort:      toAddUser.Sort,
-			Memo:      toAddUser.Memo,
+			Status:    toAddData.Status,
+			Sort:      toAddData.Sort,
+			Memo:      toAddData.Memo,
 		},
 	}
-	addUser := &model.SysUser{
+	addData := &model.SysUser{
 		GqaModelWithCreatedByAndUpdatedBy: GqaModelWithCreatedByAndUpdatedBy,
-		Avatar:                            toAddUser.Avatar,
-		Username:                          toAddUser.Username,
-		Nickname:                          toAddUser.Nickname,
-		RealName:                          toAddUser.RealName,
-		Gender:                            toAddUser.Gender,
-		Mobile:                            toAddUser.Mobile,
-		Email:                             toAddUser.Email,
+		Avatar:                            toAddData.Avatar,
+		Username:                          toAddData.Username,
+		Nickname:                          toAddData.Nickname,
+		RealName:                          toAddData.RealName,
+		Gender:                            toAddData.Gender,
+		Mobile:                            toAddData.Mobile,
+		Email:                             toAddData.Email,
 	}
-	if err := servicePrivate.ServiceUser.AddUser(addUser); err != nil {
+	if err := servicePrivate.ServiceUser.AddUser(addData); err != nil {
 		if err.Error() == "successWithNoDefaultPassword" {
 			model.ResponseSuccessMessage(utils.GqaI18n("AddUserSuccessWithoutPwd"), c)
 		} else {
@@ -119,11 +119,11 @@ func (a *ApiUser) QueryUserById(c *gin.Context) {
 	if err := model.RequestShouldBindJSON(c, &toQueryId); err != nil {
 		return
 	}
-	if err, user := servicePrivate.ServiceUser.QueryUserById(toQueryId.Id); err != nil {
+	if err, data := servicePrivate.ServiceUser.QueryUserById(toQueryId.Id); err != nil {
 		global.GqaLogger.Error(utils.GqaI18n("FindFailed"), zap.Any("err", err))
 		model.ResponseErrorMessage(utils.GqaI18n("FindFailed")+err.Error(), c)
 	} else {
-		model.ResponseSuccessMessageData(gin.H{"records": user}, utils.GqaI18n("FindSuccess"), c)
+		model.ResponseSuccessMessageData(gin.H{"records": data}, utils.GqaI18n("FindSuccess"), c)
 	}
 }
 

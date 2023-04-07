@@ -9,9 +9,9 @@ import (
 type ApiConfigFrontend struct{}
 
 func (a *ApiConfigFrontend) GetConfigFrontendAll(c *gin.Context) {
-	err, configList := servicePublic.ServiceConfigFrontend.GetConfigFrontendAll()
+	err, dataList := servicePublic.ServiceConfigFrontend.GetConfigFrontendAll()
 	if err != nil {
 		model.ResponseErrorMessage(utils.GqaI18n("GetFrontendConfigFailed"), c)
 	}
-	model.ResponseSuccessData(gin.H{"records": configList}, c)
+	model.ResponseSuccessData(gin.H{"records": dataList}, c)
 }

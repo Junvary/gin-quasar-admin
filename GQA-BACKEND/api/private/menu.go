@@ -11,30 +11,30 @@ import (
 type ApiMenu struct{}
 
 func (a *ApiMenu) GetMenuList(c *gin.Context) {
-	var requestMenuList model.RequestGetMenuList
-	if err := model.RequestShouldBindJSON(c, &requestMenuList); err != nil {
+	var toGetDataList model.RequestGetMenuList
+	if err := model.RequestShouldBindJSON(c, &toGetDataList); err != nil {
 		return
 	}
-	if err, menuList, total := servicePrivate.ServiceMenu.GetMenuList(requestMenuList); err != nil {
+	if err, dataList, total := servicePrivate.ServiceMenu.GetMenuList(toGetDataList); err != nil {
 		global.GqaLogger.Error(utils.GqaI18n("GetListFailed"), zap.Any("err", err))
 		model.ResponseErrorMessage(utils.GqaI18n("GetListFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessData(model.ResponsePage{
-			Records:  menuList,
-			Page:     requestMenuList.Page,
-			PageSize: requestMenuList.PageSize,
+			Records:  dataList,
+			Page:     toGetDataList.Page,
+			PageSize: toGetDataList.PageSize,
 			Total:    total,
 		}, c)
 	}
 }
 
 func (a *ApiMenu) EditMenu(c *gin.Context) {
-	var toEditMenu model.SysMenu
-	if err := model.RequestShouldBindJSON(c, &toEditMenu); err != nil {
+	var toEditData model.SysMenu
+	if err := model.RequestShouldBindJSON(c, &toEditData); err != nil {
 		return
 	}
-	toEditMenu.UpdatedBy = utils.GetUsername(c)
-	if err := servicePrivate.ServiceMenu.EditMenu(toEditMenu); err != nil {
+	toEditData.UpdatedBy = utils.GetUsername(c)
+	if err := servicePrivate.ServiceMenu.EditMenu(toEditData); err != nil {
 		global.GqaLogger.Error(utils.GqaI18n("EditFailed"), zap.Any("err", err))
 		model.ResponseErrorMessage(utils.GqaI18n("EditFailed")+err.Error(), c)
 	} else {
@@ -44,31 +44,31 @@ func (a *ApiMenu) EditMenu(c *gin.Context) {
 }
 
 func (a *ApiMenu) AddMenu(c *gin.Context) {
-	var toAddMenu model.RequestAddMenu
-	if err := model.RequestShouldBindJSON(c, &toAddMenu); err != nil {
+	var toAddData model.RequestAddMenu
+	if err := model.RequestShouldBindJSON(c, &toAddData); err != nil {
 		return
 	}
 	var GqaModelWithCreatedByAndUpdatedBy = model.GqaModelWithCreatedByAndUpdatedBy{
 		GqaModel: global.GqaModel{
 			CreatedBy: utils.GetUsername(c),
-			Status:    toAddMenu.Status,
-			Sort:      toAddMenu.Sort,
-			Memo:      toAddMenu.Memo,
+			Status:    toAddData.Status,
+			Sort:      toAddData.Sort,
+			Memo:      toAddData.Memo,
 		},
 	}
-	addMenu := &model.SysMenu{
+	addData := &model.SysMenu{
 		GqaModelWithCreatedByAndUpdatedBy: GqaModelWithCreatedByAndUpdatedBy,
-		ParentCode:                        toAddMenu.ParentCode,
-		Name:                              toAddMenu.Name,
-		Path:                              toAddMenu.Path,
-		Component:                         toAddMenu.Component,
-		Hidden:                            toAddMenu.Hidden,
-		KeepAlive:                         toAddMenu.KeepAlive,
-		Title:                             toAddMenu.Title,
-		Icon:                              toAddMenu.Icon,
-		IsLink:                            toAddMenu.IsLink,
+		ParentCode:                        toAddData.ParentCode,
+		Name:                              toAddData.Name,
+		Path:                              toAddData.Path,
+		Component:                         toAddData.Component,
+		Hidden:                            toAddData.Hidden,
+		KeepAlive:                         toAddData.KeepAlive,
+		Title:                             toAddData.Title,
+		Icon:                              toAddData.Icon,
+		IsLink:                            toAddData.IsLink,
 	}
-	if err := servicePrivate.ServiceMenu.AddMenu(*addMenu); err != nil {
+	if err := servicePrivate.ServiceMenu.AddMenu(*addData); err != nil {
 		global.GqaLogger.Error(utils.GqaI18n("AddFailed"), zap.Any("err", err))
 		model.ResponseErrorMessage(utils.GqaI18n("AddFailed")+err.Error(), c)
 	} else {
@@ -95,10 +95,10 @@ func (a *ApiMenu) QueryMenuById(c *gin.Context) {
 	if err := model.RequestShouldBindJSON(c, &toQueryId); err != nil {
 		return
 	}
-	if err, menu := servicePrivate.ServiceMenu.QueryMenuById(toQueryId.Id); err != nil {
+	if err, data := servicePrivate.ServiceMenu.QueryMenuById(toQueryId.Id); err != nil {
 		global.GqaLogger.Error(utils.GqaI18n("FindFailed"), zap.Any("err", err))
 		model.ResponseErrorMessage(utils.GqaI18n("FindFailed")+err.Error(), c)
 	} else {
-		model.ResponseSuccessMessageData(gin.H{"records": menu}, utils.GqaI18n("FindSuccess"), c)
+		model.ResponseSuccessMessageData(gin.H{"records": data}, utils.GqaI18n("FindSuccess"), c)
 	}
 }

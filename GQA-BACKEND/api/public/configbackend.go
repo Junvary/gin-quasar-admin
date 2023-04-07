@@ -9,9 +9,9 @@ import (
 type ApiConfigBackend struct{}
 
 func (a *ApiConfigBackend) GetConfigBackendAll(c *gin.Context) {
-	err, configList := servicePublic.ServiceConfigBackend.GetConfigBackendAll()
+	err, dataList := servicePublic.ServiceConfigBackend.GetConfigBackendAll()
 	if err != nil {
 		model.ResponseErrorMessage(utils.GqaI18n("GetBackendConfigFailed"), c)
 	}
-	model.ResponseSuccessData(gin.H{"records": configList}, c)
+	model.ResponseSuccessData(gin.H{"records": dataList}, c)
 }
