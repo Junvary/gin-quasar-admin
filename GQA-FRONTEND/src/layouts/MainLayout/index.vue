@@ -1,12 +1,10 @@
 <template>
-    <q-layout :view="layoutView" :style="{ backgroundColor: $q.dark.isActive ? '#1d1d1d' : '#f0f2f5' }"
+    <q-layout view="hHh LpR lFf" :style="{ backgroundColor: $q.dark.isActive ? '#1d1d1d' : '#f0f2f5' }"
         style="overflow-x: hidden;">
-        <q-header reveal bordered :class="darkTheme" style="height: 50px; border-bottom: 1px solid white;">
-            <q-toolbar>
-                <q-btn dense round flat icon="eva-menu" @click="toggleLeftDrawer = !toggleLeftDrawer" />
-
-                <q-btn dense round flat :icon="miniStateOut ? 'eva-arrowhead-right' : 'eva-arrowhead-left'"
-                    @click="miniStateOut = !miniStateOut" />
+        <q-header reveal bordered :class="darkTheme" style="height: 40px;">
+            <q-toolbar class="min-height-40">
+                <q-btn dense round flat :icon="toggleLeftDrawer ? 'eva-arrowhead-left' : 'eva-arrowhead-right'"
+                    @click="toggleLeftDrawer = !toggleLeftDrawer" />
 
                 <GqaAvatar class="gin-quasar-admin-logo" :src="gqaFrontend.logo" @mouseenter="startCheck"
                     @mouseleave="stopCheck" />
@@ -14,15 +12,6 @@
                 <q-toolbar-title shrink class="text-bold text-italic cursor-pointer" style="padding: 0 5px;">
                     {{ gqaFrontend.subTitle }}
                 </q-toolbar-title>
-
-                <q-select v-if="layoutView.split(' ')[0] === 'hHh'" id="menuSelect" dense borderless
-                    v-model="currentTopMenu" :options="topMenu" map-options option-value="name"
-                    @update:model-value="changeTop" style="margin-left: 20px;" dark
-                    :option-label="opt => selectOptionLabel(opt)" options-selected-class="text-dark bg-grey-5">
-                    <template v-slot:prepend>
-                        <q-icon name="ion-md-apps" :class="darkTheme" />
-                    </template>
-                </q-select>
 
                 <q-breadcrumbs v-if="findCurrentTopMenu" style="margin-left: 20px;">
                     <q-breadcrumbs-el :label="selectOptionLabel(findCurrentTopMenu)" :icon="findCurrentTopMenu?.icon"
@@ -33,7 +22,9 @@
                 <q-space />
 
                 <div class="q-gutter-sm row items-center no-wrap">
+                    <SearchMenu />
                     <Fullscreen />
+                    <ChoosePlugin @changePlugin="changeTop" />
                     <ChatAndNotice />
                     <AddTodo />
                     <GitLink v-if="gqaFrontend.showGit === 'yesNo_yes'" />
@@ -45,16 +36,11 @@
 
         <q-drawer bordered v-model="toggleLeftDrawer" show-if-above :width="drawerWidth" :mini="miniState"
             :mini-to-overlay="miniStateOut ? true : false" @mouseover="miniStateMouseover" @mouseout="miniStateMouseout">
-            <SideBarLeft :topMenuChildren="topMenuChildren">
-                <q-select v-if="layoutView.split(' ')[0] === 'lHh'" id="menuSelect" v-model="currentTopMenu"
-                    :options="topMenu" map-options option-value="name" @update:model-value="changeTop" filled
-                    :dark="((themeStyle === 'Gin-Quasar-Admin' || themeStyle === 'Quasar') && !$q.dark.isActive) ? false : true"
-                    borderless :option-label="opt => Object(opt) === opt && 'title' in opt ? $t(opt.title) : opt.title">
-                    <template v-slot:prepend>
-                        <q-icon name="ion-md-apps" style="margin-right: 17px;" size="30px" />
-                    </template>
-                </q-select>
-            </SideBarLeft>
+            <SideBarLeft :topMenuChildren="topMenuChildren" />
+            <div class="q-mini-drawer-hide absolute" style="bottom: 15px; right: -17px">
+                <q-btn dense round :icon="miniStateOut ? 'chevron_right' : 'chevron_left'"
+                    @click="miniStateOut = !miniStateOut" />
+            </div>
         </q-drawer>
 
         <q-page-container style="overflow: hidden;">
@@ -63,7 +49,7 @@
             </router-view>
 
             <q-page-sticky expand position="top">
-                <TabMenu style="border-bottom: 1px solid #e0e0e0;" />
+                <TabMenu />
             </q-page-sticky>
 
             <q-page-sticky position="bottom-right" :offset="fabPos">
@@ -88,7 +74,9 @@ import { useSettingStore } from 'src/stores/setting'
 import useTheme from 'src/composables/useTheme';
 import SideBarLeft from './SideBarLeft/index.vue'
 import TabMenu from './TabMenu.vue'
+import SearchMenu from './SearchMenu.vue'
 import Fullscreen from './Fullscreen.vue'
+import ChoosePlugin from './ChoosePlugin.vue'
 import ChatAndNotice from './ChatAndNotice/index.vue'
 import GitLink from './GitLink.vue'
 import UserMenu from './UserMenu.vue'
@@ -144,10 +132,9 @@ const miniStateMouseout = () => {
 const { selectOptionLabel, selectRouteLabel } = useCommon()
 const gqaFrontend = computed(() => storageStore.GetGqaFrontend())
 const drawerWidth = computed(() => settingStore.GetSideDrawerWidth())
-const layoutView = computed(() => settingStore.GetLayoutView())
-const themeStyle = computed(() => settingStore.GetThemeStyle())
 
 const changeTop = (childrenMenu) => {
+    console.log(childrenMenu)
     topMenuChildren.value = childrenMenu.children
 }
 
@@ -160,21 +147,6 @@ onMounted(() => {
 watch(route, () => {
     currentTopMenu.value = findCurrentTopMenu.value?.name
     topMenuChildren.value = topMenu.value.filter(item => item.name === currentTopMenu.value)[0]?.children
-})
-
-watch(currentTopMenu, () => {
-    if (currentTopMenu !== "") {
-        let menuSelect = document.getElementById("menuSelect")
-        let menuSpan = menuSelect.querySelector("span")
-        // menuSpan.style.fontWeight = "bold"
-        menuSpan.style.animation = 'headShake'
-        menuSpan.style.animationDuration = "2s"
-        setTimeout(() => {
-            menuSpan.style.fontWeight = ""
-            menuSpan.style.animation = ""
-            menuSpan.style.animationDuration = ""
-        }, 2000)
-    }
 })
 
 const topMenu = computed(() => {
@@ -214,7 +186,7 @@ const stopCheck = () => {
 </script>
 
 <style lang="scss" scoped>
-.hhhh {
-    color: red !important;
+.min-height-40 {
+    min-height: 40px;
 }
 </style>

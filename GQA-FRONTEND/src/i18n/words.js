@@ -709,4 +709,9 @@ export default {
         "en-US": "Your",
         "ru": "Ваш"
     },
+    FullScreen: {
+        "zh-CN": "全屏",
+        "en-US": "full screen",
+        "ru": "Полный экран"
+    },
 }

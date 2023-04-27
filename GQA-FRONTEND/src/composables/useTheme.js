@@ -13,7 +13,7 @@ export default function useTheme() {
             return 'bg-dark text-white'
         } else {
             if (themeStyle.value === 'Gin-Quasar-Admin') {
-                return 'bg-grey-10 text-white'
+                return 'bg-white text-black'
             }
             if (themeStyle.value === 'Quasar') {
                 return 'bg-primary text-white'
@@ -85,7 +85,7 @@ export default function useTheme() {
             return ['class', 'bg-grey-10 text-white']
         } else {
             if (themeStyle.value === 'Gin-Quasar-Admin') {
-                return ['class', 'bg-grey-3 text-grey-10']
+                return ['class', 'bg-white text-black']
             }
             if (themeStyle.value === 'Quasar') {
                 return ['class', 'bg-white text-dark']

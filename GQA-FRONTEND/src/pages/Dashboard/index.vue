@@ -1,33 +1,23 @@
 <template>
     <q-page padding style="overflow-x: hidden;" class="q-gutter-y-md">
-        <q-card bordered class="dashboard-card">
-            <q-card-section>
-                <div class="row items-center no-wrap">
-                    <q-item class="col">
-                        <q-item-section avatar>
-                            <GqaAvatar loginUser size="50px" />
-                        </q-item-section>
-                        <q-item-section>
-                            <q-item-label class="text-h6 text-bold">
-                                {{ timeWelcome() }}
-                                <GqaShowName showMyName />
-                            </q-item-label>
-                            <q-item-label caption>
-                                {{ randomWelcome() }}
-                            </q-item-label>
-                        </q-item-section>
-                    </q-item>
-                    <div class="col-auto">
-                        <q-statistic label="Total" textAlign="right">
-                            <q-icon name="star" />
-                            123456
-                        </q-statistic>
+        <div class="row q-gutter-x-xs">
+            <GqaCard bordered class="col">
+                <q-card-section>
+                    <span class="text-h5 text-bold">
+                        {{ timeWelcome() }}
+                    </span>
+                    <div class="row items-center text-italic" style="margin-top: 7px;">
+                        {{ randomWelcome() }}
+                        <q-space />
+                        <span class="text-bold">
+                            <GqaShowName showMyName />
+                        </span>
+                        <q-inner-loading :showing="loading">
+                            <q-spinner-gears size="50px" color="primary" />
+                        </q-inner-loading>
                     </div>
-                </div>
-            </q-card-section>
-        </q-card>
-
-        <div class="row q-gutter-x-md">
+                </q-card-section>
+            </GqaCard>
             <GqaCard bordered class="col" startColor="#ec4786" endColor="#b955a4">
                 <q-card-section>
                     <span class="text-h6">
@@ -88,20 +78,19 @@
 
         <div class="row q-gutter-x-md">
             <GqaCard bordered class="col">
-                <Parallax />
-
+                <StarHistory />
             </GqaCard>
-            <GqaCard bordered class="col">
-                <TimeLine />
-            </GqaCard>
-        </div>
-
-        <div class="row q-gutter-x-md">
             <GqaCard bordered class="col">
                 <PieChart2 />
             </GqaCard>
             <GqaCard bordered class="col">
-                <BarChart />
+                <PieChart />
+            </GqaCard>
+        </div>
+
+        <div class="row q-gutter-x-md">
+            <GqaCard class="col">
+                <TimeLine />
             </GqaCard>
         </div>
 
@@ -109,10 +98,11 @@
 </template>
 
 <script setup>
-import GqaAvatar from 'src/components/GqaAvatar/index.vue'
 import GqaShowName from 'src/components/GqaShowName/index.vue'
 import BarChart from "./charts/BarChart";
+import PieChart from "./charts/PieChart.vue";
 import PieChart2 from "./charts/PieChart2.vue";
+import StarHistory from './charts/StarHistory.vue'
 import { timeWelcome, randomWelcome } from 'src/utils/welcome'
 import GqaCard from 'src/components/GqaCard/index.vue'
 import TimeLine from './charts/TimeLine.vue'
@@ -136,9 +126,3 @@ onMounted(() => {
     })
 })
 </script>
-
-<style lang="scss" scoped>
-.dashboard-card {
-    border-radius: 15px;
-}
-</style>

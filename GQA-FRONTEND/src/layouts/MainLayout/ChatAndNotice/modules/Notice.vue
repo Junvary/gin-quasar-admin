@@ -1,5 +1,8 @@
 <template>
-    <q-btn dense round flat icon="notifications_none">
+    <q-btn dense round flat icon="ion-ios-notifications-outline">
+        <q-tooltip>
+            {{ $t('Notice') }}
+        </q-tooltip>
         <q-badge color="negative" floating rounded v-if="systemNum + messageNum + todoNum">
             {{ (systemNum + messageNum + todoNum) > 99
                 ? "99+" :
@@ -138,5 +141,11 @@ onMounted(() => {
 defineExpose({
     getNoticeAndTodoData
 })
-
 </script>
+
+<style lang="scss" scoped>
+.q-badge--floating {
+    top: -1px;
+    right: -8px;
+}
+</style>

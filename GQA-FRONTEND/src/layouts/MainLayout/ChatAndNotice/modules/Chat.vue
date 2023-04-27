@@ -3,6 +3,9 @@
         <q-badge color="negative" floating v-if="badgeCount">
             {{ badgeCount }}
         </q-badge>
+        <q-tooltip>
+            {{ $t('ChatRoom') }}
+        </q-tooltip>
     </q-btn>
     <ChatDialog ref="chatDialog" :oldMessage="oldMessage" @onSendMessage="onSendMessage" @changeShow="changeShow" />
 </template>
