@@ -134,7 +134,6 @@ const gqaFrontend = computed(() => storageStore.GetGqaFrontend())
 const drawerWidth = computed(() => settingStore.GetSideDrawerWidth())
 
 const changeTop = (childrenMenu) => {
-    console.log(childrenMenu)
     topMenuChildren.value = childrenMenu.children
 }
 

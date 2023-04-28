@@ -7,23 +7,21 @@
     <q-dialog v-model="pluginDialogVisible" position="top">
         <q-card style="width: 1080px; max-width: 80vw;">
             <q-card-section>
-                <div class="text-h6 text-center">
+                <div class="text-h6">
                     {{ $t('Switch') + $t('Plugin') }}
                 </div>
             </q-card-section>
-            <q-separator />
-            <q-card-section>
-                <div class="row q-gutter-md">
-                    <q-btn class="col" v-for="item in topMenu" :key="item.id" size="80px" @click="changePlugin(item)">
+            <q-card-section class="row items-stretch justify-start q-gutter-md">
+                <q-btn class="q-hoverable cursor-pointer text-center" v-for="item in topMenu" :key="item.id"
+                    @click="changePlugin(item)">
+                    <div class="column items-center">
                         <q-icon name="check_box" size="30px" style="top: 2px; right: 2px" color="negative"
                             class="absolute all-pointer-events" v-if="currentTopMenu === item.name" />
-                        <q-avatar size="160px" :icon="item.icon">
-                        </q-avatar>
-                        <div class="absolute-bottom text-subtitle1 text-center bg-grey" style="font-size: 12px;">
-                            {{ item.name }}
-                        </div>
-                    </q-btn>
-                </div>
+                        <div class="q-focus-helper"></div>
+                        <q-avatar size="80px" :icon="item.icon" />
+                        <div>{{ item.title }}</div>
+                    </div>
+                </q-btn>
             </q-card-section>
         </q-card>
     </q-dialog>
