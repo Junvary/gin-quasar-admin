@@ -33,7 +33,7 @@ func (a *ApiUser) EditUser(c *gin.Context) {
 	if err := model.RequestShouldBindJSON(c, &toEditData); err != nil {
 		return
 	}
-	if toEditData.Username == "admin" && toEditData.Status == "off" {
+	if toEditData.Username == "admin" && toEditData.Status == "onOff_off" {
 		model.ResponseErrorMessage(utils.GqaI18n("CantDisableAdmin"), c)
 		return
 	}

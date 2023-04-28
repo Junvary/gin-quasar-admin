@@ -146,6 +146,6 @@ defineExpose({
 <style lang="scss" scoped>
 .q-badge--floating {
     top: -1px;
-    right: -8px;
+    right: -4px;
 }
 </style>

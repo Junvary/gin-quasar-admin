@@ -141,7 +141,6 @@ onMounted(() => {
     $q.dark.set(settingStore.GetDarkTheme())
     currentTopMenu.value = findCurrentTopMenu.value?.name
     topMenuChildren.value = topMenu.value.filter(item => item.name === currentTopMenu.value)[0]?.children
-
 })
 watch(route, () => {
     currentTopMenu.value = findCurrentTopMenu.value?.name

@@ -10,7 +10,7 @@ export const HandleRouter = (menuData) => {
                 component: pageImporter(item.component),
                 meta: {
                     hidden: item.hidden,
-                    keepAlive: item.keep_alive,
+                    keep_alive: item.keep_alive,
                     title: item.title,
                     icon: item.icon,
                     parent_code: item.parent_code,
