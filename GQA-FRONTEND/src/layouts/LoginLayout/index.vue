@@ -27,7 +27,7 @@
                 <div class="version-git-show">
                     <q-btn flat>
                         {{ $t('Version') }}{{ $t('Info') }}
-                        <GqaVersion />
+                        <gqa-version />
                     </q-btn>
                     <q-btn flat label="Github" @click="openLink('https://github.com/Junvary/gin-quasar-admin')" />
                     <q-btn flat label="Gitee" @click="openLink('https://gitee.com/junvary/gin-quasar-admin')" />
@@ -56,7 +56,6 @@ import { useStorageStore } from 'src/stores/storage'
 import { useQuasar } from 'quasar'
 import { useI18n } from 'vue-i18n'
 import useDocument from 'src/composables/useDocument'
-import GqaVersion from 'src/components/GqaVersion/index.vue'
 import GqaLanguage from 'src/components/GqaLanguage/index.vue'
 import config from '../../../package.json'
 import DarkTheme from 'src/components/GqaTheme/DarkTheme.vue';
