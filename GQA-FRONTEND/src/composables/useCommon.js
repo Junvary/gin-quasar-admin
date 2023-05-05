@@ -3,7 +3,6 @@ import { computed } from 'vue';
 import { FormatDateTime, FormatDate } from 'src/utils/date'
 import GqaDictShow from 'src/components/GqaDictShow'
 import GqaShowName from 'src/components/GqaShowName'
-import GqaAvatar from 'src/components/GqaAvatar'
 import { useI18n } from 'vue-i18n';
 
 export default function useCommon() {
@@ -41,7 +40,6 @@ export default function useCommon() {
     return {
         GqaDictShow,
         GqaShowName,
-        GqaAvatar,
         showDateTime,
         showDate,
         gqaFrontend,

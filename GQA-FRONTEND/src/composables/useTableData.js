@@ -99,12 +99,11 @@ export default function useTableData(url) {
             getTableData()
         })
     }
-    const { showDateTime, showDate, gqaFrontend, gqaBackend, GqaDictShow, GqaShowName, GqaAvatar, } = useCommon()
+    const { showDateTime, showDate, gqaFrontend, gqaBackend, GqaDictShow, GqaShowName, } = useCommon()
     return {
         $q,
         t,
         bus,
-        GqaAvatar,
         GqaShowName,
         GqaDictShow,
         gqaFrontend,

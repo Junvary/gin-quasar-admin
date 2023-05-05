@@ -1,9 +1,9 @@
 <template>
     <q-btn dense flat rounded>
-        <GqaAvatar rounded loginUser size="28px" />
+        <gqa-avatar rounded loginUser size="28px" />
         <q-menu class="row no-wrap items-center justify-around q-pa-md">
             <div class="column items-center" style="width: 240px;">
-                <GqaAvatar loginUser size="88px" />
+                <gqa-avatar loginUser size="88px" />
                 <div class="text-subtitle1 q-mt-md q-mb-md">
                     <GqaShowName showMyName />
                 </div>
@@ -21,7 +21,6 @@
 <script setup>
 import { useUserStore } from 'src/stores/user'
 import GqaShowName from 'src/components/GqaShowName/index.vue'
-import GqaAvatar from 'src/components/GqaAvatar/index.vue'
 import { useQuasar } from 'quasar'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'

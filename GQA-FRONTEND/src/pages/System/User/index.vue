@@ -14,8 +14,7 @@
             <q-card-section class="col q-gutter-y-md">
                 <q-card-section class="row q-gutter-x-md items-center">
                     <q-input outlined dense style="width: 20%" v-model="queryParams.username" :label="$t('Username')" />
-                    <q-input outlined dense style="width: 20%" v-model="queryParams.real_name"
-                        :label="$t('RealName')" />
+                    <q-input outlined dense style="width: 20%" v-model="queryParams.real_name" :label="$t('RealName')" />
                     <q-btn color="primary" @click="handleSearch" :label="$t('Search')" />
                     <q-btn color="primary" @click="resetSearch" :label="$t('Reset')" />
                 </q-card-section>
@@ -32,7 +31,7 @@
                         </template>
                         <template v-slot:body-cell-avatar="props">
                             <q-td :props="props">
-                                <GqaAvatar :src="props.row.avatar" />
+                                <gqa-avatar :src="props.row.avatar" />
                             </q-td>
                         </template>
                         <template v-slot:body-cell-gender="props">
@@ -133,7 +132,6 @@ const {
     queryParams,
     pageOptions,
     GqaDictShow,
-    GqaAvatar,
     loading,
     tableData,
     recordDetailDialog,

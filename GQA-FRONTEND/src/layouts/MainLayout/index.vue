@@ -6,7 +6,7 @@
                 <q-btn dense round flat :icon="toggleLeftDrawer ? 'eva-arrowhead-left' : 'eva-arrowhead-right'"
                     @click="toggleLeftDrawer = !toggleLeftDrawer" />
 
-                <GqaAvatar class="gin-quasar-admin-logo" :src="gqaFrontend.logo" @mouseenter="startCheck"
+                <gqa-avatar class="gin-quasar-admin-logo" :src="gqaFrontend.logo" @mouseenter="startCheck"
                     @mouseleave="stopCheck" />
 
                 <q-toolbar-title shrink class="text-bold text-italic cursor-pointer" style="padding: 0 5px;">
@@ -82,7 +82,6 @@ import GitLink from './GitLink.vue'
 import UserMenu from './UserMenu.vue'
 import Setting from './Setting/index.vue'
 import PageFooter from './PageFooter.vue'
-import GqaAvatar from 'src/components/GqaAvatar/index.vue'
 import UserProfile from './UserProfile/index.vue'
 import AddTodo from './AddTodo.vue';
 import { useRoute } from 'vue-router';
