@@ -21,7 +21,7 @@ func ZipFiles(filename string, files []string, oldForm, newForm string) error {
 		_ = zipWriter.Close()
 	}()
 
-	// 把files添加到zip中
+	// Add files to zip
 	for _, file := range files {
 
 		err = func(file string) error {

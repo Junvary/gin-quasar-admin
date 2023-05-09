@@ -13,13 +13,13 @@ func DeptDataPermission(username string, db *gorm.DB) (err error, permissionDb *
 	user := model.SysUser{
 		Username: username,
 	}
-	var roleList []model.SysRole
-	if err = global.GqaDb.Model(&user).Association("Role").Find(&roleList); err != nil {
+	var dataPermissionList []model.SysRole
+	if err = global.GqaDb.Model(&user).Association("Role").Find(&dataPermissionList); err != nil {
 		return err, nil
 	}
 	var permissionTypeList []string
 	var permissionCustomList []string
-	for _, v := range roleList {
+	for _, v := range dataPermissionList {
 		permissionTypeList = append(permissionTypeList, v.DeptDataPermissionType)
 		if v.DeptDataPermissionCustom != "" {
 			ss := strings.Split(v.DeptDataPermissionCustom, ",")
@@ -29,25 +29,25 @@ func DeptDataPermission(username string, db *gorm.DB) (err error, permissionDb *
 	tList := utils.RemoveDuplicateElementFromSlice(permissionTypeList)
 	cList := utils.RemoveDuplicateElementFromSlice(permissionCustomList)
 	tempDb := db
-	//创建循环节点
+
 Loop:
 	for _, v := range tList {
 		switch v {
-		case "all":
-			//如果权限列表中包含 all，那么直接放弃其他判断，跳出循环
+		case "deptDataPermissionType_all":
+			// If "all" is included in the permission list, you can directly give up other judgments and jump out of the loop
 			permissionDb = db
 			break Loop
-		case "user":
-			//用户自己的数据权限，直接查找创建人为自己的数据
+		case "deptDataPermissionType_user":
+			// The user's own data permission can directly find the data created by himself
 			permissionDb = tempDb.Where("created_by = ?", username)
-		case "dept":
-			//部门数据权限
+		case "deptDataPermissionType_dept":
+			// Department Data Permission
 			var deptList []model.SysDept
 			if err = global.GqaDb.Model(&user).Association("Dept").Find(&deptList); err != nil {
 				return err, nil
 			}
 			var deptUserList []string
-			//通过用户所在部门查找这些部门的用户集
+			// Find the user set of these departments by their departments
 			for _, dept := range deptList {
 				var deptUser []model.SysDeptUser
 				global.GqaDb.Where("sys_dept_dept_code = ?", dept.DeptCode).Find(&deptUser)
@@ -57,13 +57,13 @@ Loop:
 			}
 			allUser := utils.RemoveDuplicateElementFromSlice(deptUserList)
 			permissionDb = tempDb.Or(tempDb.Where("created_by in ?", allUser))
-		case "deptAndChildren":
-			//包含子部门的部门数据权限
+		case "deptDataPermissionType_deptAndChildren":
+			// Department data permission including sub departments
 			var deptList []model.SysDept
 			if err = global.GqaDb.Model(&user).Association("Dept").Find(&deptList); err != nil {
 				return err, nil
 			}
-			//用户所在部门，且包含所有子部门的用户集
+			// The user set of the user's department, including all sub departments
 			var deptListTotal []string
 			for _, dept := range deptList {
 				deptListTotal = append(deptListTotal, dept.DeptCode)
@@ -80,8 +80,8 @@ Loop:
 			}
 			allUser := utils.RemoveDuplicateElementFromSlice(deptUserList)
 			permissionDb = tempDb.Or(tempDb.Where("created_by in ?", allUser))
-		case "custom":
-			//自定义部门数据权限
+		case "deptDataPermissionType_custom":
+			// User defined department data permission
 			var deptUserList []string
 			for _, dept := range cList {
 				var deptUser []model.SysDeptUser
@@ -94,14 +94,14 @@ Loop:
 			permissionDb = tempDb.Or(tempDb.Where("created_by in ?", allUser))
 		default:
 			permissionDb = tempDb
-			return errors.New("没有数据权限配置！"), nil
+			return errors.New(utils.GqaI18n("NoConfig")), nil
 		}
 	}
 	return nil, permissionDb
 }
 
 func GetChildrenFromDept(deptCode string) (dl []string) {
-	//递归函数，查出所有子部门和部门
+	// find out all sub departments and departments
 	var deptList []model.SysDept
 	global.GqaDb.Where("parent_code = ?", deptCode).Find(&deptList)
 	var deptListString []string

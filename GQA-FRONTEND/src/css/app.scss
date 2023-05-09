@@ -1,0 +1,161 @@
+// app global css in SCSS form
+@import "./quasar.variables.scss";
+
+.gin-quasar-admin-logo {
+    cursor     : pointer;
+    user-select: none;
+
+    img {
+        transform : rotate(0deg);
+        transition: transform 1s ease-in-out;
+    }
+
+    &:hover img {
+        transform: rotate(-360deg);
+    }
+}
+
+.q-layout-padding {
+    padding-top: 50px;
+    min-height : calc(100vh - 70px) !important;
+}
+
+.gqa-login-layout-img-container {
+    overflow       : hidden;
+    height         : 100vh;
+    display        : flex;
+    justify-content: center;
+    align-items    : center;
+    position       : relative;
+
+    .main-title-logo {
+        position: absolute;
+        top     : 2vh;
+        left    : 2vw;
+    }
+
+    .primary-ball {
+        position     : absolute;
+        height       : 500px;
+        width        : 500px;
+        background   : $primary;
+        border-radius: 50%;
+        top          : -200px;
+        right        : -200px;
+        background   : -webkit-radial-gradient(circle at top right, #fff, $primary);
+        background   : -moz-radial-gradient(circle at top right, #fff, $primary);
+        background   : radial-gradient(circle at top right, #fff, $primary);
+    }
+
+    .positive-ball {
+        position     : absolute;
+        height       : 300px;
+        width        : 300px;
+        background   : $positive;
+        border-radius: 50%;
+        bottom       : 100px;
+        right        : -100px;
+        background   : -webkit-radial-gradient(circle at center right, $secondary, $positive);
+        background   : -moz-radial-gradient(circle at center right, $secondary, $positive);
+        background   : radial-gradient(circle at center right, $secondary, $positive);
+    }
+
+    .warning-ball {
+        position     : absolute;
+        height       : 600px;
+        width        : 600px;
+        background   : $warning;
+        border-radius: 50%;
+        bottom       : -200px;
+        left         : -200px;
+        background   : -webkit-radial-gradient(circle at bottom left, #cf9900, $warning);
+        background   : -moz-radial-gradient(circle at bottom left, #cf9900, $warning);
+        background   : radial-gradient(circle at bottom left, #ffbb00, $warning);
+    }
+
+    .negative-ball {
+        position     : absolute;
+        height       : 300px;
+        width        : 300px;
+        background   : $negative;
+        border-radius: 50%;
+        bottom       : -150px;
+        left         : 200px;
+        background   : -webkit-radial-gradient(circle at center bottom, #fff, $negative);
+        background   : -moz-radial-gradient(circle at center bottom, #fff, $negative);
+        background   : radial-gradient(circle at center bottom, #e05969, $negative);
+    }
+
+    .init-login-card {
+        position       : absolute;
+        width          : 65vw;
+        height         : 70vh;
+        display        : flex;
+        justify-content: center;
+        align-items    : center;
+    }
+
+    .power-show {
+        position   : absolute;
+        width      : 100%;
+        text-align : center;
+        bottom     : 0;
+        font-weight: bold;
+        font-size  : 10px;
+    }
+
+    .version-git-show {
+        position: absolute;
+        bottom  : 0;
+        right   : 0;
+    }
+
+    .language-show {
+        width      : 7%;
+        position   : absolute;
+        bottom     : 5px;
+        left       : 10px;
+        display    : flex;
+        align-items: center;
+    }
+
+    .dark-theme-show {
+        position: absolute;
+        top     : 0;
+        right   : 10px;
+    }
+}
+
+
+
+.gin-quasar-admin-banner {
+    height    : 93vh;
+    background: linear-gradient(60deg, $primary 0%, $positive 100%);
+    overflow  : hidden;
+}
+
+.q-tab,
+.q-btn {
+    text-transform: none;
+}
+
+.gqa-form {
+    & .q-field {
+        &__bottom--animated {
+            left          : -5px;
+            bottom        : 15px !important;
+            z-index       : 10;
+            pointer-events: none;
+
+            & .q-field__messages {
+                & div {
+                    width        : max-content;
+                    border-radius: 5px;
+                    background   : $negative;
+                    color        : #fff;
+                    padding      : 5px;
+                }
+            }
+        }
+    }
+}

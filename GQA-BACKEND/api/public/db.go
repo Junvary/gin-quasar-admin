@@ -27,29 +27,29 @@ func (a *ApiDb) CheckDb(c *gin.Context) {
 	}
 	if global.GqaDb != nil {
 		pluginLoginLayout := utils.GetConfigFrontend("pluginLoginLayout")
-		global.GqaLogger.Info("数据库无需初始化")
+		global.GqaLogger.Info(utils.GqaI18n("DbNoNeedInit"))
 		model.ResponseSuccessMessageData(gin.H{
 			"need_init":           false,
 			"go_version":          goVersion,
 			"gin_version":         ginVersion,
 			"plugin_list":         pluginList,
-			"plugin_login_layout": pluginLoginLayout}, "数据库无需初始化", c)
+			"plugin_login_layout": pluginLoginLayout}, utils.GqaI18n("DbNoNeedInit"), c)
 		return
 	} else {
-		global.GqaLogger.Info("数据库需要初始化")
+		global.GqaLogger.Info(utils.GqaI18n("DbNeedInit"))
 		model.ResponseSuccessMessageData(gin.H{
 			"need_init":   true,
 			"go_version":  goVersion,
 			"gin_version": ginVersion,
-			"plugin_list": pluginList}, "数据库需要初始化", c)
+			"plugin_list": pluginList}, utils.GqaI18n("DbNeedInit"), c)
 		return
 	}
 }
 
 func (a *ApiDb) InitDb(c *gin.Context) {
 	if global.GqaDb != nil {
-		global.GqaLogger.Error("已存在数据库配置，无须再次初始化！")
-		model.ResponseErrorMessage("已存在数据库配置，无须再次初始化！", c)
+		global.GqaLogger.Error(utils.GqaI18n("DbNoNeedInit"))
+		model.ResponseErrorMessage(utils.GqaI18n("DbNoNeedInit"), c)
 		return
 	}
 
@@ -58,9 +58,9 @@ func (a *ApiDb) InitDb(c *gin.Context) {
 		return
 	}
 	if err := servicePublic.ServiceDb.InitDb(initDbInfo); err != nil {
-		global.GqaLogger.Error("创建数据库失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("创建数据库失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("CreateDbError"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("CreateDbError")+", "+err.Error(), c)
 		return
 	}
-	model.ResponseSuccessMessage("系统初始化成功，请登录！", c)
+	model.ResponseSuccessMessage(utils.GqaI18n("InitSuccess"), c)
 }

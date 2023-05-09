@@ -25,20 +25,18 @@ func (a *ApiWebSocket) WebSocket(c *gin.Context) {
 	if err != nil {
 		return
 	}
-	//前端传递username，取出来和时间戳拼接，加上_是为了放重
+	// Frontend transmits the username, takes it out, splices the timestamp, and adds _ to prevent duplication
 	clientId := c.Param("username") + "_" + strconv.FormatInt(time.Now().Unix(), 10)
 
 	defer func() {
-		//连接断开，删除无效client
-		//delete(system.Clients, clientId)
+		// Disconnected, delete invalid client
 		model.Clients.Delete(clientId)
 		_ = ws.Close()
 	}()
 	model.Clients.Store(clientId, ws)
-	//system.Clients[clientId] = ws
 
 	for {
-		//读取websocket发来的数据
+		// Read the data sent by websocket
 		_, message, err := ws.ReadMessage()
 		if err != nil {
 			break
@@ -47,7 +45,7 @@ func (a *ApiWebSocket) WebSocket(c *gin.Context) {
 		if err = json.Unmarshal(message, &wsMessage); err != nil {
 			return
 		}
-		wsMessage.Stamp = time.Now().Format("2006-01-02 15:04:05")
+		wsMessage.Stamp = time.Now().Format(time.DateTime)
 		byteMessage, _ := json.Marshal(wsMessage)
 		if wsMessage.MessageType == "chat" {
 			model.BroadcastMsg <- byteMessage

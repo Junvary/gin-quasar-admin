@@ -10,7 +10,7 @@ type SysNotice struct {
 	NoticeTitle      string            `json:"notice_title" gorm:"comment:消息题目;index;"`
 	NoticeContent    string            `json:"notice_content" gorm:"comment:消息内容;type:text;"`
 	NoticeType       string            `json:"notice_type" gorm:"comment:消息类型;index;"`
-	NoticeSent       string            `json:"notice_sent" gorm:"comment:已经发送;default:no;index;"`
+	NoticeSent       string            `json:"notice_sent" gorm:"comment:已经发送;default:yesNo_no;index;"`
 	NoticeToUserType string            `json:"notice_to_user_type" gorm:"comment:接收用户范围;not null;"`
 	NoticeToUser     []SysNoticeToUser `json:"notice_to_user" gorm:"foreignKey:NoticeId;references:NoticeId"`
 }

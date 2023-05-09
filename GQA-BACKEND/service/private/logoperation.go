@@ -7,12 +7,12 @@ import (
 
 type ServiceLogOperation struct{}
 
-func (s *ServiceLogOperation) GetLogOperationList(requestLogList model.RequestGetLogOperationList) (err error, role interface{}, total int64) {
+func (s *ServiceLogOperation) GetLogOperationList(requestLogList model.RequestGetLogOperationList) (err error, log interface{}, total int64) {
 	pageSize := requestLogList.PageSize
 	offset := requestLogList.PageSize * (requestLogList.Page - 1)
 	db := global.GqaDb.Model(&model.SysLogOperation{})
 	var logList []model.SysLogOperation
-	//配置搜索
+	// Search
 	if requestLogList.OperationUsername != "" {
 		db = db.Where("operation_username like ?", "%"+requestLogList.OperationUsername+"%")
 	}

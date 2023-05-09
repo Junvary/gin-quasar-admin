@@ -2,15 +2,16 @@ package public
 
 import (
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
 	"github.com/gin-gonic/gin"
 )
 
 type ApiConfigBackend struct{}
 
 func (a *ApiConfigBackend) GetConfigBackendAll(c *gin.Context) {
-	err, configList := servicePublic.ServiceConfigBackend.GetConfigBackendAll()
+	err, dataList := servicePublic.ServiceConfigBackend.GetConfigBackendAll()
 	if err != nil {
-		model.ResponseErrorMessage("获取后台配置失败", c)
+		model.ResponseErrorMessage(utils.GqaI18n("GetBackendConfigFailed"), c)
 	}
-	model.ResponseSuccessData(gin.H{"records": configList}, c)
+	model.ResponseSuccessData(gin.H{"records": dataList}, c)
 }

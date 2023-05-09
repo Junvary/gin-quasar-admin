@@ -23,6 +23,7 @@ type SysLogOperation struct {
 	OperationMethod   string `json:"operation_method" gorm:"comment:请求方法"`
 	OperationApi      string `json:"operation_api" gorm:"comment:请求Api;"`
 	OperationStatus   int    `json:"operation_status" gorm:"comment:请求状态;"`
+	OperationBody     string `json:"operation_body" gorm:"comment:body;type:text;"`
 }
 
 type RequestGetLogOperationList struct {

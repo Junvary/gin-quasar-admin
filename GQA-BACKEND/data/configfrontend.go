@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
 	"time"
@@ -18,45 +19,45 @@ func (s *sysConfigFrontend) LoadData() error {
 		var count int64
 		tx.Model(&model.SysConfigFrontend{}).Count(&count)
 		if count != 0 {
-			fmt.Println("[Gin-Quasar-Admin] --> sys_config_frontend 表的初始数据已存在，跳过初始化数据！数据量：", count)
-			global.GqaLogger.Warn("[Gin-Quasar-Admin] --> sys_config_frontend 表的初始数据已存在，跳过初始化数据！", zap.Any("数据量", count))
+			fmt.Println(utils.GqaI18nWithData("SkipInsertWithData", "sys_config_frontend"), count)
+			global.GqaLogger.Warn(utils.GqaI18nWithData("SkipInsertWithData", "sys_config_frontend"), zap.Any("count", count))
 			return nil
 		}
 		if err := tx.Create(&sysConfigFrontendData).Error; err != nil { // 遇到错误时回滚事务
 			return err
 		}
-		fmt.Println("[Gin-Quasar-Admin] --> sys_config_frontend 表初始数据成功！")
-		global.GqaLogger.Info("[Gin-Quasar-Admin] --> sys_config_frontend 表初始数据成功！")
+		fmt.Println(utils.GqaI18nWithData("TableInitSuccess", "sys_config_frontend"))
+		global.GqaLogger.Info(utils.GqaI18nWithData("TableInitSuccess", "sys_config_frontend"))
 		return nil
 	})
 }
 
 var sysConfigFrontendData = []model.SysConfigFrontend{
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 10001, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "首页大图",
+		Sort: GqaSort + 1, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "首页大图",
 	}}, ConfigItem: "bannerImage", ItemDefault: ""},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 10002, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "网站主标题",
-	}}, ConfigItem: "mainTitle", ItemDefault: "Gin-Quasar-Admin(v2)"},
+		Sort: GqaSort + 2, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "网站主标题",
+	}}, ConfigItem: "mainTitle", ItemDefault: "Gin-Quasar-Admin"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 10003, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "网站副标题",
-	}}, ConfigItem: "subTitle", ItemDefault: "Gin-Quasar-Admin(v2)"},
+		Sort: GqaSort + 3, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "网站副标题",
+	}}, ConfigItem: "subTitle", ItemDefault: "Gin-Quasar-Admin"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 10004, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "网站描述",
+		Sort: GqaSort + 4, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "网站描述",
 	}}, ConfigItem: "webDescribe", ItemDefault: "Lorem ipsum dolor sit amet consectetur adipisicing elit"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 10005, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "登录页风格",
-	}}, ConfigItem: "loginLayoutStyle", ItemDefault: "simple"},
+		Sort: GqaSort + 5, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "登录页风格",
+	}}, ConfigItem: "loginLayoutStyle", ItemDefault: "displayStyle_simple"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 10006, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "登录页插件",
+		Sort: GqaSort + 6, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "登录页插件",
 	}}, ConfigItem: "pluginLoginLayout", ItemDefault: ""},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 10007, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "网站Logo",
+		Sort: GqaSort + 7, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "网站Logo",
 	}}, ConfigItem: "logo", ItemDefault: ""},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 10008, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "网站favicon",
+		Sort: GqaSort + 8, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "网站favicon",
 	}}, ConfigItem: "favicon", ItemDefault: ""},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 10009, Stable: "yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "显示仓库入口",
-	}}, ConfigItem: "showGit", ItemDefault: "yes"},
+		Sort: GqaSort + 9, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "显示仓库入口",
+	}}, ConfigItem: "showGit", ItemDefault: "yesNo_yes"},
 }

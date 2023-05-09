@@ -34,4 +34,7 @@ type System struct {
 	ErrorMessage   string `yaml:"errorMessage"`
 	BindError      string `yaml:"bindError"`
 	GenPluginPath  string `yaml:"genPluginPath"`
+	ImportPath     string `yaml:"importPath"`
+	ExportPath     string `yaml:"exportPath"`
+	TemplatePath   string `yaml:"templatePath"`
 }

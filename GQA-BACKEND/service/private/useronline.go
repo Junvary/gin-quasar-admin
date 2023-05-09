@@ -9,13 +9,13 @@ import (
 
 type ServiceUserOnline struct{}
 
-func (s *ServiceUserOnline) GetUserOnlineList(requestUserOnlineList model.RequestGetUserOnlineList) (err error, role interface{}, total int64) {
+func (s *ServiceUserOnline) GetUserOnlineList(requestUserOnlineList model.RequestGetUserOnlineList) (err error, user interface{}, total int64) {
 	_ = s.CheckUserOnline()
 	pageSize := requestUserOnlineList.PageSize
 	offset := requestUserOnlineList.PageSize * (requestUserOnlineList.Page - 1)
 	db := global.GqaDb.Model(&model.SysUserOnline{})
 	var userList []model.SysUserOnline
-	//配置搜索
+	// Search
 	if requestUserOnlineList.Username != "" {
 		db = db.Where("username like ?", "%"+requestUserOnlineList.Username+"%")
 	}

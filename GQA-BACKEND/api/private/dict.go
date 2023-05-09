@@ -11,18 +11,18 @@ import (
 type ApiDict struct{}
 
 func (a *ApiDict) GetDictList(c *gin.Context) {
-	var requestDictList model.RequestGetDictList
-	if err := model.RequestShouldBindJSON(c, &requestDictList); err != nil {
+	var toGetDataList model.RequestGetDictList
+	if err := model.RequestShouldBindJSON(c, &toGetDataList); err != nil {
 		return
 	}
-	if err, dictList, total, parentCode := servicePrivate.ServiceDict.GetDictList(requestDictList); err != nil {
-		global.GqaLogger.Error("获取字典列表失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("获取字典列表失败，"+err.Error(), c)
+	if err, dataList, total, parentCode := servicePrivate.ServiceDict.GetDictList(toGetDataList); err != nil {
+		global.GqaLogger.Error(utils.GqaI18n("GetListFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("GetListFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessData(model.ResponsePageWithParentId{
-			Records:    dictList,
-			Page:       requestDictList.Page,
-			PageSize:   requestDictList.PageSize,
+			Records:    dataList,
+			Page:       toGetDataList.Page,
+			PageSize:   toGetDataList.PageSize,
 			Total:      total,
 			ParentCode: parentCode,
 		}, c)
@@ -30,46 +30,49 @@ func (a *ApiDict) GetDictList(c *gin.Context) {
 }
 
 func (a *ApiDict) EditDict(c *gin.Context) {
-	var toEditDict model.SysDict
-	if err := model.RequestShouldBindJSON(c, &toEditDict); err != nil {
+	var toEditData model.SysDict
+	if err := model.RequestShouldBindJSON(c, &toEditData); err != nil {
 		return
 	}
-	toEditDict.UpdatedBy = utils.GetUsername(c)
-	if err := servicePrivate.ServiceDict.EditDict(toEditDict); err != nil {
-		global.GqaLogger.Error("编辑字典失败!", zap.Any("err", err))
-		model.ResponseErrorMessage("编辑字典失败，"+err.Error(), c)
+	toEditData.UpdatedBy = utils.GetUsername(c)
+	if err := servicePrivate.ServiceDict.EditDict(toEditData); err != nil {
+		global.GqaLogger.Error(utils.GqaI18n("EditFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("EditFailed")+err.Error(), c)
 	} else {
-		global.GqaLogger.Warn(utils.GetUsername(c) + "编辑字典成功！")
-		model.ResponseSuccessMessage("编辑字典成功！", c)
+		global.GqaLogger.Warn(utils.GetUsername(c) + utils.GqaI18n("EditSuccess"))
+		model.ResponseSuccessMessage(utils.GqaI18n("EditSuccess"), c)
 	}
 }
 
 func (a *ApiDict) AddDict(c *gin.Context) {
-	var toAddDict model.RequestAddDict
-	if err := model.RequestShouldBindJSON(c, &toAddDict); err != nil {
+	var toAddData model.RequestAddDict
+	if err := model.RequestShouldBindJSON(c, &toAddData); err != nil {
 		return
 	}
 	var GqaModelWithCreatedByAndUpdatedBy = model.GqaModelWithCreatedByAndUpdatedBy{
 		GqaModel: global.GqaModel{
 			CreatedBy: utils.GetUsername(c),
-			Status:    toAddDict.Status,
-			Sort:      toAddDict.Sort,
-			Memo:      toAddDict.Memo,
+			Status:    toAddData.Status,
+			Sort:      toAddData.Sort,
+			Memo:      toAddData.Memo,
 		},
 	}
-	addDict := &model.SysDict{
+	addData := &model.SysDict{
 		GqaModelWithCreatedByAndUpdatedBy: GqaModelWithCreatedByAndUpdatedBy,
-		ParentCode:                        toAddDict.ParentCode,
-		DictCode:                          toAddDict.DictCode,
-		DictLabel:                         toAddDict.DictLabel,
-		DictExt1:                          toAddDict.DictExt1,
-		DictExt2:                          toAddDict.DictExt2,
+		ParentCode:                        toAddData.ParentCode,
+		DictCode:                          toAddData.DictCode,
+		DictLabel:                         toAddData.DictLabel,
+		DictExt1:                          toAddData.DictExt1,
+		DictExt2:                          toAddData.DictExt2,
+		DictExt3:                          toAddData.DictExt3,
+		DictExt4:                          toAddData.DictExt4,
+		DictExt5:                          toAddData.DictExt5,
 	}
-	if err := servicePrivate.ServiceDict.AddDict(*addDict); err != nil {
-		global.GqaLogger.Error("添加字典失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("添加字典失败，"+err.Error(), c)
+	if err := servicePrivate.ServiceDict.AddDict(*addData); err != nil {
+		global.GqaLogger.Error(utils.GqaI18n("AddFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("AddFailed")+err.Error(), c)
 	} else {
-		model.ResponseSuccessMessage("添加字典成功！", c)
+		model.ResponseSuccessMessage(utils.GqaI18n("AddSuccess"), c)
 	}
 }
 
@@ -79,11 +82,11 @@ func (a *ApiDict) DeleteDictById(c *gin.Context) {
 		return
 	}
 	if err := servicePrivate.ServiceDict.DeleteDictById(toDeleteId.Id); err != nil {
-		global.GqaLogger.Error("删除字典失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("删除字典失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("DeleteFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("DeleteFailed")+err.Error(), c)
 	} else {
-		global.GqaLogger.Warn(utils.GetUsername(c) + "删除字典成功！")
-		model.ResponseSuccessMessage("删除字典成功！", c)
+		global.GqaLogger.Warn(utils.GetUsername(c) + utils.GqaI18n("DeleteSuccess"))
+		model.ResponseSuccessMessage(utils.GqaI18n("DeleteSuccess"), c)
 	}
 }
 
@@ -92,10 +95,10 @@ func (a *ApiDict) QueryDictById(c *gin.Context) {
 	if err := model.RequestShouldBindJSON(c, &toQueryId); err != nil {
 		return
 	}
-	if err, dict := servicePrivate.ServiceDict.QueryDictById(toQueryId.Id); err != nil {
-		global.GqaLogger.Error("查找字典失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("查找字典失败，"+err.Error(), c)
+	if err, data := servicePrivate.ServiceDict.QueryDictById(toQueryId.Id); err != nil {
+		global.GqaLogger.Error(utils.GqaI18n("FindFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("FindFailed")+err.Error(), c)
 	} else {
-		model.ResponseSuccessMessageData(gin.H{"records": dict}, "查找字典成功！", c)
+		model.ResponseSuccessMessageData(gin.H{"records": data}, utils.GqaI18n("FindSuccess"), c)
 	}
 }

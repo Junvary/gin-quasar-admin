@@ -3,6 +3,7 @@ package private
 import (
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
 )
@@ -10,18 +11,18 @@ import (
 type ApiLogOperation struct{}
 
 func (a *ApiLogOperation) GetLogOperationList(c *gin.Context) {
-	var requestLogList model.RequestGetLogOperationList
-	if err := model.RequestShouldBindJSON(c, &requestLogList); err != nil {
+	var toGetDataList model.RequestGetLogOperationList
+	if err := model.RequestShouldBindJSON(c, &toGetDataList); err != nil {
 		return
 	}
-	if err, logList, total := servicePrivate.ServiceLogOperation.GetLogOperationList(requestLogList); err != nil {
-		global.GqaLogger.Error("获取操作日志列表失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("获取操作日志列表失败，"+err.Error(), c)
+	if err, dataList, total := servicePrivate.ServiceLogOperation.GetLogOperationList(toGetDataList); err != nil {
+		global.GqaLogger.Error(utils.GqaI18n("GetListFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("GetListFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessData(model.ResponsePage{
-			Records:  logList,
-			Page:     requestLogList.Page,
-			PageSize: requestLogList.PageSize,
+			Records:  dataList,
+			Page:     toGetDataList.Page,
+			PageSize: toGetDataList.PageSize,
 			Total:    total,
 		}, c)
 	}
@@ -33,9 +34,9 @@ func (a *ApiLogOperation) DeleteLogOperationById(c *gin.Context) {
 		return
 	}
 	if err := servicePrivate.ServiceLogOperation.DeleteLogOperationById(toDeleteId.Id); err != nil {
-		global.GqaLogger.Error("删除操作日志失败！", zap.Any("err", err))
-		model.ResponseErrorMessage("删除操作日志失败，"+err.Error(), c)
+		global.GqaLogger.Error(utils.GqaI18n("DeleteFailed"), zap.Any("err", err))
+		model.ResponseErrorMessage(utils.GqaI18n("DeleteFailed")+err.Error(), c)
 	} else {
-		model.ResponseSuccessMessage("删除操作日志成功！", c)
+		model.ResponseSuccessMessage(utils.GqaI18n("DeleteSuccess"), c)
 	}
 }

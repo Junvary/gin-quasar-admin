@@ -4,7 +4,6 @@ import (
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
@@ -95,7 +94,7 @@ func (s *ServiceGenPlugin) ChangeToTplData(genPluginStruct *model.SysGenPlugin) 
 }
 
 func (s *ServiceGenPlugin) GetAllTplFile(basePath string, fileList []string) ([]string, error) {
-	files, err := ioutil.ReadDir(basePath)
+	files, err := os.ReadDir(basePath)
 	for _, file := range files {
 		if file.IsDir() {
 			fileList, err = s.GetAllTplFile(basePath+"/"+file.Name(), fileList)
@@ -115,25 +114,25 @@ func (s *ServiceGenPlugin) GenDataNew(genPluginStruct *model.SysGenPlugin, dataL
 	for _, value := range dataList {
 		if value.locationPath == "template/gqaplugintemplate/plugins/index.vue.tpl" {
 			for _, mo := range genPluginStruct.PluginModel {
-				var ggfp = "gqa-gen-plugin\\plugins\\" + genPluginStruct.PluginCode + "\\" + mo.ModelName
+				var ggfp = "gqa-gen-plugin/plugins/" + genPluginStruct.PluginCode + "/" + mo.ModelName
 				dataListNew = append(dataListNew, tplData{
 					template:      value.template,
 					locationPath:  "template/gqaplugintemplate/plugins/index.vue.tpl",
-					genGoFilePath: ggfp + "\\index.vue",
+					genGoFilePath: ggfp + "/index.vue",
 				})
-				fileListNew = append(fileListNew, ggfp+"\\index.vue")
+				fileListNew = append(fileListNew, ggfp+"/index.vue")
 				makeDirListNew = append(makeDirListNew, ggfp)
 			}
 		} else if value.locationPath == "template/gqaplugintemplate/plugins/modules/recordDetail.vue.tpl" {
 			for _, mo := range genPluginStruct.PluginModel {
-				var ggfp = "gqa-gen-plugin\\plugins\\" + genPluginStruct.PluginCode + "\\" + mo.ModelName
+				var ggfp = "gqa-gen-plugin/plugins/" + genPluginStruct.PluginCode + "/" + mo.ModelName
 				dataListNew = append(dataListNew, tplData{
 					template:      value.template,
 					locationPath:  "template/gqaplugintemplate/plugins/modules/recordDetail.vue.tpl",
-					genGoFilePath: ggfp + "\\modules\\recordDetail.vue",
+					genGoFilePath: ggfp + "/modules/recordDetail.vue",
 				})
-				fileListNew = append(fileListNew, ggfp+"\\modules\\recordDetail.vue")
-				makeDirListNew = append(makeDirListNew, ggfp+"\\modules")
+				fileListNew = append(fileListNew, ggfp+"/modules/recordDetail.vue")
+				makeDirListNew = append(makeDirListNew, ggfp+"/modules")
 			}
 		} else {
 			dataListNew = append(dataListNew, value)

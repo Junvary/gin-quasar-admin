@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="<%= productDescription %>">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport"
+        content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width<% if (ctx.mode.cordova || ctx.mode.capacitor) { %>, viewport-fit=cover<% } %>">
+    <style>
+        html,
+        body,
+        #q-app {
+            margin: 0;
+            padding: 0;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f6f6f6;
+            border-radius: 2px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cdcdcd;
+            border-radius: 2px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555555;
+        }
+
+        ::-webkit-scrollbar-corner {
+            background: #f6f6f6;
+        }
+
+        .gqa-loading span {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            color: #000000;
+            top: 51vh;
+            font-size: 1.5rem;
+        }
+
+        .gqa-loading::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #ffffff;
+        }
+
+        .gqa-loading::after {
+            content: '';
+            position: absolute;
+            display: block;
+            top: 50%;
+            left: 33.3%;
+            width: 33.3%;
+            height: 3px;
+            background: #000000;
+            transform-origin: left;
+            transform: scaleX(0);
+            animation: animate 2s infinite alternate;
+        }
+
+        @keyframes animate {
+            0% {
+                transform: translateX(0) scaleX(0);
+                transform-origin: left;
+                left: 33.3%;
+                right: auto;
+            }
+
+            45% {
+                transform: translateX(0) scaleX(1);
+                transform-origin: left;
+                left: 33.3%;
+                right: auto;
+            }
+
+            50% {
+                transform: translateX(0) scaleX(1);
+                transform-origin: right;
+                left: auto;
+                right: 33.3%;
+            }
+
+            100% {
+                transform: translateX(0) scaleX(0);
+                transform-origin: right;
+                left: auto;
+                right: 33.3%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="q-app">
+        <div class="gqa-loading">
+            <span>
+                Loading...
+            </span>
+        </div>
+        <!-- quasar:entry-point -->
+    </div>
+
+</body>
+
+</html>

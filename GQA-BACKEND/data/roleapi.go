@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
 	"go.uber.org/zap"
 	"gorm.io/gorm"
 )
@@ -17,15 +18,15 @@ func (s *sysRoleApi) LoadData() error {
 		var count int64
 		tx.Model(&model.SysRoleApi{}).Count(&count)
 		if count != 0 {
-			fmt.Println("[Gin-Quasar-Admin] --> sys_role_api 表的初始数据已存在，跳过初始化数据！数据量：", count)
-			global.GqaLogger.Warn("[Gin-Quasar-Admin] --> sys_role_api 表的初始数据已存在，跳过初始化数据！", zap.Any("数据量", count))
+			fmt.Println(utils.GqaI18nWithData("SkipInsertWithData", "sys_role_api"), count)
+			global.GqaLogger.Warn(utils.GqaI18nWithData("SkipInsertWithData", "sys_role_api"), zap.Any("count", count))
 			return nil
 		}
 		if err := tx.Create(&sysRoleApiData).Error; err != nil { // 遇到错误时回滚事务
 			return err
 		}
-		fmt.Println("[Gin-Quasar-Admin] --> sys_role_api 表初始数据成功！")
-		global.GqaLogger.Info("[Gin-Quasar-Admin] --> sys_role_api 表初始数据成功！")
+		fmt.Println(utils.GqaI18nWithData("TableInitSuccess", "sys_role_api"))
+		global.GqaLogger.Info(utils.GqaI18nWithData("TableInitSuccess", "sys_role_api"))
 		return nil
 	})
 }
@@ -54,6 +55,7 @@ var sysRoleApiData = []model.SysRoleApi{
 	{RoleCode: "super-admin", ApiGroup: "role", ApiMethod: "POST", ApiPath: "/role/remove-role-user"},
 	{RoleCode: "super-admin", ApiGroup: "role", ApiMethod: "POST", ApiPath: "/role/add-role-user"},
 	{RoleCode: "super-admin", ApiGroup: "role", ApiMethod: "POST", ApiPath: "/role/edit-role-dept-data-permission"},
+	{RoleCode: "super-admin", ApiGroup: "role", ApiMethod: "POST", ApiPath: "/role/get-role-button-list"},
 
 	{RoleCode: "super-admin", ApiGroup: "menu", ApiMethod: "POST", ApiPath: "/menu/get-menu-list"},
 	{RoleCode: "super-admin", ApiGroup: "menu", ApiMethod: "POST", ApiPath: "/menu/edit-menu"},
@@ -104,21 +106,24 @@ var sysRoleApiData = []model.SysRoleApi{
 	{RoleCode: "super-admin", ApiGroup: "log", ApiMethod: "POST", ApiPath: "/log/delete-log-operation-by-id"},
 
 	{RoleCode: "super-admin", ApiGroup: "notice", ApiMethod: "POST", ApiPath: "/notice/get-notice-list"},
-	{RoleCode: "super-admin", ApiGroup: "notice", ApiMethod: "POST", ApiPath: "/notice/edit-notice"},
 	{RoleCode: "super-admin", ApiGroup: "notice", ApiMethod: "POST", ApiPath: "/notice/add-notice"},
 	{RoleCode: "super-admin", ApiGroup: "notice", ApiMethod: "POST", ApiPath: "/notice/delete-notice-by-id"},
 	{RoleCode: "super-admin", ApiGroup: "notice", ApiMethod: "POST", ApiPath: "/notice/query-notice-by-id"},
 	{RoleCode: "super-admin", ApiGroup: "notice", ApiMethod: "POST", ApiPath: "/notice/query-notice-read-by-id"},
 	{RoleCode: "super-admin", ApiGroup: "notice", ApiMethod: "POST", ApiPath: "/notice/send-notice"},
 
-	{RoleCode: "super-admin", ApiGroup: "todoNote", ApiMethod: "POST", ApiPath: "/note-todo/get-note-todo-list"},
-	{RoleCode: "super-admin", ApiGroup: "todoNote", ApiMethod: "POST", ApiPath: "/note-todo/edit-note-todo"},
-	{RoleCode: "super-admin", ApiGroup: "todoNote", ApiMethod: "POST", ApiPath: "/note-todo/add-note-todo"},
-	{RoleCode: "super-admin", ApiGroup: "todoNote", ApiMethod: "POST", ApiPath: "/note-todo/delete-note-todo-by-id"},
-	{RoleCode: "super-admin", ApiGroup: "todoNote", ApiMethod: "POST", ApiPath: "/note-todo/query-note-todo-by-id"},
+	{RoleCode: "super-admin", ApiGroup: "todo", ApiMethod: "POST", ApiPath: "/todo/get-todo-list"},
+	{RoleCode: "super-admin", ApiGroup: "todo", ApiMethod: "POST", ApiPath: "/todo/edit-todo"},
+	{RoleCode: "super-admin", ApiGroup: "todo", ApiMethod: "POST", ApiPath: "/todo/add-todo"},
+	{RoleCode: "super-admin", ApiGroup: "todo", ApiMethod: "POST", ApiPath: "/todo/delete-todo-by-id"},
+	{RoleCode: "super-admin", ApiGroup: "todo", ApiMethod: "POST", ApiPath: "/todo/query-todo-by-id"},
 
 	{RoleCode: "super-admin", ApiGroup: "genPlugin", ApiMethod: "POST", ApiPath: "/gen-plugin/gen-plugin"},
 
 	{RoleCode: "super-admin", ApiGroup: "user-online", ApiMethod: "POST", ApiPath: "/user-online/get-user-online-list"},
 	{RoleCode: "super-admin", ApiGroup: "user-online", ApiMethod: "POST", ApiPath: "/user-online/kick-online-user"},
+
+	{RoleCode: "super-admin", ApiGroup: "cron", ApiMethod: "POST", ApiPath: "/cron/get-cron-list"},
+	{RoleCode: "super-admin", ApiGroup: "cron", ApiMethod: "POST", ApiPath: "/cron/start-cron"},
+	{RoleCode: "super-admin", ApiGroup: "cron", ApiMethod: "POST", ApiPath: "/cron/stop-cron"},
 }

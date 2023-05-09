@@ -26,7 +26,7 @@ func Get{{.ModelName}}List(get{{.ModelName}}List model.RequestGet{{.ModelName}}L
 	if err != nil {
 		return err, recordList, 0
 	}
-	err = db.Limit(pageSize).Offset(offset).Order(gqaModel.OrderByColumn(get{{.ModelName}}List.SortBy, get{{.ModelName}}List.Desc)).Preload("CreatedByUser").Find(&get{{.ModelName}}List).Error
+	err = db.Limit(pageSize).Offset(offset).Order(gqaModel.OrderByColumn(get{{.ModelName}}List.SortBy, get{{.ModelName}}List.Desc)).Preload("CreatedByUser").Find(&recordList).Error
 	return err, recordList, total
 }
 

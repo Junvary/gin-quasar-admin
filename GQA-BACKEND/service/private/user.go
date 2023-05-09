@@ -16,9 +16,12 @@ type ServiceUser struct{}
 func (s *ServiceUser) GetUserList(requestUserList model.RequestGetUserList) (err error, user interface{}, total int64) {
 	pageSize := requestUserList.PageSize
 	offset := requestUserList.PageSize * (requestUserList.Page - 1)
-	db := global.GqaDb.Model(&model.SysUser{})
 	var userList []model.SysUser
-	//配置搜索
+	db := global.GqaDb.Model(&model.SysUser{})
+	// Search
+	if !requestUserList.WithAdmin {
+		db = db.Where("username != ?", "admin")
+	}
 	if requestUserList.Username != "" {
 		db = db.Where("username like ?", "%"+requestUserList.Username+"%")
 	}
@@ -26,28 +29,29 @@ func (s *ServiceUser) GetUserList(requestUserList model.RequestGetUserList) (err
 		db = db.Where("real_name like ?", "%"+requestUserList.RealName+"%")
 	}
 	err = db.Count(&total).Error
-	if err != nil {
-		return
-	}
-	if requestUserList.WithAdmin {
-		err = db.Limit(pageSize).Offset(offset).Order(model.OrderByColumn(requestUserList.SortBy, requestUserList.Desc)).
-			Preload("Role").Preload("Dept").Find(&userList).Error
+	db = db.Limit(pageSize).Offset(offset).Order(model.OrderByColumn(requestUserList.SortBy, requestUserList.Desc))
+	if requestUserList.DeptCode != "" {
+		dept := model.SysDept{
+			DeptCode: requestUserList.DeptCode,
+		}
+		err = db.Model(&dept).Preload("Role").Preload("Dept").Association("Staff").Find(&userList)
+		total = int64(len(userList))
 		return err, userList, total
 	} else {
-		err = db.Where("username != ?", "admin").Limit(pageSize).Offset(offset).
-			Order(model.OrderByColumn(requestUserList.SortBy, requestUserList.Desc)).Preload("Role").Preload("Dept").Find(&userList).Error
+		err = db.Preload("Role").Preload("Dept").Find(&userList).Error
 		return err, userList, total
 	}
 }
 
 func (s *ServiceUser) EditUser(toEditUser model.SysUser) (err error) {
 	var sysUser model.SysUser
+	if sysUser.Stable == "yesNo_yes" {
+		return errors.New(utils.GqaI18n("StableCantDo") + toEditUser.Username)
+	}
 	if err = global.GqaDb.Where("id = ?", toEditUser.Id).First(&sysUser).Error; err != nil {
 		return err
 	}
-	if sysUser.Stable == "yes" {
-		return errors.New("系统内置不允许编辑：" + toEditUser.Username)
-	}
+	toEditUser.Password = sysUser.Password
 	//err = global.GqaDb.Updates(&toEditUser).Error
 	err = global.GqaDb.Save(&toEditUser).Error
 	return err
@@ -56,7 +60,7 @@ func (s *ServiceUser) EditUser(toEditUser model.SysUser) (err error) {
 func (s *ServiceUser) AddUser(toAddUser *model.SysUser) (err error) {
 	var user model.SysUser
 	if !errors.Is(global.GqaDb.Where("username = ?", toAddUser.Username).First(&user).Error, gorm.ErrRecordNotFound) {
-		return errors.New("此用户已存在：" + toAddUser.Username)
+		return errors.New(utils.GqaI18n("AlreadyExist") + toAddUser.Username)
 	}
 	defaultPassword := utils.GetConfigBackend("defaultPassword")
 	if defaultPassword == "" {
@@ -72,11 +76,11 @@ func (s *ServiceUser) AddUser(toAddUser *model.SysUser) (err error) {
 
 func (s *ServiceUser) DeleteUserById(id uint) (err error) {
 	var sysUser model.SysUser
+	if sysUser.Stable == "yesNo_yes" {
+		return errors.New(utils.GqaI18n("StableCantDo") + sysUser.Username)
+	}
 	if err = global.GqaDb.Where("id = ?", id).First(&sysUser).Error; err != nil {
 		return err
-	}
-	if sysUser.Stable == "yes" {
-		return errors.New("系统内置不允许删除：" + sysUser.Username)
 	}
 	if err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&sysUser).Error; err != nil {
 		return err
@@ -119,23 +123,40 @@ func (s *ServiceUser) ResetPassword(id uint) (err error) {
 	return err
 }
 
-func (s *ServiceUser) GetUserMenu(c *gin.Context) (err error, menu []model.SysMenu) {
+func (s *ServiceUser) GetUserMenu(c *gin.Context) (err error, defaultPageList []string, menu []model.SysMenu, buttons []string) {
 	username := utils.GetUsername(c)
 	var user model.SysUser
 	err = global.GqaDb.Preload("Role").Where("username=?", username).First(&user).Error
 	if err != nil {
-		return err, nil
+		return err, nil, nil, nil
 	}
 	var role []model.SysRole
 	err = global.GqaDb.Model(&user).Association("Role").Find(&role)
 	if err != nil {
-		return err, nil
+		return err, nil, nil, nil
 	}
+	//获取角色默认页面列表
+	var roleCodeList []string
+	for _, v := range role {
+		defaultPageList = append(defaultPageList, v.DefaultPage)
+		// 获取角色code列表为获取按钮列表做准备
+		roleCodeList = append(roleCodeList, v.RoleCode)
+	}
+
 	var menus []model.SysMenu
-	err = global.GqaDb.Model(&role).Association("Menu").Find(&menus)
+	err = global.GqaDb.Model(&role).Preload("Button").Association("Menu").Find(&menus)
 	if err != nil {
-		return err, nil
+		return err, nil, nil, nil
 	}
+	//获取所有按钮权限
+	var buttonList []model.SysRoleButton
+	err = global.GqaDb.Where("sys_role_role_code in ?", roleCodeList).Find(&buttonList).Error
+	var buttonListString []string
+	for _, v := range buttonList {
+		buttonListString = append(buttonListString, v.SysButtonButtonCode)
+	}
+	//按钮权限去重
+	buttons = utils.RemoveDuplicateElementFromSlice(buttonListString)
 	//menus切片去重
 	type distinctMenu []model.SysMenu
 	resultMenu := map[string]bool{}
@@ -153,7 +174,7 @@ func (s *ServiceUser) GetUserMenu(c *gin.Context) (err error, menu []model.SysMe
 	sort.Slice(result, func(i, j int) bool {
 		return result[i].Sort < result[j].Sort
 	})
-	return nil, result
+	return nil, defaultPageList, result, buttons
 }
 
 func (s *ServiceUser) ChangePassword(username string, toChangePassword model.RequestChangePassword) (err error) {

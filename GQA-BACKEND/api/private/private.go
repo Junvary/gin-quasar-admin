@@ -6,13 +6,14 @@ type ApiPrivate struct {
 	ApiApi            ApiApi
 	ApiConfigBackend  ApiConfigBackend
 	ApiConfigFrontend ApiConfigFrontend
+	ApiCron           ApiCron
 	ApiDept           ApiDept
 	ApiDict           ApiDict
 	ApiGenPlugin      ApiGenPlugin
 	ApiLogLogin       ApiLogLogin
 	ApiLogOperation   ApiLogOperation
 	ApiMenu           ApiMenu
-	ApiNoteTodo       ApiNoteTodo
+	ApiTodo           ApiTodo
 	ApiNotice         ApiNotice
 	ApiRole           ApiRole
 	ApiUpload         ApiUpload

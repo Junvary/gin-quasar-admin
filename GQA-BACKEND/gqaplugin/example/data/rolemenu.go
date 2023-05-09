@@ -39,4 +39,8 @@ var sysRoleMenuData = []gqaModel.SysRoleMenu{
 	{"super-admin", "plugin-example-icons"},
 	{"super-admin", "plugin-example-editor"},
 	{"super-admin", "plugin-example-tree-table"},
+	{"super-admin", "plugin-example-statistic"},
+	{"super-admin", "plugin-example-cascader"},
+	{"super-admin", "plugin-example-import-export"},
+	{"super-admin", "plugin-example-uploader"},
 }

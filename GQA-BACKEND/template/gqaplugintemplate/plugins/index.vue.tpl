@@ -36,7 +36,7 @@ const $q = useQuasar()
 const { t } = useI18n()
 const url = {
     list: 'plugin-{{ .PluginCode }}/get-{{ .PluginModel.ModelName }}-list',
-    delete: 'plugin-{{ .PluginCode }}/{{ .PluginModel.ModelName }}-news',
+    delete: 'plugin-{{ .PluginCode }}/delete-{{ .PluginModel.ModelName }}-by-id',
 }
 const columns = computed(() => {
     return [

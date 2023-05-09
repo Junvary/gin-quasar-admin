@@ -2,7 +2,11 @@ package example
 
 import (
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/example/data"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/example/model"
+	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/example/router/privaterouter"
+	gqaModel "github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 )
 
 var PluginExample = new(example)
@@ -29,16 +33,27 @@ func (p *example) PluginRouterPublic(publicGroup *gin.RouterGroup) { //实现接
 }
 
 func (p *example) PluginRouterPrivate(privateGroup *gin.RouterGroup) { //实现接口方法，鉴权路由初始化
+	privaterouter.InitPrivateRouter(privateGroup)
 }
 
 func (p *example) PluginMigrate() []interface{} { //实现接口方法，迁移插件数据表
-	return nil
+	var ModelList = []interface{}{
+		model.PluginExampleTestData{},
+	}
+	return ModelList
 }
 
 func (p *example) PluginData() []interface{ LoadData() (err error) } { //实现接口方法，初始化数据
 	var DataList = []interface{ LoadData() (err error) }{
+		data.PluginExampleSysApi,
+		data.PluginExampleSysRoleApi,
 		data.PluginExampleSysMenu,
 		data.PluginExampleSysRoleMenu,
+		data.PluginExampleTestData,
 	}
 	return DataList
+}
+
+func (p *example) PluginCron() ([]gqaModel.SysCron, map[uuid.UUID]func()) {
+	return nil, nil
 }

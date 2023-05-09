@@ -26,7 +26,7 @@ func (s *ServiceWebSocket) Broadcast() {
 					}
 					return true
 				})
-			} else if wsMsg.MessageType == "notice" {
+			} else /* if wsMsg.MessageType == "noticeType_message" */ {
 				if wsMsg.MessageToUserType == "all" {
 					//非聊天信息，MessageToUserType是all，那么也是群发
 					model.Clients.Range(func(id, client interface{}) bool {
@@ -65,7 +65,6 @@ func (s *ServiceWebSocket) Broadcast() {
 					}
 				}
 			}
-
 		}()
 	}
 }
