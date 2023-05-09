@@ -13,6 +13,10 @@
                     {{ gqaFrontend.subTitle }}
                 </q-toolbar-title>
 
+                <q-separator vertical inset spaced />
+
+                <ChoosePlugin @changePlugin="changeTop" />
+
                 <q-breadcrumbs v-if="findCurrentTopMenu" style="margin-left: 20px;">
                     <q-breadcrumbs-el :label="selectOptionLabel(findCurrentTopMenu)" :icon="findCurrentTopMenu?.icon"
                         :class="darkTheme" />
@@ -24,7 +28,7 @@
                 <div class="q-gutter-sm row items-center no-wrap">
                     <SearchMenu />
                     <Fullscreen />
-                    <ChoosePlugin @changePlugin="changeTop" />
+                    <!-- <ChoosePlugin @changePlugin="changeTop" /> -->
                     <ChatAndNotice />
                     <AddTodo />
                     <GitLink v-if="gqaFrontend.showGit === 'yesNo_yes'" />
