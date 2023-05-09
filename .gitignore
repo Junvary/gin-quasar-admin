@@ -6,6 +6,8 @@
 /GQA-BACKEND/upload
 /GQA-BACKEND/go.sum
 /GQA-BACKEND/gqa-gen-plugin
+/GQA-BACKEND/main
+/GQA-BACKEND/main.exe
 
 # Quasar core related directories
 .quasar
@@ -38,6 +40,7 @@ go.sum
 *.ntvs*
 *.njsproj
 *.sln
+
 
 
 
