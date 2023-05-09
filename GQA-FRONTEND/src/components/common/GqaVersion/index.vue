@@ -43,7 +43,7 @@
 <script setup>
 import { computed, ref } from 'vue';
 import { useStorageStore } from 'src/stores/storage'
-import config from '../../../package.json'
+import config from '../../../../package.json'
 
 const storageStore = useStorageStore()
 const showVersion = ref(false)

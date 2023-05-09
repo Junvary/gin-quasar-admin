@@ -6,8 +6,6 @@ export const useSettingStore = defineStore('setting', {
         language: undefined,
         sideDrawerWidth: undefined,
         darkTheme: undefined,
-        sideDrawerTop: '',
-        sideDrawerBottom: '',
         themeStyle: ''
     }),
     getters: {},
@@ -61,40 +59,8 @@ export const useSettingStore = defineStore('setting', {
             } else if (LocalStorage.getItem('gqa-side-drawer-width')) {
                 return LocalStorage.getItem('gqa-side-drawer-width')
             } else {
-                return 220
+                return 200
             }
         },
-        SetSideDrawerTop(val) {
-            this.sideDrawerTop = val
-            LocalStorage.set('gqa-side-drawer-top', val)
-        },
-        GetSideDrawerTop() {
-            if (this.sideDrawerTop) {
-                return this.sideDrawerTop
-            } else if (LocalStorage.getItem('gqa-side-drawer-top')) {
-                return LocalStorage.getItem('gqa-side-drawer-top')
-            } else {
-                return 'h'
-            }
-        },
-        SetSideDrawerBottom(val) {
-            this.sideDrawerBottom = val
-            LocalStorage.set('gqa-side-drawer-bottom', val)
-        },
-        GetSideDrawerBottom() {
-            if (this.sideDrawerBottom) {
-                return this.sideDrawerBottom
-            } else if (LocalStorage.getItem('gqa-side-drawer-bottom')) {
-                return LocalStorage.getItem('gqa-side-drawer-bottom')
-            } else {
-                return 'l'
-            }
-        },
-        GetLayoutView() {
-            const top = this.GetSideDrawerTop() + "Hh"
-            const center = 'LpR'
-            const bottom = this.GetSideDrawerBottom() + 'Fr'
-            return top + ' ' + center + ' ' + bottom
-        }
     }
 })

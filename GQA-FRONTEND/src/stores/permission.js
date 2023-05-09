@@ -39,12 +39,13 @@ export const usePermissionStore = defineStore('permission', {
                     // set all menus
                     this.InitUserMenu(userMenu)
                     // drop hidden menus
-                    const searchMenu = data.filter(value => value.hidden === "yesNo_no")
+                    const noHiddenMenu = data.filter(value => value.hidden === "yesNo_no")
+                    const searchMenu = noHiddenMenu.filter(value => value.parent_code !== "")
                     // set search menus
                     this.InitSearchMenu(searchMenu)
                     // Deep copy to avoid affecting other data
-                    const searchMenuNew = JSON.parse(JSON.stringify(searchMenu))
-                    const topMenu = ArrayToTree(searchMenuNew, "name", "parent_code")
+                    const deepTopMenu = JSON.parse(JSON.stringify(noHiddenMenu))
+                    const topMenu = ArrayToTree(deepTopMenu, "name", "parent_code")
                     this.InitTopMenu(topMenu)
 
                     // Return authentication routes

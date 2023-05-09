@@ -2,7 +2,7 @@
     <q-card-section>
         <q-card-section>
             <div class="text-center">
-                <GqaAvatar size="xl" :src="gqaFrontend.logo" />
+                <gqa-avatar size="xl" :src="gqaFrontend.logo" />
             </div>
             <div class="text-h4 text-center text-bold">
                 {{ gqaFrontend.subTitle }}
@@ -11,9 +11,8 @@
                 {{ $t('WelcomeBack') }}
             </div>
             <q-form @submit="onSubmit" class="q-mt-lg gqa-form">
-                <q-input :disable="loading" outlined dense no-error-icon v-model.trim="form.username" rounded
-                    color="black" :placeholder="$t('Username')"
-                    :rules="[(val) => (val && val.length > 0) || $t('NeedInput')]" />
+                <q-input :disable="loading" outlined dense no-error-icon v-model.trim="form.username" rounded color="black"
+                    :placeholder="$t('Username')" :rules="[(val) => (val && val.length > 0) || $t('NeedInput')]" />
                 <q-input :disable="loading" outlined dense no-error-icon :type="isPwd ? 'password' : 'text'"
                     v-model.trim="form.password" :placeholder="$t('Password')" rounded color="black"
                     :rules="[(val) => (val && val.length > 0) || $t('NeedInput')]">
@@ -22,9 +21,8 @@
                             @click="isPwd = !isPwd" />
                     </template>
                 </q-input>
-                <q-input :disable="loading" outlined dense no-error-icon v-model.trim="form.captcha" rounded
-                    color="black" :placeholder="$t('Captcha')"
-                    :rules="[(val) => (val && val.length > 0) || $t('NeedInput')]">
+                <q-input :disable="loading" outlined dense no-error-icon v-model.trim="form.captcha" rounded color="black"
+                    :placeholder="$t('Captcha')" :rules="[(val) => (val && val.length > 0) || $t('NeedInput')]">
                     <template v-slot:after>
                         <q-btn padding="none" style="width: 120px; height: 100%" @click="getCaptcha">
                             <q-img :src="captchaImage" />
@@ -51,7 +49,6 @@
 import useCommon from 'src/composables/useCommon'
 import { ref, onMounted } from 'vue';
 import { postAction } from 'src/api/manage'
-import GqaAvatar from 'src/components/GqaAvatar/index.vue'
 import { useUserStore } from 'src/stores/user'
 import { usePermissionStore } from 'src/stores/permission';
 import { useRouter, useRoute } from 'vue-router';

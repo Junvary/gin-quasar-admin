@@ -9,8 +9,11 @@ export const i18n = createI18n({
     locale: settingStore.GetLanguage(),
     fallbackLocale: 'zh-CN',
     messages: Translator(),
-    silentTranslationWarn: true,
-    silentFallbackWarn: true
+    // silentTranslationWarn: true,
+    // silentFallbackWarn: true,
+    globalInjection: true,
+    missingWarn: false,
+    fallbackWarn: false,
 })
 
 export default ({ app, store }) => {

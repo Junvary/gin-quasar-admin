@@ -4,8 +4,8 @@
             <q-card-section class="text-h6">
                 {{ formTypeName }} {{ $t('User') }}:
                 {{ recordDetail.value.nickname ? recordDetail.value.nickname :
-        recordDetail.value.real_name ? recordDetail.value.real_name : ""
-}}
+                    recordDetail.value.real_name ? recordDetail.value.real_name : ""
+                }}
             </q-card-section>
             <q-separator />
             <q-card-section class="q-gutter-md">
@@ -16,24 +16,23 @@
                             @rejected="rejected" :accept="gqaBackend.avatarExt"
                             :max-file-size="gqaBackend.avatarMaxSize * 1024 * 1024">
                             <template v-slot:prepend>
-                                <GqaAvatar :src="recordDetail.value.avatar" />
+                                <gqa-avatar :src="recordDetail.value.avatar" />
                             </template>
                             <template v-slot:after v-if="avatarFile">
                                 <q-btn dense flat color="primary" icon="cloud_upload" @click="handleUpload" />
                             </template>
                         </q-file>
-                        <q-input outlined hint="" class="col" v-model="recordDetail.value.username"
-                            :label="$t('Username')" lazy-rules
-                            :rules="[val => val && val.length > 0 || $t('NeedInput')]" :disable="formType === 'edit'" />
-                        <q-input outlined hint="" class="col" v-model="recordDetail.value.real_name"
-                            :label="$t('RealName')" lazy-rules
-                            :rules="[val => val && val.length > 0 || $t('NeedInput')]" :disable="formType === 'edit'" />
+                        <q-input outlined hint="" class="col" v-model="recordDetail.value.username" :label="$t('Username')"
+                            lazy-rules :rules="[val => val && val.length > 0 || $t('NeedInput')]"
+                            :disable="formType === 'edit'" />
+                        <q-input outlined hint="" class="col" v-model="recordDetail.value.real_name" :label="$t('RealName')"
+                            lazy-rules :rules="[val => val && val.length > 0 || $t('NeedInput')]"
+                            :disable="formType === 'edit'" />
                         <q-input outlined hint="" class="col" v-model="recordDetail.value.nickname"
                             :label="$t('Nickname')" />
                     </div>
                     <div class="row q-gutter-md">
-                        <q-input outlined hint="" class="col" v-model="recordDetail.value.mobile"
-                            :label="$t('Mobile')" />
+                        <q-input outlined hint="" class="col" v-model="recordDetail.value.mobile" :label="$t('Mobile')" />
                         <q-input outlined hint="" class="col" v-model="recordDetail.value.email" :label="$t('Email')" />
                     </div>
                     <div class="row q-gutter-md">
@@ -95,7 +94,6 @@ const url = {
 const {
     $q,
     t,
-    GqaAvatar,
     dictOptions,
     formType,
     formTypeName,

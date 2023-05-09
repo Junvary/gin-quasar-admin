@@ -6,7 +6,7 @@
             <div v-else :class="changeContainerImg === '' ? 'gqa-login-layout-img-container' : ''"
                 :style="changeContainerImg === '' ? { background: $q.dark.isActive ? 'black' : '#e3f4fa' } : changeContainerImg">
                 <div class="main-title-logo row justify-center items-center">
-                    <GqaAvatar class="gin-quasar-admin-logo" :src="gqaFrontend.logo" size="45px" />
+                    <gqa-avatar class="gin-quasar-admin-logo" :src="gqaFrontend.logo" size="45px" />
                     <span class="text-weight-bold text-h4" style="margin-left:8px">
                         {{ gqaFrontend.mainTitle }}
                     </span>
@@ -27,7 +27,7 @@
                 <div class="version-git-show">
                     <q-btn flat>
                         {{ $t('Version') }}{{ $t('Info') }}
-                        <GqaVersion />
+                        <gqa-version />
                     </q-btn>
                     <q-btn flat label="Github" @click="openLink('https://github.com/Junvary/gin-quasar-admin')" />
                     <q-btn flat label="Gitee" @click="openLink('https://gitee.com/junvary/gin-quasar-admin')" />
@@ -56,9 +56,7 @@ import { useStorageStore } from 'src/stores/storage'
 import { useQuasar } from 'quasar'
 import { useI18n } from 'vue-i18n'
 import useDocument from 'src/composables/useDocument'
-import GqaVersion from 'src/components/GqaVersion/index.vue'
 import GqaLanguage from 'src/components/GqaLanguage/index.vue'
-import GqaAvatar from 'src/components/GqaAvatar/index.vue'
 import config from '../../../package.json'
 import DarkTheme from 'src/components/GqaTheme/DarkTheme.vue';
 import useTheme from 'src/composables/useTheme';

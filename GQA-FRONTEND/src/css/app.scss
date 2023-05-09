@@ -28,6 +28,12 @@
     align-items    : center;
     position       : relative;
 
+    .main-title-logo {
+        position: absolute;
+        top     : 2vh;
+        left    : 2vw;
+    }
+
     .primary-ball {
         position     : absolute;
         height       : 500px;
@@ -79,53 +85,48 @@
         background   : -moz-radial-gradient(circle at center bottom, #fff, $negative);
         background   : radial-gradient(circle at center bottom, #e05969, $negative);
     }
+
+    .init-login-card {
+        position       : absolute;
+        width          : 65vw;
+        height         : 70vh;
+        display        : flex;
+        justify-content: center;
+        align-items    : center;
+    }
+
+    .power-show {
+        position   : absolute;
+        width      : 100%;
+        text-align : center;
+        bottom     : 0;
+        font-weight: bold;
+        font-size  : 10px;
+    }
+
+    .version-git-show {
+        position: absolute;
+        bottom  : 0;
+        right   : 0;
+    }
+
+    .language-show {
+        width      : 7%;
+        position   : absolute;
+        bottom     : 5px;
+        left       : 10px;
+        display    : flex;
+        align-items: center;
+    }
+
+    .dark-theme-show {
+        position: absolute;
+        top     : 0;
+        right   : 10px;
+    }
 }
 
-.main-title-logo {
-    position: absolute;
-    top     : 2vh;
-    left    : 2vw;
-}
 
-
-.init-login-card {
-    position       : absolute;
-    width          : 65vw;
-    height         : 70vh;
-    display        : flex;
-    justify-content: center;
-    align-items    : center;
-}
-
-.power-show {
-    position   : absolute;
-    width      : 100%;
-    text-align : center;
-    bottom     : 0;
-    font-weight: bold;
-    font-size  : 10px;
-}
-
-.version-git-show {
-    position: absolute;
-    bottom  : 0;
-    right   : 0;
-}
-
-.language-show {
-    width      : 7%;
-    position   : absolute;
-    bottom     : 5px;
-    left       : 10px;
-    display    : flex;
-    align-items: center;
-}
-
-.dark-theme-show {
-    position: absolute;
-    top     : 0;
-    right   : 10px;
-}
 
 .gin-quasar-admin-banner {
     height    : 93vh;

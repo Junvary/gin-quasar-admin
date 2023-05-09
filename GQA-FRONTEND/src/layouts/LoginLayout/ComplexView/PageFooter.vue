@@ -6,7 +6,7 @@
                     <div class="row justify-center" style="width: 100%">
                         <div class="column items-center q-gutter-y-md">
                             <div class="col">
-                                <GqaAvatar size="xl" :src="gqaFrontend.logo" />
+                                <gqa-avatar size="xl" :src="gqaFrontend.logo" />
                             </div>
                             <div class="col" style="font-size: 35px; font-weight: bold;letter-spacing: 5px;">
                                 {{ gqaFrontend.subTitle }}
@@ -38,7 +38,7 @@
             <div class="row justify-center">
                 <div class="column items-center q-gutter-y-md">
                     <div class="col">
-                        <GqaAvatar size="xl" :src="gqaFrontend.logo" />
+                        <gqa-avatar size="xl" :src="gqaFrontend.logo" />
                     </div>
                     <div class="col" style="font-size: 35px; font-weight: bold;letter-spacing: 5px;">
                         {{ gqaFrontend.subTitle }}
@@ -69,7 +69,6 @@
 
 <script setup>
 import { computed, ref } from 'vue';
-import GqaAvatar from 'src/components/GqaAvatar/index.vue'
 import { useStorageStore } from 'src/stores/storage'
 
 const storageStore = useStorageStore()

@@ -4,15 +4,13 @@
             <q-card-section class="row q-gutter-x-md items-center">
                 <q-input outlined dense style="width: 20%" v-model="queryParams.config_item"
                     :label="$t('Config') + $t('Name')" />
-                <q-input outlined dense style="width: 20%" v-model="queryParams.memo"
-                    :label="$t('Config') + $t('Memo')" />
+                <q-input outlined dense style="width: 20%" v-model="queryParams.memo" :label="$t('Config') + $t('Memo')" />
                 <q-btn color="primary" @click="handleSearch" :label="$t('Search')" />
                 <q-btn color="primary" @click="resetSearch" :label="$t('Reset')" />
             </q-card-section>
             <q-card-section>
-                <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns"
-                    v-model:pagination="pagination" :rows-per-page-options="pageOptions" :loading="loading"
-                    @request="onRequest">
+                <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
+                    :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
                     <template v-slot:top="props">
                         <q-btn color="primary" @click="showAddForm()" :label="$t('Add') + ' ' + $t('Config')"
                             v-has="'config-frontend:add'" />
@@ -23,10 +21,10 @@
                     <template v-slot:body-cell-item_default="props">
                         <q-td :props="props">
                             <template v-if="props.row.config_item === 'logo'">
-                                <GqaAvatar :src="props.row.item_default" />
+                                <gqa-avatar :src="props.row.item_default" />
                             </template>
                             <template v-else-if="props.row.config_item === 'favicon'">
-                                <GqaAvatar src="favicon.ico" />
+                                <gqa-avatar src="favicon.ico" />
                             </template>
                             <template v-else-if="props.row.config_item === 'bannerImage'">
                                 Default
@@ -51,13 +49,13 @@
                     <template v-slot:body-cell-item_custom="props">
                         <q-td :props="props">
                             <template v-if="props.row.config_item === 'bannerImage'">
-                                <GqaAvatar :src="props.row.item_custom" v-if="props.row.item_custom !== ''" />
+                                <gqa-avatar :src="props.row.item_custom" v-if="props.row.item_custom !== ''" />
                             </template>
                             <template v-else-if="props.row.config_item === 'logo'">
-                                <GqaAvatar :src="props.row.item_custom" />
+                                <gqa-avatar :src="props.row.item_custom" />
                             </template>
                             <template v-else-if="props.row.config_item === 'favicon'">
-                                <GqaAvatar :src="props.row.item_custom || 'favicon.ico'" />
+                                <gqa-avatar :src="props.row.item_custom || 'favicon.ico'" />
                             </template>
                             <template v-else-if="props.row.config_item === 'loginLayoutStyle'">
                                 <GqaDictShow :dictCode="props.row.item_custom" v-if="props.row.item_custom !== ''" />
@@ -72,12 +70,12 @@
                                 <template v-slot="scope">
                                     {{ $t('Customize') + ' ' + props.row.config_item }}
                                     <q-option-group v-if="props.row.config_item === 'loginLayoutStyle'"
-                                        v-model="props.row.item_custom" :options="dictOptions.displayStyle"
-                                        color="primary" inline @update:model-value="scope.set">
+                                        v-model="props.row.item_custom" :options="dictOptions.displayStyle" color="primary"
+                                        inline @update:model-value="scope.set">
                                     </q-option-group>
                                     <q-option-group v-else-if="props.row.config_item === 'showGit'"
-                                        v-model="props.row.item_custom" :options="dictOptions.yesNo" color="primary"
-                                        inline @update:model-value="scope.set">
+                                        v-model="props.row.item_custom" :options="dictOptions.yesNo" color="primary" inline
+                                        @update:model-value="scope.set">
                                     </q-option-group>
                                     <GqaPluginList v-else-if="props.row.config_item === 'pluginLoginLayout'" showChoose
                                         @changeSuccess="handleSetLoginLayout($event, scope)"
@@ -86,7 +84,7 @@
                                         clearable max-files="1" @rejected="rejected" :accept="gqaBackend.bannerImageExt"
                                         :max-file-size="gqaBackend.bannerImageMaxSize * 1024 * 1024">
                                         <template v-slot:prepend v-if="props.row.item_custom !== ''">
-                                            <GqaAvatar :src="props.row.item_custom" />
+                                            <gqa-avatar :src="props.row.item_custom" />
                                         </template>
                                         <template v-slot:after v-if="bannerImage">
                                             <q-btn dense flat color="primary" icon="cloud_upload"
@@ -97,18 +95,18 @@
                                         max-files="1" @rejected="rejected" :accept="gqaBackend.logoExt"
                                         :max-file-size="gqaBackend.logoMaxSize * 1024 * 1024">
                                         <template v-slot:prepend>
-                                            <GqaAvatar :src="props.row.item_custom" />
+                                            <gqa-avatar :src="props.row.item_custom" />
                                         </template>
                                         <template v-slot:after v-if="logoFile">
                                             <q-btn dense flat color="primary" icon="cloud_upload"
                                                 @click="handleUploadLogo(scope)" />
                                         </template>
                                     </q-file>
-                                    <q-file v-else-if="props.row.config_item === 'favicon'" v-model="faviconFile"
-                                        clearable max-files="1" @rejected="rejected" :accept="gqaBackend.faviconExt"
+                                    <q-file v-else-if="props.row.config_item === 'favicon'" v-model="faviconFile" clearable
+                                        max-files="1" @rejected="rejected" :accept="gqaBackend.faviconExt"
                                         :max-file-size="gqaBackend.faviconMaxSize * 1024 * 1024">
                                         <template v-slot:prepend>
-                                            <GqaAvatar :src="props.row.item_custom" />
+                                            <gqa-avatar :src="props.row.item_custom" />
                                         </template>
                                         <template v-slot:after v-if="faviconFile">
                                             <q-btn dense flat color="primary" icon="cloud_upload"
@@ -133,14 +131,14 @@
                     </template>
                     <template v-slot:body-cell-actions="props">
                         <q-td :props="props" class="q-gutter-x-xs">
-                            <q-btn flat dense rounded icon="eva-save-outline" color="primary"
-                                @click="handleSave(props.row)" v-has="'config-frontend:save'">
+                            <q-btn flat dense rounded icon="eva-save-outline" color="primary" @click="handleSave(props.row)"
+                                v-has="'config-frontend:save'">
                                 <q-tooltip>
                                     {{ $t('Save') }}
                                 </q-tooltip>
                             </q-btn>
-                            <q-btn flat dense rounded icon="mdi-lock-reset" color="warning"
-                                @click="handleReset(props.row)" v-has="'config-frontend:reset'">
+                            <q-btn flat dense rounded icon="mdi-lock-reset" color="warning" @click="handleReset(props.row)"
+                                v-has="'config-frontend:reset'">
                                 <q-tooltip>
                                     {{ $t('Reset') }}
                                 </q-tooltip>
@@ -200,7 +198,6 @@ const {
     queryParams,
     pageOptions,
     GqaDictShow,
-    GqaAvatar,
     loading,
     tableData,
     recordDetailDialog,

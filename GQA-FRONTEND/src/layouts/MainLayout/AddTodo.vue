@@ -1,5 +1,5 @@
 <template>
-    <q-btn dense round flat icon="eva-edit-2-outline" @click="addTodo">
+    <q-btn dense round flat icon="las la-user-edit" @click="addTodo">
         <q-tooltip>
             {{ $t('Add') + ' ' + $t('Todo') }}
         </q-tooltip>
