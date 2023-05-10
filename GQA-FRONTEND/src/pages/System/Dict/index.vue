@@ -53,7 +53,7 @@
 <script setup>
 import useTableData from 'src/composables/useTableData'
 import { computed, onMounted } from 'vue'
-import recordDetail from './modules/recordDetail'
+import recordDetail from './modules/recordDetail.vue'
 import { ChangeNullChildren2Array } from 'src/utils/arrayAndTree'
 
 const url = {

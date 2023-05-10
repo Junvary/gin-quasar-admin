@@ -5,16 +5,15 @@
                 <q-input outlined dense style="width: 20%" v-model="queryParams.notice_title" :label="$t('Title')" />
                 <q-select outlined dense style="width: 20%" v-model="queryParams.notice_type"
                     :options="dictOptions.noticeType" emit-value map-options :label="$t('Notice') + $t('Type')" />
-                <q-select outlined dense style="width: 20%" v-model="queryParams.notice_sent"
-                    :options="dictOptions.yesNo" emit-value map-options :label="$t('Sent')"
+                <q-select outlined dense style="width: 20%" v-model="queryParams.notice_sent" :options="dictOptions.yesNo"
+                    emit-value map-options :label="$t('Sent')"
                     :option-label="opt => Object(opt) === opt && 'label' in opt ? $t(opt.label) : '- Null -'" />
                 <q-btn color="primary" @click="handleSearch" :label="$t('Search')" />
                 <q-btn color="primary" @click="resetSearch" :label="$t('Reset')" />
             </q-card-section>
             <q-card-section>
-                <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns"
-                    v-model:pagination="pagination" :rows-per-page-options="pageOptions" :loading="loading"
-                    @request="onRequest">
+                <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
+                    :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
                     <template v-slot:top="props">
                         <q-btn color="primary" @click="showAddForm()" :label="$t('Add') + ' ' + $t('Notice')"
                             v-has="'notice:add'" />
@@ -59,7 +58,7 @@
 import useTableData from 'src/composables/useTableData'
 import { postAction } from 'src/api/manage'
 import { computed, onMounted } from 'vue'
-import recordDetail from './modules/recordDetail'
+import recordDetail from './modules/recordDetail.vue'
 
 const url = {
     list: 'notice/get-notice-list',

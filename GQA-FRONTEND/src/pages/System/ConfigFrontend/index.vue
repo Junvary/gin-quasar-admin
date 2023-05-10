@@ -159,12 +159,12 @@
 </template>
 
 <script setup>
+import { computed, onMounted, ref } from 'vue'
 import useTableData from 'src/composables/useTableData'
 import { postAction } from 'src/api/manage'
-import { computed, onMounted, ref } from 'vue'
 import GqaPluginList from 'src/components/GqaPluginList/index.vue'
 import { useStorageStore } from 'src/stores/storage'
-import recordDetail from './modules/recordDetail'
+import recordDetail from './modules/recordDetail.vue'
 import useTheme from 'src/composables/useTheme';
 
 const storageStore = useStorageStore()

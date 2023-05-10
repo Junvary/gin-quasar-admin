@@ -7,8 +7,8 @@
                 </div>
             </q-card-section>
 
-            <q-tabs v-model="tab" dense class="text-grey" active-color="primary" indicator-color="primary"
-                align="justify" narrow-indicator>
+            <q-tabs v-model="tab" dense class="text-grey" active-color="primary" indicator-color="primary" align="justify"
+                narrow-indicator>
                 <q-tab name="menu" :label="$t('Menu') + '/' + $t('Button') + $t('Permission')" />
                 <q-tab name="api" :label="$t('Api') + $t('Permission')" />
                 <q-tab name="data" :label="$t('Data') + $t('Permission')" />
@@ -34,9 +34,9 @@
 </template>
 
 <script setup>
-import RolePermissionMenu from './RolePermissionMenu'
-import RolePermissionApi from './RolePermissionApi'
-import RolePermissionData from './RolePermissionData'
+import RolePermissionMenu from './RolePermissionMenu.vue'
+import RolePermissionApi from './RolePermissionApi.vue'
+import RolePermissionData from './RolePermissionData.vue'
 import { ref } from 'vue';
 import { postAction } from 'src/api/manage';
 

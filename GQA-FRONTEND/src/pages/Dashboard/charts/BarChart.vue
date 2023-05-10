@@ -10,7 +10,8 @@ import { markRaw, onMounted, ref, watch } from 'vue';
 import useTheme from 'src/composables/useTheme'
 
 const { darkThemeChart } = useTheme()
-const echarts = require('echarts')
+// const echarts = require('echarts')
+import * as echarts from "echarts";
 const chart = ref(null)
 const barchart = ref(null)
 

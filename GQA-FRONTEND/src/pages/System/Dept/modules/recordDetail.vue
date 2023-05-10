@@ -57,7 +57,7 @@
 
 <script setup>
 import useRecordDetail from 'src/composables/useRecordDetail'
-import GqaSeleteUser from 'src/components/GqaSeleteUser'
+import GqaSeleteUser from 'src/components/GqaSeleteUser/index.vue'
 
 const emit = defineEmits(['handleFinish'])
 const url = {

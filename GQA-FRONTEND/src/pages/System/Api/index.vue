@@ -10,9 +10,8 @@
                 <q-btn color="primary" @click="resetSearch" :label="$t('Reset')" />
             </q-card-section>
             <q-card-section>
-                <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns"
-                    v-model:pagination="pagination" :rows-per-page-options="pageOptions" :loading="loading"
-                    @request="onRequest">
+                <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
+                    :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
                     <template v-slot:top="props">
                         <q-btn color="primary" @click="showAddForm()" :label="$t('Add') + ' ' + $t('Api')"
                             v-has="'api:add'" />
@@ -56,7 +55,7 @@
 <script setup>
 import useTableData from 'src/composables/useTableData'
 import { computed, onMounted } from 'vue'
-import recordDetail from './modules/recordDetail'
+import recordDetail from './modules/recordDetail.vue'
 
 const url = {
     list: 'api/get-api-list',

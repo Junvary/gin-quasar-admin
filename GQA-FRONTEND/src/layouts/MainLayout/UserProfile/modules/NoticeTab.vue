@@ -21,9 +21,9 @@
 </template>
 
 <script setup>
-import NoticeSystem from './NoticeSystem'
-import NoticeMessage from './NoticeMessage'
-import NoticeTodo from './NoticeTodo'
+import NoticeSystem from './NoticeSystem.vue'
+import NoticeMessage from './NoticeMessage.vue'
+import NoticeTodo from './NoticeTodo.vue'
 import { ref } from 'vue';
 
 const messageType = ref('noticeType_system')

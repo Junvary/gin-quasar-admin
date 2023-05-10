@@ -7,8 +7,8 @@
 </template>
 
 <script setup>
-import ItemSingle from './ItemSingle'
-import ItemMultiple from './ItemMultiple'
+import ItemSingle from './ItemSingle.vue'
+import ItemMultiple from './ItemMultiple.vue'
 import { computed, toRefs } from 'vue';
 
 const props = defineProps({

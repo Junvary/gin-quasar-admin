@@ -31,11 +31,14 @@ export const PublicRoutes = [
     // }
 ]
 
+const MainLayoutFile = import.meta.glob('../layouts/MainLayout/index.vue')
+
 export const PrivateRoutes = [
     {
         path: '/',
         redirect: { path: '/dashboard' },
-        component: () => import('layouts/MainLayout/index.vue'),
+        component: MainLayoutFile['../layouts/MainLayout/index.vue'],
+        // component: () => import('layouts/MainLayout/index.vue'),
         children: []
     }
 ]

@@ -10,9 +10,8 @@
                 <q-btn color="primary" @click="resetSearch" :label="$t('Reset')" />
             </q-card-section>
             <q-card-section>
-                <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns"
-                    v-model:pagination="pagination" :rows-per-page-options="pageOptions" :loading="loading"
-                    @request="onRequest">
+                <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
+                    :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
                     <template v-slot:top="props">
                         <q-btn color="primary" @click="showAddForm()" :label="$t('Add') + ' ' + $t('Role')"
                             v-has="'role:add'" />
@@ -70,9 +69,9 @@
 <script setup>
 import useTableData from 'src/composables/useTableData'
 import { computed, onMounted, ref } from 'vue'
-import recordDetail from './modules/recordDetail'
-import RolePermissionDialog from './modules/RolePermissionDialog'
-import RoleUserDialog from './modules/RoleUserDialog'
+import recordDetail from './modules/recordDetail.vue'
+import RolePermissionDialog from './modules/RolePermissionDialog.vue'
+import RoleUserDialog from './modules/RoleUserDialog.vue'
 
 const url = {
     list: 'role/get-role-list',

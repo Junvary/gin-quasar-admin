@@ -20,8 +20,8 @@
 <script setup>
 import useTableData from 'src/composables/useTableData'
 import { computed, onMounted } from 'vue'
-import recordDetail from './modules/recordDetail'
-import GqaShowName from 'src/components/GqaShowName'
+import recordDetail from './modules/recordDetail.vue'
+import GqaShowName from 'src/components/GqaShowName/index.vue'
 
 const url = {
     list: 'plugin-achievement/get-obtain-list',

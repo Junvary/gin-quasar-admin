@@ -11,7 +11,7 @@
 
 <script setup>
 import { computed, ref, toRefs } from 'vue';
-import SelectUserDialog from './SelectUserDialog'
+import SelectUserDialog from './SelectUserDialog.vue'
 
 const props = defineProps({
     selectUser: {

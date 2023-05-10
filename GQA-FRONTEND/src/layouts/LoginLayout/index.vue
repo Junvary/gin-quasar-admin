@@ -27,7 +27,7 @@
                 <div class="version-git-show">
                     <q-btn flat>
                         {{ $t('Version') }}{{ $t('Info') }}
-                        <gqa-version />
+                        <gqa-version-menu />
                     </q-btn>
                     <q-btn flat label="Github" @click="openLink('https://github.com/Junvary/gin-quasar-admin')" />
                     <q-btn flat label="Gitee" @click="openLink('https://gitee.com/junvary/gin-quasar-admin')" />
@@ -55,7 +55,6 @@ import { postAction } from 'src/api/manage'
 import { useStorageStore } from 'src/stores/storage'
 import { useQuasar } from 'quasar'
 import { useI18n } from 'vue-i18n'
-import useDocument from 'src/composables/useDocument'
 import GqaLanguage from 'src/components/GqaLanguage/index.vue'
 import config from '../../../package.json'
 import DarkTheme from 'src/components/GqaTheme/DarkTheme.vue';
@@ -63,7 +62,6 @@ import useTheme from 'src/composables/useTheme';
 
 const { darkThemeLoginCard } = useTheme()
 const gqaVersion = config.version
-useDocument()
 const $q = useQuasar()
 const { t } = useI18n()
 const { gqaFrontend } = useCommon()
@@ -88,6 +86,13 @@ onBeforeMount(() => {
     GqaConsoleLogo()
 })
 
+const getResultKey = (fileKey, pluginCode) => {
+    const resultKey = fileKey.filter(key => {
+        return key.split('/')[2] === pluginCode
+    })
+    return resultKey
+}
+
 const checkDb = async () => {
     const res = await postAction('public/check-db')
     if (res.code === 1) {
@@ -103,7 +108,9 @@ const checkDb = async () => {
             if (pluginCurrent.value) {
                 try {
                     const pluginCode = pluginCurrent.value.slice(7)
-                    pluginComponent.value = markRaw(defineAsyncComponent(() => import(`src/plugins/${pluginCode}/LoginLayout/index.vue`)))
+                    const pluginCodeComponent = getResultKey(Object.keys(pluginsFile), pluginCode)
+                    pluginComponent.value = markRaw(defineAsyncComponent(() => pluginsFile[pluginCodeComponent[0]]))
+                    // pluginComponent.value = markRaw(defineAsyncComponent(() => import(`src/plugins/${pluginCode}/LoginLayout/index.vue`)))
                 } catch (error) {
                     $q.notify({
                         type: 'negative',

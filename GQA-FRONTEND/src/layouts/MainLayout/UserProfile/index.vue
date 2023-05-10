@@ -36,10 +36,10 @@
 </template>
 
 <script setup>
-import GqaShowName from 'src/components/GqaShowName'
-import NoticeTab from './modules/NoticeTab'
-import ChangePasswordDialog from './modules/ChangePasswordDialog'
-import ChangeNicknameDialog from './modules/ChangeNicknameDialog'
+import GqaShowName from 'src/components/GqaShowName/index.vue'
+import NoticeTab from './modules/NoticeTab.vue'
+import ChangePasswordDialog from './modules/ChangePasswordDialog.vue'
+import ChangeNicknameDialog from './modules/ChangeNicknameDialog.vue'
 import { ref, nextTick } from 'vue'
 
 const showProfile = ref(false)

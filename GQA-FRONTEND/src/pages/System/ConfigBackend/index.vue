@@ -4,15 +4,13 @@
             <q-card-section class="row q-gutter-x-md items-center">
                 <q-input outlined dense style="width: 20%" v-model="queryParams.config_item"
                     :label="$t('Config') + $t('Name')" />
-                <q-input outlined dense style="width: 20%" v-model="queryParams.memo"
-                    :label="$t('Config') + $t('Memo')" />
+                <q-input outlined dense style="width: 20%" v-model="queryParams.memo" :label="$t('Config') + $t('Memo')" />
                 <q-btn color="primary" @click="handleSearch" :label="$t('Search')" />
                 <q-btn color="primary" @click="resetSearch" :label="$t('Reset')" />
             </q-card-section>
             <q-card-section>
-                <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns"
-                    v-model:pagination="pagination" :rows-per-page-options="pageOptions" :loading="loading"
-                    @request="onRequest">
+                <q-table row-key="id" separator="cell" :rows="tableData" :columns="columns" v-model:pagination="pagination"
+                    :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest">
 
                     <template v-slot:top="props">
                         <q-btn color="primary" @click="showAddForm()" :label="$t('Add') + ' ' + $t('Config')"
@@ -56,14 +54,14 @@
 
                     <template v-slot:body-cell-actions="props">
                         <q-td :props="props" class="q-gutter-x-xs">
-                            <q-btn flat dense rounded icon="eva-save-outline" color="primary"
-                                @click="handleSave(props.row)" v-has="'config-backend:save'">
+                            <q-btn flat dense rounded icon="eva-save-outline" color="primary" @click="handleSave(props.row)"
+                                v-has="'config-backend:save'">
                                 <q-tooltip>
                                     {{ $t('Save') }}
                                 </q-tooltip>
                             </q-btn>
-                            <q-btn flat dense rounded icon="mdi-lock-reset" color="warning"
-                                @click="handleReset(props.row)" v-has="'config-backend:reset'">
+                            <q-btn flat dense rounded icon="mdi-lock-reset" color="warning" @click="handleReset(props.row)"
+                                v-has="'config-backend:reset'">
                                 <q-tooltip>
                                     {{ $t('Reset') }}
                                 </q-tooltip>
@@ -88,7 +86,7 @@ import useTableData from 'src/composables/useTableData'
 import { postAction } from 'src/api/manage'
 import { computed, onMounted } from 'vue'
 import { useStorageStore } from 'src/stores/storage'
-import recordDetail from './modules/recordDetail'
+import recordDetail from './modules/recordDetail.vue'
 import useTheme from 'src/composables/useTheme';
 
 const storageStore = useStorageStore()
