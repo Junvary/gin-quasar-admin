@@ -21,7 +21,7 @@ English | [简体中文](README.md) | [Wiki](https://github.com/Junvary/gin-quas
 
 
 
-#### A full-featured management system based on Quasar2/Vue3/Go/Gin/Gorm,it supports i18n.
+#### A full-featured management system based on Quasar2/Vue3/Vite/Go/Gin/Gorm,it supports i18n.
 
 #### You can develop plugins and configure Gin-Quasar-Admin as your personalized website,it's easy.
 
