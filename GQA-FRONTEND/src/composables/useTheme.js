@@ -100,10 +100,10 @@ export default function useTheme() {
     })
     const darkThemeSelect = computed(() => {
         if ($q.dark.isActive) {
-            return 'bg-grey-10 text-white'
+            return 'bg-grey-8 text-white'
         } else {
             if (themeStyle.value === 'Gin-Quasar-Admin') {
-                return 'bg-grey-5 text-grey-10'
+                return 'bg-grey-5 text-dark'
             }
             if (themeStyle.value === 'Quasar') {
                 return 'bg-primary text-white'

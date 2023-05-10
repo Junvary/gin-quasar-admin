@@ -18,14 +18,11 @@
 import { onMounted } from 'vue'
 import { postAction } from 'src/api/manage'
 import { useRouter } from 'vue-router'
-import useDocument from 'src/composables/useDocument'
 import InitDbViewForm from './InitDbViewForm.vue'
 import InitDbViewHelp from './InitDbViewHelp.vue'
 import useTheme from 'src/composables/useTheme';
 
 const { darkThemeLoginHelp } = useTheme()
-
-useDocument()
 const router = useRouter()
 
 onMounted(() => {

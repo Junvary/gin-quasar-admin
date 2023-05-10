@@ -47,9 +47,9 @@
 </template>
 
 <script setup>
-import GqaLanguage from 'src/components/GqaLanguage'
-import GqaThemeColor from 'src/components/GqaTheme/GqaThemeColor'
-import GqaThemeStyle from 'src/components/GqaTheme/GqaThemeStyle'
+import GqaLanguage from 'src/components/GqaLanguage/index.vue'
+import GqaThemeColor from 'src/components/GqaTheme/GqaThemeColor.vue'
+import GqaThemeStyle from 'src/components/GqaTheme/GqaThemeStyle.vue'
 import DarkTheme from 'src/components/GqaTheme/DarkTheme.vue';
 import SideDrawer from './SideDrawer.vue'
 import { ref, computed } from 'vue';

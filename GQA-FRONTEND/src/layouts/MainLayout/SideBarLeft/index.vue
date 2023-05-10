@@ -12,7 +12,7 @@
 
 <script setup>
 import { toRefs } from 'vue';
-import SideBarLeftItem from './SideBarLeftItem'
+import SideBarLeftItem from './SideBarLeftItem.vue'
 import useTheme from 'src/composables/useTheme';
 
 const { darkThemeSideBar } = useTheme()

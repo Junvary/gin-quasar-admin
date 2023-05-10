@@ -25,7 +25,7 @@ function stopLoading() {
     LoadingBar.stop()
 }
 
-export default boot(({ router, store }) => {
+export default boot(({ router }) => {
     router.beforeEach(async (to, from, next) => {
         const userStore = useUserStore()
         const permissionStore = usePermissionStore()
@@ -46,7 +46,7 @@ export default boot(({ router, store }) => {
                         next({ ...to, replace: true })
                     } else {
                         stopLoading()
-                        store.dispatch('user/HandleLogout')
+                        userStore.HandleLogout()
                         next({ path: '/', replace: true })
                     }
                 } else {

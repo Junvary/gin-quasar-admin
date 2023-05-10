@@ -39,7 +39,7 @@
 import useTableData from 'src/composables/useTableData'
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import NoticeTodoDetail from './NoticeTodoDetail'
+import NoticeTodoDetail from './NoticeTodoDetail.vue'
 
 const { t } = useI18n()
 const url = {

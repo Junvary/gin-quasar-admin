@@ -24,7 +24,7 @@
 <script setup>
 import useTableData from 'src/composables/useTableData'
 import { computed, onMounted } from 'vue'
-import recordDetail from './modules/recordDetail'
+import recordDetail from './modules/recordDetail.vue'
 
 const url = {
     list: 'plugin-achievement/get-category-list',

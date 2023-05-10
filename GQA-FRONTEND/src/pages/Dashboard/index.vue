@@ -99,7 +99,7 @@
 
 <script setup>
 import GqaShowName from 'src/components/GqaShowName/index.vue'
-import BarChart from "./charts/BarChart";
+import BarChart from "./charts/BarChart.vue";
 import PieChart from "./charts/PieChart.vue";
 import PieChart2 from "./charts/PieChart2.vue";
 import StarHistory from './charts/StarHistory.vue'

@@ -10,6 +10,7 @@ import { ref, watch, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useSettingStore } from 'src/stores/setting'
 
+const langList = import.meta.glob('../../../node_modules/quasar/lang/*.mjs')
 const settingStore = useSettingStore()
 const appLanguages = languages.filter((lang) => ['ru', 'zh-CN', 'en-US'].includes(lang.isoName))
 
@@ -25,15 +26,15 @@ onMounted(() => {
     lang.value = settingStore.GetLanguage()
 })
 watch(lang, (val) => {
-    // dynamic import, so loading on demand only
-    import(
-        /* webpackInclude: /(zh-CN|en-US|ru)\.js$/ */
-        'quasar/lang/' + val
-    ).then((lang) => {
-        $q.lang.set(lang.default)
-        locale.value = val
-        settingStore.ChangeLanguage(val)
-    })
+    try {
+        langList[`../../../node_modules/quasar/lang/${val}.mjs`]().then((lang) => {
+            $q.lang.set(lang.default)
+            locale.value = val
+            settingStore.ChangeLanguage(val)
+        })
+    } catch (err) {
+        console.log(err)
+    }
 })
 const changeLang = () => { }
 </script>

@@ -71,7 +71,7 @@
 <script setup>
 import useTableData from 'src/composables/useTableData'
 import { computed, onMounted, ref } from 'vue'
-import recordDetail from './modules/recordDetail'
+import recordDetail from './modules/recordDetail.vue'
 import { ChangeNullChildren2Array } from 'src/utils/arrayAndTree'
 import buttonDetail from './modules/buttonDetail.vue'
 import useCommon from 'src/composables/useCommon'

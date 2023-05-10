@@ -1,49 +1,40 @@
 {
-    "name": "gin-quasar-admin",
-    "version": "v2.7.0",
-    "description": "gin-quasar-admin",
-    "productName": "gin-quasar-admin",
-    "author": "Junvary <junvary@foxmail.com>",
+    "name": "gqa-vite",
+    "version": "3.7.0",
+    "description": "A Quasar Project",
+    "productName": "Quasar App",
+    "author": "junvary <junvary@foxmail.com>",
     "private": true,
     "scripts": {
+        "test": "echo \"No test specified\" && exit 0",
         "dev": "quasar dev",
-        "build": "quasar build",
-        "test": "echo \"No test specified\" && exit 0"
+        "build": "quasar build"
     },
     "dependencies": {
-        "@quasar/extras": "^1.16.3",
+        "@quasar/extras": "^1.0.0",
         "axios": "^0.21.1",
-        "core-js": "^3.6.5",
-        "echarts": "^5.3.2",
-        "lottie-web": "^5.9.6",
+        "echarts": "^5.4.2",
+        "lottie-web": "^5.11.0",
         "pinia": "^2.0.11",
-        "quasar": "^2.11.10",
-        "vue": "3",
-        "vue-i18n": "^9.2.2",
-        "vue-router": "4",
+        "quasar": "^2.0.0",
+        "vue": "^3.0.0",
+        "vue-i18n": "^9.0.0",
+        "vue-router": "^4.0.0",
         "vue3-print-nb": "^0.1.4",
-        "xe-utils": "^3.5.4"
+        "xe-utils": "^3.5.7"
     },
     "devDependencies": {
-        "@quasar/app-webpack": "^3.7.2",
+        "@intlify/vite-plugin-vue-i18n": "^3.3.1",
+        "@quasar/app-vite": "^1.0.0",
         "@quasar/quasar-app-extension-qiconpicker": "^2.0.6",
-        "quasar-app-extension-qcascader": "^0.0.4",
+        "autoprefixer": "^10.4.2",
+        "postcss": "^8.4.14",
+        "quasar-app-extension-qcascader": "^0.0.5",
         "quasar-app-extension-qhierarchy": "^1.0.9",
-        "quasar-app-extension-qstatistic": "^0.0.3"
+        "quasar-app-extension-qstatistic": "^0.0.5"
     },
-    "browserslist": [
-        "last 10 Chrome versions",
-        "last 10 Firefox versions",
-        "last 4 Edge versions",
-        "last 7 Safari versions",
-        "last 8 Android versions",
-        "last 8 ChromeAndroid versions",
-        "last 8 FirefoxAndroid versions",
-        "last 10 iOS versions",
-        "last 5 Opera versions"
-    ],
     "engines": {
-        "node": ">= 12.22.1",
+        "node": "^18 || ^16 || ^14.19",
         "npm": ">= 6.13.4",
         "yarn": ">= 1.21.1"
     }

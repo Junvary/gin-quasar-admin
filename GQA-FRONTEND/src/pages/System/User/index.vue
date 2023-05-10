@@ -103,7 +103,7 @@
 import useTableData from 'src/composables/useTableData'
 import { postAction } from 'src/api/manage'
 import { computed, onMounted, ref } from 'vue'
-import recordDetail from './modules/recordDetail'
+import recordDetail from './modules/recordDetail.vue'
 
 const url = {
     list: 'user/get-user-list',

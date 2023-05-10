@@ -51,7 +51,7 @@ const forbiddenUrl = [
     'cron/stop-cron'
 ]
 
-export default boot(({ app, router, store }) => {
+export default boot(({ app, router }) => {
     const userStore = useUserStore()
 
     api.interceptors.request.use(request => {

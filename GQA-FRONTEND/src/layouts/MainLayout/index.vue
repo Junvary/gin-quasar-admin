@@ -13,6 +13,10 @@
                     {{ gqaFrontend.subTitle }}
                 </q-toolbar-title>
 
+                <q-separator vertical inset spaced />
+
+                <ChoosePlugin @changePlugin="changeTop" />
+
                 <q-breadcrumbs v-if="findCurrentTopMenu" style="margin-left: 20px;">
                     <q-breadcrumbs-el :label="selectOptionLabel(findCurrentTopMenu)" :icon="findCurrentTopMenu?.icon"
                         :class="darkTheme" />
@@ -24,7 +28,7 @@
                 <div class="q-gutter-sm row items-center no-wrap">
                     <SearchMenu />
                     <Fullscreen />
-                    <ChoosePlugin @changePlugin="changeTop" />
+                    <!-- <ChoosePlugin @changePlugin="changeTop" /> -->
                     <ChatAndNotice />
                     <AddTodo />
                     <GitLink v-if="gqaFrontend.showGit === 'yesNo_yes'" />
@@ -85,15 +89,11 @@ import PageFooter from './PageFooter.vue'
 import UserProfile from './UserProfile/index.vue'
 import AddTodo from './AddTodo.vue';
 import { useRoute } from 'vue-router';
-import useDocument from 'src/composables/useDocument'
 import { useQuasar } from 'quasar';
 import useCommon from 'src/composables/useCommon'
 import XEUtils from 'xe-utils'
 import { postAction } from 'src/api/manage';
 import AchievementDialog from 'src/plugins/Achievement/AchievementDialog.vue';
-
-// Dynamically change the website title and favicon
-useDocument()
 
 const $q = useQuasar();
 const { darkTheme } = useTheme()

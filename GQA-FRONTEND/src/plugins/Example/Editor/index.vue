@@ -6,7 +6,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import GqaEditor from 'src/components/GqaEditor'
+import GqaEditor from 'src/components/GqaEditor/index.vue'
 
 const text = ref('<p>Hello Gin-Quasar-Admin</p>')
 </script>

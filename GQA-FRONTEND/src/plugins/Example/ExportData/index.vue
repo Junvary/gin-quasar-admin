@@ -41,9 +41,9 @@ import { downloadAction } from 'src/api/manage';
 import useTableData from 'src/composables/useTableData'
 import { computed, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
-import recordDetail from './modules/recordDetail'
+import recordDetail from './modules/recordDetail.vue'
 import { FormatDateTimeShort } from 'src/utils/date'
-import GqaUploader from 'src/components/GqaUploader'
+import GqaUploader from 'src/components/GqaUploader/index.vue'
 import useCommon from 'src/composables/useCommon'
 
 const { showDateTime } = useCommon()

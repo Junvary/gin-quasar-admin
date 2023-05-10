@@ -28,7 +28,7 @@
 
 <script setup>
 import { toRefs } from 'vue';
-import GqaShowName from 'src/components/GqaShowName'
+import GqaShowName from 'src/components/GqaShowName/index.vue'
 import useCommon from 'src/composables/useCommon'
 
 const { showDateTime } = useCommon()
