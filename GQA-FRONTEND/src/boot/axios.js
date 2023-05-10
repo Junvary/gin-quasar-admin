@@ -63,13 +63,13 @@ export default boot(({ app, router }) => {
         }
 
         /* 👇demo mode👇 */
-        // if (forbiddenUrl.some(item => item === request.url)) {
-        //     Notify.create({
-        //         type: 'negative',
-        //         message: i18n.global.t('DemoMode')
-        //     })
-        //     return
-        // }
+        if (forbiddenUrl.some(item => item === request.url)) {
+            Notify.create({
+                type: 'negative',
+                message: i18n.global.t('DemoMode')
+            })
+            return
+        }
         /* 👆demo mode👆 */
 
         return request
