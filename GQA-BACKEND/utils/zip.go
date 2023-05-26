@@ -41,7 +41,7 @@ func ZipFiles(filename string, files []string, oldForm, newForm string) error {
 				return err
 			}
 
-			// 使用上面的FileInforHeader() 就可以把文件保存的路径替换成我们自己想要的了，如下面
+			// 使用上面的FileInfoHeader() 就可以把文件保存的路径替换成我们自己想要的了，如下面
 			header.Name = strings.Replace(file, oldForm, newForm, -1)
 
 			// 优化压缩

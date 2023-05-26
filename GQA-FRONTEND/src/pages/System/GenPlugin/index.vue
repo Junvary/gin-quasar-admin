@@ -21,14 +21,9 @@
                         <q-btn flat round dense :icon="props.inFullscreen ? 'fullscreen_exit' : 'fullscreen'"
                             @click="props.toggleFullscreen" class="q-ml-md" />
                     </template>
-                    <template v-slot:body-cell-notice_type="props">
+                    <template v-slot:body-cell-created_at="props">
                         <q-td :props="props">
-                            <GqaDictShow :dictCode="props.row.notice_type" />
-                        </q-td>
-                    </template>
-                    <template v-slot:body-cell-notice_sent="props">
-                        <q-td :props="props">
-                            <GqaDictShow :dictCode="props.row.notice_sent" />
+                            {{ showDateTime(props.row.created_at) }}
                         </q-td>
                     </template>
                     <template v-slot:body-cell-actions="props">
@@ -72,12 +67,14 @@ const columns = computed(() => {
         { name: 'plugin_code', align: 'center', label: t('Plugin') + t('Code'), field: 'plugin_code' },
         { name: 'plugin_name', align: 'center', label: t('Plugin') + t('Name'), field: 'plugin_name' },
         { name: 'plugin_file', align: 'center', label: t('Plugin') + t('File'), field: 'plugin_file' },
+        { name: 'created_at', align: 'center', label: t('CreatedAt'), field: 'created_at' },
         { name: 'actions', align: 'center', label: t('Actions'), field: 'actions' },
     ]
 })
 const {
     $q,
     t,
+    showDateTime,
     dictOptions,
     pagination,
     queryParams,

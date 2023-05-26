@@ -8,7 +8,6 @@ import (
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
 	"os"
-	"path"
 	"path/filepath"
 	"strings"
 	"text/template"
@@ -58,13 +57,13 @@ func (s *ServiceGenPlugin) GenPlugin(genPluginStruct *model.SysGenPlugin) (err e
 	if err = s.GenFrontendAndBackendFile(genPluginStruct, dataListNew); err != nil {
 		return err
 	}
-	defer func() { // 移除中间文件
-		if err := os.RemoveAll(path.Join(genToPath, pluginCodeTimeDir)); err != nil {
-			return
-		}
-	}()
+	//defer func() { // 移除中间文件
+	//	if err := os.RemoveAll(path.Join(genToPath, pluginCodeTimeDir)); err != nil {
+	//		return
+	//	}
+	//}()
 	zipPath := genToPath + "/gqa-gen-" + pluginCodeTimeDir + ".zip"
-	if err = utils.ZipFiles(zipPath, genFileList, ".", "."); err != nil {
+	if err = utils.ZipFiles(zipPath, genFileList, "gqagen"+string(os.PathSeparator)+"plugins", ""); err != nil {
 		return err
 	}
 	toGenRecord := model.SysGenPluginList{
@@ -118,7 +117,6 @@ func (s *ServiceGenPlugin) PrepareTplData(genPluginStruct *model.SysGenPlugin, p
 }
 
 func (s *ServiceGenPlugin) GenData(genPluginStruct *model.SysGenPlugin, tplDataList []tplData, pluginCodeTimeDir string) (dataListNew []tplData, genFileList []string, makeDirList []string) {
-	var genToPath = global.GqaConfig.System.GenPluginToPath
 	for _, value := range tplDataList {
 		if value.templatePath == "template/genplugin/plugins/index.vue.tpl" {
 			for _, pm := range genPluginStruct.PluginModel {
@@ -134,14 +132,20 @@ func (s *ServiceGenPlugin) GenData(genPluginStruct *model.SysGenPlugin, tplDataL
 			}
 		} else if value.templatePath == "template/genplugin/plugins/modules/recordDetail.vue.tpl" {
 			for _, pm := range genPluginStruct.PluginModel {
-				var pmGen = path.Join(genToPath, pluginCodeTimeDir, "plugins", pm.ModelName)
+				lastIndex := strings.LastIndex(value.genFilePath, string(os.PathSeparator))
+				var pmGen1 = value.genFilePath[:lastIndex]
+				var pmGen2 = value.genFilePath[lastIndex:]
+				lastIndex2 := strings.LastIndex(pmGen1, string(os.PathSeparator))
+				var pmGen3 = pmGen1[:lastIndex2]
+				var pmGen4 = pmGen1[lastIndex2:]
+				var pmGen = pmGen3 + string(os.PathSeparator) + pm.ModelName
 				dataListNew = append(dataListNew, tplData{
 					template:     value.template,
 					templatePath: value.templatePath,
-					genFilePath:  path.Join(pmGen, "/modules/recordDetail.vue"),
+					genFilePath:  pmGen + pmGen4 + pmGen2,
 				})
-				genFileList = append(genFileList, pmGen+"/modules/recordDetail.vue")
-				makeDirList = append(makeDirList, path.Join(pmGen, "/modules"))
+				genFileList = append(genFileList, pmGen+pmGen4+pmGen2)
+				makeDirList = append(makeDirList, pmGen+pmGen4)
 			}
 		} else {
 			// go的情况
