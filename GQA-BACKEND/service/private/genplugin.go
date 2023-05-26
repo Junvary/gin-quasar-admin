@@ -8,6 +8,7 @@ import (
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
 	"os"
+	"path"
 	"path/filepath"
 	"strings"
 	"text/template"
@@ -57,11 +58,11 @@ func (s *ServiceGenPlugin) GenPlugin(genPluginStruct *model.SysGenPlugin) (err e
 	if err = s.GenFrontendAndBackendFile(genPluginStruct, dataListNew); err != nil {
 		return err
 	}
-	//defer func() { // 移除中间文件
-	//	if err := os.RemoveAll(path.Join(genToPath, pluginCodeTimeDir)); err != nil {
-	//		return
-	//	}
-	//}()
+	defer func() { // 移除中间文件
+		if err := os.RemoveAll(path.Join(genToPath, pluginCodeTimeDir)); err != nil {
+			return
+		}
+	}()
 	zipPath := genToPath + "/gqa-gen-" + pluginCodeTimeDir + ".zip"
 	if err = utils.ZipFiles(zipPath, genFileList, "gqagen"+string(os.PathSeparator)+"plugins", ""); err != nil {
 		return err
