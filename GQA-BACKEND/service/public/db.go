@@ -40,6 +40,7 @@ var migrateList = []interface{}{
 	model.SysLogLogin{},
 	model.SysLogOperation{},
 	model.SysNotice{},
+	model.SysGenPluginList{},
 	model.SysNoticeToUser{},
 	model.SysTodo{},
 	model.SysUserOnline{},

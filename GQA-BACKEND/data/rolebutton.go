@@ -84,7 +84,10 @@ var sysRoleButtonData = []model.SysRoleButton{
 	{"super-admin", "notice:send"},
 	{"super-admin", "notice:delete"},
 
+	{"super-admin", "genPlugin:add"},
 	{"super-admin", "genPlugin:gen"},
+	{"super-admin", "genPlugin:download"},
+	{"super-admin", "genPlugin:delete"},
 
 	{"super-admin", "user-online:kick"},
 }

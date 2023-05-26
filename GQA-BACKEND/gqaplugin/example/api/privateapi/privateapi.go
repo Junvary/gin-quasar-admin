@@ -1,6 +1,7 @@
 package privateapi
 
 import (
+	elPath "github.com/Junvary/erleng/path"
 	gqaGlobal "github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/example/model"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/example/service/privateservice"
@@ -104,7 +105,7 @@ func DownloadTemplateTestData(c *gin.Context) {
 	if err := gqaModel.RequestShouldBindJSON(c, &filename); err != nil {
 		return
 	}
-	err := gqaUtils.CheckAndCreatePath(gqaGlobal.GqaConfig.System.TemplatePath)
+	err := elPath.CreatePath(gqaGlobal.GqaConfig.System.TemplatePath)
 	if err != nil {
 		gqaGlobal.GqaLogger.Error("创建模板文件夹失败！", zap.Any("err", err))
 		gqaModel.ResponseErrorMessage("创建模板文件夹失败，"+err.Error(), c)
@@ -123,7 +124,7 @@ func ExportTestData(c *gin.Context) {
 	if err := gqaModel.RequestShouldBindJSON(c, &getTestDataList); err != nil {
 		return
 	}
-	err := gqaUtils.CheckAndCreatePath(gqaGlobal.GqaConfig.System.ExportPath)
+	err := elPath.CreatePath(gqaGlobal.GqaConfig.System.ExportPath)
 	if err != nil {
 		gqaGlobal.GqaLogger.Error("创建文件夹失败！", zap.Any("err", err))
 		gqaModel.ResponseErrorMessage("创建文件夹失败，"+err.Error(), c)
@@ -145,7 +146,7 @@ func ImportTestData(c *gin.Context) {
 		gqaModel.ResponseErrorMessage("解析文件失败，"+err.Error(), c)
 		return
 	}
-	err = gqaUtils.CheckAndCreatePath(gqaGlobal.GqaConfig.System.ImportPath)
+	err = elPath.CreatePath(gqaGlobal.GqaConfig.System.ImportPath)
 	if err != nil {
 		gqaGlobal.GqaLogger.Error("创建导入文件夹失败！", zap.Any("err", err))
 		gqaModel.ResponseErrorMessage("创建导入文件夹失败，"+err.Error(), c)

@@ -5,6 +5,7 @@ import (
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/{{.PluginCode}}/model"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/{{.PluginCode}}/router/privaterouter"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/{{.PluginCode}}/router/publicrouter"
+	gqaModel "github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
 	"github.com/gin-gonic/gin"
 )
 
@@ -53,4 +54,8 @@ func (*{{.PluginCode}}) PluginData() []interface{ LoadData() (err error) } { //å
         data.Plugin{{ .PluginCode }}SysRoleMenu,
     }
     return DataList
+}
+
+func (*{{.PluginCode}}) PluginCron() ([]gqaModel.SysCron, map[uuid.UUID]func()) {
+	return nil, nil
 }

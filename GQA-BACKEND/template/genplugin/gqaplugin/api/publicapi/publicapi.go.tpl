@@ -12,18 +12,18 @@ import (
 {{ range .PluginModel }}
 {{ if .WithPublicList }}
 func Get{{.ModelName}}List(c *gin.Context) {
-	var get{{.ModelName}}List model.RequestGet{{.ModelName}}List
-	if err := gqaModel.RequestShouldBindJSON(c, &get{{.ModelName}}List); err != nil {
+	var toGetDataList model.RequestGet{{.ModelName}}List
+	if err := gqaModel.RequestShouldBindJSON(c, &toGetDataList); err != nil {
 		return
 	}
-	if err, records, total := publicservice.Get{{.ModelName}}List(get{{.ModelName}}List); err != nil {
+	if err, records, total := publicservice.Get{{.ModelName}}List(toGetDataList); err != nil {
 		gqaGlobal.GqaLogger.Error("获取{{.ModelName}}列表失败！", zap.Any("err", err))
 		gqaModel.ResponseErrorMessage("获取{{.ModelName}}列表失败！"+err.Error(), c)
 	} else {
 		gqaModel.ResponseSuccessData(gqaModel.ResponsePage{
 			Records:  records,
-			Page:     get{{.ModelName}}List.Page,
-			PageSize: get{{.ModelName}}List.PageSize,
+			Page:     toGetDataList.Page,
+			PageSize: toGetDataList.PageSize,
 			Total:    total,
 		}, c)
 	}

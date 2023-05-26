@@ -1,8 +1,8 @@
 package boot
 
 import (
+	elPath "github.com/Junvary/erleng/path"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
@@ -11,7 +11,7 @@ import (
 
 func Zap() (logger *zap.Logger) {
 	zapConfig := global.GqaConfig.Zap
-	if err := utils.CheckAndCreatePath(zapConfig.Path); err != nil {
+	if err := elPath.CreatePath(zapConfig.Path); err != nil {
 		panic(err)
 	}
 	writeSyncer := zapcore.AddSync(&lumberjack.Logger{

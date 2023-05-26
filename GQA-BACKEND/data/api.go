@@ -268,23 +268,32 @@ var sysApiData = []model.SysApi{
 	}}, ApiGroup: "todo", ApiMethod: "POST", ApiPath: "/todo/query-todo-by-id"},
 
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: GqaSort + 75, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件代码生成",
+		Sort: GqaSort + 75, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "获取生成插件列表",
+	}}, ApiGroup: "genPlugin", ApiMethod: "POST", ApiPath: "/gen-plugin/get-gen-plugin-list"},
+	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
+		Sort: GqaSort + 76, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "生成插件",
 	}}, ApiGroup: "genPlugin", ApiMethod: "POST", ApiPath: "/gen-plugin/gen-plugin"},
+	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
+		Sort: GqaSort + 77, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "删除生成插件",
+	}}, ApiGroup: "genPlugin", ApiMethod: "POST", ApiPath: "/gen-plugin/delete-gen-plugin-by-id"},
+	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
+		Sort: GqaSort + 78, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "下载生成插件",
+	}}, ApiGroup: "genPlugin", ApiMethod: "POST", ApiPath: "/gen-plugin/download-gen-plugin-by-id"},
 
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: GqaSort + 76, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "获取在线用户列表",
+		Sort: GqaSort + 79, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "获取在线用户列表",
 	}}, ApiGroup: "user-online", ApiMethod: "POST", ApiPath: "/user-online/get-user-online-list"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: GqaSort + 77, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "踢出在线用户",
+		Sort: GqaSort + 80, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "踢出在线用户",
 	}}, ApiGroup: "user-online", ApiMethod: "POST", ApiPath: "/user-online/kick-online-user"},
 
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: GqaSort + 78, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "获取定时任务列表",
+		Sort: GqaSort + 81, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "获取定时任务列表",
 	}}, ApiGroup: "cron", ApiMethod: "POST", ApiPath: "/cron/get-cron-list"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: GqaSort + 79, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "启动定时任务",
+		Sort: GqaSort + 82, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "启动定时任务",
 	}}, ApiGroup: "cron", ApiMethod: "POST", ApiPath: "/cron/start-cron"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: GqaSort + 80, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "停止定时任务",
+		Sort: GqaSort + 83, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "停止定时任务",
 	}}, ApiGroup: "cron", ApiMethod: "POST", ApiPath: "/cron/stop-cron"},
 }

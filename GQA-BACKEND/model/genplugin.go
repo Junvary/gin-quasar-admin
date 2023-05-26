@@ -1,9 +1,24 @@
 package model
 
+type SysGenPluginList struct {
+	GqaModelWithCreatedByAndUpdatedBy
+	PluginSort uint   `json:"plugin_sort" gorm:"comment:插件排序"`
+	PluginCode string `json:"plugin_code" gorm:"comment:插件编码;index"`
+	PluginName string `json:"plugin_name" gorm:"comment:插件名称;"`
+	PluginFile string `json:"plugin_file"  gorm:"comment:插件位置"`
+}
+
+type RequestGetGenPluginList struct {
+	RequestPageAndSort
+	PluginSort uint   `json:"plugin_sort"`
+	PluginCode string `json:"plugin_code"`
+	PluginName string `json:"plugin_name"`
+}
+
 type SysGenPlugin struct {
+	PluginSort  uint          `json:"plugin_sort"`
 	PluginCode  string        `json:"plugin_code"`
 	PluginName  string        `json:"plugin_name"`
-	WithModel   bool          `json:"with_model"`
 	PluginModel []PluginModel `json:"plugin_model"`
 }
 

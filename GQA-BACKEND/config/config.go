@@ -27,14 +27,15 @@ type Mysql struct {
 }
 
 type System struct {
-	Port           int    `yaml:"port"`
-	SuccessCode    int    `yaml:"successCode"`
-	SuccessMessage string `yaml:"successMessage"`
-	ErrorCode      int    `yaml:"errorCode"`
-	ErrorMessage   string `yaml:"errorMessage"`
-	BindError      string `yaml:"bindError"`
-	GenPluginPath  string `yaml:"genPluginPath"`
-	ImportPath     string `yaml:"importPath"`
-	ExportPath     string `yaml:"exportPath"`
-	TemplatePath   string `yaml:"templatePath"`
+	Port                  int    `yaml:"port"`
+	SuccessCode           int    `yaml:"successCode"`
+	SuccessMessage        string `yaml:"successMessage"`
+	ErrorCode             int    `yaml:"errorCode"`
+	ErrorMessage          string `yaml:"errorMessage"`
+	BindError             string `yaml:"bindError"`
+	GenPluginToPath       string `yaml:"genPluginToPath"`
+	GenPluginTemplatePath string `yaml:"genPluginTemplatePath"`
+	ImportPath            string `yaml:"importPath"`
+	ExportPath            string `yaml:"exportPath"`
+	TemplatePath          string `yaml:"templatePath"`
 }

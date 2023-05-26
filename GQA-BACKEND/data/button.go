@@ -85,7 +85,10 @@ var sysButtonData = []model.SysButton{
 	{MenuName: "notice", ButtonName: "编辑", ButtonCode: "notice:edit"},
 	{MenuName: "notice", ButtonName: "删除", ButtonCode: "notice:delete"},
 
+	{MenuName: "genPlugin", ButtonName: "新增插件", ButtonCode: "genPlugin:add"},
 	{MenuName: "genPlugin", ButtonName: "生成插件", ButtonCode: "genPlugin:gen"},
+	{MenuName: "genPlugin", ButtonName: "下载插件", ButtonCode: "genPlugin:download"},
+	{MenuName: "genPlugin", ButtonName: "下载插件", ButtonCode: "genPlugin:delete"},
 
 	{MenuName: "user-online", ButtonName: "踢出", ButtonCode: "user-online:kick"},
 }

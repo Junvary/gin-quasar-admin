@@ -3,6 +3,8 @@
 /GQA-FRONTEND/node_modules
 /GQA-BACKEND/log
 /GQA-BACKEND/gqa-log
+/GQA-BACKEND/gqalog
+/GQA-BACKEND/gqagen
 /GQA-BACKEND/upload
 /GQA-BACKEND/go.sum
 /GQA-BACKEND/gqa-gen-plugin

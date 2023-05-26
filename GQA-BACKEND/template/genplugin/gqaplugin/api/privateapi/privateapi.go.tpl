@@ -12,30 +12,30 @@ import (
 
 {{ range .PluginModel }}
 func Get{{.ModelName}}List(c *gin.Context) {
-	var get{{.ModelName}}List model.RequestGet{{.ModelName}}List
-	if err := gqaModel.RequestShouldBindJSON(c, &get{{.ModelName}}List); err != nil {
+	var toGetDataList model.RequestGet{{.ModelName}}List
+	if err := gqaModel.RequestShouldBindJSON(c, &toGetDataList); err != nil {
 		return
 	}
-	if err, records, total := privateservice.Get{{.ModelName}}List(get{{.ModelName}}List, gqaUtils.GetUsername(c)); err != nil {
+	if err, records, total := privateservice.Get{{.ModelName}}List(toGetDataList, gqaUtils.GetUsername(c)); err != nil {
 		gqaGlobal.GqaLogger.Error("获取{{.ModelName}}列表失败！", zap.Any("err", err))
 		gqaModel.ResponseErrorMessage("获取{{.ModelName}}列表失败！"+err.Error(), c)
 	} else {
 		gqaModel.ResponseSuccessData(gqaModel.ResponsePage{
 			Records:  records,
-			Page:     get{{.ModelName}}List.Page,
-			PageSize: get{{.ModelName}}List.PageSize,
+			Page:     toGetDataList.Page,
+			PageSize: toGetDataList.PageSize,
 			Total:    total,
 		}, c)
 	}
 }
 
 func Edit{{.ModelName}}(c *gin.Context) {
-	var toEdit{{.ModelName}} model.GqaPlugin{{$.PluginCode}}{{.ModelName}}
-	if err := gqaModel.RequestShouldBindJSON(c, &toEdit{{.ModelName}}); err != nil {
+	var toEditData model.GqaPlugin{{$.PluginCode}}{{.ModelName}}
+	if err := gqaModel.RequestShouldBindJSON(c, &toEditData); err != nil {
 		return
 	}
-	toEdit{{.ModelName}}.UpdatedBy = gqaUtils.GetUsername(c)
-	if err := privateservice.Edit{{.ModelName}}(toEdit{{.ModelName}}, gqaUtils.GetUsername(c)); err != nil {
+	toEditData.UpdatedBy = gqaUtils.GetUsername(c)
+	if err := privateservice.Edit{{.ModelName}}(toEditData, gqaUtils.GetUsername(c)); err != nil {
 		gqaGlobal.GqaLogger.Error("编辑{{.ModelName}}失败！", zap.Any("err", err))
 		gqaModel.ResponseErrorMessage("编辑{{.ModelName}}失败，"+err.Error(), c)
 	} else {
@@ -44,26 +44,26 @@ func Edit{{.ModelName}}(c *gin.Context) {
 }
 
 func Add{{.ModelName}}(c *gin.Context) {
-	var toAdd{{.ModelName}} model.RequestAdd{{.ModelName}}
-	if err := gqaModel.RequestShouldBindJSON(c, &toAdd{{.ModelName}}); err != nil {
+	var toAddData model.RequestAdd{{.ModelName}}
+	if err := gqaModel.RequestShouldBindJSON(c, &toAddData); err != nil {
 		return
 	}
 	var GqaModelWithCreatedByAndUpdatedBy = gqaModel.GqaModelWithCreatedByAndUpdatedBy{
 		GqaModel: gqaGlobal.GqaModel{
 			CreatedBy: gqaUtils.GetUsername(c),
-			Status:    toAdd{{.ModelName}}.Status,
-			Sort:      toAdd{{.ModelName}}.Sort,
-			Memo:      toAdd{{.ModelName}}.Memo,
+			Status:    toAddData.Status,
+			Sort:      toAddData.Sort,
+			Memo:      toAddData.Memo,
 		},
 	}
-	add{{.ModelName}} := &model.GqaPlugin{{$.PluginCode}}{{.ModelName}}{
+	addData := &model.GqaPlugin{{$.PluginCode}}{{.ModelName}}{
 		GqaModelWithCreatedByAndUpdatedBy: GqaModelWithCreatedByAndUpdatedBy,
 		{{ $ModelName := .ModelName }}
         {{ range .ColumnList }}
-        {{.ColumnName}}:                             toAdd{{$ModelName}}.{{.ColumnName}},
+        {{.ColumnName}}:                             toAddData.{{.ColumnName}},
         {{ end }}
 	}
-	if err := privateservice.Add{{.ModelName}}(*add{{.ModelName}}, gqaUtils.GetUsername(c)); err != nil {
+	if err := privateservice.Add{{.ModelName}}(*addData, gqaUtils.GetUsername(c)); err != nil {
 		gqaGlobal.GqaLogger.Error("添加{{.ModelName}}失败！", zap.Any("err", err))
 		gqaModel.ResponseErrorMessage("添加{{.ModelName}}失败，"+err.Error(), c)
 	} else {

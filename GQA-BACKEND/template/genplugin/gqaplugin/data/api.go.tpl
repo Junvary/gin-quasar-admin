@@ -34,19 +34,19 @@ func (s *sysApi) LoadData() error {
 var sysApiData = []gqaModel.SysApi{
     {{ range .PluginModel }}
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
-		Sort: 70001, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件{{$.PluginCode}}：获取{{ .ModelName }}-list",
+		Sort: PluginSort + 1, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件{{$.PluginCode}}：获取{{ .ModelName }}-list",
 	}}, ApiGroup: "plugin-{{$.PluginCode}}", ApiMethod: "POST", ApiPath: "/plugin-{{$.PluginCode}}/get-{{ .ModelName }}-list"},
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
-		Sort: 70002, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件{{$.PluginCode}}：编辑{{ .ModelName }}信息",
+		Sort: PluginSort + 2, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件{{$.PluginCode}}：编辑{{ .ModelName }}信息",
 	}}, ApiGroup: "plugin-{{$.PluginCode}}", ApiMethod: "POST", ApiPath: "/plugin-{{$.PluginCode}}/edit-{{ .ModelName }}"},
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
-		Sort: 70003, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件{{$.PluginCode}}：新增{{ .ModelName }}",
+		Sort: PluginSort + 3, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件{{$.PluginCode}}：新增{{ .ModelName }}",
 	}}, ApiGroup: "plugin-{{$.PluginCode}}", ApiMethod: "POST", ApiPath: "/plugin-{{$.PluginCode}}/add-{{ .ModelName }}"},
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
-		Sort: 70004, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件{{$.PluginCode}}：删除{{ .ModelName }}",
+		Sort: PluginSort + 4, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件{{$.PluginCode}}：删除{{ .ModelName }}",
 	}}, ApiGroup: "plugin-{{$.PluginCode}}", ApiMethod: "POST", ApiPath: "/plugin-{{$.PluginCode}}/delete-{{ .ModelName }}-by-id"},
 	{GqaModelWithCreatedByAndUpdatedBy: gqaModel.GqaModelWithCreatedByAndUpdatedBy{GqaModel: gqaGlobal.GqaModel{
-		Sort: 70005, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件{{$.PluginCode}}：根据ID查找{{ .ModelName }}",
+		Sort: PluginSort + 5, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "插件{{$.PluginCode}}：根据ID查找{{ .ModelName }}",
 	}}, ApiGroup: "plugin-{{$.PluginCode}}", ApiMethod: "POST", ApiPath: "/plugin-{{$.PluginCode}}/query-{{ .ModelName }}-by-id"},
 	{{ end }}
 }

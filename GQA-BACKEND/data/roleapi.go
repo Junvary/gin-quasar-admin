@@ -118,7 +118,10 @@ var sysRoleApiData = []model.SysRoleApi{
 	{RoleCode: "super-admin", ApiGroup: "todo", ApiMethod: "POST", ApiPath: "/todo/delete-todo-by-id"},
 	{RoleCode: "super-admin", ApiGroup: "todo", ApiMethod: "POST", ApiPath: "/todo/query-todo-by-id"},
 
+	{RoleCode: "super-admin", ApiGroup: "genPlugin", ApiMethod: "POST", ApiPath: "/gen-plugin/get-gen-plugin-list"},
 	{RoleCode: "super-admin", ApiGroup: "genPlugin", ApiMethod: "POST", ApiPath: "/gen-plugin/gen-plugin"},
+	{RoleCode: "super-admin", ApiGroup: "genPlugin", ApiMethod: "POST", ApiPath: "/gen-plugin/delete-gen-plugin-by-id"},
+	{RoleCode: "super-admin", ApiGroup: "genPlugin", ApiMethod: "POST", ApiPath: "/gen-plugin/download-gen-plugin-by-id"},
 
 	{RoleCode: "super-admin", ApiGroup: "user-online", ApiMethod: "POST", ApiPath: "/user-online/get-user-online-list"},
 	{RoleCode: "super-admin", ApiGroup: "user-online", ApiMethod: "POST", ApiPath: "/user-online/kick-online-user"},
