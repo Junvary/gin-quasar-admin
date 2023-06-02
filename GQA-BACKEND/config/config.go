@@ -3,7 +3,7 @@ package config
 type Config struct {
 	Zap    Zap    `yaml:"zap"`
 	Mysql  Mysql  `yaml:"mysql"`
-	System System `yaml:"private"`
+	System System `yaml:"system"`
 }
 
 type Zap struct {
