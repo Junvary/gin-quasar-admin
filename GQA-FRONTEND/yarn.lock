@@ -145,17 +145,17 @@
   resolved "https://registry.npmmirror.com/@quasar/fastclick/-/fastclick-1.1.5.tgz#948e79c44098cced6c3d1645315683ebc29ed834"
   integrity sha512-p3JKgTjRlJ1YQXbqTw3Bsa4j0mQdt5dq+WfYvyb7MgKGdephHCKdR/kxA5PCTAmJanGJuDKqRdyGYX/hYN4KGw==
 
-"@quasar/quasar-app-extension-qiconpicker@^2.0.6":
-  version "2.0.6"
-  resolved "https://registry.npmmirror.com/@quasar/quasar-app-extension-qiconpicker/-/quasar-app-extension-qiconpicker-2.0.6.tgz#252c441d6ac12cf547f2fb10d36fce5f31bf75ca"
-  integrity sha512-NPCWEkGf527diDxz4m70o7nDl0Ebym6uAoAPzLd+Y4FCrKFf0YP4kWW5YQHaeyM5zk/jMEb3V099srv/7Cy1cQ==
+"@quasar/quasar-app-extension-qiconpicker@^2.0.7":
+  version "2.0.7"
+  resolved "https://registry.npmmirror.com/@quasar/quasar-app-extension-qiconpicker/-/quasar-app-extension-qiconpicker-2.0.7.tgz#bfd5682930f6e2eb2afa78a00cd5256ae09fc4f8"
+  integrity sha512-yv2/uO0RXp8ttu60gLFxQgEaQo//pzaOCHWMi+A1rrELAiTXskF+XmMC0Jqgs4iaClu9NcK5Wz2Ce7oZho7U6w==
   dependencies:
-    "@quasar/quasar-ui-qiconpicker" "^2.0.6"
+    "@quasar/quasar-ui-qiconpicker" "^2.0.7"
 
-"@quasar/quasar-ui-qiconpicker@^2.0.6":
-  version "2.0.6"
-  resolved "https://registry.npmmirror.com/@quasar/quasar-ui-qiconpicker/-/quasar-ui-qiconpicker-2.0.6.tgz#f00d756b9fe873bfbd673b7e07790bccf98285d3"
-  integrity sha512-4H27tC89v/BlZHyFcdqdNGAvogkE6/QjVL3yLioF8DSCU+lx4tW85iC2FVmjn67le2PBq2+3YCYTBJpWMRWRQQ==
+"@quasar/quasar-ui-qiconpicker@^2.0.7":
+  version "2.0.7"
+  resolved "https://registry.npmmirror.com/@quasar/quasar-ui-qiconpicker/-/quasar-ui-qiconpicker-2.0.7.tgz#f0d884eda7154f9a3c3a68586b27b41fe5ff90c9"
+  integrity sha512-i4mfuO4uW5DVZ378T7ZW6egbbemQ7h284Rxyi81crIgRe+HzrwFDriQbhNrsSfm5jFGTsmIEcHDEVJks/2Whxw==
 
 "@quasar/render-ssr-error@^1.0.0":
   version "1.0.0"
