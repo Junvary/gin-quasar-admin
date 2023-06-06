@@ -8,7 +8,14 @@ import (
 	"github.com/google/uuid"
 )
 
-func CreateAndSendNotice(toAddNotice model.RequestAddNotice, username string) (err error) {
+func CreateAndSendNotice(noticeTitle string, noticeContent string, noticeType string, noticeToUserType string, toUser []string, username string) (err error) {
+	toAddNotice := model.RequestAddNotice{
+		NoticeTitle:      noticeTitle,
+		NoticeContent:    noticeContent,
+		NoticeType:       noticeType,
+		NoticeToUserType: noticeToUserType,
+		NoticeToUser:     toUser,
+	}
 	noticeId := uuid.New()
 	var noticeToUser []model.SysNoticeToUser
 	if toAddNotice.NoticeToUserType == "some" {
