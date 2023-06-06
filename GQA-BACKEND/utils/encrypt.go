@@ -7,7 +7,6 @@ import (
 	"crypto/x509"
 	"encoding/base64"
 	"encoding/hex"
-	"fmt"
 )
 
 func EncodeMD5(str string, b ...byte) string {
@@ -16,20 +15,19 @@ func EncodeMD5(str string, b ...byte) string {
 	return hex.EncodeToString(h.Sum(b))
 }
 
-func EncodeRsa(pk string, label string) (data []byte, err error) {
+func EncodeRsa(pk string, label string) (data string, err error) {
 	ds, err := base64.StdEncoding.DecodeString(pk)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
-	db, err := x509.ParsePKIXPublicKey(ds)
+	pub, err := x509.ParsePKIXPublicKey(ds)
 	if err != nil {
-		fmt.Println(err.Error())
-		return nil, err
+		return "", err
 	}
-	rsaPublicKey := db.(*rsa.PublicKey)
-	oaep, err := rsa.EncryptPKCS1v15(rand.Reader, rsaPublicKey, []byte(label))
+	var pubKey = pub.(*rsa.PublicKey)
+	result, err := rsa.EncryptPKCS1v15(rand.Reader, pubKey, []byte(label))
 	if err != nil {
-		return nil, err
+		return "", err
 	}
-	return oaep, nil
+	return base64.StdEncoding.EncodeToString(result), nil
 }
