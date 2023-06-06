@@ -19,7 +19,7 @@
                             class="absolute all-pointer-events" v-if="currentTopMenu === item.name" />
                         <div class="q-focus-helper"></div>
                         <q-avatar size="80px" :icon="item.icon" />
-                        <div>{{ item.title }}</div>
+                        <div>{{ $t(item.title) }}</div>
                     </div>
                 </q-btn>
             </q-card-section>
