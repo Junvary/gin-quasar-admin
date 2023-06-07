@@ -6,9 +6,9 @@ type SysRole struct {
 	RoleName                 string      `json:"role_name" gorm:"comment:角色名称;not null;index;"`
 	DeptDataPermissionType   string      `json:"dept_data_permission_type" gorm:"comment:部门数据权限分类;not null;default:deptDataPermissionType_user;"`
 	DeptDataPermissionCustom string      `json:"dept_data_permission_custom" gorm:"comment:自定义部门数据权限;type:text;"`
-	User                     []SysUser   `json:"user" gorm:"many2many:sys_user_role;foreignKey:RoleCode;jointForeignKey:SysRoleRoleCode;references:Username;joinReferences:SysUserUsername;"`
-	Menu                     []SysMenu   `json:"menu" gorm:"many2many:sys_role_menu;foreignKey:RoleCode;jointForeignKey:SysRoleRoleCode;references:Name;joinReferences:SysMenuName;"`
-	Button                   []SysButton `json:"button" gorm:"many2many:sys_role_button;foreignKey:RoleCode;jointForeignKey:SysRoleRoleCode;references:ButtonCode;joinReferences:SysButtonButtonCode;"`
+	User                     []SysUser   `json:"user" gorm:"many2many:sys_user_role;foreignKey:RoleCode;joinForeignKey:SysRoleRoleCode;references:Username;joinReferences:SysUserUsername;"`
+	Menu                     []SysMenu   `json:"menu" gorm:"many2many:sys_role_menu;foreignKey:RoleCode;joinForeignKey:SysRoleRoleCode;references:Name;joinReferences:SysMenuName;"`
+	Button                   []SysButton `json:"button" gorm:"many2many:sys_role_button;foreignKey:RoleCode;joinForeignKey:SysRoleRoleCode;references:ButtonCode;joinReferences:SysButtonButtonCode;"`
 	DefaultPage              string      `json:"default_page" gorm:"comment:默认首页;default:dashboard"`
 	DefaultPageMenu          SysMenu     `json:"default_page_menu" gorm:"foreignKey:DefaultPage;references:Name"`
 }

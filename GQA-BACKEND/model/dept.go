@@ -8,7 +8,7 @@ type SysDept struct {
 	DeptName   string    `json:"dept_name" gorm:"comment:部门名称;not null;"`
 	Leader     string    `json:"leader" gorm:"comment:部门负责人username;"`
 	LeaderUser SysUser   `json:"leader_user" gorm:"comment:部门负责人;foreignKey:Leader;references:Username"`
-	Staff      []SysUser `json:"staff" gorm:"many2many:sys_dept_user;foreignKey:DeptCode;jointForeignKey:SysDeptDeptCode;references:Username;joinReferences:SysUserUsername;"`
+	Staff      []SysUser `json:"staff" gorm:"many2many:sys_dept_user;foreignKey:DeptCode;joinForeignKey:SysDeptDeptCode;references:Username;joinReferences:SysUserUsername;"`
 	Children   []SysDept `json:"children" gorm:"foreignKey:ParentCode;references:DeptCode"`
 }
 
