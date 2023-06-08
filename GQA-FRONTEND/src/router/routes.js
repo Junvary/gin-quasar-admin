@@ -10,10 +10,14 @@ export const PublicRoutes = [
         path: '/new-tab',
         component: () => import('layouts/NewTabLayout/index.vue'),
         children: [
-            // add your new-tab route here, example:
+            // 非鉴权、新tab页面 在下面配置，例如下面的路由（插件内容）:
             // {
             //     path: 'plugin-bp/bp/screen',
             //     component: () => import('src/plugins/Bp/Screen/index.vue')
+            // },
+            // {
+            //     path: 'add-ywd',
+            //     component: () => import('src/plugins/YWD/Ywd/modules/addYwd.vue')
             // },
         ]
     }
