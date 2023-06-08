@@ -9,30 +9,30 @@
                     </span>
                     <span v-else>
                         {{ $t('SelectUserComponent', {
-                                oneOrMultiple: selection === "multiple" ? $t('SelectMultiple') :
-                                    $t('SelectSingle')
-                            })
+                            oneOrMultiple: selection === "multiple" ? $t('SelectMultiple') :
+                                $t('SelectSingle')
+                        })
                         }}
                     </span>
                 </div>
-                <span class="text-subtitle2 text-negative row justify-center" v-if="selection === 'multiple'">
+                <!-- <span class="text-subtitle2 text-negative row justify-center" v-if="selection === 'multiple'">
                     {{ $t('GqaSelectUserHelp') }}
-                </span>
+                </span> -->
                 <q-btn dense color="primary" @click="handleSelectUser()" :label="$t('Select')" />
             </q-card-section>
 
             <q-separator />
 
             <q-card-section class="items-center row q-gutter-md">
-                <q-input dense style="width: 20%" v-model="queryParams.username" :label="$t('Username')" />
-                <q-input dense style="width: 20%" v-model="queryParams.real_name" :label="$t('RealName')" />
+                <q-input dense outlined style="width: 20%" v-model="queryParams.username" :label="$t('Username')" />
+                <q-input dense outlined style="width: 20%" v-model="queryParams.real_name" :label="$t('RealName')" />
                 <q-btn dense color="primary" @click="handleSearch" :label="$t('Search')" />
                 <q-btn dense color="primary" @click="resetSearch" :label="$t('Reset')" />
             </q-card-section>
 
-            <q-table row-key="username" :rows="tableData" :columns="columns" v-model:pagination="pagination"
-                :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest" :selection="selection"
-                v-model:selected="selected">
+            <q-table row-key="username" bordered separator="cell" :rows="tableData" :columns="columns"
+                v-model:pagination="pagination" :rows-per-page-options="pageOptions" :loading="loading" @request="onRequest"
+                :selection="selection" v-model:selected="selected">
             </q-table>
         </q-card>
     </q-dialog>
@@ -87,17 +87,18 @@ const show = (selectUser) => {
     selected.value = []
     selectUserVisible.value = true
     getTableData()
-    if (selection.value === 'multiple') {
-        if (ArrayOrObject(selectUser) === 'Array') {
-            selected.value = selectUser
-        } else {
-            selected.value = []
-        }
-    } else if (selectUser) {
-        selected.value.push(selectUser)
-    } else {
-        selected.value = []
-    }
+    // 如果需要加载已选择的用户，放开下面的注释
+    // if (selection.value === 'multiple') {
+    //     if (ArrayOrObject(selectUser) === 'Array') {
+    //         selected.value = selectUser
+    //     } else {
+    //         selected.value = []
+    //     }
+    // } else if (selectUser) {
+    //     selected.value.push(selectUser)
+    // } else {
+    //     selected.value = []
+    // }
 }
 
 defineExpose({

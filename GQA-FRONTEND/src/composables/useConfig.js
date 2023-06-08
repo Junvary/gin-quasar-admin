@@ -6,7 +6,7 @@ export default function useConfig() {
         console.info('Expecting Your Star!')
     }
     // allow list without token
-    const AllowList = ['/login',]
+    const AllowList = ['/login', '/new-tab/add-ywd']
     // use this name if there is no username
     const GqaDefaultUsername = 'GQA'
     // use this avatar if there is no avatar

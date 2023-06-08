@@ -714,4 +714,9 @@ export default {
         "en-US": "full screen",
         "ru": "Полный экран"
     },
+    Existing: {
+        "zh-CN": "已有",
+        "en-US": "Existing",
+        "ru": "Существующий"
+    },
 }
