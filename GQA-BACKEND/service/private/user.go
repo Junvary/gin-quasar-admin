@@ -48,6 +48,7 @@ func (s *ServiceUser) EditUser(toEditUser model.SysUser) (err error) {
 	if sysUser.Stable == "yesNo_yes" {
 		return errors.New(utils.GqaI18n("StableCantDo") + toEditUser.Username)
 	}
+	global.GqaDb.Where("sys_user_username = ?", toEditUser.Username).Delete(&model.SysDeptUser{})
 	if err = global.GqaDb.Where("id = ?", toEditUser.Id).First(&sysUser).Error; err != nil {
 		return err
 	}

@@ -69,6 +69,7 @@ func (a *ApiUser) AddUser(c *gin.Context) {
 		Gender:                            toAddData.Gender,
 		Mobile:                            toAddData.Mobile,
 		Email:                             toAddData.Email,
+		Dept:                              toAddData.Dept,
 	}
 	if err := servicePrivate.ServiceUser.AddUser(addData); err != nil {
 		if err.Error() == "successWithNoDefaultPassword" {

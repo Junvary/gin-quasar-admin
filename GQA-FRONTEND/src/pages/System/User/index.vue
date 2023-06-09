@@ -95,7 +95,7 @@
                 </q-card-section>
             </q-card-section>
         </q-card>
-        <recordDetail ref="recordDetailDialog" @handleFinish="handleFinish" />
+        <recordDetail ref="recordDetailDialog" @handleFinish="handleFinish" :deptList="deptList" />
     </q-page>
 </template>
 

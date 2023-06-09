@@ -32,13 +32,14 @@ type RequestGetUserList struct {
 
 type RequestAddUser struct {
 	RequestAdd
-	Avatar   string `json:"avatar"`
-	Username string `json:"username"`
-	Nickname string `json:"nickname"`
-	RealName string `json:"real_name"`
-	Gender   string `json:"gender"`
-	Mobile   string `json:"mobile"`
-	Email    string `json:"email"`
+	Avatar   string    `json:"avatar"`
+	Username string    `json:"username"`
+	Nickname string    `json:"nickname"`
+	RealName string    `json:"real_name"`
+	Gender   string    `json:"gender"`
+	Mobile   string    `json:"mobile"`
+	Email    string    `json:"email"`
+	Dept     []SysDept `json:"dept"`
 }
 
 type RequestChangePassword struct {
