@@ -34,7 +34,8 @@ export default boot(({ router }) => {
         const { AllowList } = useConfig()
         if (token) {
             if (AllowList.indexOf(to.path) !== -1) {
-                next({ path: '/' })
+                // next({ path: '/' })
+                next()
                 stopLoading()
             } else {
                 if (!permissionStore.userMenu.length) {
