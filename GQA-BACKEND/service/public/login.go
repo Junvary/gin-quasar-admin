@@ -1,6 +1,7 @@
 package public
 
 import (
+	"errors"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
@@ -12,9 +13,16 @@ type ServiceLogin struct{}
 
 func (s *ServiceLogin) Login(u *model.SysUser) (err error, sysUser *model.SysUser) {
 	var user model.SysUser
-	u.Password = utils.EncodeMD5(u.Password)
-	err = global.GqaDb.Where("username=? and password= ?", u.Username, u.Password).First(&user).Error
-	return err, &user
+	err = global.GqaDb.Where("username = ?", u.Username).First(&user).Error
+	if err != nil {
+		return err, nil
+	}
+	compare := utils.CompareBcrypt(user.Password, u.Password)
+	if compare {
+		return nil, &user
+	} else {
+		return errors.New("login failed"), nil
+	}
 }
 
 func (s *ServiceLogin) LogLogin(username string, c *gin.Context, status string, detail string) (err error) {

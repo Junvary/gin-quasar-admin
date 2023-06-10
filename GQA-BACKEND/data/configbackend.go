@@ -35,7 +35,7 @@ func (s *sysConfigBackend) LoadData() error {
 var sysConfigBackendData = []model.SysConfigBackend{
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
 		Sort: GqaSort + 1, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "用户初始密码",
-	}}, ConfigItem: "defaultPassword", ItemDefault: "123456"},
+	}}, ConfigItem: "defaultPassword", ItemDefault: "gqa#123456"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
 		Sort: GqaSort + 2, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "验证码字符数",
 	}}, ConfigItem: "captchaKeyLong", ItemDefault: "4"},

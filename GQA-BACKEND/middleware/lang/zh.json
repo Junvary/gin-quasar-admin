@@ -59,7 +59,7 @@
   "GetRoleButtonSuccess": "获取角色按钮列表成功.",
 
   "CantDisableAdmin": "超级管理员不能被禁用.",
-  "AddUserSuccessWithoutPwd": "添加用户成功！但未找到配置的默认密码，此用户的密码设置为：123456.",
+  "AddUserSuccessWithoutPwd": "添加用户成功！但未找到配置的默认密码，此用户的密码设置为：gqa#123456.",
   "CantDeleteYourself": "不能删除你自己.",
   "CantDeleteSuperAdmin": "不能删除超级管理员.",
   "ResetPasswordFailed": "重置密码失败.",

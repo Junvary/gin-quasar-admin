@@ -81,7 +81,7 @@ const handleChangePasswrod = async () => {
         if (passwordForm.value.new_password_1 !== passwordForm.value.new_password_2) {
             $q.notify({
                 type: 'negative',
-                message: t('TwoPasswordsCheck'),
+                message: t('TwoPasswordsError'),
             })
         } else {
             const res = await postAction(changePasswordUrl, passwordForm.value)

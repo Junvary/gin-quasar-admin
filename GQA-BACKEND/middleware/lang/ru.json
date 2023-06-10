@@ -59,7 +59,7 @@
   "GetRoleButtonSuccess": "получить список кнопок ролей успешно.",
 
   "CantDisableAdmin": "суперадминистратор не может быть отключен.",
-  "AddUserSuccessWithoutPwd": "Добавление пользователя завершено!пароль пользователя: 123446.",
+  "AddUserSuccessWithoutPwd": "Добавление пользователя завершено!пароль пользователя: gqa#123446.",
   "CantDeleteYourself": "не могу удалить себя.",
   "CantDeleteSuperAdmin": "Невозможно удалить суперадминистратора.",
   "ResetPasswordFailed": "ошибка сброса пароля.",

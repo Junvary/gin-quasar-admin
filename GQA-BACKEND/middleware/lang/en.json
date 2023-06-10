@@ -59,7 +59,7 @@
   "GetRoleButtonSuccess": "Get role button list succeeded.",
 
   "CantDisableAdmin": "You can't disable admin.",
-  "AddUserSuccessWithoutPwd": "Add user succeeded with password 123456.",
+  "AddUserSuccessWithoutPwd": "Add user succeeded with password gqa#123456.",
   "CantDeleteYourself": "You can't delete yourself.",
   "CantDeleteSuperAdmin": "You can't delete super-admin.",
   "ResetPasswordFailed": "Reset password failed.",

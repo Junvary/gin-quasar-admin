@@ -65,11 +65,11 @@ func (s *ServiceUser) AddUser(toAddUser *model.SysUser) (err error) {
 	}
 	defaultPassword := utils.GetConfigBackend("defaultPassword")
 	if defaultPassword == "" {
-		toAddUser.Password = utils.EncodeMD5("123456")
+		toAddUser.Password, _ = utils.EncodeBcrypt("gqa#123456")
 		err = global.GqaDb.Create(&toAddUser).Error
 		return errors.New("successWithNoDefaultPassword")
 	} else {
-		toAddUser.Password = utils.EncodeMD5(defaultPassword)
+		toAddUser.Password, _ = utils.EncodeBcrypt(defaultPassword)
 		err = global.GqaDb.Create(&toAddUser).Error
 		return err
 	}
@@ -116,9 +116,9 @@ func (s *ServiceUser) ResetPassword(id uint) (err error) {
 	defaultPassword := utils.GetConfigBackend("defaultPassword")
 	var pwd string
 	if defaultPassword == "" {
-		pwd = utils.EncodeMD5("123456")
+		pwd, _ = utils.EncodeBcrypt("gqa#123456")
 	} else {
-		pwd = utils.EncodeMD5(defaultPassword)
+		pwd, _ = utils.EncodeBcrypt(defaultPassword)
 	}
 	err = global.GqaDb.Model(&sysUser).Update("password", pwd).Error
 	return err
@@ -186,14 +186,15 @@ func (s *ServiceUser) ChangePassword(username string, toChangePassword model.Req
 	if err = global.GqaDb.Where("username = ?", username).First(&sysUser).Error; err != nil {
 		return err
 	}
-	oldPassword := utils.EncodeMD5(toChangePassword.OldPassword)
-	if sysUser.Password != oldPassword {
+	compareOld := utils.CompareBcrypt(sysUser.Password, toChangePassword.OldPassword)
+	if !compareOld {
 		return errors.New("旧密码错误！")
 	}
-	newPassword := utils.EncodeMD5(toChangePassword.NewPassword1)
-	if oldPassword == newPassword {
+	compareOldNew := utils.CompareBcrypt(sysUser.Password, toChangePassword.NewPassword1)
+	if compareOldNew {
 		return errors.New("新旧密码是一样的！")
 	}
+	newPassword, _ := utils.EncodeBcrypt(toChangePassword.NewPassword1)
 	err = global.GqaDb.Model(&sysUser).Update("password", newPassword).Error
 	return err
 }

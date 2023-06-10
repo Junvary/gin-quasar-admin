@@ -7,12 +7,26 @@ import (
 	"crypto/x509"
 	"encoding/base64"
 	"encoding/hex"
+	"golang.org/x/crypto/bcrypt"
 )
 
-func EncodeMD5(str string, b ...byte) string {
+func EncodeMD5(str string) string {
 	h := md5.New()
 	h.Write([]byte(str))
-	return hex.EncodeToString(h.Sum(b))
+	return hex.EncodeToString(h.Sum(nil))
+}
+
+func EncodeBcrypt(str string) (hs string, err error) {
+	hash, err := bcrypt.GenerateFromPassword([]byte(str), bcrypt.DefaultCost)
+	if err != nil {
+		return "", err
+	}
+	return string(hash), nil
+}
+
+func CompareBcrypt(hash, str string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(str))
+	return err == nil
 }
 
 func EncodeRsa(pk string, label string) (data string, err error) {
