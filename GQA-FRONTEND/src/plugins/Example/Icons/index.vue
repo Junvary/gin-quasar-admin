@@ -1,160 +1,124 @@
 <template>
     <q-page padding>
-        <q-input dense v-model="filter" label="Filter" outlined clearable style="width: 100%" />
-        <q-tabs v-model="tab" dense class="text-grey" active-color="primary" indicator-color="primary" align="justify"
-            narrow-indicator>
-            <q-tab name="material-icons" label="material-icons" />
-            <q-tab name="mdi-v6" label="mdi-v6" />
-            <q-tab name="ionicons-v4" label="ionicons-v4" />
-            <q-tab name="eva-icons" label="eva-icons" />
-            <q-tab name="fontawesome-v5" label="fontawesome-v5" />
-            <q-tab name="themify" label="themify" />
-            <q-tab name="line-awesome" label="line-awesome" />
-            <q-tab name="bootstrap-icons" label="bootstrap-icons" />
-        </q-tabs>
-        <q-tab-panels v-model="tab" animated>
-            <q-tab-panel name="material-icons">
-                <div class="row" style="width: 95%">
-                    <q-icon-picker v-model="materialIconsData.value" v-model:model-pagination="materialIconsData.pagination"
-                        icon-set="material-icons" :filter="filter" style="height: 60vh" size="30px" tooltips
-                        @click="copyIcon(materialIconsData.value)" />
-                </div>
-            </q-tab-panel>
-            <q-tab-panel name="mdi-v6">
-                <div class="row" style="width: 95%">
-                    <q-icon-picker v-model="mdiV6Data.value" v-model:model-pagination="mdiV6Data.pagination"
-                        icon-set="mdi-v6" :filter="filter" style="height: 60vh" size="30px" tooltips
-                        @click="copyIcon(mdiV6Data.value)" />
-                </div>
-            </q-tab-panel>
-            <q-tab-panel name="ionicons-v4">
-                <div class="row" style="width: 95%">
-                    <q-icon-picker v-model="ioniconsV4Data.value" v-model:model-pagination="ioniconsV4Data.pagination"
-                        icon-set="ionicons-v4" :filter="filter" style="height: 60vh" size="30px" tooltips
-                        @click="copyIcon(ioniconsV4Data.value)" />
-                </div>
-            </q-tab-panel>
-            <q-tab-panel name="eva-icons">
-                <div class="row" style="width: 95%">
-                    <q-icon-picker v-model="evaIconsData.value" v-model:model-pagination="evaIconsData.pagination"
-                        icon-set="eva-icons" :filter="filter" style="height: 60vh" size="30px" tooltips
-                        @click="copyIcon(evaIconsData.value)" />
-                </div>
-            </q-tab-panel>
-            <q-tab-panel name="fontawesome-v5">
-                <div class="row" style="width: 95%">
-                    <q-icon-picker v-model="fontawesomeV5Data.value" v-model:model-pagination="fontawesomeV5Data.pagination"
-                        icon-set="fontawesome-v5" :filter="filter" style="height: 60vh" size="30px" tooltips
-                        @click="copyIcon(fontawesomeV5Data.value)" />
-                </div>
-            </q-tab-panel>
-            <q-tab-panel name="themify">
-                <div class="row" style="width: 95%">
-                    <q-icon-picker v-model="themifyData.value" v-model:model-pagination="themifyData.pagination"
-                        icon-set="themify" :filter="filter" style="height: 60vh" size="30px" tooltips
-                        @click="copyIcon(themifyData.value)" />
-                </div>
-            </q-tab-panel>
-            <q-tab-panel name="line-awesome">
-                <div class="row" style="width: 95%">
-                    <q-icon-picker v-model="lineAwesomeData.value" v-model:model-pagination="lineAwesomeData.pagination"
-                        icon-set="line-awesome" :filter="filter" style="height: 60vh" size="30px" tooltips
-                        @click="copyIcon(lineAwesomeData.value)" />
-                </div>
-            </q-tab-panel>
-            <q-tab-panel name="bootstrap-icons">
-                <div class="row" style="width: 95%">
-                    <q-icon-picker v-model="bootstrapIconsData.value"
-                        v-model:model-pagination="bootstrapIconsData.pagination" icon-set="bootstrap-icons" :filter="filter"
-                        style="height: 60vh" size="30px" tooltips @click="copyIcon(bootstrapIconsData.value)" />
-                </div>
-            </q-tab-panel>
-        </q-tab-panels>
+        <q-card style="width: 100%;">
+            <q-card-section>
+                <q-input dense v-model="filterKey" label="Filter" outlined clearable style="width: 100%" />
+            </q-card-section>
+            <q-card-section class="row q-gutter-xs">
+                <q-btn-group>
+                    <q-btn dense outline color="primary" label="material-icons-outlined"
+                        @click="setIcon(materialIconsOutlined)" />
+                    <q-btn dense outline color="primary" label="material-icons-round"
+                        @click="setIcon(materialIconsRound)" />
+                    <q-btn dense outline color="primary" label="material-icons-sharp"
+                        @click="setIcon(materialIconsSharp)" />
+                    <q-btn dense outline color="primary" label="material-icons" @click="setIcon(materialIcons)" />
+                    <q-btn dense outline color="primary" label="material-symbols-outlined"
+                        @click="setIcon(materialSymbolsOutlined)" />
+                    <q-btn dense outline color="primary" label="material-symbols-rounded"
+                        @click="setIcon(materialSymbolsRounded)" />
+                    <q-btn dense outline color="primary" label="mmaterial-symbols-sharp"
+                        @click="setIcon(materialSymbolsSharp)" />
+                </q-btn-group>
+                <q-btn-group>
+                    <q-btn dense outline color="primary" label="eva-icons" @click="setIcon(evaIcons)" />
+                    <q-btn dense outline color="primary" label="fontawesome-v5" @click="setIcon(fontawesomeV5)" />
+                    <q-btn dense outline color="primary" label="fontawesome-v6" @click="setIcon(fontawesomeV6)" />
+                    <q-btn dense outline color="primary" label="ionicons-v4" @click="setIcon(ioniconsV4)" />
+                    <q-btn dense outline color="primary" label="ionicons-v5" @click="setIcon(ioniconsV5)" />
+                    <q-btn dense outline color="primary" label="ionicons-v6" @click="setIcon(ioniconsV6)" />
+                    <q-btn dense outline color="primary" label="ionicons-v7" @click="setIcon(ioniconsV7)" />
+                    <q-btn dense outline color="primary" label="line-awesome" @click="setIcon(lineAwesome)" />
+                    <q-btn dense outline color="primary" label="mdi-v4" @click="setIcon(mdiV4)" />
+                    <q-btn dense outline color="primary" label="mdi-v5" @click="setIcon(mdiV5)" />
+                    <q-btn dense outline color="primary" label="mdi-v6" @click="setIcon(mdiV6)" />
+                    <q-btn dense outline color="primary" label="mdi-v7" @click="setIcon(mdiV7)" />
+                </q-btn-group>
+
+            </q-card-section>
+            <q-card-section class="row q-gutter-sm">
+                <q-btn class="col-auto" v-for="(item, key, index) in dataObj" :icon="item" @click="copyIcon(key)">
+                    <q-tooltip anchor="top middle" self="center middle">
+                        {{ key }}
+                    </q-tooltip>
+                </q-btn>
+            </q-card-section>
+            <q-card-actions align="center">
+                <q-pagination v-model="pagination.page" :max="pagination.max" />
+            </q-card-actions>
+        </q-card>
     </q-page>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { copyToClipboard, useQuasar } from 'quasar'
 import { useI18n } from 'vue-i18n'
+import { filterObj } from 'src/utils/object'
+import * as evaIcons from '@quasar/extras/eva-icons'
+import * as fontawesomeV5 from '@quasar/extras/fontawesome-v5'
+import * as fontawesomeV6 from '@quasar/extras/fontawesome-v6'
+import * as ioniconsV4 from '@quasar/extras/ionicons-v4'
+import * as ioniconsV5 from '@quasar/extras/ionicons-v5'
+import * as ioniconsV6 from '@quasar/extras/ionicons-v6'
+import * as ioniconsV7 from '@quasar/extras/ionicons-v7'
+import * as lineAwesome from '@quasar/extras/line-awesome'
+import * as materialIconsOutlined from '@quasar/extras/material-icons-outlined'
+import * as materialIconsRound from '@quasar/extras/material-icons-round'
+import * as materialIconsSharp from '@quasar/extras/material-icons-sharp'
+import * as materialIcons from '@quasar/extras/material-icons'
+import * as materialSymbolsOutlined from '@quasar/extras/material-symbols-outlined'
+import * as materialSymbolsRounded from '@quasar/extras/material-symbols-rounded'
+import * as materialSymbolsSharp from '@quasar/extras/material-symbols-sharp'
+import * as mdiV4 from '@quasar/extras/mdi-v4'
+import * as mdiV5 from '@quasar/extras/mdi-v5'
+import * as mdiV6 from '@quasar/extras/mdi-v6'
+import * as mdiV7 from '@quasar/extras/mdi-v7'
 
 const $q = useQuasar();
 const { t } = useI18n();
-const tab = ref('material-icons');
-const filter = ref('')
+const itemsPerPage = ref(200)
+const filterKey = ref('')
+const iconSet = ref(materialIcons)
+const iconSetKeyList = ref(Object.keys(materialIcons))
 
-const materialIconsData = ref({
-    value: '',
-    pagination: {
-        itemsPerPage: 100,
-        page: 0
-    }
-});
-const mdiV6Data = ref({
-    value: '',
-    pagination: {
-        itemsPerPage: 100,
-        page: 0
-    }
+const setIcon = (quasarIcon) => {
+    iconSet.value = quasarIcon
+    iconSetKeyList.value = Object.keys(quasarIcon)
+}
+
+const pagination = ref({
+    page: 1,
+    max: Math.ceil(iconSetKeyList.value.length / itemsPerPage.value)
 })
-const ioniconsV4Data = ref({
-    value: '',
-    pagination: {
-        itemsPerPage: 100,
-        page: 0
+
+const dataObj = computed(() => {
+    if (filterKey.value !== "") {
+        const filterArray = iconSetKeyList.value.filter(item => {
+            return item.toLowerCase().includes(filterKey.value.toLowerCase())
+        })
+        pagination.value = {
+            page: pagination.value.page,
+            max: Math.ceil(filterArray.length / itemsPerPage.value)
+        }
+        const keyArray = filterArray.slice((pagination.value.page - 1) * itemsPerPage.value, (pagination.value.page - 1) * itemsPerPage.value + itemsPerPage.value - 1)
+        return filterObj(iconSet.value, keyArray)
     }
+    pagination.value = {
+        page: pagination.value.page,
+        max: Math.ceil(iconSetKeyList.value.length / itemsPerPage.value)
+    }
+    const keyArray = iconSetKeyList.value.slice((pagination.value.page - 1) * itemsPerPage.value, (pagination.value.page - 1) * itemsPerPage.value + itemsPerPage.value - 1)
+    return filterObj(iconSet.value, keyArray)
 })
-const evaIconsData = ref({
-    value: '',
-    pagination: {
-        itemsPerPage: 100,
-        page: 0
-    }
-})
-const fontawesomeV5Data = ref({
-    value: '',
-    pagination: {
-        itemsPerPage: 100,
-        page: 0
-    }
-});
-const themifyData = ref({
-    value: '',
-    pagination: {
-        itemsPerPage: 100,
-        page: 0
-    }
-})
-const lineAwesomeData = ref({
-    value: '',
-    pagination: {
-        itemsPerPage: 100,
-        page: 0
-    }
-})
-const bootstrapIconsData = ref({
-    value: '',
-    pagination: {
-        itemsPerPage: 100,
-        page: 0
-    }
-})
-const copyIcon = (item) => {
-    if (item) {
-        copyToClipboard(item).then(() => {
+
+const copyIcon = (key) => {
+    if (key) {
+        copyToClipboard(key).then(() => {
             $q.notify({
                 type: 'positive',
-                message: t('CopyToClipboard') + ' ' + t('Success') + ': ' + item,
+                message: t('CopyToClipboard') + ' ' + t('Success') + ': ' + key,
             })
-            materialIconsData.value.value = '';
-            mdiV6Data.value.value = '';
-            ioniconsV4Data.value.value = ''
-            evaIconsData.value.value = '';
-            fontawesomeV5Data.value.value = '';
-            fontawesomeV5Data.value.value = '';
-            themifyData.value.value = '';
-            lineAwesomeData.value.value = '';
-            bootstrapIconsData.value.value = '';
         }).catch(() => {
             $q.notify({
                 type: 'negative',
@@ -162,6 +126,6 @@ const copyIcon = (item) => {
             })
         })
     }
-
 }
+
 </script>
