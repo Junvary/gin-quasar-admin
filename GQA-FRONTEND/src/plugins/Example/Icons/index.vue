@@ -4,36 +4,32 @@
             <q-card-section>
                 <q-input dense v-model="filterKey" label="Filter" outlined clearable style="width: 100%" />
             </q-card-section>
-            <q-card-section class="row q-gutter-xs">
-                <q-btn-group>
-                    <q-btn dense outline color="primary" label="material-icons-outlined"
-                        @click="setIcon(materialIconsOutlined)" />
-                    <q-btn dense outline color="primary" label="material-icons-round"
-                        @click="setIcon(materialIconsRound)" />
-                    <q-btn dense outline color="primary" label="material-icons-sharp"
-                        @click="setIcon(materialIconsSharp)" />
-                    <q-btn dense outline color="primary" label="material-icons" @click="setIcon(materialIcons)" />
-                    <q-btn dense outline color="primary" label="material-symbols-outlined"
-                        @click="setIcon(materialSymbolsOutlined)" />
-                    <q-btn dense outline color="primary" label="material-symbols-rounded"
-                        @click="setIcon(materialSymbolsRounded)" />
-                    <q-btn dense outline color="primary" label="mmaterial-symbols-sharp"
-                        @click="setIcon(materialSymbolsSharp)" />
-                </q-btn-group>
-                <q-btn-group>
-                    <q-btn dense outline color="primary" label="eva-icons" @click="setIcon(evaIcons)" />
-                    <q-btn dense outline color="primary" label="fontawesome-v5" @click="setIcon(fontawesomeV5)" />
-                    <q-btn dense outline color="primary" label="fontawesome-v6" @click="setIcon(fontawesomeV6)" />
-                    <q-btn dense outline color="primary" label="ionicons-v4" @click="setIcon(ioniconsV4)" />
-                    <q-btn dense outline color="primary" label="ionicons-v5" @click="setIcon(ioniconsV5)" />
-                    <q-btn dense outline color="primary" label="ionicons-v6" @click="setIcon(ioniconsV6)" />
-                    <q-btn dense outline color="primary" label="ionicons-v7" @click="setIcon(ioniconsV7)" />
-                    <q-btn dense outline color="primary" label="line-awesome" @click="setIcon(lineAwesome)" />
-                    <q-btn dense outline color="primary" label="mdi-v4" @click="setIcon(mdiV4)" />
-                    <q-btn dense outline color="primary" label="mdi-v5" @click="setIcon(mdiV5)" />
-                    <q-btn dense outline color="primary" label="mdi-v6" @click="setIcon(mdiV6)" />
-                    <q-btn dense outline color="primary" label="mdi-v7" @click="setIcon(mdiV7)" />
-                </q-btn-group>
+            <q-card-section class="row q-gutter-md">
+                <q-radio dense v-model="iconSet" :val="materialIconsOutlined" label="material-icons-outlined"
+                    @click="setIcon" />
+                <q-radio dense v-model="iconSet" :val="materialIconsRound" label="material-icons-round" @click="setIcon" />
+                <q-radio dense v-model="iconSet" :val="materialIconsSharp" label="material-icons-sharp" @click="setIcon" />
+                <q-radio dense v-model="iconSet" :val="materialIcons" label="material-icons" @click="setIcon" />
+                <q-radio dense v-model="iconSet" :val="materialSymbolsOutlined" label="material-symbols-outlined"
+                    @click="setIcon" />
+                <q-radio dense v-model="iconSet" :val="materialSymbolsRounded" label="material-symbols-rounded"
+                    @click="setIcon" />
+                <q-radio dense v-model="iconSet" :val="materialSymbolsSharp" label="mmaterial-symbols-sharp"
+                    @click="setIcon" />
+                <q-radio dense v-model="iconSet" :val="evaIcons" label="eva-icons" @click="setIcon" />
+                <q-radio dense v-model="iconSet" :val="fontawesomeV5" label="fontawesome-v5" @click="setIcon" />
+                <q-radio dense v-model="iconSet" :val="fontawesomeV6" label="fontawesome-v6" @click="setIcon" />
+                <q-radio dense v-model="iconSet" :val="ioniconsV4" label="ionicons-v4" @click="setIcon" />
+                <q-radio dense v-model="iconSet" :val="ioniconsV5" label="ionicons-v5" @click="setIcon" />
+                <q-radio dense v-model="iconSet" :val="ioniconsV6" label="ionicons-v6" @click="setIcon" />
+                <q-radio dense v-model="iconSet" :val="ioniconsV7" label="ionicons-v7" @click="setIcon" />
+                <q-radio dense v-model="iconSet" :val="lineAwesome" label="line-awesome" @click="setIcon" />
+                <q-radio dense v-model="iconSet" :val="mdiV4" label="mdi-v4" @click="setIcon" />
+                <q-radio dense v-model="iconSet" :val="mdiV5" label="mdi-v5" @click="setIcon" />
+                <q-radio dense v-model="iconSet" :val="mdiV6" label="mdi-v6" @click="setIcon" />
+                <q-radio dense v-model="iconSet" :val="mdiV7" label="mdi-v7" @click="setIcon" />
+                <q-radio dense v-model="iconSet" :val="themify" label="themify" @click="setIcon" />
+                <q-radio dense v-model="iconSet" :val="bootstrapIcons" label="bootstrap-icons" @click="setIcon" />
 
             </q-card-section>
             <q-card-section class="row q-gutter-sm">
@@ -74,6 +70,8 @@ import * as mdiV4 from '@quasar/extras/mdi-v4'
 import * as mdiV5 from '@quasar/extras/mdi-v5'
 import * as mdiV6 from '@quasar/extras/mdi-v6'
 import * as mdiV7 from '@quasar/extras/mdi-v7'
+import * as themify from '@quasar/extras/themify'
+import * as bootstrapIcons from '@quasar/extras/bootstrap-icons'
 
 const $q = useQuasar();
 const { t } = useI18n();
@@ -82,9 +80,8 @@ const filterKey = ref('')
 const iconSet = ref(materialIcons)
 const iconSetKeyList = ref(Object.keys(materialIcons))
 
-const setIcon = (quasarIcon) => {
-    iconSet.value = quasarIcon
-    iconSetKeyList.value = Object.keys(quasarIcon)
+const setIcon = () => {
+    iconSetKeyList.value = Object.keys(iconSet.value)
 }
 
 const pagination = ref({
@@ -93,22 +90,15 @@ const pagination = ref({
 })
 
 const dataObj = computed(() => {
-    if (filterKey.value !== "") {
-        const filterArray = iconSetKeyList.value.filter(item => {
-            return item.toLowerCase().includes(filterKey.value.toLowerCase())
-        })
-        pagination.value = {
-            page: pagination.value.page,
-            max: Math.ceil(filterArray.length / itemsPerPage.value)
-        }
-        const keyArray = filterArray.slice((pagination.value.page - 1) * itemsPerPage.value, (pagination.value.page - 1) * itemsPerPage.value + itemsPerPage.value - 1)
-        return filterObj(iconSet.value, keyArray)
+    let dataList = iconSetKeyList.value
+    if (filterKey.value !== "" && filterKey.value) {
+        dataList = dataList.filter(item => item.toLowerCase().includes(filterKey.value.toLowerCase()))
     }
     pagination.value = {
         page: pagination.value.page,
-        max: Math.ceil(iconSetKeyList.value.length / itemsPerPage.value)
+        max: Math.ceil(dataList.length / itemsPerPage.value)
     }
-    const keyArray = iconSetKeyList.value.slice((pagination.value.page - 1) * itemsPerPage.value, (pagination.value.page - 1) * itemsPerPage.value + itemsPerPage.value - 1)
+    const keyArray = dataList.slice((pagination.value.page - 1) * itemsPerPage.value, (pagination.value.page - 1) * itemsPerPage.value + itemsPerPage.value - 1)
     return filterObj(iconSet.value, keyArray)
 })
 
