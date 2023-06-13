@@ -62,9 +62,8 @@ import useTableData from 'src/composables/useTableData'
 import { useQuasar } from 'quasar'
 import { computed, onMounted, ref, watch, nextTick, toRefs } from 'vue'
 import { useI18n } from 'vue-i18n'
-import useConfig from 'src/composables/useConfig';
+import { GqaDefaultUsername, GqaDefaultAvatar } from "src/config/default"
 
-const { GqaDefaultUsername, GqaDefaultAvatar } = useConfig()
 const $q = useQuasar()
 const { t } = useI18n()
 const url = {

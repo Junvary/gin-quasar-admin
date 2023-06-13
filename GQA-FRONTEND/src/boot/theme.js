@@ -1,8 +1,6 @@
 import { boot } from 'quasar/wrappers'
 import { Cookies, setCssVar, getCssVar } from 'quasar'
-import useConfig from 'src/composables/useConfig'
-
-const { ThemeStyleQuasar } = useConfig()
+import { ThemeStyleQuasar } from 'src/config/default'
 
 export default boot(({ app }) => {
     const primary = Cookies.get('gqa-theme-primary') || getCssVar('primary') || ThemeStyleQuasar.primary

@@ -57,7 +57,7 @@ const handleUpload = () => {
             showUploader.value = false
             $q.notify({
                 type: 'positive',
-                message: t('UploadSuccess'),
+                message: t('Upload') + t('Success'),
             })
             emit('importFinish')
         }

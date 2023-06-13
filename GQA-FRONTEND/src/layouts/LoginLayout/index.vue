@@ -46,7 +46,6 @@
 
 <script setup>
 import useCommon from 'src/composables/useCommon'
-import useConfig from 'src/composables/useConfig'
 import { computed, onBeforeMount, ref, markRaw, defineAsyncComponent } from 'vue'
 import SimpleView from './SimpleView/index.vue'
 import ComplexView from './ComplexView/index.vue'
@@ -59,13 +58,13 @@ import GqaLanguage from 'src/components/GqaLanguage/index.vue'
 import config from '../../../package.json'
 import DarkTheme from 'src/components/GqaTheme/DarkTheme.vue';
 import useTheme from 'src/composables/useTheme';
+import { GqaConsoleLogo } from "src/config/config"
 
 const { darkThemeLoginCard } = useTheme()
 const gqaVersion = config.version
 const $q = useQuasar()
 const { t } = useI18n()
 const { gqaFrontend } = useCommon()
-const { GqaConsoleLogo } = useConfig()
 const storageStore = useStorageStore()
 const pluginCurrent = ref(null)
 const pluginComponent = ref(null)

@@ -12,9 +12,8 @@ import Notice from './modules/Notice.vue'
 import { useUserStore } from 'src/stores/user'
 import { computed, onMounted, ref, onUnmounted } from 'vue';
 import { useQuasar } from 'quasar';
-import useConfig from 'src/composables/useConfig';
+import { GqaDefaultUsername } from "src/config/default"
 
-const { GqaDefaultUsername } = useConfig()
 const $q = useQuasar()
 const userStore = useUserStore()
 const username = computed(() => userStore.GetUsername())

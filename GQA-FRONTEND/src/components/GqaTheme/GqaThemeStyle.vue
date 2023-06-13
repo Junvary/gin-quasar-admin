@@ -19,9 +19,8 @@
 import { computed } from 'vue';
 import { useSettingStore } from 'src/stores/setting';
 import { setCssVar, Cookies } from 'quasar';
-import useConfig from 'src/composables/useConfig';
+import { ThemeStyleQuasar, ThemeStyleElement, ThemeStyleAnt } from "src/config/default"
 
-const { ThemeStyleQuasar, ThemeStyleElement, ThemeStyleAnt } = useConfig()
 const themeStyleList = {
     'Gin-Quasar-Admin': 'icons/gqa128.png',
     'Quasar': 'icon/quasar.svg',

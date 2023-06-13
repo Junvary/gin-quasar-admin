@@ -11,9 +11,9 @@
             </template>
             <template v-slot:control>
                 <div class="q-gutter-md q-ma-none">
-                    <q-avatar round v-for="(item, index) in colorList" :key="index"
-                        :size="primary === item ? 'md' : 'xs'" :style="{ border: '1px solid grey', background: item }"
-                        class="cursor" @click="setBrand('primary', item)" />
+                    <q-avatar round v-for="(item, index) in colorList" :key="index" :size="primary === item ? 'md' : 'xs'"
+                        :style="{ border: '1px solid grey', background: item }" class="cursor"
+                        @click="setBrand('primary', item)" />
                 </div>
             </template>
         </q-field>
@@ -28,9 +28,9 @@
             </template>
             <template v-slot:control>
                 <div class="q-gutter-md q-ma-none">
-                    <q-avatar round v-for="(item, index) in colorList" :key="index"
-                        :size="secondary === item ? 'md' : 'xs'" :style="{ border: '1px solid grey', background: item }"
-                        class="cursor" @click="setBrand('secondary', item)" />
+                    <q-avatar round v-for="(item, index) in colorList" :key="index" :size="secondary === item ? 'md' : 'xs'"
+                        :style="{ border: '1px solid grey', background: item }" class="cursor"
+                        @click="setBrand('secondary', item)" />
                 </div>
             </template>
         </q-field>
@@ -45,9 +45,9 @@
             </template>
             <template v-slot:control>
                 <div class="q-gutter-md q-ma-none">
-                    <q-avatar round v-for="(item, index) in colorList" :key="index"
-                        :size="accent === item ? 'md' : 'xs'" :style="{ border: '1px solid grey', background: item }"
-                        class="cursor" @click="setBrand('accent', item)" />
+                    <q-avatar round v-for="(item, index) in colorList" :key="index" :size="accent === item ? 'md' : 'xs'"
+                        :style="{ border: '1px solid grey', background: item }" class="cursor"
+                        @click="setBrand('accent', item)" />
                 </div>
             </template>
         </q-field>
@@ -62,9 +62,9 @@
             </template>
             <template v-slot:control>
                 <div class="q-gutter-md q-ma-none">
-                    <q-avatar round v-for="(item, index) in colorList" :key="index"
-                        :size="positive === item ? 'md' : 'xs'" :style="{ border: '1px solid grey', background: item }"
-                        class="cursor" @click="setBrand('positive', item)" />
+                    <q-avatar round v-for="(item, index) in colorList" :key="index" :size="positive === item ? 'md' : 'xs'"
+                        :style="{ border: '1px solid grey', background: item }" class="cursor"
+                        @click="setBrand('positive', item)" />
                 </div>
             </template>
         </q-field>
@@ -79,9 +79,9 @@
             </template>
             <template v-slot:control>
                 <div class="q-gutter-md q-ma-none">
-                    <q-avatar round v-for="(item, index) in colorList" :key="index"
-                        :size="negative === item ? 'md' : 'xs'" :style="{ border: '1px solid grey', background: item }"
-                        class="cursor" @click="setBrand('negative', item)" />
+                    <q-avatar round v-for="(item, index) in colorList" :key="index" :size="negative === item ? 'md' : 'xs'"
+                        :style="{ border: '1px solid grey', background: item }" class="cursor"
+                        @click="setBrand('negative', item)" />
                 </div>
             </template>
         </q-field>
@@ -113,9 +113,9 @@
             </template>
             <template v-slot:control>
                 <div class="q-gutter-md q-ma-none">
-                    <q-avatar round v-for="(item, index) in colorList" :key="index"
-                        :size="warning === item ? 'md' : 'xs'" :style="{ border: '1px solid grey', background: item }"
-                        class="cursor" @click="setBrand('warning', item)" />
+                    <q-avatar round v-for="(item, index) in colorList" :key="index" :size="warning === item ? 'md' : 'xs'"
+                        :style="{ border: '1px solid grey', background: item }" class="cursor"
+                        @click="setBrand('warning', item)" />
                 </div>
             </template>
         </q-field>
@@ -159,9 +159,7 @@
 <script setup>
 import { computed, ref } from 'vue';
 import { setCssVar, getCssVar, Cookies } from 'quasar';
-import useConfig from 'src/composables/useConfig';
-
-const { ThemeStyleQuasar, ThemeStyleElement, ThemeStyleAnt } = useConfig()
+import { ThemeStyleQuasar, ThemeStyleElement, ThemeStyleAnt } from "src/config/default"
 
 const colorList = computed(() => {
     const cl = []

@@ -1,8 +1,7 @@
 import { computed, watch } from 'vue';
 import { useStorageStore } from 'src/stores/storage';
-import useConfig from 'src/composables/useConfig';
+import { GqaFrontendDefault } from "src/config/default"
 
-const { GqaFrontendDefault } = useConfig()
 const storageStore = useStorageStore();
 const gqaFrontend = computed(() => storageStore.GetGqaFrontend());
 

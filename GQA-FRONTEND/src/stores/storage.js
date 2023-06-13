@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { LocalStorage } from 'quasar';
 import { postAction } from 'src/api/manage';
 import { ArrayToTree } from 'src/utils/arrayAndTree'
-import useConfig from 'src/composables/useConfig';
+import { GqaFrontendDefault, GqaBackendDefault } from "src/config/default"
 
 export const useStorageStore = defineStore('storage', {
     state: () => ({
@@ -80,7 +80,6 @@ export const useStorageStore = defineStore('storage', {
             }
         },
         GetGqaBackend() {
-            const { GqaBackendDefault } = useConfig()
             const backend = LocalStorage.getItem("gqa-backend")
             if (this.gqaBackend) {
                 return this.gqaBackend
@@ -91,7 +90,6 @@ export const useStorageStore = defineStore('storage', {
             }
         },
         GetGqaFrontend() {
-            const { GqaFrontendDefault } = useConfig()
             const frontend = LocalStorage.getItem("gqa-frontend")
             if (this.gqaFrontend) {
                 return this.gqaFrontend

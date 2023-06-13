@@ -169,7 +169,7 @@ const handleUpload = () => {
     if (!avatarFile.value) {
         $q.notify({
             type: 'negative',
-            message: t('PleaseSelectFile'),
+            message: t('Please') + t('Select') + t('File'),
         })
         return
     }
@@ -181,7 +181,7 @@ const handleUpload = () => {
             avatarFile.value = null
             $q.notify({
                 type: 'positive',
-                message: t('UploadSuccess'),
+                message: t('Upload') + t('Success'),
             })
         }
     })
