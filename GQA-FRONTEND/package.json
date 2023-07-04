@@ -31,7 +31,8 @@
         "postcss": "^8.4.14",
         "quasar-app-extension-qcascader": "^0.0.5",
         "quasar-app-extension-qhierarchy": "^1.0.9",
-        "quasar-app-extension-qstatistic": "^0.0.5"
+        "quasar-app-extension-qstatistic": "^0.0.5",
+        "unocss": "^0.53.4"
     },
     "engines": {
         "node": "^18 || ^16 || ^14.19",

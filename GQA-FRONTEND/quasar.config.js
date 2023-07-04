@@ -11,6 +11,8 @@
 
 const { configure } = require('quasar/wrappers');
 const path = require('path');
+const UnoCSS = require('unocss/vite').default;
+const { presetUno } = require('unocss')
 
 module.exports = configure(function (ctx) {
     return {
@@ -86,7 +88,13 @@ module.exports = configure(function (ctx) {
             // polyfillModulePreload: true,
             // distDir
 
-            // extendViteConf (viteConf) {},
+            extendViteConf(viteConf) {
+                viteConf.plugins.push(
+                    ...UnoCSS({
+                        presets: [presetUno()]
+                    })
+                )
+            },
             // viteVuePluginOptions: {},
 
             vitePlugins: [

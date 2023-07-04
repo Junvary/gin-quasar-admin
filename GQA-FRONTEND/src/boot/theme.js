@@ -1,6 +1,7 @@
 import { boot } from 'quasar/wrappers'
 import { Cookies, setCssVar, getCssVar } from 'quasar'
 import { ThemeStyleQuasar } from 'src/config/default'
+import 'uno.css'
 
 export default boot(({ app }) => {
     const primary = Cookies.get('gqa-theme-primary') || getCssVar('primary') || ThemeStyleQuasar.primary
