@@ -82,19 +82,19 @@ export default function useTheme() {
     });
     const darkThemeSideBar = computed(() => {
         if ($q.dark.isActive) {
-            return ['class', 'bg-grey-10 text-white']
+            return 'bg-grey-10 text-white'
         } else {
             if (themeStyle.value === 'Gin-Quasar-Admin') {
-                return ['class', 'bg-white text-black']
+                return 'bg-white text-black'
             }
             if (themeStyle.value === 'Quasar') {
-                return ['class', 'bg-white text-dark']
+                return 'bg-white text-dark'
             }
             if (themeStyle.value === 'Element Plus') {
-                return ['style', { backgroundColor: '#545c64', color: 'white' }]
+                return 'bg-#545c64 text-white'
             }
             if (themeStyle.value === 'Ant Design Vue') {
-                return ['style', { backgroundColor: '#001529', color: 'white' }]
+                return 'bg-#001529 text-white'
             }
         }
     })
