@@ -3,8 +3,8 @@
         <q-card flat>
             <q-card-section class="row q-gutter-x-md items-center">
                 <q-input outlined dense style="width: 20%" v-model="queryParams.config_item"
-                    :label="$t('Config') + $t('Name')" />
-                <q-input outlined dense style="width: 20%" v-model="queryParams.memo" :label="$t('Config') + $t('Memo')" />
+                    :label="$t('Config') + $t('Item')" />
+                <q-input outlined dense style="width: 20%" v-model="queryParams.memo" :label="$t('Memo')" />
                 <q-btn color="primary" @click="handleSearch" :label="$t('Search')" />
                 <q-btn color="primary" @click="resetSearch" :label="$t('Reset')" />
             </q-card-section>
