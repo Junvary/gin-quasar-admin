@@ -18,6 +18,10 @@ func (*Achievement) PluginCode() string { //实现接口方法，插件编码。
 	return "plugin-achievement"
 }
 
+func (*Achievement) PluginSort() uint { //实现接口方法，插件排序
+	return data.PluginSort
+}
+
 func (*Achievement) PluginName() string { //实现接口方法，插件名称
 	return "成就系统"
 }

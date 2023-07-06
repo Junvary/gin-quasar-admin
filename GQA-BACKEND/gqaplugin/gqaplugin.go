@@ -32,6 +32,7 @@ var PluginList = []GqaPlugin{
 
 type GqaPlugin interface {
 	PluginCode() string                                     //Plugin code, used for routing packet name
+	PluginSort() uint                                       //Plugin Sort
 	PluginName() string                                     //Plugin Name
 	PluginVersion() string                                  //Plugin Version
 	PluginMemo() string                                     //Plugin Memo

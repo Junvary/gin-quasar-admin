@@ -17,6 +17,10 @@ func (*example) PluginCode() string { //实现接口方法，插件编码。返�
 	return "plugin-example"
 }
 
+func (*example) PluginSort() uint { //实现接口方法，插件排序
+	return data.PluginSort
+}
+
 func (*example) PluginName() string { //实现接口方法，插件名称
 	return "示例插件"
 }
