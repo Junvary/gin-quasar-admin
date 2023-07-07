@@ -20,23 +20,42 @@
                             @click="props.toggleFullscreen" class="q-ml-md" />
                     </template>
 
-                    <template v-slot:header-cell-item_custom="props">
-                        <q-th :props="props">
-                            {{ props.col.label }}
-                            <q-icon name="edit" size="1.3em" />
-                        </q-th>
-                    </template>
-
                     <template v-slot:body-cell-item_custom="props">
                         <q-td :props="props">
-                            {{ props.row.item_custom }}
-                            <q-popup-edit v-model="props.row.item_custom" :class="darkThemeSelect">
-                                <template v-slot="scope">
-                                    {{ $t('Customize') + ' ' + props.row.config_item }}
-                                    <q-input v-model="props.row.item_custom" dense autofocus clearable
-                                        @keyup.enter="scope.set" />
-                                </template>
-                            </q-popup-edit>
+                            <template v-if="props.row.config_item === 'captchaKeyLong'">
+                                <q-input hint="2-6" v-model.number="props.row.item_custom" dense outlined clearable
+                                    type="number" :rules="[val => val && val >= 2 && val <= 6 || '2-6']" no-error-icon />
+                            </template>
+                            <template v-else-if="props.row.config_item === 'captchaWidth'">
+                                <q-input hint="200-260" v-model.number="props.row.item_custom" dense outlined clearable
+                                    type="number" :rules="[val => val && val >= 200 && val <= 260 || '200-260']"
+                                    no-error-icon />
+                            </template>
+                            <template v-else-if="props.row.config_item === 'captchaHeight'">
+                                <q-input hint="60-100" v-model.number="props.row.item_custom" dense outlined clearable
+                                    type="number" :rules="[val => val && val >= 60 && val <= 100 || '60-100']"
+                                    no-error-icon />
+                            </template>
+                            <template v-else-if="props.row.config_item === 'jwtExpiresAt'">
+                                <q-input v-model.number="props.row.item_custom" dense outlined clearable type="number" />
+                            </template>
+                            <template v-else-if="props.row.config_item === 'jwtRefreshAt'">
+                                <q-input v-model.number="props.row.item_custom" dense outlined clearable type="number" />
+                            </template>
+                            <template v-else-if="props.row.config_item === 'avatarMaxSize'
+                                || props.row.config_item === 'logoMaxSize'
+                                || props.row.config_item === 'faviconMaxSize'
+                                || props.row.config_item === 'bannerImageMaxSize'">
+                                <q-input hint="1-5" v-model.number="props.row.item_custom" dense outlined clearable
+                                    type="number" :rules="[val => val && val >= 1 && val <= 5 || '1-5']" no-error-icon />
+                            </template>
+                            <template v-else-if="props.row.config_item === 'fileMaxSize'">
+                                <q-input hint="1-10" v-model.number="props.row.item_custom" dense outlined clearable
+                                    type="number" :rules="[val => val && val >= 1 && val <= 10 || '1-10']" no-error-icon />
+                            </template>
+                            <template v-else>
+                                <q-input v-model="props.row.item_custom" dense outlined clearable />
+                            </template>
                         </q-td>
                     </template>
 

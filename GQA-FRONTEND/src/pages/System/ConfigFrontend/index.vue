@@ -33,7 +33,7 @@
                                 <GqaDictShow :dictCode="props.row.item_default" />
                             </template>
                             <template v-else-if="props.row.config_item === 'pluginLoginLayout'">
-                                {{ 系统默认 }}
+                                系统默认
                             </template>
                             <template v-else-if="props.row.config_item === 'portalPage'">
                                 <GqaDictShow :dictCode="props.row.item_default" />
