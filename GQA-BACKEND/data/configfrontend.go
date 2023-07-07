@@ -47,7 +47,7 @@ var sysConfigFrontendData = []model.SysConfigFrontend{
 	}}, ConfigItem: "webDescribe", ItemDefault: "Lorem ipsum dolor sit amet consectetur adipisicing elit"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
 		Sort: GqaSort + 5, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "登录页风格",
-	}}, ConfigItem: "loginLayoutStyle", ItemDefault: "displayStyle_simple"},
+	}}, ConfigItem: "loginLayoutStyle", ItemDefault: "loginLayoutStyle_login"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
 		Sort: GqaSort + 6, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "登录页插件",
 	}}, ConfigItem: "pluginLoginLayout", ItemDefault: ""},

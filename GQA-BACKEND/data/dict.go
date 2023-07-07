@@ -96,12 +96,12 @@ var sysDictData = []model.SysDict{
 	}}, DictCode: "noticeType_message", DictLabel: "消息提示", ParentCode: "noticeType"},
 
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: GqaSort + 6, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "显示风格",
-	}}, DictCode: "displayStyle", DictLabel: "显示风格"},
+		Sort: GqaSort + 6, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "登录页风格",
+	}}, DictCode: "loginLayoutStyle", DictLabel: "登录页风格"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 1, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "简约类型",
-	}}, DictCode: "displayStyle_simple", DictLabel: "简约风格", ParentCode: "displayStyle"},
+		Sort: 1, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "登录页",
+	}}, DictCode: "loginLayoutStyle_login", DictLabel: "登录页", ParentCode: "loginLayoutStyle"},
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
-		Sort: 2, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "复杂",
-	}}, DictCode: "displayStyle_complex", DictLabel: "复杂风格", ParentCode: "displayStyle"},
+		Sort: 2, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "门户页",
+	}}, DictCode: "loginLayoutStyle_portal", DictLabel: "门户页", ParentCode: "loginLayoutStyle"},
 }

@@ -32,6 +32,12 @@
                             <template v-else-if="props.row.config_item === 'loginLayoutStyle'">
                                 <GqaDictShow :dictCode="props.row.item_default" />
                             </template>
+                            <template v-else-if="props.row.config_item === 'pluginLoginLayout'">
+                                {{ 系统默认 }}
+                            </template>
+                            <template v-else-if="props.row.config_item === 'portalPage'">
+                                <GqaDictShow :dictCode="props.row.item_default" />
+                            </template>
                             <template v-else-if="props.row.config_item === 'showGit'">
                                 <GqaDictShow :dictCode="props.row.item_default" />
                             </template>
@@ -40,83 +46,73 @@
                             </template>
                         </q-td>
                     </template>
-                    <template v-slot:header-cell-item_custom="props">
-                        <q-th :props="props">
-                            {{ props.col.label }}
-                            <q-icon name="edit" size="1.3em" />
-                        </q-th>
-                    </template>
                     <template v-slot:body-cell-item_custom="props">
                         <q-td :props="props">
                             <template v-if="props.row.config_item === 'bannerImage'">
-                                <gqa-avatar :src="props.row.item_custom" v-if="props.row.item_custom !== ''" />
+                                <q-file dense outlined v-model="bannerImage" clearable max-files="1" @rejected="rejected"
+                                    :accept="gqaBackend.bannerImageExt"
+                                    :max-file-size="gqaBackend.bannerImageMaxSize * 1024 * 1024">
+                                    <template v-slot:prepend v-if="props.row.item_custom !== ''">
+                                        <gqa-avatar :src="props.row.item_custom" />
+                                    </template>
+                                    <template v-slot:after v-if="bannerImage">
+                                        <q-btn dense flat color="primary" icon="cloud_upload"
+                                            @click="handleUploadBannerImage(scope)" />
+                                    </template>
+                                </q-file>
                             </template>
                             <template v-else-if="props.row.config_item === 'logo'">
-                                <gqa-avatar :src="props.row.item_custom" />
+                                <q-file dense outlined v-model="logoFile" clearable max-files="1" @rejected="rejected"
+                                    :accept="gqaBackend.logoExt" :max-file-size="gqaBackend.logoMaxSize * 1024 * 1024">
+                                    <template v-slot:prepend>
+                                        <gqa-avatar :src="props.row.item_custom" />
+                                    </template>
+                                    <template v-slot:after v-if="logoFile">
+                                        <q-btn dense flat color="primary" icon="cloud_upload"
+                                            @click="handleUploadLogo(scope)" />
+                                    </template>
+                                </q-file>
                             </template>
                             <template v-else-if="props.row.config_item === 'favicon'">
-                                <gqa-avatar :src="props.row.item_custom || 'favicon.ico'" />
+                                <q-file dense outlined v-model="faviconFile" clearable max-files="1" @rejected="rejected"
+                                    :accept="gqaBackend.faviconExt"
+                                    :max-file-size="gqaBackend.faviconMaxSize * 1024 * 1024">
+                                    <template v-slot:prepend>
+                                        <gqa-avatar :src="props.row.item_custom" />
+                                    </template>
+                                    <template v-slot:after v-if="faviconFile">
+                                        <q-btn dense flat color="primary" icon="cloud_upload"
+                                            @click="handleUploadFavicon(scope)" />
+                                    </template>
+                                </q-file>
                             </template>
                             <template v-else-if="props.row.config_item === 'loginLayoutStyle'">
-                                <GqaDictShow :dictCode="props.row.item_custom" v-if="props.row.item_custom !== ''" />
+                                <q-option-group v-model="props.row.item_custom" :options="dictOptions.loginLayoutStyle"
+                                    color="primary" inline>
+                                    <template v-slot:label="opt">
+                                        <div class="row items-center">
+                                            <span>{{ $t(opt.label) }}</span>
+                                        </div>
+                                    </template>
+                                </q-option-group>
+                            </template>
+                            <template v-else-if="props.row.config_item === 'pluginLoginLayout'">
+                                <GqaPluginList showChoose @changeSuccess="handleSetLoginLayout($event, scope)"
+                                    :choosePlugin="props.row.item_custom" />
                             </template>
                             <template v-else-if="props.row.config_item === 'showGit'">
-                                <GqaDictShow :dictCode="props.row.item_custom" v-if="props.row.item_custom !== ''" />
+                                <q-option-group v-model="props.row.item_custom" :options="dictOptions.yesNo" color="primary"
+                                    inline>
+                                    <template v-slot:label="opt">
+                                        <div class="row items-center">
+                                            <span>{{ $t(opt.label) }}</span>
+                                        </div>
+                                    </template>
+                                </q-option-group>
                             </template>
                             <template v-else>
-                                {{ props.row.item_custom }}
+                                <q-input v-model="props.row.item_custom" dense outlined clearable />
                             </template>
-                            <q-popup-edit v-model="props.row.item_custom" :class="darkThemeSelect">
-                                <template v-slot="scope">
-                                    {{ $t('Customize') + ' ' + props.row.config_item }}
-                                    <q-option-group v-if="props.row.config_item === 'loginLayoutStyle'"
-                                        v-model="props.row.item_custom" :options="dictOptions.displayStyle" color="primary"
-                                        inline @update:model-value="scope.set">
-                                    </q-option-group>
-                                    <q-option-group v-else-if="props.row.config_item === 'showGit'"
-                                        v-model="props.row.item_custom" :options="dictOptions.yesNo" color="primary" inline
-                                        @update:model-value="scope.set">
-                                    </q-option-group>
-                                    <GqaPluginList v-else-if="props.row.config_item === 'pluginLoginLayout'" showChoose
-                                        @changeSuccess="handleSetLoginLayout($event, scope)"
-                                        :choosePlugin="props.row.item_custom" />
-                                    <q-file v-else-if="props.row.config_item === 'bannerImage'" v-model="bannerImage"
-                                        clearable max-files="1" @rejected="rejected" :accept="gqaBackend.bannerImageExt"
-                                        :max-file-size="gqaBackend.bannerImageMaxSize * 1024 * 1024">
-                                        <template v-slot:prepend v-if="props.row.item_custom !== ''">
-                                            <gqa-avatar :src="props.row.item_custom" />
-                                        </template>
-                                        <template v-slot:after v-if="bannerImage">
-                                            <q-btn dense flat color="primary" icon="cloud_upload"
-                                                @click="handleUploadBannerImage(scope)" />
-                                        </template>
-                                    </q-file>
-                                    <q-file v-else-if="props.row.config_item === 'logo'" v-model="logoFile" clearable
-                                        max-files="1" @rejected="rejected" :accept="gqaBackend.logoExt"
-                                        :max-file-size="gqaBackend.logoMaxSize * 1024 * 1024">
-                                        <template v-slot:prepend>
-                                            <gqa-avatar :src="props.row.item_custom" />
-                                        </template>
-                                        <template v-slot:after v-if="logoFile">
-                                            <q-btn dense flat color="primary" icon="cloud_upload"
-                                                @click="handleUploadLogo(scope)" />
-                                        </template>
-                                    </q-file>
-                                    <q-file v-else-if="props.row.config_item === 'favicon'" v-model="faviconFile" clearable
-                                        max-files="1" @rejected="rejected" :accept="gqaBackend.faviconExt"
-                                        :max-file-size="gqaBackend.faviconMaxSize * 1024 * 1024">
-                                        <template v-slot:prepend>
-                                            <gqa-avatar :src="props.row.item_custom" />
-                                        </template>
-                                        <template v-slot:after v-if="faviconFile">
-                                            <q-btn dense flat color="primary" icon="cloud_upload"
-                                                @click="handleUploadFavicon(scope)" />
-                                        </template>
-                                    </q-file>
-                                    <q-input v-else v-model="props.row.item_custom" dense autofocus clearable
-                                        @keyup.enter="scope.set" />
-                                </template>
-                            </q-popup-edit>
                         </q-td>
                     </template>
                     <template v-slot:body-cell-status="props">
@@ -144,7 +140,8 @@
                                 </q-tooltip>
                             </q-btn>
                             <q-btn flat dense rounded icon="delete_outline" color="negative"
-                                @click="handleDelete(props.row)" v-has="'config-frontend:delete'">
+                                v-if="props.row.stable !== 'yesNo_yes'" @click="handleDelete(props.row)"
+                                v-has="'config-frontend:delete'">
                                 <q-tooltip>
                                     {{ $t('Delete') }}
                                 </q-tooltip>
@@ -165,10 +162,8 @@ import { postAction } from 'src/api/manage'
 import GqaPluginList from 'src/components/GqaPluginList/index.vue'
 import { useStorageStore } from 'src/stores/storage'
 import recordDetail from './modules/recordDetail.vue'
-import useTheme from 'src/composables/useTheme';
 
 const storageStore = useStorageStore()
-const { darkThemeSelect } = useTheme()
 const url = {
     list: 'config-frontend/get-config-frontend-list',
     edit: 'config-frontend/edit-config-frontend',

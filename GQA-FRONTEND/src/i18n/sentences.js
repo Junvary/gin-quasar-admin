@@ -113,5 +113,10 @@ export default {
         "zh-CN": "也许你想要一些更多的功能.",
         "en-US": "Maybe you want some more features.",
         "ru": "Возможно, вам нужно больше функций."
+    },
+    PluginNotSupportLogin: {
+        "zh-CN": "这个插件还不支持门户页.",
+        "en-US": "This plugin does not support the login page yet.",
+        "ru": "Этот модуль не поддерживает страницу входа."
     }
 }
