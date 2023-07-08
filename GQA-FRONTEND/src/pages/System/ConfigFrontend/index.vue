@@ -57,7 +57,7 @@
                                     </template>
                                     <template v-slot:after v-if="bannerImage">
                                         <q-btn dense flat color="primary" icon="cloud_upload"
-                                            @click="handleUploadBannerImage(scope)" />
+                                            @click="handleUploadBannerImage" />
                                     </template>
                                 </q-file>
                             </template>
@@ -68,8 +68,7 @@
                                         <gqa-avatar :src="props.row.item_custom" />
                                     </template>
                                     <template v-slot:after v-if="logoFile">
-                                        <q-btn dense flat color="primary" icon="cloud_upload"
-                                            @click="handleUploadLogo(scope)" />
+                                        <q-btn dense flat color="primary" icon="cloud_upload" @click="handleUploadLogo" />
                                     </template>
                                 </q-file>
                             </template>
@@ -82,7 +81,7 @@
                                     </template>
                                     <template v-slot:after v-if="faviconFile">
                                         <q-btn dense flat color="primary" icon="cloud_upload"
-                                            @click="handleUploadFavicon(scope)" />
+                                            @click="handleUploadFavicon" />
                                     </template>
                                 </q-file>
                             </template>
@@ -97,8 +96,10 @@
                                 </q-option-group>
                             </template>
                             <template v-else-if="props.row.config_item === 'pluginLoginLayout'">
-                                <GqaPluginList showChoose @changeSuccess="handleSetLoginLayout($event, scope)"
-                                    :choosePlugin="props.row.item_custom" />
+                                <q-select dense outlined v-model="props.row.item_custom" :options="pluginList"
+                                    :label="$t('Choose') + $t('Plugin') + '(' + pluginList.length + ')'" emit-value
+                                    map-options option-value="plugin_code" option-label="plugin_name"
+                                    @update:model-value="handelChangePlugin" />
                             </template>
                             <template v-else-if="props.row.config_item === 'showGit'">
                                 <q-option-group v-model="props.row.item_custom" :options="dictOptions.yesNo" color="primary"
@@ -159,9 +160,9 @@
 import { computed, onMounted, ref } from 'vue'
 import useTableData from 'src/composables/useTableData'
 import { postAction } from 'src/api/manage'
-import GqaPluginList from 'src/components/GqaPluginList/index.vue'
 import { useStorageStore } from 'src/stores/storage'
 import recordDetail from './modules/recordDetail.vue'
+import { CheckComponent } from 'src/utils/check'
 
 const storageStore = useStorageStore()
 const url = {
@@ -213,6 +214,28 @@ const bannerImage = ref(null)
 const logoFile = ref(null)
 const faviconFile = ref(null)
 
+const pluginList = computed(() => {
+    if (Array.isArray($q.localStorage.getItem('gqa-pluginList'))) {
+        return $q.localStorage.getItem('gqa-pluginList')
+    }
+    return []
+})
+
+const pluginsFile = import.meta.glob('../../../plugins/**/LoginLayout/index.vue')
+const handelChangePlugin = (cp) => {
+    const cc = CheckComponent(cp, pluginsFile, 4)
+    if (cc[2]) {
+        $q.notify({
+            type: 'negative',
+            message: t('PluginNotSupportLogin'),
+        })
+        const pll = tableData.value.filter((item) => {
+            return item.config_item === 'pluginLoginLayout'
+        })
+        pll[0].item_custom = ''
+    }
+}
+
 const handleReset = (row) => {
     row.item_custom = ''
 }
@@ -226,7 +249,7 @@ const handleSave = async (row) => {
         storageStore.SetGqaFrontend()
     }
 }
-const handleUploadBannerImage = (scope) => {
+const handleUploadBannerImage = () => {
     if (!bannerImage.value) {
         $q.notify({
             type: 'negative',
@@ -247,11 +270,10 @@ const handleUploadBannerImage = (scope) => {
                 type: 'positive',
                 message: t('Upload') + t('Success'),
             })
-            scope.set()
         }
     })
 }
-const handleUploadLogo = (scope) => {
+const handleUploadLogo = () => {
     if (!logoFile.value) {
         $q.notify({
             type: 'negative',
@@ -272,11 +294,10 @@ const handleUploadLogo = (scope) => {
                 type: 'positive',
                 message: t('Upload') + t('Success'),
             })
-            scope.set()
         }
     })
 }
-const handleUploadFavicon = (scope) => {
+const handleUploadFavicon = () => {
     if (!faviconFile.value) {
         $q.notify({
             type: 'negative',
@@ -297,7 +318,6 @@ const handleUploadFavicon = (scope) => {
                 type: 'positive',
                 message: t('Upload') + t('Success'),
             })
-            scope.set()
         }
     })
 }
@@ -306,13 +326,5 @@ const rejected = (rejectedEntries) => {
         type: 'negative',
         message: t('SizeOrExtError'),
     })
-}
-const handleSetLoginLayout = (event, scope) => {
-    // console.log(event)
-    const pluginLoginLayout = tableData.value.filter((item) => {
-        return item.config_item === 'pluginLoginLayout'
-    })
-    pluginLoginLayout[0].item_custom = event
-    scope.set(event)
 }
 </script>

@@ -40,9 +40,9 @@ export default {
         "ru": "Невозможно добавить или отредактировать"
     },
     LoginLayoutWithoutPlugin: {
-        "zh-CN": "未安装任何登录页插件",
+        "zh-CN": "未检测到登录页插件",
         "en-US": "Login page plugin undetected",
-        "ru": "Плагин страницы входа в систему не обнаружен"
+        "ru": "Модуль страницы входа не найден"
     },
     LoginLayoutNotSupport: {
         "zh-CN": "不支持的登录页插件",

@@ -21,8 +21,13 @@
                 </q-card>
                 <audio ref="loginBgm" src="http://music.163.com/song/media/outer/url?id=1479760027.mp3" loop></audio>
                 <div class="power-show">
-                    Powered by Gin-Quasar-Admin
-                    {{ gqaVersion }}
+                    {{ gqaFrontend.subTitle }}
+                    is powered by&nbsp;
+                    <a href="https://github.com/Junvary/gin-quasar-admin" target="_blank" style="text-decoration: none"
+                        :style="{ color: $q.dark.isActive ? '#fff' : '#000' }">
+                        Gin-Quasar-Admin
+                        {{ gqaVersion }}
+                    </a>
                 </div>
                 <div class="version-git-show">
                     <q-btn flat>
@@ -46,7 +51,7 @@
 
 <script setup>
 import useCommon from 'src/composables/useCommon'
-import { computed, onBeforeMount, ref, markRaw, defineAsyncComponent } from 'vue'
+import { computed, onBeforeMount, ref } from 'vue'
 import SimpleView from './SimpleView/index.vue'
 import ComplexView from './ComplexView/index.vue'
 import InitDbView from './InitDbView/index.vue'
@@ -59,6 +64,7 @@ import config from '../../../package.json'
 import DarkTheme from 'src/components/GqaTheme/DarkTheme.vue';
 import useTheme from 'src/composables/useTheme';
 import { GqaConsoleLogo } from "src/config/config"
+import { CheckComponent } from 'src/utils/check'
 
 const { darkThemeLoginCard } = useTheme()
 const gqaVersion = config.version
@@ -85,12 +91,7 @@ onBeforeMount(() => {
     GqaConsoleLogo()
 })
 
-const getResultKey = (fileKey, pluginCode) => {
-    const resultKey = fileKey.filter(key => {
-        return key.split('/')[2] === pluginCode
-    })
-    return resultKey
-}
+const pluginsFile = import.meta.glob('../../plugins/**/LoginLayout/index.vue')
 
 const checkDb = async () => {
     const res = await postAction('public/check-db')
@@ -105,16 +106,14 @@ const checkDb = async () => {
             await storageStore.SetGqaBackend()
             pluginCurrent.value = res.data.plugin_login_layout
             if (pluginCurrent.value) {
-                try {
-                    const pluginCode = pluginCurrent.value.slice(7)
-                    const pluginCodeComponent = getResultKey(Object.keys(pluginsFile), pluginCode)
-                    pluginComponent.value = markRaw(defineAsyncComponent(() => pluginsFile[pluginCodeComponent[0]]))
-                    // pluginComponent.value = markRaw(defineAsyncComponent(() => import(`src/plugins/${pluginCode}/LoginLayout/index.vue`)))
-                } catch (error) {
+                const cc = CheckComponent(pluginCurrent.value, pluginsFile, 3)
+                if (cc[2]) {
                     $q.notify({
                         type: 'negative',
                         message: t('LoginLayoutNotSupport'),
                     })
+                } else {
+                    pluginComponent.value = cc[1]
                 }
             }
         }

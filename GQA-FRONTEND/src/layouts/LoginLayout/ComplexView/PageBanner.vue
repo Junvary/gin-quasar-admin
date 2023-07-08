@@ -1,8 +1,19 @@
 <template>
     <div>
-        <section id="gqa-banner">
-            <q-img :src="bannerImage" fit="cover" style="width: 100%; max-height: 95vh">
+        <section id="gqa-banner" class="bg-black">
+            <div style="position: absolute; z-index: 10;">
+                <div class="doc-stars doc-stars--sm"></div>
+                <div class="doc-stars doc-stars--md"></div>
+                <div class="doc-stars doc-stars--lg"></div>
+            </div>
+
+            <div class="main-title row justify-center items-center">
+                <gqa-avatar size="xl" :src="gqaFrontend.logo" style="margin-right: 10px;" />
+                {{ gqaFrontend.mainTitle }}
+            </div>
+            <q-img :src="bannerImage" fit="cover" style="width: 100%; height: 95vh">
                 <div class="container-custom">
+
                     <div class="container-title">
                         <h1>
                             {{ gqaFrontend.subTitle }}
@@ -47,7 +58,7 @@ const bannerImage = computed(() => {
     if (gqaFrontend.value.bannerImage && gqaFrontend.value.bannerImage.substring(0, 11) === 'gqa-upload:') {
         return process.env.API + gqaFrontend.value.bannerImage.substring(11)
     }
-    return "/img/sky.jpg"
+    return "planet.png"
 })
 
 const showLoginForm = () => {
@@ -62,6 +73,18 @@ const openLink = (url) => {
 </script>
 
 <style lang="scss" scoped>
+.main-title {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    color: #ffffff;
+    font-size: 30px;
+    z-index: 10;
+    user-select: none;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
 .container-custom {
     width: 100%;
     height: 100%;
@@ -69,6 +92,8 @@ const openLink = (url) => {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+
+
 
     .container-title {
         width: 60%;
