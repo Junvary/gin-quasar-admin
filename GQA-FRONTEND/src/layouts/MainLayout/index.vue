@@ -50,6 +50,9 @@
         <q-page-container style="overflow: hidden;">
             <router-view v-slot="{ Component }">
                 <component :is="Component" />
+                <q-inner-loading :showing="componentLoading">
+                    <q-spinner-hourglass class="darkTheme" size="3em" />
+                </q-inner-loading>
             </router-view>
 
             <q-page-sticky expand position="top">
@@ -70,7 +73,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted } from 'vue';
+import { ref, computed, watch, onMounted, inject } from 'vue';
 import { useUserStore } from 'src/stores/user';
 import { usePermissionStore } from 'src/stores/permission';
 import { useStorageStore } from 'src/stores/storage';
@@ -95,6 +98,7 @@ import XEUtils from 'xe-utils'
 import { postAction } from 'src/api/manage';
 import AchievementDialog from 'src/plugins/Achievement/AchievementDialog.vue';
 
+const bus = inject('bus')
 const $q = useQuasar();
 const { darkTheme } = useTheme()
 const route = useRoute();
@@ -136,10 +140,14 @@ const changeTop = (childrenMenu) => {
     topMenuChildren.value = childrenMenu.children
 }
 
+const componentLoading = ref(false)
 onMounted(() => {
     $q.dark.set(settingStore.GetDarkTheme())
     currentTopMenu.value = findCurrentTopMenu.value?.name
     topMenuChildren.value = topMenu.value.filter(item => item.name === currentTopMenu.value)[0]?.children
+    bus.on('changeRoute', (val) => {
+        componentLoading.value = val
+    })
 })
 watch(route, () => {
     currentTopMenu.value = findCurrentTopMenu.value?.name

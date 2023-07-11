@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-import { computed, toRefs } from 'vue';
+import { computed, inject, toRefs } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import useTheme from 'src/composables/useTheme';
 import useCommon from 'src/composables/useCommon'
@@ -34,11 +34,15 @@ const props = defineProps({
 })
 const { trueItem, initLevel } = toRefs(props)
 
+const bus = inject('bus')
 const toPath = (item) => {
     if (item.is_link === 'yesNo_yes') {
         window.open(item.path)
     } else {
-        router.push(item.path)
+        bus.emit('changeRoute', true)
+        router.push(item.path).then(() => {
+            bus.emit('changeRoute', false)
+        })
     }
 }
 

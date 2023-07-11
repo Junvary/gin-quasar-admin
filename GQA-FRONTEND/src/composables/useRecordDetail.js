@@ -1,10 +1,9 @@
 import { DictOptions } from 'src/utils/dict'
-import { onMounted, ref, computed, reactive } from 'vue'
+import { onMounted, ref, computed, reactive, inject } from 'vue'
 import { postAction } from 'src/api/manage'
 import { useQuasar } from 'quasar'
 import { useI18n } from 'vue-i18n'
 import useCommon from './useCommon'
-import { inject } from 'vue'
 
 export default function useRecordDetail(url, emit) {
     const { t } = useI18n()

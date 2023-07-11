@@ -1,10 +1,9 @@
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, inject } from 'vue'
 import { useQuasar } from 'quasar'
 import { useI18n } from 'vue-i18n'
 import { postAction } from 'src/api/manage'
 import { DictOptions } from 'src/utils/dict'
 import useCommon from './useCommon'
-import { inject } from 'vue'
 
 export default function useTableData(url) {
     const { t } = useI18n()

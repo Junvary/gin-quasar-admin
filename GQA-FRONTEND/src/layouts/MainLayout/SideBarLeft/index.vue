@@ -3,7 +3,7 @@
         <slot />
         <q-list class="menu-list">
             <template v-for="(childrenItem, index) in topMenuChildren" :key="index">
-                <SideBarLeftItem :childrenItem="childrenItem" :initLevel="0" style="padding-left: ;" />
+                <SideBarLeftItem :childrenItem="childrenItem" :initLevel="0" />
             </template>
         </q-list>
     </q-scroll-area>
