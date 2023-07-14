@@ -67,11 +67,11 @@ func (s *ServiceDept) AddDept(toAddDept model.SysDept) (err error) {
 
 func (s *ServiceDept) DeleteDeptById(id uint) (err error) {
 	var sysDept model.SysDept
-	if sysDept.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n("StableCantDo") + sysDept.DeptCode)
-	}
 	if err = global.GqaDb.Where("id = ?", id).First(&sysDept).Error; err != nil {
 		return err
+	}
+	if sysDept.Stable == "yesNo_yes" {
+		return errors.New(utils.GqaI18n("StableCantDo") + sysDept.DeptCode)
 	}
 	if err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&sysDept).Error; err != nil {
 		return err

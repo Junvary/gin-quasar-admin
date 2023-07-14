@@ -77,11 +77,11 @@ func (s *ServiceUser) AddUser(toAddUser *model.SysUser) (err error) {
 
 func (s *ServiceUser) DeleteUserById(id uint) (err error) {
 	var sysUser model.SysUser
-	if sysUser.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n("StableCantDo") + sysUser.Username)
-	}
 	if err = global.GqaDb.Where("id = ?", id).First(&sysUser).Error; err != nil {
 		return err
+	}
+	if sysUser.Stable == "yesNo_yes" {
+		return errors.New(utils.GqaI18n("StableCantDo") + sysUser.Username)
 	}
 	if err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&sysUser).Error; err != nil {
 		return err

@@ -55,11 +55,11 @@ func (s *ServiceRole) AddRole(toAddRole model.SysRole) (err error) {
 
 func (s *ServiceRole) DeleteRoleById(id uint) (err error) {
 	var sysRole model.SysRole
-	if sysRole.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n("StableCantDo") + sysRole.RoleCode)
-	}
 	if err = global.GqaDb.Where("id = ?", id).First(&sysRole).Error; err != nil {
 		return err
+	}
+	if sysRole.Stable == "yesNo_yes" {
+		return errors.New(utils.GqaI18n("StableCantDo") + sysRole.RoleCode)
 	}
 	roleCode := sysRole.RoleCode
 	// 删除 sys_role_api 表的权限

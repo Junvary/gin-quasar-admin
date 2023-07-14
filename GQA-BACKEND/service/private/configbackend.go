@@ -46,11 +46,11 @@ func (s *ServiceConfigBackend) AddConfigBackend(toAddConfigBackend model.SysConf
 
 func (s *ServiceConfigBackend) DeleteConfigBackendById(id uint) (err error) {
 	var sysConfigBackend model.SysConfigBackend
-	if sysConfigBackend.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n("StableCantDo") + sysConfigBackend.ConfigItem)
-	}
 	if err = global.GqaDb.Where("id = ?", id).First(&sysConfigBackend).Error; err != nil {
 		return err
+	}
+	if sysConfigBackend.Stable == "yesNo_yes" {
+		return errors.New(utils.GqaI18n("StableCantDo") + sysConfigBackend.ConfigItem)
 	}
 	err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&sysConfigBackend).Error
 	return err

@@ -71,11 +71,11 @@ func (s *ServiceDict) AddDict(toAddDict model.SysDict) (err error) {
 
 func (s *ServiceDict) DeleteDictById(id uint) (err error) {
 	var dict model.SysDict
-	if dict.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n("StableCantDo") + dict.DictCode)
-	}
 	if err = global.GqaDb.Where("id = ?", id).First(&dict).Error; err != nil {
 		return err
+	}
+	if dict.Stable == "yesNo_yes" {
+		return errors.New(utils.GqaI18n("StableCantDo") + dict.DictCode)
 	}
 	err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&dict).Error
 	return err

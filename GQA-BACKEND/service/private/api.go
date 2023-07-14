@@ -44,11 +44,11 @@ func (s *ServiceApi) AddApi(toAddApi model.SysApi) (err error) {
 
 func (s *ServiceApi) DeleteApiById(id uint) (err error) {
 	var sysApi model.SysApi
-	if sysApi.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n("StableCantDo"))
-	}
 	if err = global.GqaDb.Where("id = ?", id).First(&sysApi).Error; err != nil {
 		return err
+	}
+	if sysApi.Stable == "yesNo_yes" {
+		return errors.New(utils.GqaI18n("StableCantDo"))
 	}
 	err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&sysApi).Error
 	return err

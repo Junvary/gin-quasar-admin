@@ -66,11 +66,11 @@ func (s *ServiceMenu) AddMenu(toAddMenu model.SysMenu) (err error) {
 
 func (s *ServiceMenu) DeleteMenuById(id uint) (err error) {
 	var sysMenu model.SysMenu
-	if sysMenu.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n("StableCantDo") + sysMenu.Title)
-	}
 	if err = global.GqaDb.Where("id = ?", id).First(&sysMenu).Error; err != nil {
 		return err
+	}
+	if sysMenu.Stable == "yesNo_yes" {
+		return errors.New(utils.GqaI18n("StableCantDo") + sysMenu.Title)
 	}
 	err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&sysMenu).Error
 	return err
