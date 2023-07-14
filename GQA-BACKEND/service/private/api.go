@@ -5,6 +5,7 @@ import (
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
+	"gorm.io/gorm"
 )
 
 type ServiceApi struct{}
@@ -33,8 +34,31 @@ func (s *ServiceApi) EditApi(toEditApi model.SysApi) (err error) {
 	if toEditApi.Stable == "yesNo_yes" {
 		return errors.New(utils.GqaI18n("StableCantDo"))
 	}
-	err = global.GqaDb.Save(&toEditApi).Error
-	return err
+	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
+		var oldApi model.SysApi
+		if err = tx.Where("id = ?", toEditApi.Id).First(&oldApi).Error; err != nil {
+			return err
+		}
+		if err = tx.Save(&toEditApi).Error; err != nil {
+			return err
+		}
+		var oldRoleApiList []model.SysRoleApi
+		if err = tx.Where("api_group = ? and api_method = ? and api_path = ?", oldApi.ApiGroup, oldApi.ApiMethod, oldApi.ApiPath).
+			Find(&oldRoleApiList).Error; err != nil {
+			return err
+		}
+		// 将oldRoleApiList中的ApiGroup、ApiMethod、ApiPath替换成toEditApi中的ApiGroup、ApiMethod、ApiPath并保存回数据库
+		for _, oldRoleApi := range oldRoleApiList {
+			oldRoleApi.ApiGroup = toEditApi.ApiGroup
+			oldRoleApi.ApiMethod = toEditApi.ApiMethod
+			oldRoleApi.ApiPath = toEditApi.ApiPath
+			if err = tx.Where("api_group = ? and api_method = ? and api_path = ?", oldApi.ApiGroup, oldApi.ApiMethod, oldApi.ApiPath).
+				Updates(&oldRoleApi).Error; err != nil {
+				return err
+			}
+		}
+		return nil
+	})
 }
 
 func (s *ServiceApi) AddApi(toAddApi model.SysApi) (err error) {
@@ -50,8 +74,16 @@ func (s *ServiceApi) DeleteApiById(id uint) (err error) {
 	if sysApi.Stable == "yesNo_yes" {
 		return errors.New(utils.GqaI18n("StableCantDo"))
 	}
-	err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&sysApi).Error
-	return err
+	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
+		if err = tx.Where("id = ?", id).Unscoped().Delete(&sysApi).Error; err != nil {
+			return err
+		}
+		if err = tx.Where("api_group = ? and api_method = ? and api_path = ?", sysApi.ApiGroup, sysApi.ApiMethod, sysApi.ApiPath).
+			Delete(&model.SysRoleApi{}).Error; err != nil {
+			return err
+		}
+		return nil
+	})
 }
 
 func (s *ServiceApi) QueryApiById(id uint) (err error, apiInfo model.SysApi) {

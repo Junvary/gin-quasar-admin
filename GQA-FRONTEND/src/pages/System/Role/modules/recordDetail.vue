@@ -13,11 +13,10 @@
                         <q-input outlined hint="" class="col" v-model.number="recordDetail.value.sort" type="number"
                             :rules="[val => val >= 1 || $t('SortRule')]" :label="$t('Sort')" />
                         <q-input outlined hint="" class="col" v-model="recordDetail.value.role_code"
-                            :label="($t('Role') + $t('Code'))"
+                            :label="($t('Role') + $t('Code'))" :disable="formType === 'edit'"
                             :rules="[val => val && val.length > 0 || $t('NeetInput')]" />
                         <q-input outlined hint="" class="col" v-model="recordDetail.value.role_name"
-                            :label="($t('Role') + $t('Name'))"
-                            :rules="[val => val && val.length > 0 || $t('NeetInput')]" />
+                            :label="($t('Role') + $t('Name'))" :rules="[val => val && val.length > 0 || $t('NeetInput')]" />
                     </div>
                     <q-input outlined hint="" v-model="recordDetail.value.memo" type="textarea" :label="$t('Memo')" />
                 </q-form>

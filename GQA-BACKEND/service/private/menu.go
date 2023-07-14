@@ -5,6 +5,7 @@ import (
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
+	"gorm.io/gorm"
 )
 
 type ServiceMenu struct{}
@@ -50,13 +51,15 @@ func (s *ServiceMenu) EditMenu(toEditMenu model.SysMenu) (err error) {
 	if sysMenu.Stable == "yesNo_yes" {
 		return errors.New(utils.GqaI18n("StableCantDo") + toEditMenu.Title)
 	}
-	//先删除关联button表中menu_name的记录
-	var menuButton model.SysButton
-	if err = global.GqaDb.Where("menu_name = ?", toEditMenu.Name).Delete(&menuButton).Error; err != nil {
+	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
+		//先删除关联button表中menu_name的记录
+		var menuButton model.SysButton
+		if err = tx.Where("menu_name = ?", toEditMenu.Name).Delete(&menuButton).Error; err != nil {
+			return err
+		}
+		err = tx.Save(&toEditMenu).Error
 		return err
-	}
-	err = global.GqaDb.Save(&toEditMenu).Error
-	return err
+	})
 }
 
 func (s *ServiceMenu) AddMenu(toAddMenu model.SysMenu) (err error) {
@@ -72,8 +75,18 @@ func (s *ServiceMenu) DeleteMenuById(id uint) (err error) {
 	if sysMenu.Stable == "yesNo_yes" {
 		return errors.New(utils.GqaI18n("StableCantDo") + sysMenu.Title)
 	}
-	err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&sysMenu).Error
-	return err
+	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
+		if err = tx.Where("id = ?", id).Unscoped().Delete(&sysMenu).Error; err != nil {
+			return err
+		}
+		if err = tx.Where("sys_menu_name = ?", sysMenu.Name).Delete(&model.SysRoleMenu{}).Error; err != nil {
+			return err
+		}
+		if err = tx.Where("menu_name = ?", sysMenu.Name).Delete(&model.SysButton{}).Error; err != nil {
+			return err
+		}
+		return nil
+	})
 }
 
 func (s *ServiceMenu) QueryMenuById(id uint) (err error, menuInfo model.SysMenu) {

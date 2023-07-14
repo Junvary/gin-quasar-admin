@@ -48,10 +48,6 @@ func (s *ServiceDept) EditDept(toEditDept model.SysDept) (err error) {
 	if err = global.GqaDb.Where("id = ?", toEditDept.Id).First(&sysDept).Error; err != nil {
 		return err
 	}
-	if sysDept.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n("StableCantDo") + toEditDept.DeptCode)
-	}
-	//err = global.GqaDb.Updates(&toEditDept).Error
 	err = global.GqaDb.Save(&toEditDept).Error
 	return err
 }
@@ -66,24 +62,26 @@ func (s *ServiceDept) AddDept(toAddDept model.SysDept) (err error) {
 }
 
 func (s *ServiceDept) DeleteDeptById(id uint) (err error) {
-	var sysDept model.SysDept
-	if err = global.GqaDb.Where("id = ?", id).First(&sysDept).Error; err != nil {
+	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
+		var sysDept model.SysDept
+		if err = tx.Where("id = ?", id).First(&sysDept).Error; err != nil {
+			return err
+		}
+		if err = tx.Where("id = ?", id).Unscoped().Delete(&sysDept).Error; err != nil {
+			return err
+		}
+		var sysDeptUser model.SysDeptUser
+		err = tx.Where("sys_dept_dept_code = ?", sysDept.DeptCode).Delete(&sysDeptUser).Error
 		return err
-	}
-	if sysDept.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n("StableCantDo") + sysDept.DeptCode)
-	}
-	if err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&sysDept).Error; err != nil {
-		return err
-	}
-	var sysDeptUser model.SysDeptUser
-	err = global.GqaDb.Where("sys_dept_dept_code = ?", sysDept.DeptCode).Delete(&sysDeptUser).Error
-	return err
+	})
 }
 
 func (s *ServiceDept) QueryDeptById(id uint) (err error, deptInfo model.SysDept) {
 	var dept model.SysDept
-	err = global.GqaDb.Preload("LeaderUser").Preload("CreatedByUser").Preload("UpdatedByUser").First(&dept, "id = ?", id).Error
+	err = global.GqaDb.Preload("LeaderUser").
+		Preload("CreatedByUser").
+		Preload("UpdatedByUser").
+		First(&dept, "id = ?", id).Error
 	return err, dept
 }
 
@@ -98,7 +96,9 @@ func (s *ServiceDept) QueryUserByDept(deptCode *model.RequestDeptCode) (err erro
 
 func (s *ServiceDept) RemoveDeptUser(toDeleteDeptUser *model.RequestDeptUser) (err error) {
 	var deptUser model.SysDeptUser
-	err = global.GqaDb.Where("sys_dept_dept_code = ? and sys_user_username = ?", toDeleteDeptUser.DeptCode, toDeleteDeptUser.Username).Delete(&deptUser).Error
+	err = global.GqaDb.
+		Where("sys_dept_dept_code = ? and sys_user_username = ?", toDeleteDeptUser.DeptCode, toDeleteDeptUser.Username).
+		Delete(&deptUser).Error
 	return err
 }
 

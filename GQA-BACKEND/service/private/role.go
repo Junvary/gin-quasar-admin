@@ -37,7 +37,11 @@ func (s *ServiceRole) EditRole(toEditRole model.SysRole) (err error) {
 		return err
 	}
 	if sysRole.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n("StableCantDo") + toEditRole.RoleCode)
+		return errors.New(utils.GqaI18n("StableCantDo") + sysRole.RoleCode)
+	}
+	//不允许改变RoleCode
+	if sysRole.RoleCode != toEditRole.RoleCode {
+		return errors.New(utils.GqaI18n("EditFailed") + sysRole.RoleCode)
 	}
 	//err = global.GqaDb.Updates(&toEditRole).Error
 	err = global.GqaDb.Save(&toEditRole).Error
@@ -61,25 +65,30 @@ func (s *ServiceRole) DeleteRoleById(id uint) (err error) {
 	if sysRole.Stable == "yesNo_yes" {
 		return errors.New(utils.GqaI18n("StableCantDo") + sysRole.RoleCode)
 	}
-	roleCode := sysRole.RoleCode
-	// 删除 sys_role_api 表的权限
-	err = global.GqaDb.Where("role_code = ?", roleCode).Delete(model.SysRoleApi{}).Error
-	// 删除 sys_role 表的数据
-	err = global.GqaDb.Unscoped().Delete(&sysRole).Error
-	if err != nil {
-		return err
-	}
-	// 删除 sys_user_role 表的对应关系
-	err = global.GqaDb.Where("sys_role_role_code = ?", roleCode).Delete(&model.SysUserRole{}).Error
-	if err != nil {
-		return err
-	}
-	// 删除 sys_role_menu 表的对应关系
-	err = global.GqaDb.Where("sys_role_role_code = ?", roleCode).Delete(&model.SysRoleMenu{}).Error
-	if err != nil {
-		return err
-	}
-	return err
+	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
+		roleCode := sysRole.RoleCode
+		// 删除 sys_role 表的数据
+		if err = tx.Unscoped().Delete(&sysRole).Error; err != nil {
+			return err
+		}
+		// 删除 sys_role_api 表的权限
+		if err = tx.Where("role_code = ?", roleCode).Delete(model.SysRoleApi{}).Error; err != nil {
+			return err
+		}
+		// 删除 sys_user_role 表的对应关系
+		if err = tx.Where("sys_role_role_code = ?", roleCode).Delete(&model.SysUserRole{}).Error; err != nil {
+			return err
+		}
+		// 删除 sys_role_menu 表的对应关系
+		if err = tx.Where("sys_role_role_code = ?", roleCode).Delete(&model.SysRoleMenu{}).Error; err != nil {
+			return err
+		}
+		// 删除sys_role_button 表的对应关系
+		if err = tx.Where("sys_role_role_code = ?", roleCode).Delete(&model.SysRoleButton{}).Error; err != nil {
+			return err
+		}
+		return nil
+	})
 }
 
 func (s *ServiceRole) QueryRoleById(id uint) (err error, roleInfo model.SysRole) {
@@ -95,29 +104,31 @@ func (s *ServiceRole) GetRoleMenuList(roleCode *model.RequestRoleCode) (err erro
 }
 
 func (s *ServiceRole) EditRoleMenu(toEditRoleMenu *model.RequestRoleMenuEdit) (err error) {
-	err = global.GqaDb.Where("sys_role_role_code=?", toEditRoleMenu.RoleCode).Delete(&model.SysRoleMenu{}).Error
-	if err != nil {
-		return err
-	}
-	err = global.GqaDb.Where("sys_role_role_code=?", toEditRoleMenu.RoleCode).Delete(&model.SysRoleButton{}).Error
-	if err != nil {
-		return err
-	}
-	if len(toEditRoleMenu.RoleMenu) != 0 {
-		err = global.GqaDb.Model(&model.SysRoleMenu{}).Create(&toEditRoleMenu.RoleMenu).Error
-		if err != nil {
+	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
+		if err = tx.Where("sys_role_role_code=?", toEditRoleMenu.RoleCode).Delete(&model.SysRoleMenu{}).Error; err != nil {
 			return err
 		}
-	}
-	if len(toEditRoleMenu.RoleButton) != 0 {
-		err = global.GqaDb.Model(&model.SysRoleButton{}).Create(&toEditRoleMenu.RoleButton).Error
-		if err != nil {
+		if err = tx.Where("sys_role_role_code=?", toEditRoleMenu.RoleCode).Delete(&model.SysRoleButton{}).Error; err != nil {
 			return err
 		}
-	}
-	defaultPage := toEditRoleMenu.DefaultPage
-	err = global.GqaDb.Model(&model.SysRole{}).Where("role_code = ?", toEditRoleMenu.RoleCode).Update("default_page", defaultPage).Error
-	return nil
+		if len(toEditRoleMenu.RoleMenu) != 0 {
+			err = tx.Model(&model.SysRoleMenu{}).Create(&toEditRoleMenu.RoleMenu).Error
+			if err != nil {
+				return err
+			}
+		}
+		if len(toEditRoleMenu.RoleButton) != 0 {
+			err = tx.Model(&model.SysRoleButton{}).Create(&toEditRoleMenu.RoleButton).Error
+			if err != nil {
+				return err
+			}
+		}
+		defaultPage := toEditRoleMenu.DefaultPage
+		err = tx.Model(&model.SysRole{}).
+			Where("role_code = ?", toEditRoleMenu.RoleCode).
+			Update("default_page", defaultPage).Error
+		return err
+	})
 }
 
 func (s *ServiceRole) GetRoleApiList(roleCode *model.RequestRoleCode) (err error, api []model.SysRoleApi) {
@@ -127,13 +138,16 @@ func (s *ServiceRole) GetRoleApiList(roleCode *model.RequestRoleCode) (err error
 }
 
 func (s *ServiceRole) EditRoleApi(toEditRoleApi *model.RequestEditRoleApi) (err error) {
-	err = global.GqaDb.Where("role_code = ?", toEditRoleApi.RoleCode).Delete(&model.SysRoleApi{}).Error
-
-	if len(toEditRoleApi.RoleApi) != 0 {
-		err = global.GqaDb.Model(&model.SysRoleApi{}).Create(&toEditRoleApi.RoleApi).Error
-		return err
-	}
-	return nil
+	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
+		if err = tx.Where("role_code = ?", toEditRoleApi.RoleCode).Delete(&model.SysRoleApi{}).Error; err != nil {
+			return err
+		}
+		if len(toEditRoleApi.RoleApi) != 0 {
+			err = tx.Model(&model.SysRoleApi{}).Create(&toEditRoleApi.RoleApi).Error
+			return err
+		}
+		return nil
+	})
 }
 
 func (s *ServiceRole) QueryUserByRole(roleCode *model.RequestRoleCode) (err error, user []model.SysUser) {
@@ -150,7 +164,9 @@ func (s *ServiceRole) RemoveRoleUser(toRemoveRoleUser *model.RequestRoleUser) (e
 	if toRemoveRoleUser.Username == "admin" && toRemoveRoleUser.RoleCode == "super-admin" {
 		return errors.New(utils.GqaI18n("CantRemoveAdminFromAdmin"))
 	}
-	err = global.GqaDb.Where("sys_role_role_code = ? and sys_user_username = ?", toRemoveRoleUser.RoleCode, toRemoveRoleUser.Username).Delete(&roleUser).Error
+	err = global.GqaDb.
+		Where("sys_role_role_code = ? and sys_user_username = ?", toRemoveRoleUser.RoleCode, toRemoveRoleUser.Username).
+		Delete(&roleUser).Error
 	return err
 }
 

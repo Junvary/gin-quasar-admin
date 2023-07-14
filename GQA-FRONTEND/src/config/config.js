@@ -1,13 +1,6 @@
-export const DemoMode = false
-export const AllowList = [
-    '/login',
-    '/new-tab/add-ywd'
-]
-export const GqaConsoleLogo = () => {
-    console.info('Welcome to Gin-Quasar-Admin!')
-    console.info('Github: https://github.com/Junvary/gin-quasar-admin ')
-    console.info('Expecting Your Star!')
-}
+// 演示模式开关
+export const DemoMode = true
+// 演示模式禁止的API
 export const ForbiddenUrl = [
     'user/edit-user',
     'user/delete-user-by-id',
@@ -41,3 +34,14 @@ export const ForbiddenUrl = [
     'cron/start-cron',
     'cron/stop-cron'
 ]
+// 路由白名单
+export const AllowList = [
+    '/login',
+    '/new-tab/add-ywd'
+]
+// 控制台打印内容
+export const GqaConsoleLogo = () => {
+    console.info('Welcome to Gin-Quasar-Admin!')
+    console.info('Github: https://github.com/Junvary/gin-quasar-admin ')
+    console.info('Expecting Your Star!')
+}

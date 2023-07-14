@@ -48,14 +48,18 @@ func (s *ServiceUser) EditUser(toEditUser model.SysUser) (err error) {
 	if sysUser.Stable == "yesNo_yes" {
 		return errors.New(utils.GqaI18n("StableCantDo") + toEditUser.Username)
 	}
-	global.GqaDb.Where("sys_user_username = ?", toEditUser.Username).Delete(&model.SysDeptUser{})
-	if err = global.GqaDb.Where("id = ?", toEditUser.Id).First(&sysUser).Error; err != nil {
+	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
+		if err = tx.Where("sys_user_username = ?", toEditUser.Username).Delete(&model.SysDeptUser{}).Error; err != nil {
+			return err
+		}
+		if err = tx.Where("id = ?", toEditUser.Id).First(&sysUser).Error; err != nil {
+			return err
+		}
+		toEditUser.Password = sysUser.Password
+		//err = global.GqaDb.Updates(&toEditUser).Error
+		err = tx.Save(&toEditUser).Error
 		return err
-	}
-	toEditUser.Password = sysUser.Password
-	//err = global.GqaDb.Updates(&toEditUser).Error
-	err = global.GqaDb.Save(&toEditUser).Error
-	return err
+	})
 }
 
 func (s *ServiceUser) AddUser(toAddUser *model.SysUser) (err error) {
@@ -83,16 +87,18 @@ func (s *ServiceUser) DeleteUserById(id uint) (err error) {
 	if sysUser.Stable == "yesNo_yes" {
 		return errors.New(utils.GqaI18n("StableCantDo") + sysUser.Username)
 	}
-	if err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&sysUser).Error; err != nil {
+	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
+		if err = tx.Where("id = ?", id).Unscoped().Delete(&sysUser).Error; err != nil {
+			return err
+		}
+		var sysDeptUser model.SysDeptUser
+		if err = tx.Where("sys_user_username = ?", sysUser.Username).Delete(&sysDeptUser).Error; err != nil {
+			return err
+		}
+		var sysUserRole model.SysUserRole
+		err = tx.Where("sys_user_username = ?", sysUser.Username).Delete(&sysUserRole).Error
 		return err
-	}
-	var sysDeptUser model.SysDeptUser
-	if err = global.GqaDb.Where("sys_user_username = ?", sysUser.Username).Delete(&sysDeptUser).Error; err != nil {
-		return err
-	}
-	var sysUserRole model.SysUserRole
-	err = global.GqaDb.Where("sys_user_username = ?", sysUser.Username).Delete(&sysUserRole).Error
-	return err
+	})
 }
 
 func (s *ServiceUser) GetUserByUsername(username string) (err error, userInfo model.SysUser) {
