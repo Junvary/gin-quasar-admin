@@ -44,11 +44,11 @@ func (s *ServiceMenu) GetMenuList(requestMenuList model.RequestGetMenuList) (err
 
 func (s *ServiceMenu) EditMenu(toEditMenu model.SysMenu) (err error) {
 	var sysMenu model.SysMenu
-	if sysMenu.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n("StableCantDo") + toEditMenu.Title)
-	}
 	if err = global.GqaDb.Where("id = ?", toEditMenu.Id).First(&sysMenu).Error; err != nil {
 		return err
+	}
+	if sysMenu.Stable == "yesNo_yes" {
+		return errors.New(utils.GqaI18n("StableCantDo") + toEditMenu.Title)
 	}
 	//先删除关联button表中menu_name的记录
 	var menuButton model.SysButton

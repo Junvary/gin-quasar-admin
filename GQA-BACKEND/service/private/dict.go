@@ -49,11 +49,11 @@ func (s *ServiceDict) GetDictList(requestDictList model.RequestGetDictList) (err
 
 func (s *ServiceDict) EditDict(toEditDict model.SysDict) (err error) {
 	var sysDict model.SysDict
-	if sysDict.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n("StableCantDo") + toEditDict.DictCode)
-	}
 	if err = global.GqaDb.Where("id = ?", toEditDict.Id).First(&sysDict).Error; err != nil {
 		return err
+	}
+	if sysDict.Stable == "yesNo_yes" {
+		return errors.New(utils.GqaI18n("StableCantDo") + toEditDict.DictCode)
 	}
 	//err = global.GqaDb.Updates(&toEditDict).Error
 	err = global.GqaDb.Save(&toEditDict).Error

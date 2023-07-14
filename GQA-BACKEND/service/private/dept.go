@@ -45,11 +45,11 @@ func (s *ServiceDept) GetDeptList(requestDeptList model.RequestGetDeptList) (err
 
 func (s *ServiceDept) EditDept(toEditDept model.SysDept) (err error) {
 	var sysDept model.SysDept
-	if sysDept.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n("StableCantDo") + toEditDept.DeptCode)
-	}
 	if err = global.GqaDb.Where("id = ?", toEditDept.Id).First(&sysDept).Error; err != nil {
 		return err
+	}
+	if sysDept.Stable == "yesNo_yes" {
+		return errors.New(utils.GqaI18n("StableCantDo") + toEditDept.DeptCode)
 	}
 	//err = global.GqaDb.Updates(&toEditDept).Error
 	err = global.GqaDb.Save(&toEditDept).Error

@@ -33,11 +33,11 @@ func (s *ServiceRole) GetRoleList(requestRoleList model.RequestGetRoleList) (err
 
 func (s *ServiceRole) EditRole(toEditRole model.SysRole) (err error) {
 	var sysRole model.SysRole
-	if sysRole.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n("StableCantDo") + toEditRole.RoleCode)
-	}
 	if err = global.GqaDb.Where("id = ?", toEditRole.Id).First(&sysRole).Error; err != nil {
 		return err
+	}
+	if sysRole.Stable == "yesNo_yes" {
+		return errors.New(utils.GqaI18n("StableCantDo") + toEditRole.RoleCode)
 	}
 	//err = global.GqaDb.Updates(&toEditRole).Error
 	err = global.GqaDb.Save(&toEditRole).Error
