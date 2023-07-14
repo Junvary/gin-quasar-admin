@@ -48,6 +48,9 @@ func (s *ServiceDept) EditDept(toEditDept model.SysDept) (err error) {
 	if err = global.GqaDb.Where("id = ?", toEditDept.Id).First(&sysDept).Error; err != nil {
 		return err
 	}
+	if sysDept.DeptCode != toEditDept.DeptCode {
+		return errors.New(utils.GqaI18n("EditFailed") + toEditDept.DeptCode)
+	}
 	err = global.GqaDb.Save(&toEditDept).Error
 	return err
 }

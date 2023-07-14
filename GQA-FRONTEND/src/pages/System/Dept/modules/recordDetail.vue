@@ -11,7 +11,7 @@
                 <q-form ref="recordDetailForm">
                     <div class="row q-gutter-md">
                         <q-input outlined hint="" class="col" :label="$t('Dept') + $t('Code')"
-                            v-model="recordDetail.value.dept_code"
+                            v-model="recordDetail.value.dept_code" :disable="formType === 'edit'"
                             :rules="[val => val && val.length > 0 || $t('NeedInput')]" />
                         <q-input outlined hint="" class="col" :label="$t('Parent') + $t('Dept') + $t('Code')"
                             v-model="recordDetail.value.parent_code" />
