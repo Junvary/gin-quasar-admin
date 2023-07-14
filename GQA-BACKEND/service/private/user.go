@@ -56,7 +56,7 @@ func (s *ServiceUser) EditUser(toEditUser model.SysUser) (err error) {
 			return err
 		}
 		toEditUser.Password = sysUser.Password
-		//err = global.GqaDb.Updates(&toEditUser).Error
+		//err = tx.Updates(&toEditUser).Error
 		err = tx.Save(&toEditUser).Error
 		return err
 	})

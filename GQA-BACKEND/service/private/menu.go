@@ -51,6 +51,9 @@ func (s *ServiceMenu) EditMenu(toEditMenu model.SysMenu) (err error) {
 	if sysMenu.Stable == "yesNo_yes" {
 		return errors.New(utils.GqaI18n("StableCantDo") + toEditMenu.Title)
 	}
+	if sysMenu.Name != toEditMenu.Name {
+		return errors.New(utils.GqaI18n("EditFailed") + sysMenu.Name)
+	}
 	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
 		//先删除关联button表中menu_name的记录
 		var menuButton model.SysButton

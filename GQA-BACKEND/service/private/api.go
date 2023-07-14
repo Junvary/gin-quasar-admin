@@ -47,15 +47,21 @@ func (s *ServiceApi) EditApi(toEditApi model.SysApi) (err error) {
 			Find(&oldRoleApiList).Error; err != nil {
 			return err
 		}
-		// 将oldRoleApiList中的ApiGroup、ApiMethod、ApiPath替换成toEditApi中的ApiGroup、ApiMethod、ApiPath并保存回数据库
+		if err = tx.Where("api_group = ? and api_method = ? and api_path = ?", oldApi.ApiGroup, oldApi.ApiMethod, oldApi.ApiPath).
+			Delete(&model.SysRoleApi{}).Error; err != nil {
+			return err
+		}
+		var newRoleApiList []model.SysRoleApi
 		for _, oldRoleApi := range oldRoleApiList {
-			oldRoleApi.ApiGroup = toEditApi.ApiGroup
-			oldRoleApi.ApiMethod = toEditApi.ApiMethod
-			oldRoleApi.ApiPath = toEditApi.ApiPath
-			if err = tx.Where("api_group = ? and api_method = ? and api_path = ?", oldApi.ApiGroup, oldApi.ApiMethod, oldApi.ApiPath).
-				Updates(&oldRoleApi).Error; err != nil {
-				return err
-			}
+			newRoleApiList = append(newRoleApiList, model.SysRoleApi{
+				RoleCode:  oldRoleApi.RoleCode,
+				ApiGroup:  oldApi.ApiGroup,
+				ApiMethod: oldApi.ApiMethod,
+				ApiPath:   oldApi.ApiPath,
+			})
+		}
+		if err = tx.Create(&newRoleApiList).Error; err != nil {
+			return err
 		}
 		return nil
 	})

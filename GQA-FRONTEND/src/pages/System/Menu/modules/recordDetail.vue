@@ -29,10 +29,9 @@
                     </div>
                     <div class="row q-gutter-md">
                         <q-input outlined hint="" class="col" v-model="recordDetail.value.title"
-                            :label="$t('Menu') + $t('Name')"
-                            :rules="[val => val && val.length > 0 || $t('NeetInput')]" />
+                            :label="$t('Menu') + $t('Name')" :rules="[val => val && val.length > 0 || $t('NeetInput')]" />
                         <q-input outlined hint="" class="col" v-model="recordDetail.value.name"
-                            :label="$t('Menu') + $t('Code')"
+                            :label="$t('Menu') + $t('Code')" :disable="formType === 'edit'"
                             :rules="[val => val && val.length > 0 || $t('NeetInput')]" />
                         <q-input outlined hint="" class="col" v-model="recordDetail.value.parent_code"
                             :label="$t('Parent') + $t('Code')" />
