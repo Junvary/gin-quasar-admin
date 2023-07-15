@@ -43,7 +43,8 @@
                     </q-form>
                 </q-card-section>
                 <q-card-section class="q-gutter-md col">
-                    <q-field outlined hint="" dense :label="$t('Parent') + $t('Dept')" stack-label>
+                    <q-field outlined hint="" dense :label="$t('Parent') + $t('Dept')" stack-label
+                        :disable="!recordDetail.value.parent_code">
                         <template v-slot:control>
                             <q-tree :nodes="deptTree" v-model:selected="recordDetail.value.parent_code" style="width: 100%;"
                                 selected-color="primary" label-key="dept_name" node-key="dept_code" default-expand-all
