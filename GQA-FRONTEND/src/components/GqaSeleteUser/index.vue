@@ -1,6 +1,7 @@
 <template>
     <div>
-        <q-input :label="label || $t('Selete') + $t('User')" v-model="showName" :class="className" readonly>
+        <q-input :outlined="outlined" :label="label || $t('Selete') + $t('User')" v-model="showName" :class="className"
+            readonly>
             <template v-slot:append>
                 <q-btn dense color="primary" :label="$t('Select')" @click="showSelectUserDialog" />
             </template>
@@ -39,8 +40,13 @@ const props = defineProps({
         required: false,
         default: 'single',
     },
+    outlined: {
+        type: Boolean,
+        required: false,
+        default: false
+    }
 })
-const { selectUser, selectUsername, label, className, selection } = toRefs(props)
+const { selectUser, selectUsername, label, className, selection, outlined } = toRefs(props)
 const showName = computed(() => {
     if (selection === 'multiple') {
         let nickname = ''

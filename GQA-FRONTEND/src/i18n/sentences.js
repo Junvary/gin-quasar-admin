@@ -118,5 +118,10 @@ export default {
         "zh-CN": "这个插件还不支持门户页.",
         "en-US": "This plugin does not support the login page yet.",
         "ru": "Этот модуль не поддерживает страницу входа."
+    },
+    ParentNotThis: {
+        "zh-CN": "父级不能是自己.",
+        "en-US": "Parent cannot be oneself.",
+        "ru": "Отец не может быть самим собой."
     }
 }

@@ -63,7 +63,7 @@
                 </q-hierarchy>
             </q-card-section>
         </q-card>
-        <recordDetail ref="recordDetailDialog" @handleFinish="handleFinish" />
+        <recordDetail ref="recordDetailDialog" @handleFinish="handleFinish" :menuTree="menuTree" />
         <buttonDetail ref="buttonDetailDialog" />
     </q-page>
 </template>

@@ -47,7 +47,7 @@
                 </q-hierarchy>
             </q-card-section>
         </q-card>
-        <recordDetail ref="recordDetailDialog" @handleFinish="handleFinish" />
+        <recordDetail ref="recordDetailDialog" @handleFinish="handleFinish" :deptTree="deptTree" />
         <DeptUser ref="deptUserDialog" />
     </q-page>
 </template>
