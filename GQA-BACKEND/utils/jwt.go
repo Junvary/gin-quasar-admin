@@ -11,7 +11,7 @@ import (
 
 func GetUsername(c *gin.Context) string {
 	if claims, exist := c.Get("claims"); !exist {
-		global.GqaLogger.Error("解析token负载失败！")
+		global.GqaSLogger.Error("解析token负载失败！")
 		return ""
 	} else {
 		waitUse := claims.(*model.SysJwtClaims)

@@ -11,7 +11,7 @@ type ApiDict struct{}
 func (a *ApiDict) GetDictAll(c *gin.Context) {
 	err, dataList := servicePublic.ServiceDict.GetDictAll()
 	if err != nil {
-		model.ResponseErrorMessage(utils.GqaI18n("GetDictFailed"), c)
+		model.ResponseErrorMessage(utils.GqaI18n(c, "GetDictFailed"), c)
 	}
 	model.ResponseSuccessData(gin.H{"records": dataList}, c)
 }

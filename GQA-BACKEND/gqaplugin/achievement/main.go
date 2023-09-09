@@ -52,8 +52,12 @@ func (*Achievement) PluginMigrate() []interface{} { //实现接口方法，迁�
 	return ModelList
 }
 
-func (*Achievement) PluginData() []interface{ LoadData() (err error) } { //实现接口方法，初始化数据
-	var DataList = []interface{ LoadData() (err error) }{
+func (*Achievement) PluginData() []interface {
+	LoadData(c *gin.Context) (err error)
+} { //实现接口方法，初始化数据
+	var DataList = []interface {
+		LoadData(c *gin.Context) (err error)
+	}{
 		data.PluginAchievementSysApi,
 		data.PluginAchievementSysRoleApi,
 		data.PluginAchievementSysMenu,

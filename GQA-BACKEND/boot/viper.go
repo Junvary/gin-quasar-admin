@@ -1,6 +1,7 @@
 package boot
 
 import (
+	"errors"
 	"fmt"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/fsnotify/fsnotify"
@@ -13,10 +14,9 @@ func Viper() *viper.Viper {
 	v.SetConfigType("yaml")
 	v.AddConfigPath("./config")
 	if err := v.ReadInConfig(); err != nil {
-		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
+		var configFileNotFoundError viper.ConfigFileNotFoundError
+		if errors.As(err, &configFileNotFoundError) {
 			panic(fmt.Errorf("Config file not found：%s \n", err.Error()))
-		} else {
-			panic(fmt.Errorf("Config file not found：%s \n", err))
 		}
 	}
 	v.WatchConfig()

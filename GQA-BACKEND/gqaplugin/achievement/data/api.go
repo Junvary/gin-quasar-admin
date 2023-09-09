@@ -4,7 +4,7 @@ import (
 	"fmt"
 	gqaGlobal "github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	gqaModel "github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
-	"go.uber.org/zap"
+	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 	"time"
 )
@@ -13,20 +13,20 @@ var PluginAchievementSysApi = new(sysApi)
 
 type sysApi struct{}
 
-func (s *sysApi) LoadData() error {
+func (s *sysApi) LoadData(c *gin.Context) error {
 	return gqaGlobal.GqaDb.Transaction(func(tx *gorm.DB) error {
 		var count int64
 		tx.Model(&gqaModel.SysApi{}).Where("api_group = ?", "plugin-achievement").Count(&count)
 		if count != 0 {
 			fmt.Println("[GQA-plugins] --> sys_api 表中achievement插件数据已存在，跳过初始化数据！数据量：", count)
-			gqaGlobal.GqaLogger.Warn("[GQA-plugins] --> sys_api 表中achievement插件数据已存在，跳过初始化数据！", zap.Any("数据量", count))
+			gqaGlobal.GqaSLogger.Warn("[GQA-plugins] --> sys_api 表中achievement插件数据已存在，跳过初始化数据！", "has_count", count)
 			return nil
 		}
 		if err := tx.Create(&sysApiData).Error; err != nil { // 遇到错误时回滚事务
 			return err
 		}
 		fmt.Println("[GQA-plugins] --> achievement插件初始数据进入 sys_api 表成功！")
-		gqaGlobal.GqaLogger.Info("[GQA-plugins] --> achievement插件初始数据进入 sys_api 表成功！")
+		gqaGlobal.GqaSLogger.Info("[GQA-plugins] --> achievement插件初始数据进入 sys_api 表成功！")
 		return nil
 	})
 }

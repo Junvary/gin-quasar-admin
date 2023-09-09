@@ -5,7 +5,7 @@ import (
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
-	"go.uber.org/zap"
+	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 	"time"
 )
@@ -14,20 +14,20 @@ var SysConfigBackend = new(sysConfigBackend)
 
 type sysConfigBackend struct{}
 
-func (s *sysConfigBackend) LoadData() error {
+func (s *sysConfigBackend) LoadData(c *gin.Context) error {
 	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
 		var count int64
 		tx.Model(&model.SysConfigBackend{}).Count(&count)
 		if count != 0 {
-			fmt.Println(utils.GqaI18nWithData("SkipInsertWithData", "sys_config_backend"), count)
-			global.GqaLogger.Warn(utils.GqaI18nWithData("SkipInsertWithData", "sys_config_backend"), zap.Any("count", count))
+			fmt.Println(utils.GqaI18nWithData(c, "SkipInsertWithData", "sys_config_backend"), count)
+			global.GqaSLogger.Warn(utils.GqaI18nWithData(c, "SkipInsertWithData", "sys_config_backend"), "has_count", count)
 			return nil
 		}
 		if err := tx.Create(&sysConfigBackendData).Error; err != nil { // 遇到错误时回滚事务
 			return err
 		}
-		fmt.Println(utils.GqaI18nWithData("TableInitSuccess", "sys_config_backend"))
-		global.GqaLogger.Info(utils.GqaI18nWithData("TableInitSuccess", "sys_config_backend"))
+		fmt.Println(utils.GqaI18nWithData(c, "TableInitSuccess", "sys_config_backend"))
+		global.GqaSLogger.Info(utils.GqaI18nWithData(c, "TableInitSuccess", "sys_config_backend"))
 		return nil
 	})
 }

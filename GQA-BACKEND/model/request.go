@@ -4,7 +4,6 @@ import (
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
-	"go.uber.org/zap"
 )
 
 type RequestPage struct {
@@ -42,7 +41,7 @@ type RequestQueryByUsername struct {
 
 func RequestShouldBindJSON(c *gin.Context, obj interface{}) error {
 	if err := c.ShouldBindJSON(obj); err != nil {
-		global.GqaLogger.Error(global.GqaConfig.System.BindError, zap.Any("err", err))
+		global.GqaSLogger.Error(global.GqaConfig.System.BindError, "err", err)
 		ResponseErrorMessage(global.GqaConfig.System.BindError+err.Error(), c)
 		return err
 	}

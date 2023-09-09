@@ -6,7 +6,6 @@ import (
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
 	"github.com/gin-gonic/gin"
-	"go.uber.org/zap"
 	"runtime"
 )
 
@@ -27,29 +26,29 @@ func (a *ApiDb) CheckDb(c *gin.Context) {
 	}
 	if global.GqaDb != nil {
 		pluginLoginLayout := utils.GetConfigFrontend("pluginLoginLayout")
-		global.GqaLogger.Info(utils.GqaI18n("DbNoNeedInit"))
+		global.GqaSLogger.Info(utils.GqaI18n(c, "DbNoNeedInit"))
 		model.ResponseSuccessMessageData(gin.H{
 			"need_init":           false,
 			"go_version":          goVersion,
 			"gin_version":         ginVersion,
 			"plugin_list":         pluginList,
-			"plugin_login_layout": pluginLoginLayout}, utils.GqaI18n("DbNoNeedInit"), c)
+			"plugin_login_layout": pluginLoginLayout}, utils.GqaI18n(c, "DbNoNeedInit"), c)
 		return
 	} else {
-		global.GqaLogger.Info(utils.GqaI18n("DbNeedInit"))
+		global.GqaSLogger.Info(utils.GqaI18n(c, "DbNeedInit"))
 		model.ResponseSuccessMessageData(gin.H{
 			"need_init":   true,
 			"go_version":  goVersion,
 			"gin_version": ginVersion,
-			"plugin_list": pluginList}, utils.GqaI18n("DbNeedInit"), c)
+			"plugin_list": pluginList}, utils.GqaI18n(c, "DbNeedInit"), c)
 		return
 	}
 }
 
 func (a *ApiDb) InitDb(c *gin.Context) {
 	if global.GqaDb != nil {
-		global.GqaLogger.Error(utils.GqaI18n("DbNoNeedInit"))
-		model.ResponseErrorMessage(utils.GqaI18n("DbNoNeedInit"), c)
+		global.GqaSLogger.Error(utils.GqaI18n(c, "DbNoNeedInit"))
+		model.ResponseErrorMessage(utils.GqaI18n(c, "DbNoNeedInit"), c)
 		return
 	}
 
@@ -57,10 +56,10 @@ func (a *ApiDb) InitDb(c *gin.Context) {
 	if err := model.RequestShouldBindJSON(c, &initDbInfo); err != nil {
 		return
 	}
-	if err := servicePublic.ServiceDb.InitDb(initDbInfo); err != nil {
-		global.GqaLogger.Error(utils.GqaI18n("CreateDbError"), zap.Any("err", err))
-		model.ResponseErrorMessage(utils.GqaI18n("CreateDbError")+", "+err.Error(), c)
+	if err := servicePublic.ServiceDb.InitDb(c, initDbInfo); err != nil {
+		global.GqaSLogger.Error(utils.GqaI18n(c, "CreateDbError"), "err", err)
+		model.ResponseErrorMessage(utils.GqaI18n(c, "CreateDbError")+", "+err.Error(), c)
 		return
 	}
-	model.ResponseSuccessMessage(utils.GqaI18n("InitSuccess"), c)
+	model.ResponseSuccessMessage(utils.GqaI18n(c, "InitSuccess"), c)
 }

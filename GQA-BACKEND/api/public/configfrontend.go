@@ -11,7 +11,7 @@ type ApiConfigFrontend struct{}
 func (a *ApiConfigFrontend) GetConfigFrontendAll(c *gin.Context) {
 	err, dataList := servicePublic.ServiceConfigFrontend.GetConfigFrontendAll()
 	if err != nil {
-		model.ResponseErrorMessage(utils.GqaI18n("GetFrontendConfigFailed"), c)
+		model.ResponseErrorMessage(utils.GqaI18n(c, "GetFrontendConfigFailed"), c)
 	}
 	model.ResponseSuccessData(gin.H{"records": dataList}, c)
 }

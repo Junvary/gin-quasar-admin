@@ -53,7 +53,7 @@ func (s *ServiceDict) EditDict(toEditDict model.SysDict) (err error) {
 		return err
 	}
 	if sysDict.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n("StableCantDo") + toEditDict.DictCode)
+		return errors.New(utils.GqaI18n(nil, "StableCantDo") + toEditDict.DictCode)
 	}
 	//err = global.GqaDb.Updates(&toEditDict).Error
 	err = global.GqaDb.Save(&toEditDict).Error
@@ -63,7 +63,7 @@ func (s *ServiceDict) EditDict(toEditDict model.SysDict) (err error) {
 func (s *ServiceDict) AddDict(toAddDict model.SysDict) (err error) {
 	var dict model.SysDict
 	if !errors.Is(global.GqaDb.Where("dict_code = ?", toAddDict.DictCode).First(&dict).Error, gorm.ErrRecordNotFound) {
-		return errors.New(utils.GqaI18n("AlreadyExist") + toAddDict.DictCode)
+		return errors.New(utils.GqaI18n(nil, "AlreadyExist") + toAddDict.DictCode)
 	}
 	err = global.GqaDb.Create(&toAddDict).Error
 	return err
@@ -75,7 +75,7 @@ func (s *ServiceDict) DeleteDictById(id uint) (err error) {
 		return err
 	}
 	if dict.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n("StableCantDo") + dict.DictCode)
+		return errors.New(utils.GqaI18n(nil, "StableCantDo") + dict.DictCode)
 	}
 	err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&dict).Error
 	return err

@@ -1,14 +1,12 @@
 package config
 
 type Config struct {
-	Zap    Zap    `yaml:"zap"`
+	Log    Log    `yaml:"log"`
 	Mysql  Mysql  `yaml:"mysql"`
 	System System `yaml:"system"`
 }
 
-type Zap struct {
-	Prefix     string `yaml:"prefix"`
-	Level      string `yaml:"level"`
+type Log struct {
 	Path       string `yaml:"path"`
 	Filename   string `yaml:"filename"`
 	MaxSize    int    `yaml:"maxSize"`

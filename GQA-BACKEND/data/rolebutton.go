@@ -5,7 +5,7 @@ import (
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
-	"go.uber.org/zap"
+	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
 
@@ -13,20 +13,20 @@ var SysRoleButton = new(sysRoleButton)
 
 type sysRoleButton struct{}
 
-func (s *sysRoleButton) LoadData() error {
+func (s *sysRoleButton) LoadData(c *gin.Context) error {
 	return global.GqaDb.Table("sys_role_button").Transaction(func(tx *gorm.DB) error {
 		var count int64
 		tx.Model(&model.SysRoleButton{}).Count(&count)
 		if count != 0 {
-			fmt.Println(utils.GqaI18nWithData("SkipInsertWithData", "sys_role_button"), count)
-			global.GqaLogger.Warn(utils.GqaI18nWithData("SkipInsertWithData", "sys_role_button"), zap.Any("count", count))
+			fmt.Println(utils.GqaI18nWithData(c, "SkipInsertWithData", "sys_role_button"), count)
+			global.GqaSLogger.Warn(utils.GqaI18nWithData(c, "SkipInsertWithData", "sys_role_button"), "has_count", count)
 			return nil
 		}
 		if err := tx.Create(&sysRoleButtonData).Error; err != nil { // 遇到错误时回滚事务
 			return err
 		}
-		fmt.Println(utils.GqaI18nWithData("TableInitSuccess", "sys_role_button"))
-		global.GqaLogger.Info(utils.GqaI18nWithData("TableInitSuccess", "sys_role_button"))
+		fmt.Println(utils.GqaI18nWithData(c, "TableInitSuccess", "sys_role_button"))
+		global.GqaSLogger.Info(utils.GqaI18nWithData(c, "TableInitSuccess", "sys_role_button"))
 		return nil
 	})
 }

@@ -7,7 +7,7 @@ import (
 
 func main() {
 	global.GqaViper = boot.Viper()
-	global.GqaLogger = boot.Zap()
+	global.GqaSLogger = boot.Log()
 	global.GqaDb = boot.Mysql()
 	if global.GqaDb != nil {
 		boot.Migrate(global.GqaDb)

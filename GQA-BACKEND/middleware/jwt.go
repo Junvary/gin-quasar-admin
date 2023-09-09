@@ -27,15 +27,15 @@ func (j *Jwt) ParseToken(tokenString string) (*model.SysJwtClaims, error) {
 						return claims, errors.New("checkRefresh")
 					}
 				} else {
-					return nil, errors.New(utils.GqaI18n("AuthFailed"))
+					return nil, errors.New(utils.GqaI18n(nil, "AuthFailed"))
 				}
 			} else if token.Valid {
 				return claims, nil
 			}
 		}
-		return nil, errors.New(utils.GqaI18n("AuthFailed"))
+		return nil, errors.New(utils.GqaI18n(nil, "AuthFailed"))
 	} else {
-		return nil, errors.New(utils.GqaI18n("AuthFailed"))
+		return nil, errors.New(utils.GqaI18n(nil, "AuthFailed"))
 	}
 }
 
@@ -43,7 +43,7 @@ func JwtHandler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		token := c.Request.Header.Get("Gqa-Token")
 		if token == "" {
-			model.ResponseErrorMessageData(gin.H{"reload": true}, utils.GqaI18n("AccessDisabled"), c)
+			model.ResponseErrorMessageData(gin.H{"reload": true}, utils.GqaI18n(c, "AccessDisabled"), c)
 			c.Abort()
 			return
 		}
@@ -64,7 +64,7 @@ func JwtHandler() gin.HandlerFunc {
 					if refreshToken != "" {
 						_ = global.GqaDb.Model(&model.SysUserOnline{}).Where("username = ?", claims.Username).Update("token", refreshToken).Error
 						c.Header("gqa-refresh-token", refreshToken)
-						model.ResponseSuccessMessageData(gin.H{"refresh": true}, utils.GqaI18n("RefreshToken"), c)
+						model.ResponseSuccessMessageData(gin.H{"refresh": true}, utils.GqaI18n(c, "RefreshToken"), c)
 						c.Abort()
 						return
 					}
@@ -72,7 +72,7 @@ func JwtHandler() gin.HandlerFunc {
 				// ALL Expired
 				if claims.ExpiresAt < time.Now().Unix() && claims.RefreshAt < time.Now().Unix() {
 					_ = global.GqaDb.Where("username = ?", claims.Username).Delete(&model.SysUserOnline{}).Error
-					model.ResponseErrorMessageData(gin.H{"reload": true}, utils.GqaI18n("LoginExpired"), c)
+					model.ResponseErrorMessageData(gin.H{"reload": true}, utils.GqaI18n(c, "LoginExpired"), c)
 					c.Abort()
 					return
 				}
@@ -88,7 +88,7 @@ func JwtHandler() gin.HandlerFunc {
 		err = global.GqaDb.Where("username = ?", claims.Username).First(&userOnline).Error
 		if errors.Is(err, gorm.ErrRecordNotFound) || userOnline.Token != token {
 			_ = global.GqaDb.Where("username = ?", claims.Username).Delete(&model.SysUserOnline{}).Error
-			model.ResponseErrorMessageData(gin.H{"reload": true}, utils.GqaI18n("LoginExpired"), c)
+			model.ResponseErrorMessageData(gin.H{"reload": true}, utils.GqaI18n(c, "LoginExpired"), c)
 			c.Abort()
 			return
 		}
@@ -99,7 +99,7 @@ func JwtHandler() gin.HandlerFunc {
 func MakeJwt() (*Jwt, error) {
 	jwtKey := utils.GetConfigBackend("jwtKey")
 	if jwtKey == "" {
-		return nil, errors.New(utils.GqaI18n("JwtConfigError"))
+		return nil, errors.New(utils.GqaI18n(nil, "JwtConfigError"))
 	}
 	return &Jwt{
 		[]byte(jwtKey),

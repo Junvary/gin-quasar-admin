@@ -37,11 +37,11 @@ func (s *ServiceRole) EditRole(toEditRole model.SysRole) (err error) {
 		return err
 	}
 	if sysRole.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n("StableCantDo") + sysRole.RoleCode)
+		return errors.New(utils.GqaI18n(nil, "StableCantDo") + sysRole.RoleCode)
 	}
 	//不允许改变RoleCode
 	if sysRole.RoleCode != toEditRole.RoleCode {
-		return errors.New(utils.GqaI18n("EditFailed") + sysRole.RoleCode)
+		return errors.New(utils.GqaI18n(nil, "EditFailed") + sysRole.RoleCode)
 	}
 	//err = global.GqaDb.Updates(&toEditRole).Error
 	err = global.GqaDb.Save(&toEditRole).Error
@@ -51,7 +51,7 @@ func (s *ServiceRole) EditRole(toEditRole model.SysRole) (err error) {
 func (s *ServiceRole) AddRole(toAddRole model.SysRole) (err error) {
 	var role model.SysRole
 	if !errors.Is(global.GqaDb.Where("role_code = ?", toAddRole.RoleCode).First(&role).Error, gorm.ErrRecordNotFound) {
-		return errors.New(utils.GqaI18n("AlreadyExist") + toAddRole.RoleCode)
+		return errors.New(utils.GqaI18n(nil, "AlreadyExist") + toAddRole.RoleCode)
 	}
 	err = global.GqaDb.Create(&toAddRole).Error
 	return err
@@ -63,7 +63,7 @@ func (s *ServiceRole) DeleteRoleById(id uint) (err error) {
 		return err
 	}
 	if sysRole.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n("StableCantDo") + sysRole.RoleCode)
+		return errors.New(utils.GqaI18n(nil, "StableCantDo") + sysRole.RoleCode)
 	}
 	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
 		roleCode := sysRole.RoleCode
@@ -162,7 +162,7 @@ func (s *ServiceRole) QueryUserByRole(roleCode *model.RequestRoleCode) (err erro
 func (s *ServiceRole) RemoveRoleUser(toRemoveRoleUser *model.RequestRoleUser) (err error) {
 	var roleUser model.SysUserRole
 	if toRemoveRoleUser.Username == "admin" && toRemoveRoleUser.RoleCode == "super-admin" {
-		return errors.New(utils.GqaI18n("CantRemoveAdminFromAdmin"))
+		return errors.New(utils.GqaI18n(nil, "CantRemoveAdminFromAdmin"))
 	}
 	err = global.GqaDb.
 		Where("sys_role_role_code = ? and sys_user_username = ?", toRemoveRoleUser.RoleCode, toRemoveRoleUser.Username).
@@ -183,7 +183,7 @@ func (s *ServiceRole) AddRoleUser(toAddRoleUser *model.RequestRoleUserAdd) (err 
 		err = global.GqaDb.Model(&model.SysUserRole{}).Save(&roleUser).Error
 		return err
 	} else {
-		return errors.New(utils.GqaI18n("NoEffect"))
+		return errors.New(utils.GqaI18n(nil, "NoEffect"))
 	}
 }
 
@@ -193,7 +193,7 @@ func (s *ServiceRole) EditRoleDeptDataPermission(toEditRoleDeptDataPermission *m
 		return err
 	}
 	if sysRole.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n("StableCantDo") + toEditRoleDeptDataPermission.RoleCode)
+		return errors.New(utils.GqaI18n(nil, "StableCantDo") + toEditRoleDeptDataPermission.RoleCode)
 	}
 	sysRole.DeptDataPermissionType = toEditRoleDeptDataPermission.DeptDataPermissionType
 	sysRole.DeptDataPermissionCustom = toEditRoleDeptDataPermission.DeptDataPermissionCustom

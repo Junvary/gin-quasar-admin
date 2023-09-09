@@ -47,8 +47,12 @@ func (p *example) PluginMigrate() []interface{} { //实现接口方法，迁移�
 	return ModelList
 }
 
-func (p *example) PluginData() []interface{ LoadData() (err error) } { //实现接口方法，初始化数据
-	var DataList = []interface{ LoadData() (err error) }{
+func (p *example) PluginData() []interface {
+	LoadData(c *gin.Context) (err error)
+} { //实现接口方法，初始化数据
+	var DataList = []interface {
+		LoadData(c *gin.Context) (err error)
+	}{
 		data.PluginExampleSysApi,
 		data.PluginExampleSysRoleApi,
 		data.PluginExampleSysMenu,

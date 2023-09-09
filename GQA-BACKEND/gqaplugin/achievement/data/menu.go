@@ -4,7 +4,7 @@ import (
 	"fmt"
 	gqaGlobal "github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	gqaModel "github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
-	"go.uber.org/zap"
+	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 	"time"
 )
@@ -13,20 +13,20 @@ var PluginAchievementSysMenu = new(sysMenu)
 
 type sysMenu struct{}
 
-func (s *sysMenu) LoadData() error {
+func (s *sysMenu) LoadData(c *gin.Context) error {
 	return gqaGlobal.GqaDb.Transaction(func(tx *gorm.DB) error {
 		var count int64
 		tx.Model(&gqaModel.SysMenu{}).Where("parent_code = ?", "GqaPluginAchievement").Or("name = ?", "GqaPluginAchievement").Count(&count)
 		if count != 0 {
 			fmt.Println("[GQA-plugins] --> sys_menu 表中Achievement插件菜单已存在，跳过初始化数据！数据量：", count)
-			gqaGlobal.GqaLogger.Warn("[GQA-plugins] --> sys_menu 表中Achievement插件菜单已存在，跳过初始化数据！", zap.Any("数据量", count))
+			gqaGlobal.GqaSLogger.Warn("[GQA-plugins] --> sys_menu 表中Achievement插件菜单已存在，跳过初始化数据！", "has_count", count)
 			return nil
 		}
 		if err := tx.Create(&sysMenuData).Error; err != nil { // 遇到错误时回滚事务
 			return err
 		}
 		fmt.Println("[GQA-plugins] --> Achievement插件初始数据进入 sys_menu 表成功！")
-		gqaGlobal.GqaLogger.Info("[GQA-plugins] --> Achievement插件初始数据进入 sys_menu 表成功！")
+		gqaGlobal.GqaSLogger.Info("[GQA-plugins] --> Achievement插件初始数据进入 sys_menu 表成功！")
 		return nil
 	})
 }

@@ -1,3 +1,9 @@
+log:
+    path: gqalog
+    filename: gqa-log
+    maxSize: 20
+    maxBackups: 10
+    maxAge: 7
 mysql:
     host:
     port:
@@ -18,11 +24,3 @@ system:
     importPath: ./template/import
     exportPath: ./template/export
     templatePath: ./template/template
-zap:
-    prefix: '[gin-quasar-admin]'
-    level: info
-    path: gqalog
-    filename: gqa-log
-    maxSize: 200
-    maxBackups: 10
-    maxAge: 8

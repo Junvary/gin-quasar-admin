@@ -7,7 +7,6 @@ import (
 	gqaModel "github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
 	gqaUtils "github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
 	"github.com/gin-gonic/gin"
-	"go.uber.org/zap"
 )
 
 func GetCategoryList(c *gin.Context) {
@@ -16,7 +15,7 @@ func GetCategoryList(c *gin.Context) {
 		return
 	}
 	if err, records, total := privateservice.GetCategoryList(getCategoryList, gqaUtils.GetUsername(c)); err != nil {
-		gqaGlobal.GqaLogger.Error("获取Category列表失败！", zap.Any("err", err))
+		gqaGlobal.GqaSLogger.Error("获取Category列表失败！", "err", err)
 		gqaModel.ResponseErrorMessage("获取Category列表失败！"+err.Error(), c)
 	} else {
 		gqaModel.ResponseSuccessData(gqaModel.ResponsePage{
@@ -35,7 +34,7 @@ func EditCategory(c *gin.Context) {
 	}
 	toEditCategory.UpdatedBy = gqaUtils.GetUsername(c)
 	if err := privateservice.EditCategory(toEditCategory, gqaUtils.GetUsername(c)); err != nil {
-		gqaGlobal.GqaLogger.Error("编辑Category失败！", zap.Any("err", err))
+		gqaGlobal.GqaSLogger.Error("编辑Category失败！", "err", err)
 		gqaModel.ResponseErrorMessage("编辑Category失败，"+err.Error(), c)
 	} else {
 		gqaModel.ResponseSuccessMessage("编辑Category成功！", c)
@@ -59,7 +58,7 @@ func AddCategory(c *gin.Context) {
 		GqaModelWithCreatedByAndUpdatedBy: GqaModelWithCreatedByAndUpdatedBy,
 	}
 	if err := privateservice.AddCategory(*addCategory, gqaUtils.GetUsername(c)); err != nil {
-		gqaGlobal.GqaLogger.Error("添加Category失败！", zap.Any("err", err))
+		gqaGlobal.GqaSLogger.Error("添加Category失败！", "err", err)
 		gqaModel.ResponseErrorMessage("添加Category失败，"+err.Error(), c)
 	} else {
 		gqaModel.ResponseSuccessMessage("添加Category成功！", c)
@@ -72,7 +71,7 @@ func DeleteCategoryById(c *gin.Context) {
 		return
 	}
 	if err := privateservice.DeleteCategoryById(toDeleteId.Id, gqaUtils.GetUsername(c)); err != nil {
-		gqaGlobal.GqaLogger.Error("删除Category失败！", zap.Any("err", err))
+		gqaGlobal.GqaSLogger.Error("删除Category失败！", "err", err)
 		gqaModel.ResponseErrorMessage("删除Category失败，"+err.Error(), c)
 	} else {
 		gqaModel.ResponseSuccessMessage("删除Category成功！", c)
@@ -85,7 +84,7 @@ func QueryCategoryById(c *gin.Context) {
 		return
 	}
 	if err, record := privateservice.QueryCategoryById(toQueryId.Id, gqaUtils.GetUsername(c)); err != nil {
-		gqaGlobal.GqaLogger.Error("查找Category失败！", zap.Any("err", err))
+		gqaGlobal.GqaSLogger.Error("查找Category失败！", "err", err)
 		gqaModel.ResponseErrorMessage("查找Category失败，"+err.Error(), c)
 	} else {
 		gqaModel.ResponseSuccessMessageData(gin.H{"records": record}, "查找Category成功！", c)
@@ -98,7 +97,7 @@ func GetObtainList(c *gin.Context) {
 		return
 	}
 	if err, records, total := privateservice.GetObtainList(getObtainList, gqaUtils.GetUsername(c)); err != nil {
-		gqaGlobal.GqaLogger.Error("获取Obtain列表失败！", zap.Any("err", err))
+		gqaGlobal.GqaSLogger.Error("获取Obtain列表失败！", "err", err)
 		gqaModel.ResponseErrorMessage("获取Obtain列表失败！"+err.Error(), c)
 	} else {
 		gqaModel.ResponseSuccessData(gqaModel.ResponsePage{
@@ -129,7 +128,7 @@ func ObtainFind(c *gin.Context) {
 
 func ObtainAchievement(c *gin.Context, toObtain model.PluginAchievementObtain) {
 	if err := privateservice.ObtainAchievement(toObtain); err != nil {
-		gqaGlobal.GqaLogger.Error("记录成就失败！", zap.Any("err", err))
+		gqaGlobal.GqaSLogger.Error("记录成就失败！", "err", err)
 		gqaModel.ResponseErrorMessage("记录成就失败，"+err.Error(), c)
 	} else {
 		gqaModel.ResponseSuccessData(gin.H{"get": true}, c)

@@ -11,7 +11,7 @@ type ApiConfigBackend struct{}
 func (a *ApiConfigBackend) GetConfigBackendAll(c *gin.Context) {
 	err, dataList := servicePublic.ServiceConfigBackend.GetConfigBackendAll()
 	if err != nil {
-		model.ResponseErrorMessage(utils.GqaI18n("GetBackendConfigFailed"), c)
+		model.ResponseErrorMessage(utils.GqaI18n(c, "GetBackendConfigFailed"), c)
 	}
 	model.ResponseSuccessData(gin.H{"records": dataList}, c)
 }

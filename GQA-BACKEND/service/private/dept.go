@@ -49,7 +49,7 @@ func (s *ServiceDept) EditDept(toEditDept model.SysDept) (err error) {
 		return err
 	}
 	if sysDept.DeptCode != toEditDept.DeptCode {
-		return errors.New(utils.GqaI18n("EditFailed") + toEditDept.DeptCode)
+		return errors.New(utils.GqaI18n(nil, "EditFailed") + toEditDept.DeptCode)
 	}
 	err = global.GqaDb.Save(&toEditDept).Error
 	return err
@@ -58,7 +58,7 @@ func (s *ServiceDept) EditDept(toEditDept model.SysDept) (err error) {
 func (s *ServiceDept) AddDept(toAddDept model.SysDept) (err error) {
 	var dept model.SysDept
 	if !errors.Is(global.GqaDb.Where("dept_code = ?", toAddDept.DeptCode).First(&dept).Error, gorm.ErrRecordNotFound) {
-		return errors.New(utils.GqaI18n("AlreadyExist") + toAddDept.DeptCode)
+		return errors.New(utils.GqaI18n(nil, "AlreadyExist") + toAddDept.DeptCode)
 	}
 	err = global.GqaDb.Create(&toAddDept).Error
 	return err
@@ -118,6 +118,6 @@ func (s *ServiceDept) AddDeptUser(toAddDeptUser *model.RequestDeptUserAdd) (err 
 		err = global.GqaDb.Model(&model.SysDeptUser{}).Save(&deptUser).Error
 		return err
 	} else {
-		return errors.New(utils.GqaI18n("NoEffect"))
+		return errors.New(utils.GqaI18n(nil, "NoEffect"))
 	}
 }

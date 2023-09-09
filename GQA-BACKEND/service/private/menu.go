@@ -49,10 +49,10 @@ func (s *ServiceMenu) EditMenu(toEditMenu model.SysMenu) (err error) {
 		return err
 	}
 	if sysMenu.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n("StableCantDo") + toEditMenu.Title)
+		return errors.New(utils.GqaI18n(nil, "StableCantDo") + toEditMenu.Title)
 	}
 	if sysMenu.Name != toEditMenu.Name {
-		return errors.New(utils.GqaI18n("EditFailed") + sysMenu.Name)
+		return errors.New(utils.GqaI18n(nil, "EditFailed") + sysMenu.Name)
 	}
 	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
 		//先删除关联button表中menu_name的记录
@@ -76,7 +76,7 @@ func (s *ServiceMenu) DeleteMenuById(id uint) (err error) {
 		return err
 	}
 	if sysMenu.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n("StableCantDo") + sysMenu.Title)
+		return errors.New(utils.GqaI18n(nil, "StableCantDo") + sysMenu.Title)
 	}
 	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
 		if err = tx.Where("id = ?", id).Unscoped().Delete(&sysMenu).Error; err != nil {

@@ -94,7 +94,7 @@ Loop:
 			permissionDb = tempDb.Or(tempDb.Where("created_by in ?", allUser))
 		default:
 			permissionDb = tempDb
-			return errors.New(utils.GqaI18n("NoConfig")), nil
+			return errors.New(utils.GqaI18n(nil, "NoConfig")), nil
 		}
 	}
 	return nil, permissionDb

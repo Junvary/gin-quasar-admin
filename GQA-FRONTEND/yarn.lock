@@ -174,10 +174,10 @@
   resolved "https://registry.npmmirror.com/@polka/url/-/url-1.0.0-next.21.tgz#5de5a2385a35309427f6011992b544514d559aa1"
   integrity sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==
 
-"@quasar/app-vite@^1.4.3":
-  version "1.4.3"
-  resolved "https://registry.npmmirror.com/@quasar/app-vite/-/app-vite-1.4.3.tgz#442944cace5008c473411212b04af3a46090ae0a"
-  integrity sha512-5iMs1sk6fyYTFoRVySwFXWL/PS23UEsdk+YSFejhXnSs5fVDmb2GQMguCHwDl3jPIHjZ7A+XKkb2iWx9pjiPXw==
+"@quasar/app-vite@^1.5.1":
+  version "1.5.1"
+  resolved "https://registry.npmmirror.com/@quasar/app-vite/-/app-vite-1.5.1.tgz#df308ea4eefb96747a2caf38e78f2199c880e020"
+  integrity sha512-OjD5fL1oSdLH+wSYsvfoEkahub9c13Gfccvu1cvGwiisICo/MvwAab08T1y31YnvsQVAlBmjGOo8BsFehNlxYg==
   dependencies:
     "@quasar/render-ssr-error" "^1.0.1"
     "@quasar/vite-plugin" "^1.3.3"
@@ -214,10 +214,10 @@
     vite "^2.9.13"
     webpack-merge "^5.8.0"
 
-"@quasar/extras@^1.16.4":
-  version "1.16.4"
-  resolved "https://registry.npmmirror.com/@quasar/extras/-/extras-1.16.4.tgz#34fc2517fffecb5c27e4cea1b69b62aaf890ff73"
-  integrity sha512-q2kPTNHI5aprgE2yQfRIf6aud+qSXH3YTNmhcfRp/rENh7kRjoM+b5BBPxgHlO1si1ARddbmr+Fxu/L05hfXnQ==
+"@quasar/extras@^1.16.6":
+  version "1.16.6"
+  resolved "https://registry.npmmirror.com/@quasar/extras/-/extras-1.16.6.tgz#6b79d3c01785793c10543c93f21653e26539a740"
+  integrity sha512-yHvp2Z73LuS29fhjE+dSzUvEKGCuTTy+WGIsAYxbnhBVW2rTYlYmFQfGdOPdzNreHZh+G/1D56n0Q6ClZxJHKg==
 
 "@quasar/quasar-app-extension-qiconpicker@^2.0.7":
   version "2.0.7"
@@ -2455,10 +2455,10 @@ quasar-ui-qstatistic@latest:
   resolved "https://registry.npmmirror.com/quasar-ui-qstatistic/-/quasar-ui-qstatistic-0.0.7.tgz#6d59beec2bde6748db5edeed7c1914cd89faf462"
   integrity sha512-eqzf988wcbt9SilgpiGBKHUQ1ZIs7k5XDLfENfU4qxJgffz/xEV8CIyUKAm0MUyVhdbA/cYtwJvesM4r3YLTiA==
 
-quasar@^2.12.2:
-  version "2.12.2"
-  resolved "https://registry.npmmirror.com/quasar/-/quasar-2.12.2.tgz#f45923259449afb224afbac16f1e5c4a660c3f84"
-  integrity sha512-UB+J1cN6b9FrRphUuMvW1Pt1uaOPH2XJMAZagQlYzVUmltKCXQ0sby+ANgGRYa8w/tsekMySmN9QvkQ3+hYv/g==
+quasar@^2.12.6:
+  version "2.12.6"
+  resolved "https://registry.npmmirror.com/quasar/-/quasar-2.12.6.tgz#5fcd92c1e0c33427b626c425d0dd0aaa706e48c1"
+  integrity sha512-C4rDMzRu+onIP+4f8WrXUJYqMZ7KsZZewU5zjxCPHQqDVKAWNbfqePN/4ME42PZ3u5C26J9eLLW32rc/vEXXfg==
 
 queue-microtask@^1.2.2:
   version "1.2.3"

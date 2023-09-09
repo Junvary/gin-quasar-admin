@@ -28,9 +28,9 @@ func (a *ApiCron) StartCron(c *gin.Context) {
 		}
 	}
 	if startFlag {
-		model.ResponseSuccessMessage(utils.GqaI18n("CronStartSuccess"), c)
+		model.ResponseSuccessMessage(utils.GqaI18n(c, "CronStartSuccess"), c)
 	} else {
-		model.ResponseErrorMessage(utils.GqaI18n("CronAlreadyStart"), c)
+		model.ResponseErrorMessage(utils.GqaI18n(c, "CronAlreadyStart"), c)
 	}
 }
 
@@ -52,9 +52,9 @@ func (a *ApiCron) StopCron(c *gin.Context) {
 		}
 	}
 	if stopFlag {
-		model.ResponseSuccessMessage(utils.GqaI18n("CronStopSuccess"), c)
+		model.ResponseSuccessMessage(utils.GqaI18n(c, "CronStopSuccess"), c)
 	} else {
-		model.ResponseErrorMessage(utils.GqaI18n("CronAlreadyStop"), c)
+		model.ResponseErrorMessage(utils.GqaI18n(c, "CronAlreadyStop"), c)
 	}
 }
 

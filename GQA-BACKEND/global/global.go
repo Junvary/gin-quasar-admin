@@ -5,8 +5,8 @@ import (
 	"github.com/mojocn/base64Captcha"
 	"github.com/robfig/cron/v3"
 	"github.com/spf13/viper"
-	"go.uber.org/zap"
 	"gorm.io/gorm"
+	"log/slog"
 	"runtime"
 	"time"
 )
@@ -16,7 +16,7 @@ var Store = base64Captcha.DefaultMemStore
 var (
 	GqaConfig      config.Config
 	GqaViper       *viper.Viper
-	GqaLogger      *zap.Logger
+	GqaSLogger     *slog.Logger
 	GqaDb          *gorm.DB
 	GqaCron        *cron.Cron
 	GqaServeUpload = "upload"

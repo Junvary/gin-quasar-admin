@@ -46,5 +46,5 @@ func logo(port string) {
 	fmt.Println("Github: https://github.com/Junvary/gin-quasar-admin ")
 	fmt.Println("Expecting Your Star!")
 	fmt.Println("System started, listening " + port + "...")
-	global.GqaLogger.Info("System started, listening " + port + "...")
+	global.GqaSLogger.Info("System started, listening " + port + "...")
 }

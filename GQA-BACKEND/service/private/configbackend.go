@@ -38,7 +38,7 @@ func (s *ServiceConfigBackend) EditConfigBackend(toEditConfigBackend model.SysCo
 func (s *ServiceConfigBackend) AddConfigBackend(toAddConfigBackend model.SysConfigBackend) (err error) {
 	var configBackend model.SysConfigBackend
 	if !errors.Is(global.GqaDb.Where("config_item = ?", toAddConfigBackend.ConfigItem).First(&configBackend).Error, gorm.ErrRecordNotFound) {
-		return errors.New(utils.GqaI18n("AlreadyExist") + toAddConfigBackend.ConfigItem)
+		return errors.New(utils.GqaI18n(nil, "AlreadyExist") + toAddConfigBackend.ConfigItem)
 	}
 	err = global.GqaDb.Create(&toAddConfigBackend).Error
 	return err
@@ -50,7 +50,7 @@ func (s *ServiceConfigBackend) DeleteConfigBackendById(id uint) (err error) {
 		return err
 	}
 	if sysConfigBackend.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n("StableCantDo") + sysConfigBackend.ConfigItem)
+		return errors.New(utils.GqaI18n(nil, "StableCantDo") + sysConfigBackend.ConfigItem)
 	}
 	err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&sysConfigBackend).Error
 	return err

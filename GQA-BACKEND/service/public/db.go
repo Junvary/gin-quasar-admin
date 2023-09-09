@@ -10,8 +10,8 @@ import (
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
+	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
-	"go.uber.org/zap"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
@@ -19,7 +19,7 @@ import (
 type ServiceDb struct{}
 
 type dataInterface interface {
-	LoadData() (err error)
+	LoadData(c *gin.Context) (err error)
 }
 
 var migrateList = []interface{}{
@@ -63,7 +63,7 @@ var dataList = []dataInterface{
 	data.SysConfigFrontend,
 }
 
-func (s *ServiceDb) InitDb(initDbInfo model.RequestDbInit) error {
+func (s *ServiceDb) InitDb(c *gin.Context, initDbInfo model.RequestDbInit) error {
 	if err := s.createDatabase(initDbInfo); err != nil {
 		return err
 	}
@@ -91,26 +91,26 @@ func (s *ServiceDb) InitDb(initDbInfo model.RequestDbInit) error {
 	err := global.GqaDb.AutoMigrate(migrateList...)
 	if err != nil {
 		global.GqaDb = nil
-		global.GqaLogger.Error("Merge Gin-Quasar-Admin database failed！", zap.Any("err", err))
+		global.GqaSLogger.Error("Merge Gin-Quasar-Admin database failed！", "err", err)
 		return errors.New("Merge Gin-Quasar-Admin database failed：" + err.Error())
 	}
 	//迁移Gin-Quasar-Admin插件数据库
 	err = global.GqaDb.AutoMigrate(gqaplugin.MigratePluginModel()...)
 	if err != nil {
 		global.GqaDb = nil
-		global.GqaLogger.Error("Merge Gin-Quasar-Admin database failed！", zap.Any("err", err))
+		global.GqaSLogger.Error("Merge Gin-Quasar-Admin database failed！", "err", err)
 		return errors.New("Merge Gin-Quasar-Admin database failed：" + err.Error())
 	}
 	// Init Gin-Quasar-Admin data
 	for _, v := range dataList {
-		err = v.LoadData()
+		err = v.LoadData(c)
 		if err != nil {
 			return err
 		}
 	}
 	// Init Gin-Quasar-Admin plugin data
 	for _, v := range gqaplugin.LoadPluginData() {
-		err = v.LoadData()
+		err = v.LoadData(c)
 		if err != nil {
 			return err
 		}

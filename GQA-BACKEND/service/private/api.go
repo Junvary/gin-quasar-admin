@@ -32,7 +32,7 @@ func (s *ServiceApi) GetApiList(getApiList model.RequestGetApiList) (err error, 
 
 func (s *ServiceApi) EditApi(toEditApi model.SysApi) (err error) {
 	if toEditApi.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n("StableCantDo"))
+		return errors.New(utils.GqaI18n(nil, "StableCantDo"))
 	}
 	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
 		var oldApi model.SysApi
@@ -78,7 +78,7 @@ func (s *ServiceApi) DeleteApiById(id uint) (err error) {
 		return err
 	}
 	if sysApi.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n("StableCantDo"))
+		return errors.New(utils.GqaI18n(nil, "StableCantDo"))
 	}
 	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
 		if err = tx.Where("id = ?", id).Unscoped().Delete(&sysApi).Error; err != nil {

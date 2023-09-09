@@ -13,7 +13,7 @@ func Cron() {
 	global.GqaCron = c
 	global.GqaCron.Start()
 	fmt.Println("Gin-Quasar-Admin Cron Start Succeeded!")
-	global.GqaLogger.Error("Gin-Quasar-Admin Cron Start Succeeded!")
+	global.GqaSLogger.Info("Gin-Quasar-Admin Cron Start Succeeded!")
 	// Gin-Quasar-Admin cron
 	gqacron.CronList = append(gqacron.CronList, gqacron.T1)
 	gqacron.CronMap[gqacron.T1.UUID] = gqacron.CronTest

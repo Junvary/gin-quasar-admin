@@ -6,7 +6,6 @@ import (
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/gqaplugin/{{.PluginCode}}/service/publicservice"
 	gqaModel "github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
 	"github.com/gin-gonic/gin"
-	"go.uber.org/zap"
 )
 
 {{ range .PluginModel }}
@@ -17,7 +16,7 @@ func Get{{.ModelName}}List(c *gin.Context) {
 		return
 	}
 	if err, records, total := publicservice.Get{{.ModelName}}List(toGetDataList); err != nil {
-		gqaGlobal.GqaLogger.Error("获取{{.ModelName}}列表失败！", zap.Any("err", err))
+		gqaGlobal.GqaSLogger.Error("获取{{.ModelName}}列表失败！", "err", err)
 		gqaModel.ResponseErrorMessage("获取{{.ModelName}}列表失败！"+err.Error(), c)
 	} else {
 		gqaModel.ResponseSuccessData(gqaModel.ResponsePage{

@@ -31,15 +31,17 @@ var PluginList = []GqaPlugin{
 */
 
 type GqaPlugin interface {
-	PluginCode() string                                     //Plugin code, used for routing packet name
-	PluginSort() uint                                       //Plugin Sort
-	PluginName() string                                     //Plugin Name
-	PluginVersion() string                                  //Plugin Version
-	PluginMemo() string                                     //Plugin Memo
-	PluginRouterPublic(publicGroup *gin.RouterGroup)        //Plugin Public Router
-	PluginRouterPrivate(privateGroup *gin.RouterGroup)      //Plugin Private Router
-	PluginMigrate() []interface{}                           //Plugin Migrations
-	PluginData() []interface{ LoadData() (err error) }      //Plugin Default Data
+	PluginCode() string                                //Plugin code, used for routing packet name
+	PluginSort() uint                                  //Plugin Sort
+	PluginName() string                                //Plugin Name
+	PluginVersion() string                             //Plugin Version
+	PluginMemo() string                                //Plugin Memo
+	PluginRouterPublic(publicGroup *gin.RouterGroup)   //Plugin Public Router
+	PluginRouterPrivate(privateGroup *gin.RouterGroup) //Plugin Private Router
+	PluginMigrate() []interface{}                      //Plugin Migrations
+	PluginData() []interface {
+		LoadData(c *gin.Context) (err error)
+	} //Plugin Default Data
 	PluginCron() ([]gqaModel.SysCron, map[uuid.UUID]func()) // Plugin Cron
 }
 
@@ -59,8 +61,12 @@ func MigratePluginModel() []interface{} {
 	return model
 }
 
-func LoadPluginData() []interface{ LoadData() (err error) } {
-	var data []interface{ LoadData() (err error) }
+func LoadPluginData() []interface {
+	LoadData(c *gin.Context) (err error)
+} {
+	var data []interface {
+		LoadData(c *gin.Context) (err error)
+	}
 	for _, p := range PluginList {
 		data = append(data,
 			p.PluginData()...,

@@ -12,16 +12,16 @@ func RoleApiHandler() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		err, roleList := GetUserRole(c)
 		if err != nil {
-			global.GqaLogger.Error(utils.GqaI18n("GetUserRoleFailed"))
-			model.ResponseErrorMessage(utils.GqaI18n("GetUserRoleFailed"), c)
+			global.GqaSLogger.Error(utils.GqaI18n(c, "GetUserRoleFailed"))
+			model.ResponseErrorMessage(utils.GqaI18n(c, "GetUserRoleFailed"), c)
 			c.Abort()
 			return
 		}
 		apiPath := c.Request.URL.RequestURI()
 		apiMethod := c.Request.Method
 		if len(roleList) == 0 {
-			global.GqaLogger.Error(utils.GqaI18n("NoRoleForYou"))
-			model.ResponseErrorMessage(utils.GqaI18n("NoRoleForYou"), c)
+			global.GqaSLogger.Error(utils.GqaI18n(c, "NoRoleForYou"))
+			model.ResponseErrorMessage(utils.GqaI18n(c, "NoRoleForYou"), c)
 			c.Abort()
 			return
 		}
@@ -34,8 +34,8 @@ func RoleApiHandler() gin.HandlerFunc {
 			}
 		}
 		username := utils.GetUsername(c)
-		global.GqaLogger.Error(fmt.Sprintf("【%s】 tries to call 【%s】(%s), but does not have permission!", username, apiPath, apiMethod))
-		model.ResponseErrorMessage(utils.GqaI18n("NoPermission"), c)
+		global.GqaSLogger.Error(fmt.Sprintf("【%s】 tries to call 【%s】(%s), but does not have permission!", username, apiPath, apiMethod))
+		model.ResponseErrorMessage(utils.GqaI18n(c, "NoPermission"), c)
 		c.Abort()
 		return
 	}

@@ -5,7 +5,7 @@ import (
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
-	"go.uber.org/zap"
+	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 	"time"
 )
@@ -14,20 +14,20 @@ var SysDict = new(sysDict)
 
 type sysDict struct{}
 
-func (s *sysDict) LoadData() error {
+func (s *sysDict) LoadData(c *gin.Context) error {
 	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
 		var count int64
 		tx.Model(&model.SysDict{}).Count(&count)
 		if count != 0 {
-			fmt.Println(utils.GqaI18nWithData("SkipInsertWithData", "sys_dict"), count)
-			global.GqaLogger.Warn(utils.GqaI18nWithData("SkipInsertWithData", "sys_dict"), zap.Any("count", count))
+			fmt.Println(utils.GqaI18nWithData(c, "SkipInsertWithData", "sys_dict"), count)
+			global.GqaSLogger.Warn(utils.GqaI18nWithData(c, "SkipInsertWithData", "sys_dict"), "has_count", count)
 			return nil
 		}
 		if err := tx.Create(&sysDictData).Error; err != nil { // 遇到错误时回滚事务
 			return err
 		}
-		fmt.Println(utils.GqaI18nWithData("TableInitSuccess", "sys_dict"))
-		global.GqaLogger.Info(utils.GqaI18nWithData("TableInitSuccess", "sys_dict"))
+		fmt.Println(utils.GqaI18nWithData(c, "TableInitSuccess", "sys_dict"))
+		global.GqaSLogger.Info(utils.GqaI18nWithData(c, "TableInitSuccess", "sys_dict"))
 		return nil
 	})
 }

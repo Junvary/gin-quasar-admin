@@ -38,7 +38,7 @@ func (s *ServiceConfigFrontend) EditConfigFrontend(toEditConfigFrontend model.Sy
 func (s *ServiceConfigFrontend) AddConfigFrontend(toAddConfigFrontend model.SysConfigFrontend) (err error) {
 	var configFrontend model.SysConfigFrontend
 	if !errors.Is(global.GqaDb.Where("config_item = ?", toAddConfigFrontend.ConfigItem).First(&configFrontend).Error, gorm.ErrRecordNotFound) {
-		return errors.New(utils.GqaI18n("AlreadyExist") + toAddConfigFrontend.ConfigItem)
+		return errors.New(utils.GqaI18n(nil, "AlreadyExist") + toAddConfigFrontend.ConfigItem)
 	}
 	err = global.GqaDb.Create(&toAddConfigFrontend).Error
 	return err
@@ -50,7 +50,7 @@ func (s *ServiceConfigFrontend) DeleteConfigFrontendById(id uint) (err error) {
 		return err
 	}
 	if sysConfigFrontend.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n("StableCantDo") + sysConfigFrontend.ConfigItem)
+		return errors.New(utils.GqaI18n(nil, "StableCantDo") + sysConfigFrontend.ConfigItem)
 	}
 	err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&sysConfigFrontend).Error
 	return err

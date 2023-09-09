@@ -19,7 +19,7 @@ func (s *sysApi) LoadData() error {
 		tx.Model(&gqaModel.SysApi{}).Where("api_group = ?", "plugin-{{.PluginCode}}").Count(&count)
 		if count != 0 {
 			fmt.Println("[GQA-plugins] --> sys_api 表中{{.PluginCode}}插件数据已存在，跳过初始化数据！数据量：", count)
-			gqaGlobal.GqaLogger.Warn("[GQA-plugins] --> sys_api 表中{{.PluginCode}}插件数据已存在，跳过初始化数据！", zap.Any("数据量", count))
+			gqaGlobal.GqaLogger.Warn("[GQA-plugins] --> sys_api 表中{{.PluginCode}}插件数据已存在，跳过初始化数据！", "has_count", count)
 			return nil
 		}
 		if err := tx.Create(&sysApiData).Error; err != nil { // 遇到错误时回滚事务

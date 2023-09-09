@@ -213,7 +213,7 @@ func (s *ServiceGenPlugin) GenFrontendAndBackendFile(genPluginStruct *model.SysG
 func (s *ServiceGenPlugin) DeleteGenPluginById(id uint) (err error) {
 	var data model.SysGenPluginList
 	if data.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n("StableCantDo") + data.PluginCode)
+		return errors.New(utils.GqaI18n(nil, "StableCantDo") + data.PluginCode)
 	}
 	if err = global.GqaDb.Where("id = ?", id).First(&data).Error; err != nil {
 		return err
