@@ -24,8 +24,8 @@ import { ThemeStyleQuasar, ThemeStyleElement, ThemeStyleAnt } from "src/config/d
 const themeStyleList = {
     'Gin-Quasar-Admin': 'icons/gqa128.png',
     'Quasar': 'icon/quasar.svg',
-    'Element Plus': 'icon/element-plus.svg',
-    'Ant Design Vue': 'icon/ant-design-vue.svg',
+    'Element': 'icon/element-plus.svg',
+    'Ant Design': 'icon/ant-design-vue.svg',
 }
 
 const settingStore = useSettingStore()
@@ -42,12 +42,12 @@ const setThemeStyle = (style) => {
                 setBrand(q, ThemeStyleQuasar[q])
             }
             break
-        case 'Element Plus':
+        case 'Element':
             for (let e in ThemeStyleElement) {
                 setBrand(e, ThemeStyleElement[e])
             }
             break
-        case 'Ant Design Vue':
+        case 'Ant Design':
             for (let a in ThemeStyleAnt) {
                 setBrand(a, ThemeStyleAnt[a])
             }

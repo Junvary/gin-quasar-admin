@@ -1,6 +1,6 @@
 <template>
     <q-item clickable v-ripple exact @click="toPath(trueItem)" :inset-level="initLevel" :active="checkActive"
-        :active-class="darkThemeSelect">
+        :active-class="darkThemeSelect" :dense="sidebarDense">
         <q-item-section avatar>
             <q-icon :name="trueItem.icon" />
         </q-item-section>
@@ -14,8 +14,10 @@
 import { computed, inject, toRefs } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import useTheme from 'src/composables/useTheme';
-import useCommon from 'src/composables/useCommon'
+import useCommon from 'src/composables/useCommon';
+import { useSettingStore } from 'src/stores/setting';
 
+const settingStore = useSettingStore();
 const { selectOptionLabel } = useCommon()
 const { darkThemeSelect } = useTheme()
 const router = useRouter()
@@ -33,6 +35,8 @@ const props = defineProps({
     },
 })
 const { trueItem, initLevel } = toRefs(props)
+
+const sidebarDense = computed(() => settingStore.GetSidebarDense())
 
 const bus = inject('bus')
 const toPath = (item) => {

@@ -1,5 +1,5 @@
 <template>
-    <q-expansion-item v-model="itemOpen" :group="trueItem.name" :header-inset-level="initLevel">
+    <q-expansion-item v-model="itemOpen" :group="trueItem.name" :header-inset-level="initLevel" :dense="sidebarDense">
         <template v-slot:header>
             <q-item-section avatar>
                 <q-icon :name="trueItem.icon" />
@@ -13,10 +13,12 @@
 </template>
 
 <script setup>
-import { watch, onMounted, ref, toRefs } from 'vue';
+import { watch, onMounted, ref, toRefs, computed } from 'vue';
 import { useRoute } from 'vue-router';
-import useCommon from 'src/composables/useCommon'
+import useCommon from 'src/composables/useCommon';
+import { useSettingStore } from 'src/stores/setting';
 
+const settingStore = useSettingStore();
 const { selectOptionLabel } = useCommon()
 const route = useRoute()
 const props = defineProps({
@@ -32,6 +34,8 @@ const props = defineProps({
     },
 })
 const { trueItem, initLevel } = toRefs(props)
+
+const sidebarDense = computed(() => settingStore.GetSidebarDense())
 
 watch(route, () => {
     changeOpen()

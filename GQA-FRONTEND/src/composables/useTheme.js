@@ -18,10 +18,10 @@ export default function useTheme() {
             if (themeStyle.value === 'Quasar') {
                 return 'bg-primary text-white'
             }
-            if (themeStyle.value === 'Element Plus') {
+            if (themeStyle.value === 'Element') {
                 return 'bg-primary text-white'
             }
-            if (themeStyle.value === 'Ant Design Vue') {
+            if (themeStyle.value === 'Ant Design') {
                 return 'bg-primary text-white'
             }
         }
@@ -36,10 +36,10 @@ export default function useTheme() {
             if (themeStyle.value === 'Quasar') {
                 return 'bg-primary text-white'
             }
-            if (themeStyle.value === 'Element Plus') {
+            if (themeStyle.value === 'Element') {
                 return 'bg-primary text-white'
             }
-            if (themeStyle.value === 'Ant Design Vue') {
+            if (themeStyle.value === 'Ant Design') {
                 return 'bg-primary text-white'
             }
         }
@@ -54,10 +54,10 @@ export default function useTheme() {
             if (themeStyle.value === 'Quasar') {
                 return 'bg-primary text-white'
             }
-            if (themeStyle.value === 'Element Plus') {
+            if (themeStyle.value === 'Element') {
                 return 'bg-primary text-white'
             }
-            if (themeStyle.value === 'Ant Design Vue') {
+            if (themeStyle.value === 'Ant Design') {
                 return 'bg-primary text-white'
             }
         }
@@ -72,10 +72,10 @@ export default function useTheme() {
             if (themeStyle.value === 'Quasar') {
                 return 'bg-white text-primary'
             }
-            if (themeStyle.value === 'Element Plus') {
+            if (themeStyle.value === 'Element') {
                 return 'bg-white text-primary'
             }
-            if (themeStyle.value === 'Ant Design Vue') {
+            if (themeStyle.value === 'Ant Design') {
                 return 'bg-white text-primary'
             }
         }
@@ -90,11 +90,11 @@ export default function useTheme() {
             if (themeStyle.value === 'Quasar') {
                 return 'bg-white text-dark'
             }
-            if (themeStyle.value === 'Element Plus') {
+            if (themeStyle.value === 'Element') {
                 return 'bg-#545c64 text-white'
             }
-            if (themeStyle.value === 'Ant Design Vue') {
-                return 'bg-#001529 text-white'
+            if (themeStyle.value === 'Ant Design') {
+                return 'bg-dark text-white'
             }
         }
     })
@@ -108,10 +108,10 @@ export default function useTheme() {
             if (themeStyle.value === 'Quasar') {
                 return 'bg-primary text-white'
             }
-            if (themeStyle.value === 'Element Plus') {
+            if (themeStyle.value === 'Element') {
                 return 'bg-#545c64 text-yellow'
             }
-            if (themeStyle.value === 'Ant Design Vue') {
+            if (themeStyle.value === 'Ant Design') {
                 return 'bg-primary text-white'
             }
         }

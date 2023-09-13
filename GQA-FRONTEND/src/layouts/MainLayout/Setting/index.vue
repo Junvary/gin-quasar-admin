@@ -15,21 +15,29 @@
                         align="justify" narrow-indicator>
                         <q-tab name="basicSetting" :label="$t('Basic') + $t('Setting')" />
                         <q-tab name="themeColor" :label="$t('Theme') + $t('Color')" />
-                        <q-tab name="themeStyle" :label="$t('Theme') + $t('Style')" alert="negative" />
+                        <q-tab name="themeStyle" :label="$t('Theme') + $t('Style')" />
                     </q-tabs>
 
                     <q-separator />
 
                     <q-tab-panels v-model="tab" animated>
                         <q-tab-panel name="basicSetting" class="text-left q-gutter-y-xl">
-                            <q-field :label="$t('Dark') + $t('Theme')" dense stack-label style="width: 20%;">
-                                <template v-slot:control>
-                                    <DarkTheme />
-                                </template>
-                            </q-field>
-                            <GqaLanguage style="width: 20%;" />
-
-                            <SideDrawer />
+                            <div class="row q-gutter-x-sm">
+                                <q-field class="col" :label="$t('Dark') + $t('Theme')" dense stack-label
+                                    style="width: 20%;">
+                                    <template v-slot:control>
+                                        <DarkTheme />
+                                    </template>
+                                </q-field>
+                                <q-field class="col" :label="$t('Dense') + $t('Sidebar')" dense stack-label
+                                    style="width: 20%;">
+                                    <template v-slot:control>
+                                        <SidebarDense />
+                                    </template>
+                                </q-field>
+                            </div>
+                            <GqaLanguage class="col-2" />
+                            <SidebarWidth />
                         </q-tab-panel>
 
                         <q-tab-panel name="themeColor">
@@ -51,7 +59,8 @@ import GqaLanguage from 'src/components/GqaLanguage/index.vue'
 import GqaThemeColor from 'src/components/GqaTheme/GqaThemeColor.vue'
 import GqaThemeStyle from 'src/components/GqaTheme/GqaThemeStyle.vue'
 import DarkTheme from 'src/components/GqaTheme/DarkTheme.vue';
-import SideDrawer from './SideDrawer.vue'
+import SidebarDense from './SidebarDense.vue';
+import SidebarWidth from './SidebarWidth.vue'
 import { ref, computed } from 'vue';
 import { useStorageStore } from 'src/stores/storage';
 

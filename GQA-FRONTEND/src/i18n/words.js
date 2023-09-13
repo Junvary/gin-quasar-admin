@@ -14,15 +14,20 @@ export default {
         "en-US": "Public",
         "ru": "гражданский"
     },
-    SideDrawer: {
+    Sidebar: {
         "zh-CN": "侧边栏",
-        "en-US": "SideDrawer",
+        "en-US": "Sidebar",
         "ru": "Боковая панель"
     },
     Button: {
         "zh-CN": "按钮",
         "en-US": "Button",
         "ru": "Кнопка"
+    },
+    Dense: {
+        "zh-CN": "紧密",
+        "en-US": "Dense",
+        "ru": "Плотный"
     },
     Width: {
         "zh-CN": "宽度",

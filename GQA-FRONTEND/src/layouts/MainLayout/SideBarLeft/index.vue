@@ -1,7 +1,7 @@
 <template>
-    <q-scroll-area style="height: calc(100%);" :class="darkThemeSideBar">
+    <q-scroll-area style="height: calc(100%);" :class="darkThemeSideBarCheck">
         <slot />
-        <q-list class="menu-list">
+        <q-list class="menu-list" :dense="sidebarDense">
             <template v-for="(childrenItem, index) in topMenuChildren" :key="index">
                 <SideBarLeftItem :childrenItem="childrenItem" :initLevel="0" />
             </template>
@@ -10,10 +10,12 @@
 </template>
 
 <script setup>
-import { toRefs } from 'vue';
+import { toRefs, computed } from 'vue';
 import SideBarLeftItem from './SideBarLeftItem.vue'
 import useTheme from 'src/composables/useTheme';
+import { useSettingStore } from 'src/stores/setting';
 
+const settingStore = useSettingStore();
 const { darkThemeSideBar } = useTheme()
 const props = defineProps({
     topMenuChildren: {
@@ -24,6 +26,8 @@ const props = defineProps({
         },
     },
 })
+const darkThemeSideBarCheck = computed(() => darkThemeSideBar.value)
+const sidebarDense = computed(() => settingStore.GetSidebarDense())
 const { topMenuChildren } = toRefs(props)
 </script>
 

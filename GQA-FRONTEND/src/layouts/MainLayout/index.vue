@@ -41,7 +41,8 @@
         <q-drawer bordered v-model="toggleLeftDrawer" show-if-above :width="drawerWidth" :mini="miniState"
             :mini-to-overlay="miniStateOut ? true : false" @mouseover="miniStateMouseover" @mouseout="miniStateMouseout">
             <SideBarLeft :topMenuChildren="topMenuChildren" />
-            <div class="q-mini-drawer-hide absolute" style="bottom: 15px; right: -17px">
+            <div class="q-mini-drawer-hide absolute" style="bottom: 15px; right: -17px; border-radius: 100%;"
+                :class="darkThemeSideBarCheck">
                 <q-btn dense round :icon="miniStateOut ? 'chevron_right' : 'chevron_left'"
                     @click="miniStateOut = !miniStateOut" />
             </div>
@@ -134,7 +135,7 @@ const miniStateMouseout = () => {
 
 const { selectOptionLabel, selectRouteLabel } = useCommon()
 const gqaFrontend = computed(() => storageStore.GetGqaFrontend())
-const drawerWidth = computed(() => settingStore.GetSideDrawerWidth())
+const drawerWidth = computed(() => settingStore.GetSidebarWidth())
 
 const changeTop = (childrenMenu) => {
     topMenuChildren.value = childrenMenu.children
@@ -152,6 +153,11 @@ onMounted(() => {
 watch(route, () => {
     currentTopMenu.value = findCurrentTopMenu.value?.name
     topMenuChildren.value = topMenu.value.filter(item => item.name === currentTopMenu.value)[0]?.children
+})
+
+const { darkThemeSideBar } = useTheme()
+const darkThemeSideBarCheck = computed(() => {
+    return darkThemeSideBar.value
 })
 
 const topMenu = computed(() => {

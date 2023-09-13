@@ -30,7 +30,7 @@ export const ThemeStyleElement = {
     dark: '#1D1D1D',
 }
 export const ThemeStyleAnt = {
-    primary: '#1890ff',
+    primary: '#1677ff',
     secondary: '#26A69A',
     accent: '#9C27B0',
     positive: '#52c41a',
@@ -38,5 +38,5 @@ export const ThemeStyleAnt = {
     info: '#fafafa',
     warning: '#faad14',
     light: '#FFFFFF',
-    dark: '#1D1D1D',
+    dark: '#000c17',
 }

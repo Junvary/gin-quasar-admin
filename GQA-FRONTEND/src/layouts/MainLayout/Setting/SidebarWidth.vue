@@ -1,5 +1,5 @@
 <template>
-    <q-field :label="$t('SideDrawer') + $t('Width') + ' ' + drawerWidth" stack-label>
+    <q-field :label="$t('Sidebar') + $t('Width') + ' ' + drawerWidth" stack-label>
         <template v-slot:control>
             <q-slider v-model="drawerWidth" :min="200" :max="300" @change="setDrawerWidth" />
         </template>
@@ -14,10 +14,10 @@ const settingStore = useSettingStore()
 
 const drawerWidth = ref(220)
 const setDrawerWidth = () => {
-    settingStore.SetSideDrawerWidth(drawerWidth.value)
+    settingStore.SetSidebarWidth(drawerWidth.value)
 }
 
 onMounted(() => {
-    drawerWidth.value = settingStore.GetSideDrawerWidth()
+    drawerWidth.value = settingStore.GetSidebarWidth()
 })
 </script>
