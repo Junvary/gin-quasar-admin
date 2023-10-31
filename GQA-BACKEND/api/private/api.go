@@ -15,8 +15,7 @@ func (a *ApiApi) GetApiList(c *gin.Context) {
 		return
 	}
 	if err, dataList, total := servicePrivate.ServiceApi.GetApiList(toGetDataList); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "GetListFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "GetListFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "GetListFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessData(model.ResponsePage{
 			Records:  dataList,
@@ -34,11 +33,9 @@ func (a *ApiApi) EditApi(c *gin.Context) {
 	}
 	toEditData.UpdatedBy = utils.GetUsername(c)
 	if err := servicePrivate.ServiceApi.EditApi(toEditData); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "EditFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "EditFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "EditFailed")+err.Error(), c)
 	} else {
-		global.GqaSLogger.Info(utils.GetUsername(c) + utils.GqaI18n(c, "EditSuccess"))
-		model.ResponseSuccessMessage(utils.GqaI18n(c, "EditSuccess"), c)
+		model.ResponseSuccessMessageWithLog(utils.GetUsername(c)+utils.GqaI18n(c, "EditSuccess"), c)
 	}
 }
 
@@ -62,8 +59,7 @@ func (a *ApiApi) AddApi(c *gin.Context) {
 		ApiPath:                           toAddData.ApiPath,
 	}
 	if err := servicePrivate.ServiceApi.AddApi(*addData); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "AddFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "AddFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "AddFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessMessage(utils.GqaI18n(c, "AddSuccess"), c)
 	}
@@ -75,11 +71,9 @@ func (a *ApiApi) DeleteApiById(c *gin.Context) {
 		return
 	}
 	if err := servicePrivate.ServiceApi.DeleteApiById(toDeleteId.Id); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "DeleteFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "DeleteFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "DeleteFailed")+err.Error(), c)
 	} else {
-		global.GqaSLogger.Info(utils.GetUsername(c) + utils.GqaI18n(c, "DeleteSuccess"))
-		model.ResponseSuccessMessage(utils.GqaI18n(c, "DeleteSuccess"), c)
+		model.ResponseSuccessMessageWithLog(utils.GetUsername(c)+utils.GqaI18n(c, "DeleteSuccess"), c)
 	}
 }
 
@@ -89,8 +83,7 @@ func (a *ApiApi) QueryApiById(c *gin.Context) {
 		return
 	}
 	if err, data := servicePrivate.ServiceApi.QueryApiById(toQueryId.Id); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18nWithData(c, "FindSomeFailed", "Api"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18nWithData(c, "FindSomeFailed", "Api")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18nWithData(c, "FindSomeFailed", "Api")+err.Error(), c)
 	} else {
 		model.ResponseSuccessMessageData(gin.H{"records": data}, utils.GqaI18nWithData(c, "FindSomeSuccess", "Api"), c)
 	}

@@ -22,12 +22,11 @@ func (j *Jwt) ParseToken(tokenString string) (*model.SysJwtClaims, error) {
 	if token != nil {
 		if claims, ok := token.Claims.(*model.SysJwtClaims); ok {
 			if err != nil && !token.Valid {
-				if vError, vOk := err.(*jwt.ValidationError); vOk {
+				var vError *jwt.ValidationError
+				if errors.As(err, &vError) {
 					if vError.Errors&jwt.ValidationErrorExpired != 0 {
 						return claims, errors.New("checkRefresh")
 					}
-				} else {
-					return nil, errors.New(utils.GqaI18n(nil, "AuthFailed"))
 				}
 			} else if token.Valid {
 				return claims, nil

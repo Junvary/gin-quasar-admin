@@ -15,8 +15,7 @@ func (a *ApiConfigBackend) GetConfigBackendList(c *gin.Context) {
 		return
 	}
 	if err, dataList, total := servicePrivate.ServiceConfigBackend.GetConfigBackendList(toGetDataList); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "GetListFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "GetListFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "GetListFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessData(model.ResponsePage{
 			Records:  dataList,
@@ -34,11 +33,9 @@ func (a *ApiConfigBackend) EditConfigBackend(c *gin.Context) {
 	}
 	toEditData.UpdatedBy = utils.GetUsername(c)
 	if err := servicePrivate.ServiceConfigBackend.EditConfigBackend(toEditData); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "EditFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "EditFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "EditFailed")+err.Error(), c)
 	} else {
-		global.GqaSLogger.Info(utils.GetUsername(c) + utils.GqaI18n(c, "EditSuccess"))
-		model.ResponseSuccessMessage(utils.GqaI18n(c, "EditSuccess"), c)
+		model.ResponseSuccessMessageWithLog(utils.GetUsername(c)+utils.GqaI18n(c, "EditSuccess"), c)
 	}
 }
 
@@ -62,8 +59,7 @@ func (a *ApiConfigBackend) AddConfigBackend(c *gin.Context) {
 		ItemCustom:                        toAddData.ItemCustom,
 	}
 	if err := servicePrivate.ServiceConfigBackend.AddConfigBackend(*addData); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "AddFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "AddFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "AddFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessMessage(utils.GqaI18n(c, "AddSuccess"), c)
 	}
@@ -75,10 +71,8 @@ func (a *ApiConfigBackend) DeleteConfigBackendById(c *gin.Context) {
 		return
 	}
 	if err := servicePrivate.ServiceConfigBackend.DeleteConfigBackendById(toDeleteId.Id); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "DeleteFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "DeleteFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "DeleteFailed")+err.Error(), c)
 	} else {
-		global.GqaSLogger.Info(utils.GetUsername(c) + utils.GqaI18n(c, "DeleteSuccess"))
-		model.ResponseSuccessMessage(utils.GqaI18n(c, "DeleteSuccess"), c)
+		model.ResponseSuccessMessageWithLog(utils.GetUsername(c)+utils.GqaI18n(c, "DeleteSuccess"), c)
 	}
 }

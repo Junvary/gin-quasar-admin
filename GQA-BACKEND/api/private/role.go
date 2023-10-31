@@ -15,8 +15,7 @@ func (a *ApiRole) GetRoleList(c *gin.Context) {
 		return
 	}
 	if err, dataList, total := servicePrivate.ServiceRole.GetRoleList(toGetDataList); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "GetListFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "GetListFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "GetListFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessData(model.ResponsePage{
 			Records:  dataList,
@@ -34,11 +33,9 @@ func (a *ApiRole) EditRole(c *gin.Context) {
 	}
 	toEditData.UpdatedBy = utils.GetUsername(c)
 	if err := servicePrivate.ServiceRole.EditRole(toEditData); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "EditFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "EditFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "EditFailed")+err.Error(), c)
 	} else {
-		global.GqaSLogger.Info(utils.GetUsername(c) + utils.GqaI18n(c, "EditSuccess"))
-		model.ResponseSuccessMessage(utils.GqaI18n(c, "EditSuccess"), c)
+		model.ResponseSuccessMessageWithLog(utils.GetUsername(c)+utils.GqaI18n(c, "EditSuccess"), c)
 	}
 }
 
@@ -61,8 +58,7 @@ func (a *ApiRole) AddRole(c *gin.Context) {
 		RoleName:                          toAddData.RoleName,
 	}
 	if err := servicePrivate.ServiceRole.AddRole(*addData); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "AddFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "AddFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "AddFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessMessage(utils.GqaI18n(c, "AddSuccess"), c)
 	}
@@ -74,11 +70,9 @@ func (a *ApiRole) DeleteRoleById(c *gin.Context) {
 		return
 	}
 	if err := servicePrivate.ServiceRole.DeleteRoleById(toDeleteId.Id); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "DeleteFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "DeleteFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "DeleteFailed")+err.Error(), c)
 	} else {
-		global.GqaSLogger.Info(utils.GetUsername(c) + utils.GqaI18n(c, "DeleteSuccess"))
-		model.ResponseSuccessMessage(utils.GqaI18n(c, "DeleteSuccess"), c)
+		model.ResponseSuccessMessageWithLog(utils.GetUsername(c)+utils.GqaI18n(c, "DeleteSuccess"), c)
 	}
 }
 
@@ -88,8 +82,7 @@ func (a *ApiRole) QueryRoleById(c *gin.Context) {
 		return
 	}
 	if err, data := servicePrivate.ServiceRole.QueryRoleById(toQueryId.Id); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "FindFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "FindFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "FindFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessMessageData(gin.H{"records": data}, utils.GqaI18n(c, "FindSuccess"), c)
 	}
@@ -101,8 +94,7 @@ func (a *ApiRole) GetRoleMenuList(c *gin.Context) {
 		return
 	}
 	if err, menuList := servicePrivate.ServiceRole.GetRoleMenuList(&roleCode); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "GetRoleMenuListFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "GetRoleMenuListFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "GetRoleMenuListFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessData(gin.H{"records": menuList}, c)
 	}
@@ -114,11 +106,9 @@ func (a *ApiRole) EditRoleMenu(c *gin.Context) {
 		return
 	}
 	if err := servicePrivate.ServiceRole.EditRoleMenu(&roleMenu); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "EditRoleMenuFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "EditRoleMenuFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "EditRoleMenuFailed")+err.Error(), c)
 	} else {
-		global.GqaSLogger.Info(utils.GetUsername(c) + utils.GqaI18n(c, "EditRoleMenuSuccess"))
-		model.ResponseSuccessMessage(utils.GqaI18n(c, "EditRoleMenuSuccess"), c)
+		model.ResponseSuccessMessageWithLog(utils.GetUsername(c)+utils.GqaI18n(c, "EditRoleMenuSuccess"), c)
 	}
 }
 
@@ -128,8 +118,7 @@ func (a *ApiRole) GetRoleApiList(c *gin.Context) {
 		return
 	}
 	if err, apiList := servicePrivate.ServiceRole.GetRoleApiList(&roleCode); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "GetRoleApiListFailed"), "err", err)
-		model.ResponseSuccessMessage(utils.GqaI18n(c, "GetRoleApiListFailed")+err.Error(), c)
+		model.ResponseSuccessMessageWithLog(utils.GqaI18n(c, "GetRoleApiListFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessData(gin.H{"records": apiList}, c)
 	}
@@ -141,11 +130,9 @@ func (a *ApiRole) EditRoleApi(c *gin.Context) {
 		return
 	}
 	if err := servicePrivate.ServiceRole.EditRoleApi(&roleApi); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "EditRoleApiFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "EditRoleApiFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "EditRoleApiFailed")+err.Error(), c)
 	} else {
-		global.GqaSLogger.Info(utils.GetUsername(c) + utils.GqaI18n(c, "EditRoleApiSuccess"))
-		model.ResponseSuccessMessage(utils.GqaI18n(c, "EditRoleApiSuccess"), c)
+		model.ResponseSuccessMessageWithLog(utils.GetUsername(c)+utils.GqaI18n(c, "EditRoleApiSuccess"), c)
 	}
 }
 
@@ -155,8 +142,7 @@ func (a *ApiRole) QueryUserByRole(c *gin.Context) {
 		return
 	}
 	if err, userList := servicePrivate.ServiceRole.QueryUserByRole(&roleCode); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "FindRoleUserFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "FindRoleUserFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "FindRoleUserFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessData(gin.H{"records": userList}, c)
 	}
@@ -172,11 +158,9 @@ func (a *ApiRole) RemoveRoleUser(c *gin.Context) {
 		return
 	}
 	if err := servicePrivate.ServiceRole.RemoveRoleUser(&toDeleteRoleUser); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "RemoveRoleUserFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "RemoveRoleUserFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "RemoveRoleUserFailed")+err.Error(), c)
 	} else {
-		global.GqaSLogger.Info(utils.GetUsername(c) + utils.GqaI18n(c, "RemoveRoleUserSuccess"))
-		model.ResponseSuccessMessage(utils.GqaI18n(c, "RemoveRoleUserSuccess"), c)
+		model.ResponseSuccessMessageWithLog(utils.GetUsername(c)+utils.GqaI18n(c, "RemoveRoleUserSuccess"), c)
 	}
 }
 
@@ -186,8 +170,7 @@ func (a *ApiRole) AddRoleUser(c *gin.Context) {
 		return
 	}
 	if err := servicePrivate.ServiceRole.AddRoleUser(&toAddDataUser); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "AddRoleUserFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "AddRoleUserFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "AddRoleUserFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessMessage(utils.GqaI18n(c, "AddRoleUserSuccess"), c)
 	}
@@ -199,11 +182,9 @@ func (a *ApiRole) EditRoleDeptDataPermission(c *gin.Context) {
 		return
 	}
 	if err := servicePrivate.ServiceRole.EditRoleDeptDataPermission(&toEditDataDeptDataPermission); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "EditRoleDeptDataPermissionFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "EditRoleDeptDataPermissionFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "EditRoleDeptDataPermissionFailed")+err.Error(), c)
 	} else {
-		global.GqaSLogger.Info(utils.GetUsername(c) + utils.GqaI18n(c, "EditRoleDeptDataPermissionSuccess"))
-		model.ResponseSuccessMessage(utils.GqaI18n(c, "EditRoleDeptDataPermissionSuccess"), c)
+		model.ResponseSuccessMessageWithLog(utils.GetUsername(c)+utils.GqaI18n(c, "EditRoleDeptDataPermissionSuccess"), c)
 	}
 }
 
@@ -213,8 +194,7 @@ func (a *ApiRole) GetRoleButtonList(c *gin.Context) {
 		return
 	}
 	if err, buttonList := servicePrivate.ServiceRole.GetRoleButtonList(&roleCode); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "GetRoleButtonFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "GetRoleButtonFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "GetRoleButtonFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessData(gin.H{"records": buttonList}, c)
 	}

@@ -1,5 +1,5 @@
 log:
-    path: gqalog
+    path: gqalogs
     filename: gqa-log
     maxSize: 20
     maxBackups: 10

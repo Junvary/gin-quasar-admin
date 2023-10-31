@@ -1,7 +1,6 @@
 package private
 
 import (
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
 	"github.com/gin-gonic/gin"
@@ -15,8 +14,7 @@ func (a *ApiNotice) GetNoticeList(c *gin.Context) {
 		return
 	}
 	if err, dataList, total := servicePrivate.ServiceNotice.GetNoticeList(toGetDataList); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "GetListFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "GetListFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "GetListFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessData(model.ResponsePage{
 			Records:  dataList,
@@ -34,8 +32,7 @@ func (a *ApiNotice) AddNotice(c *gin.Context) {
 	}
 	username := utils.GetUsername(c)
 	if err := servicePrivate.ServiceNotice.AddNotice(toAddData, username); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "AddFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "AddFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "AddFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessMessage(utils.GqaI18n(c, "AddSuccess"), c)
 	}
@@ -47,11 +44,9 @@ func (a *ApiNotice) DeleteNoticeById(c *gin.Context) {
 		return
 	}
 	if err := servicePrivate.ServiceNotice.DeleteNoticeById(toDeleteId.Id); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "DeleteFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "DeleteFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "DeleteFailed")+err.Error(), c)
 	} else {
-		global.GqaSLogger.Info(utils.GetUsername(c) + utils.GqaI18n(c, "DeleteSuccess"))
-		model.ResponseSuccessMessage(utils.GqaI18n(c, "DeleteSuccess"), c)
+		model.ResponseSuccessMessageWithLog(utils.GetUsername(c)+utils.GqaI18n(c, "DeleteSuccess"), c)
 	}
 }
 
@@ -61,8 +56,7 @@ func (a *ApiNotice) QueryNoticeById(c *gin.Context) {
 		return
 	}
 	if err, data := servicePrivate.ServiceNotice.QueryNoticeById(toQueryId.Id); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "FindFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "FindFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "FindFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessMessageData(gin.H{"records": data}, utils.GqaI18n(c, "FindSuccess"), c)
 	}
@@ -75,8 +69,7 @@ func (a *ApiNotice) QueryNoticeReadById(c *gin.Context) {
 	}
 	username := utils.GetUsername(c)
 	if err, data := servicePrivate.ServiceNotice.QueryNoticeReadById(toQueryId.Id, username); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "FindFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "FindFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "FindFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessMessageData(gin.H{"records": data}, utils.GqaI18n(c, "FindSuccess"), c)
 	}
@@ -89,10 +82,8 @@ func (a *ApiNotice) SendNotice(c *gin.Context) {
 	}
 	toSendNotice.UpdatedBy = utils.GetUsername(c)
 	if err := servicePrivate.ServiceNotice.SendNotice(toSendNotice); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "SendFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "SendFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "SendFailed")+err.Error(), c)
 	} else {
-		global.GqaSLogger.Info(utils.GetUsername(c) + utils.GqaI18n(c, "SendSuccess"))
-		model.ResponseSuccessMessage(utils.GqaI18n(c, "SendSuccess"), c)
+		model.ResponseSuccessMessageWithLog(utils.GetUsername(c)+utils.GqaI18n(c, "SendSuccess"), c)
 	}
 }

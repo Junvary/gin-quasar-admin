@@ -2,8 +2,11 @@
 .thumbs.db
 /GQA-FRONTEND/node_modules
 /GQA-BACKEND/log
+/GQA-BACKEND/logs
 /GQA-BACKEND/gqa-log
+/GQA-BACKEND/gqa-logs
 /GQA-BACKEND/gqalog
+/GQA-BACKEND/gqalogs
 /GQA-BACKEND/gqagen
 /GQA-BACKEND/upload
 /GQA-BACKEND/go.sum

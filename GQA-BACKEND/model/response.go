@@ -25,6 +25,11 @@ func ResponseSuccessMessage(message string, c *gin.Context) {
 	Result(global.GqaConfig.System.SuccessCode, nil, message, c)
 }
 
+func ResponseSuccessMessageWithLog(message string, c *gin.Context) {
+	global.GqaSLogger.Info(message)
+	ResponseSuccessMessage(message, c)
+}
+
 func ResponseSuccessData(data interface{}, c *gin.Context) {
 	Result(global.GqaConfig.System.SuccessCode, data, global.GqaConfig.System.SuccessMessage, c)
 }
@@ -33,8 +38,18 @@ func ResponseSuccessMessageData(data interface{}, message string, c *gin.Context
 	Result(global.GqaConfig.System.SuccessCode, data, message, c)
 }
 
+func ResponseSuccessMessageDataWithLog(data interface{}, message string, c *gin.Context) {
+	global.GqaSLogger.Info(message)
+	ResponseSuccessMessageData(data, message, c)
+}
+
 func ResponseErrorMessage(message string, c *gin.Context) {
 	Result(global.GqaConfig.System.ErrorCode, nil, message, c)
+}
+
+func ResponseErrorMessageWithLog(message string, c *gin.Context) {
+	global.GqaSLogger.Error(message)
+	ResponseErrorMessage(message, c)
 }
 
 func ResponseErrorData(data interface{}, c *gin.Context) {

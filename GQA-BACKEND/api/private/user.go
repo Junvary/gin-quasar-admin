@@ -15,8 +15,7 @@ func (a *ApiUser) GetUserList(c *gin.Context) {
 		return
 	}
 	if err, dataList, total := servicePrivate.ServiceUser.GetUserList(toGetDataList); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "GetListFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "GetListFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "GetListFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessData(model.ResponsePage{
 			Records:  dataList,
@@ -38,11 +37,9 @@ func (a *ApiUser) EditUser(c *gin.Context) {
 	}
 	toEditData.UpdatedBy = utils.GetUsername(c)
 	if err := servicePrivate.ServiceUser.EditUser(toEditData); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "EditFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "EditFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "EditFailed")+err.Error(), c)
 	} else {
-		global.GqaSLogger.Info(utils.GetUsername(c) + utils.GqaI18n(c, "EditSuccess"))
-		model.ResponseSuccessMessage(utils.GqaI18n(c, "EditSuccess"), c)
+		model.ResponseSuccessMessageWithLog(utils.GetUsername(c)+utils.GqaI18n(c, "EditSuccess"), c)
 	}
 }
 
@@ -74,8 +71,7 @@ func (a *ApiUser) AddUser(c *gin.Context) {
 		if err.Error() == "successWithNoDefaultPassword" {
 			model.ResponseSuccessMessage(utils.GqaI18n(c, "AddUserSuccessWithoutPwd"), c)
 		} else {
-			global.GqaSLogger.Error(utils.GqaI18n(c, "AddFailed"), "err", err)
-			model.ResponseErrorMessage(utils.GqaI18n(c, "AddFailed")+err.Error(), c)
+			model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "AddFailed")+err.Error(), c)
 		}
 	} else {
 		model.ResponseSuccessMessage(utils.GqaI18n(c, "AddSuccess"), c)
@@ -90,27 +86,22 @@ func (a *ApiUser) DeleteUserById(c *gin.Context) {
 	currentUsername := utils.GetUsername(c)
 	err, currentUser := servicePrivate.ServiceUser.GetUserByUsername(currentUsername)
 	if err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "FindFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "FindFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "FindFailed")+err.Error(), c)
 		return
 	}
 	if currentUser.Id == toDeleteId.Id {
-		global.GqaSLogger.Error(utils.GetUsername(c) + utils.GqaI18n(c, "CantDeleteYourself"))
-		model.ResponseErrorMessage(utils.GqaI18n(c, "CantDeleteYourself"), c)
+		model.ResponseErrorMessageWithLog(utils.GetUsername(c)+utils.GqaI18n(c, "CantDeleteYourself"), c)
 		return
 	}
 	// 初始化时 admin 的 Id 为 1，这里就这样判断了，可以增加更多的逻辑。
 	if toDeleteId.Id == 1 {
-		global.GqaSLogger.Error(utils.GetUsername(c) + utils.GqaI18n(c, "CantDeleteSuperAdmin"))
-		model.ResponseErrorMessage(utils.GqaI18n(c, "CantDeleteSuperAdmin"), c)
+		model.ResponseErrorMessageWithLog(utils.GetUsername(c)+utils.GqaI18n(c, "CantDeleteSuperAdmin"), c)
 		return
 	}
 	if err := servicePrivate.ServiceUser.DeleteUserById(toDeleteId.Id); err != nil {
-		global.GqaSLogger.Error(utils.GetUsername(c)+utils.GqaI18n(c, "DeleteFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "DeleteFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GetUsername(c)+utils.GqaI18n(c, "DeleteFailed")+err.Error(), c)
 	} else {
-		global.GqaSLogger.Info(utils.GetUsername(c) + utils.GqaI18n(c, "DeleteSuccess"))
-		model.ResponseSuccessMessage(utils.GqaI18n(c, "DeleteSuccess"), c)
+		model.ResponseSuccessMessageWithLog(utils.GetUsername(c)+utils.GqaI18n(c, "DeleteSuccess"), c)
 	}
 }
 
@@ -120,8 +111,7 @@ func (a *ApiUser) QueryUserById(c *gin.Context) {
 		return
 	}
 	if err, data := servicePrivate.ServiceUser.QueryUserById(toQueryId.Id); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "FindFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "FindFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "FindFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessMessageData(gin.H{"records": data}, utils.GqaI18n(c, "FindSuccess"), c)
 	}
@@ -133,8 +123,7 @@ func (a *ApiUser) ResetPassword(c *gin.Context) {
 		return
 	}
 	if err := servicePrivate.ServiceUser.ResetPassword(toResetPasswordId.Id); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "ResetPasswordFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "ResetPasswordFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "ResetPasswordFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessMessage(utils.GqaI18n(c, "ResetPasswordSuccess"), c)
 	}
@@ -159,11 +148,9 @@ func (a *ApiUser) ChangePassword(c *gin.Context) {
 	}
 	username := utils.GetUsername(c)
 	if err := servicePrivate.ServiceUser.ChangePassword(username, toChangePassword); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "ChangePasswordFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "ChangePasswordFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "ChangePasswordFailed")+err.Error(), c)
 	} else {
-		global.GqaSLogger.Info(utils.GetUsername(c) + utils.GqaI18n(c, "ChangePasswordSuccess"))
-		model.ResponseSuccessMessage(utils.GqaI18n(c, "ChangePasswordSuccess"), c)
+		model.ResponseSuccessMessageWithLog(utils.GetUsername(c)+utils.GqaI18n(c, "ChangePasswordSuccess"), c)
 	}
 }
 
@@ -173,15 +160,12 @@ func (a *ApiUser) ChangeNickname(c *gin.Context) {
 		return
 	}
 	if toChangeNickname.Nickname == "" {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "NullNickname"))
-		model.ResponseErrorMessage(utils.GqaI18n(c, "NullNickname"), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "NullNickname"), c)
 	}
 	username := utils.GetUsername(c)
 	if err := servicePrivate.ServiceUser.ChangeNickname(username, toChangeNickname); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "ChangeNicknameFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "ChangeNicknameFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "ChangeNicknameFailed")+err.Error(), c)
 	} else {
-		global.GqaSLogger.Info(utils.GetUsername(c) + utils.GqaI18n(c, "ChangeNicknameSuccess"))
-		model.ResponseSuccessMessage(utils.GqaI18n(c, "ChangeNicknameSuccess"), c)
+		model.ResponseSuccessMessageWithLog(utils.GetUsername(c)+utils.GqaI18n(c, "ChangeNicknameSuccess"), c)
 	}
 }

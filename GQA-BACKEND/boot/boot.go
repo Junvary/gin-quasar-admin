@@ -2,6 +2,7 @@ package boot
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"log"
@@ -18,8 +19,8 @@ func Boot() {
 		Handler: Router(),
 	}
 	go func() {
-		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
-			log.Fatalf("【gin-quasar-admin】listen：%s\n", err)
+		if err := server.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
+			log.Fatalf("【gin-quasar-admin】listen: %s\n", err)
 		}
 	}()
 	logo(fmt.Sprintf(":%d", global.GqaConfig.System.Port))

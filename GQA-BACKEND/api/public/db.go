@@ -26,8 +26,7 @@ func (a *ApiDb) CheckDb(c *gin.Context) {
 	}
 	if global.GqaDb != nil {
 		pluginLoginLayout := utils.GetConfigFrontend("pluginLoginLayout")
-		global.GqaSLogger.Info(utils.GqaI18n(c, "DbNoNeedInit"))
-		model.ResponseSuccessMessageData(gin.H{
+		model.ResponseSuccessMessageDataWithLog(gin.H{
 			"need_init":           false,
 			"go_version":          goVersion,
 			"gin_version":         ginVersion,
@@ -35,8 +34,7 @@ func (a *ApiDb) CheckDb(c *gin.Context) {
 			"plugin_login_layout": pluginLoginLayout}, utils.GqaI18n(c, "DbNoNeedInit"), c)
 		return
 	} else {
-		global.GqaSLogger.Info(utils.GqaI18n(c, "DbNeedInit"))
-		model.ResponseSuccessMessageData(gin.H{
+		model.ResponseSuccessMessageDataWithLog(gin.H{
 			"need_init":   true,
 			"go_version":  goVersion,
 			"gin_version": ginVersion,
@@ -47,8 +45,7 @@ func (a *ApiDb) CheckDb(c *gin.Context) {
 
 func (a *ApiDb) InitDb(c *gin.Context) {
 	if global.GqaDb != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "DbNoNeedInit"))
-		model.ResponseErrorMessage(utils.GqaI18n(c, "DbNoNeedInit"), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "DbNoNeedInit"), c)
 		return
 	}
 
@@ -57,8 +54,7 @@ func (a *ApiDb) InitDb(c *gin.Context) {
 		return
 	}
 	if err := servicePublic.ServiceDb.InitDb(c, initDbInfo); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "CreateDbError"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "CreateDbError")+", "+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "CreateDbError")+", "+err.Error(), c)
 		return
 	}
 	model.ResponseSuccessMessage(utils.GqaI18n(c, "InitSuccess"), c)

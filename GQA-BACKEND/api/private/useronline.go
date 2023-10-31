@@ -1,7 +1,6 @@
 package private
 
 import (
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
 	"github.com/gin-gonic/gin"
@@ -15,8 +14,7 @@ func (a *ApiUserOnline) GetUserOnlineList(c *gin.Context) {
 		return
 	}
 	if err, dataList, total := servicePrivate.ServiceUserOnline.GetUserOnlineList(toGetDataList); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "GetListFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "GetListFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "GetListFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessData(model.ResponsePage{
 			Records:  dataList,
@@ -34,11 +32,9 @@ func (a *ApiUserOnline) KickUserOnlineByUsername(c *gin.Context) {
 	}
 	err := servicePrivate.ServiceUserOnline.KickOnlineUserByUsername(toKickUsername.Username)
 	if err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "KickFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "KickFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "KickFailed")+err.Error(), c)
 		return
 	} else {
-		global.GqaSLogger.Info(utils.GetUsername(c) + utils.GqaI18n(c, "KickSuccess"))
-		model.ResponseSuccessMessage(utils.GqaI18n(c, "KickSuccess"), c)
+		model.ResponseSuccessMessageWithLog(utils.GetUsername(c)+utils.GqaI18n(c, "KickSuccess"), c)
 	}
 }

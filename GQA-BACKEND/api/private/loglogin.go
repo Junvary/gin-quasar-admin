@@ -1,7 +1,6 @@
 package private
 
 import (
-	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
 	"github.com/gin-gonic/gin"
@@ -15,8 +14,7 @@ func (a *ApiLogLogin) GetLogLoginList(c *gin.Context) {
 		return
 	}
 	if err, dataList, total := servicePrivate.ServiceLogLogin.GetLogLoginList(toGetDataList); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "GetListFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "GetListFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "GetListFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessData(model.ResponsePage{
 			Records:  dataList,
@@ -33,8 +31,7 @@ func (a *ApiLogLogin) DeleteLogLoginById(c *gin.Context) {
 		return
 	}
 	if err := servicePrivate.ServiceLogLogin.DeleteLogLoginById(toDeleteId.Id); err != nil {
-		global.GqaSLogger.Error(utils.GqaI18n(c, "DeleteFailed"), "err", err)
-		model.ResponseErrorMessage(utils.GqaI18n(c, "DeleteFailed")+err.Error(), c)
+		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "DeleteFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessMessage(utils.GqaI18n(c, "DeleteSuccess"), c)
 	}
