@@ -26,8 +26,8 @@ func DeptDataPermission(username string, db *gorm.DB) (err error, permissionDb *
 			permissionCustomList = append(permissionCustomList, ss...)
 		}
 	}
-	tList := utils.RemoveDuplicateElementFromSlice(permissionTypeList)
-	cList := utils.RemoveDuplicateElementFromSlice(permissionCustomList)
+	tList := utils.SliceSortCompact(permissionTypeList)
+	cList := utils.SliceSortCompact(permissionCustomList)
 	tempDb := db
 
 Loop:
@@ -55,7 +55,7 @@ Loop:
 					deptUserList = append(deptUserList, u.SysUserUsername)
 				}
 			}
-			allUser := utils.RemoveDuplicateElementFromSlice(deptUserList)
+			allUser := utils.SliceSortCompact(deptUserList)
 			permissionDb = tempDb.Or(tempDb.Where("created_by in ?", allUser))
 		case "deptDataPermissionType_deptAndChildren":
 			// Department data permission including sub departments
@@ -69,7 +69,7 @@ Loop:
 				deptListTotal = append(deptListTotal, dept.DeptCode)
 				deptListTotal = append(deptListTotal, GetChildrenFromDept(dept.DeptCode)...)
 			}
-			deptListTotal = utils.RemoveDuplicateElementFromSlice(deptListTotal)
+			deptListTotal = utils.SliceSortCompact(deptListTotal)
 			var deptUserList []string
 			for _, dept := range deptListTotal {
 				var deptUser []model.SysDeptUser
@@ -78,7 +78,7 @@ Loop:
 					deptUserList = append(deptUserList, u.SysUserUsername)
 				}
 			}
-			allUser := utils.RemoveDuplicateElementFromSlice(deptUserList)
+			allUser := utils.SliceSortCompact(deptUserList)
 			permissionDb = tempDb.Or(tempDb.Where("created_by in ?", allUser))
 		case "deptDataPermissionType_custom":
 			// User defined department data permission
@@ -90,7 +90,7 @@ Loop:
 					deptUserList = append(deptUserList, u.SysUserUsername)
 				}
 			}
-			allUser := utils.RemoveDuplicateElementFromSlice(deptUserList)
+			allUser := utils.SliceSortCompact(deptUserList)
 			permissionDb = tempDb.Or(tempDb.Where("created_by in ?", allUser))
 		default:
 			permissionDb = tempDb

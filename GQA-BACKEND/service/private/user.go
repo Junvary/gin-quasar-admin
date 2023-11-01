@@ -163,7 +163,7 @@ func (s *ServiceUser) GetUserMenu(c *gin.Context) (err error, defaultPageList []
 		buttonListString = append(buttonListString, v.SysButtonButtonCode)
 	}
 	//按钮权限去重
-	buttons = utils.RemoveDuplicateElementFromSlice(buttonListString)
+	buttons = utils.SliceSortCompact(buttonListString)
 	//menus切片去重
 	type distinctMenu []model.SysMenu
 	resultMenu := map[string]bool{}
