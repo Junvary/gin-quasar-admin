@@ -10,6 +10,7 @@ import (
 	gqaUtils "github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
 	"github.com/xuri/excelize/v2"
 	"gorm.io/gorm"
+	"slices"
 )
 
 func GetTestDataList(getTestDataList model.RequestGetTestDataList, username string) (err error, exportData []model.PluginExampleTestData, total int64) {
@@ -137,7 +138,12 @@ func ImportTestData(filename string) error {
 			return err
 		}
 		if skipHeader {
-			if gqaUtils.CompareStringSlice(row, excelHeader) {
+			rowClone := slices.Clone(row)
+			slices.Sort(rowClone)
+			excelHeaderClone := slices.Clone(excelHeader)
+			slices.Sort(excelHeaderClone)
+			sliceCompare := slices.Compare(rowClone, excelHeaderClone)
+			if sliceCompare == 0 {
 				skipHeader = false
 				continue
 			} else {
