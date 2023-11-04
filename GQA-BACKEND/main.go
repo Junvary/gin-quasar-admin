@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/boot"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 )
@@ -15,5 +16,6 @@ func main() {
 		defer db.Close()
 	}
 	boot.Cron()
-	boot.Boot()
+	port := fmt.Sprintf(":%d", global.GqaConfig.System.Port)
+	boot.Boot(boot.Router(), "【gin-quasar-admin】", port)
 }
