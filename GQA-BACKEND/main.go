@@ -17,5 +17,5 @@ func main() {
 	}
 	boot.Cron()
 	port := fmt.Sprintf(":%d", global.GqaConfig.System.Port)
-	boot.Boot(boot.Router(), "【gin-quasar-admin】", port)
+	boot.Boot(boot.Router(), "server", port, global.GqaSLogger)
 }
