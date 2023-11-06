@@ -1,5 +1,5 @@
 <template>
-    <q-scroll-area style="height: calc(100%);" :class="darkThemeSideBarCheck">
+    <q-scroll-area style="height: calc(100%);" :class="darkThemeSideBar">
         <slot />
         <q-list class="menu-list" :dense="sidebarDense">
             <template v-for="(childrenItem, index) in topMenuChildren" :key="index">
@@ -26,7 +26,6 @@ const props = defineProps({
         },
     },
 })
-const darkThemeSideBarCheck = computed(() => darkThemeSideBar.value)
 const sidebarDense = computed(() => settingStore.GetSidebarDense())
 const { topMenuChildren } = toRefs(props)
 </script>

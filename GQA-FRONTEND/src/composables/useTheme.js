@@ -94,7 +94,7 @@ export default function useTheme() {
                 return 'bg-#545c64 text-white'
             }
             if (themeStyle.value === 'Ant Design') {
-                return 'bg-dark text-white'
+                return 'bg-#000c17 text-white'
             }
         }
     })

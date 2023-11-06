@@ -91,7 +91,8 @@ module.exports = configure(function (ctx) {
             extendViteConf(viteConf) {
                 viteConf.plugins.push(
                     ...UnoCSS({
-                        presets: [presetUno()]
+                        presets: [presetUno()],
+                        safelist: ['bg-#545c64', 'bg-#000c17']
                     })
                 )
             },

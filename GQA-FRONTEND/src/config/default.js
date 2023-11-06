@@ -38,5 +38,5 @@ export const ThemeStyleAnt = {
     info: '#fafafa',
     warning: '#faad14',
     light: '#FFFFFF',
-    dark: '#000c17',
+    dark: '#141414',
 }
