@@ -70,25 +70,28 @@
                             </q-td>
                         </template>
                         <template v-slot:body-cell-actions="props">
-                            <q-td :props="props" class="q-gutter-x-xs">
-                                <q-btn flat dense rounded icon="eva-edit-2-outline" color="primary"
-                                    @click="showEditForm(props.row)" v-has="'user:edit'">
-                                    <q-tooltip>
-                                        {{ $t('Edit') }}
-                                    </q-tooltip>
+                            <q-td :props="props" class="q-gutter-x-md">
+                                <q-btn flat dense color="primary" :label="$t('Edit')" @click="showEditForm(props.row)"
+                                    v-has="'user:edit'">
                                 </q-btn>
-                                <q-btn flat dense rounded icon="mdi-lock-reset" color="warning"
-                                    @click="resetPassword(props.row)" v-has="'user:password'">
-                                    <q-tooltip>
-                                        {{ $t('Reset') + $t('Password') }}
-                                    </q-tooltip>
-                                </q-btn>
-                                <q-btn flat dense rounded icon="delete_outline" color="negative"
-                                    @click="handleDelete(props.row)" v-has="'user:delete'">
-                                    <q-tooltip>
-                                        {{ $t('Delete') }}
-                                    </q-tooltip>
-                                </q-btn>
+                                <q-btn-dropdown flat dense color="primary" :label="$t('More')" menu-anchor="bottom left"
+                                    menu-self="top left">
+                                    <q-list dense>
+                                        <q-item clickable v-close-popup @click="resetPassword(props.row)"
+                                            v-has="'user:password'">
+                                            <q-item-section>
+                                                <q-item-label>{{ $t('Reset') + $t('Password') }}</q-item-label>
+                                            </q-item-section>
+                                        </q-item>
+
+                                        <q-item clickable v-close-popup @click="handleDelete(props.row)"
+                                            v-has="'user:delete'">
+                                            <q-item-section>
+                                                <q-item-label>{{ $t('Delete') }}</q-item-label>
+                                            </q-item-section>
+                                        </q-item>
+                                    </q-list>
+                                </q-btn-dropdown>
                             </q-td>
                         </template>
                     </q-table>

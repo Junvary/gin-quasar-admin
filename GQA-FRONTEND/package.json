@@ -1,8 +1,8 @@
 {
-    "name": "gqa-vite",
+    "name": "gin-quasar-admin",
     "version": "2.9.0",
-    "description": "A Quasar Project",
-    "productName": "Quasar App",
+    "description": "A full-featured management system based on Quasar2, Vue3, Go, Gin, Gorm.",
+    "productName": "Gin-Quasar-Admin",
     "author": "junvary <junvary@foxmail.com>",
     "private": true,
     "scripts": {

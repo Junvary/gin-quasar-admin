@@ -40,7 +40,7 @@ var sysButtonData = []model.SysButton{
 
 	{MenuName: "menu", ButtonName: "新增父级菜单", ButtonCode: "menu:addParent"},
 	{MenuName: "menu", ButtonName: "编辑", ButtonCode: "menu:edit"},
-	{MenuName: "menu", ButtonName: "新增子级部门", ButtonCode: "menu:addChildren"},
+	{MenuName: "menu", ButtonName: "新增子级菜单", ButtonCode: "menu:addChildren"},
 	{MenuName: "menu", ButtonName: "按钮注册", ButtonCode: "menu:buttonRegister"},
 	{MenuName: "menu", ButtonName: "删除", ButtonCode: "menu:delete"},
 

@@ -41,8 +41,7 @@ type RequestQueryByUsername struct {
 
 func RequestShouldBindJSON(c *gin.Context, obj interface{}) error {
 	if err := c.ShouldBindJSON(obj); err != nil {
-		global.GqaSLogger.Error(global.GqaConfig.System.BindError, "err", err)
-		ResponseErrorMessage(global.GqaConfig.System.BindError+err.Error(), c)
+		ResponseErrorMessageWithLog(global.GqaConfig.System.BindError+err.Error(), c)
 		return err
 	}
 	return nil

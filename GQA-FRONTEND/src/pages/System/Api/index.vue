@@ -30,18 +30,12 @@
                         </q-td>
                     </template>
                     <template v-slot:body-cell-actions="props">
-                        <q-td :props="props" class="q-gutter-x-xs">
-                            <q-btn flat dense rounded icon="eva-edit-2-outline" color="primary"
-                                @click="showEditForm(props.row)" v-has="'api:edit'">
-                                <q-tooltip>
-                                    {{ $t('Edit') }}
-                                </q-tooltip>
+                        <q-td :props="props" class="q-gutter-x-md">
+                            <q-btn flat dense color="primary" :label="$t('Edit')" @click="showEditForm(props.row)"
+                                v-has="'api:edit'">
                             </q-btn>
-                            <q-btn flat dense rounded icon="delete_outline" color="negative"
-                                @click="handleDelete(props.row)" v-has="'api:delete'">
-                                <q-tooltip>
-                                    {{ $t('Delete') }}
-                                </q-tooltip>
+                            <q-btn flat dense color="negative" :label="$t('Delete')" @click="handleDelete(props.row)"
+                                v-has="'api:delete'">
                             </q-btn>
                         </q-td>
                     </template>

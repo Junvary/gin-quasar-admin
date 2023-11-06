@@ -39,11 +39,8 @@
                     </template>
                     <template v-slot:body-cell-actions="props">
                         <q-td :props="props" class="q-gutter-x-xs">
-                            <q-btn flat dense rounded icon="mdi-logout-variant" color="negative"
-                                @click="handleKickOut(props.row)" v-has="'user-online:kick'">
-                                <q-tooltip>
-                                    {{ $t('KickOut') }}
-                                </q-tooltip>
+                            <q-btn flat dense color="negative" :label="$t('KickOut')" @click="handleKickOut(props.row)"
+                                v-has="'user-online:kick'">
                             </q-btn>
                         </q-td>
                     </template>

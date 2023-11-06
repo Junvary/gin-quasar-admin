@@ -724,4 +724,9 @@ export default {
         "en-US": "Existing",
         "ru": "Существующий"
     },
+    More: {
+        "zh-CN": "更多",
+        "en-US": "More",
+        "ru": "Больше."
+    },
 }

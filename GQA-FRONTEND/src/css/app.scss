@@ -131,6 +131,10 @@
     text-transform: none;
 }
 
+.q-btn-dropdown--simple *+.q-btn-dropdown__arrow {
+    margin-left: 0;
+}
+
 .gqa-form {
     & .q-field {
         &__bottom--animated {

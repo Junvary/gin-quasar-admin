@@ -127,25 +127,16 @@
                         </q-td>
                     </template>
                     <template v-slot:body-cell-actions="props">
-                        <q-td :props="props" class="q-gutter-x-xs">
-                            <q-btn flat dense rounded icon="eva-save-outline" color="primary" @click="handleSave(props.row)"
+                        <q-td :props="props" class="q-gutter-x-md">
+                            <q-btn flat dense color="primary" @click="handleSave(props.row)" :label="$t('Save')"
                                 v-has="'config-frontend:save'">
-                                <q-tooltip>
-                                    {{ $t('Save') }}
-                                </q-tooltip>
                             </q-btn>
-                            <q-btn flat dense rounded icon="mdi-lock-reset" color="warning" @click="handleReset(props.row)"
+                            <q-btn flat dense color="warning" @click="handleReset(props.row)" :label="$t('Reset')"
                                 v-has="'config-frontend:reset'">
-                                <q-tooltip>
-                                    {{ $t('Reset') }}
-                                </q-tooltip>
                             </q-btn>
-                            <q-btn flat dense rounded icon="delete_outline" color="negative"
+                            <q-btn flat dense color="negative" :label="$t('Delete')"
                                 v-if="props.row.stable !== 'yesNo_yes'" @click="handleDelete(props.row)"
                                 v-has="'config-frontend:delete'">
-                                <q-tooltip>
-                                    {{ $t('Delete') }}
-                                </q-tooltip>
                             </q-btn>
                         </q-td>
                     </template>

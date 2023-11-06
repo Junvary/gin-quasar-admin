@@ -22,25 +22,27 @@
                         <td class="text-center">
                             <GqaDictShow :dictCode="props.item.stable" />
                         </td>
-                        <td class="text-center q-gutter-x-xs">
-                            <q-btn flat dense rounded icon="eva-edit-2-outline" color="primary"
-                                @click="showEditForm(props.item)" v-has="'dict:edit'">
-                                <q-tooltip>
-                                    {{ $t('Edit') }}
-                                </q-tooltip>
+                        <td class="text-center q-gutter-x-md">
+                            <q-btn flat dense color="primary" :label="$t('Edit')" @click="showEditForm(props.item)"
+                                v-has="'dict:edit'">
                             </q-btn>
-                            <q-btn flat dense rounded icon="add" color="warning"
-                                @click="showAddChildrenForm(props.item.dict_code)" v-has="'dict:addChildren'">
-                                <q-tooltip>
-                                    {{ $t('Add') + $t('Children') + $t('Dict') }}
-                                </q-tooltip>
-                            </q-btn>
-                            <q-btn flat dense rounded icon="delete_outline" color="negative"
-                                @click="handleDelete(props.item)" v-has="'dict:delete'">
-                                <q-tooltip>
-                                    {{ $t('Delete') }}
-                                </q-tooltip>
-                            </q-btn>
+                            <q-btn-dropdown flat dense color="primary" :label="$t('More')" menu-anchor="bottom left"
+                                menu-self="top left">
+                                <q-list dense>
+                                    <q-item clickable v-close-popup @click="showAddChildrenForm(props.item.dict_code)"
+                                        v-has="'dict:addChildren'">
+                                        <q-item-section>
+                                            <q-item-label>{{ $t('Add') + $t('Children') + $t('Dict') }}</q-item-label>
+                                        </q-item-section>
+                                    </q-item>
+
+                                    <q-item clickable v-close-popup @click="handleDelete(props.item)" v-has="'dict:delete'">
+                                        <q-item-section>
+                                            <q-item-label>{{ $t('Delete') }}</q-item-label>
+                                        </q-item-section>
+                                    </q-item>
+                                </q-list>
+                            </q-btn-dropdown>
                         </td>
                     </template>
                 </q-hierarchy>
