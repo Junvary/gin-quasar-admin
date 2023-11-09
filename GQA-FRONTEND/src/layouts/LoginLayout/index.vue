@@ -3,7 +3,8 @@
         <q-page-container>
             <ComplexView v-if="loginLayout === ComplexView && !dbNeedInit" :pluginComponent="pluginComponent"
                 :pluginCurrent="pluginCurrent" />
-            <div v-else :class="changeContainerImg === '' ? 'gqa-login-layout-img-container' : ''"
+            <div v-else
+                :class="changeContainerImg === '' ? 'gqa-login-layout-img-container' : 'gqa-login-layout-img-container-with-img'"
                 :style="changeContainerImg === '' ? { background: $q.dark.isActive ? 'black' : '#e3f4fa' } : changeContainerImg">
                 <div class="main-title-logo row justify-center items-center">
                     <gqa-avatar class="gin-quasar-admin-logo" :src="gqaFrontend.logo" size="45px" />
