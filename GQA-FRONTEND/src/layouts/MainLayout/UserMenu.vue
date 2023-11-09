@@ -1,6 +1,10 @@
 <template>
     <q-btn dense flat rounded>
-        <gqa-avatar rounded loginUser size="28px" />
+        <div class="row items-center">
+            {{ $t('Welcome') }},&nbsp;
+            <GqaShowName showMyName />&nbsp;
+            <gqa-avatar rounded loginUser size="28px" />
+        </div>
         <q-menu class="row no-wrap items-center justify-around q-pa-md">
             <div class="column items-center" style="width: 240px;">
                 <gqa-avatar loginUser size="88px" />

@@ -146,6 +146,7 @@ const handleReset = (row) => {
 }
 
 const handleSave = async (row) => {
+    row.item_custom = String(row.item_custom)
     const res = await postAction(url.edit, row)
     if (res.code === 1) {
         $q.notify({
