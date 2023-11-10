@@ -45,7 +45,8 @@ const changeChatDialogShow = (event) => {
     chatDialogShow.value = event
 }
 const initWebSocket = () => {
-    ws.value = new WebSocket(process.env.API.replace('https://', 'wss://').replace('http://', 'ws://') + 'public/ws/' + username)
+    console.log(username)
+    ws.value = new WebSocket(process.env.API.replace('https://', 'wss://').replace('http://', 'ws://') + 'public/ws/' + username.value)
     ws.value.onopen = websocketOnopen
     ws.value.onerror = websocketOnerror
     ws.value.onmessage = websocketOnmessage
