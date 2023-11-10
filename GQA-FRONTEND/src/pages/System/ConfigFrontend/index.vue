@@ -41,6 +41,13 @@
                             <template v-else-if="props.row.config_item === 'showGit'">
                                 <GqaDictShow :dictCode="props.row.item_default" />
                             </template>
+                            <template v-else-if="props.row.config_item === 'starColor'">
+                                <div class="row justify-center items-center q-gutter-x-xs">
+                                    {{ props.row.item_default }}
+                                    <div :style="{ background: props.row.item_default }"
+                                        style="width: 10px; height: 10px; border-radius: 100%;"></div>
+                                </div>
+                            </template>
                             <template v-else>
                                 {{ props.row.item_default }}
                             </template>
@@ -111,6 +118,21 @@
                                     </template>
                                 </q-option-group>
                             </template>
+                            <template v-else-if="props.row.config_item === 'starColor'">
+                                <q-input dense outlined v-model="props.row.item_custom">
+                                    <template v-slot:prepend v-if="props.row.item_custom">
+                                        <div :style="{ background: props.row.item_custom }"
+                                            style="width: 10px; height: 10px; border-radius: 100%;"></div>
+                                    </template>
+                                    <template v-slot:append>
+                                        <q-icon name="colorize" class="cursor-pointer">
+                                            <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                                                <q-color v-model="props.row.item_custom" />
+                                            </q-popup-proxy>
+                                        </q-icon>
+                                    </template>
+                                </q-input>
+                            </template>
                             <template v-else>
                                 <q-input v-model="props.row.item_custom" dense outlined clearable />
                             </template>
@@ -134,9 +156,8 @@
                             <q-btn flat dense color="warning" @click="handleReset(props.row)" :label="$t('Reset')"
                                 v-has="'config-frontend:reset'">
                             </q-btn>
-                            <q-btn flat dense color="negative" :label="$t('Delete')"
-                                v-if="props.row.stable !== 'yesNo_yes'" @click="handleDelete(props.row)"
-                                v-has="'config-frontend:delete'">
+                            <q-btn flat dense color="negative" :label="$t('Delete')" v-if="props.row.stable !== 'yesNo_yes'"
+                                @click="handleDelete(props.row)" v-has="'config-frontend:delete'">
                             </q-btn>
                         </q-td>
                     </template>

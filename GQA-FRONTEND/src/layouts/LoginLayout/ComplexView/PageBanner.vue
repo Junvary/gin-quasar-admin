@@ -70,9 +70,18 @@ defineExpose({
 const openLink = (url) => {
     window.open(url)
 }
+
+const starColor = computed(() => {
+    if (gqaFrontend.value.starColor) {
+        return gqaFrontend.value.starColor
+    }
+    return "#00b4ff"
+})
 </script>
 
 <style lang="scss" scoped>
+$starColor : v-bind(starColor);
+
 .main-title {
     position: absolute;
     top: 30px;
@@ -92,8 +101,6 @@ const openLink = (url) => {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-
-
 
     .container-title {
         width: 60%;
@@ -187,6 +194,56 @@ const openLink = (url) => {
             display: flex;
             justify-content: space-around;
         }
+    }
+}
+
+
+.doc-stars {
+    position: absolute
+}
+
+@function boxShadow($n) {
+    $shadows: '#{random(10000)}px #{random(10000)}px #{$starColor}';
+
+    @for $i from 2 through $n {
+        $shadows: '#{$shadows}, #{random(10000)}px #{random(10000)}px #{$starColor}'
+    }
+
+    ;
+    @return unquote($shadows);
+}
+
+.doc-stars--sm {
+    animation: animateStar 70s linear infinite;
+    background: transparent;
+    box-shadow: boxShadow(600);
+    height: 1px;
+    width: 1px
+}
+
+.doc-stars--md {
+    animation: animateStar 100s linear infinite;
+    background: transparent;
+    box-shadow: boxShadow(600);
+    height: 2px;
+    width: 2px
+}
+
+.doc-stars--lg {
+    animation: animateStar 150s linear infinite;
+    background: transparent;
+    box-shadow: boxShadow(600);
+    height: 3px;
+    width: 3px
+}
+
+@keyframes animateStar {
+    0% {
+        transform: translateY(0)
+    }
+
+    to {
+        transform: translateY(-3500px)
     }
 }
 </style>

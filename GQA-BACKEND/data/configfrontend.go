@@ -60,4 +60,7 @@ var sysConfigFrontendData = []model.SysConfigFrontend{
 	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
 		Sort: GqaSort + 9, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "显示仓库入口",
 	}}, ConfigItem: "showGit", ItemDefault: "yesNo_yes"},
+	{GqaModelWithCreatedByAndUpdatedBy: model.GqaModelWithCreatedByAndUpdatedBy{GqaModel: global.GqaModel{
+		Sort: GqaSort + 10, Stable: "yesNo_yes", CreatedBy: "admin", CreatedAt: time.Now(), Memo: "星星颜色",
+	}}, ConfigItem: "starColor", ItemDefault: "#00b4ff"},
 }

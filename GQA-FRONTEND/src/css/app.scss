@@ -20,6 +20,10 @@
     min-height : calc(100vh - 70px) !important;
 }
 
+.q-img__content>div {
+    background: none;
+}
+
 .gqa-login-layout-img-container {
     overflow       : hidden;
     height         : 100vh;
@@ -207,54 +211,5 @@
                 }
             }
         }
-    }
-}
-
-.doc-stars {
-    position: absolute
-}
-
-@function boxShadow($n) {
-    $shadows: '#{random(10000)}px #{random(10000)}px #00b4ff';
-
-    @for $i from 2 through $n {
-        $shadows: '#{$shadows}, #{random(10000)}px #{random(10000)}px #00b4ff'
-    }
-
-    ;
-    @return unquote($shadows);
-}
-
-.doc-stars--sm {
-    animation : animateStar 70s linear infinite;
-    background: transparent;
-    box-shadow: boxShadow(600);
-    height    : 1px;
-    width     : 1px
-}
-
-.doc-stars--md {
-    animation : animateStar 100s linear infinite;
-    background: transparent;
-    box-shadow: boxShadow(600);
-    height    : 2px;
-    width     : 2px
-}
-
-.doc-stars--lg {
-    animation : animateStar 150s linear infinite;
-    background: transparent;
-    box-shadow: boxShadow(600);
-    height    : 3px;
-    width     : 3px
-}
-
-@keyframes animateStar {
-    0% {
-        transform: translateY(0)
-    }
-
-    to {
-        transform: translateY(-3500px)
     }
 }
