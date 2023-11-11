@@ -2433,10 +2433,10 @@ quasar-app-extension-qhierarchy@^1.0.9:
   dependencies:
     quasar-ui-qhierarchy latest
 
-quasar-app-extension-qstatistic@^0.0.5:
-  version "0.0.5"
-  resolved "https://registry.npmmirror.com/quasar-app-extension-qstatistic/-/quasar-app-extension-qstatistic-0.0.5.tgz#67a41f25ae3d02e880f281ab41eb28690d499bc2"
-  integrity sha512-J1khsHmLrdBia3fFWMqUg4O25fcpJVDX1L71FfSFr3n0DwRS4VugHknEOGkW/MSJT+CSDP5SwFMr2I+Cg6bjLA==
+quasar-app-extension-qstatistic@^0.0.7:
+  version "0.0.7"
+  resolved "https://registry.npmmirror.com/quasar-app-extension-qstatistic/-/quasar-app-extension-qstatistic-0.0.7.tgz#bcb8f6a1c2aafcbbb5a3a9fe4e81752cde8200cd"
+  integrity sha512-3MHbMmcZIjIkpahNCFKOKaiVWP+Mib7tHf73MmQFKxZ7i0LOJyXSA27stjgMjCZpNXjfzXWP1jVgMNS0XDyW0Q==
   dependencies:
     quasar-ui-qstatistic latest
 
@@ -2451,9 +2451,9 @@ quasar-ui-qhierarchy@latest:
   integrity sha512-r7dQmiJef8aNEBU1QD8CFCktU6YVWebeYkzUBcvcAKkQL0b8bnhIy9wLXf7mqyzHiCfAP/t0SerSHhby5uEyWw==
 
 quasar-ui-qstatistic@latest:
-  version "0.0.7"
-  resolved "https://registry.npmmirror.com/quasar-ui-qstatistic/-/quasar-ui-qstatistic-0.0.7.tgz#6d59beec2bde6748db5edeed7c1914cd89faf462"
-  integrity sha512-eqzf988wcbt9SilgpiGBKHUQ1ZIs7k5XDLfENfU4qxJgffz/xEV8CIyUKAm0MUyVhdbA/cYtwJvesM4r3YLTiA==
+  version "0.0.8"
+  resolved "https://registry.npmmirror.com/quasar-ui-qstatistic/-/quasar-ui-qstatistic-0.0.8.tgz#6eee06c2867105ca4e5803ae28f3ae5c1c36d362"
+  integrity sha512-/4dxg25B4OQjjtAyc4Pb+RA6kpW58jvu2ApE7NwtNtOz6bKUyYWZOBImUUftsFYB7UfaLsuKGG/o9AXB0ZbtBQ==
 
 quasar@^2.13.0:
   version "2.13.0"

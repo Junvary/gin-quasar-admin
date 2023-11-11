@@ -8,10 +8,10 @@
                 <q-separator spaced dark />
                 <div class="row items-center">
                     <q-chip class="glossy col-2" color="orange-8" text-color="white" icon="emoji_events">
-                        {{category}}
+                        {{ category }}
                     </q-chip>
                     <div class="col text-dark row justify-center">
-                        {{name}}
+                        {{ name }}
                     </div>
                     <q-chip class="glossy col-2" color="orange-8" text-color="white" icon="star">
                         80
