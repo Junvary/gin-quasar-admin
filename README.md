@@ -6,7 +6,7 @@
 <img src="https://i.loli.net/2020/12/14/cnJoF9r1BXY7Da5.png" width=150" height="150" />
 <h1>Gin-Quasar-Admin<sup>v2</sup></h1>
 <img src="https://img.shields.io/badge/Vue-3.2.47-brightgreen"/> 
-<img src="https://img.shields.io/badge/Quasar-2.13.0-brightgreen"/>                          
+<img src="https://img.shields.io/badge/Quasar-2.14.0-brightgreen"/>                          
 <img src="https://img.shields.io/badge/Go-1.21.3-brightgreen"/>                          
 <img src="https://img.shields.io/badge/Gin-1.9.1-brightgreen"/>                              
 <img src="https://img.shields.io/badge/Gorm-1.25.4-brightgreen"/>                  
