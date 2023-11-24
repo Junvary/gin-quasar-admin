@@ -5,11 +5,12 @@ import (
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
+	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 	"strings"
 )
 
-func DeptDataPermission(username string, db *gorm.DB) (err error, permissionDb *gorm.DB) {
+func DeptDataPermission(c *gin.Context, username string, db *gorm.DB) (err error, permissionDb *gorm.DB) {
 	user := model.SysUser{
 		Username: username,
 	}
@@ -94,7 +95,7 @@ Loop:
 			permissionDb = tempDb.Or(tempDb.Where("created_by in ?", allUser))
 		default:
 			permissionDb = tempDb
-			return errors.New(utils.GqaI18n(nil, "NoConfig")), nil
+			return errors.New(utils.GqaI18n(c, "NoConfig")), nil
 		}
 	}
 	return nil, permissionDb

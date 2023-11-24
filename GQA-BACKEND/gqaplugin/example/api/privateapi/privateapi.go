@@ -17,7 +17,7 @@ func GetTestDataList(c *gin.Context) {
 	if err := gqaModel.RequestShouldBindJSON(c, &getTestDataList); err != nil {
 		return
 	}
-	if err, exportData, total := privateservice.GetTestDataList(getTestDataList, gqaUtils.GetUsername(c)); err != nil {
+	if err, exportData, total := privateservice.GetTestDataList(c, getTestDataList, gqaUtils.GetUsername(c)); err != nil {
 		gqaGlobal.GqaSLogger.Error("获取导出数据列表失败！", "err", err)
 		gqaModel.ResponseErrorMessage("获取导出数据列表失败！"+err.Error(), c)
 	} else {
@@ -36,7 +36,7 @@ func EditTestData(c *gin.Context) {
 		return
 	}
 	toEditTestData.UpdatedBy = gqaUtils.GetUsername(c)
-	if err := privateservice.EditTestData(toEditTestData, gqaUtils.GetUsername(c)); err != nil {
+	if err := privateservice.EditTestData(c, toEditTestData, gqaUtils.GetUsername(c)); err != nil {
 		gqaGlobal.GqaSLogger.Error("编辑导出数据失败！", "err", err)
 		gqaModel.ResponseErrorMessage("编辑导出数据失败，"+err.Error(), c)
 	} else {
@@ -65,7 +65,7 @@ func AddTestData(c *gin.Context) {
 		Column4:                           toAddTestData.Column4,
 		Column5:                           toAddTestData.Column5,
 	}
-	if err := privateservice.AddTestData(*addTestData, gqaUtils.GetUsername(c)); err != nil {
+	if err := privateservice.AddTestData(c, *addTestData, gqaUtils.GetUsername(c)); err != nil {
 		gqaGlobal.GqaSLogger.Error("添加导出数据失败！", "err", err)
 		gqaModel.ResponseErrorMessage("添加导出数据失败，"+err.Error(), c)
 	} else {
@@ -78,7 +78,7 @@ func DeleteTestDataById(c *gin.Context) {
 	if err := gqaModel.RequestShouldBindJSON(c, &toDeleteId); err != nil {
 		return
 	}
-	if err := privateservice.DeleteTestDataById(toDeleteId.Id, gqaUtils.GetUsername(c)); err != nil {
+	if err := privateservice.DeleteTestDataById(c, toDeleteId.Id, gqaUtils.GetUsername(c)); err != nil {
 		gqaGlobal.GqaSLogger.Error("删除导出数据失败！", "err", err)
 		gqaModel.ResponseErrorMessage("删除导出数据失败，"+err.Error(), c)
 	} else {
@@ -91,7 +91,7 @@ func QueryTestDataById(c *gin.Context) {
 	if err := gqaModel.RequestShouldBindJSON(c, &toQueryId); err != nil {
 		return
 	}
-	if err, dept := privateservice.QueryTestDataById(toQueryId.Id, gqaUtils.GetUsername(c)); err != nil {
+	if err, dept := privateservice.QueryTestDataById(c, toQueryId.Id, gqaUtils.GetUsername(c)); err != nil {
 		gqaGlobal.GqaSLogger.Error("查找导出数据失败！", "err", err)
 		gqaModel.ResponseErrorMessage("查找导出数据失败，"+err.Error(), c)
 	} else {

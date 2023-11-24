@@ -7,6 +7,7 @@ import (
 	gqaModel "github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
 	gqaServicePrivate "github.com/Junvary/gin-quasar-admin/GQA-BACKEND/service/private"
 	gqaUtils "github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
+	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
 
@@ -44,18 +45,18 @@ func EditCategory(toEditCategory model.PluginAchievementCategory, username strin
 	return err
 }
 
-func AddCategory(toAddCategory model.PluginAchievementCategory, username string) (err error) {
+func AddCategory(c *gin.Context, toAddCategory model.PluginAchievementCategory, username string) (err error) {
 	var db *gorm.DB
-	if err, db = gqaServicePrivate.DeptDataPermission(username, gqaGlobal.GqaDb.Model(&model.PluginAchievementCategory{})); err != nil {
+	if err, db = gqaServicePrivate.DeptDataPermission(c, username, gqaGlobal.GqaDb.Model(&model.PluginAchievementCategory{})); err != nil {
 		return err
 	}
 	err = db.Create(&toAddCategory).Error
 	return err
 }
 
-func DeleteCategoryById(id uint, username string) (err error) {
+func DeleteCategoryById(c *gin.Context, id uint, username string) (err error) {
 	var db *gorm.DB
-	if err, db = gqaServicePrivate.DeptDataPermission(username, gqaGlobal.GqaDb.Model(&model.PluginAchievementCategory{})); err != nil {
+	if err, db = gqaServicePrivate.DeptDataPermission(c, username, gqaGlobal.GqaDb.Model(&model.PluginAchievementCategory{})); err != nil {
 		return err
 	}
 	var record model.PluginAchievementCategory
@@ -66,10 +67,10 @@ func DeleteCategoryById(id uint, username string) (err error) {
 	return err
 }
 
-func QueryCategoryById(id uint, username string) (err error, recordInfo model.PluginAchievementCategory) {
+func QueryCategoryById(c *gin.Context, id uint, username string) (err error, recordInfo model.PluginAchievementCategory) {
 	var record model.PluginAchievementCategory
 	var db *gorm.DB
-	if err, db = gqaServicePrivate.DeptDataPermission(username, gqaGlobal.GqaDb.Model(&model.PluginAchievementCategory{})); err != nil {
+	if err, db = gqaServicePrivate.DeptDataPermission(c, username, gqaGlobal.GqaDb.Model(&model.PluginAchievementCategory{})); err != nil {
 		return err, record
 	}
 	err = db.Preload("CreatedByUser").Preload("UpdatedByUser").First(&record, "id = ?", id).Error

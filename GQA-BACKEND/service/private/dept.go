@@ -5,6 +5,7 @@ import (
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
+	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
 
@@ -43,22 +44,22 @@ func (s *ServiceDept) GetDeptList(requestDeptList model.RequestGetDeptList) (err
 	return err, deptTree, total
 }
 
-func (s *ServiceDept) EditDept(toEditDept model.SysDept) (err error) {
+func (s *ServiceDept) EditDept(c *gin.Context, toEditDept model.SysDept) (err error) {
 	var sysDept model.SysDept
 	if err = global.GqaDb.Where("id = ?", toEditDept.Id).First(&sysDept).Error; err != nil {
 		return err
 	}
 	if sysDept.DeptCode != toEditDept.DeptCode {
-		return errors.New(utils.GqaI18n(nil, "EditFailed") + toEditDept.DeptCode)
+		return errors.New(utils.GqaI18n(c, "EditFailed") + toEditDept.DeptCode)
 	}
 	err = global.GqaDb.Save(&toEditDept).Error
 	return err
 }
 
-func (s *ServiceDept) AddDept(toAddDept model.SysDept) (err error) {
+func (s *ServiceDept) AddDept(c *gin.Context, toAddDept model.SysDept) (err error) {
 	var dept model.SysDept
 	if !errors.Is(global.GqaDb.Where("dept_code = ?", toAddDept.DeptCode).First(&dept).Error, gorm.ErrRecordNotFound) {
-		return errors.New(utils.GqaI18n(nil, "AlreadyExist") + toAddDept.DeptCode)
+		return errors.New(utils.GqaI18n(c, "AlreadyExist") + toAddDept.DeptCode)
 	}
 	err = global.GqaDb.Create(&toAddDept).Error
 	return err

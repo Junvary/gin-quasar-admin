@@ -57,7 +57,7 @@ func AddCategory(c *gin.Context) {
 	addCategory := &model.PluginAchievementCategory{
 		GqaModelWithCreatedByAndUpdatedBy: GqaModelWithCreatedByAndUpdatedBy,
 	}
-	if err := privateservice.AddCategory(*addCategory, gqaUtils.GetUsername(c)); err != nil {
+	if err := privateservice.AddCategory(c, *addCategory, gqaUtils.GetUsername(c)); err != nil {
 		gqaGlobal.GqaSLogger.Error("添加Category失败！", "err", err)
 		gqaModel.ResponseErrorMessage("添加Category失败，"+err.Error(), c)
 	} else {
@@ -70,7 +70,7 @@ func DeleteCategoryById(c *gin.Context) {
 	if err := gqaModel.RequestShouldBindJSON(c, &toDeleteId); err != nil {
 		return
 	}
-	if err := privateservice.DeleteCategoryById(toDeleteId.Id, gqaUtils.GetUsername(c)); err != nil {
+	if err := privateservice.DeleteCategoryById(c, toDeleteId.Id, gqaUtils.GetUsername(c)); err != nil {
 		gqaGlobal.GqaSLogger.Error("删除Category失败！", "err", err)
 		gqaModel.ResponseErrorMessage("删除Category失败，"+err.Error(), c)
 	} else {
@@ -83,7 +83,7 @@ func QueryCategoryById(c *gin.Context) {
 	if err := gqaModel.RequestShouldBindJSON(c, &toQueryId); err != nil {
 		return
 	}
-	if err, record := privateservice.QueryCategoryById(toQueryId.Id, gqaUtils.GetUsername(c)); err != nil {
+	if err, record := privateservice.QueryCategoryById(c, toQueryId.Id, gqaUtils.GetUsername(c)); err != nil {
 		gqaGlobal.GqaSLogger.Error("查找Category失败！", "err", err)
 		gqaModel.ResponseErrorMessage("查找Category失败，"+err.Error(), c)
 	} else {

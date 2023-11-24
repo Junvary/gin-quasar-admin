@@ -32,7 +32,7 @@ func (a *ApiDept) EditDept(c *gin.Context) {
 		return
 	}
 	toEditData.UpdatedBy = utils.GetUsername(c)
-	if err := servicePrivate.ServiceDept.EditDept(toEditData); err != nil {
+	if err := servicePrivate.ServiceDept.EditDept(c, toEditData); err != nil {
 		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "EditFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessMessageWithLog(utils.GetUsername(c)+utils.GqaI18n(c, "EditSuccess"), c)
@@ -59,7 +59,7 @@ func (a *ApiDept) AddDept(c *gin.Context) {
 		DeptName:                          toAddData.DeptName,
 		Leader:                            toAddData.Leader,
 	}
-	if err := servicePrivate.ServiceDept.AddDept(*addData); err != nil {
+	if err := servicePrivate.ServiceDept.AddDept(c, *addData); err != nil {
 		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "AddFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessMessage(utils.GqaI18n(c, "AddSuccess"), c)

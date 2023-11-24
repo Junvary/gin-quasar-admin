@@ -36,7 +36,7 @@ func (a *ApiUser) EditUser(c *gin.Context) {
 		return
 	}
 	toEditData.UpdatedBy = utils.GetUsername(c)
-	if err := servicePrivate.ServiceUser.EditUser(toEditData); err != nil {
+	if err := servicePrivate.ServiceUser.EditUser(c, toEditData); err != nil {
 		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "EditFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessMessageWithLog(utils.GetUsername(c)+utils.GqaI18n(c, "EditSuccess"), c)
@@ -67,7 +67,7 @@ func (a *ApiUser) AddUser(c *gin.Context) {
 		Email:                             toAddData.Email,
 		Dept:                              toAddData.Dept,
 	}
-	if err := servicePrivate.ServiceUser.AddUser(addData); err != nil {
+	if err := servicePrivate.ServiceUser.AddUser(c, addData); err != nil {
 		if err.Error() == "successWithNoDefaultPassword" {
 			model.ResponseSuccessMessage(utils.GqaI18n(c, "AddUserSuccessWithoutPwd"), c)
 		} else {
@@ -98,7 +98,7 @@ func (a *ApiUser) DeleteUserById(c *gin.Context) {
 		model.ResponseErrorMessageWithLog(utils.GetUsername(c)+utils.GqaI18n(c, "CantDeleteSuperAdmin"), c)
 		return
 	}
-	if err := servicePrivate.ServiceUser.DeleteUserById(toDeleteId.Id); err != nil {
+	if err := servicePrivate.ServiceUser.DeleteUserById(c, toDeleteId.Id); err != nil {
 		model.ResponseErrorMessageWithLog(utils.GetUsername(c)+utils.GqaI18n(c, "DeleteFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessMessageWithLog(utils.GetUsername(c)+utils.GqaI18n(c, "DeleteSuccess"), c)

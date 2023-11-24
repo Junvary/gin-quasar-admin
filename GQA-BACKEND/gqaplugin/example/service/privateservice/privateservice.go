@@ -8,17 +8,18 @@ import (
 	gqaModel "github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
 	gqaServicePrivate "github.com/Junvary/gin-quasar-admin/GQA-BACKEND/service/private"
 	gqaUtils "github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
+	"github.com/gin-gonic/gin"
 	"github.com/xuri/excelize/v2"
 	"gorm.io/gorm"
 	"slices"
 )
 
-func GetTestDataList(getTestDataList model.RequestGetTestDataList, username string) (err error, exportData []model.PluginExampleTestData, total int64) {
+func GetTestDataList(c *gin.Context, getTestDataList model.RequestGetTestDataList, username string) (err error, exportData []model.PluginExampleTestData, total int64) {
 	pageSize := getTestDataList.PageSize
 	offset := getTestDataList.PageSize * (getTestDataList.Page - 1)
 	var exportDataList []model.PluginExampleTestData
 	var db *gorm.DB
-	if err, db = gqaServicePrivate.DeptDataPermission(username, gqaGlobal.GqaDb.Model(&model.PluginExampleTestData{})); err != nil {
+	if err, db = gqaServicePrivate.DeptDataPermission(c, username, gqaGlobal.GqaDb.Model(&model.PluginExampleTestData{})); err != nil {
 		return err, exportDataList, 0
 	}
 	//配置搜索
@@ -33,9 +34,9 @@ func GetTestDataList(getTestDataList model.RequestGetTestDataList, username stri
 	return err, exportDataList, total
 }
 
-func EditTestData(toEditTestData model.PluginExampleTestData, username string) (err error) {
+func EditTestData(c *gin.Context, toEditTestData model.PluginExampleTestData, username string) (err error) {
 	var db *gorm.DB
-	if err, db = gqaServicePrivate.DeptDataPermission(username, gqaGlobal.GqaDb.Model(&model.PluginExampleTestData{})); err != nil {
+	if err, db = gqaServicePrivate.DeptDataPermission(c, username, gqaGlobal.GqaDb.Model(&model.PluginExampleTestData{})); err != nil {
 		return err
 	}
 	var exportData model.PluginExampleTestData
@@ -54,18 +55,18 @@ func EditTestData(toEditTestData model.PluginExampleTestData, username string) (
 	return err
 }
 
-func AddTestData(toAddTestData model.PluginExampleTestData, username string) (err error) {
+func AddTestData(c *gin.Context, toAddTestData model.PluginExampleTestData, username string) (err error) {
 	var db *gorm.DB
-	if err, db = gqaServicePrivate.DeptDataPermission(username, gqaGlobal.GqaDb.Model(&model.PluginExampleTestData{})); err != nil {
+	if err, db = gqaServicePrivate.DeptDataPermission(c, username, gqaGlobal.GqaDb.Model(&model.PluginExampleTestData{})); err != nil {
 		return err
 	}
 	err = db.Create(&toAddTestData).Error
 	return err
 }
 
-func DeleteTestDataById(id uint, username string) (err error) {
+func DeleteTestDataById(c *gin.Context, id uint, username string) (err error) {
 	var db *gorm.DB
-	if err, db = gqaServicePrivate.DeptDataPermission(username, gqaGlobal.GqaDb.Model(&model.PluginExampleTestData{})); err != nil {
+	if err, db = gqaServicePrivate.DeptDataPermission(c, username, gqaGlobal.GqaDb.Model(&model.PluginExampleTestData{})); err != nil {
 		return err
 	}
 	var exportData model.PluginExampleTestData
@@ -76,10 +77,10 @@ func DeleteTestDataById(id uint, username string) (err error) {
 	return err
 }
 
-func QueryTestDataById(id uint, username string) (err error, exportDataInfo model.PluginExampleTestData) {
+func QueryTestDataById(c *gin.Context, id uint, username string) (err error, exportDataInfo model.PluginExampleTestData) {
 	var exportData model.PluginExampleTestData
 	var db *gorm.DB
-	if err, db = gqaServicePrivate.DeptDataPermission(username, gqaGlobal.GqaDb.Model(&model.PluginExampleTestData{})); err != nil {
+	if err, db = gqaServicePrivate.DeptDataPermission(c, username, gqaGlobal.GqaDb.Model(&model.PluginExampleTestData{})); err != nil {
 		return err, exportData
 	}
 	err = db.Preload("CreatedByUser").Preload("UpdatedByUser").First(&exportData, "id = ?", id).Error

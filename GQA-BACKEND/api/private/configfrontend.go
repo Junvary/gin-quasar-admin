@@ -58,7 +58,7 @@ func (a *ApiConfigFrontend) AddConfigFrontend(c *gin.Context) {
 		ItemDefault:                       toAddData.ItemDefault,
 		ItemCustom:                        toAddData.ItemCustom,
 	}
-	if err := servicePrivate.ServiceConfigFrontend.AddConfigFrontend(*addData); err != nil {
+	if err := servicePrivate.ServiceConfigFrontend.AddConfigFrontend(c, *addData); err != nil {
 		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "AddFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessMessage(utils.GqaI18n(c, "AddSuccess"), c)
@@ -70,7 +70,7 @@ func (a *ApiConfigFrontend) DeleteConfigFrontendById(c *gin.Context) {
 	if err := model.RequestShouldBindJSON(c, &toDeleteId); err != nil {
 		return
 	}
-	if err := servicePrivate.ServiceConfigFrontend.DeleteConfigFrontendById(toDeleteId.Id); err != nil {
+	if err := servicePrivate.ServiceConfigFrontend.DeleteConfigFrontendById(c, toDeleteId.Id); err != nil {
 		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "DeleteFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessMessageWithLog(utils.GetUsername(c)+utils.GqaI18n(c, "DeleteSuccess"), c)

@@ -43,10 +43,10 @@ func (s *ServiceUser) GetUserList(requestUserList model.RequestGetUserList) (err
 	}
 }
 
-func (s *ServiceUser) EditUser(toEditUser model.SysUser) (err error) {
+func (s *ServiceUser) EditUser(c *gin.Context, toEditUser model.SysUser) (err error) {
 	var sysUser model.SysUser
 	if sysUser.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n(nil, "StableCantDo") + toEditUser.Username)
+		return errors.New(utils.GqaI18n(c, "StableCantDo") + toEditUser.Username)
 	}
 	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
 		if err = tx.Where("sys_user_username = ?", toEditUser.Username).Delete(&model.SysDeptUser{}).Error; err != nil {
@@ -62,10 +62,10 @@ func (s *ServiceUser) EditUser(toEditUser model.SysUser) (err error) {
 	})
 }
 
-func (s *ServiceUser) AddUser(toAddUser *model.SysUser) (err error) {
+func (s *ServiceUser) AddUser(c *gin.Context, toAddUser *model.SysUser) (err error) {
 	var user model.SysUser
 	if !errors.Is(global.GqaDb.Where("username = ?", toAddUser.Username).First(&user).Error, gorm.ErrRecordNotFound) {
-		return errors.New(utils.GqaI18n(nil, "AlreadyExist") + toAddUser.Username)
+		return errors.New(utils.GqaI18n(c, "AlreadyExist") + toAddUser.Username)
 	}
 	defaultPassword := utils.GetConfigBackend("defaultPassword")
 	if defaultPassword == "" {
@@ -79,13 +79,13 @@ func (s *ServiceUser) AddUser(toAddUser *model.SysUser) (err error) {
 	}
 }
 
-func (s *ServiceUser) DeleteUserById(id uint) (err error) {
+func (s *ServiceUser) DeleteUserById(c *gin.Context, id uint) (err error) {
 	var sysUser model.SysUser
 	if err = global.GqaDb.Where("id = ?", id).First(&sysUser).Error; err != nil {
 		return err
 	}
 	if sysUser.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n(nil, "StableCantDo") + sysUser.Username)
+		return errors.New(utils.GqaI18n(c, "StableCantDo") + sysUser.Username)
 	}
 	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
 		if err = tx.Where("id = ?", id).Unscoped().Delete(&sysUser).Error; err != nil {

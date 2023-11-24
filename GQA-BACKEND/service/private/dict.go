@@ -5,6 +5,7 @@ import (
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
+	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
 
@@ -47,35 +48,35 @@ func (s *ServiceDict) GetDictList(requestDictList model.RequestGetDictList) (err
 	return err, dictTree, total, requestDictList.ParentCode
 }
 
-func (s *ServiceDict) EditDict(toEditDict model.SysDict) (err error) {
+func (s *ServiceDict) EditDict(c *gin.Context, toEditDict model.SysDict) (err error) {
 	var sysDict model.SysDict
 	if err = global.GqaDb.Where("id = ?", toEditDict.Id).First(&sysDict).Error; err != nil {
 		return err
 	}
 	if sysDict.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n(nil, "StableCantDo") + toEditDict.DictCode)
+		return errors.New(utils.GqaI18n(c, "StableCantDo") + toEditDict.DictCode)
 	}
 	//err = global.GqaDb.Updates(&toEditDict).Error
 	err = global.GqaDb.Save(&toEditDict).Error
 	return err
 }
 
-func (s *ServiceDict) AddDict(toAddDict model.SysDict) (err error) {
+func (s *ServiceDict) AddDict(c *gin.Context, toAddDict model.SysDict) (err error) {
 	var dict model.SysDict
 	if !errors.Is(global.GqaDb.Where("dict_code = ?", toAddDict.DictCode).First(&dict).Error, gorm.ErrRecordNotFound) {
-		return errors.New(utils.GqaI18n(nil, "AlreadyExist") + toAddDict.DictCode)
+		return errors.New(utils.GqaI18n(c, "AlreadyExist") + toAddDict.DictCode)
 	}
 	err = global.GqaDb.Create(&toAddDict).Error
 	return err
 }
 
-func (s *ServiceDict) DeleteDictById(id uint) (err error) {
+func (s *ServiceDict) DeleteDictById(c *gin.Context, id uint) (err error) {
 	var dict model.SysDict
 	if err = global.GqaDb.Where("id = ?", id).First(&dict).Error; err != nil {
 		return err
 	}
 	if dict.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n(nil, "StableCantDo") + dict.DictCode)
+		return errors.New(utils.GqaI18n(c, "StableCantDo") + dict.DictCode)
 	}
 	err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&dict).Error
 	return err

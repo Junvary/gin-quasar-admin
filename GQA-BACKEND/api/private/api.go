@@ -32,7 +32,7 @@ func (a *ApiApi) EditApi(c *gin.Context) {
 		return
 	}
 	toEditData.UpdatedBy = utils.GetUsername(c)
-	if err := servicePrivate.ServiceApi.EditApi(toEditData); err != nil {
+	if err := servicePrivate.ServiceApi.EditApi(c, toEditData); err != nil {
 		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "EditFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessMessageWithLog(utils.GetUsername(c)+utils.GqaI18n(c, "EditSuccess"), c)
@@ -70,7 +70,7 @@ func (a *ApiApi) DeleteApiById(c *gin.Context) {
 	if err := model.RequestShouldBindJSON(c, &toDeleteId); err != nil {
 		return
 	}
-	if err := servicePrivate.ServiceApi.DeleteApiById(toDeleteId.Id); err != nil {
+	if err := servicePrivate.ServiceApi.DeleteApiById(c, toDeleteId.Id); err != nil {
 		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "DeleteFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessMessageWithLog(utils.GetUsername(c)+utils.GqaI18n(c, "DeleteSuccess"), c)

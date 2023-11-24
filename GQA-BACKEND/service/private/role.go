@@ -5,6 +5,7 @@ import (
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
+	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
 
@@ -31,13 +32,13 @@ func (s *ServiceRole) GetRoleList(requestRoleList model.RequestGetRoleList) (err
 	return err, roleList, total
 }
 
-func (s *ServiceRole) EditRole(toEditRole model.SysRole) (err error) {
+func (s *ServiceRole) EditRole(c *gin.Context, toEditRole model.SysRole) (err error) {
 	var sysRole model.SysRole
 	if err = global.GqaDb.Where("id = ?", toEditRole.Id).First(&sysRole).Error; err != nil {
 		return err
 	}
 	if sysRole.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n(nil, "StableCantDo") + sysRole.RoleCode)
+		return errors.New(utils.GqaI18n(c, "StableCantDo") + sysRole.RoleCode)
 	}
 	//不允许改变RoleCode
 	if sysRole.RoleCode != toEditRole.RoleCode {
@@ -48,10 +49,10 @@ func (s *ServiceRole) EditRole(toEditRole model.SysRole) (err error) {
 	return err
 }
 
-func (s *ServiceRole) AddRole(toAddRole model.SysRole) (err error) {
+func (s *ServiceRole) AddRole(c *gin.Context, toAddRole model.SysRole) (err error) {
 	var role model.SysRole
 	if !errors.Is(global.GqaDb.Where("role_code = ?", toAddRole.RoleCode).First(&role).Error, gorm.ErrRecordNotFound) {
-		return errors.New(utils.GqaI18n(nil, "AlreadyExist") + toAddRole.RoleCode)
+		return errors.New(utils.GqaI18n(c, "AlreadyExist") + toAddRole.RoleCode)
 	}
 	err = global.GqaDb.Create(&toAddRole).Error
 	return err

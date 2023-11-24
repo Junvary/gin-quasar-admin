@@ -33,7 +33,7 @@ func (a *ApiDict) EditDict(c *gin.Context) {
 		return
 	}
 	toEditData.UpdatedBy = utils.GetUsername(c)
-	if err := servicePrivate.ServiceDict.EditDict(toEditData); err != nil {
+	if err := servicePrivate.ServiceDict.EditDict(c, toEditData); err != nil {
 		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "EditFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessMessageWithLog(utils.GetUsername(c)+utils.GqaI18n(c, "EditSuccess"), c)
@@ -64,7 +64,7 @@ func (a *ApiDict) AddDict(c *gin.Context) {
 		DictExt4:                          toAddData.DictExt4,
 		DictExt5:                          toAddData.DictExt5,
 	}
-	if err := servicePrivate.ServiceDict.AddDict(*addData); err != nil {
+	if err := servicePrivate.ServiceDict.AddDict(c, *addData); err != nil {
 		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "AddFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessMessage(utils.GqaI18n(c, "AddSuccess"), c)
@@ -76,7 +76,7 @@ func (a *ApiDict) DeleteDictById(c *gin.Context) {
 	if err := model.RequestShouldBindJSON(c, &toDeleteId); err != nil {
 		return
 	}
-	if err := servicePrivate.ServiceDict.DeleteDictById(toDeleteId.Id); err != nil {
+	if err := servicePrivate.ServiceDict.DeleteDictById(c, toDeleteId.Id); err != nil {
 		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "DeleteFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessMessageWithLog(utils.GetUsername(c)+utils.GqaI18n(c, "DeleteSuccess"), c)

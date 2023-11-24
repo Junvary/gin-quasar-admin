@@ -5,6 +5,7 @@ import (
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
+	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
 
@@ -30,9 +31,9 @@ func (s *ServiceApi) GetApiList(getApiList model.RequestGetApiList) (err error, 
 	return err, apiList, total
 }
 
-func (s *ServiceApi) EditApi(toEditApi model.SysApi) (err error) {
+func (s *ServiceApi) EditApi(c *gin.Context, toEditApi model.SysApi) (err error) {
 	if toEditApi.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n(nil, "StableCantDo"))
+		return errors.New(utils.GqaI18n(c, "StableCantDo"))
 	}
 	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
 		var oldApi model.SysApi
@@ -72,13 +73,13 @@ func (s *ServiceApi) AddApi(toAddApi model.SysApi) (err error) {
 	return err
 }
 
-func (s *ServiceApi) DeleteApiById(id uint) (err error) {
+func (s *ServiceApi) DeleteApiById(c *gin.Context, id uint) (err error) {
 	var sysApi model.SysApi
 	if err = global.GqaDb.Where("id = ?", id).First(&sysApi).Error; err != nil {
 		return err
 	}
 	if sysApi.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n(nil, "StableCantDo"))
+		return errors.New(utils.GqaI18n(c, "StableCantDo"))
 	}
 	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
 		if err = tx.Where("id = ?", id).Unscoped().Delete(&sysApi).Error; err != nil {

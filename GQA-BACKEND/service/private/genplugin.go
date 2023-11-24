@@ -7,6 +7,7 @@ import (
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
+	"github.com/gin-gonic/gin"
 	"os"
 	"path"
 	"path/filepath"
@@ -210,10 +211,10 @@ func (s *ServiceGenPlugin) GenFrontendAndBackendFile(genPluginStruct *model.SysG
 	return err
 }
 
-func (s *ServiceGenPlugin) DeleteGenPluginById(id uint) (err error) {
+func (s *ServiceGenPlugin) DeleteGenPluginById(c *gin.Context, id uint) (err error) {
 	var data model.SysGenPluginList
 	if data.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n(nil, "StableCantDo") + data.PluginCode)
+		return errors.New(utils.GqaI18n(c, "StableCantDo") + data.PluginCode)
 	}
 	if err = global.GqaDb.Where("id = ?", id).First(&data).Error; err != nil {
 		return err

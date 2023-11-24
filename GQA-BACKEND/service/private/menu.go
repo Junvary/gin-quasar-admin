@@ -5,6 +5,7 @@ import (
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
+	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
 
@@ -43,16 +44,16 @@ func (s *ServiceMenu) GetMenuList(requestMenuList model.RequestGetMenuList) (err
 	return err, menuTree, total
 }
 
-func (s *ServiceMenu) EditMenu(toEditMenu model.SysMenu) (err error) {
+func (s *ServiceMenu) EditMenu(c *gin.Context, toEditMenu model.SysMenu) (err error) {
 	var sysMenu model.SysMenu
 	if err = global.GqaDb.Where("id = ?", toEditMenu.Id).First(&sysMenu).Error; err != nil {
 		return err
 	}
 	if sysMenu.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n(nil, "StableCantDo") + toEditMenu.Title)
+		return errors.New(utils.GqaI18n(c, "StableCantDo") + toEditMenu.Title)
 	}
 	if sysMenu.Name != toEditMenu.Name {
-		return errors.New(utils.GqaI18n(nil, "EditFailed") + sysMenu.Name)
+		return errors.New(utils.GqaI18n(c, "EditFailed") + sysMenu.Name)
 	}
 	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
 		//先删除关联button表中menu_name的记录
@@ -70,13 +71,13 @@ func (s *ServiceMenu) AddMenu(toAddMenu model.SysMenu) (err error) {
 	return err
 }
 
-func (s *ServiceMenu) DeleteMenuById(id uint) (err error) {
+func (s *ServiceMenu) DeleteMenuById(c *gin.Context, id uint) (err error) {
 	var sysMenu model.SysMenu
 	if err = global.GqaDb.Where("id = ?", id).First(&sysMenu).Error; err != nil {
 		return err
 	}
 	if sysMenu.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n(nil, "StableCantDo") + sysMenu.Title)
+		return errors.New(utils.GqaI18n(c, "StableCantDo") + sysMenu.Title)
 	}
 	return global.GqaDb.Transaction(func(tx *gorm.DB) error {
 		if err = tx.Where("id = ?", id).Unscoped().Delete(&sysMenu).Error; err != nil {

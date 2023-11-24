@@ -5,6 +5,7 @@ import (
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/global"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/model"
 	"github.com/Junvary/gin-quasar-admin/GQA-BACKEND/utils"
+	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
 
@@ -35,22 +36,22 @@ func (s *ServiceConfigFrontend) EditConfigFrontend(toEditConfigFrontend model.Sy
 	return err
 }
 
-func (s *ServiceConfigFrontend) AddConfigFrontend(toAddConfigFrontend model.SysConfigFrontend) (err error) {
+func (s *ServiceConfigFrontend) AddConfigFrontend(c *gin.Context, toAddConfigFrontend model.SysConfigFrontend) (err error) {
 	var configFrontend model.SysConfigFrontend
 	if !errors.Is(global.GqaDb.Where("config_item = ?", toAddConfigFrontend.ConfigItem).First(&configFrontend).Error, gorm.ErrRecordNotFound) {
-		return errors.New(utils.GqaI18n(nil, "AlreadyExist") + toAddConfigFrontend.ConfigItem)
+		return errors.New(utils.GqaI18n(c, "AlreadyExist") + toAddConfigFrontend.ConfigItem)
 	}
 	err = global.GqaDb.Create(&toAddConfigFrontend).Error
 	return err
 }
 
-func (s *ServiceConfigFrontend) DeleteConfigFrontendById(id uint) (err error) {
+func (s *ServiceConfigFrontend) DeleteConfigFrontendById(c *gin.Context, id uint) (err error) {
 	var sysConfigFrontend model.SysConfigFrontend
 	if err = global.GqaDb.Where("id = ?", id).First(&sysConfigFrontend).Error; err != nil {
 		return err
 	}
 	if sysConfigFrontend.Stable == "yesNo_yes" {
-		return errors.New(utils.GqaI18n(nil, "StableCantDo") + sysConfigFrontend.ConfigItem)
+		return errors.New(utils.GqaI18n(c, "StableCantDo") + sysConfigFrontend.ConfigItem)
 	}
 	err = global.GqaDb.Where("id = ?", id).Unscoped().Delete(&sysConfigFrontend).Error
 	return err

@@ -58,7 +58,7 @@ func (a *ApiConfigBackend) AddConfigBackend(c *gin.Context) {
 		ItemDefault:                       toAddData.ItemDefault,
 		ItemCustom:                        toAddData.ItemCustom,
 	}
-	if err := servicePrivate.ServiceConfigBackend.AddConfigBackend(*addData); err != nil {
+	if err := servicePrivate.ServiceConfigBackend.AddConfigBackend(c, *addData); err != nil {
 		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "AddFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessMessage(utils.GqaI18n(c, "AddSuccess"), c)
@@ -70,7 +70,7 @@ func (a *ApiConfigBackend) DeleteConfigBackendById(c *gin.Context) {
 	if err := model.RequestShouldBindJSON(c, &toDeleteId); err != nil {
 		return
 	}
-	if err := servicePrivate.ServiceConfigBackend.DeleteConfigBackendById(toDeleteId.Id); err != nil {
+	if err := servicePrivate.ServiceConfigBackend.DeleteConfigBackendById(c, toDeleteId.Id); err != nil {
 		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "DeleteFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessMessageWithLog(utils.GetUsername(c)+utils.GqaI18n(c, "DeleteSuccess"), c)

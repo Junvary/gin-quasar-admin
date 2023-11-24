@@ -32,7 +32,7 @@ func (a *ApiMenu) EditMenu(c *gin.Context) {
 		return
 	}
 	toEditData.UpdatedBy = utils.GetUsername(c)
-	if err := servicePrivate.ServiceMenu.EditMenu(toEditData); err != nil {
+	if err := servicePrivate.ServiceMenu.EditMenu(c, toEditData); err != nil {
 		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "EditFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessMessageWithLog(utils.GetUsername(c)+utils.GqaI18n(c, "EditSuccess"), c)
@@ -76,7 +76,7 @@ func (a *ApiMenu) DeleteMenuById(c *gin.Context) {
 	if err := model.RequestShouldBindJSON(c, &toDeleteId); err != nil {
 		return
 	}
-	if err := servicePrivate.ServiceMenu.DeleteMenuById(toDeleteId.Id); err != nil {
+	if err := servicePrivate.ServiceMenu.DeleteMenuById(c, toDeleteId.Id); err != nil {
 		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "DeleteFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessMessageWithLog(utils.GetUsername(c)+utils.GqaI18n(c, "DeleteSuccess"), c)

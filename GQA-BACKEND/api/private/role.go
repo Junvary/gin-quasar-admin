@@ -32,7 +32,7 @@ func (a *ApiRole) EditRole(c *gin.Context) {
 		return
 	}
 	toEditData.UpdatedBy = utils.GetUsername(c)
-	if err := servicePrivate.ServiceRole.EditRole(toEditData); err != nil {
+	if err := servicePrivate.ServiceRole.EditRole(c, toEditData); err != nil {
 		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "EditFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessMessageWithLog(utils.GetUsername(c)+utils.GqaI18n(c, "EditSuccess"), c)
@@ -57,7 +57,7 @@ func (a *ApiRole) AddRole(c *gin.Context) {
 		RoleCode:                          toAddData.RoleCode,
 		RoleName:                          toAddData.RoleName,
 	}
-	if err := servicePrivate.ServiceRole.AddRole(*addData); err != nil {
+	if err := servicePrivate.ServiceRole.AddRole(c, *addData); err != nil {
 		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "AddFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessMessage(utils.GqaI18n(c, "AddSuccess"), c)

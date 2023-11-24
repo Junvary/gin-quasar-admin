@@ -45,7 +45,7 @@ func (a *ApiGenPlugin) DeleteGenPluginById(c *gin.Context) {
 	if err := model.RequestShouldBindJSON(c, &toDeleteId); err != nil {
 		return
 	}
-	if err := servicePrivate.ServiceGenPlugin.DeleteGenPluginById(toDeleteId.Id); err != nil {
+	if err := servicePrivate.ServiceGenPlugin.DeleteGenPluginById(c, toDeleteId.Id); err != nil {
 		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "DeleteFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessMessageWithLog(utils.GetUsername(c)+utils.GqaI18n(c, "DeleteSuccess"), c)
