@@ -1,9 +1,11 @@
 <template>
     <q-page padding>
-        <q-chip color="primary" text-color="white">
-            Model: {{ model }}
-        </q-chip>
-        <QCascader :options="options" label="请选择" v-model="model" />
+        <q-card style="padding: 20px; width: 50%;">
+            <q-chip color="primary" text-color="white">
+                Model: {{ model }}
+            </q-chip>
+            <QCascader :options="options" label="请选择" v-model="model" />
+        </q-card>
     </q-page>
 </template>
 
