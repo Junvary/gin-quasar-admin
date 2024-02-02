@@ -32,7 +32,7 @@ func (a *ApiCaptcha) GetCaptcha(c *gin.Context) {
 	height, _ := strconv.Atoi(captchaHeight)
 	driver := base64Captcha.NewDriverDigit(height, width, keyLong, 0.7, 80)
 	cp := base64Captcha.NewCaptcha(driver, global.Store)
-	if id, b64s, err := cp.Generate(); err != nil {
+	if id, b64s, _, err := cp.Generate(); err != nil {
 		model.ResponseErrorMessageWithLog(utils.GqaI18n(c, "GetCaptchaFailed")+err.Error(), c)
 	} else {
 		model.ResponseSuccessMessageData(model.ResponseCaptcha{

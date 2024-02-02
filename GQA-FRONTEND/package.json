@@ -11,12 +11,12 @@
         "build": "quasar build"
     },
     "dependencies": {
-        "@quasar/extras": "^1.16.8",
+        "@quasar/extras": "^1.16.9",
         "axios": "^0.21.1",
         "echarts": "^5.4.2",
         "lottie-web": "^5.11.0",
         "pinia": "^2.0.11",
-        "quasar": "^2.14.0",
+        "quasar": "^2.14.3",
         "vue": "^3.0.0",
         "vue-i18n": "^9.0.0",
         "vue-router": "^4.0.0",
@@ -27,7 +27,7 @@
         "@intlify/vite-plugin-vue-i18n": "^3.3.1",
         "@junvary/quasar-app-extension-qcascader": "^0.0.7",
         "@junvary/quasar-app-extension-qstatistic": "^0.1.1",
-        "@quasar/app-vite": "^1.7.0",
+        "@quasar/app-vite": "^1.7.3",
         "@quasar/quasar-app-extension-qiconpicker": "^2.0.7",
         "autoprefixer": "^10.4.2",
         "postcss": "^8.4.14",

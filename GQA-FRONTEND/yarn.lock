@@ -1399,12 +1399,12 @@
   resolved "https://registry.npmmirror.com/@positron/stack-trace/-/stack-trace-1.0.0.tgz#14fcc712a530038ef9be1ce6952315a839f466a8"
   integrity sha512-nWlGg+aMfQDhGYa5FtBhZwldeo2MtdjHdxmEQvhBXEnxgD5IhIYl0PHvex8SdwyN7qcSoMykMWdjyAX7ZxkpMw==
 
-"@quasar/app-vite@^1.7.0":
-  version "1.7.0"
-  resolved "https://registry.npmmirror.com/@quasar/app-vite/-/app-vite-1.7.0.tgz#7108adcda4fddd18b6122425169cf9efde5de05d"
-  integrity sha512-GF8jjjG0WI5ngMjGRwEEKFTbMN0vyQywLcumpoPvPJG87b87enrMBTy1Fr3AKcZS7a4wq3g2+46UUzpo60S8ZA==
+"@quasar/app-vite@^1.7.3":
+  version "1.7.3"
+  resolved "https://registry.npmjs.org/@quasar/app-vite/-/app-vite-1.7.3.tgz#9b7efc2e427d1384839631134b9104c0bb5d18cb"
+  integrity sha512-pnDInCFP9M1d7lJzS8UkiFq8bGWdekLz8Gu+NLI9UAxruIM9QVlSD4hUmWptTQXaVEvYlDnqfW3LOr57B8eVtw==
   dependencies:
-    "@quasar/render-ssr-error" "^1.0.1"
+    "@quasar/render-ssr-error" "^1.0.3"
     "@quasar/vite-plugin" "^1.3.3"
     "@rollup/pluginutils" "^4.1.2"
     "@types/chrome" "^0.0.208"
@@ -1439,10 +1439,10 @@
     vite "^2.9.13"
     webpack-merge "^5.8.0"
 
-"@quasar/extras@^1.16.8":
-  version "1.16.8"
-  resolved "https://registry.npmmirror.com/@quasar/extras/-/extras-1.16.8.tgz#be93a0e2d465425f1d85e9fc9a09096bf2845aaf"
-  integrity sha512-mNSwQ6wkIVoAemhYdLm9q/FVqLHmVONZgCYdLLeqpakKNsR0r/zHQnCngzdDaXI7veYEvE0uW1gJa1wdQsxXxA==
+"@quasar/extras@^1.16.9":
+  version "1.16.9"
+  resolved "https://registry.npmjs.org/@quasar/extras/-/extras-1.16.9.tgz#6cdf9d34862e6f58009443a2d1e34b84a5e73ad0"
+  integrity sha512-SlOhwzXyPQHWgQIS2ncyDdYdksCJvUYNtgsDQqzAKEG3r3d/ejOxvThle79HTK3Q6HB+gQWFG21Ux00Osr5XSw==
 
 "@quasar/quasar-app-extension-qiconpicker@^2.0.7":
   version "2.0.7"
@@ -1456,10 +1456,10 @@
   resolved "https://registry.npmmirror.com/@quasar/quasar-ui-qiconpicker/-/quasar-ui-qiconpicker-2.0.7.tgz#f0d884eda7154f9a3c3a68586b27b41fe5ff90c9"
   integrity sha512-i4mfuO4uW5DVZ378T7ZW6egbbemQ7h284Rxyi81crIgRe+HzrwFDriQbhNrsSfm5jFGTsmIEcHDEVJks/2Whxw==
 
-"@quasar/render-ssr-error@^1.0.1":
-  version "1.0.2"
-  resolved "https://registry.npmmirror.com/@quasar/render-ssr-error/-/render-ssr-error-1.0.2.tgz#92abb0d61cfdfbf51c2ec3cc2e4aadbf1c79f04f"
-  integrity sha512-Y0wyqYHVxc1IOBH6pRiKMSWDqO1mwQu11Zo8rw4cBdclPOQqFb7f65UuRbk5LfbqlXV2hYvklNcy0SBAOiAQnw==
+"@quasar/render-ssr-error@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.npmjs.org/@quasar/render-ssr-error/-/render-ssr-error-1.0.3.tgz#33f27231007d1b222de41d3d70c29a6d14f9498a"
+  integrity sha512-A8RF99q6/sOSe1Ighnh5syEIbliD3qUYEJd2HyfFyBPSMF+WYGXon5dmzg4nUoK662NgOggInevkDyBDJcZugg==
   dependencies:
     stack-trace "^1.0.0-pre2"
 
@@ -6199,10 +6199,10 @@ quasar-ui-qhierarchy@latest:
   resolved "https://registry.npmmirror.com/quasar-ui-qhierarchy/-/quasar-ui-qhierarchy-1.0.13.tgz#d86c1673e3f9d9646c15dc83ca9dc102484f4f2b"
   integrity sha512-r7dQmiJef8aNEBU1QD8CFCktU6YVWebeYkzUBcvcAKkQL0b8bnhIy9wLXf7mqyzHiCfAP/t0SerSHhby5uEyWw==
 
-quasar@^2.14.0:
-  version "2.14.0"
-  resolved "https://registry.npmmirror.com/quasar/-/quasar-2.14.0.tgz#6e7ea25ad5108f3f20164c295bf32e721ffe3def"
-  integrity sha512-hxaQ/yd/qNGgpUrww4fQRSpklKnZN90HXhmhmPE5h+yFCcXreU+JgM3m/Mf6Qv7lMNQZQkYipgZ5Ja41DYkVUQ==
+quasar@^2.14.3:
+  version "2.14.3"
+  resolved "https://registry.npmjs.org/quasar/-/quasar-2.14.3.tgz#0956f6bcdc9ce5a76728e1d7b235e9ce963f1d89"
+  integrity sha512-7WzbtZxykLn2ic5oNpepZ2ZjDVpmxyVD4KC9rWe+Ia+4Er61svGr4jOuttN+Ok7IerLSCmKIRyjQMgasF60rFA==
 
 queue-microtask@^1.2.2, queue-microtask@^1.2.3:
   version "1.2.3"
