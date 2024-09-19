@@ -46,7 +46,7 @@ English | [简体中文](README.md) | [Wiki](https://github.com/Junvary/gin-quas
 
 1. http://81.68.159.232/
 2. username: admin
-3. pwd: gqa#123456
+3. pwd: GIN&quasar@1
 
 ## Installation：
 

@@ -69,7 +69,7 @@ func (s *ServiceUser) AddUser(c *gin.Context, toAddUser *model.SysUser) (err err
 	}
 	defaultPassword := utils.GetConfigBackend("defaultPassword")
 	if defaultPassword == "" {
-		toAddUser.Password, _ = utils.EncodeBcrypt("gqa#123456")
+		toAddUser.Password, _ = utils.EncodeBcrypt("GIN&quasar@1")
 		err = global.GqaDb.Create(&toAddUser).Error
 		return errors.New("successWithNoDefaultPassword")
 	} else {
@@ -122,7 +122,7 @@ func (s *ServiceUser) ResetPassword(id uint) (err error) {
 	defaultPassword := utils.GetConfigBackend("defaultPassword")
 	var pwd string
 	if defaultPassword == "" {
-		pwd, _ = utils.EncodeBcrypt("gqa#123456")
+		pwd, _ = utils.EncodeBcrypt("GIN&quasar@1")
 	} else {
 		pwd, _ = utils.EncodeBcrypt(defaultPassword)
 	}
@@ -187,6 +187,9 @@ func (s *ServiceUser) GetUserMenu(c *gin.Context) (err error, defaultPageList []
 func (s *ServiceUser) ChangePassword(username string, toChangePassword model.RequestChangePassword) (err error) {
 	if toChangePassword.NewPassword1 != toChangePassword.NewPassword2 {
 		return errors.New("两次新密码不一致！")
+	}
+	if !utils.ContainsUpperLowerSpecCharDigit(toChangePassword.NewPassword1) {
+		return errors.New("密码必须同时包含大小写字母、特殊符号和数字，且大于8位！")
 	}
 	var sysUser model.SysUser
 	if err = global.GqaDb.Where("username = ?", username).First(&sysUser).Error; err != nil {

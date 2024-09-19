@@ -84,6 +84,8 @@ const selectUserVisible = ref(false)
 const selected = ref(null)
 
 const show = (selectUser) => {
+    pagination.value.sortBy = 'username'
+    pagination.value.descending = false
     selected.value = []
     selectUserVisible.value = true
     getTableData()
